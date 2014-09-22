@@ -40,11 +40,11 @@ class FormHelper extends CakeFormHelper {
 		switch ($options['type']) {
 			case 'checkbox':
 				$options['templates']['checkboxWrapper'] = '<div class="checkbox"><label>{{input}}{{label}}</label></div>';
-				$options['templates']['label'] = '{text}';
+				$options['templates']['label'] = '{{text}}';
 				break;
 			case 'radio':
 				$options['templates']['radioWrapper'] = '<div class="radio"><label>{{input}}{{label}}</label></div>';
-				$options['templates']['label'] = '{text}';
+				$options['templates']['label'] = '{{text}}';
 				break;
 			default:
 		}
