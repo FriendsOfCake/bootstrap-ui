@@ -58,7 +58,7 @@ class FormHelper extends CakeFormHelper {
 	}
 
 	protected function _injectStyles($options, $styles) {
-		$options += ['class' => []];
+		$options += ['class' => [], 'skip' => []];
 		if (!is_array($options['class'])) {
 			$options['class'] = explode(' ', $options['class']);
 		}
@@ -68,11 +68,12 @@ class FormHelper extends CakeFormHelper {
 		}
 
 		foreach ($styles as $style) {
-			if (!in_array($style, $options['class'])) {
+			if (!in_array($style, $options['class']) && !in_array($style, (array) $options['skip'])) {
 				array_push($options['class'], $style);
 			}
 		}
 
+		unset($options['skip']);
 		return $options;
 	}
 
