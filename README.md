@@ -2,6 +2,7 @@
 
 ## What's included?
 
+- FlashComponent
 - FormHelper
 - Bake templates
 - Sample layouts
@@ -11,6 +12,7 @@
 For a complete setup, add the following to your `App\Controller\AppController`:
 
 ```
+public $components = ['Gourmet/TwitterBootstrap.Flash'];
 public $helpers = ['Gourmet/TwitterBootstrap.Form'];
 public $layout = 'Gourmet\TwitterBootstrap.default';
 ```
