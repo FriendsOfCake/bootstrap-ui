@@ -21,7 +21,7 @@ To use the included layout types (directly taken from the Bootstrap examples) yo
 to copy them to your application's layouts directory:
 
 ```
-cp Plugin/Gourmet/TwitterBootstrap/src/Template/Layout/examples src/Template/Layout/TwitterBootstrap
+cp plugins/Gourmet/TwitterBootstrap/src/Template/Layout/examples src/Template/Layout/TwitterBootstrap
 ```
 
 You can then simply extend them in your views like so:
