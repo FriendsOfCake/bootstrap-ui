@@ -1,4 +1,6 @@
 <?php
+use Cake\Core\Configure;
+
 $this->Html->css('Gourmet/TwitterBootstrap.cover', ['block' => true]);
 $this->prepend('tb_body_attrs', ' class="' . implode(' ', array($this->request->controller, $this->request->action)) . '" ');
 $this->start('tb_body_start');
@@ -10,7 +12,7 @@ $this->start('tb_body_start');
 
 				<div class="masthead clearfix">
 					<div class="inner">
-						<h3 class="masthead-brand"><?= read('App.title', env('HTTP_HOST')) ?></h3>
+						<h3 class="masthead-brand"><?= Configure::read('App.title') ?></h3>
 						<?= $this->fetch('tb_topnav') ?>
 					</div>
 				</div>
@@ -29,7 +31,7 @@ $this->start('tb_body_end');
 $this->end();
 
 $this->start('tb_footer');
-printf('<footer class="mastfoot"><div class="inner">&copy;%s %s</div></footer>', date('Y'), read('App.title', env('HTTP_HOST')));
+printf('<footer class="mastfoot"><div class="inner">&copy;%s %s</div></footer>', date('Y'), Configure::read('App.title'));
 $this->end('tb_footer');
 
 $this->append('content', '</div>');

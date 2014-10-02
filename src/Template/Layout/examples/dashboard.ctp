@@ -1,4 +1,6 @@
 <?php
+use Cake\Core\Configure;
+
 $this->Html->css('Gourmet/TwitterBootstrap.dashboard', ['block' => true]);
 $this->prepend('tb_body_attrs', ' class="' . implode(' ', array($this->request->controller, $this->request->action)) . '" ');
 $this->start('tb_body_start');
@@ -13,7 +15,7 @@ $this->start('tb_body_start');
 					<span class="icon-bar"></span>
 					<span class="icon-bar"></span>
 				</button>
-				<a class="navbar-brand" href="#"><?= read('App.title', env('HTTP_HOST')) ?></a>
+				<a class="navbar-brand" href="#"><?= Configure::read('App.title') ?></a>
 			</div>
 			<!--
 			<div class="navbar-collapse collapse">

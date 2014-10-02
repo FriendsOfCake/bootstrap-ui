@@ -1,10 +1,13 @@
 <?php
+
+use Cake\Core\Configure;
+
 /**
  * Default `html` block.
  */
 if (!$this->fetch('html')) {
 	$this->start('html');
-	printf('<html lang="%s" class="no-js">', read('App.language'));
+	printf('<html lang="%s" class="no-js">', Configure::read('App.language'));
 	$this->end();
 }
 
@@ -13,7 +16,7 @@ if (!$this->fetch('html')) {
  */
 if (!$this->fetch('title')) {
 	$this->start('title');
-	echo read('App.title', env('HTTP_HOST'));
+	echo Configure::read('App.title');
 	$this->end();
 }
 
@@ -22,7 +25,7 @@ if (!$this->fetch('title')) {
  */
 if (!$this->fetch('tb_footer')) {
 	$this->start('tb_footer');
-	printf('&copy;%s %s', date('Y'), read('App.title', env('HTTP_HOST')));
+	printf('&copy;%s %s', date('Y'), Configure::read('App.title'));
 	$this->end();
 }
 
@@ -44,7 +47,7 @@ if (!$this->fetch('tb_body_end')) {
 /**
  * Prepend `meta` block with `author` and `favicon`.
  */
-$this->prepend('meta', $this->Html->meta('author', null, array('name' => 'author', 'content' => read('App.author'))));
+$this->prepend('meta', $this->Html->meta('author', null, array('name' => 'author', 'content' => Configure::read('App.author'))));
 $this->prepend('meta', $this->Html->meta('favicon.ico', '/favicon.ico', array('type' => 'icon')));
 
 /**
