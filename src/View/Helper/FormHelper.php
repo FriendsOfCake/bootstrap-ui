@@ -12,8 +12,8 @@ class FormHelper extends CakeFormHelper
     {
         $this->_defaultConfig['templates'] = array_merge($this->_defaultConfig['templates'], [
             'error' => '<div class="text-danger">{{content}}</div>',
-            'inputContainer' => '<div class="form-group {{type}}{{required}}">{{content}}</div>',
-            'inputContainerError' => '<div class="form-group {{type}}{{required}} error">{{content}}{{error}}</div>',
+            'inputContainer' => '<div class="form-group">{{content}}</div>',
+            'inputContainerError' => '<div class="form-group error">{{content}}{{error}}</div>',
         ]);
         parent::__construct($View, $config);
     }
