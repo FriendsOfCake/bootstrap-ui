@@ -8,7 +8,14 @@ use Cake\Utility\Inflector;
 
 class FlashComponent extends CakeFlashComponent
 {
-
+    /**
+     * Magic method for verbose flash methods based on element names.
+     *
+     * @param string $name Element name to use.
+     * @param array $args Parameters to pass when calling `FlashComponent::set()`.
+     * @return void
+     * @throws \Cake\Network\Exception\InternalErrorException If missing the flash message.
+     */
     public function __call($name, $args)
     {
         if ('error' == $name) {
@@ -27,5 +34,4 @@ class FlashComponent extends CakeFlashComponent
 
         $this->set($args[0], $options);
     }
-
 }

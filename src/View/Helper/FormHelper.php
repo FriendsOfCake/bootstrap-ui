@@ -10,6 +10,12 @@ class FormHelper extends Helper
 
     use OptionsAwareTrait;
 
+    /**
+     * Construct the widgets and binds the default context providers.
+     *
+     * @param \Cake\View\View $View The View this helper is being attached to.
+     * @param array $config Configuration settings for the helper.
+     */
     public function __construct(View $View, array $config = [])
     {
         $this->_defaultConfig['errorClass'] = null;
@@ -29,6 +35,15 @@ class FormHelper extends Helper
         parent::__construct($View, $config);
     }
 
+    /**
+     * Returns an HTML FORM element.
+     *
+     * @param mixed $model The context for which the form is being defined. Can
+     *   be an ORM entity, ORM resultset, or an array of meta data. You can use false or null
+     *   to make a model-less form.
+     * @param array $options An array of html attributes and options.
+     * @return string An formatted opening FORM tag.
+     */
     public function create($model = null, array $options = [])
     {
         $options += [
@@ -39,7 +54,7 @@ class FormHelper extends Helper
 
         if (!empty($options['horizontal'])) {
             $options = $this->injectClasses('form-horizontal', $options);
-            $options['horizontal'] = (array) $options['horizontal'];
+            $options['horizontal'] = (array)$options['horizontal'];
             $options['horizontal'] += [
                 'left' => 'col-md-2',
                 'right' => 'col-md-10',
@@ -56,6 +71,13 @@ class FormHelper extends Helper
         return parent::create($model, $options);
     }
 
+    /**
+     * Generates a form input element complete with label and wrapper div.
+     *
+     * @param string $fieldName This should be "Modelname.fieldname".
+     * @param array $options Each type of input takes different options.
+     * @return string Completed form widget.
+     */
     public function input($fieldName, array $options = [])
     {
         $options += [
@@ -75,12 +97,12 @@ class FormHelper extends Helper
                 $options['templates']['label'] = '{{text}}';
 
                 if (!isset($options['inline'])) {
-                    $options['inline'] = $this->checkClasses('checkbox-inline', (array) $options['label'])
-                        || $this->checkClasses('radio-inline', (array) $options['label']);
+                    $options['inline'] = $this->checkClasses('checkbox-inline', (array)$options['label'])
+                        || $this->checkClasses('radio-inline', (array)$options['label']);
                 }
 
                 if ($options['inline']) {
-                    $options['label'] = $this->injectClasses('checkbox-inline', (array) $options['label']);
+                    $options['label'] = $this->injectClasses('checkbox-inline', (array)$options['label']);
                     $options['templates'] += ['inputContainer' => '{{content}}'];
                 }
 
