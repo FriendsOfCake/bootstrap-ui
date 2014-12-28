@@ -99,4 +99,27 @@ class FormHelper extends Helper
 
         return $current;
     }
+
+    protected function _checkStyles($options, $styles)
+    {
+        if (!is_array($styles)) {
+            $styles = explode(' ', $styles);
+        }
+
+        if (empty($options['class'])) {
+            return false;
+        }
+
+        if (!is_array($options['class'])) {
+            $options['class'] = explode(' ', $options['class']);
+        }
+
+        foreach ($styles as $style) {
+            if (!in_array($style, $options['class'])) {
+                return false;
+            }
+        }
+
+        return true;
+    }
 }
