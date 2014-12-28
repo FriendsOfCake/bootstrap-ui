@@ -38,7 +38,7 @@ class FormHelperTest extends TestCase
                 'author_id' => ['type' => 'integer', 'null' => true],
                 'title' => ['type' => 'string', 'null' => true],
                 'body' => 'text',
-                'published' => ['type' => 'string', 'length' => 1, 'default' => 'N'],
+                'published' => ['type' => 'boolean', 'length' => 1, 'default' => 0],
                 '_constraints' => ['primary' => ['type' => 'primary', 'columns' => ['id']]]
             ],
             'required' => [
@@ -148,6 +148,33 @@ class FormHelperTest extends TestCase
             ['div' => ['class' => 'text-danger']],
             'error message',
             '/div',
+            '/div'
+        ];
+        $this->assertHtml($expected, $result);
+    }
+
+    public function testBasicCheckboxInput()
+    {
+        $this->Form->create($this->article);
+
+        $result = $this->Form->input('published');
+        $expected = [
+            'div' => ['class' => 'form-group'],
+            'input' => [
+                'type' => 'hidden',
+                'name' => 'published',
+                'value' => 0,
+            ],
+            'label' => ['for' => 'published'],
+            ['input' => [
+                'type' => 'checkbox',
+                'name' => 'published',
+                'id' => 'published',
+                'value' => 1,
+                'class' => 'form-control',
+            ]],
+            'Published',
+            '/label',
             '/div'
         ];
         $this->assertHtml($expected, $result);
