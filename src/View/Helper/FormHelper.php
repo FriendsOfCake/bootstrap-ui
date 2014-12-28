@@ -72,6 +72,19 @@ class FormHelper extends Helper
             case 'checkbox':
             case 'radio':
                 $options['templates']['label'] = '{{text}}';
+
+                if (!isset($options['inline'])) {
+                    $options['inline'] = $this->checkClasses('checkbox-inline', (array) $options['label'])
+                        || $this->checkClasses('radio-inline', (array) $options['label']);
+                }
+
+                if ($options['inline']) {
+                    $options['label'] = $this->injectClasses('checkbox-inline', (array) $options['label']);
+                    $options['templates'] += ['inputContainer' => '{{content}}'];
+                }
+
+                unset($options['inline']);
+
                 break;
             default:
         }

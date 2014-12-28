@@ -180,6 +180,31 @@ class FormHelperTest extends TestCase
         $this->assertHtml($expected, $result);
     }
 
+    public function testInlineCheckboxInput()
+    {
+        $this->Form->create($this->article);
+
+        $result = $this->Form->input('published', ['inline' => true]);
+        $expected = [
+            'input' => [
+                'type' => 'hidden',
+                'name' => 'published',
+                'value' => 0,
+            ],
+            'label' => ['class' => 'checkbox-inline', 'for' => 'published'],
+            ['input' => [
+                'type' => 'checkbox',
+                'name' => 'published',
+                'id' => 'published',
+                'value' => 1,
+                'class' => 'form-control',
+            ]],
+            'Published',
+            '/label'
+        ];
+        $this->assertHtml($expected, $result);
+    }
+
     public function testBasicFormCreate()
     {
         $result = $this->Form->create($this->article);
