@@ -86,3 +86,9 @@ will render this HTML:
 ```
 
 **NOTE: Check tests for more examples.**
+
+## License
+
+Copyright (c) 2014, Jad Bitar and licensed under [The MIT License][mit].
+
+[mit]:http://www.opensource.org/licenses/mit-license.php
