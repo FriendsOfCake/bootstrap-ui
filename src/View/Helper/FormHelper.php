@@ -23,6 +23,7 @@ class FormHelper extends Helper
 
         $this->_defaultWidgets = array_merge($this->_defaultWidgets, [
             'button' => 'Gourmet\TwitterBootstrap\View\Widget\ButtonWidget',
+            'textarea' => 'Gourmet\TwitterBootstrap\View\Widget\TextareaWidget',
         ]);
 
         parent::__construct($View, $config);
@@ -90,11 +91,5 @@ class FormHelper extends Helper
         }
 
         return parent::input($fieldName, $this->injectClasses('form-control', $options));
-    }
-
-    public function textarea($fieldName, array $options = array())
-    {
-        $options += ['rows' => 3];
-        return parent::textarea($fieldName, $options);
     }
 }
