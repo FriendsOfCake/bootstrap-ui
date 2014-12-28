@@ -16,7 +16,24 @@ Transparently use [Twitter Bootstrap 3][twbs3] with [CakePHP 3][cake3].
 
 - Twitter Bootstrap
 
-## Installation
+## Install
+
+Using [Composer][composer]:
+
+```
+composer require gourmet/faker
+```
+
+Because this plugin has the type `cakephp-plugin` set in its own `composer.json`,
+[Composer][composer] will install it inside your /plugins directory, rather than
+in your `vendor-dir`. It is recommended that you add /plugins/gourmet/faker to your
+`.gitignore` file and here's [why][composer:ignore].
+
+You then need to load the plugin. In `boostrap.php`, something like:
+
+```php
+\Cake\Core\Plugin::load('Gourmet/Faker');
+```
 
 For a complete setup, add the following to your `App\Controller\AppController`:
 
