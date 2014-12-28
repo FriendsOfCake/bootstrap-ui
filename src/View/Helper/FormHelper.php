@@ -26,7 +26,24 @@ class FormHelper extends Helper
 
     public function create($model = null, array $options = [])
     {
-        $options += ['role' => 'form'];
+        $options += ['role' => 'form', 'horizontal' => false];
+
+        if ($this->_checkStyles($options, 'form-horizontal')) {
+            $options['horizontal'] = true;
+        }
+
+        if (!empty($options['horizontal'])) {
+            $options = $this->_injectStyles($options, 'form-horizontal');
+            $options['horizontal'] = (array) $options['horizontal'];
+            $options['horizontal'] += ['left' => 'col-md-2', 'right' => 'col-md-10'];
+            $options += ['templates' => []];
+            $options['templates'] += [
+                'label' => '<label class="' . $options['horizontal']['left'] . '"{{attrs}}>{{text}}</label>',
+                'formGroup' => '{{label}}<div class="' . $options['horizontal']['right'] . '">{{input}}</div>',
+            ];
+        }
+
+        unset($options['horizontal']);
         return parent::create($model, $options);
     }
 

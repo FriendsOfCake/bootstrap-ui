@@ -222,4 +222,48 @@ class FormHelperTest extends TestCase
         ];
         $this->assertHtml($expected, $result);
     }
+
+    public function testHorizontalFormCreate()
+    {
+        $result = $this->Form->create($this->article, ['horizontal' => true]);
+        $expected = [
+            'form' => [
+                'method' => 'post',
+                'accept-charset' => 'utf-8',
+                'role' => 'form',
+                'action' => '/articles/add',
+                'class' => 'form-horizontal',
+            ],
+            'div' => ['style' => 'display:none;'],
+            'input' => [
+                'type' => 'hidden',
+                'name' => '_method',
+                'value' => 'POST'
+            ],
+            '/div'
+        ];
+        $this->assertHtml($expected, $result);
+
+        $result = $this->Form->input('title');
+        $expected = [
+            'div' => ['class' => 'form-group'],
+            'label' => [
+                'class' => 'col-md-2',
+                'for' => 'title'
+            ],
+            'Title',
+            '/label',
+            ['div' => ['class' => 'col-md-10']],
+            'input' => [
+                'type' => 'text',
+                'name' => 'title',
+                'id' => 'title',
+                'class' => 'form-control',
+                'required' => 'required',
+            ],
+            '/div',
+            '/div'
+        ];
+        $this->assertHtml($expected, $result);
+    }
 }
