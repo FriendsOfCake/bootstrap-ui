@@ -54,3 +54,33 @@ Available types are:
 
 [twbs3]:http://getbootstrap.com
 [cake3]:http://cakephp.org
+
+## Examples
+
+### Basic Form
+
+```php
+echo $this->Form->create($article);
+echo $this->Form->input('title');
+echo $this->Form->input('published');
+```
+
+will render this HTML:
+
+```html
+<form method="post" accept-charset="utf-8" role="form" action="/articles/add">
+    <div style="display:none;"><input type="hidden" name="_method" value="POST"></div>
+    <div class="form-group">
+        <label for="title">Title</label>
+        <input type="text" name="title" required="required" id="title" class="form-control">
+    </div>
+    <div class="form-group">
+        <input type="hidden" name="published" value="0">
+        <label for="published">
+            <input type="checkbox" name="published" value="1" id="published" class="form-control">
+            Published
+        </label>
+    </div>
+```
+
+**NOTE: Check tests for more examples.**
