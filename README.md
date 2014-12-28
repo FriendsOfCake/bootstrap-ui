@@ -50,7 +50,7 @@ Available types are:
 - dashboard
 - blog *coming soon*
 
-**NOTE: Remember to set the stylesheets in the layouts you copy.*
+**NOTE: Remember to set the stylesheets in the layouts you copy.**
 
 [twbs3]:http://getbootstrap.com
 [cake3]:http://cakephp.org
