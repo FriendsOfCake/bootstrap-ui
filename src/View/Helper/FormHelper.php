@@ -15,6 +15,8 @@ class FormHelper extends Helper
             'error' => '<div class="text-danger">{{content}}</div>',
             'inputContainer' => '<div class="form-group">{{content}}</div>',
             'inputContainerError' => '<div class="form-group has-error">{{content}}{{error}}</div>',
+            'checkboxWrapper' => '<div class="checkbox"><label>{{input}}{{label}}</label></div>',
+            'radioWrapper' => '<div class="radio"><label>{{input}}{{label}}</label></div>',
         ]);
         parent::__construct($View, $config);
     }
@@ -26,17 +28,16 @@ class FormHelper extends Helper
 
     public function create($model = null, array $options = [])
     {
-        $options += ['role' => 'form', 'horizontal' => false];
-
-        if ($this->_checkStyles($options, 'form-horizontal')) {
-            $options['horizontal'] = true;
-        }
+        $options += [
+            'role' => 'form',
+            'horizontal' => $this->_checkStyles($options, 'form-horizontal'),
+            'templates' => [],
+        ];
 
         if (!empty($options['horizontal'])) {
             $options = $this->_injectStyles($options, 'form-horizontal');
             $options['horizontal'] = (array) $options['horizontal'];
             $options['horizontal'] += ['left' => 'col-md-2', 'right' => 'col-md-10'];
-            $options += ['templates' => []];
             $options['templates'] += [
                 'label' => '<label class="' . $options['horizontal']['left'] . '"{{attrs}}>{{text}}</label>',
                 'formGroup' => '{{label}}<div class="' . $options['horizontal']['right'] . '">{{input}}</div>',
@@ -62,11 +63,7 @@ class FormHelper extends Helper
 
         switch ($options['type']) {
             case 'checkbox':
-                $options['templates']['checkboxWrapper'] = '<div class="checkbox"><label>{{input}}{{label}}</label></div>';
-                $options['templates']['label'] = '{{text}}';
-                break;
             case 'radio':
-                $options['templates']['radioWrapper'] = '<div class="radio"><label>{{input}}{{label}}</label></div>';
                 $options['templates']['label'] = '{{text}}';
                 break;
             default:
