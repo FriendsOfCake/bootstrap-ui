@@ -4,6 +4,11 @@
 
 Transparently use [Twitter Bootstrap 3][twbs3] with [CakePHP 3][cake3].
 
+## Requirements
+
+* CakePHP 3.x
+* Twitter Bootstrap 3.x
+
 ## What's included?
 
 - FlashComponent + view elements
@@ -11,10 +16,6 @@ Transparently use [Twitter Bootstrap 3][twbs3] with [CakePHP 3][cake3].
 - Sample layouts (cover, signin, dashboard)
 - Bake templates *incomplete*
 - HtmlHelper *coming soon*
-
-## What's NOT included
-
-- Twitter Bootstrap
 
 ## Install
 
