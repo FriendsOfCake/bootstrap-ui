@@ -20,12 +20,12 @@ class FormHelper extends Helper
             'checkboxWrapper' => '<div class="checkbox"><label>{{input}}{{label}}</label></div>',
             'radioWrapper' => '<div class="radio"><label>{{input}}{{label}}</label></div>',
         ]);
-        parent::__construct($View, $config);
-    }
 
-    public function button($title, array $options = array())
-    {
-        return parent::button($title, $this->injectClasses('btn', $options));
+        $this->_defaultWidgets = array_merge($this->_defaultWidgets, [
+            'button' => 'Gourmet\TwitterBootstrap\View\Widget\ButtonWidget',
+        ]);
+
+        parent::__construct($View, $config);
     }
 
     public function create($model = null, array $options = [])

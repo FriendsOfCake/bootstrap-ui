@@ -315,4 +315,15 @@ class FormHelperTest extends TestCase
         ];
         $this->assertHtml($expected, $result);
     }
+
+    public function testBasicButton()
+    {
+        $result = $this->Form->button('Submit');
+        $expected = [
+            'button' => ['class' => 'btn', 'type' => 'submit'],
+            'Submit',
+            '/button'
+        ];
+        $this->assertHtml($expected, $result);
+    }
 }
