@@ -54,9 +54,6 @@ Available types are:
 
 **NOTE: Remember to set the stylesheets in the layouts you copy.**
 
-[twbs3]:http://getbootstrap.com
-[cake3]:http://cakephp.org
-
 ## Examples
 
 ### Basic Form
@@ -91,4 +88,6 @@ will render this HTML:
 
 Copyright (c) 2014, Jad Bitar and licensed under [The MIT License][mit].
 
+[cake3]:http://cakephp.org
 [mit]:http://www.opensource.org/licenses/mit-license.php
+[twbs3]:http://getbootstrap.com
