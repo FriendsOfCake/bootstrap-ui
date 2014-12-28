@@ -2,10 +2,10 @@
 
 namespace Gourmet\TwitterBootstrap\View\Helper;
 
-use Cake\View\Helper\FormHelper as CakeFormHelper;
+use Cake\View\Helper\FormHelper as Helper;
 use Cake\View\View;
 
-class FormHelper extends CakeFormHelper
+class FormHelper extends Helper
 {
 
     public function __construct(View $View, array $config = [])
