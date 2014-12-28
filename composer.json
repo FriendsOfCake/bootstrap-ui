@@ -37,7 +37,4 @@
             "Gourmet\\TwitterBootstrap\\Test\\": "tests"
         }
     }
-    , "extra": {
-        "installer-name": "Gourmet/TwitterBootstrap"
-    }
 }
