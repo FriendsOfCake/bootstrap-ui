@@ -8,6 +8,8 @@ use Cake\View\View;
 class FormHelper extends Helper
 {
 
+    use OptionsAwareTrait;
+
     public function __construct(View $View, array $config = [])
     {
         $this->_defaultConfig['errorClass'] = null;
@@ -23,19 +25,19 @@ class FormHelper extends Helper
 
     public function button($title, array $options = array())
     {
-        return parent::button($title, $this->_injectStyles($options, 'btn'));
+        return parent::button($title, $this->injectClasses('btn', $options));
     }
 
     public function create($model = null, array $options = [])
     {
         $options += [
             'role' => 'form',
-            'horizontal' => $this->_checkStyles($options, 'form-horizontal'),
+            'horizontal' => $this->checkClasses('form-horizontal', $options),
             'templates' => [],
         ];
 
         if (!empty($options['horizontal'])) {
-            $options = $this->_injectStyles($options, 'form-horizontal');
+            $options = $this->injectClasses('form-horizontal', $options);
             $options['horizontal'] = (array) $options['horizontal'];
             $options['horizontal'] += [
                 'left' => 'col-md-2',
@@ -74,71 +76,12 @@ class FormHelper extends Helper
             default:
         }
 
-        return parent::input($fieldName, $this->_injectStyles($options, 'form-control'));
+        return parent::input($fieldName, $this->injectClasses('form-control', $options));
     }
 
     public function textarea($fieldName, array $options = array())
     {
         $options += ['rows' => 3];
         return parent::textarea($fieldName, $options);
-    }
-
-    protected function _injectStyles($options, $styles)
-    {
-        $options += ['class' => [], 'skip' => []];
-        if (!is_array($options['class'])) {
-            $options['class'] = explode(' ', $options['class']);
-        }
-
-        if (!is_array($styles)) {
-            $styles = explode(' ', $styles);
-        }
-
-        foreach ($styles as $style) {
-            if (!in_array($style, $options['class']) && !in_array($style, (array) $options['skip'])) {
-                array_push($options['class'], $style);
-            }
-        }
-
-        unset($options['skip']);
-        $options['class'] = trim(implode(' ', $options['class']));
-        return $options;
-    }
-
-    protected function _mergeStyles($current, $new)
-    {
-        $current = explode(' ', $current);
-        $new = explode(' ', $new);
-
-        foreach ($new as $style) {
-            if (!in_array($style, $current)) {
-                array_push($current, $style);
-            }
-        }
-
-        return $current;
-    }
-
-    protected function _checkStyles($options, $styles)
-    {
-        if (!is_array($styles)) {
-            $styles = explode(' ', $styles);
-        }
-
-        if (empty($options['class'])) {
-            return false;
-        }
-
-        if (!is_array($options['class'])) {
-            $options['class'] = explode(' ', $options['class']);
-        }
-
-        foreach ($styles as $style) {
-            if (!in_array($style, $options['class'])) {
-                return false;
-            }
-        }
-
-        return true;
     }
 }
