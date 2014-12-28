@@ -179,4 +179,47 @@ class FormHelperTest extends TestCase
         ];
         $this->assertHtml($expected, $result);
     }
+
+    public function testBasicFormCreate()
+    {
+        $result = $this->Form->create($this->article);
+        $expected = [
+            'form' => [
+                'method' => 'post',
+                'accept-charset' => 'utf-8',
+                'role' => 'form',
+                'action' => '/articles/add',
+            ],
+            'div' => ['style' => 'display:none;'],
+            'input' => [
+                'type' => 'hidden',
+                'name' => '_method',
+                'value' => 'POST'
+            ],
+            '/div'
+        ];
+        $this->assertHtml($expected, $result);
+    }
+
+    public function testInlineFormCreate()
+    {
+        $result = $this->Form->create($this->article, ['class' => 'form-inline']);
+        $expected = [
+            'form' => [
+                'method' => 'post',
+                'accept-charset' => 'utf-8',
+                'role' => 'form',
+                'action' => '/articles/add',
+                'class' => 'form-inline',
+            ],
+            'div' => ['style' => 'display:none;'],
+            'input' => [
+                'type' => 'hidden',
+                'name' => '_method',
+                'value' => 'POST'
+            ],
+            '/div'
+        ];
+        $this->assertHtml($expected, $result);
+    }
 }
