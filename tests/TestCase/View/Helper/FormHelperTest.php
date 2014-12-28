@@ -265,5 +265,29 @@ class FormHelperTest extends TestCase
             '/div'
         ];
         $this->assertHtml($expected, $result);
+
+        $result = $this->Form->input('published');
+        $expected = [
+            'div' => ['class' => 'form-group'],
+            ['div' => ['class' => 'col-md-offset-2 col-md-10']],
+            'input' => [
+                'type' => 'hidden',
+                'name' => 'published',
+                'value' => 0,
+            ],
+            'label' => ['for' => 'published'],
+            ['input' => [
+                'type' => 'checkbox',
+                'name' => 'published',
+                'id' => 'published',
+                'value' => 1,
+                'class' => 'form-control',
+            ]],
+            'Published',
+            '/label',
+            '/div',
+            '/div'
+        ];
+        $this->assertHtml($expected, $result);
     }
 }

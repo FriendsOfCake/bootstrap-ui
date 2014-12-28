@@ -37,10 +37,15 @@ class FormHelper extends Helper
         if (!empty($options['horizontal'])) {
             $options = $this->_injectStyles($options, 'form-horizontal');
             $options['horizontal'] = (array) $options['horizontal'];
-            $options['horizontal'] += ['left' => 'col-md-2', 'right' => 'col-md-10'];
+            $options['horizontal'] += [
+                'left' => 'col-md-2',
+                'right' => 'col-md-10',
+                'combined' => 'col-md-offset-2 col-md-10'
+            ];
             $options['templates'] += [
                 'label' => '<label class="' . $options['horizontal']['left'] . '"{{attrs}}>{{text}}</label>',
                 'formGroup' => '{{label}}<div class="' . $options['horizontal']['right'] . '">{{input}}</div>',
+                'checkboxFormGroup' => '<div class="' . $options['horizontal']['combined'] . '">{{label}}</div>',
             ];
         }
 
