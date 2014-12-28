@@ -124,4 +124,32 @@ class FormHelperTest extends TestCase
         ];
         $this->assertHtml($expected, $result);
     }
+
+    public function testErroredTextInput()
+    {
+        $this->article['errors'] = [
+            'title' => ['error message']
+        ];
+        $this->Form->create($this->article);
+
+        $result = $this->Form->input('title');
+        $expected = [
+            'div' => ['class' => 'form-group has-error'],
+            'label' => ['for' => 'title'],
+            'Title',
+            '/label',
+            'input' => [
+                'type' => 'text',
+                'name' => 'title',
+                'id' => 'title',
+                'class' => 'form-control ',
+                'required' => 'required'
+            ],
+            ['div' => ['class' => 'text-danger']],
+            'error message',
+            '/div',
+            '/div'
+        ];
+        $this->assertHtml($expected, $result);
+    }
 }

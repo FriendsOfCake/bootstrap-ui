@@ -10,10 +10,11 @@ class FormHelper extends CakeFormHelper
 
     public function __construct(View $View, array $config = [])
     {
+        $this->_defaultConfig['errorClass'] = null;
         $this->_defaultConfig['templates'] = array_merge($this->_defaultConfig['templates'], [
             'error' => '<div class="text-danger">{{content}}</div>',
             'inputContainer' => '<div class="form-group">{{content}}</div>',
-            'inputContainerError' => '<div class="form-group error">{{content}}{{error}}</div>',
+            'inputContainerError' => '<div class="form-group has-error">{{content}}{{error}}</div>',
         ]);
         parent::__construct($View, $config);
     }
@@ -81,6 +82,7 @@ class FormHelper extends CakeFormHelper
         }
 
         unset($options['skip']);
+        $options['class'] = trim(implode(' ', $options['class']));
         return $options;
     }
 
