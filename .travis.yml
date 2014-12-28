@@ -11,9 +11,11 @@ before_script:
 install:
     - composer self-update
     - composer install --dev
+    - composer require cakephp/cakephp-codesniffer:dev-master
 
 script:
   - phpunit
+  - ./vendor/bin/phpcs -p --extensions=php --standard=vendor/cakephp/cakephp-codesniffer/CakePHP ./src ./tests
 
 notifications:
   email: false
