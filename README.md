@@ -100,6 +100,36 @@ will render this HTML:
     </div>
 ```
 
+### Horizontal Form
+
+```php
+echo $this->Form->create($article, ['horizontal' => true]);
+echo $this->Form->input('title');
+echo $this->Form->input('published');
+```
+
+will render this HTML:
+
+```html
+<form method="post" accept-charset="utf-8" role="form" class="form-horizontal" action="/articles/add">
+    <div style="display:none;"><input type="hidden" name="_method" value="POST"></div>
+    <div class="form-group">
+        <label class="col-md-2" for="title">Title</label>
+        <div class="col-md-10">
+            <input type="text" name="title" required="required" id="title" class="form-control">
+        </div>
+    </div>
+    <div class="form-group">
+        <div class="col-md-offset-2 col-md-10">
+            <input type="hidden" name="published" value="0">
+            <label for="published">
+                <input type="checkbox" name="published" value="1" id="published" class="form-control">
+                Published
+            </label>
+        </div>
+    </div>
+```
+
 **NOTE: Check tests for more examples.**
 
 ## License
