@@ -4,7 +4,7 @@ $this->prepend('tb_body_attrs', ' class="' . implode(' ', array($this->request->
 $this->start('tb_body_start');
 ?>
 <body <?= $this->fetch('tb_body_attrs') ?>>
-	<div class="container">
+    <div class="container">
 <?php
 $this->end();
 

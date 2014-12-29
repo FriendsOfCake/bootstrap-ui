@@ -1,27 +1,40 @@
 {
-	"name": "gourmet/twitter_bootstrap",
-	"description": "Twitter Bootstrap integration",
-	"type": "cakephp-plugin",
-	"keywords": ["cakephp", "twitter", "bootstrap", "plugin"],
-	"homepage": "http://github.com/gourmet/twitter_bootstrap",
-	"license": "MIT",
-	"authors": [{
-		"name": "Jad Bitar",
-		"role": "Author"
-	}],
-	"support": {
-		"issues": "http://github.com/gourmet/twitter_bootstrap/issues",
-		"source": "http://github.com/gourmet/twitter_bootstrap"
-	},
-	"require": {
-		"cakephp/plugin-installer": "*"
-	},
-	"autoload": {
-		"psr-4": {
-			"Gourmet\\TwitterBootstrap\\": "src"
-		}
-	},
-	"extra": {
-		"installer-name": "Gourmet/TwitterBootstrap"
-	}
+    "name": "gourmet/twitter_bootstrap"
+    , "description": "Twitter Bootstrap 3 support for CakePHP 3"
+    , "type": "cakephp-plugin"
+    , "keywords": [
+        "cakephp"
+        , "twitter"
+        , "bootstrap"
+    ]
+    , "homepage": "http://github.com/gourmet/twitter_bootstrap"
+    , "license": "MIT"
+    , "authors": [
+        {
+            "name": "Jad Bitar"
+            , "homepage": "http://jadb.io"
+            , "role": "Author"
+        }
+    ]
+    , "support": {
+        "issues": "http://github.com/gourmet/twitter_bootstrap/issues"
+        , "source": "http://github.com/gourmet/twitter_bootstrap"
+    }
+    , "require": {
+        "cakephp/cakephp": "3.0.*-dev"
+        , "cakephp/plugin-installer": "*"
+    }
+    , "require-dev": {
+        "phpunit/phpunit": "4.1.*"
+    }
+    , "autoload": {
+        "psr-4": {
+            "Gourmet\\TwitterBootstrap\\": "src"
+        }
+    }
+    , "autoload-dev": {
+        "psr-4": {
+            "Gourmet\\TwitterBootstrap\\Test\\": "tests"
+        }
+    }
 }

@@ -2,91 +2,116 @@
 
 namespace Gourmet\TwitterBootstrap\View\Helper;
 
-use Cake\View\Helper\FormHelper as CakeFormHelper;
+use Cake\View\Helper\FormHelper as Helper;
 use Cake\View\View;
 
-class FormHelper extends CakeFormHelper {
+class FormHelper extends Helper
+{
 
-	public function __construct(View $View, array $config = []) {
-		$this->_defaultConfig['templates'] = array_merge($this->_defaultConfig['templates'], [
-			'error' => '<div class="text-danger">{{content}}</div>',
-			'inputContainer' => '<div class="form-group {{type}}{{required}}">{{content}}</div>',
-			'inputContainerError' => '<div class="form-group {{type}}{{required}} error">{{content}}{{error}}</div>',
-		]);
-		parent::__construct($View, $config);
-	}
+    use OptionsAwareTrait;
 
-	public function button($title, array $options = array()) {
-		return parent::button($title, $this->_injectStyles($options, 'btn'));
-	}
+    /**
+     * Construct the widgets and binds the default context providers.
+     *
+     * @param \Cake\View\View $View The View this helper is being attached to.
+     * @param array $config Configuration settings for the helper.
+     */
+    public function __construct(View $View, array $config = [])
+    {
+        $this->_defaultConfig['errorClass'] = null;
+        $this->_defaultConfig['templates'] = array_merge($this->_defaultConfig['templates'], [
+            'error' => '<div class="text-danger">{{content}}</div>',
+            'inputContainer' => '<div class="form-group">{{content}}</div>',
+            'inputContainerError' => '<div class="form-group has-error">{{content}}{{error}}</div>',
+            'checkboxWrapper' => '<div class="checkbox"><label>{{input}}{{label}}</label></div>',
+            'radioWrapper' => '<div class="radio"><label>{{input}}{{label}}</label></div>',
+        ]);
 
-	public function create($model = null, array $options = []) {
-		$options += ['role' => 'form'];
-		return parent::create($model, $options);
-	}
+        $this->_defaultWidgets = array_merge($this->_defaultWidgets, [
+            'button' => 'Gourmet\TwitterBootstrap\View\Widget\ButtonWidget',
+            'textarea' => 'Gourmet\TwitterBootstrap\View\Widget\TextareaWidget',
+        ]);
 
-	public function input($fieldName, array $options = []) {
-		$options += [
-			'type' => null,
-			'label' => null,
-			'error' => null,
-			'required' => null,
-			'options' => null,
-			'templates' => []
-		];
-		$options = $this->_parseOptions($fieldName, $options);
-		$options += ['id' => $this->_domId($fieldName)];
+        parent::__construct($View, $config);
+    }
 
-		switch ($options['type']) {
-			case 'checkbox':
-				$options['templates']['checkboxWrapper'] = '<div class="checkbox"><label>{{input}}{{label}}</label></div>';
-				$options['templates']['label'] = '{{text}}';
-				break;
-			case 'radio':
-				$options['templates']['radioWrapper'] = '<div class="radio"><label>{{input}}{{label}}</label></div>';
-				$options['templates']['label'] = '{{text}}';
-				break;
-			default:
-		}
+    /**
+     * Returns an HTML FORM element.
+     *
+     * @param mixed $model The context for which the form is being defined. Can
+     *   be an ORM entity, ORM resultset, or an array of meta data. You can use false or null
+     *   to make a model-less form.
+     * @param array $options An array of html attributes and options.
+     * @return string An formatted opening FORM tag.
+     */
+    public function create($model = null, array $options = [])
+    {
+        $options += [
+            'role' => 'form',
+            'horizontal' => $this->checkClasses('form-horizontal', $options),
+            'templates' => [],
+        ];
 
-		return parent::input($fieldName, $this->_injectStyles($options, 'form-control'));
-	}
+        if (!empty($options['horizontal'])) {
+            $options = $this->injectClasses('form-horizontal', $options);
+            $options['horizontal'] = (array)$options['horizontal'];
+            $options['horizontal'] += [
+                'left' => 'col-md-2',
+                'right' => 'col-md-10',
+                'combined' => 'col-md-offset-2 col-md-10'
+            ];
+            $options['templates'] += [
+                'label' => '<label class="' . $options['horizontal']['left'] . '"{{attrs}}>{{text}}</label>',
+                'formGroup' => '{{label}}<div class="' . $options['horizontal']['right'] . '">{{input}}</div>',
+                'checkboxFormGroup' => '<div class="' . $options['horizontal']['combined'] . '">{{label}}</div>',
+            ];
+        }
 
-	public function textarea($fieldName, array $options = array()) {
-		$options += ['rows' => 3];
-		return parent::textarea($fieldName, $options);
-	}
+        unset($options['horizontal']);
+        return parent::create($model, $options);
+    }
 
-	protected function _injectStyles($options, $styles) {
-		$options += ['class' => [], 'skip' => []];
-		if (!is_array($options['class'])) {
-			$options['class'] = explode(' ', $options['class']);
-		}
+    /**
+     * Generates a form input element complete with label and wrapper div.
+     *
+     * @param string $fieldName This should be "Modelname.fieldname".
+     * @param array $options Each type of input takes different options.
+     * @return string Completed form widget.
+     */
+    public function input($fieldName, array $options = [])
+    {
+        $options += [
+            'type' => null,
+            'label' => null,
+            'error' => null,
+            'required' => null,
+            'options' => null,
+            'templates' => []
+        ];
+        $options = $this->_parseOptions($fieldName, $options);
+        $options += ['id' => $this->_domId($fieldName)];
 
-		if (!is_array($styles)) {
-			$styles = explode(' ', $styles);
-		}
+        switch ($options['type']) {
+            case 'checkbox':
+            case 'radio':
+                $options['templates']['label'] = '{{text}}';
 
-		foreach ($styles as $style) {
-			if (!in_array($style, $options['class']) && !in_array($style, (array) $options['skip'])) {
-				array_push($options['class'], $style);
-			}
-		}
+                if (!isset($options['inline'])) {
+                    $options['inline'] = $this->checkClasses('checkbox-inline', (array)$options['label'])
+                        || $this->checkClasses('radio-inline', (array)$options['label']);
+                }
 
-		unset($options['skip']);
-		return $options;
-	}
+                if ($options['inline']) {
+                    $options['label'] = $this->injectClasses('checkbox-inline', (array)$options['label']);
+                    $options['templates'] += ['inputContainer' => '{{content}}'];
+                }
 
-	protected function _mergeStyles($current, $new) {
-		$current = explode(' ', $current);
-		$new = explode(' ', $new);
+                unset($options['inline']);
 
-		foreach ($new as $style) {
-			if (!in_array($style, $current)) {
-				array_push($current, $style);
-			}
-		}
+                break;
+            default:
+        }
 
-		return $current;
-	}
+        return parent::input($fieldName, $this->injectClasses('form-control', $options));
+    }
 }

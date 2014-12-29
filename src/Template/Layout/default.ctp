@@ -6,27 +6,27 @@ use Cake\Core\Configure;
  * Default `html` block.
  */
 if (!$this->fetch('html')) {
-	$this->start('html');
-	printf('<html lang="%s" class="no-js">', Configure::read('App.language'));
-	$this->end();
+    $this->start('html');
+    printf('<html lang="%s" class="no-js">', Configure::read('App.language'));
+    $this->end();
 }
 
 /**
  * Default `title` block.
  */
 if (!$this->fetch('title')) {
-	$this->start('title');
-	echo Configure::read('App.title');
-	$this->end();
+    $this->start('title');
+    echo Configure::read('App.title');
+    $this->end();
 }
 
 /**
  * Default `footer` block.
  */
 if (!$this->fetch('tb_footer')) {
-	$this->start('tb_footer');
-	printf('&copy;%s %s', date('Y'), Configure::read('App.title'));
-	$this->end();
+    $this->start('tb_footer');
+    printf('&copy;%s %s', date('Y'), Configure::read('App.title'));
+    $this->end();
 }
 
 /**
@@ -34,14 +34,14 @@ if (!$this->fetch('tb_footer')) {
  */
 $this->prepend('tb_body_attrs', ' class="' . implode(' ', array($this->request->controller, $this->request->action)) . '" ');
 if (!$this->fetch('tb_body_start')) {
-	$this->start('tb_body_start');
-	echo '<body' . $this->fetch('tb_body_attrs') . '>';
-	$this->end();
+    $this->start('tb_body_start');
+    echo '<body' . $this->fetch('tb_body_attrs') . '>';
+    $this->end();
 }
 if (!$this->fetch('tb_body_end')) {
-	$this->start('tb_body_end');
-	echo '</body>';
-	$this->end();
+    $this->start('tb_body_end');
+    echo '</body>';
+    $this->end();
 }
 
 /**
@@ -72,23 +72,23 @@ $this->prepend('script', $this->Html->script(['jquery/jquery', 'bootstrap/bootst
 
 <?= $this->fetch('html') ?>
 
-	<head>
+    <head>
 
-		<?= $this->Html->charset() ?>
+        <?= $this->Html->charset() ?>
 
-		<title><?= $this->fetch('title') ?></title>
+        <title><?= $this->fetch('title') ?></title>
 
-		<?= $this->fetch('meta') ?>
-		<?= $this->fetch('css') ?>
+        <?= $this->fetch('meta') ?>
+        <?= $this->fetch('css') ?>
 
-	</head>
+    </head>
 
-	<?php
-	echo $this->fetch('tb_body_start');
-	echo $this->fetch('content');
-	echo $this->fetch('tb_footer');
-	echo $this->fetch('script');
-	echo $this->fetch('tb_body_end');
-	?>
+    <?php
+    echo $this->fetch('tb_body_start');
+    echo $this->fetch('content');
+    echo $this->fetch('tb_footer');
+    echo $this->fetch('script');
+    echo $this->fetch('tb_body_end');
+    ?>
 
 </html>

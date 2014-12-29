@@ -6,26 +6,26 @@ $this->prepend('tb_body_attrs', ' class="' . implode(' ', array($this->request->
 $this->start('tb_body_start');
 ?>
 <body <?= $this->fetch('tb_body_attrs') ?>>
-	<div class="site-wrapper">
-		<div class="site-wrapper-inner">
-			<div class="cover-container">
+    <div class="site-wrapper">
+        <div class="site-wrapper-inner">
+            <div class="cover-container">
 
-				<div class="masthead clearfix">
-					<div class="inner">
-						<h3 class="masthead-brand"><?= Configure::read('App.title') ?></h3>
-						<?= $this->fetch('tb_topnav') ?>
-					</div>
-				</div>
+                <div class="masthead clearfix">
+                    <div class="inner">
+                        <h3 class="masthead-brand"><?= Configure::read('App.title') ?></h3>
+                        <?= $this->fetch('tb_topnav') ?>
+                    </div>
+                </div>
 
-				<div class="inner cover">
+                <div class="inner cover">
 <?php
 $this->end();
 
 $this->start('tb_body_end');
 ?>
-			</div>
-		</div>
-	</div>
+            </div>
+        </div>
+    </div>
 </body>
 <?php
 $this->end();
