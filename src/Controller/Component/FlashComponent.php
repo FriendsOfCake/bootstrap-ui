@@ -2,11 +2,11 @@
 
 namespace Gourmet\TwitterBootstrap\Controller\Component;
 
-use Cake\Controller\Component\FlashComponent as CakeFlashComponent;
+use Cake\Controller\Component\FlashComponent as Component;
 use Cake\Network\Exception\InternalErrorException;
 use Cake\Utility\Inflector;
 
-class FlashComponent extends CakeFlashComponent
+class FlashComponent extends Component
 {
     /**
      * Magic method for verbose flash methods based on element names.
