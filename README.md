@@ -2,7 +2,7 @@
 
 [![Build Status](https://travis-ci.org/gourmet/twitter_bootstrap.svg?branch=master)](https://travis-ci.org/gourmet/twitter_bootstrap)
 
-Transparently use [Twitter Bootstrap 3][twbs3] with [CakePHP 3][cake3].
+Transparently use [Twitter Bootstrap 3][twbs3] with [CakePHP 3][cakephp].
 
 ## Requirements
 
@@ -150,7 +150,7 @@ http://github.com/gourmet/twitter_bootstrap/issues
 
 Copyright (c) 2014, Jad Bitar and licensed under [The MIT License][mit].
 
-[cake3]:http://cakephp.org
+[cakephp]:http://cakephp.org
 [composer]:http://getcomposer.org
 [composer:ignore]:http://getcomposer.org/doc/faqs/should-i-commit-the-dependencies-in-my-vendor-directory.md
 [mit]:http://www.opensource.org/licenses/mit-license.php
