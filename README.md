@@ -137,5 +137,7 @@ will render this HTML:
 Copyright (c) 2014, Jad Bitar and licensed under [The MIT License][mit].
 
 [cake3]:http://cakephp.org
+[composer]:http://getcomposer.org
+[composer:ignore]:http://getcomposer.org/doc/faqs/should-i-commit-the-dependencies-in-my-vendor-directory.md
 [mit]:http://www.opensource.org/licenses/mit-license.php
 [twbs3]:http://getbootstrap.com
