@@ -12,7 +12,7 @@ Transparently use [Twitter Bootstrap 3][twbs3] with [CakePHP 3][cake3].
 ## What's included?
 
 - FlashComponent + view elements (types: error/danger, info, success, warning)
-- FormHelper (types: vertical, inline, horizontal | inputs: text, textarea, selet, checkbox, radio)
+- FormHelper (types: vertical, inline, horizontal | inputs: text, textarea, select, checkbox, radio)
 - Widgets (button, textarea)
 - Sample layouts (cover, signin, dashboard)
 - Bake templates *incomplete*
@@ -34,7 +34,7 @@ in your `vendor-dir`. It is recommended that you add /plugins/gourmet to your
 You then need to load the plugin. In `boostrap.php`, something like:
 
 ```php
-\Cake\Core\Plugin::load('Gourmet/Faker');
+\Cake\Core\Plugin::load('Gourmet/TwitterBootstrap');
 ```
 
 For a complete setup, add the following to your `App\Controller\AppController`:
