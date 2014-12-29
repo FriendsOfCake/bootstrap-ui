@@ -73,7 +73,7 @@ Available types are:
 
 **NOTE: Remember to set the stylesheets in the layouts you copy.**
 
-## Examples
+## Usage
 
 ### Basic Form
 
