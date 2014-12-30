@@ -1,6 +1,8 @@
 # TwitterBootstrap
 
 [![Build Status](https://travis-ci.org/gourmet/twitter_bootstrap.svg?branch=master)](https://travis-ci.org/gourmet/twitter_bootstrap)
+[![Total Downloads](https://poser.pugx.org/gourmet/twitter_bootstrap/downloads.svg)](https://packagist.org/packages/gourmet/twitter_bootstrap)
+[![License](https://poser.pugx.org/gourmet/twitter_bootstrap/license.svg)](https://packagist.org/packages/gourmet/twitter_bootstrap)
 
 Transparently use [Twitter Bootstrap 3][twbs3] with [CakePHP 3][cakephp].
 
