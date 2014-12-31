@@ -15,6 +15,10 @@
             , "homepage": "http://jadb.io"
             , "role": "Author"
         }
+        , {
+            "name": "Others"
+            , "homepage": "https://github.com/gourmet/twitter_bootstrap/graphs/contributors"
+        }
     ]
     , "support": {
         "issues": "http://github.com/gourmet/twitter_bootstrap/issues"
