@@ -96,7 +96,7 @@ class FormHelper extends Helper
         switch ($options['type']) {
             case 'checkbox':
             case 'radio':
-                $options['templates']['label'] = '{{text}}';
+                $this->templates(['label' => '{{text}}']);
 
                 if (!isset($options['inline'])) {
                     $options['inline'] = $this->checkClasses('checkbox-inline', (array)$options['label'])
@@ -105,7 +105,7 @@ class FormHelper extends Helper
 
                 if ($options['inline']) {
                     $options['label'] = $this->injectClasses('checkbox-inline', (array)$options['label']);
-                    $options['templates'] += ['inputContainer' => '{{content}}'];
+                    $this->templates(['inputContainer' => '{{content}}']);
                 }
 
                 unset($options['inline']);
