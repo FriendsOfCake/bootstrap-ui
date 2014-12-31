@@ -113,6 +113,12 @@ class FormHelper extends Helper
                 unset($options['inline']);
 
                 break;
+
+            case 'select':
+            case 'multiselect':
+            case 'textarea':
+                break;
+
             default:
                 $prepend = $options['prepend'];
                 $append = $options['append'];
