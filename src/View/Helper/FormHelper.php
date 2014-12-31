@@ -91,6 +91,8 @@ class FormHelper extends Helper
         $options = $this->_parseOptions($fieldName, $options);
         $options += ['id' => $this->_domId($fieldName)];
 
+        $reset = $this->templates();
+
         switch ($options['type']) {
             case 'checkbox':
             case 'radio':
@@ -112,6 +114,8 @@ class FormHelper extends Helper
             default:
         }
 
-        return parent::input($fieldName, $this->injectClasses('form-control', $options));
+        $result = parent::input($fieldName, $this->injectClasses('form-control', $options));
+        $this->templates($reset);
+        return $result;
     }
 }
