@@ -81,6 +81,8 @@ class FormHelper extends Helper
     public function input($fieldName, array $options = [])
     {
         $options += [
+            'prepend' => null,
+            'append' => null,
             'type' => null,
             'label' => null,
             'error' => null,
@@ -112,10 +114,52 @@ class FormHelper extends Helper
 
                 break;
             default:
+                $prepend = $options['prepend'];
+                $append = $options['append'];
+
+                if (empty($prepend) && empty($append)) {
+                    break;
+                }
+
+                $input = $reset['input'];
+
+                if ($prepend) {
+                    if (is_string($prepend)) {
+                        $class = 'input-group-' . ($this->_isButton($prepend) ? 'btn' : 'addon');
+                        $input = $this->Html->tag('span', $prepend, compact('class')) . $input;
+                    } else {
+                        $class = 'input-group-btn';
+                        $input = $this->Html->tag('span', implode('', $prepend), compact('class')) . $input;
+                    }
+                }
+                if ($append) {
+                    if (is_string($append)) {
+                        $class = 'input-group-' . ($this->_isButton($append) ? 'btn' : 'addon');
+                        $input .= $this->Html->tag('span', $append, compact('class'));
+                    } else {
+                        $class = 'input-group-btn';
+                        $input .= $this->Html->tag('span', implode('', $append), compact('class'));
+                    }
+                }
+
+                $input = $this->Html->div('input-group', $input, ['escape' => false]);
+                $this->templates(compact('input'));
         }
 
+        unset($options['prepend'], $options['append']);
         $result = parent::input($fieldName, $this->injectClasses('form-control', $options));
         $this->templates($reset);
         return $result;
+    }
+
+    /**
+     * Checks if a given HTML string is a `<button>` or `<input type=submit>`.
+     *
+     * @param string $html HTML string.
+     * @return bool True if it's some sort of button.
+     */
+    protected function _isButton($html)
+    {
+        return strpos($html, '<button') !== false || strpos($html, 'type="submit"') !== false;
     }
 }

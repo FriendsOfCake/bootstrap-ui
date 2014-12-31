@@ -153,6 +153,118 @@ class FormHelperTest extends TestCase
         $this->assertHtml($expected, $result);
     }
 
+    public function testAddonPrependedInput()
+    {
+        $this->Form->create($this->article);
+
+        $result = $this->Form->input('title', ['prepend' => '@']);
+        $expected = [
+            'div' => ['class' => 'form-group'],
+            'label' => ['for' => 'title'],
+            'Title',
+            '/label',
+            ['div' => ['class' => 'input-group']],
+            'span' => ['class' => 'input-group-addon'],
+            '@',
+            '/span',
+            'input' => [
+                'type' => 'text',
+                'name' => 'title',
+                'id' => 'title',
+                'class' => 'form-control',
+                'required' => 'required'
+            ],
+            '/div',
+            '/div'
+        ];
+        $this->assertHtml($expected, $result);
+    }
+
+    public function testAddonAppendedInput()
+    {
+        $this->Form->create($this->article);
+
+        $result = $this->Form->input('title', ['append' => '@']);
+        $expected = [
+            'div' => ['class' => 'form-group'],
+            'label' => ['for' => 'title'],
+            'Title',
+            '/label',
+            ['div' => ['class' => 'input-group']],
+            'input' => [
+                'type' => 'text',
+                'name' => 'title',
+                'id' => 'title',
+                'class' => 'form-control',
+                'required' => 'required'
+            ],
+            'span' => ['class' => 'input-group-addon'],
+            '@',
+            '/span',
+            '/div',
+            '/div'
+        ];
+        $this->assertHtml($expected, $result);
+    }
+
+    public function testButtonPrependedInput()
+    {
+        $this->Form->create($this->article);
+
+        $result = $this->Form->input('title', ['prepend' => $this->Form->button('GO')]);
+        $expected = [
+            'div' => ['class' => 'form-group'],
+            'label' => ['for' => 'title'],
+            'Title',
+            '/label',
+            ['div' => ['class' => 'input-group']],
+            'span' => ['class' => 'input-group-btn'],
+            'button' => ['type' => 'submit', 'class' => 'btn'],
+            'GO',
+            '/button',
+            '/span',
+            'input' => [
+                'type' => 'text',
+                'name' => 'title',
+                'id' => 'title',
+                'class' => 'form-control',
+                'required' => 'required'
+            ],
+            '/div',
+            '/div'
+        ];
+        $this->assertHtml($expected, $result);
+    }
+
+    public function testButtonAppendedInput()
+    {
+        $this->Form->create($this->article);
+
+        $result = $this->Form->input('title', ['append' => $this->Form->button('GO')]);
+        $expected = [
+            'div' => ['class' => 'form-group'],
+            'label' => ['for' => 'title'],
+            'Title',
+            '/label',
+            ['div' => ['class' => 'input-group']],
+            'input' => [
+                'type' => 'text',
+                'name' => 'title',
+                'id' => 'title',
+                'class' => 'form-control',
+                'required' => 'required'
+            ],
+            'span' => ['class' => 'input-group-btn'],
+            'button' => ['type' => 'submit', 'class' => 'btn'],
+            'GO',
+            '/button',
+            '/span',
+            '/div',
+            '/div'
+        ];
+        $this->assertHtml($expected, $result);
+    }
+
     public function testBasicCheckboxInput()
     {
         $this->Form->create($this->article);
