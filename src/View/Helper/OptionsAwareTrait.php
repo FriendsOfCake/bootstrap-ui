@@ -1,6 +1,6 @@
 <?php
 
-namespace Gourmet\TwitterBootstrap\View\Helper;
+namespace BootstrapUI\View\Helper;
 
 trait OptionsAwareTrait
 {

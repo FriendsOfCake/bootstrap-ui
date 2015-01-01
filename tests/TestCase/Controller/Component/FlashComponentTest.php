@@ -1,6 +1,6 @@
 <?php
 
-namespace Gourmet\TwitterBootstrap\Test\TestCase\Controller\Component;
+namespace BootstrapUI\Test\TestCase\Controller\Component;
 
 use Cake\Controller\ComponentRegistry;
 use Cake\Controller\Controller;
@@ -9,7 +9,7 @@ use Cake\Event\Event;
 use Cake\Network\Request;
 use Cake\Network\Session;
 use Cake\TestSuite\TestCase;
-use Gourmet\TwitterBootstrap\Controller\Component\FlashComponent;
+use BootstrapUI\Controller\Component\FlashComponent;
 
 class FlashComponentTest extends TestCase
 {

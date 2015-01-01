@@ -1,9 +1,9 @@
 <?php
 
-namespace Gourmet\TwitterBootstrap\View\Widget;
+namespace BootstrapUI\View\Widget;
 
 use Cake\View\Form\ContextInterface;
-use Gourmet\TwitterBootstrap\View\Helper\OptionsAwareTrait;
+use BootstrapUI\View\Helper\OptionsAwareTrait;
 
 class ButtonWidget extends \Cake\View\Widget\ButtonWidget
 {

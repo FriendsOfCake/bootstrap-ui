@@ -1,6 +1,6 @@
 <?php
 
-namespace Gourmet\TwitterBootstrap\Controller\Component;
+namespace BootstrapUI\Controller\Component;
 
 use Cake\Controller\Component\FlashComponent as Component;
 use Cake\Network\Exception\InternalErrorException;

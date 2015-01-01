@@ -1,6 +1,6 @@
 <?php
 
-namespace Gourmet\TwitterBootstrap\Test\TestCase\View\Helper;
+namespace BootstrapUI\Test\TestCase\View\Helper;
 
 use Cake\Core\Configure;
 use Cake\Network\Request;
@@ -9,7 +9,7 @@ use Cake\Routing\Router;
 use Cake\TestSuite\TestCase;
 use Cake\Utility\Security;
 use Cake\View\View;
-use Gourmet\TwitterBootstrap\View\Helper\FormHelper;
+use BootstrapUI\View\Helper\FormHelper;
 
 class FormHelperTest extends TestCase
 {
@@ -19,7 +19,7 @@ class FormHelperTest extends TestCase
 
         Configure::write('Config.language', 'eng');
         Configure::write('App.base', '');
-        Configure::write('App.namespace', 'Gourmet\TwitterBootstrap\Test\TestCase\View\Helper');
+        Configure::write('App.namespace', 'BootstrapUI\Test\TestCase\View\Helper');
         Configure::delete('Asset');
         $this->View = new View();
 

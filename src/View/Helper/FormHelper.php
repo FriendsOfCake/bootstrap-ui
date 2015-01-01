@@ -1,6 +1,6 @@
 <?php
 
-namespace Gourmet\TwitterBootstrap\View\Helper;
+namespace BootstrapUI\View\Helper;
 
 use Cake\View\Helper\FormHelper as Helper;
 use Cake\View\View;
@@ -28,8 +28,8 @@ class FormHelper extends Helper
         ]);
 
         $this->_defaultWidgets = array_merge($this->_defaultWidgets, [
-            'button' => 'Gourmet\TwitterBootstrap\View\Widget\ButtonWidget',
-            'textarea' => 'Gourmet\TwitterBootstrap\View\Widget\TextareaWidget',
+            'button' => 'BootstrapUI\View\Widget\ButtonWidget',
+            'textarea' => 'BootstrapUI\View\Widget\TextareaWidget',
         ]);
 
         parent::__construct($View, $config);
