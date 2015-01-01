@@ -22,7 +22,7 @@ class FlashComponent extends Component
             $name = 'danger';
         }
 
-        $options = ['element' => 'Gourmet/TwitterBootstrap.' . Inflector::underscore($name)];
+        $options = ['element' => 'BootstrapUI.' . Inflector::underscore($name)];
 
         if (count($args) < 1) {
             throw new InternalErrorException('Flash message missing.');

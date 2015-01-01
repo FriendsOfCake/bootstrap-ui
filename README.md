@@ -36,14 +36,14 @@ in your `vendor-dir`. It is recommended that you add /plugins/gourmet to your
 You then need to load the plugin. In `boostrap.php`, something like:
 
 ```php
-\Cake\Core\Plugin::load('Gourmet/TwitterBootstrap');
+\Cake\Core\Plugin::load('BootstrapUI');
 ```
 
 For a complete setup, add the following to your `App\Controller\AppController`:
 
 ```php
-public $components = ['Gourmet/TwitterBootstrap.Flash'];
-public $helpers = ['Gourmet/TwitterBootstrap.Form'];
+public $components = ['BootstrapUI.Flash'];
+public $helpers = ['BootstrapUI.Form'];
 ```
 
 You will also need to include the bootstrap stylesheet (or your custom one) to your layout for things to work (duh!):
@@ -57,7 +57,7 @@ To use the included layout types (directly taken from the Bootstrap examples) yo
 to copy them to your application's layouts directory:
 
 ```
-cp plugins/Gourmet/TwitterBootstrap/src/Template/Layout/examples src/Template/Layout/TwitterBootstrap
+cp plugins/BootstrapUI/src/Template/Layout/examples src/Template/Layout/TwitterBootstrap
 ```
 
 You can then simply extend them in your views like so:

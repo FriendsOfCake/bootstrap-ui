@@ -38,7 +38,7 @@ class FlashComponentTest extends TestCase
         $expected = [
             'message' => 'This is a test message',
             'key' => 'flash',
-            'element' => 'Gourmet/TwitterBootstrap.Flash/danger',
+            'element' => 'BootstrapUI.Flash/danger',
             'params' => []
         ];
         $this->assertEquals($expected, $result);
@@ -53,7 +53,7 @@ class FlashComponentTest extends TestCase
         $expected = [
             'message' => 'This is a test message',
             'key' => 'flash',
-            'element' => 'Gourmet/TwitterBootstrap.Flash/success',
+            'element' => 'BootstrapUI.Flash/success',
             'params' => []
         ];
         $this->assertEquals($expected, $result);
