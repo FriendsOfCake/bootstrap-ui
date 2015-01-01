@@ -2,8 +2,8 @@
 
 namespace BootstrapUI\View\Widget;
 
-use Cake\View\Form\ContextInterface;
 use BootstrapUI\View\Helper\OptionsAwareTrait;
+use Cake\View\Form\ContextInterface;
 
 class ButtonWidget extends \Cake\View\Widget\ButtonWidget
 {

@@ -2,6 +2,7 @@
 
 namespace BootstrapUI\Test\TestCase\Controller\Component;
 
+use BootstrapUI\Controller\Component\FlashComponent;
 use Cake\Controller\ComponentRegistry;
 use Cake\Controller\Controller;
 use Cake\Core\Configure;
@@ -9,7 +10,6 @@ use Cake\Event\Event;
 use Cake\Network\Request;
 use Cake\Network\Session;
 use Cake\TestSuite\TestCase;
-use BootstrapUI\Controller\Component\FlashComponent;
 
 class FlashComponentTest extends TestCase
 {

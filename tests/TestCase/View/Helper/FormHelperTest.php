@@ -2,6 +2,7 @@
 
 namespace BootstrapUI\Test\TestCase\View\Helper;
 
+use BootstrapUI\View\Helper\FormHelper;
 use Cake\Core\Configure;
 use Cake\Network\Request;
 use Cake\ORM\TableRegistry;
@@ -9,7 +10,6 @@ use Cake\Routing\Router;
 use Cake\TestSuite\TestCase;
 use Cake\Utility\Security;
 use Cake\View\View;
-use BootstrapUI\View\Helper\FormHelper;
 
 class FormHelperTest extends TestCase
 {
