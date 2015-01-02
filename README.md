@@ -1,4 +1,4 @@
-# TwitterBootstrap
+# Bootstrap UI
 
 [![Build Status](https://travis-ci.org/friendsofcake/bootstrap-ui.svg?branch=master)](https://travis-ci.org/friendsofcake/bootstrap-ui)
 [![Total Downloads](https://poser.pugx.org/friendsofcake/bootstrap-ui/downloads.svg)](https://packagist.org/packages/friendsofcake/bootstrap-ui)
@@ -30,8 +30,8 @@ composer require friendsofcake/bootstrap-ui
 
 Because this plugin has the type `cakephp-plugin` set in its own `composer.json`,
 [Composer][composer] will install it inside your /plugins directory, rather than
-in your `vendor-dir`. It is recommended that you add /plugins/gourmet to your
-`.gitignore` file and here's [why][composer:ignore].
+in your `vendor-dir`. It is recommended that you add /plugins to your `.gitignore`
+file and here's [why][composer:ignore].
 
 You then need to load the plugin. In `boostrap.php`, something like:
 
