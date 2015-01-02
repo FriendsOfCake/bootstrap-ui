@@ -1,8 +1,8 @@
 # TwitterBootstrap
 
-[![Build Status](https://travis-ci.org/gourmet/twitter_bootstrap.svg?branch=master)](https://travis-ci.org/gourmet/twitter_bootstrap)
-[![Total Downloads](https://poser.pugx.org/gourmet/twitter_bootstrap/downloads.svg)](https://packagist.org/packages/gourmet/twitter_bootstrap)
-[![License](https://poser.pugx.org/gourmet/twitter_bootstrap/license.svg)](https://packagist.org/packages/gourmet/twitter_bootstrap)
+[![Build Status](https://travis-ci.org/friendsofcake/bootstrap-ui.svg?branch=master)](https://travis-ci.org/friendsofcake/bootstrap-ui)
+[![Total Downloads](https://poser.pugx.org/friendsofcake/bootstrap-ui/downloads.svg)](https://packagist.org/packages/friendsofcake/bootstrap-ui)
+[![License](https://poser.pugx.org/friendsofcake/bootstrap-ui/license.svg)](https://packagist.org/packages/friendsofcake/bootstrap-ui)
 
 Transparently use [Twitter Bootstrap 3][twbs3] with [CakePHP 3][cakephp].
 
@@ -25,7 +25,7 @@ Transparently use [Twitter Bootstrap 3][twbs3] with [CakePHP 3][cakephp].
 Using [Composer][composer]:
 
 ```
-composer require gourmet/twitter_bootstrap
+composer require friendsofcake/bootstrap-ui
 ```
 
 Because this plugin has the type `cakephp-plugin` set in its own `composer.json`,
@@ -36,14 +36,14 @@ in your `vendor-dir`. It is recommended that you add /plugins/gourmet to your
 You then need to load the plugin. In `boostrap.php`, something like:
 
 ```php
-\Cake\Core\Plugin::load('Gourmet/TwitterBootstrap');
+\Cake\Core\Plugin::load('BootstrapUI');
 ```
 
 For a complete setup, add the following to your `App\Controller\AppController`:
 
 ```php
-public $components = ['Gourmet/TwitterBootstrap.Flash'];
-public $helpers = ['Gourmet/TwitterBootstrap.Form'];
+public $components = ['BootstrapUI.Flash'];
+public $helpers = ['BootstrapUI.Form'];
 ```
 
 You will also need to include the bootstrap stylesheet (or your custom one) to your layout for things to work (duh!):
@@ -57,7 +57,7 @@ To use the included layout types (directly taken from the Bootstrap examples) yo
 to copy them to your application's layouts directory:
 
 ```
-cp plugins/Gourmet/TwitterBootstrap/src/Template/Layout/examples src/Template/Layout/TwitterBootstrap
+cp plugins/BootstrapUI/src/Template/Layout/examples src/Template/Layout/TwitterBootstrap
 ```
 
 You can then simply extend them in your views like so:
@@ -146,7 +146,7 @@ their own that I can ignore when I pull)
 
 ## Bugs & Feedback
 
-http://github.com/gourmet/twitter_bootstrap/issues
+http://github.com/friendsofcake/bootstrap-ui/issues
 
 ## License
 

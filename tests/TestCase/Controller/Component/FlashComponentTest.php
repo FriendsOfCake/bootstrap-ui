@@ -1,7 +1,8 @@
 <?php
 
-namespace Gourmet\TwitterBootstrap\Test\TestCase\Controller\Component;
+namespace BootstrapUI\Test\TestCase\Controller\Component;
 
+use BootstrapUI\Controller\Component\FlashComponent;
 use Cake\Controller\ComponentRegistry;
 use Cake\Controller\Controller;
 use Cake\Core\Configure;
@@ -9,7 +10,6 @@ use Cake\Event\Event;
 use Cake\Network\Request;
 use Cake\Network\Session;
 use Cake\TestSuite\TestCase;
-use Gourmet\TwitterBootstrap\Controller\Component\FlashComponent;
 
 class FlashComponentTest extends TestCase
 {
@@ -38,7 +38,7 @@ class FlashComponentTest extends TestCase
         $expected = [
             'message' => 'This is a test message',
             'key' => 'flash',
-            'element' => 'Gourmet/TwitterBootstrap.Flash/danger',
+            'element' => 'BootstrapUI.Flash/danger',
             'params' => []
         ];
         $this->assertEquals($expected, $result);
@@ -53,7 +53,7 @@ class FlashComponentTest extends TestCase
         $expected = [
             'message' => 'This is a test message',
             'key' => 'flash',
-            'element' => 'Gourmet/TwitterBootstrap.Flash/success',
+            'element' => 'BootstrapUI.Flash/success',
             'params' => []
         ];
         $this->assertEquals($expected, $result);

@@ -1,6 +1,6 @@
 <?php
 
-namespace Gourmet\TwitterBootstrap\View\Widget;
+namespace BootstrapUI\View\Widget;
 
 use Cake\View\Form\ContextInterface;
 

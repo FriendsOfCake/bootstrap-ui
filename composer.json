@@ -1,5 +1,5 @@
 {
-    "name": "gourmet/twitter_bootstrap"
+    "name": "friendsofcake/bootstrap-ui"
     , "description": "Twitter Bootstrap 3 support for CakePHP 3"
     , "type": "cakephp-plugin"
     , "keywords": [
@@ -7,7 +7,7 @@
         , "twitter"
         , "bootstrap"
     ]
-    , "homepage": "http://github.com/gourmet/twitter_bootstrap"
+    , "homepage": "http://github.com/friendsofcake/bootstrap-ui"
     , "license": "MIT"
     , "authors": [
         {
@@ -17,12 +17,12 @@
         }
         , {
             "name": "Others"
-            , "homepage": "https://github.com/gourmet/twitter_bootstrap/graphs/contributors"
+            , "homepage": "https://github.com/friendsofcake/bootstrap-ui/graphs/contributors"
         }
     ]
     , "support": {
-        "issues": "http://github.com/gourmet/twitter_bootstrap/issues"
-        , "source": "http://github.com/gourmet/twitter_bootstrap"
+        "issues": "http://github.com/friendsofcake/bootstrap-ui/issues"
+        , "source": "http://github.com/friendsofcake/bootstrap-ui"
     }
     , "require": {
         "cakephp/cakephp": "3.0.*-dev"
@@ -33,12 +33,12 @@
     }
     , "autoload": {
         "psr-4": {
-            "Gourmet\\TwitterBootstrap\\": "src"
+            "BootstrapUI\\": "src"
         }
     }
     , "autoload-dev": {
         "psr-4": {
-            "Gourmet\\TwitterBootstrap\\Test\\": "tests"
+            "BootstrapUI\\Test\\": "tests"
         }
     }
 }

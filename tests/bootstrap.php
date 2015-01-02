@@ -65,4 +65,4 @@ Cache::config([
     ]
 ]);
 
-Plugin::load('Gourmet/TwitterBootstrap', ['path' => ROOT]);
+Plugin::load('BootstrapUI', ['path' => ROOT]);
