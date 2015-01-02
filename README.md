@@ -1,6 +1,6 @@
 # Bootstrap UI
 
-[![Build Status](https://travis-ci.org/friendsofcake/bootstrap-ui.svg?branch=master)](https://travis-ci.org/friendsofcake/bootstrap-ui)
+[![Build Status](https://travis-ci.org/FriendsOfCake/bootstrap-ui.svg?branch=master)](https://travis-ci.org/FriendsOfCake/bootstrap-ui)
 [![Total Downloads](https://poser.pugx.org/friendsofcake/bootstrap-ui/downloads.svg)](https://packagist.org/packages/friendsofcake/bootstrap-ui)
 [![License](https://poser.pugx.org/friendsofcake/bootstrap-ui/license.svg)](https://packagist.org/packages/friendsofcake/bootstrap-ui)
 
