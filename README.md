@@ -25,7 +25,7 @@ Transparently use [Twitter Bootstrap 3][twbs3] with [CakePHP 3][cakephp].
 Using [Composer][composer]:
 
 ```
-composer require friendsofcake/bootstrap-ui
+composer require friendsofcake/bootstrap-ui:dev-master
 ```
 
 Because this plugin has the type `cakephp-plugin` set in its own `composer.json`,
