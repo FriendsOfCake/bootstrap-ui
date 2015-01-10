@@ -84,7 +84,7 @@ class FormHelper extends Helper
             'prepend' => null,
             'append' => null,
             'type' => null,
-            'label' => null,
+            'label' => ['class' => 'control-label'],
             'error' => null,
             'required' => null,
             'options' => null,
