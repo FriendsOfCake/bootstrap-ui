@@ -91,7 +91,7 @@ will render this HTML:
 <form method="post" accept-charset="utf-8" role="form" action="/articles/add">
     <div style="display:none;"><input type="hidden" name="_method" value="POST"></div>
     <div class="form-group">
-        <label for="title">Title</label>
+        <label class="control-label" for="title">Title</label>
         <input type="text" name="title" required="required" id="title" class="form-control">
     </div>
     <div class="form-group">
@@ -117,7 +117,7 @@ will render this HTML:
 <form method="post" accept-charset="utf-8" role="form" class="form-horizontal" action="/articles/add">
     <div style="display:none;"><input type="hidden" name="_method" value="POST"></div>
     <div class="form-group">
-        <label class="col-md-2" for="title">Title</label>
+        <label class="control-label col-md-2" for="title">Title</label>
         <div class="col-md-10">
             <input type="text" name="title" required="required" id="title" class="form-control">
         </div>
