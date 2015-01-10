@@ -67,7 +67,7 @@ class FormHelperTest extends TestCase
         $result = $this->Form->input('title');
         $expected = [
             'div' => ['class' => 'form-group'],
-            'label' => ['for' => 'title'],
+            'label' => ['class' => 'control-label', 'for' => 'title'],
             'Title',
             '/label',
             'input' => [
@@ -89,7 +89,7 @@ class FormHelperTest extends TestCase
         $result = $this->Form->input('password');
         $expected = [
             'div' => ['class' => 'form-group'],
-            'label' => ['for' => 'password'],
+            'label' => ['class' => 'control-label', 'for' => 'password'],
             'Password',
             '/label',
             'input' => [
@@ -110,7 +110,7 @@ class FormHelperTest extends TestCase
         $result = $this->Form->input('title');
         $expected = [
             'div' => ['class' => 'form-group'],
-            'label' => ['for' => 'title'],
+            'label' => ['class' => 'control-label', 'for' => 'title'],
             'Title',
             '/label',
             'input' => [
@@ -135,7 +135,7 @@ class FormHelperTest extends TestCase
         $result = $this->Form->input('title');
         $expected = [
             'div' => ['class' => 'form-group has-error'],
-            'label' => ['for' => 'title'],
+            'label' => ['class' => 'control-label', 'for' => 'title'],
             'Title',
             '/label',
             'input' => [
@@ -160,7 +160,7 @@ class FormHelperTest extends TestCase
         $result = $this->Form->input('title', ['prepend' => '@']);
         $expected = [
             'div' => ['class' => 'form-group'],
-            'label' => ['for' => 'title'],
+            'label' => ['class' => 'control-label', 'for' => 'title'],
             'Title',
             '/label',
             ['div' => ['class' => 'input-group']],
@@ -187,7 +187,7 @@ class FormHelperTest extends TestCase
         $result = $this->Form->input('title', ['append' => '@']);
         $expected = [
             'div' => ['class' => 'form-group'],
-            'label' => ['for' => 'title'],
+            'label' => ['class' => 'control-label', 'for' => 'title'],
             'Title',
             '/label',
             ['div' => ['class' => 'input-group']],
@@ -214,7 +214,7 @@ class FormHelperTest extends TestCase
         $result = $this->Form->input('title', ['prepend' => $this->Form->button('GO')]);
         $expected = [
             'div' => ['class' => 'form-group'],
-            'label' => ['for' => 'title'],
+            'label' => ['class' => 'control-label', 'for' => 'title'],
             'Title',
             '/label',
             ['div' => ['class' => 'input-group']],
@@ -243,7 +243,7 @@ class FormHelperTest extends TestCase
         $result = $this->Form->input('title', ['append' => $this->Form->button('GO')]);
         $expected = [
             'div' => ['class' => 'form-group'],
-            'label' => ['for' => 'title'],
+            'label' => ['class' => 'control-label', 'for' => 'title'],
             'Title',
             '/label',
             ['div' => ['class' => 'input-group']],
@@ -385,7 +385,7 @@ class FormHelperTest extends TestCase
         $expected = [
             'div' => ['class' => 'form-group'],
             'label' => [
-                'class' => 'col-md-2',
+                'class' => 'control-label col-md-2',
                 'for' => 'title'
             ],
             'Title',

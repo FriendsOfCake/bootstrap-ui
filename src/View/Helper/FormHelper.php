@@ -60,8 +60,9 @@ class FormHelper extends Helper
                 'right' => 'col-md-10',
                 'combined' => 'col-md-offset-2 col-md-10'
             ];
+
             $options['templates'] += [
-                'label' => '<label class="' . $options['horizontal']['left'] . '"{{attrs}}>{{text}}</label>',
+                'label' => '<label class="control-label ' . $options['horizontal']['left'] . '"{{attrs}}>{{text}}</label>',
                 'formGroup' => '{{label}}<div class="' . $options['horizontal']['right'] . '">{{input}}</div>',
                 'checkboxFormGroup' => '<div class="' . $options['horizontal']['combined'] . '">{{label}}</div>',
             ];
@@ -92,7 +93,6 @@ class FormHelper extends Helper
         ];
         $options = $this->_parseOptions($fieldName, $options);
         $options += ['id' => $this->_domId($fieldName)];
-
         $reset = $this->templates();
 
         switch ($options['type']) {
@@ -120,6 +120,10 @@ class FormHelper extends Helper
                 break;
 
             default:
+                if (strpos($this->templates('label'), 'class=') === false) {
+                    $options['label'] = $this->injectClasses('control-label', (array)$options['label']);
+                }
+
                 $prepend = $options['prepend'];
                 $append = $options['append'];
 
