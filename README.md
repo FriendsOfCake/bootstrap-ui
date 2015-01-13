@@ -44,20 +44,22 @@ For a complete setup, add the following to your `App\Controller\AppController`:
 ```php
 public $components = ['BootstrapUI.Flash'];
 public $helpers = ['BootstrapUI.Form'];
+public $layout = 'BootstrapUI.default';
 ```
 
-You will also need to include the bootstrap stylesheet (or your custom one) to your layout for things to work (duh!):
+If you wish to use your own layout template, just make sure to include:
 
 ```php
 // in the <head>
-$this->Html->css('path/to/stylesheet');
+echo $this->Html->css('path/to/bootstrap.css');
+echo $this->Html->script(['path/to/jquery.js', 'path/to/bootstrap.js']);
 ```
 
-To use the included layout types (directly taken from the Bootstrap examples) you will need
-to copy them to your application's layouts directory:
+When using the included layout (or a copy of), extra layout types (directly taken from the
+Bootstrap examples). You just need to copy them to your application's layouts directory:
 
 ```
-cp plugins/BootstrapUI/src/Template/Layout/examples src/Template/Layout/TwitterBootstrap
+cp -R plugins/BootstrapUI/src/Template/Layout/examples src/Template/Layout/TwitterBootstrap
 ```
 
 You can then simply extend them in your views like so:
@@ -74,6 +76,13 @@ Available types are:
 - blog *coming soon*
 
 **NOTE: Remember to set the stylesheets in the layouts you copy.**
+
+Finally, for those of you who want even more automation, some bake templates have been included. Use them
+like so:
+
+```
+$ bin/cake bake.bake [subcommand] -t BootstrapUI
+```
 
 ## Usage
 
