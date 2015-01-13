@@ -66,7 +66,7 @@ class FormHelperTest extends TestCase
 
         $result = $this->Form->input('title');
         $expected = [
-            'div' => ['class' => 'form-group'],
+            'div' => ['class' => 'form-group has-feedback'],
             'label' => ['class' => 'control-label', 'for' => 'title'],
             'Title',
             '/label',
@@ -88,7 +88,7 @@ class FormHelperTest extends TestCase
 
         $result = $this->Form->input('password');
         $expected = [
-            'div' => ['class' => 'form-group'],
+            'div' => ['class' => 'form-group has-feedback'],
             'label' => ['class' => 'control-label', 'for' => 'password'],
             'Password',
             '/label',
@@ -109,7 +109,7 @@ class FormHelperTest extends TestCase
 
         $result = $this->Form->input('title');
         $expected = [
-            'div' => ['class' => 'form-group'],
+            'div' => ['class' => 'form-group has-feedback'],
             'label' => ['class' => 'control-label', 'for' => 'title'],
             'Title',
             '/label',
@@ -134,7 +134,7 @@ class FormHelperTest extends TestCase
 
         $result = $this->Form->input('title');
         $expected = [
-            'div' => ['class' => 'form-group has-error'],
+            'div' => ['class' => 'form-group has-feedback has-error'],
             'label' => ['class' => 'control-label', 'for' => 'title'],
             'Title',
             '/label',
@@ -159,7 +159,7 @@ class FormHelperTest extends TestCase
 
         $result = $this->Form->input('title', ['prepend' => '@']);
         $expected = [
-            'div' => ['class' => 'form-group'],
+            'div' => ['class' => 'form-group has-feedback'],
             'label' => ['class' => 'control-label', 'for' => 'title'],
             'Title',
             '/label',
@@ -186,7 +186,7 @@ class FormHelperTest extends TestCase
 
         $result = $this->Form->input('title', ['append' => '@']);
         $expected = [
-            'div' => ['class' => 'form-group'],
+            'div' => ['class' => 'form-group has-feedback'],
             'label' => ['class' => 'control-label', 'for' => 'title'],
             'Title',
             '/label',
@@ -213,7 +213,7 @@ class FormHelperTest extends TestCase
 
         $result = $this->Form->input('title', ['prepend' => $this->Form->button('GO')]);
         $expected = [
-            'div' => ['class' => 'form-group'],
+            'div' => ['class' => 'form-group has-feedback'],
             'label' => ['class' => 'control-label', 'for' => 'title'],
             'Title',
             '/label',
@@ -242,7 +242,7 @@ class FormHelperTest extends TestCase
 
         $result = $this->Form->input('title', ['append' => $this->Form->button('GO')]);
         $expected = [
-            'div' => ['class' => 'form-group'],
+            'div' => ['class' => 'form-group has-feedback'],
             'label' => ['class' => 'control-label', 'for' => 'title'],
             'Title',
             '/label',
@@ -271,7 +271,7 @@ class FormHelperTest extends TestCase
 
         $result = $this->Form->input('published');
         $expected = [
-            'div' => ['class' => 'form-group'],
+            'div' => ['class' => 'form-group has-feedback'],
             'input' => [
                 'type' => 'hidden',
                 'name' => 'published',
@@ -383,7 +383,7 @@ class FormHelperTest extends TestCase
 
         $result = $this->Form->input('title');
         $expected = [
-            'div' => ['class' => 'form-group'],
+            'div' => ['class' => 'form-group has-feedback'],
             'label' => [
                 'class' => 'control-label col-md-2',
                 'for' => 'title'
@@ -405,7 +405,7 @@ class FormHelperTest extends TestCase
 
         $result = $this->Form->input('published');
         $expected = [
-            'div' => ['class' => 'form-group'],
+            'div' => ['class' => 'form-group has-feedback'],
             ['div' => ['class' => 'col-md-offset-2 col-md-10']],
             'input' => [
                 'type' => 'hidden',
