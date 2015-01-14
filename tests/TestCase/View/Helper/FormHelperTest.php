@@ -81,6 +81,25 @@ class FormHelperTest extends TestCase
         $this->assertHtml($expected, $result);
     }
 
+    public function testNoLabelTextInput()
+    {
+        unset($this->article['required']['title']);
+        $this->Form->create($this->article);
+
+        $result = $this->Form->input('title', ['label' => false]);
+        $expected = [
+            'div' => ['class' => 'form-group'],
+            'input' => [
+                'type' => 'text',
+                'name' => 'title',
+                'id' => 'title',
+                'class' => 'form-control',
+            ],
+            '/div'
+        ];
+        $this->assertHtml($expected, $result);
+    }
+
     public function testBasicPasswordInput()
     {
         $this->article['schema']['password'] = ['type' => 'string'];

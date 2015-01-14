@@ -124,7 +124,7 @@ class FormHelper extends Helper
                 break;
 
             default:
-                if (strpos($this->templates('label'), 'class=') === false) {
+                if ($options['label'] !== false && strpos($this->templates('label'), 'class=') === false) {
                     $options['label'] = $this->injectClasses('control-label', (array)$options['label']);
                 }
 
