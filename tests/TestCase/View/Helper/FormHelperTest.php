@@ -100,6 +100,50 @@ class FormHelperTest extends TestCase
         $this->assertHtml($expected, $result);
     }
 
+    public function testLabelledTextInput()
+    {
+        unset($this->article['required']['title']);
+        $this->Form->create($this->article);
+
+        $result = $this->Form->input('title', ['label' => 'Custom Title']);
+        $expected = [
+            'div' => ['class' => 'form-group'],
+            'label' => ['class' => 'control-label', 'for' => 'title'],
+            'Custom Title',
+            '/label',
+            'input' => [
+                'type' => 'text',
+                'name' => 'title',
+                'id' => 'title',
+                'class' => 'form-control',
+            ],
+            '/div'
+        ];
+        $this->assertHtml($expected, $result);
+    }
+
+    public function testArrayLabelledTextInput()
+    {
+        unset($this->article['required']['title']);
+        $this->Form->create($this->article);
+
+        $result = $this->Form->input('title', ['label' => ['foo' => 'bar', 'text' => 'Custom Title']]);
+        $expected = [
+            'div' => ['class' => 'form-group'],
+            'label' => ['class' => 'control-label', 'for' => 'title', 'foo' => 'bar'],
+            'Custom Title',
+            '/label',
+            'input' => [
+                'type' => 'text',
+                'name' => 'title',
+                'id' => 'title',
+                'class' => 'form-control',
+            ],
+            '/div'
+        ];
+        $this->assertHtml($expected, $result);
+    }
+
     public function testBasicPasswordInput()
     {
         $this->article['schema']['password'] = ['type' => 'string'];

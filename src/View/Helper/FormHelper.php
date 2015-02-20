@@ -96,7 +96,6 @@ class FormHelper extends Helper
             'templates' => []
         ];
         $options = $this->_parseOptions($fieldName, $options);
-        $options += ['id' => $this->_domId($fieldName)];
         $reset = $this->templates();
 
         switch ($options['type']) {
@@ -175,5 +174,22 @@ class FormHelper extends Helper
     protected function _isButton($html)
     {
         return strpos($html, '<button') !== false || strpos($html, 'type="submit"') !== false;
+    }
+
+    /**
+     * Generates input options array
+     *
+     * @param string $fieldName The name of the field to parse options for.
+     * @param array $options Options list.
+     * @return array Options
+     */
+    protected function _parseOptions($fieldName, $options)
+    {
+        $options = parent::_parseOptions($fieldName, $options);
+        $options += ['id' => $this->_domId($fieldName)];
+        if (is_string($options['label'])) {
+            $options['label'] = ['text' => $options['label']];
+        }
+        return $options;
     }
 }
