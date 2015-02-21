@@ -18,10 +18,6 @@ class FlashComponent extends Component
      */
     public function __call($name, $args)
     {
-        if ($name === 'danger') {
-            $name = 'error';
-        }
-
         if (in_array($name, ['error', 'info', 'success', 'warning'])) {
             $options = ['element' => 'BootstrapUI.' . $name];
         } else {
