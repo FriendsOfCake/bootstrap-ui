@@ -38,7 +38,7 @@ class FlashComponentTest extends TestCase
         $expected = [
             'message' => 'This is a test message',
             'key' => 'flash',
-            'element' => 'BootstrapUI.Flash/danger',
+            'element' => 'BootstrapUI.Flash/error',
             'params' => []
         ];
         $this->assertEquals($expected, $result);

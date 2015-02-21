@@ -18,11 +18,15 @@ class FlashComponent extends Component
      */
     public function __call($name, $args)
     {
-        if ('error' == $name) {
-            $name = 'danger';
+        if ($name === 'danger') {
+            $name = 'error';
         }
 
-        $options = ['element' => 'BootstrapUI.' . Inflector::underscore($name)];
+        if (in_array($name, ['error', 'info', 'success', 'warning'])) {
+            $options = ['element' => 'BootstrapUI.' . $name];
+        } else {
+            $options = ['element' => Inflector::underscore($name)];
+        }
 
         if (count($args) < 1) {
             throw new InternalErrorException('Flash message missing.');
