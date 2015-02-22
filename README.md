@@ -38,7 +38,10 @@ For a complete setup, add the following to your `App\Controller\AppController`:
 
 ```php
 public $components = ['BootstrapUI.Flash'];
-public $helpers = ['BootstrapUI.Form'];
+public $helpers = [
+    'Form' => ['className' => BootstrapUI.Form'],
+    'Flash' => ['className' => 'BootstrapUI.Flash']
+];
 public $layout = 'BootstrapUI.default';
 ```
 
