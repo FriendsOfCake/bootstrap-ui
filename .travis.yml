@@ -5,17 +5,28 @@ php:
   - 5.5
   - 5.6
 
-before_script:
-    - phpenv rehash
+env:
+  global:
+    - DEFAULT=1
+
+matrix:
+  fast_finish: true
+
+  include:
+  - php: 5.4
+    env: PHPCS=1 DEFAULT=0
 
 install:
-    - composer self-update
-    - composer install --dev
-    - composer require cakephp/cakephp-codesniffer:dev-master
+  - composer self-update
+  - composer install --prefer-dist --no-interaction --dev
+
+before_script:
+  - sh -c "if [ '$PHPCS' = '1' ]; then composer require cakephp/cakephp-codesniffer:dev-master; fi"
+  - phpenv rehash
 
 script:
-  - phpunit
-  - ./vendor/bin/phpcs -p --extensions=php --standard=vendor/cakephp/cakephp-codesniffer/CakePHP ./src ./tests
+  - sh -c "if [ '$DEFAULT' = '1' ]; then phpunit --stderr; fi"
+  - sh -c "if [ '$PHPCS' = '1' ]; then ./vendor/bin/phpcs -p --extensions=php --standard=vendor/cakephp/cakephp-codesniffer/CakePHP ./src ./tests; fi"
 
 notifications:
   email: false
