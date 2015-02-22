@@ -37,7 +37,6 @@ You then need to load the plugin. In `boostrap.php`, something like:
 For a complete setup, add the following to your `App\Controller\AppController`:
 
 ```php
-public $components = ['BootstrapUI.Flash'];
 public $helpers = [
     'Form' => ['className' => BootstrapUI.Form'],
     'Flash' => ['className' => 'BootstrapUI.Flash']
