@@ -1,11 +1,13 @@
 <?php
-$class = 'alert';
-if (!empty($params['class'])) {
-    $class .= ' ' . $params['class'];
-} else {
-    $class .= ' alert-info';
+$class = array_unique((array)$params['class']);
+$message = h($message);
+
+if (in_array('alert-dismissible', $class)) {
+    $button = <<<BUTTON
+<button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+BUTTON;
+    $message = $button . $message;
 }
+
+echo $this->Html->div($class, $message, $params['attributes']);
 ?>
-<div class="<?= h($class) ?>">
-    <?= h($message) ?>
-</div>

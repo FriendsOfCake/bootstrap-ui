@@ -12,6 +12,19 @@ class FlashHelper extends Helper
 {
 
     /**
+     * Default config
+     *
+     * - class: List of classes to be applied to the div containing message
+     * - attributes: Additional attributes for the div containing message
+     *
+     * @var array
+     */
+    protected $_defaultConfig = [
+        'class' => ['alert', 'alert-dismissible', 'fade', 'in'],
+        'attributes' => ['role' => 'alert']
+    ];
+
+    /**
      * Similar to the core's FlashHelper used to render the message set in FlashComponent::set().
      *
      * If the flash element configured is one of "default", "error", "info", "success" or "warning"
@@ -37,14 +50,24 @@ class FlashHelper extends Helper
                 $key
             ));
         }
+
         $flash = $options + $flash;
+        $flash['params'] += $this->_config;
         $this->request->session()->delete("Flash.$key");
 
         $element = $flash['element'];
         if (strpos($element, '.') === false &&
-            in_array($element, ['Flash/default', 'Flash/error', 'Flash/info', 'Flash/success', 'Flash/warning'])
+            preg_match('#Flash/(default|success|error|info|warning)$#', $element, $matches)
         ) {
-            $element = 'BootstrapUI.' . $element;
+            $class = $matches[1];
+            if ($class == 'default') {
+                $class = 'info';
+            }
+
+            if (is_array($flash['params']['class'])) {
+                $flash['params']['class'][] = 'alert-' . $class;
+            }
+            $element = 'BootstrapUI.Flash/default';
         }
 
         return $this->_View->element($element, $flash);

@@ -72,15 +72,17 @@ class FlashHelperTest extends TestCase
     public function testRender()
     {
         $result = $this->Flash->render();
-        $this->assertContains('<div class="alert alert-info">', $result);
+        $this->assertContains('<div role="alert" class="alert alert-dismissible fade in alert-info">', $result);
+        $this->assertContains('<button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>', $result);
         $this->assertContains('This is a calling', $result);
 
-        $result = $this->Flash->render('custom1');
-        $this->assertContains('<div class="alert alert-warning">', $result);
+        $result = $this->Flash->render('custom1', ['params' => ['class' => ['alert']]]);
+        $this->assertContains('<div role="alert" class="alert alert-warning">', $result);
+        $this->assertNotContains('<button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>', $result);
         $this->assertContains('This is custom1', $result);
 
         $result = $this->Flash->render('custom2');
-        $this->assertContains('<div class="alert foobar">', $result);
+        $this->assertContains('<div role="alert" class="foobar">', $result);
         $this->assertContains('This is custom2', $result);
     }
 }
