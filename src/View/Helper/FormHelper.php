@@ -29,7 +29,6 @@ class FormHelper extends Helper
 
         $this->_defaultWidgets = array_merge($this->_defaultWidgets, [
             'button' => 'BootstrapUI\View\Widget\ButtonWidget',
-            'textarea' => 'BootstrapUI\View\Widget\TextareaWidget',
         ]);
 
         parent::__construct($View, $config);

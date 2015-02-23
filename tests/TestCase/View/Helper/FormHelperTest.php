@@ -501,14 +501,4 @@ class FormHelperTest extends TestCase
         ];
         $this->assertHtml($expected, $result);
     }
-
-    public function testBasicTextarea()
-    {
-        $result = $this->Form->textarea('body');
-        $expected = [
-            'textarea' => ['name' => 'body', 'rows' => 3],
-            '/textarea'
-        ];
-        $this->assertHtml($expected, $result);
-    }
 }
