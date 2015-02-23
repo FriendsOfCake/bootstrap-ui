@@ -23,8 +23,8 @@ class FormHelper extends Helper
             'error' => '<div class="text-danger">{{content}}</div>',
             'inputContainer' => '<div class="form-group">{{content}}</div>',
             'inputContainerError' => '<div class="form-group has-error">{{content}}{{error}}</div>',
-            'checkboxWrapper' => '<div class="checkbox"><label>{{input}}{{label}}</label></div>',
-            'radioWrapper' => '<div class="radio"><label>{{input}}{{label}}</label></div>',
+            'checkboxWrapper' => '<div class="checkbox"><label>{{label}}</label></div>',
+            'radioWrapper' => '<div class="radio"><label>{{label}}</label></div>',
         ]);
 
         $this->_defaultWidgets = array_merge($this->_defaultWidgets, [
