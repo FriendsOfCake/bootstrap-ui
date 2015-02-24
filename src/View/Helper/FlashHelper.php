@@ -27,7 +27,7 @@ class FlashHelper extends Helper
     /**
      * Similar to the core's FlashHelper used to render the message set in FlashComponent::set().
      *
-     * If the flash element configured is one of "default", "error", "info", "success" or "warning"
+     * If the flash element configured is one of "default", "danger", "info", "success" or "warning"
      * "BootstrapUI." is prepended to the name so that the element is used from this plugin.
      *
      * @param string $key The [Flash.]key you are rendering in the view.
@@ -57,7 +57,7 @@ class FlashHelper extends Helper
 
         $element = $flash['element'];
         if (strpos($element, '.') === false &&
-            preg_match('#Flash/(default|success|error|info|warning)$#', $element, $matches)
+            preg_match('#Flash/(default|success|danger|info|warning)$#', $element, $matches)
         ) {
             $class = $matches[1];
             if ($class == 'default') {
