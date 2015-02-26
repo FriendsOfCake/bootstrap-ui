@@ -60,9 +60,7 @@ class FlashHelper extends Helper
             preg_match('#Flash/(default|success|error|info|warning)$#', $element, $matches)
         ) {
             $class = $matches[1];
-            if ($class == 'default') {
-                $class = 'info';
-            }
+            $class = str_replace(['default', 'error'], ['info', 'danger'], $class);
 
             if (is_array($flash['params']['class'])) {
                 $flash['params']['class'][] = 'alert-' . $class;
