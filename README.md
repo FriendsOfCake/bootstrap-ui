@@ -41,8 +41,8 @@ public $layout = 'BootstrapUI.default';
 
 public function initialize(array $config)
 {
-    $this->loadHelper('Form', ['className' => BootstrapUI.Form']);
-    $this->loadHelper('Flash', ['className' => BootstrapUI.Flash']);
+    $this->loadHelper('Form', ['className' => 'BootstrapUI.Form']);
+    $this->loadHelper('Flash', ['className' => 'BootstrapUI.Flash']);
 }
 ```
 
