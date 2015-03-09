@@ -48,7 +48,7 @@ class FormHelperTest extends TestCase
         ];
 
         Security::salt('foo!');
-        Router::connect('/:controller', array('action' => 'index'));
+        Router::connect('/:controller', ['action' => 'index']);
         Router::connect('/:controller/:action/*');
     }
 
@@ -345,8 +345,7 @@ class FormHelperTest extends TestCase
                 'type' => 'checkbox',
                 'name' => 'published',
                 'id' => 'published',
-                'value' => 1,
-                'class' => 'form-control',
+                'value' => 1
             ]],
             'Published',
             '/label',
@@ -371,8 +370,7 @@ class FormHelperTest extends TestCase
                 'type' => 'checkbox',
                 'name' => 'published',
                 'id' => 'published',
-                'value' => 1,
-                'class' => 'form-control',
+                'value' => 1
             ]],
             'Published',
             '/label'
@@ -470,6 +468,7 @@ class FormHelperTest extends TestCase
         $expected = [
             'div' => ['class' => 'form-group'],
             ['div' => ['class' => 'col-md-offset-2 col-md-10']],
+            ['div' => ['class' => 'checkbox']],
             'input' => [
                 'type' => 'hidden',
                 'name' => 'published',
@@ -481,10 +480,10 @@ class FormHelperTest extends TestCase
                 'name' => 'published',
                 'id' => 'published',
                 'value' => 1,
-                'class' => 'form-control',
             ]],
             'Published',
             '/label',
+            '/div',
             '/div',
             '/div'
         ];
