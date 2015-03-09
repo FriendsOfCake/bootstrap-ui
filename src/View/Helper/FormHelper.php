@@ -67,7 +67,8 @@ class FormHelper extends Helper
             $options['templates'] += [
                 'label' => '<label class="' . $options['horizontal']['left'] . '"{{attrs}}>{{text}}</label>',
                 'formGroup' => '{{label}}<div class="' . $options['horizontal']['right'] . '">{{input}}</div>',
-                'checkboxFormGroup' => '<div class="' . $options['horizontal']['combined'] . '"><div class="checkbox">{{label}}</div></div>',
+                'checkboxFormGroup' => '<div class="' . $options['horizontal']['combined'] . '">
+                <div class="checkbox">{{label}}</div></div>',
             ];
         }
 
