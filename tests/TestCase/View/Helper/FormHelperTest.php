@@ -48,7 +48,7 @@ class FormHelperTest extends TestCase
         ];
 
         Security::salt('foo!');
-        Router::connect('/:controller', array('action' => 'index'));
+        Router::connect('/:controller', ['action' => 'index']);
         Router::connect('/:controller/:action/*');
     }
 
@@ -89,6 +89,50 @@ class FormHelperTest extends TestCase
         $result = $this->Form->input('title', ['label' => false]);
         $expected = [
             'div' => ['class' => 'form-group'],
+            'input' => [
+                'type' => 'text',
+                'name' => 'title',
+                'id' => 'title',
+                'class' => 'form-control',
+            ],
+            '/div'
+        ];
+        $this->assertHtml($expected, $result);
+    }
+
+    public function testLabelledTextInput()
+    {
+        unset($this->article['required']['title']);
+        $this->Form->create($this->article);
+
+        $result = $this->Form->input('title', ['label' => 'Custom Title']);
+        $expected = [
+            'div' => ['class' => 'form-group'],
+            'label' => ['class' => 'control-label', 'for' => 'title'],
+            'Custom Title',
+            '/label',
+            'input' => [
+                'type' => 'text',
+                'name' => 'title',
+                'id' => 'title',
+                'class' => 'form-control',
+            ],
+            '/div'
+        ];
+        $this->assertHtml($expected, $result);
+    }
+
+    public function testArrayLabelledTextInput()
+    {
+        unset($this->article['required']['title']);
+        $this->Form->create($this->article);
+
+        $result = $this->Form->input('title', ['label' => ['foo' => 'bar', 'text' => 'Custom Title']]);
+        $expected = [
+            'div' => ['class' => 'form-group'],
+            'label' => ['class' => 'control-label', 'for' => 'title', 'foo' => 'bar'],
+            'Custom Title',
+            '/label',
             'input' => [
                 'type' => 'text',
                 'name' => 'title',
@@ -301,8 +345,7 @@ class FormHelperTest extends TestCase
                 'type' => 'checkbox',
                 'name' => 'published',
                 'id' => 'published',
-                'value' => 1,
-                'class' => 'form-control',
+                'value' => 1
             ]],
             'Published',
             '/label',
@@ -327,8 +370,7 @@ class FormHelperTest extends TestCase
                 'type' => 'checkbox',
                 'name' => 'published',
                 'id' => 'published',
-                'value' => 1,
-                'class' => 'form-control',
+                'value' => 1
             ]],
             'Published',
             '/label'
@@ -426,6 +468,7 @@ class FormHelperTest extends TestCase
         $expected = [
             'div' => ['class' => 'form-group'],
             ['div' => ['class' => 'col-md-offset-2 col-md-10']],
+            ['div' => ['class' => 'checkbox']],
             'input' => [
                 'type' => 'hidden',
                 'name' => 'published',
@@ -437,10 +480,10 @@ class FormHelperTest extends TestCase
                 'name' => 'published',
                 'id' => 'published',
                 'value' => 1,
-                'class' => 'form-control',
             ]],
             'Published',
             '/label',
+            '/div',
             '/div',
             '/div'
         ];
@@ -458,12 +501,54 @@ class FormHelperTest extends TestCase
         $this->assertHtml($expected, $result);
     }
 
-    public function testBasicTextarea()
+    public function testMultipleCheckboxInput()
     {
-        $result = $this->Form->textarea('body');
+        $this->Form->create($this->article);
+
+        $result = $this->Form->input('users', [
+            'multiple' => 'checkbox',
+            'options' => [
+                1 => 'User 1',
+                2 => 'User 2'
+            ]
+        ]);
         $expected = [
-            'textarea' => ['name' => 'body', 'rows' => 3],
-            '/textarea'
+            ['div' => ['class' => 'form-group']],
+            ['label' => []],
+            'Users',
+            '/label',
+            'input' => [
+                'type' => 'hidden',
+                'name' => 'users',
+                'value' => '',
+            ],
+            ['div' => ['class' => 'checkbox']],
+            ['label' => ['for' => 'users-1']],
+            [
+                'input' => [
+                    'type' => 'checkbox',
+                    'name' => 'users[]',
+                    'id' => 'users-1',
+                    'value' => 1,
+                ]
+            ],
+            'User 1',
+            '/label',
+            '/div',
+            ['div' => ['class' => 'checkbox']],
+            ['label' => ['for' => 'users-2']],
+            [
+                'input' => [
+                    'type' => 'checkbox',
+                    'name' => 'users[]',
+                    'id' => 'users-2',
+                    'value' => 2,
+                ]
+            ],
+            'User 2',
+            '/label',
+            '/div',
+            '/div'
         ];
         $this->assertHtml($expected, $result);
     }

@@ -29,7 +29,6 @@ class FormHelper extends Helper
 
         $this->_defaultWidgets = array_merge($this->_defaultWidgets, [
             'button' => 'BootstrapUI\View\Widget\ButtonWidget',
-            'textarea' => 'BootstrapUI\View\Widget\TextareaWidget',
         ]);
 
         parent::__construct($View, $config);
@@ -68,7 +67,8 @@ class FormHelper extends Helper
             $options['templates'] += [
                 'label' => '<label class="' . $options['horizontal']['left'] . '"{{attrs}}>{{text}}</label>',
                 'formGroup' => '{{label}}<div class="' . $options['horizontal']['right'] . '">{{input}}</div>',
-                'checkboxFormGroup' => '<div class="' . $options['horizontal']['combined'] . '">{{label}}</div>',
+                'checkboxFormGroup' => '<div class="' . $options['horizontal']['combined'] . '">' .
+                                        '<div class="checkbox">{{label}}</div></div>',
             ];
         }
 
@@ -96,7 +96,6 @@ class FormHelper extends Helper
             'templates' => []
         ];
         $options = $this->_parseOptions($fieldName, $options);
-        $options += ['id' => $this->_domId($fieldName)];
         $reset = $this->templates();
 
         switch ($options['type']) {
@@ -119,10 +118,14 @@ class FormHelper extends Helper
                 break;
 
             case 'select':
+                if (isset($options['multiple']) && $options['multiple'] === 'checkbox') {
+                    $this->templates(['checkboxWrapper' => '<div class="checkbox">{{label}}</div>']);
+                    $options['type'] = 'multicheckbox';
+                }
+                break;
             case 'multiselect':
             case 'textarea':
                 break;
-
             default:
                 if ($options['label'] !== false && strpos($this->templates('label'), 'class=') === false) {
                     $options['label'] = $this->injectClasses('control-label', (array)$options['label']);
@@ -160,8 +163,12 @@ class FormHelper extends Helper
                 $this->templates(compact('input'));
         }
 
+        if (!in_array($options['type'], ['checkbox', 'radio'])) {
+            $options = $this->injectClasses('form-control', $options);
+        }
+
         unset($options['prepend'], $options['append']);
-        $result = parent::input($fieldName, $this->injectClasses('form-control', $options));
+        $result = parent::input($fieldName, $options);
         $this->templates($reset);
         return $result;
     }
@@ -175,5 +182,22 @@ class FormHelper extends Helper
     protected function _isButton($html)
     {
         return strpos($html, '<button') !== false || strpos($html, 'type="submit"') !== false;
+    }
+
+    /**
+     * Generates input options array
+     *
+     * @param string $fieldName The name of the field to parse options for.
+     * @param array $options Options list.
+     * @return array Options
+     */
+    protected function _parseOptions($fieldName, $options)
+    {
+        $options = parent::_parseOptions($fieldName, $options);
+        $options += ['id' => $this->_domId($fieldName)];
+        if (is_string($options['label'])) {
+            $options['label'] = ['text' => $options['label']];
+        }
+        return $options;
     }
 }

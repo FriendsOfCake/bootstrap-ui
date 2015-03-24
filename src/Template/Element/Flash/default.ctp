@@ -1,6 +1,13 @@
 <?php
-$type = strtolower(str_replace([dirname(__FILE__) . DS, '.ctp'], ['', ''], $this->_current));
+$class = array_unique((array)$params['class']);
+$message = h($message);
+
+if (in_array('alert-dismissible', $class)) {
+    $button = <<<BUTTON
+<button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+BUTTON;
+    $message = $button . $message;
+}
+
+echo $this->Html->div($class, $message, $params['attributes']);
 ?>
-<div class="alert alert-<?= $type ?>">
-    <?= h($message) ?>
-</div>

@@ -13,7 +13,7 @@ Transparently use [Twitter Bootstrap 3][twbs3] with [CakePHP 3][cakephp].
 
 ## What's included?
 
-- FlashComponent + view elements (types: error/danger, info, success, warning)
+- FlashComponent + elements (types: error, info, success, warning)
 - FormHelper (types: vertical, inline, horizontal | inputs: text, textarea, select, checkbox, radio)
 - Widgets (button, textarea)
 - Sample layouts (cover, signin, dashboard)
@@ -28,23 +28,22 @@ Using [Composer][composer]:
 composer require friendsofcake/bootstrap-ui:dev-master
 ```
 
-Because this plugin has the type `cakephp-plugin` set in its own `composer.json`,
-[Composer][composer] will install it inside your /plugins directory, rather than
-in your `vendor-dir`. It is recommended that you add /plugins to your `.gitignore`
-file and here's [why][composer:ignore].
-
 You then need to load the plugin. In `boostrap.php`, something like:
 
 ```php
 \Cake\Core\Plugin::load('BootstrapUI');
 ```
 
-For a complete setup, add the following to your `App\Controller\AppController`:
+For a complete setup, add the following to your `App\View\AppView`:
 
 ```php
-public $components = ['BootstrapUI.Flash'];
-public $helpers = ['BootstrapUI.Form'];
 public $layout = 'BootstrapUI.default';
+
+public function initialize(array $config)
+{
+    $this->loadHelper('Form', ['className' => 'BootstrapUI.Form']);
+    $this->loadHelper('Flash', ['className' => 'BootstrapUI.Flash']);
+}
 ```
 
 If you wish to use your own layout template, just make sure to include:
