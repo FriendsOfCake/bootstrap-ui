@@ -334,7 +334,7 @@ class FormHelperTest extends TestCase
 
         $result = $this->Form->input('published');
         $expected = [
-            'div' => ['class' => 'form-group'],
+            'div' => ['class' => 'checkbox'],
             'input' => [
                 'type' => 'hidden',
                 'name' => 'published',
@@ -466,7 +466,7 @@ class FormHelperTest extends TestCase
 
         $result = $this->Form->input('published');
         $expected = [
-            'div' => ['class' => 'form-group'],
+            'div' => ['class' => 'checkbox'],
             ['div' => ['class' => 'col-md-offset-2 col-md-10']],
             ['div' => ['class' => 'checkbox']],
             'input' => [
