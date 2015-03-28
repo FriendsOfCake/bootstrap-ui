@@ -64,9 +64,9 @@ class FormHelper extends Helper
             $options = $this->injectClasses('form-horizontal', $options);
             $options['horizontal'] = (array)$options['horizontal'];
             $options['horizontal'] += [
-                'left' => 'col-md-2',
-                'right' => 'col-md-10',
-                'combined' => 'col-md-offset-2 col-md-10'
+                'left' => 'col-md-4 col-sm-2',
+                'right' => 'col-md-8 col-sm-10',
+                'combined' => 'col-md-offset-4 col-md-8 col-sm-offset-2 col-sm-10'
             ];
 
             if (strpos($options['horizontal']['left'], 'control-label') === false) {
