@@ -100,10 +100,6 @@ class FormHelper extends Helper
 
         switch ($options['type']) {
             case 'checkbox':
-                $this->templates([
-                    'inputContainer' => '<div class="checkbox">{{content}}</div>',
-                    'inputContainerError' => '<div class="has-error"><div class="checkbox">{{content}}{{error}}</div></div>'
-                ]);
             case 'radio':
                 $this->templates(['label' => '{{text}}']);
 
