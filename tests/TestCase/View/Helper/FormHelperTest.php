@@ -208,9 +208,9 @@ class FormHelperTest extends TestCase
                 'class' => 'form-control ',
                 'required' => 'required'
             ],
-            ['div' => ['class' => 'text-danger']],
+            ['p' => ['class' => 'help-block']],
             'error message',
-            '/div',
+            '/p',
             '/div'
         ];
         $this->assertHtml($expected, $result);
