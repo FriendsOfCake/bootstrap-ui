@@ -11,6 +11,13 @@ class FormHelper extends Helper
     use OptionsAwareTrait;
 
     /**
+     * Set on `Form::create()` to tell if the type of alignement used (i.e. horinzatal).
+     *
+     * @var string
+     */
+    protected $_align;
+
+    /**
      * Construct the widgets and binds the default context providers.
      *
      * @param \Cake\View\View $View The View this helper is being attached to.
@@ -52,6 +59,7 @@ class FormHelper extends Helper
         ];
 
         if (!empty($options['horizontal'])) {
+            $this->_align = 'horizontal';
             $options = $this->injectClasses('form-horizontal', $options);
             $options['horizontal'] = (array)$options['horizontal'];
             $options['horizontal'] += [
@@ -106,6 +114,13 @@ class FormHelper extends Helper
                 if (!isset($options['inline'])) {
                     $options['inline'] = $this->checkClasses('checkbox-inline', (array)$options['label'])
                         || $this->checkClasses('radio-inline', (array)$options['label']);
+
+                    if (!$this->_align) {
+                        $this->templates([
+                            'checkboxContainer' => '<div class="checkbox">{{content}}</div>',
+                            'checkboxContainerError' => '<div class="checkbox has-error">{{content}}</div>',
+                        ]);
+                    }
                 }
 
                 if ($options['inline']) {
@@ -171,6 +186,20 @@ class FormHelper extends Helper
         $result = parent::input($fieldName, $options);
         $this->templates($reset);
         return $result;
+    }
+
+    /**
+     * Closes an HTML form, cleans up values set by FormHelper::create(), and writes hidden
+     * input fields where appropriate.
+     *
+     * @param array $secureAttributes Secure attibutes which will be passed as HTML attributes
+     *   into the hidden input elements generated for the Security Component.
+     * @return string A closing FORM tag.
+     */
+    public function end(array $secureAttributes = [])
+    {
+        $this->_align = null;
+        return parent::end($secureAttributes);
     }
 
     /**
