@@ -114,6 +114,13 @@ class FormHelper extends Helper
                 if (!isset($options['inline'])) {
                     $options['inline'] = $this->checkClasses('checkbox-inline', (array)$options['label'])
                         || $this->checkClasses('radio-inline', (array)$options['label']);
+
+                    if (!$this->_align) {
+                        $this->templates([
+                            'checkboxContainer' => '<div class="checkbox">{{content}}</div>',
+                            'checkboxContainerError' => '<div class="checkbox has-error">{{content}}</div>',
+                        ]);
+                    }
                 }
 
                 if ($options['inline']) {
