@@ -570,9 +570,9 @@ class FormHelperTest extends TestCase
                 'class' => 'form-control',
                 'required' => 'required'
             ],
-            ['div' => ['class' => 'help-block']],
+            'p' => ['class' => 'help-block'],
             'help text',
-            '/div',
+            '/p',
             '/div'
         ];
         $this->assertHtml($expected, $result);
@@ -594,9 +594,9 @@ class FormHelperTest extends TestCase
             ]],
             'Published',
             '/label',
-            ['div' => ['class' => 'help-block']],
+            'p' => ['class' => 'help-block'],
             'help text',
-            '/div',
+            '/p',
             '/div'
         ];
         $this->assertHtml($expected, $result);
@@ -622,9 +622,9 @@ class FormHelperTest extends TestCase
             ['div' => ['class' => 'text-danger']],
             'error message',
             '/div',
-            ['div' => ['class' => 'help-block']],
+            'p' => ['class' => 'help-block'],
             'help text',
-            '/div',
+            '/p',
             '/div'
         ];
         $this->assertHtml($expected, $result);
