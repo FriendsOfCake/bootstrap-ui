@@ -4,4 +4,10 @@
     width: auto;
     display: inline-block;
     margin-right: 6px;
+    margin-bottom: 2px;
+}
+
+.form-horizontal .checkbox, .form-horizontal .checkbox-inline, .form-horizontal .radio, .form-horizontal .radio-inline {
+    padding-top: 0px;
+    margin-bottom: 4px;
 }
