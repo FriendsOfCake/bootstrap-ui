@@ -27,7 +27,7 @@ class FormHelper extends Helper
     {
         $this->_defaultConfig['errorClass'] = null;
         $this->_defaultConfig['templates'] = array_merge($this->_defaultConfig['templates'], [
-            'error' => '<div class="text-danger">{{content}}</div>',
+            'error' => '<p class="help-block">{{content}}</p>',
             'help' => '<p class="help-block">{{content}}</p>',
             'inputContainer' => '<div class="form-group{{required}}">{{content}}{{help}}</div>',
             'inputContainerError' => '<div class="form-group{{required}} has-error">{{content}}{{error}}{{help}}</div>',
