@@ -1,0 +1,7 @@
+.form-group.date .form-control,
+.form-group.time .form-control,
+.form-group.datetime .form-control {
+    width: auto;
+    display: inline-block;
+    margin-right: 6px;
+}
