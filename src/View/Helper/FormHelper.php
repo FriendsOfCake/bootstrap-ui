@@ -28,8 +28,9 @@ class FormHelper extends Helper
         $this->_defaultConfig['errorClass'] = null;
         $this->_defaultConfig['templates'] = array_merge($this->_defaultConfig['templates'], [
             'error' => '<div class="text-danger">{{content}}</div>',
-            'inputContainer' => '<div class="form-group{{required}}">{{content}}</div>',
-            'inputContainerError' => '<div class="form-group{{required}} has-error">{{content}}{{error}}</div>',
+            'help' => '<div class="help-block">{{content}}</div>',
+            'inputContainer' => '<div class="form-group{{required}}">{{content}}{{help}}</div>',
+            'inputContainerError' => '<div class="form-group{{required}} has-error">{{content}}{{error}}{{help}}</div>',
             'checkboxWrapper' => '<div class="checkbox"><label>{{input}}{{label}}</label></div>',
             'radioWrapper' => '<div class="radio"><label>{{input}}{{label}}</label></div>',
         ]);
@@ -87,6 +88,9 @@ class FormHelper extends Helper
     /**
      * Generates a form input element complete with label and wrapper div.
      *
+     * Adds extra option besides the ones supported by parent class method:
+     * - `help` - Help text of include in the input container.
+     *
      * @param string $fieldName This should be "Modelname.fieldname".
      * @param array $options Each type of input takes different options.
      * @return string Completed form widget.
@@ -101,6 +105,7 @@ class FormHelper extends Helper
             'error' => null,
             'required' => null,
             'options' => null,
+            'help' => null,
             'templates' => []
         ];
         $options = $this->_parseOptions($fieldName, $options);
@@ -200,6 +205,48 @@ class FormHelper extends Helper
     {
         $this->_align = null;
         return parent::end($secureAttributes);
+    }
+
+    /**
+     * Generates an input element.
+     *
+     * Overrides parent method to unset 'help' key.
+     *
+     * @param string $fieldName the field name
+     * @param array $options The options for the input element
+     * @return string The generated input element
+     */
+    protected function _getInput($fieldName, $options)
+    {
+        unset($options['help']);
+        return parent::_getInput($fieldName, $options);
+    }
+
+    /**
+     * Generates an input container template
+     *
+     * @param array $options The options for input container template
+     * @return string The generated input container template
+     */
+    protected function _inputContainerTemplate($options)
+    {
+        $inputContainerTemplate = $options['options']['type'] . 'Container' . $options['errorSuffix'];
+        if (!$this->templater()->get($inputContainerTemplate)) {
+            $inputContainerTemplate = 'inputContainer' . $options['errorSuffix'];
+        }
+
+        $help = '';
+        if ($options['options']['help']) {
+            $help = $this->templater()->format('help', ['content' => $options['options']['help']]);
+        }
+
+        return $this->templater()->format($inputContainerTemplate, [
+            'content' => $options['content'],
+            'error' => $options['error'],
+            'required' => $options['options']['required'] ? ' required' : '',
+            'type' => $options['options']['type'],
+            'help' => $help
+        ]);
     }
 
     /**
