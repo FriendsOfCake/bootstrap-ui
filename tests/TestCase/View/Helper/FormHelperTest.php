@@ -552,4 +552,81 @@ class FormHelperTest extends TestCase
         ];
         $this->assertHtml($expected, $result);
     }
+
+    public function testHelpText()
+    {
+        $this->Form->create($this->article);
+
+        $result = $this->Form->input('title', ['help' => 'help text']);
+        $expected = [
+            'div' => ['class' => 'form-group required'],
+            'label' => ['class' => 'control-label', 'for' => 'title'],
+            'Title',
+            '/label',
+            'input' => [
+                'type' => 'text',
+                'name' => 'title',
+                'id' => 'title',
+                'class' => 'form-control',
+                'required' => 'required'
+            ],
+            'p' => ['class' => 'help-block'],
+            'help text',
+            '/p',
+            '/div'
+        ];
+        $this->assertHtml($expected, $result);
+
+        $result = $this->Form->input('published', ['help' => 'help text']);
+        $expected = [
+            'div' => ['class' => 'checkbox'],
+            'input' => [
+                'type' => 'hidden',
+                'name' => 'published',
+                'value' => 0,
+            ],
+            'label' => ['for' => 'published'],
+            ['input' => [
+                'type' => 'checkbox',
+                'name' => 'published',
+                'id' => 'published',
+                'value' => 1
+            ]],
+            'Published',
+            '/label',
+            'p' => ['class' => 'help-block'],
+            'help text',
+            '/p',
+            '/div'
+        ];
+        $this->assertHtml($expected, $result);
+
+        $this->article['errors'] = [
+            'title' => ['error message']
+        ];
+        $this->Form->create($this->article);
+
+        $result = $this->Form->input('title', ['help' => 'help text']);
+        $expected = [
+            'div' => ['class' => 'form-group required has-error'],
+            'label' => ['class' => 'control-label', 'for' => 'title'],
+            'Title',
+            '/label',
+            'input' => [
+                'type' => 'text',
+                'name' => 'title',
+                'id' => 'title',
+                'class' => 'form-control ',
+                'required' => 'required'
+            ],
+            ['div' => ['class' => 'text-danger']],
+            'error message',
+            '/div',
+            'p' => ['class' => 'help-block'],
+            'help text',
+            '/p',
+            '/div'
+        ];
+        $this->assertHtml($expected, $result);
+    }
 }
