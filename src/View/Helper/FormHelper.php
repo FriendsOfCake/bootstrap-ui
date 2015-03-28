@@ -35,9 +35,10 @@ class FormHelper extends Helper
             'radioWrapper' => '<div class="radio"><label>{{input}}{{label}}</label></div>',
         ] + $this->_defaultConfig['templates'];
 
-        $this->_defaultWidgets = [
-            'button' => 'BootstrapUI\View\Widget\ButtonWidget'
-        ] + $this->_defaultWidgets;
+        $this->_defaultWidgets = array_merge($this->_defaultWidgets, [
+            'button' => 'BootstrapUI\View\Widget\ButtonWidget',
+            '_default' => 'BootstrapUI\View\Widget\BasicWidget',
+        ]);
 
         parent::__construct($View, $config);
     }
@@ -150,44 +151,12 @@ class FormHelper extends Helper
                 if ($options['label'] !== false && strpos($this->templates('label'), 'class=') === false) {
                     $options['label'] = $this->injectClasses('control-label', (array)$options['label']);
                 }
-
-                $prepend = $options['prepend'];
-                $append = $options['append'];
-
-                if (empty($prepend) && empty($append)) {
-                    break;
-                }
-
-                $input = $reset['input'];
-
-                if ($prepend) {
-                    if (is_string($prepend)) {
-                        $class = 'input-group-' . ($this->_isButton($prepend) ? 'btn' : 'addon');
-                        $input = $this->Html->tag('span', $prepend, compact('class')) . $input;
-                    } else {
-                        $class = 'input-group-btn';
-                        $input = $this->Html->tag('span', implode('', $prepend), compact('class')) . $input;
-                    }
-                }
-                if ($append) {
-                    if (is_string($append)) {
-                        $class = 'input-group-' . ($this->_isButton($append) ? 'btn' : 'addon');
-                        $input .= $this->Html->tag('span', $append, compact('class'));
-                    } else {
-                        $class = 'input-group-btn';
-                        $input .= $this->Html->tag('span', implode('', $append), compact('class'));
-                    }
-                }
-
-                $input = $this->Html->div('input-group', $input, ['escape' => false]);
-                $this->templates(compact('input'));
         }
 
         if (!in_array($options['type'], ['checkbox', 'radio'])) {
             $options = $this->injectClasses('form-control', $options);
         }
 
-        unset($options['prepend'], $options['append']);
         $result = parent::input($fieldName, $options);
         $this->templates($reset);
         return $result;
@@ -247,17 +216,6 @@ class FormHelper extends Helper
             'type' => $options['options']['type'],
             'help' => $help
         ]);
-    }
-
-    /**
-     * Checks if a given HTML string is a `<button>` or `<input type=submit>`.
-     *
-     * @param string $html HTML string.
-     * @return bool True if it's some sort of button.
-     */
-    protected function _isButton($html)
-    {
-        return strpos($html, '<button') !== false || strpos($html, 'type="submit"') !== false;
     }
 
     /**
