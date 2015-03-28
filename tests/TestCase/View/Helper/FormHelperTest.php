@@ -579,7 +579,7 @@ class FormHelperTest extends TestCase
 
         $result = $this->Form->input('published', ['help' => 'help text']);
         $expected = [
-            'div' => ['class' => 'form-group'],
+            'div' => ['class' => 'checkbox'],
             'input' => [
                 'type' => 'hidden',
                 'name' => 'published',

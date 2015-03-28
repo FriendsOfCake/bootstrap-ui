@@ -122,8 +122,8 @@ class FormHelper extends Helper
 
                     if (!$this->_align) {
                         $this->templates([
-                            'checkboxContainer' => '<div class="checkbox">{{content}}</div>',
-                            'checkboxContainerError' => '<div class="checkbox has-error">{{content}}</div>',
+                            'checkboxContainer' => '<div class="checkbox">{{content}}{{help}}</div>',
+                            'checkboxContainerError' => '<div class="checkbox has-error">{{content}}{{error}}{{help}}</div>',
                         ]);
                     }
                 }
