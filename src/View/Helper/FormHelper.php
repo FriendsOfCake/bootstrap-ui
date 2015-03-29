@@ -236,7 +236,7 @@ class FormHelper extends Helper
     /**
      * Form alignement detector/switcher.
      *
-     * @param  array $options Options.
+     * @param array $options Options.
      * @return array Modified options.
      */
     protected function _formAlignement($options)
@@ -253,7 +253,7 @@ class FormHelper extends Helper
         }
 
         if (!in_array($options['align'], ['default', 'horizontal', 'inline'])) {
-            throw new InvalidArgumentException();
+            throw new InvalidArgumentException('Invalid `align` option value.');
         }
 
          $this->_align = $options['align'];
@@ -313,7 +313,7 @@ class FormHelper extends Helper
      * Returns a Bootstrap grid class (i.e. `col-md-2`).
      *
      * @param string $position One of `left`, `middle` or `right`.
-     * @param  bool $offset If true, will append `offset-` to the class.
+     * @param bool $offset If true, will append `offset-` to the class.
      * @return string Classes.
      */
     protected function _gridClass($position, $offset = false)

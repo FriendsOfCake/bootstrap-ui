@@ -24,7 +24,7 @@ class PaginatorHelper extends \Cake\View\Helper\PaginatorHelper
             'current' => '<li class="active">{{text}} <span class="sr-only">(current)</span></li>',
         ] + $this->_defaultConfig['templates'];
 
-        parent::__construct($view, $config);
+        parent::__construct($View, $config);
     }
 
     /**
