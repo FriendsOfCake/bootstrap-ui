@@ -423,7 +423,7 @@ class FormHelperTest extends TestCase
 
     public function testHorizontalFormCreate()
     {
-        $result = $this->Form->create($this->article, ['horizontal' => true]);
+        $result = $this->Form->create($this->article, ['align' => 'horizontal']);
         $expected = [
             'form' => [
                 'method' => 'post',

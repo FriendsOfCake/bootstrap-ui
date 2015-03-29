@@ -85,6 +85,7 @@ class FormHelper extends Helper
             }
             $options['align'] = $options['horizontal'];
             unset($options['horizontal']);
+            trigger_error('The `horizontal` option is deprecated. Use `align` instead.');
         }
 
         $options += [
