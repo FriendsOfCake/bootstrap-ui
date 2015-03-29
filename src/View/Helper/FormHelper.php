@@ -162,6 +162,8 @@ class FormHelper extends Helper
      * Closes an HTML form, cleans up values set by FormHelper::create(), and writes hidden
      * input fields where appropriate.
      *
+     * Overrides parent method to reset the form alignement and grid size.
+     * 
      * @param array $secureAttributes Secure attibutes which will be passed as HTML attributes
      *   into the hidden input elements generated for the Security Component.
      * @return string A closing FORM tag.
