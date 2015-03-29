@@ -1,8 +1,6 @@
 <?php
 namespace BootstrapUI\View\Helper;
 
-use Cake\View\View;
-
 class HtmlHelper extends \Cake\View\Helper\HtmlHelper
 {
     use OptionsAwareTrait;
@@ -20,6 +18,17 @@ class HtmlHelper extends \Cake\View\Helper\HtmlHelper
         $tag = $options['tag'];
         unset($options['tag']);
         return $this->tag($tag, $text, $this->injectClasses('badge', $options));
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function getCrumbList(array $options = [], $startText = false)
+    {
+        $options += [
+            'separator' => '',
+        ];
+        return parent::getCrumbList($this->injectClasses('breadcrumb', $options), $startText);
     }
 
     /**
