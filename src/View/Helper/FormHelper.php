@@ -37,6 +37,7 @@ class FormHelper extends Helper
 
         $this->_defaultWidgets = array_merge($this->_defaultWidgets, [
             'button' => 'BootstrapUI\View\Widget\ButtonWidget',
+			'select' => 'BootstrapUI\View\Widget\SelectBoxWidget'
         ]);
 
         parent::__construct($View, $config);
