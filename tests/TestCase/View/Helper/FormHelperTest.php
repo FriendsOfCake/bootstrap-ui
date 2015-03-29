@@ -490,6 +490,76 @@ class FormHelperTest extends TestCase
         $this->assertHtml($expected, $result);
     }
 
+    public function testHorizontalFormCreateFromConfig()
+    {
+        $this->Form->config(['align' => 'horizontal']);
+        $result = $this->Form->create($this->article);
+        $expected = [
+            'form' => [
+                'method' => 'post',
+                'accept-charset' => 'utf-8',
+                'role' => 'form',
+                'action' => '/articles/add',
+                'class' => 'form-horizontal',
+            ],
+            'div' => ['style' => 'display:none;'],
+            'input' => [
+                'type' => 'hidden',
+                'name' => '_method',
+                'value' => 'POST'
+            ],
+            '/div'
+        ];
+        $this->assertHtml($expected, $result);
+
+        $result = $this->Form->input('title');
+        $expected = [
+            'div' => ['class' => 'form-group required'],
+            'label' => [
+                'class' => 'control-label col-md-2',
+                'for' => 'title'
+            ],
+            'Title',
+            '/label',
+            ['div' => ['class' => 'col-md-6']],
+            'input' => [
+                'type' => 'text',
+                'name' => 'title',
+                'id' => 'title',
+                'class' => 'form-control',
+                'required' => 'required',
+            ],
+            '/div',
+            '/div'
+        ];
+        $this->assertHtml($expected, $result);
+
+        $result = $this->Form->input('published');
+        $expected = [
+            'div' => ['class' => 'form-group'],
+            ['div' => ['class' => 'col-md-offset-2 col-md-6']],
+            ['div' => ['class' => 'checkbox']],
+            'input' => [
+                'type' => 'hidden',
+                'name' => 'published',
+                'value' => 0,
+            ],
+            'label' => ['for' => 'published'],
+            ['input' => [
+                'type' => 'checkbox',
+                'name' => 'published',
+                'id' => 'published',
+                'value' => 1,
+            ]],
+            'Published',
+            '/label',
+            '/div',
+            '/div',
+            '/div'
+        ];
+        $this->assertHtml($expected, $result);
+    }
+
     public function testBasicButton()
     {
         $result = $this->Form->button('Submit');

@@ -53,6 +53,7 @@ class FormHelper extends Helper
     public function __construct(View $View, array $config = [])
     {
         $this->_defaultConfig = [
+            'align' => 'default',
             'errorClass' => null,
             'grid' => [
                 'left' => 2,
@@ -350,6 +351,6 @@ class FormHelper extends Helper
             }
         }
 
-        return 'default';
+        return $this->config('align');
     }
 }
