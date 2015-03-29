@@ -4,6 +4,7 @@ namespace BootstrapUI\View\Helper;
 
 use Cake\View\Helper\FormHelper as Helper;
 use Cake\View\View;
+use InvalidArgumentException;
 
 class FormHelper extends Helper
 {
@@ -53,6 +54,11 @@ class FormHelper extends Helper
     {
         $this->_defaultConfig = [
             'errorClass' => null,
+            'grid' => [
+                'left' => 2,
+                'middle' => 6,
+                'right' => 4
+            ],
             'templates' => array_merge($this->_defaultConfig['templates'], $this->_templates),
         ] + $this->_defaultConfig;
 
@@ -72,36 +78,22 @@ class FormHelper extends Helper
      */
     public function create($model = null, array $options = [])
     {
+        if (isset($options['horizontal'])) {
+            if ($options['horizontal'] === true) {
+                $options['horizontal'] = 'horizontal';
+            }
+            $options['align'] = $options['horizontal'];
+            unset($options['horizontal']);
+        }
+
         $options += [
+            'class' => null,
             'role' => 'form',
-            'horizontal' => $this->checkClasses('form-horizontal', $options),
+            'align' => null,
             'templates' => [],
         ];
 
-        if (!empty($options['horizontal'])) {
-            $this->_align = 'horizontal';
-            $options = $this->injectClasses('form-horizontal', $options);
-            $options['horizontal'] = (array)$options['horizontal'];
-            $options['horizontal'] += [
-                'left' => 'col-md-2',
-                'right' => 'col-md-10',
-                'combined' => 'col-md-offset-2 col-md-10'
-            ];
-
-            if (strpos($options['horizontal']['left'], 'control-label') === false) {
-                $options['horizontal']['left'] = 'control-label ' . $options['horizontal']['left'];
-            }
-
-            $options['templates'] += [
-                'label' => '<label class="' . $options['horizontal']['left'] . '"{{attrs}}>{{text}}</label>',
-                'formGroup' => '{{label}}<div class="' . $options['horizontal']['right'] . '">{{input}}</div>',
-                'checkboxFormGroup' => '<div class="' . $options['horizontal']['combined'] . '">' .
-                                        '<div class="checkbox">{{label}}</div></div>',
-            ];
-        }
-
-        unset($options['horizontal']);
-        return parent::create($model, $options);
+        return parent::create($model, $this->_formAlignement($options));
     }
 
     /**
@@ -133,29 +125,15 @@ class FormHelper extends Helper
         switch ($options['type']) {
             case 'checkbox':
             case 'radio':
-                $this->templates(['label' => '{{text}}']);
-
                 if (!isset($options['inline'])) {
-                    $options['inline'] = $this->checkClasses('checkbox-inline', (array)$options['label'])
-                        || $this->checkClasses('radio-inline', (array)$options['label']);
-
-                    if (!$this->_align) {
-                        $this->templates([
-                            'checkboxContainer' => '<div class="checkbox">{{content}}{{help}}</div>',
-                            'checkboxContainerError' => '<div class="checkbox has-error">{{content}}{{error}}{{help}}</div>',
-                        ]);
-                    }
+                    $options['inline'] = $this->checkClasses($options['type'] . '-inline', (array)$options['label']);
                 }
 
                 if ($options['inline']) {
-                    $options['label'] = $this->injectClasses('checkbox-inline', (array)$options['label']);
-                    $this->templates(['inputContainer' => '{{content}}']);
+                    $options['label'] = $this->injectClasses($options['type'] . '-inline', (array)$options['label']);
                 }
 
-                unset($options['inline']);
-
                 break;
-
             case 'select':
                 if (isset($options['multiple']) && $options['multiple'] === 'checkbox') {
                     $this->templates(['checkboxWrapper' => '<div class="checkbox">{{label}}</div>']);
@@ -190,7 +168,7 @@ class FormHelper extends Helper
      */
     public function end(array $secureAttributes = [])
     {
-        $this->_align = null;
+        $this->_align = $this->_grid = null;
         return parent::end($secureAttributes);
     }
 
@@ -251,5 +229,107 @@ class FormHelper extends Helper
             $options['label'] = ['text' => $options['label']];
         }
         return $options;
+    }
+
+    /**
+     * Form alignement detector/switcher.
+     *
+     * @param  array $options Options
+     * @return array Modified options.
+     */
+   protected function _formAlignement($options)
+    {
+        if (!$options['align']) {
+            $options['align'] = $this->_detectFormAlignement($options);
+        }
+
+        if (is_array($options['align'])) {
+            $this->_grid = $options['align'];
+            $options['align'] = 'horizontal';
+        } else if ($options['align'] === 'horizontal') {
+            $this->_grid = $this->config('grid');
+        }
+
+        if (!in_array($options['align'], ['default', 'horizontal', 'inline'])) {
+            throw new InvalidArgumentException();
+        }
+
+        $this->_align = $options['align'];
+
+        unset($options['align']);
+
+        if ($this->_align === 'default') {
+            $options['templates'] += [
+                'checkboxContainer' => '<div class="checkbox">{{content}}{{help}}</div>',
+                'checkboxContainerError' => '<div class="checkbox has-error">{{content}}{{error}}{{help}}</div>',
+            ];
+            return $options;
+        }
+
+        $options = $this->injectClasses('form-' . $this->_align, $options);
+
+        if ($this->_align === 'inline') {
+            $options['templates'] += [
+                'label' => '<label class="sr-only"{{attrs}}>{{text}}</label>',
+                'inputContainer' => '{{content}}'
+            ];
+            return $options;
+        }
+
+        $offsetedGridClass = implode(' ', [$this->_gridClass('left', true), $this->_gridClass('middle')]);
+        $options['templates'] += [
+            'label' => sprintf('<label class="control-label %s"{{attrs}}>{{text}}</label>', $this->_gridClass('left')),
+            'error' => sprintf('<p class="%s">{{content}}</p>', $this->_gridClass('right')),
+            'formGroup' => sprintf('{{label}}<div class="%s">{{input}}</div>', $this->_gridClass('middle')),
+            'checkboxFormGroup' => sprintf('<div class="%s"><div class="checkbox">{{label}}</div></div>', $offsetedGridClass),
+            'radioFormGroup' => sprintf('<div class="%s"><div class="radio">{{label}}</div></div>', $offsetedGridClass),
+            'submitContainer' => sprintf('<div class="%s">{{content}}</div>', $offsetedGridClass),
+        ];
+
+        return $options;
+    }
+
+    /**
+     * Returns a Bootstrap grid class (i.e. `col-md-2`).
+     * 
+     * @param string $position One of `left`, `middle` or `right`.
+     * @param  boolean $offset If true, will append `offset-` to the class.
+     * @return string Classes.
+     */
+    protected function _gridClass($position, $offset = false)
+    {
+        $class = 'col-%s-';
+        if ($offset) {
+            $class .= 'offset-';
+        }
+
+        if (isset($this->_grid[$position])) {
+            return sprintf($class, 'md') . $this->_grid[$position];
+        }
+
+        $classes = [];
+        foreach ($this->_grid as $screen => $positions) {
+            if (isset($positions[$position])) {
+                array_push($classes, sprintf($class, $screen) . $positions[$position]);
+            }
+        }
+        return implode(' ', $classes);
+    }
+
+    /**
+     * Detects the form alignement when possible.
+     * 
+     * @param array $options Options.
+     * @return string Form alignement type. One of `default`, `horizontal` or `inline`.
+     */
+    protected function _detectFormAlignement($options)
+    {
+        foreach (['horizontal', 'inline'] as $align) {
+            if ($this->checkClasses('form-' . $align, (array)$options['class'])) {
+                return $align;
+            }
+        }
+
+        return 'default';
     }
 }

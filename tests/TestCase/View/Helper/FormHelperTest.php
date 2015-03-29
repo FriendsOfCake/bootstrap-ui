@@ -451,7 +451,7 @@ class FormHelperTest extends TestCase
             ],
             'Title',
             '/label',
-            ['div' => ['class' => 'col-md-10']],
+            ['div' => ['class' => 'col-md-6']],
             'input' => [
                 'type' => 'text',
                 'name' => 'title',
@@ -467,7 +467,7 @@ class FormHelperTest extends TestCase
         $result = $this->Form->input('published');
         $expected = [
             'div' => ['class' => 'form-group'],
-            ['div' => ['class' => 'col-md-offset-2 col-md-10']],
+            ['div' => ['class' => 'col-md-offset-2 col-md-6']],
             ['div' => ['class' => 'checkbox']],
             'input' => [
                 'type' => 'hidden',
