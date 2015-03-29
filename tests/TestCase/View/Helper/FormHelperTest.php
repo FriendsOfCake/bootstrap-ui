@@ -571,6 +571,17 @@ class FormHelperTest extends TestCase
         $this->assertHtml($expected, $result);
     }
 
+    public function testStyledButton()
+    {
+        $result = $this->Form->button('Submit', ['class' => 'success']);
+        $expected = [
+            'button' => ['class' => 'btn-success btn', 'type' => 'submit'],
+            'Submit',
+            '/button'
+        ];
+        $this->assertHtml($expected, $result);
+    }
+
     public function testMultipleCheckboxInput()
     {
         $this->Form->create($this->article);
