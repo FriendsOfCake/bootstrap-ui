@@ -26,18 +26,18 @@ class FormHelper extends Helper
     public function __construct(View $View, array $config = [])
     {
         $this->_defaultConfig['errorClass'] = null;
-        $this->_defaultConfig['templates'] = array_merge($this->_defaultConfig['templates'], [
+        $this->_defaultConfig['templates'] = [
             'error' => '<p class="help-block">{{content}}</p>',
             'help' => '<p class="help-block">{{content}}</p>',
             'inputContainer' => '<div class="form-group{{required}}">{{content}}{{help}}</div>',
             'inputContainerError' => '<div class="form-group{{required}} has-error">{{content}}{{error}}{{help}}</div>',
             'checkboxWrapper' => '<div class="checkbox"><label>{{input}}{{label}}</label></div>',
             'radioWrapper' => '<div class="radio"><label>{{input}}{{label}}</label></div>',
-        ]);
+        ] + $this->_defaultConfig['templates'];
 
-        $this->_defaultWidgets = array_merge($this->_defaultWidgets, [
-            'button' => 'BootstrapUI\View\Widget\ButtonWidget',
-        ]);
+        $this->_defaultWidgets = [
+            'button' => 'BootstrapUI\View\Widget\ButtonWidget'
+        ] + $this->_defaultWidgets;
 
         parent::__construct($View, $config);
     }
