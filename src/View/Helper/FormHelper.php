@@ -18,6 +18,32 @@ class FormHelper extends Helper
     protected $_align;
 
     /**
+     * Default Bootstrap string templates.
+     *
+     * @var array
+     */
+    protected $_templates = [
+        'error' => '<p class="help-block">{{content}}</p>',
+        'help' => '<p class="help-block">{{content}}</p>',
+        'inputContainer' => '<div class="form-group{{required}}">{{content}}{{help}}</div>',
+        'inputContainerError' => '<div class="form-group{{required}} has-error">{{content}}{{error}}{{help}}</div>',
+        'checkboxWrapper' => '<div class="checkbox"><label>{{input}}{{label}}</label></div>',
+        'radioWrapper' => '<div class="radio"><label>{{input}}{{label}}</label></div>',
+    ];
+
+    /**
+     * Default Bootstrap widgets.
+     *
+     * @var array
+     */
+    protected $_widgets = [
+        'button' => 'BootstrapUI\View\Widget\ButtonWidget',
+        'checkbox' => 'BootstrapUI\View\Widget\CheckboxWidget',
+        'radio' => 'BootstrapUI\View\Widget\RadioWidget',
+        '_default' => 'BootstrapUI\View\Widget\BasicWidget',
+    ];
+
+    /**
      * Construct the widgets and binds the default context providers.
      *
      * @param \Cake\View\View $View The View this helper is being attached to.
@@ -25,25 +51,17 @@ class FormHelper extends Helper
      */
     public function __construct(View $View, array $config = [])
     {
-        $this->_defaultConfig['errorClass'] = null;
-        $this->_defaultConfig['templates'] = [
-            'error' => '<p class="help-block">{{content}}</p>',
-            'help' => '<p class="help-block">{{content}}</p>',
-            'inputContainer' => '<div class="form-group{{required}}">{{content}}{{help}}</div>',
-            'inputContainerError' => '<div class="form-group{{required}} has-error">{{content}}{{error}}{{help}}</div>',
-            'checkboxWrapper' => '<div class="checkbox"><label>{{input}}{{label}}</label></div>',
-            'radioWrapper' => '<div class="radio"><label>{{input}}{{label}}</label></div>',
-        ] + $this->_defaultConfig['templates'];
+        $this->_defaultConfig = [
+            'errorClass' => null,
+            'templates' => array_merge($this->_defaultConfig['templates'], $this->_templates),
+        ] + $this->_defaultConfig;
 
-        $this->_defaultWidgets = array_merge($this->_defaultWidgets, [
-            'button' => 'BootstrapUI\View\Widget\ButtonWidget',
-            '_default' => 'BootstrapUI\View\Widget\BasicWidget',
-        ]);
+        $this->_defaultWidgets = $this->_widgets + $this->_defaultWidgets;
 
         parent::__construct($View, $config);
     }
 
-    /**
+     /**
      * Returns an HTML FORM element.
      *
      * @param mixed $model The context for which the form is being defined. Can
