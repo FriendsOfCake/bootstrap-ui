@@ -68,14 +68,14 @@ class FormHelper extends Helper
     }
 
      /**
-     * Returns an HTML FORM element.
-     *
-     * @param mixed $model The context for which the form is being defined. Can
-     *   be an ORM entity, ORM resultset, or an array of meta data. You can use false or null
-     *   to make a model-less form.
-     * @param array $options An array of html attributes and options.
-     * @return string An formatted opening FORM tag.
-     */
+      * Returns an HTML FORM element.
+      *
+      * @param mixed $model The context for which the form is being defined. Can
+      *   be an ORM entity, ORM resultset, or an array of meta data. You can use false or null
+      *   to make a model-less form.
+      * @param array $options An array of html attributes and options.
+      * @return string An formatted opening FORM tag.
+      */
     public function create($model = null, array $options = [])
     {
         if (isset($options['horizontal'])) {
@@ -163,7 +163,7 @@ class FormHelper extends Helper
      * input fields where appropriate.
      *
      * Overrides parent method to reset the form alignement and grid size.
-     * 
+     *
      * @param array $secureAttributes Secure attibutes which will be passed as HTML attributes
      *   into the hidden input elements generated for the Security Component.
      * @return string A closing FORM tag.
@@ -179,9 +179,9 @@ class FormHelper extends Helper
      *
      * Overrides parent method to unset 'help' key.
      *
-     * @param string $fieldName the field name
-     * @param array $options The options for the input element
-     * @return string The generated input element
+     * @param string $fieldName The field's name.
+     * @param array $options The options for the input element.
+     * @return string The generated input element.
      */
     protected function _getInput($fieldName, $options)
     {
@@ -192,8 +192,8 @@ class FormHelper extends Helper
     /**
      * Generates an input container template
      *
-     * @param array $options The options for input container template
-     * @return string The generated input container template
+     * @param array $options The options for input container template.
+     * @return string The generated input container template.
      */
     protected function _inputContainerTemplate($options)
     {
@@ -236,10 +236,10 @@ class FormHelper extends Helper
     /**
      * Form alignement detector/switcher.
      *
-     * @param  array $options Options
+     * @param  array $options Options.
      * @return array Modified options.
      */
-   protected function _formAlignement($options)
+    protected function _formAlignement($options)
     {
         if (!$options['align']) {
             $options['align'] = $this->_detectFormAlignement($options);
@@ -248,7 +248,7 @@ class FormHelper extends Helper
         if (is_array($options['align'])) {
             $this->_grid = $options['align'];
             $options['align'] = 'horizontal';
-        } else if ($options['align'] === 'horizontal') {
+        } elseif ($options['align'] === 'horizontal') {
             $this->_grid = $this->config('grid');
         }
 
@@ -256,46 +256,64 @@ class FormHelper extends Helper
             throw new InvalidArgumentException();
         }
 
-        $this->_align = $options['align'];
+         $this->_align = $options['align'];
 
-        unset($options['align']);
+         unset($options['align']);
 
         if ($this->_align === 'default') {
             $options['templates'] += [
-                'checkboxContainer' => '<div class="checkbox">{{content}}{{help}}</div>',
-                'checkboxContainerError' => '<div class="checkbox has-error">{{content}}{{error}}{{help}}</div>',
+               'checkboxContainer' => '<div class="checkbox">{{content}}{{help}}</div>',
+               'checkboxContainerError' => '<div class="checkbox has-error">{{content}}{{error}}{{help}}</div>',
             ];
             return $options;
         }
 
-        $options = $this->injectClasses('form-' . $this->_align, $options);
+         $options = $this->injectClasses('form-' . $this->_align, $options);
 
         if ($this->_align === 'inline') {
             $options['templates'] += [
-                'label' => '<label class="sr-only"{{attrs}}>{{text}}</label>',
-                'inputContainer' => '{{content}}'
+               'label' => '<label class="sr-only"{{attrs}}>{{text}}</label>',
+               'inputContainer' => '{{content}}'
             ];
             return $options;
         }
 
-        $offsetedGridClass = implode(' ', [$this->_gridClass('left', true), $this->_gridClass('middle')]);
-        $options['templates'] += [
-            'label' => sprintf('<label class="control-label %s"{{attrs}}>{{text}}</label>', $this->_gridClass('left')),
-            'error' => sprintf('<p class="%s">{{content}}</p>', $this->_gridClass('right')),
-            'formGroup' => sprintf('{{label}}<div class="%s">{{input}}</div>', $this->_gridClass('middle')),
-            'checkboxFormGroup' => sprintf('<div class="%s"><div class="checkbox">{{label}}</div></div>', $offsetedGridClass),
-            'radioFormGroup' => sprintf('<div class="%s"><div class="radio">{{label}}</div></div>', $offsetedGridClass),
-            'submitContainer' => sprintf('<div class="%s">{{content}}</div>', $offsetedGridClass),
-        ];
+         $offsetedGridClass = implode(' ', [$this->_gridClass('left', true), $this->_gridClass('middle')]);
+         $options['templates'] += [
+            'label' => sprintf(
+                '<label class="control-label %s"{{attrs}}>{{text}}</label>',
+                $this->_gridClass('left')
+            ),
+            'error' => sprintf(
+                '<p class="%s">{{content}}</p>',
+                $this->_gridClass('right')
+            ),
+            'formGroup' => sprintf(
+                '{{label}}<div class="%s">{{input}}</div>',
+                $this->_gridClass('middle')
+            ),
+            'checkboxFormGroup' => sprintf(
+                '<div class="%s"><div class="checkbox">{{label}}</div></div>',
+                $offsetedGridClass
+            ),
+            'radioFormGroup' => sprintf(
+                '<div class="%s"><div class="radio">{{label}}</div></div>',
+                $offsetedGridClass
+            ),
+            'submitContainer' => sprintf(
+                '<div class="%s">{{content}}</div>',
+                $offsetedGridClass
+            ),
+         ];
 
-        return $options;
+         return $options;
     }
 
     /**
      * Returns a Bootstrap grid class (i.e. `col-md-2`).
-     * 
+     *
      * @param string $position One of `left`, `middle` or `right`.
-     * @param  boolean $offset If true, will append `offset-` to the class.
+     * @param  bool $offset If true, will append `offset-` to the class.
      * @return string Classes.
      */
     protected function _gridClass($position, $offset = false)
@@ -320,7 +338,7 @@ class FormHelper extends Helper
 
     /**
      * Detects the form alignement when possible.
-     * 
+     *
      * @param array $options Options.
      * @return string Form alignement type. One of `default`, `horizontal` or `inline`.
      */
