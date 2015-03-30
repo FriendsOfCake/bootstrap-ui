@@ -14,7 +14,7 @@ Transparently use [Twitter Bootstrap 3][twbs3] with [CakePHP 3][cakephp].
 ## What's included?
 
 - FlashComponent + elements (types: error, info, success, warning)
-- FormHelper (types: default, inline, horizontal)
+- FormHelper (align: default, inline, horizontal)
 - HtmlHelper (components: breadcrumbs, badge, label, icon)
 - PaginatorHelper
 - Widgets (basic, checkbox, radio, button)
