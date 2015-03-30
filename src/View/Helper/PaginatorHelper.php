@@ -21,7 +21,7 @@ class PaginatorHelper extends \Cake\View\Helper\PaginatorHelper
             'prevActive' => '<li class="prev"><a rel="prev" aria-label="Previous" href="{{url}}">' .
                             '<span aria-hidden="true">{{text}}</span></a></li>',
             'prevDisabled' => '<li class="prev disabled"><a href=""><span aria-hidden="true">{{text}}</span></a></li>',
-            'current' => '<li class="active">{{text}} <span class="sr-only">(current)</span></li>',
+            'current' => '<li class="active"><span>{{text}} <span class="sr-only">(current)</span></span></li>',
         ] + $this->_defaultConfig['templates'];
 
         parent::__construct($View, $config);
