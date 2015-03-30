@@ -98,5 +98,33 @@ class PaginatorHelperTest extends TestCase
             '/ul'
         ];
         $this->assertHtml($expected, $result);
+
+        $this->Paginator->request->params['paging'] = [
+            'Client' => [
+                'page' => 8,
+                'current' => 3,
+                'count' => 30,
+                'prevPage' => false,
+                'nextPage' => 2,
+                'pageCount' => 15,
+            ]
+        ];
+        $result = $this->Paginator->numbers(['prev' => true, 'next' => true]);
+        $expected = [
+            'ul' => ['class' => 'pagination'],
+            ['li' => ['class' => 'prev disabled']], ['a' => ['href' => '']], ['span' => ['aria-hidden' => 'true']], '&laquo;', '/span', '/a', '/li',
+            '<li', ['a' => ['href' => '/index?page=4']], '4', '/a', '/li',
+            '<li', ['a' => ['href' => '/index?page=5']], '5', '/a', '/li',
+            '<li', ['a' => ['href' => '/index?page=6']], '6', '/a', '/li',
+            '<li', ['a' => ['href' => '/index?page=7']], '7', '/a', '/li',
+            ['li' => ['class' => 'active']], '<span', '8', 'span' => ['class' => 'sr-only'], '(current)', '/span', '/span', '/li',
+            '<li', ['a' => ['href' => '/index?page=9']], '9', '/a', '/li',
+            '<li', ['a' => ['href' => '/index?page=10']], '10', '/a', '/li',
+            '<li', ['a' => ['href' => '/index?page=11']], '11', '/a', '/li',
+            '<li', ['a' => ['href' => '/index?page=12']], '12', '/a', '/li',
+            ['li' => ['class' => 'next']], ['a' => ['rel' => 'next', 'aria-label' => 'Next', 'href' => '/index?page=9']], ['span' => ['aria-hidden' => 'true']], '&raquo;', '/span', '/a', '/li',
+            '/ul'
+        ];
+        $this->assertHtml($expected, $result);
     }
 }

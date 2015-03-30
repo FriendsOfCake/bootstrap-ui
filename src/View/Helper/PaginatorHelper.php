@@ -92,14 +92,14 @@ class PaginatorHelper extends \Cake\View\Helper\PaginatorHelper
             if ($options['prev'] === true) {
                 $options['prev'] = $this->config('labels.prev');
             }
-            $options['before'] .= $this->prev($options['prev']);
+            $options['before'] .= $this->prev($options['prev'], ['escape' => false]);
         }
 
         if (isset($options['next'])) {
             if ($options['next'] === true) {
                 $options['next'] = $this->config('labels.next');
             }
-            $options['after'] = $this->next($options['next']) . $options['after'];
+            $options['after'] = $this->next($options['next'], ['escape' => false]) . $options['after'];
         }
 
         return parent::numbers($options);
