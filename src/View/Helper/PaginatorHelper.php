@@ -24,7 +24,12 @@ class PaginatorHelper extends \Cake\View\Helper\PaginatorHelper
             'current' => '<li class="active"><span>{{text}} <span class="sr-only">(current)</span></span></li>',
         ] + $this->_defaultConfig['templates'];
 
-        parent::__construct($View, $config);
+        parent::__construct($View, $config + [
+            'labels' => [
+                'prev' => '&laquo;',
+                'next' => '&raquo;',
+            ],
+        ]);
     }
 
     /**
@@ -84,10 +89,16 @@ class PaginatorHelper extends \Cake\View\Helper\PaginatorHelper
         unset($options['class'], $options['size']);
 
         if (isset($options['prev'])) {
+            if ($options['prev'] === true) {
+                $options['prev'] = $this->config('labels.prev');
+            }
             $options['before'] .= $this->prev($options['prev']);
         }
 
         if (isset($options['next'])) {
+            if ($options['next'] === true) {
+                $options['next'] = $this->config('labels.next');
+            }
             $options['after'] = $this->next($options['next']) . $options['after'];
         }
 
