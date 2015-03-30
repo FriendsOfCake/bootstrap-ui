@@ -79,6 +79,22 @@ Available types are:
 
 **NOTE: Remember to set the stylesheets in the layouts you copy.**
 
+A quick way of getting the Bootstrap assets installed is using [bower]. Assuming you are in `ROOT`:
+
+```
+bower install bootstrap
+mkdir -p webroot/css/bootstrap webroot/js/bootstrap webroot/js/jquery
+cp bower_components/bootstrap/dist/css/* webroot/css/bootstrap/.
+cp bower_components/bootstrap/dist/js/* webroot/js/bootstrap/.
+cp bower_components/jquery/dist/* webroot/js/jquery/.
+echo /bower_components >> .gitignore
+git add .gitignore \
+bower.json \
+webroot/css/bootstrap \
+webroot/js/bootstrap \
+webroot/js/jquery
+```
+
 Finally, for those of you who want even more automation, some bake templates have been included. Use them
 like so:
 
@@ -186,3 +202,4 @@ Copyright (c) 2015, Jad Bitar and licensed under [The MIT License][mit].
 [composer:ignore]:http://getcomposer.org/doc/faqs/should-i-commit-the-dependencies-in-my-vendor-directory.md
 [mit]:http://www.opensource.org/licenses/mit-license.php
 [twbs3]:http://getbootstrap.com
+[bower]:http://bower.io
