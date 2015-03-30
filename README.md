@@ -166,6 +166,13 @@ will render this HTML:
 their own that I can ignore when I pull)
 * Pull request - bonus point for topic branches
 
+To ensure your PRs are considered for upstream, you MUST follow the CakePHP coding standards. A `pre-commit`
+hook has been included to automatically run the code sniffs for you:
+
+```
+ln -s ../../contrib/pre-commit .git/hooks/.
+```
+
 ## Bugs & Feedback
 
 http://github.com/friendsofcake/bootstrap-ui/issues
