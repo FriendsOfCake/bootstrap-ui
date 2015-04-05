@@ -213,6 +213,32 @@ class FormHelperTest extends TestCase
             '/p',
             '/div'
         ];
+
+        $this->Form->end();
+
+        $this->Form->create($this->article, ['align' => 'horizontal']);
+
+        $result = $this->Form->input('title');
+        $expected = [
+            'div' => ['class' => 'form-group required has-error'],
+            'label' => ['class' => 'control-label col-md-2', 'for' => 'title'],
+            'Title',
+            '/label',
+            ['div' => ['class' => 'col-md-6']],
+            'input' => [
+                'type' => 'text',
+                'name' => 'title',
+                'id' => 'title',
+                'class' => 'form-control ',
+                'required' => 'required'
+            ],
+            ['p' => ['class' => 'help-block']],
+            'error message',
+            '/p',
+            '/div',
+            '/div'
+        ];
+
         $this->assertHtml($expected, $result);
     }
 

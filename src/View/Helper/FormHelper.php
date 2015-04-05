@@ -270,7 +270,7 @@ class FormHelper extends Helper
             return $options;
         }
 
-         $options = $this->injectClasses('form-' . $this->_align, $options);
+        $options = $this->injectClasses('form-' . $this->_align, $options);
 
         if ($this->_align === 'inline') {
             $options['templates'] += [
@@ -286,12 +286,8 @@ class FormHelper extends Helper
                 '<label class="control-label %s"{{attrs}}>{{text}}</label>',
                 $this->_gridClass('left')
             ),
-            'error' => sprintf(
-                '<p class="%s">{{content}}</p>',
-                $this->_gridClass('right')
-            ),
             'formGroup' => sprintf(
-                '{{label}}<div class="%s">{{input}}</div>',
+                '{{label}}<div class="%s">{{input}}{{error}}</div>',
                 $this->_gridClass('middle')
             ),
             'checkboxFormGroup' => sprintf(
@@ -306,6 +302,7 @@ class FormHelper extends Helper
                 '<div class="%s">{{content}}</div>',
                 $offsetedGridClass
             ),
+            'inputContainerError' => '<div class="form-group{{required}} has-error">{{content}}{{help}}</div>',
         ];
 
         return $options;
