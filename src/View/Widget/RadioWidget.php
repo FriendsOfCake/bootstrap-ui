@@ -36,6 +36,14 @@ class RadioWidget extends \Cake\View\Widget\RadioWidget
             $this->_templates->add(['radioContainer' => '{{content}}']);
         }
 
+
+        $templates = $this->_templates->get();
+        $customize = [];
+        if ($templates['nestingLabel'] === '{{hidden}}<label{{attrs}}>{{input}}{{text}}</label>') {
+            $customize['nestingLabel'] = '<div class="radio">' . $templates['nestingLabel'] . '</div>';
+        }
+        $this->_templates->add($customize);
+
         unset($data['inline']);
 
         return parent::render($data, $context);

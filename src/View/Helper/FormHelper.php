@@ -29,7 +29,7 @@ class FormHelper extends Helper
         'inputContainer' => '<div class="form-group{{required}}">{{content}}{{help}}</div>',
         'inputContainerError' => '<div class="form-group{{required}} has-error">{{content}}{{error}}{{help}}</div>',
         'checkboxWrapper' => '<div class="checkbox"><label>{{input}}{{label}}</label></div>',
-        'radioWrapper' => '<div class="radio"><label>{{input}}{{label}}</label></div>',
+        'radioFormGroup' => '{{input}}',
         'staticControl' => '<p class="form-control-static">{{content}}</p>'
     ];
 
@@ -41,7 +41,7 @@ class FormHelper extends Helper
     protected $_widgets = [
         'button' => 'BootstrapUI\View\Widget\ButtonWidget',
         'checkbox' => 'BootstrapUI\View\Widget\CheckboxWidget',
-        'radio' => 'BootstrapUI\View\Widget\RadioWidget',
+        'radio' => ['BootstrapUI\View\Widget\RadioWidget', 'nestingLabel'],
         '_default' => 'BootstrapUI\View\Widget\BasicWidget',
     ];
 
