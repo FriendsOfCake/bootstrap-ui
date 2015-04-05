@@ -68,15 +68,15 @@ class FormHelper extends Helper
         parent::__construct($View, $config);
     }
 
-     /**
-      * Returns an HTML FORM element.
-      *
-      * @param mixed $model The context for which the form is being defined. Can
-      *   be an ORM entity, ORM resultset, or an array of meta data. You can use false or null
-      *   to make a model-less form.
-      * @param array $options An array of html attributes and options.
-      * @return string An formatted opening FORM tag.
-      */
+    /**
+     * Returns an HTML FORM element.
+     *
+     * @param mixed $model The context for which the form is being defined. Can
+     *   be an ORM entity, ORM resultset, or an array of meta data. You can use false or null
+     *   to make a model-less form.
+     * @param array $options An array of html attributes and options.
+     * @return string An formatted opening FORM tag.
+     */
     public function create($model = null, array $options = [])
     {
         if (isset($options['horizontal'])) {
@@ -258,9 +258,9 @@ class FormHelper extends Helper
             throw new InvalidArgumentException('Invalid `align` option value.');
         }
 
-         $this->_align = $options['align'];
+        $this->_align = $options['align'];
 
-         unset($options['align']);
+        unset($options['align']);
 
         if ($this->_align === 'default') {
             $options['templates'] += [
@@ -280,8 +280,8 @@ class FormHelper extends Helper
             return $options;
         }
 
-         $offsetedGridClass = implode(' ', [$this->_gridClass('left', true), $this->_gridClass('middle')]);
-         $options['templates'] += [
+        $offsetedGridClass = implode(' ', [$this->_gridClass('left', true), $this->_gridClass('middle')]);
+        $options['templates'] += [
             'label' => sprintf(
                 '<label class="control-label %s"{{attrs}}>{{text}}</label>',
                 $this->_gridClass('left')
@@ -306,9 +306,9 @@ class FormHelper extends Helper
                 '<div class="%s">{{content}}</div>',
                 $offsetedGridClass
             ),
-         ];
+        ];
 
-         return $options;
+        return $options;
     }
 
     /**
