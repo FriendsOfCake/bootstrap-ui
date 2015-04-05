@@ -81,6 +81,49 @@ class FormHelperTest extends TestCase
         $this->assertHtml($expected, $result);
     }
 
+    public function testStaticControl()
+    {
+        unset($this->article['required']['title']);
+        $this->article['defaults']['title'] = 'foo bar';
+        $this->Form->create($this->article);
+
+        $result = $this->Form->input('title', ['type' => 'staticControl']);
+        $expected = [
+            'div' => ['class' => 'form-group'],
+            'label' => ['class' => 'control-label', 'for' => 'title'],
+            'Title',
+            '/label',
+            'p' => ['class' => 'form-control-static'],
+            'foo bar',
+            '/p',
+            'input' => [
+                'type' => 'hidden',
+                'name' => 'title',
+                'id' => 'title',
+                'value' => 'foo bar',
+            ],
+            '/div'
+        ];
+        $this->assertHtml($expected, $result);
+        $this->assertSame(['title' => 'foo bar'], $this->Form->fields);
+
+        $this->Form->fields = [];
+
+        $result = $this->Form->input('title', ['type' => 'staticControl', 'hiddenField' => false]);
+        $expected = [
+            'div' => ['class' => 'form-group'],
+            'label' => ['class' => 'control-label', 'for' => 'title'],
+            'Title',
+            '/label',
+            'p' => ['class' => 'form-control-static'],
+            'foo bar',
+            '/p',
+            '/div'
+        ];
+        $this->assertHtml($expected, $result);
+        $this->assertEmpty($this->Form->fields);
+    }
+
     public function testNoLabelTextInput()
     {
         unset($this->article['required']['title']);

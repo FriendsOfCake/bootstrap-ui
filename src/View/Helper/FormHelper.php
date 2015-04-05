@@ -30,6 +30,7 @@ class FormHelper extends Helper
         'inputContainerError' => '<div class="form-group{{required}} has-error">{{content}}{{error}}{{help}}</div>',
         'checkboxWrapper' => '<div class="checkbox"><label>{{input}}{{label}}</label></div>',
         'radioWrapper' => '<div class="radio"><label>{{input}}{{label}}</label></div>',
+        'staticControl' => '<p class="form-control-static">{{content}}</p>'
     ];
 
     /**
@@ -151,7 +152,7 @@ class FormHelper extends Helper
                 }
         }
 
-        if (!in_array($options['type'], ['checkbox', 'radio'])) {
+        if (!in_array($options['type'], ['checkbox', 'radio', 'hidden', 'staticControl'])) {
             $options = $this->injectClasses('form-control', $options);
         }
 
@@ -174,6 +175,51 @@ class FormHelper extends Helper
     {
         $this->_align = $this->_grid = null;
         return parent::end($secureAttributes);
+    }
+
+    /**
+     * Used to place plain text next to label within a form.
+     *
+     * ### Options:
+     *
+     * - `hiddenField` - boolean to indicate if you want value for field included
+     *    in a hidden input. Defaults to true.
+     *
+     * @param string $fieldName Name of a field, like this "modelname.fieldname"
+     * @param array $options Array of HTML attributes.
+     * @return string An HTML text input element.
+     */
+    public function staticControl($fieldName, array $options = [])
+    {
+        $options += [
+            'required' => false,
+            'secure' => true,
+            'hiddenField' => true
+        ];
+
+        $secure = $options['secure'];
+        $hiddenField = $options['hiddenField'];
+        unset($options['secure'], $options['hiddenField']);
+
+        $options = $this->_initInputField(
+            $fieldName,
+            ['secure' => static::SECURE_SKIP] + $options
+        );
+
+        $static = $this->formatTemplate('staticControl', [
+            'content' => $options['val']
+        ]);
+
+        if (!$hiddenField) {
+            return $static;
+        }
+
+        if ($secure === true) {
+            $this->_secure(true, $this->_secureFieldName($options['name']), (string)$options['val']);
+        }
+
+        $options['type'] = 'hidden';
+        return $static . $this->widget('hidden', $options);
     }
 
     /**
