@@ -156,6 +156,13 @@ class FormHelper extends Helper
             $options = $this->injectClasses('form-control', $options);
         }
 
+        if ($options['help']) {
+            $options['help'] = $this->templater()->format(
+                'help',
+                ['content' => $options['help']]
+            );
+        }
+
         $result = parent::input($fieldName, $options);
         $this->templates($reset);
         return $result;
@@ -238,6 +245,26 @@ class FormHelper extends Helper
     }
 
     /**
+     * Generates an group template element
+     *
+     * @param array $options The options for group template
+     * @return string The generated group template
+     */
+    protected function _groupTemplate($options)
+    {
+        $groupTemplate = $options['options']['type'] . 'FormGroup';
+        if (!$this->templater()->get($groupTemplate)) {
+            $groupTemplate = 'formGroup';
+        }
+        return $this->templater()->format($groupTemplate, [
+            'input' => $options['input'],
+            'label' => $options['label'],
+            'error' => $options['error'],
+            'help' => $options['options']['help']
+        ]);
+    }
+
+    /**
      * Generates an input container template
      *
      * @param array $options The options for input container template.
@@ -250,17 +277,12 @@ class FormHelper extends Helper
             $inputContainerTemplate = 'inputContainer' . $options['errorSuffix'];
         }
 
-        $help = '';
-        if ($options['options']['help']) {
-            $help = $this->templater()->format('help', ['content' => $options['options']['help']]);
-        }
-
         return $this->templater()->format($inputContainerTemplate, [
             'content' => $options['content'],
             'error' => $options['error'],
             'required' => $options['options']['required'] ? ' required' : '',
             'type' => $options['options']['type'],
-            'help' => $help
+            'help' => $options['options']['help']
         ]);
     }
 
@@ -333,7 +355,7 @@ class FormHelper extends Helper
                 $this->_gridClass('left')
             ),
             'formGroup' => sprintf(
-                '{{label}}<div class="%s">{{input}}{{error}}</div>',
+                '{{label}}<div class="%s">{{input}}{{error}}{{help}}</div>',
                 $this->_gridClass('middle')
             ),
             'checkboxFormGroup' => sprintf(
@@ -348,7 +370,8 @@ class FormHelper extends Helper
                 '<div class="%s">{{content}}</div>',
                 $offsetedGridClass
             ),
-            'inputContainerError' => '<div class="form-group{{required}} has-error">{{content}}{{help}}</div>',
+            'inputContainer' => '<div class="form-group{{required}}">{{content}}</div>',
+            'inputContainerError' => '<div class="form-group{{required}} has-error">{{content}}</div>',
         ];
 
         return $options;

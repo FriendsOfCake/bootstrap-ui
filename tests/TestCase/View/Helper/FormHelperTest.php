@@ -817,4 +817,61 @@ class FormHelperTest extends TestCase
         ];
         $this->assertHtml($expected, $result);
     }
+
+    public function testHelpTextHorizontal()
+    {
+        $this->Form->create($this->article, ['align' => 'horizontal']);
+
+        $result = $this->Form->input('title', ['help' => 'help text']);
+        $expected = [
+            'div' => ['class' => 'form-group required'],
+            'label' => ['class' => 'control-label col-md-2', 'for' => 'title'],
+            'Title',
+            '/label',
+            ['div' => ['class' => 'col-md-6']],
+            'input' => [
+                'type' => 'text',
+                'name' => 'title',
+                'id' => 'title',
+                'class' => 'form-control',
+                'required' => 'required'
+            ],
+            'p' => ['class' => 'help-block'],
+            'help text',
+            '/p',
+            '/div',
+            '/div'
+        ];
+        $this->assertHtml($expected, $result);
+
+        $this->article['errors'] = [
+            'title' => ['error message']
+        ];
+        $this->Form->create($this->article, ['align' => 'horizontal']);
+
+        $result = $this->Form->input('title', ['help' => 'help text']);
+        $expected = [
+            'div' => ['class' => 'form-group required has-error'],
+            'label' => ['class' => 'control-label col-md-2', 'for' => 'title'],
+            'Title',
+            '/label',
+            ['div' => ['class' => 'col-md-6']],
+            'input' => [
+                'type' => 'text',
+                'name' => 'title',
+                'id' => 'title',
+                'class' => 'form-control ',
+                'required' => 'required'
+            ],
+            ['p' => ['class' => 'help-block']],
+            'error message',
+            '/p',
+            'p' => ['class' => 'help-block'],
+            'help text',
+            '/p',
+            '/div',
+            '/div'
+        ];
+        $this->assertHtml($expected, $result);
+    }
 }
