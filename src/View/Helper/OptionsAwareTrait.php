@@ -26,8 +26,7 @@ trait OptionsAwareTrait
         }
 
         unset($options['skip']);
-        // array_walk($options['class'], 'trim');
-        $options['class'] = implode(' ', $options['class']);
+        $options['class'] = trim(implode(' ', $options['class']));
         return $options;
     }
 

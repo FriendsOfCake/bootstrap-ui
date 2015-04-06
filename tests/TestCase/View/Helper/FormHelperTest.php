@@ -81,6 +81,49 @@ class FormHelperTest extends TestCase
         $this->assertHtml($expected, $result);
     }
 
+    public function testStaticControl()
+    {
+        unset($this->article['required']['title']);
+        $this->article['defaults']['title'] = 'foo bar';
+        $this->Form->create($this->article);
+
+        $result = $this->Form->input('title', ['type' => 'staticControl']);
+        $expected = [
+            'div' => ['class' => 'form-group'],
+            'label' => ['class' => 'control-label', 'for' => 'title'],
+            'Title',
+            '/label',
+            'p' => ['class' => 'form-control-static'],
+            'foo bar',
+            '/p',
+            'input' => [
+                'type' => 'hidden',
+                'name' => 'title',
+                'id' => 'title',
+                'value' => 'foo bar',
+            ],
+            '/div'
+        ];
+        $this->assertHtml($expected, $result);
+        $this->assertSame(['title' => 'foo bar'], $this->Form->fields);
+
+        $this->Form->fields = [];
+
+        $result = $this->Form->input('title', ['type' => 'staticControl', 'hiddenField' => false]);
+        $expected = [
+            'div' => ['class' => 'form-group'],
+            'label' => ['class' => 'control-label', 'for' => 'title'],
+            'Title',
+            '/label',
+            'p' => ['class' => 'form-control-static'],
+            'foo bar',
+            '/p',
+            '/div'
+        ];
+        $this->assertHtml($expected, $result);
+        $this->assertEmpty($this->Form->fields);
+    }
+
     public function testNoLabelTextInput()
     {
         unset($this->article['required']['title']);
@@ -191,7 +234,8 @@ class FormHelperTest extends TestCase
     public function testErroredTextInput()
     {
         $this->article['errors'] = [
-            'title' => ['error message']
+            'title' => ['error message'],
+            'published' => ['error']
         ];
         $this->Form->create($this->article);
 
@@ -211,6 +255,60 @@ class FormHelperTest extends TestCase
             ['p' => ['class' => 'help-block']],
             'error message',
             '/p',
+            '/div'
+        ];
+
+        $this->Form->end();
+
+        $this->Form->create($this->article, ['align' => 'horizontal']);
+
+        $result = $this->Form->input('title');
+        $expected = [
+            'div' => ['class' => 'form-group required has-error'],
+            'label' => ['class' => 'control-label col-md-2', 'for' => 'title'],
+            'Title',
+            '/label',
+            ['div' => ['class' => 'col-md-6']],
+            'input' => [
+                'type' => 'text',
+                'name' => 'title',
+                'id' => 'title',
+                'class' => 'form-control ',
+                'required' => 'required'
+            ],
+            ['p' => ['class' => 'help-block']],
+            'error message',
+            '/p',
+            '/div',
+            '/div'
+        ];
+
+        $this->assertHtml($expected, $result);
+
+        $result = $this->Form->input('published');
+        $expected = [
+            'div' => ['class' => 'form-group has-error'],
+            ['div' => ['class' => 'col-md-offset-2 col-md-6']],
+            ['div' => ['class' => 'checkbox']],
+            'input' => [
+                'type' => 'hidden',
+                'name' => 'published',
+                'value' => 0,
+            ],
+            'label' => ['for' => 'published'],
+            ['input' => [
+                'type' => 'checkbox',
+                'name' => 'published',
+                'id' => 'published',
+                'value' => 1,
+            ]],
+            'Published',
+            '/label',
+            '/div',
+            ['p' => ['class' => 'help-block']],
+            'error',
+            '/p',
+            '/div',
             '/div'
         ];
         $this->assertHtml($expected, $result);
@@ -328,6 +426,44 @@ class FormHelperTest extends TestCase
         $this->assertHtml($expected, $result);
     }
 
+    public function testBasicRadioInput()
+    {
+        $this->Form->create($this->article);
+
+        $result = $this->Form->input('published', ['type' => 'radio', 'options' => ['Yes', 'No']]);
+        $expected = [
+            ['div' => ['class' => 'form-group']],
+            'input' => [
+                'type' => 'hidden',
+                'name' => 'published',
+                'value' => '',
+            ],
+            ['div' => ['class' => 'radio']],
+            ['label' => ['for' => 'published-0']],
+            ['input' => [
+                'type' => 'radio',
+                'name' => 'published',
+                'value' => 0,
+                'id' => 'published-0',
+            ]],
+            'Yes',
+            '/label',
+            '/div',
+            ['div' => ['class' => 'radio']],
+            ['label' => ['for' => 'published-1']],
+            ['input' => [
+                'type' => 'radio',
+                'name' => 'published',
+                'value' => 1,
+                'id' => 'published-1',
+            ]],
+            'No',
+            '/label',
+            '/div',
+        ];
+        $this->assertHtml($expected, $result);
+    }
+
     public function testBasicCheckboxInput()
     {
         $this->Form->create($this->article);
@@ -423,7 +559,7 @@ class FormHelperTest extends TestCase
 
     public function testHorizontalFormCreate()
     {
-        $result = $this->Form->create($this->article, ['horizontal' => true]);
+        $result = $this->Form->create($this->article, ['align' => 'horizontal']);
         $expected = [
             'form' => [
                 'method' => 'post',
@@ -451,7 +587,7 @@ class FormHelperTest extends TestCase
             ],
             'Title',
             '/label',
-            ['div' => ['class' => 'col-md-10']],
+            ['div' => ['class' => 'col-md-6']],
             'input' => [
                 'type' => 'text',
                 'name' => 'title',
@@ -467,8 +603,85 @@ class FormHelperTest extends TestCase
         $result = $this->Form->input('published');
         $expected = [
             'div' => ['class' => 'form-group'],
-            ['div' => ['class' => 'col-md-offset-2 col-md-10']],
+            ['div' => ['class' => 'col-md-offset-2 col-md-6']],
             ['div' => ['class' => 'checkbox']],
+            'input' => [
+                'type' => 'hidden',
+                'name' => 'published',
+                'value' => 0,
+            ],
+            'label' => ['for' => 'published'],
+            ['input' => [
+                'type' => 'checkbox',
+                'name' => 'published',
+                'id' => 'published',
+                'value' => 1,
+            ]],
+            'Published',
+            '/label',
+            '/div',
+            '/div',
+            '/div'
+        ];
+        $this->assertHtml($expected, $result);
+    }
+
+    public function testHorizontalFormCreateFromConfig()
+    {
+        $this->Form->config([
+            'align' => 'horizontal',
+            'templateSet' => [
+                'horizontal' => [
+                    'checkboxFormGroup' => '<div class="%s"><div class="my-checkbox">{{label}}</div>{{error}}{{help}}</div>'
+                ]
+            ]
+        ]);
+        $result = $this->Form->create($this->article);
+        $expected = [
+            'form' => [
+                'method' => 'post',
+                'accept-charset' => 'utf-8',
+                'role' => 'form',
+                'action' => '/articles/add',
+                'class' => 'form-horizontal',
+            ],
+            'div' => ['style' => 'display:none;'],
+            'input' => [
+                'type' => 'hidden',
+                'name' => '_method',
+                'value' => 'POST'
+            ],
+            '/div'
+        ];
+        $this->assertHtml($expected, $result);
+
+        $result = $this->Form->input('title');
+        $expected = [
+            'div' => ['class' => 'form-group required'],
+            'label' => [
+                'class' => 'control-label col-md-2',
+                'for' => 'title'
+            ],
+            'Title',
+            '/label',
+            ['div' => ['class' => 'col-md-6']],
+            'input' => [
+                'type' => 'text',
+                'name' => 'title',
+                'id' => 'title',
+                'class' => 'form-control',
+                'required' => 'required',
+            ],
+            '/div',
+            '/div'
+        ];
+        $this->assertHtml($expected, $result);
+
+        $result = $this->Form->input('published');
+        $expected = [
+            'div' => ['class' => 'form-group'],
+            ['div' => ['class' => 'col-md-offset-2 col-md-6']],
+            ['div' => ['class' => 'my-checkbox']],
             'input' => [
                 'type' => 'hidden',
                 'name' => 'published',
@@ -495,6 +708,17 @@ class FormHelperTest extends TestCase
         $result = $this->Form->button('Submit');
         $expected = [
             'button' => ['class' => 'btn', 'type' => 'submit'],
+            'Submit',
+            '/button'
+        ];
+        $this->assertHtml($expected, $result);
+    }
+
+    public function testStyledButton()
+    {
+        $result = $this->Form->button('Submit', ['class' => 'success']);
+        $expected = [
+            'button' => ['class' => 'btn-success btn', 'type' => 'submit'],
             'Submit',
             '/button'
         ];
@@ -625,6 +849,91 @@ class FormHelperTest extends TestCase
             'p' => ['class' => 'help-block'],
             'help text',
             '/p',
+            '/div'
+        ];
+        $this->assertHtml($expected, $result);
+    }
+
+    public function testHelpTextHorizontal()
+    {
+        $this->Form->create($this->article, ['align' => 'horizontal']);
+
+        $result = $this->Form->input('title', ['help' => 'help text']);
+        $expected = [
+            'div' => ['class' => 'form-group required'],
+            'label' => ['class' => 'control-label col-md-2', 'for' => 'title'],
+            'Title',
+            '/label',
+            ['div' => ['class' => 'col-md-6']],
+            'input' => [
+                'type' => 'text',
+                'name' => 'title',
+                'id' => 'title',
+                'class' => 'form-control',
+                'required' => 'required'
+            ],
+            'p' => ['class' => 'help-block'],
+            'help text',
+            '/p',
+            '/div',
+            '/div'
+        ];
+        $this->assertHtml($expected, $result);
+
+        $result = $this->Form->input('published', ['help' => 'help text']);
+        $expected = [
+            'div' => ['class' => 'form-group'],
+            ['div' => ['class' => 'col-md-offset-2 col-md-6']],
+            ['div' => ['class' => 'checkbox']],
+            'input' => [
+                'type' => 'hidden',
+                'name' => 'published',
+                'value' => 0,
+            ],
+            'label' => ['for' => 'published'],
+            ['input' => [
+                'type' => 'checkbox',
+                'name' => 'published',
+                'id' => 'published',
+                'value' => 1,
+            ]],
+            'Published',
+            '/label',
+            '/div',
+            ['p' => ['class' => 'help-block']],
+            'help text',
+            '/p',
+            '/div',
+            '/div'
+        ];
+        $this->assertHtml($expected, $result);
+
+        $this->article['errors'] = [
+            'title' => ['error message']
+        ];
+        $this->Form->create($this->article, ['align' => 'horizontal']);
+
+        $result = $this->Form->input('title', ['help' => 'help text']);
+        $expected = [
+            'div' => ['class' => 'form-group required has-error'],
+            'label' => ['class' => 'control-label col-md-2', 'for' => 'title'],
+            'Title',
+            '/label',
+            ['div' => ['class' => 'col-md-6']],
+            'input' => [
+                'type' => 'text',
+                'name' => 'title',
+                'id' => 'title',
+                'class' => 'form-control ',
+                'required' => 'required'
+            ],
+            ['p' => ['class' => 'help-block']],
+            'error message',
+            '/p',
+            'p' => ['class' => 'help-block'],
+            'help text',
+            '/p',
+            '/div',
             '/div'
         ];
         $this->assertHtml($expected, $result);

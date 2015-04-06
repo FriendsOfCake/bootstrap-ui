@@ -10,6 +10,14 @@ class ButtonWidget extends \Cake\View\Widget\ButtonWidget
 
     use OptionsAwareTrait;
 
+    protected $_styles = [
+        'default',
+        'success',
+        'warning',
+        'danger',
+        'info',
+    ];
+
     /**
      * Renders a button.
      *
@@ -19,6 +27,17 @@ class ButtonWidget extends \Cake\View\Widget\ButtonWidget
      */
     public function render(array $data, ContextInterface $context)
     {
-        return parent::render($this->injectClasses('btn', $data), $context);
+        $data = $this->injectClasses('btn', $data);
+        $data['class'] = explode(' ', $data['class']);
+
+        foreach ($data['class'] as &$class) {
+            if (in_array($class, $this->_styles)) {
+                $class = 'btn-' . $class;
+                break;
+            }
+        }
+
+        $data['class'] = implode(' ', $data['class']);
+        return parent::render($data, $context);
     }
 }

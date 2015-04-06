@@ -1,41 +1,40 @@
 {
-    "name": "friendsofcake/bootstrap-ui"
-    , "description": "Twitter Bootstrap 3 support for CakePHP 3"
-    , "type": "cakephp-plugin"
-    , "keywords": [
-        "cakephp"
-        , "twitter"
-        , "bootstrap"
-    ]
-    , "homepage": "http://github.com/friendsofcake/bootstrap-ui"
-    , "license": "MIT"
-    , "authors": [
+    "name": "friendsofcake/bootstrap-ui",
+    "description": "Twitter Bootstrap 3 support for CakePHP 3",
+    "type": "cakephp-plugin",
+    "keywords": [
+        "cakephp",
+        "twitter",
+        "bootstrap"
+    ],
+    "homepage": "http://github.com/friendsofcake/bootstrap-ui",
+    "license": "MIT",
+    "authors": [
         {
-            "name": "Jad Bitar"
-            , "homepage": "http://jadb.io"
-            , "role": "Author"
+            "name": "Jad Bitar",
+            "homepage": "http://jadb.io",
+            "role": "Author"
         }
         , {
-            "name": "Others"
-            , "homepage": "https://github.com/friendsofcake/bootstrap-ui/graphs/contributors"
+            "name": "Others",
+            "homepage": "https://github.com/friendsofcake/bootstrap-ui/graphs/contributors"
         }
-    ]
-    , "support": {
-        "issues": "http://github.com/friendsofcake/bootstrap-ui/issues"
-        , "source": "http://github.com/friendsofcake/bootstrap-ui"
-    }
-    , "require": {
-        "cakephp/cakephp": "~3.0"
-    }
-    , "require-dev": {
-        "phpunit/phpunit": "4.1.*"
-    }
-    , "autoload": {
+    ],
+    "support": {
+        "issues": "http://github.com/friendsofcake/bootstrap-ui/issues",
+        "source": "http://github.com/friendsofcake/bootstrap-ui"
+    },
+    "require-dev": {
+        "phpunit/phpunit": "4.1.*",
+        "cakephp/cakephp": "~3.0",
+        "cakephp/cakephp-codesniffer": "2.*"
+    },
+    "autoload": {
         "psr-4": {
             "BootstrapUI\\": "src"
         }
-    }
-    , "autoload-dev": {
+    },
+    "autoload-dev": {
         "psr-4": {
             "BootstrapUI\\Test\\": "tests"
         }
