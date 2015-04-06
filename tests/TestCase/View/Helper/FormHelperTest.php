@@ -628,7 +628,14 @@ class FormHelperTest extends TestCase
 
     public function testHorizontalFormCreateFromConfig()
     {
-        $this->Form->config(['align' => 'horizontal']);
+        $this->Form->config([
+            'align' => 'horizontal',
+            'templateSet' => [
+                'horizontal' => [
+                    'checkboxFormGroup' => '<div class="%s"><div class="my-checkbox">{{label}}</div>{{error}}{{help}}</div>'
+                ]
+            ]
+        ]);
         $result = $this->Form->create($this->article);
         $expected = [
             'form' => [
@@ -674,7 +681,7 @@ class FormHelperTest extends TestCase
         $expected = [
             'div' => ['class' => 'form-group'],
             ['div' => ['class' => 'col-md-offset-2 col-md-6']],
-            ['div' => ['class' => 'checkbox']],
+            ['div' => ['class' => 'my-checkbox']],
             'input' => [
                 'type' => 'hidden',
                 'name' => 'published',

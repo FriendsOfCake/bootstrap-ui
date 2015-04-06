@@ -34,6 +34,31 @@ class FormHelper extends Helper
     ];
 
     /**
+     * Templates set per alignment type
+     *
+     * @var array
+     */
+    protected $_templateSet = [
+        'default' => [
+            'checkboxContainer' => '<div class="checkbox">{{content}}{{help}}</div>',
+            'checkboxContainerError' => '<div class="checkbox has-error">{{content}}{{error}}{{help}}</div>',
+        ],
+        'inline' => [
+            'label' => '<label class="sr-only"{{attrs}}>{{text}}</label>',
+            'inputContainer' => '{{content}}'
+        ],
+        'horizontal' => [
+            'label' => '<label class="control-label %s"{{attrs}}>{{text}}</label>',
+            'formGroup' => '{{label}}<div class="%s">{{input}}{{error}}{{help}}</div>',
+            'checkboxFormGroup' => '<div class="%s"><div class="checkbox">{{label}}</div>{{error}}{{help}}</div>',
+            'radioFormGroup' => '<div class="%s"><div class="radio">{{label}}</div>{{error}}{{help}}</div>',
+            'submitContainer' => '<div class="%s">{{content}}</div>',
+            'inputContainer' => '<div class="form-group{{required}}">{{content}}</div>',
+            'inputContainerError' => '<div class="form-group{{required}} has-error">{{content}}</div>',
+        ]
+    ];
+
+    /**
      * Default Bootstrap widgets.
      *
      * @var array
@@ -63,6 +88,12 @@ class FormHelper extends Helper
             ],
             'templates' => array_merge($this->_defaultConfig['templates'], $this->_templates),
         ] + $this->_defaultConfig;
+
+        if (isset($this->_defaultConfig['templateSet'])) {
+            $this->_defaultConfig['templateSet'] = Hash::merge($this->_templateSet, $this->_defaultConfig['templateSet']);
+        } else {
+            $this->_defaultConfig['templateSet'] = $this->_templateSet;
+        }
 
         $this->_defaultWidgets = $this->_widgets + $this->_defaultWidgets;
 
@@ -330,49 +361,29 @@ class FormHelper extends Helper
 
         unset($options['align']);
 
+        $templates = $this->_config['templateSet'][$this->_align];
+
         if ($this->_align === 'default') {
-            $options['templates'] += [
-               'checkboxContainer' => '<div class="checkbox">{{content}}{{help}}</div>',
-               'checkboxContainerError' => '<div class="checkbox has-error">{{content}}{{error}}{{help}}</div>',
-            ];
+            $options['templates'] += $templates;
             return $options;
         }
 
         $options = $this->injectClasses('form-' . $this->_align, $options);
 
         if ($this->_align === 'inline') {
-            $options['templates'] += [
-               'label' => '<label class="sr-only"{{attrs}}>{{text}}</label>',
-               'inputContainer' => '{{content}}'
-            ];
+            $options['templates'] += $templates;
             return $options;
         }
 
         $offsetedGridClass = implode(' ', [$this->_gridClass('left', true), $this->_gridClass('middle')]);
-        $options['templates'] += [
-            'label' => sprintf(
-                '<label class="control-label %s"{{attrs}}>{{text}}</label>',
-                $this->_gridClass('left')
-            ),
-            'formGroup' => sprintf(
-                '{{label}}<div class="%s">{{input}}{{error}}{{help}}</div>',
-                $this->_gridClass('middle')
-            ),
-            'checkboxFormGroup' => sprintf(
-                '<div class="%s"><div class="checkbox">{{label}}</div>{{error}}{{help}}</div>',
-                $offsetedGridClass
-            ),
-            'radioFormGroup' => sprintf(
-                '<div class="%s"><div class="radio">{{label}}</div>{{error}}{{help}}</div>',
-                $offsetedGridClass
-            ),
-            'submitContainer' => sprintf(
-                '<div class="%s">{{content}}</div>',
-                $offsetedGridClass
-            ),
-            'inputContainer' => '<div class="form-group{{required}}">{{content}}</div>',
-            'inputContainerError' => '<div class="form-group{{required}} has-error">{{content}}</div>',
-        ];
+
+        $templates['label'] = sprintf($templates['label'], $this->_gridClass('left'));
+        $templates['formGroup'] = sprintf($templates['formGroup'], $this->_gridClass('middle'));
+        foreach (['checkboxFormGroup', 'radioFormGroup', 'submitContainer'] as $value) {
+            $templates[$value] = sprintf($templates[$value], $offsetedGridClass);
+        }
+
+        $options['templates'] += $templates;
 
         return $options;
     }
