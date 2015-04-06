@@ -96,7 +96,7 @@ class FormHelper extends Helper
             'templates' => [],
         ];
 
-        return parent::create($model, $this->_formAlignement($options));
+        return parent::create($model, $this->_formAlignment($options));
     }
 
     /**
@@ -304,15 +304,15 @@ class FormHelper extends Helper
     }
 
     /**
-     * Form alignement detector/switcher.
+     * Form alignment detector/switcher.
      *
      * @param array $options Options.
      * @return array Modified options.
      */
-    protected function _formAlignement($options)
+    protected function _formAlignment($options)
     {
         if (!$options['align']) {
-            $options['align'] = $this->_detectFormAlignement($options);
+            $options['align'] = $this->_detectFormAlignment($options);
         }
 
         if (is_array($options['align'])) {
@@ -410,7 +410,7 @@ class FormHelper extends Helper
      * @param array $options Options.
      * @return string Form alignement type. One of `default`, `horizontal` or `inline`.
      */
-    protected function _detectFormAlignement($options)
+    protected function _detectFormAlignment($options)
     {
         foreach (['horizontal', 'inline'] as $align) {
             if ($this->checkClasses('form-' . $align, (array)$options['class'])) {
