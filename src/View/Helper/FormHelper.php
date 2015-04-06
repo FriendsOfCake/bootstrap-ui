@@ -359,11 +359,11 @@ class FormHelper extends Helper
                 $this->_gridClass('middle')
             ),
             'checkboxFormGroup' => sprintf(
-                '<div class="%s"><div class="checkbox">{{label}}</div></div>',
+                '<div class="%s"><div class="checkbox">{{label}}</div>{{error}}{{help}}</div>',
                 $offsetedGridClass
             ),
             'radioFormGroup' => sprintf(
-                '<div class="%s"><div class="radio">{{label}}</div></div>',
+                '<div class="%s"><div class="radio">{{label}}</div>{{error}}{{help}}</div>',
                 $offsetedGridClass
             ),
             'submitContainer' => sprintf(

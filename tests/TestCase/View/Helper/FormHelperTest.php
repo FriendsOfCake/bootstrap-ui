@@ -234,7 +234,8 @@ class FormHelperTest extends TestCase
     public function testErroredTextInput()
     {
         $this->article['errors'] = [
-            'title' => ['error message']
+            'title' => ['error message'],
+            'published' => ['error']
         ];
         $this->Form->create($this->article);
 
@@ -282,6 +283,34 @@ class FormHelperTest extends TestCase
             '/div'
         ];
 
+        $this->assertHtml($expected, $result);
+
+        $result = $this->Form->input('published');
+        $expected = [
+            'div' => ['class' => 'form-group has-error'],
+            ['div' => ['class' => 'col-md-offset-2 col-md-6']],
+            ['div' => ['class' => 'checkbox']],
+            'input' => [
+                'type' => 'hidden',
+                'name' => 'published',
+                'value' => 0,
+            ],
+            'label' => ['for' => 'published'],
+            ['input' => [
+                'type' => 'checkbox',
+                'name' => 'published',
+                'id' => 'published',
+                'value' => 1,
+            ]],
+            'Published',
+            '/label',
+            '/div',
+            ['p' => ['class' => 'help-block']],
+            'error',
+            '/p',
+            '/div',
+            '/div'
+        ];
         $this->assertHtml($expected, $result);
     }
 
@@ -837,6 +866,34 @@ class FormHelperTest extends TestCase
                 'required' => 'required'
             ],
             'p' => ['class' => 'help-block'],
+            'help text',
+            '/p',
+            '/div',
+            '/div'
+        ];
+        $this->assertHtml($expected, $result);
+
+        $result = $this->Form->input('published', ['help' => 'help text']);
+        $expected = [
+            'div' => ['class' => 'form-group'],
+            ['div' => ['class' => 'col-md-offset-2 col-md-6']],
+            ['div' => ['class' => 'checkbox']],
+            'input' => [
+                'type' => 'hidden',
+                'name' => 'published',
+                'value' => 0,
+            ],
+            'label' => ['for' => 'published'],
+            ['input' => [
+                'type' => 'checkbox',
+                'name' => 'published',
+                'id' => 'published',
+                'value' => 1,
+            ]],
+            'Published',
+            '/label',
+            '/div',
+            ['p' => ['class' => 'help-block']],
             'help text',
             '/p',
             '/div',
