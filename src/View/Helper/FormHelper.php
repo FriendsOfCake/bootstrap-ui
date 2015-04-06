@@ -12,7 +12,7 @@ class FormHelper extends Helper
     use OptionsAwareTrait;
 
     /**
-     * Set on `Form::create()` to tell if the type of alignement used (i.e. horinzatal).
+     * Set on `Form::create()` to tell if the type of alignment used (i.e. horizontal).
      *
      * @var string
      */
@@ -405,10 +405,10 @@ class FormHelper extends Helper
     }
 
     /**
-     * Detects the form alignement when possible.
+     * Detects the form alignment when possible.
      *
      * @param array $options Options.
-     * @return string Form alignement type. One of `default`, `horizontal` or `inline`.
+     * @return string Form alignment type. One of `default`, `horizontal` or `inline`.
      */
     protected function _detectFormAlignment($options)
     {
