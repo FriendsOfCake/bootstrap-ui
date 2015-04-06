@@ -26,7 +26,7 @@ Transparently use [Twitter Bootstrap 3][twbs3] with [CakePHP 3][cakephp].
 Using [Composer][composer]:
 
 ```
-composer require friendsofcake/bootstrap-ui:~0.2
+composer require friendsofcake/bootstrap-ui:~0.3
 ```
 
 You then need to load the plugin. In `boostrap.php`, something like:
