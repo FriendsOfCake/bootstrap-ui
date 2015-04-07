@@ -2,6 +2,7 @@
 
 namespace BootstrapUI\View\Helper;
 
+use Cake\Core\Configure\Engine\PhpConfig;
 use Cake\View\Helper\FormHelper as Helper;
 use Cake\View\View;
 use InvalidArgumentException;
@@ -362,6 +363,9 @@ class FormHelper extends Helper
         unset($options['align']);
 
         $templates = $this->_config['templateSet'][$this->_align];
+        if (is_string($options['templates'])) {
+            $options['templates'] = (new PhpConfig())->read($options['templates']);
+        }
 
         if ($this->_align === 'default') {
             $options['templates'] += $templates;
