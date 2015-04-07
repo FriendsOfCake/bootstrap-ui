@@ -535,6 +535,28 @@ class FormHelperTest extends TestCase
         $this->assertHtml($expected, $result);
     }
 
+    public function testFormCreateWithTemplatesFile()
+    {
+        unset($this->article['required']['title']);
+        $this->Form->create($this->article, ['templates' => 'custom_templates']);
+
+        $result = $this->Form->input('title');
+        $expected = [
+            'div' => ['class' => 'custom-container form-group'],
+            'label' => ['class' => 'control-label', 'for' => 'title'],
+            'Title',
+            '/label',
+            'input' => [
+                'type' => 'text',
+                'name' => 'title',
+                'id' => 'title',
+                'class' => 'form-control',
+            ],
+            '/div'
+        ];
+        $this->assertHtml($expected, $result);
+    }
+
     public function testInlineFormCreate()
     {
         $result = $this->Form->create($this->article, ['class' => 'form-inline']);
