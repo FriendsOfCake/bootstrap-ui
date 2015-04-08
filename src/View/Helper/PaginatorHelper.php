@@ -33,33 +33,19 @@ class PaginatorHelper extends \Cake\View\Helper\PaginatorHelper
     }
 
     /**
-     * Returns a set of numbers for the paged result set
-     * uses a modulus to decide how many numbers to show on each side of the current page (default: 8).
+     * Returns a set of numbers for the paged result set.
      *
-     * `$this->Paginator->numbers(['first' => 2, 'last' => 2]);`
-     *
-     * Using the first and last options you can create links to the beginning and end of the page set.
+     * In addition to the numbers the method can also generate previous and next
+     * links using additional option as shown below which are not available in
+     * CakePHP core's PaginatorHelper::number().
      *
      * ### Options
      *
-     * - `before` Content to be inserted before the numbers, but after the first links.
-     * - `after` Content to be inserted after the numbers, but before the last links.
-     * - `model` Model to create numbers for, defaults to PaginatorHelper::defaultModel()
-     * - `modulus` how many numbers to include on either side of the current page, defaults to 8.
-     * - `first` Whether you want first links generated, set to an integer to define the number of 'first'
-     *    links to generate.
-     * - `last` Whether you want last links generated, set to an integer to define the number of 'last'
-     *    links to generate.
-     * - `templates` An array of templates, or template file name containing the templates you'd like to
-     *    use when generating the numbers. The helper's original templates will be restored once
-     *    numbers() is done.
-     *
-     * The generated number links will include the 'ellipsis' template when the `first` and `last` options
-     * and the number of pages exceed the modulus. For example if you have 25 pages, and use the first/last
-     * options and a modulus of 8, ellipsis content will be inserted after the first and last link sets.
+     * - `prev` If set generates "previous" link. Can be `true` or string.
+     * - `next` If set generates "next" link. Can be `true` or string.
      *
      * @param array $options Options for the numbers.
-     * @return string numbers string.
+     * @return string Numbers string.
      * @link http://book.cakephp.org/3.0/en/views/helpers/paginator.html#creating-page-number-links
      */
     public function numbers(array $options = [])
