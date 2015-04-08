@@ -35,9 +35,9 @@ class PaginatorHelper extends \Cake\View\Helper\PaginatorHelper
     /**
      * Returns a set of numbers for the paged result set.
      *
-     * In addition to the numbers the method can also generate previous and next
-     * links using additional option as shown below which are not available in
-     * CakePHP core's PaginatorHelper::number().
+     * In addition to the numbers, the method can also generate previous and next
+     * links using additional options as shown below which are not available in
+     * CakePHP core's PaginatorHelper::numbers().
      *
      * ### Options
      *
