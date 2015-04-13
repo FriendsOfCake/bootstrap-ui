@@ -52,7 +52,7 @@ class FlashHelper extends Helper
         }
 
         $flash = $options + $flash;
-        $flash['params'] += $this->_config;
+        $flash['params'] = array_merge($flash['params'] , $this->_config);
         $this->request->session()->delete("Flash.$key");
 
         $element = $flash['element'];
