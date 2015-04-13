@@ -6,9 +6,15 @@ namespace BootstrapUI\View\Helper;
  * CndHelper class to insert Bootstrap CDN css and javascript assests into layout.
  *
  */
-//class CdnHelper extends \Cake\View\Helper
-class CdnHelper extends \Cake\View\Helper\HtmlHelper
+ class CdnHelper extends \Cake\View\Helper
 {
+
+    /**
+     * @var xxx
+     */
+    public $helpers = [
+        'Html'
+    ];
 
     /**
      * Default config
@@ -24,18 +30,20 @@ class CdnHelper extends \Cake\View\Helper\HtmlHelper
     ];
 
     /**
+     * xxx
      *
      * @return
      */
     public function getCss() {
-        return parent::css($this->config('css'));
+        return $this->Html->css($this->config('css'));
     }
 
     /**
+     * xxx
      *
      * @return
      */
     public function getScript() {
-        return parent::script($this->config('script'));
+        return $this->Html->script($this->config('script'));
     }
 }
