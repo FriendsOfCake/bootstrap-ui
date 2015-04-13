@@ -40,7 +40,7 @@ For a complete setup, add the following to your `App\View\AppView`:
 ```php
 public $layout = 'BootstrapUI.default';
 
-public function initialize(array $config)
+public function initialize()
 {
     $this->loadHelper('Html', ['className' => 'BootstrapUI.Html']);
     $this->loadHelper('Form', ['className' => 'BootstrapUI.Form']);

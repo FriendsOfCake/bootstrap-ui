@@ -51,8 +51,18 @@ $this->prepend('meta', $this->Html->meta('author', null, array('name' => 'author
 $this->prepend('meta', $this->Html->meta('favicon.ico', '/favicon.ico', array('type' => 'icon')));
 
 /**
- * Prepend `css` block with TwitterBootstrap and Bootflat stylesheets and append
- * the `$html5Shim`.
+ * Prepend `css` and `script` blocks with local or cdn TwitterBootstrap assets
+ */
+if ($this->helpers()->has('Cdn')) {
+    $this->prepend('css', $this->Cdn->getCss());
+    $this->prepend('script', $this->Cdn->getScript());
+} else {
+    $this->prepend('css', $this->Html->css(['bootstrap/bootstrap']));
+    $this->prepend('script', $this->Html->script(['jquery/jquery', 'bootstrap/bootstrap']));
+}
+
+/**
+ * Append the `$html5Shim` to the `css` block
  */
 $html5Shim =
 <<<HTML
@@ -62,10 +72,7 @@ $html5Shim =
 <script src="//oss.maxcdn.com/libs/respond.js/1.3.0/respond.min.js"></script>
 <![endif]-->
 HTML;
-$this->prepend('css', $this->Html->css(['bootstrap/bootstrap']));
 $this->append('css', $html5Shim);
-
-$this->prepend('script', $this->Html->script(['jquery/jquery', 'bootstrap/bootstrap']));
 
 ?>
 <!DOCTYPE html>
