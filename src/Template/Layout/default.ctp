@@ -54,12 +54,13 @@ $this->prepend('meta', $this->Html->meta('favicon.ico', '/favicon.ico', array('t
  * Prepend `css` and `script` blocks with local or cdn TwitterBootstrap assets
  */
 if ($this->helpers()->has('Cdn')) {
-     $this->prepend('css', $this->Cdn->getCss());
-     $this->prepend('script', $this->Cdn->getScript());
+    $this->prepend('css', $this->Cdn->getCss());
+    $this->prepend('script', $this->Cdn->getScript());
 } else {
     $this->prepend('css', $this->Html->css(['bootstrap/bootstrap']));
     $this->prepend('script', $this->Html->script(['jquery/jquery', 'bootstrap/bootstrap']));
 }
+
 /**
  * Append the `$html5Shim` to the `css` block
  */
