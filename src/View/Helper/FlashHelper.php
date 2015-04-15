@@ -43,32 +43,41 @@ class FlashHelper extends Helper
             return null;
         }
 
-        $flash = $this->request->session()->read("Flash.$key");
-        if (!is_array($flash)) {
+        $stack = $this->request->session()->read("Flash.$key");
+        if (!is_array($stack)) {
             throw new \UnexpectedValueException(sprintf(
                 'Value for flash setting key "%s" must be an array.',
                 $key
             ));
         }
 
-        $flash = $options + $flash;
-        $flash['params'] += $this->_config;
-        $this->request->session()->delete("Flash.$key");
-
-        $element = $flash['element'];
-        if (strpos($element, '.') === false &&
-            preg_match('#Flash/(default|success|error|info|warning)$#', $element, $matches)
-        ) {
-            $class = $matches[1];
-            $class = str_replace(['default', 'error'], ['info', 'danger'], $class);
-
-            if (is_array($flash['params']['class'])) {
-                $flash['params']['class'][] = 'alert-' . $class;
-            }
-            $element = 'BootstrapUI.Flash/default';
+        if (isset($stack['element'])) {
+            $stack = [$stack];
         }
 
-        return $this->_View->element($element, $flash);
+        $out = '';
+        foreach ($stack as $message) {
+            $message = $options + $message;
+            $message['params'] += $this->_config;
+            $this->request->session()->delete("Flash.$key");
+
+            $element = $message['element'];
+            if (strpos($element, '.') === false &&
+                preg_match('#Flash/(default|success|error|info|warning)$#', $element, $matches)
+            ) {
+                $class = $matches[1];
+                $class = str_replace(['default', 'error'], ['info', 'danger'], $class);
+
+                if (is_array($message['params']['class'])) {
+                    $message['params']['class'][] = 'alert-' . $class;
+                }
+                $element = 'BootstrapUI.Flash/default';
+            }
+
+            $out .= $this->_View->element($element, $message);
+        }
+
+        return $out;
     }
 
     /**
