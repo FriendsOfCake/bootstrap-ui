@@ -97,4 +97,53 @@ class FlashHelperTest extends TestCase
         $this->assertContains('<div role="alert" class="foobar">', $result);
         $this->assertContains('This is custom2', $result);
     }
+
+    /**
+     * In CakePHP 3.1 you multple message per key
+     *
+     * @return void
+     */
+    public function testRenderForMultipleMessages()
+    {
+        $this->View->request->session()->write([
+            'Flash' => [
+                'flash' => [
+                    [
+                        'key' => 'flash',
+                        'message' => 'This is a calling',
+                        'element' => 'Flash/default',
+                        'params' => []
+                    ],
+                    [
+                        'key' => 'flash',
+                        'message' => 'This is a second message',
+                        'element' => 'Flash/default',
+                        'params' => ['class' => ['extra']]
+                    ],
+                ],
+                'error' => [
+                    [
+                        'key' => 'error',
+                        'message' => 'This is error',
+                        'element' => 'Flash/error',
+                        'params' => []
+                    ]
+                ]
+            ]
+        ]);
+
+        $result = $this->Flash->render();
+        $this->assertContains('<div role="alert" class="alert alert-dismissible fade in alert-info">', $result);
+        $this->assertContains('<button type="button" class="close" data-dismiss="alert" aria-label="Close">', $result);
+        $this->assertContains('<span aria-hidden="true">&times;</span></button>', $result);
+        $this->assertContains('This is a calling', $result);
+
+        $this->assertContains('<div role="alert" class="extra alert-info">', $result);
+        $this->assertContains('This is a second message', $result);
+
+        $result = $this->Flash->render('error');
+        $this->assertContains('<div role="alert" class="alert alert-dismissible fade in alert-danger">', $result);
+        $this->assertContains('<button type="button" class="close" data-dismiss="alert" aria-label="Close">', $result);
+        $this->assertContains('This is error', $result);
+    }
 }
