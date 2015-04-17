@@ -695,6 +695,39 @@ class FormHelperTest extends TestCase
         $this->assertHtml($expected, $result);
     }
 
+    public function testCustomGrid()
+    {
+        $this->Form->create($this->article, [
+            'align' => [
+                'left' => 3,
+                'middle' => 5,
+                'right' => 4
+            ]
+        ]);
+
+        $result = $this->Form->input('title');
+        $expected = [
+            'div' => ['class' => 'form-group required'],
+            'label' => [
+                'class' => 'control-label col-md-3',
+                'for' => 'title'
+            ],
+            'Title',
+            '/label',
+            ['div' => ['class' => 'col-md-5']],
+            'input' => [
+                'type' => 'text',
+                'name' => 'title',
+                'id' => 'title',
+                'class' => 'form-control',
+                'required' => 'required',
+            ],
+            '/div',
+            '/div'
+        ];
+        $this->assertHtml($expected, $result);
+    }
+
     public function testHorizontalFormCreateFromConfig()
     {
         $this->Form->config([
