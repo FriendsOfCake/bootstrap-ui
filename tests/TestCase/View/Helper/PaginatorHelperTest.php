@@ -126,5 +126,24 @@ class PaginatorHelperTest extends TestCase
             '/ul'
         ];
         $this->assertHtml($expected, $result);
+
+        $this->Paginator->request->params['paging'] = [
+            'Client' => [
+                'page' => 1,
+                'current' => 1,
+                'count' => 2,
+                'prevPage' => false,
+                'nextPage' => 2,
+                'pageCount' => 2,
+            ]
+        ];
+        $result = $this->Paginator->numbers(['size' => 'lg']);
+        $expected = [
+            'ul' => ['class' => 'pagination pagination-lg'],
+            ['li' => ['class' => 'active']], '<span', '1', 'span' => ['class' => 'sr-only'], '(current)', '/span', '/span', '/li',
+            '<li', ['a' => ['href' => '/index?page=2']], '2', '/a', '/li',
+            '/ul'
+        ];
+        $this->assertHtml($expected, $result);
     }
 }

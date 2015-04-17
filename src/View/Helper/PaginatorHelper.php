@@ -43,6 +43,8 @@ class PaginatorHelper extends \Cake\View\Helper\PaginatorHelper
      *
      * - `prev` If set generates "previous" link. Can be `true` or string.
      * - `next` If set generates "next" link. Can be `true` or string.
+     * - `size` Used to control sizing class added to UL tag. For eg.
+     *   using `'size' => 'lg'` would add class `pagination-lg` to UL tag.
      *
      * @param array $options Options for the numbers.
      * @return string Numbers string.
@@ -50,10 +52,6 @@ class PaginatorHelper extends \Cake\View\Helper\PaginatorHelper
      */
     public function numbers(array $options = [])
     {
-        if (is_string($options)) {
-            $options = ['size' => $options];
-        }
-
         $class = 'pagination';
 
         $options += [

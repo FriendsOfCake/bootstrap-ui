@@ -464,6 +464,53 @@ class FormHelperTest extends TestCase
         $this->assertHtml($expected, $result);
     }
 
+    public function testInlineRadioInput()
+    {
+        $this->Form->create($this->article);
+
+        $result = $this->Form->input('published', [
+            'inline' => true,
+            'type' => 'radio',
+            'options' => ['Yes', 'No']
+        ]);
+        $expected = [
+            'input' => [
+                'type' => 'hidden',
+                'name' => 'published',
+                'value' => '',
+            ],
+            ['div' => ['class' => 'radio']],
+            ['label' => ['for' => 'published-0']],
+            ['input' => [
+                'type' => 'radio',
+                'name' => 'published',
+                'value' => 0,
+                'id' => 'published-0',
+            ]],
+            'Yes',
+            '/label',
+            '/div',
+            ['div' => ['class' => 'radio']],
+            ['label' => ['for' => 'published-1']],
+            ['input' => [
+                'type' => 'radio',
+                'name' => 'published',
+                'value' => 1,
+                'id' => 'published-1',
+            ]],
+            'No',
+            '/label',
+        ];
+        $this->assertHtml($expected, $result);
+
+        $result = $this->Form->input('published', [
+            'label' => ['class' => 'radio-inline'],
+            'type' => 'radio',
+            'options' => ['Yes', 'No']
+        ]);
+        $this->assertHtml($expected, $result);
+    }
+
     public function testBasicCheckboxInput()
     {
         $this->Form->create($this->article);
@@ -642,6 +689,39 @@ class FormHelperTest extends TestCase
             'Published',
             '/label',
             '/div',
+            '/div',
+            '/div'
+        ];
+        $this->assertHtml($expected, $result);
+    }
+
+    public function testCustomGrid()
+    {
+        $this->Form->create($this->article, [
+            'align' => [
+                'left' => 3,
+                'middle' => 5,
+                'right' => 4
+            ]
+        ]);
+
+        $result = $this->Form->input('title');
+        $expected = [
+            'div' => ['class' => 'form-group required'],
+            'label' => [
+                'class' => 'control-label col-md-3',
+                'for' => 'title'
+            ],
+            'Title',
+            '/label',
+            ['div' => ['class' => 'col-md-5']],
+            'input' => [
+                'type' => 'text',
+                'name' => 'title',
+                'id' => 'title',
+                'class' => 'form-control',
+                'required' => 'required',
+            ],
             '/div',
             '/div'
         ];
