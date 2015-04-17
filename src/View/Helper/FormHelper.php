@@ -112,6 +112,7 @@ class FormHelper extends Helper
      */
     public function create($model = null, array $options = [])
     {
+        // @codeCoverageIgnoreStart
         if (isset($options['horizontal'])) {
             if ($options['horizontal'] === true) {
                 $options['horizontal'] = 'horizontal';
@@ -120,6 +121,7 @@ class FormHelper extends Helper
             unset($options['horizontal']);
             trigger_error('The `horizontal` option is deprecated. Use `align` instead.');
         }
+        // @codeCoverageIgnoreEnd
 
         $options += [
             'class' => null,
