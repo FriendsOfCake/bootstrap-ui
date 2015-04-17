@@ -1,8 +1,9 @@
 # Bootstrap UI
 
-[![Build Status](https://travis-ci.org/FriendsOfCake/bootstrap-ui.svg?branch=master)](https://travis-ci.org/FriendsOfCake/bootstrap-ui)
-[![Total Downloads](https://poser.pugx.org/friendsofcake/bootstrap-ui/downloads.svg)](https://packagist.org/packages/friendsofcake/bootstrap-ui)
-[![License](https://poser.pugx.org/friendsofcake/bootstrap-ui/license.svg)](https://packagist.org/packages/friendsofcake/bootstrap-ui)
+[![Build Status](https://img.shields.io/travis/FriendsOfCake/bootstrap-ui/master.svg?style=flat-square)](https://travis-ci.org/FriendsOfCake/bootstrap-ui)
+[![Coverage Status](https://img.shields.io/coveralls/FriendsOfCake/bootstrap-ui/master.svg?style=flat-square)](https://coveralls.io/r/FriendsOfCake/bootstrap-ui?branch=master)
+[![Total Downloads](https://img.shields.io/packagist/dt/friendsofcake/bootstrap-ui.svg?style=flat-square)](https://packagist.org/packages/friendsofcake/bootstrap-ui)
+[![License](https://img.shields.io/badge/license-MIT-blue.svg?style=flat-square)](https://packagist.org/packages/friendsofcake/bootstrap-ui)
 
 Transparently use [Twitter Bootstrap 3][twbs3] with [CakePHP 3][cakephp].
 
