@@ -502,6 +502,13 @@ class FormHelperTest extends TestCase
             '/label',
         ];
         $this->assertHtml($expected, $result);
+
+        $result = $this->Form->input('published', [
+            'label' => ['class' => 'radio-inline'],
+            'type' => 'radio',
+            'options' => ['Yes', 'No']
+        ]);
+        $this->assertHtml($expected, $result);
     }
 
     public function testBasicCheckboxInput()
