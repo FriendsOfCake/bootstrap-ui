@@ -87,7 +87,7 @@ class FormHelper extends Helper
                 'middle' => 6,
                 'right' => 4
             ],
-            'templates' => array_merge($this->_defaultConfig['templates'], $this->_templates),
+            'templates' => $this->_templates + $this->_defaultConfig['templates'],
         ] + $this->_defaultConfig;
 
         if (isset($this->_defaultConfig['templateSet'])) {
@@ -204,9 +204,9 @@ class FormHelper extends Helper
      * Closes an HTML form, cleans up values set by FormHelper::create(), and writes hidden
      * input fields where appropriate.
      *
-     * Overrides parent method to reset the form alignement and grid size.
+     * Overrides parent method to reset the form alignment and grid size.
      *
-     * @param array $secureAttributes Secure attibutes which will be passed as HTML attributes
+     * @param array $secureAttributes Secure attributes which will be passed as HTML attributes
      *   into the hidden input elements generated for the Security Component.
      * @return string A closing FORM tag.
      */
