@@ -136,15 +136,15 @@ will render this HTML:
 ```php
 echo $this->Form->create($article, ['align' => [
     'sm' => [
-        'left' => 6
-        'middle' => 6
-        'right' => 12,
+        'left' => 6,
+        'middle' => 6,
+        'right' => 12
     ],
     'md' => [
         'left' => 4,
         'middle' => 4,
-        'right' => 4,
-    ],
+        'right' => 4
+    ]
 ]]);
 echo $this->Form->input('title');
 echo $this->Form->input('published');
