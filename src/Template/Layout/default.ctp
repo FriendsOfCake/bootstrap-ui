@@ -36,6 +36,7 @@ $this->prepend('tb_body_attrs', ' class="' . implode(' ', array($this->request->
 if (!$this->fetch('tb_body_start')) {
     $this->start('tb_body_start');
     echo '<body' . $this->fetch('tb_body_attrs') . '>';
+    echo $this->Flash->render();
     $this->end();
 }
 if (!$this->fetch('tb_body_end')) {
@@ -85,7 +86,6 @@ $this->prepend('script', $this->Html->script(['jquery/jquery', 'bootstrap/bootst
 
     <?php
     echo $this->fetch('tb_body_start');
-    echo $this->Flash->render();
     echo $this->fetch('content');
     echo $this->fetch('tb_footer');
     echo $this->fetch('script');
