@@ -38,6 +38,12 @@ if (!$this->fetch('tb_body_start')) {
     echo '<body' . $this->fetch('tb_body_attrs') . '>';
     $this->end();
 }
+if (!$this->fetch('tb_flash')) {
+    $this->start('tb_flash');
+    if (isset($this->Flash))
+        echo $this->Flash->render();
+    $this->end();
+}
 if (!$this->fetch('tb_body_end')) {
     $this->start('tb_body_end');
     echo '</body>';
@@ -85,8 +91,7 @@ $this->prepend('script', $this->Html->script(['jquery/jquery', 'bootstrap/bootst
 
     <?php
     echo $this->fetch('tb_body_start');
-    if (isset($this->Flash)) 
-        echo $this->Flash->render();
+    echo $this->fetch('tb_flash');
     echo $this->fetch('content');
     echo $this->fetch('tb_footer');
     echo $this->fetch('script');
