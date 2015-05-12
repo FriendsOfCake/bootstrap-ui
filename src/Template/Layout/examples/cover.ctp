@@ -19,6 +19,9 @@ $this->start('tb_body_start');
 
                 <div class="inner cover">
 <?php
+/**
+ * Default `flash` block.
+ */
 if (!$this->fetch('tb_flash')) {
     $this->start('tb_flash');
     if (isset($this->Flash))

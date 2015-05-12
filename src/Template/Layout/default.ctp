@@ -38,6 +38,9 @@ if (!$this->fetch('tb_body_start')) {
     echo '<body' . $this->fetch('tb_body_attrs') . '>';
     $this->end();
 }
+/**
+ * Default `flash` block.
+ */
 if (!$this->fetch('tb_flash')) {
     $this->start('tb_flash');
     if (isset($this->Flash))
