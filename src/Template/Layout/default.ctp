@@ -85,9 +85,8 @@ $this->prepend('script', $this->Html->script(['jquery/jquery', 'bootstrap/bootst
 
     <?php
     echo $this->fetch('tb_body_start');
-    if (isset($this->Flash)) {
+    if (isset($this->Flash)) 
         echo $this->Flash->render();
-    }
     echo $this->fetch('content');
     echo $this->fetch('tb_footer');
     echo $this->fetch('script');
