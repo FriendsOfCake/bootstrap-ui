@@ -75,9 +75,9 @@ $fields = collection($fields)
             $pk = '$' . $singularVar . '->' . $primaryKey[0];
             %>
             <td class="actions">
-                <?= $this->Html->link(__('View'), ['action' => 'view', <%= $pk %>]) ?>
-                <?= $this->Html->link(__('Edit'), ['action' => 'edit', <%= $pk %>]) ?>
-                <?= $this->Form->postLink(__('Delete'), ['action' => 'delete', <%= $pk %>], ['confirm' => __('Are you sure you want to delete # {0}?', <%= $pk %>)]) ?>
+                <?= $this->Html->link('', ['action' => 'view', <%= $pk %>], ['title' => __('View'), 'class' => 'btn btn-default glyphicon glyphicon-eye-open']) ?>
+                <?= $this->Html->link('', ['action' => 'edit', <%= $pk %>], ['title' => __('Edit'), 'class' => 'btn btn-default glyphicon glyphicon-pencil']) ?>
+                <?= $this->Form->postLink('', ['action' => 'delete', <%= $pk %>], ['confirm' => __('Are you sure you want to delete # {0}?', <%= $pk %>), 'title' => __('Delete'), 'class' => 'btn btn-default glyphicon glyphicon-trash']) ?>
             </td>
         </tr>
 
