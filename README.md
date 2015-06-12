@@ -172,6 +172,26 @@ will render this HTML:
     </div>
 ```
 
+### Configuration
+
+You can configure each of the helpers by passing in extra parameters through the AppView.php.
+
+Here is an example of changing the `prev` and `next` labels for the PaginatorHelper.
+
+```php
+$this->loadHelper(
+    'Paginator',
+    [
+        'className' => 'BootstrapUI.Paginator',
+        'labels' => [
+            'prev' => 'previous',
+            'next' => 'next',
+        ]
+    ]
+);
+```
+
+
 **NOTE: Check tests for more examples.**
 
 ## Patches & Features
