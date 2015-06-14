@@ -30,7 +30,6 @@ class FormHelper extends Helper
         'inputContainer' => '<div class="form-group{{required}}">{{content}}{{help}}</div>',
         'inputContainerError' => '<div class="form-group{{required}} has-error">{{content}}{{error}}{{help}}</div>',
         'checkboxWrapper' => '<div class="checkbox"><label>{{input}}{{label}}</label></div>',
-        'radioFormGroup' => '{{input}}',
         'staticControl' => '<p class="form-control-static">{{content}}</p>'
     ];
 
@@ -52,7 +51,6 @@ class FormHelper extends Helper
             'label' => '<label class="control-label %s"{{attrs}}>{{text}}</label>',
             'formGroup' => '{{label}}<div class="%s">{{input}}{{error}}{{help}}</div>',
             'checkboxFormGroup' => '<div class="%s"><div class="checkbox">{{label}}</div>{{error}}{{help}}</div>',
-            'radioFormGroup' => '<div class="%s"><div class="radio">{{label}}</div>{{error}}{{help}}</div>',
             'submitContainer' => '<div class="%s">{{content}}</div>',
             'inputContainer' => '<div class="form-group{{required}}">{{content}}</div>',
             'inputContainerError' => '<div class="form-group{{required}} has-error">{{content}}</div>',
@@ -161,7 +159,6 @@ class FormHelper extends Helper
 
         switch ($options['type']) {
             case 'checkbox':
-            case 'radio':
                 if (!isset($options['inline'])) {
                     $options['inline'] = $this->checkClasses($options['type'] . '-inline', (array)$options['label']);
                 }
@@ -177,6 +174,7 @@ class FormHelper extends Helper
                     $options['type'] = 'multicheckbox';
                 }
                 break;
+            case 'radio':
             case 'multiselect':
             case 'textarea':
                 break;
@@ -385,7 +383,7 @@ class FormHelper extends Helper
 
         $templates['label'] = sprintf($templates['label'], $this->_gridClass('left'));
         $templates['formGroup'] = sprintf($templates['formGroup'], $this->_gridClass('middle'));
-        foreach (['checkboxFormGroup', 'radioFormGroup', 'submitContainer'] as $value) {
+        foreach (['checkboxFormGroup', 'submitContainer'] as $value) {
             $templates[$value] = sprintf($templates[$value], $offsetedGridClass);
         }
 
