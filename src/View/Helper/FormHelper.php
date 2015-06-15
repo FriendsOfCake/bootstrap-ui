@@ -30,6 +30,7 @@ class FormHelper extends Helper
         'inputContainer' => '<div class="form-group{{required}}">{{content}}{{help}}</div>',
         'inputContainerError' => '<div class="form-group{{required}} has-error">{{content}}{{error}}{{help}}</div>',
         'checkboxWrapper' => '<div class="checkbox"><label>{{input}}{{label}}</label></div>',
+        'radioFormGroup' => '{{label}}<div class="radio-inline-wrapper">{{input}}</div>',
         'staticControl' => '<p class="form-control-static">{{content}}</p>'
     ];
 
@@ -166,7 +167,17 @@ class FormHelper extends Helper
                 if ($options['inline']) {
                     $options['label'] = $this->injectClasses($options['type'] . '-inline', (array)$options['label']);
                 }
-
+                break;
+            case 'radio':
+                $isInline = (isset($options['inline']) && $options['inline'] === true);
+                if (!$isInline || $this->_align === 'horizontal') {
+                    $this->templater()->remove('radioFormGroup');
+                }
+                if (!$isInline) {
+                    $this->templater()->add([
+                        'nestingLabel' => '<div class="radio">' . $this->templater()->get('nestingLabel') . '</div>'
+                    ]);
+                }
                 break;
             case 'select':
                 if (isset($options['multiple']) && $options['multiple'] === 'checkbox') {
@@ -174,7 +185,6 @@ class FormHelper extends Helper
                     $options['type'] = 'multicheckbox';
                 }
                 break;
-            case 'radio':
             case 'multiselect':
             case 'textarea':
                 break;

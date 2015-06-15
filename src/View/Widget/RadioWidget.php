@@ -41,21 +41,7 @@ class RadioWidget extends \Cake\View\Widget\RadioWidget
             'inline' => false,
         ];
 
-        $templates = $this->_templates->get();
-        $customize = [];
-
-        if ($data['inline']) {
-            $this->_inline = $data['inline'];
-            if ($templates['formGroup'] === '{{label}}{{input}}') {
-                $this->_templates->add(['radioFormGroup' => '{{label}}<div class="radio-inline-wrapper">{{input}}</div>']);
-            }
-        }
-
-        if (!$data['inline'] && $templates['nestingLabel'] === '{{hidden}}<label{{attrs}}>{{input}}{{text}}</label>') {
-            $customize['nestingLabel'] = '<div class="radio">' . $templates['nestingLabel'] . '</div>';
-        }
-
-        $this->_templates->add($customize);
+        $this->_inline = $data['inline'];
 
         unset($data['inline']);
 
