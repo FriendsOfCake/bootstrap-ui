@@ -430,14 +430,20 @@ class FormHelperTest extends TestCase
     {
         $this->Form->create($this->article);
 
-        $result = $this->Form->input('published', ['type' => 'radio', 'options' => ['Yes', 'No']]);
+        $result = $this->Form->input('published', [
+            'type' => 'radio',
+            'options' => ['Yes', 'No']
+        ]);
         $expected = [
             ['div' => ['class' => 'form-group']],
-            'input' => [
+            ['label' => true],
+            'Published',
+            '/label',
+            ['input' => [
                 'type' => 'hidden',
                 'name' => 'published',
                 'value' => '',
-            ],
+            ]],
             ['div' => ['class' => 'radio']],
             ['label' => ['for' => 'published-0']],
             ['input' => [
@@ -460,6 +466,7 @@ class FormHelperTest extends TestCase
             'No',
             '/label',
             '/div',
+            '/div'
         ];
         $this->assertHtml($expected, $result);
     }
@@ -474,6 +481,67 @@ class FormHelperTest extends TestCase
             'options' => ['Yes', 'No']
         ]);
         $expected = [
+            ['div' => ['class' => 'form-group']],
+            ['label' => true],
+            'Published',
+            '/label',
+            ['div' => ['class' => 'radio-inline-wrapper']],
+            ['input' => [
+                'type' => 'hidden',
+                'name' => 'published',
+                'value' => ''
+            ]],
+            ['label' => [
+                'class' => 'radio-inline',
+                'for' => 'published-0'
+            ]],
+            ['input' => [
+                'type' => 'radio',
+                'name' => 'published',
+                'value' => 0,
+                'id' => 'published-0'
+            ]],
+            'Yes',
+            '/label',
+            ['label' => [
+                'class' => 'radio-inline',
+                'for' => 'published-1'
+            ]],
+            ['input' => [
+                'type' => 'radio',
+                'name' => 'published',
+                'value' => 1,
+                'id' => 'published-1'
+            ]],
+            'No',
+            '/label',
+            '/div',
+            '/div'
+        ];
+        $this->assertHtml($expected, $result);
+    }
+
+    public function testRadioInputHorizontal()
+    {
+        $this->Form->create($this->article, [
+            'align' => [
+                'sm' => [
+                    'left' => 5,
+                    'middle' => 7
+                ]
+            ]
+        ]);
+
+        $result = $this->Form->input('published', [
+            'type' => 'radio',
+            'options' => ['Yes', 'No']
+        ]);
+        $expected = [
+            ['div' => ['class' => 'form-group']],
+            ['label' => ['class' => 'control-label col-sm-5']],
+            'Published',
+            '/label',
+            ['div' => ['class' => 'col-sm-7']],
             'input' => [
                 'type' => 'hidden',
                 'name' => 'published',
@@ -500,14 +568,67 @@ class FormHelperTest extends TestCase
             ]],
             'No',
             '/label',
+            '/div',
+            '/div',
+            '/div'
         ];
         $this->assertHtml($expected, $result);
+    }
+
+    public function testInlineRadioInputHorizontal()
+    {
+        $this->Form->create($this->article, [
+            'align' => [
+                'sm' => [
+                    'left' => 5,
+                    'middle' => 7
+                ]
+            ]
+        ]);
 
         $result = $this->Form->input('published', [
-            'label' => ['class' => 'radio-inline'],
+            'inline' => true,
             'type' => 'radio',
             'options' => ['Yes', 'No']
         ]);
+        $expected = [
+            ['div' => ['class' => 'form-group']],
+            ['label' => ['class' => 'control-label col-sm-5']],
+            'Published',
+            '/label',
+            ['div' => ['class' => 'col-sm-7']],
+            'input' => [
+                'type' => 'hidden',
+                'name' => 'published',
+                'value' => '',
+            ],
+            ['label' => [
+                'class' => 'radio-inline',
+                'for' => 'published-0'
+            ]],
+            ['input' => [
+                'type' => 'radio',
+                'name' => 'published',
+                'value' => 0,
+                'id' => 'published-0',
+            ]],
+            'Yes',
+            '/label',
+            ['label' => [
+                'class' => 'radio-inline',
+                'for' => 'published-1'
+            ]],
+            ['input' => [
+                'type' => 'radio',
+                'name' => 'published',
+                'value' => 1,
+                'id' => 'published-1',
+            ]],
+            'No',
+            '/label',
+            '/div',
+            '/div'
+        ];
         $this->assertHtml($expected, $result);
     }
 
