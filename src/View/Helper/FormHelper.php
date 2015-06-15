@@ -30,7 +30,8 @@ class FormHelper extends Helper
         'inputContainer' => '<div class="form-group{{required}}">{{content}}{{help}}</div>',
         'inputContainerError' => '<div class="form-group{{required}} has-error">{{content}}{{error}}{{help}}</div>',
         'checkboxWrapper' => '<div class="checkbox"><label>{{input}}{{label}}</label></div>',
-        'radioFormGroup' => '{{label}}<div class="radio-inline-wrapper">{{input}}</div>',
+        'radioInlineFormGroup' => '{{label}}<div class="radio-inline-wrapper">{{input}}</div>',
+        'radioNestingLabel' => '<div class="radio">{{hidden}}<label{{attrs}}>{{input}}{{text}}</label></div>',
         'staticControl' => '<p class="form-control-static">{{content}}</p>'
     ];
 
@@ -170,14 +171,16 @@ class FormHelper extends Helper
                 break;
             case 'radio':
                 $isInline = (isset($options['inline']) && $options['inline'] === true);
-                if (!$isInline || $this->_align === 'horizontal') {
-                    $this->templater()->remove('radioFormGroup');
+
+                $templates = [];
+                if ($isInline && $this->_align !== 'horizontal') {
+                    $templates['formGroup'] = $this->templater()->get('radioInlineFormGroup');
                 }
                 if (!$isInline) {
-                    $this->templater()->add([
-                        'nestingLabel' => '<div class="radio">' . $this->templater()->get('nestingLabel') . '</div>'
-                    ]);
+                    $templates['nestingLabel'] = $this->templater()->get('radioNestingLabel');
                 }
+
+                $this->templater()->add($templates);
                 break;
             case 'select':
                 if (isset($options['multiple']) && $options['multiple'] === 'checkbox') {

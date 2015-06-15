@@ -40,11 +40,7 @@ class RadioWidget extends \Cake\View\Widget\RadioWidget
         $data += [
             'inline' => false,
         ];
-
         $this->_inline = $data['inline'];
-
-        unset($data['inline']);
-
         return parent::render($data, $context);
     }
 
