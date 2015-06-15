@@ -67,5 +67,4 @@ class RadioWidget extends \Cake\View\Widget\RadioWidget
         }
         return parent::_renderLabel($radio, $label, $input, $context, $escape);
     }
-
 }
