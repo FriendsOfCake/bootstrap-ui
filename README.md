@@ -62,7 +62,7 @@ When using the included layout (or a copy of), extra layout types (directly take
 Bootstrap examples). You just need to copy them to your application's layouts directory:
 
 ```
-cp -R plugins/BootstrapUI/src/Template/Layout/examples src/Template/Layout/TwitterBootstrap
+cp -R vendor/friendsofcake/bootstrap-ui/src/Template/Layout/examples src/Template/Layout/TwitterBootstrap
 ```
 
 You can then simply extend them in your views like so:
