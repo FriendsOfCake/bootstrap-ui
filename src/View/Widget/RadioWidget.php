@@ -5,6 +5,15 @@ use Cake\View\Form\ContextInterface;
 
 class RadioWidget extends \Cake\View\Widget\RadioWidget
 {
+
+    /**
+     * Set on `RadioWidget::render()` to tell `RadioWidget::_renderLabel()`
+     * that we want to have inline aligned radios.
+     *
+     * @var bool
+     */
+    protected $_inline = false;
+
     /**
      * Render a set of radio buttons.
      *
@@ -31,21 +40,31 @@ class RadioWidget extends \Cake\View\Widget\RadioWidget
         $data += [
             'inline' => false,
         ];
-
-        if ($data['inline']) {
-            $this->_templates->add(['radioContainer' => '{{content}}']);
-        }
-
-
-        $templates = $this->_templates->get();
-        $customize = [];
-        if ($templates['nestingLabel'] === '{{hidden}}<label{{attrs}}>{{input}}{{text}}</label>') {
-            $customize['nestingLabel'] = '<div class="radio">' . $templates['nestingLabel'] . '</div>';
-        }
-        $this->_templates->add($customize);
-
-        unset($data['inline']);
-
+        $this->_inline = $data['inline'];
         return parent::render($data, $context);
+    }
+
+    /**
+     * Renders a label element for a given radio button.
+     *
+     * In the future this might be refactored into a separate widget as other
+     * input types (multi-checkboxes) will also need labels generated.
+     *
+     * @param array $radio The input properties.
+     * @param false|string|array $label The properties for a label.
+     * @param string $input The input widget.
+     * @param \Cake\View\Form\ContextInterface $context The form context.
+     * @param bool $escape Whether or not to HTML escape the label.
+     * @return string Generated label.
+     */
+    protected function _renderLabel($radio, $label, $input, $context, $escape)
+    {
+        if ($this->_inline) {
+            $label = [
+                'text' => $radio['text'],
+                'class' => 'radio-inline'
+            ];
+        }
+        return parent::_renderLabel($radio, $label, $input, $context, $escape);
     }
 }
