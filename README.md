@@ -36,12 +36,12 @@ You then need to load the plugin. In `boostrap.php`, something like:
 \Cake\Core\Plugin::load('BootstrapUI');
 ```
 
-For a complete setup, add the following to your `App\View\AppView`:
+For a complete setup, add the following to your `src\View\AppView`:
 
 ```php
 public $layout = 'BootstrapUI.default';
 
-public function initialize(array $config)
+public function initialize()
 {
     $this->loadHelper('Html', ['className' => 'BootstrapUI.Html']);
     $this->loadHelper('Form', ['className' => 'BootstrapUI.Form']);
