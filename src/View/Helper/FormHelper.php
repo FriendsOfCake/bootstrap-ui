@@ -25,8 +25,8 @@ class FormHelper extends Helper
      * @var array
      */
     protected $_templates = [
-        'error' => '<p class="help-block">{{content}}</p>',
-        'help' => '<p class="help-block">{{content}}</p>',
+        'error' => '<div class="help-block">{{content}}</div>',
+        'help' => '<div class="help-block">{{content}}</div>',
         'inputContainer' => '<div class="form-group{{required}}">{{content}}{{help}}</div>',
         'inputContainerError' => '<div class="form-group{{required}} has-error">{{content}}{{error}}{{help}}</div>',
         'checkboxWrapper' => '<div class="checkbox"><label>{{input}}{{label}}</label></div>',
