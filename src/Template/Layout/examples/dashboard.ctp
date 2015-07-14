@@ -17,8 +17,11 @@ $this->start('tb_body_start');
                 </button>
                 <a class="navbar-brand" href="#"><?= Configure::read('App.title') ?></a>
             </div>
-            <!--
             <div class="navbar-collapse collapse">
+                <ul class="nav navbar-nav navbar-right visible-xs">
+                    <?= $this->fetch('tb_sidebar') ?>
+                </ul>
+                <!--
                 <ul class="nav navbar-nav navbar-right">
                     <li><a href="#">Dashboard</a></li>
                     <li><a href="#">Settings</a></li>
@@ -28,8 +31,8 @@ $this->start('tb_body_start');
                 <form class="navbar-form navbar-right">
                     <input type="text" class="form-control" placeholder="Search...">
                 </form>
+                -->
             </div>
-            -->
         </div>
     </div>
 
