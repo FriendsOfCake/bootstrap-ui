@@ -937,7 +937,7 @@ class FormHelperTest extends TestCase
         $this->assertHtml($expected, $result);
     }
 
-    public function testFormSubmit()
+    public function testBasicFormSubmit()
     {
         $result = $this->Form->submit('Submit');
         $expected = [
@@ -946,6 +946,20 @@ class FormHelperTest extends TestCase
                 'type' => 'submit',
                 'value' => 'Submit',
                 'class' => 'btn',
+            ]
+        ];
+        $this->assertHtml($expected, $result);
+    }
+
+    public function testStyledFormSubmit()
+    {
+        $result = $this->Form->submit('Submit', ['class' => 'btn btn-block']);
+        $expected = [
+            'div' => ['class' => 'submit'],
+            'input' => [
+                'type' => 'submit',
+                'value' => 'Submit',
+                'class' => 'btn btn-block',
             ]
         ];
         $this->assertHtml($expected, $result);

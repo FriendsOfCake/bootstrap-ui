@@ -150,7 +150,13 @@ class FormHelper extends Helper
      */
     public function submit($caption = null, array $options = [])
     {
-        $options = Hash::merge($options, ['class' => 'btn']);
+        $class = ['btn'];
+        if (array_key_exists('class', $options)) {
+            $optionsClass = explode(' ', $options['class']);
+            $class = array_unique(array_merge($class, $optionsClass));
+        }
+        $options = Hash::merge($options, ['class' => $class]);
+
         return parent::submit($caption, $options);
     }
 
