@@ -152,7 +152,7 @@ class FormHelper extends Helper
     {
         $class = ['btn'];
         if (array_key_exists('class', $options)) {
-            $optionsClass = explode(' ', $options['class']);
+            $optionsClass = is_array($options['class']) ? $options['class'] : explode(' ', $options['class']);
             $class = array_unique(array_merge($class, $optionsClass));
         }
         $options = Hash::merge($options, ['class' => $class]);
