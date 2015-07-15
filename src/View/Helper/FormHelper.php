@@ -3,6 +3,7 @@
 namespace BootstrapUI\View\Helper;
 
 use Cake\Core\Configure\Engine\PhpConfig;
+use Cake\Utility\Hash;
 use Cake\View\Helper\FormHelper as Helper;
 use Cake\View\View;
 use InvalidArgumentException;
@@ -132,6 +133,31 @@ class FormHelper extends Helper
         ];
 
         return parent::create($model, $this->_formAlignment($options));
+    }
+
+    /**
+     * Creates a submit button element.
+     *
+     * Overrides parent method to add CSS class `btn`, to the element.
+     *
+     * @param string $caption The label appearing on the button OR if string contains :// or the
+     *  extension .jpg, .jpe, .jpeg, .gif, .png use an image if the extension
+     *  exists, AND the first character is /, image is relative to webroot,
+     *  OR if the first character is not /, image is relative to webroot/img.
+     * @param array $options Array of options. See above.
+     * @return string A HTML submit button
+     * @link http://book.cakephp.org/3.0/en/views/helpers/form.html#creating-buttons-and-submit-elements
+     */
+    public function submit($caption = null, array $options = [])
+    {
+        $class = ['btn'];
+        if (array_key_exists('class', $options)) {
+            $optionsClass = is_array($options['class']) ? $options['class'] : explode(' ', $options['class']);
+            $class = array_unique(array_merge($class, $optionsClass));
+        }
+        $options = Hash::merge($options, ['class' => $class]);
+
+        return parent::submit($caption, $options);
     }
 
     /**
