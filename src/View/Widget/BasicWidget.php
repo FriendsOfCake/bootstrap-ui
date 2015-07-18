@@ -26,6 +26,7 @@ class BasicWidget extends \Cake\View\Widget\BasicWidget
     public function render(array $data, ContextInterface $context)
     {
         $data += [
+            'inputGroupClass' => null,
             'prepend' => null,
             'append' => null,
         ];
@@ -52,7 +53,7 @@ class BasicWidget extends \Cake\View\Widget\BasicWidget
         }
 
         if ($data['prepend'] || $data['append']) {
-            $input = '<div class="input-group">' . $input . '</div>';
+            $input = '<div class="input-group '.$data['inputGroupClass'].'">' . $input . '</div>';
             $this->_templates->add(compact('input'));
         }
 
