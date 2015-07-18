@@ -173,6 +173,7 @@ class FormHelper extends Helper
     public function input($fieldName, array $options = [])
     {
         $options += [
+            'inputGroupClass' => null,
             'prepend' => null,
             'append' => null,
             'type' => null,
