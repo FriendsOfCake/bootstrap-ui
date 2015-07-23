@@ -218,8 +218,8 @@ class FormHelper extends Helper
                 }
                 break;
             case 'multiselect':
-            case 'textarea':
                 break;
+            case 'textarea':
             default:
                 if ($options['label'] !== false && strpos($this->templates('label'), 'class=') === false) {
                     $options['label'] = $this->injectClasses('control-label', (array)$options['label']);
