@@ -28,8 +28,8 @@ class FormHelper extends Helper
     protected $_templates = [
         'error' => '<div class="help-block">{{content}}</div>',
         'help' => '<div class="help-block">{{content}}</div>',
-        'inputContainer' => '<div class="form-group{{required}}">{{content}}{{help}}</div>',
-        'inputContainerError' => '<div class="form-group{{required}} has-error">{{content}}{{error}}{{help}}</div>',
+        'inputContainer' => '<div class="form-group {{type}}{{required}}">{{content}}{{help}}</div>',
+        'inputContainerError' => '<div class="form-group {{type}}{{required}} has-error">{{content}}{{error}}{{help}}</div>',
         'checkboxWrapper' => '<div class="checkbox"><label>{{input}}{{label}}</label></div>',
         'multipleCheckboxWrapper' => '<div class="checkbox">{{label}}</div>',
         'radioInlineFormGroup' => '{{label}}<div class="radio-inline-wrapper">{{input}}</div>',
@@ -56,8 +56,8 @@ class FormHelper extends Helper
             'formGroup' => '{{label}}<div class="%s">{{input}}{{error}}{{help}}</div>',
             'checkboxFormGroup' => '<div class="%s"><div class="checkbox">{{label}}</div>{{error}}{{help}}</div>',
             'submitContainer' => '<div class="%s">{{content}}</div>',
-            'inputContainer' => '<div class="form-group{{required}}">{{content}}</div>',
-            'inputContainerError' => '<div class="form-group{{required}} has-error">{{content}}</div>',
+            'inputContainer' => '<div class="form-group {{type}}{{required}}">{{content}}</div>',
+            'inputContainerError' => '<div class="form-group {{type}}{{required}} has-error">{{content}}</div>',
         ]
     ];
 
@@ -152,7 +152,7 @@ class FormHelper extends Helper
     {
         $class = ['btn'];
         if (array_key_exists('class', $options)) {
-            $optionsClass = explode(' ', $options['class']);
+            $optionsClass = is_array($options['class']) ? $options['class'] : explode(' ', $options['class']);
             $class = array_unique(array_merge($class, $optionsClass));
         }
         $options = Hash::merge($options, ['class' => $class]);
