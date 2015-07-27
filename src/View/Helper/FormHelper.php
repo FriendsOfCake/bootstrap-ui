@@ -26,6 +26,7 @@ class FormHelper extends Helper
      * @var array
      */
     protected $_templates = [
+        'dateWidget' => '<ul class="list-inline"><li class="year">{{year}}</li><li class="month">{{month}}</li><li class="day">{{day}}</li><li class="hour">{{hour}}</li><li class="minute">{{minute}}</li><li class="second">{{second}}</li><li class="meridian">{{meridian}}</li></ul>',
         'error' => '<div class="help-block">{{content}}</div>',
         'help' => '<div class="help-block">{{content}}</div>',
         'inputContainer' => '<div class="form-group {{type}}{{required}}">{{content}}{{help}}</div>',
@@ -34,7 +35,8 @@ class FormHelper extends Helper
         'multipleCheckboxWrapper' => '<div class="checkbox">{{label}}</div>',
         'radioInlineFormGroup' => '{{label}}<div class="radio-inline-wrapper">{{input}}</div>',
         'radioNestingLabel' => '<div class="radio">{{hidden}}<label{{attrs}}>{{input}}{{text}}</label></div>',
-        'staticControl' => '<p class="form-control-static">{{content}}</p>'
+        'staticControl' => '<p class="form-control-static">{{content}}</p>',
+        'select' => '<select class="form-control" name="{{name}}"{{attrs}}>{{content}}</select>'
     ];
 
     /**
