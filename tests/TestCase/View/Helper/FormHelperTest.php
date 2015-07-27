@@ -66,7 +66,7 @@ class FormHelperTest extends TestCase
 
         $result = $this->Form->input('title');
         $expected = [
-            'div' => ['class' => 'form-group'],
+            'div' => ['class' => 'form-group text'],
             'label' => ['class' => 'control-label', 'for' => 'title'],
             'Title',
             '/label',
@@ -89,7 +89,7 @@ class FormHelperTest extends TestCase
 
         $result = $this->Form->input('title', ['type' => 'staticControl']);
         $expected = [
-            'div' => ['class' => 'form-group'],
+            'div' => ['class' => 'form-group staticControl'],
             'label' => ['class' => 'control-label', 'for' => 'title'],
             'Title',
             '/label',
@@ -111,7 +111,7 @@ class FormHelperTest extends TestCase
 
         $result = $this->Form->input('title', ['type' => 'staticControl', 'hiddenField' => false]);
         $expected = [
-            'div' => ['class' => 'form-group'],
+            'div' => ['class' => 'form-group staticControl'],
             'label' => ['class' => 'control-label', 'for' => 'title'],
             'Title',
             '/label',
@@ -131,7 +131,7 @@ class FormHelperTest extends TestCase
 
         $result = $this->Form->input('title', ['label' => false]);
         $expected = [
-            'div' => ['class' => 'form-group'],
+            'div' => ['class' => 'form-group text'],
             'input' => [
                 'type' => 'text',
                 'name' => 'title',
@@ -150,7 +150,7 @@ class FormHelperTest extends TestCase
 
         $result = $this->Form->input('title', ['label' => 'Custom Title']);
         $expected = [
-            'div' => ['class' => 'form-group'],
+            'div' => ['class' => 'form-group text'],
             'label' => ['class' => 'control-label', 'for' => 'title'],
             'Custom Title',
             '/label',
@@ -172,7 +172,7 @@ class FormHelperTest extends TestCase
 
         $result = $this->Form->input('title', ['label' => ['foo' => 'bar', 'text' => 'Custom Title']]);
         $expected = [
-            'div' => ['class' => 'form-group'],
+            'div' => ['class' => 'form-group text'],
             'label' => ['class' => 'control-label', 'for' => 'title', 'foo' => 'bar'],
             'Custom Title',
             '/label',
@@ -194,7 +194,7 @@ class FormHelperTest extends TestCase
 
         $result = $this->Form->input('password');
         $expected = [
-            'div' => ['class' => 'form-group'],
+            'div' => ['class' => 'form-group password'],
             'label' => ['class' => 'control-label', 'for' => 'password'],
             'Password',
             '/label',
@@ -215,7 +215,7 @@ class FormHelperTest extends TestCase
 
         $result = $this->Form->input('title');
         $expected = [
-            'div' => ['class' => 'form-group required'],
+            'div' => ['class' => 'form-group text required'],
             'label' => ['class' => 'control-label', 'for' => 'title'],
             'Title',
             '/label',
@@ -241,7 +241,7 @@ class FormHelperTest extends TestCase
 
         $result = $this->Form->input('title');
         $expected = [
-            'div' => ['class' => 'form-group required has-error'],
+            'div' => ['class' => 'form-group text required has-error'],
             'label' => ['class' => 'control-label', 'for' => 'title'],
             'Title',
             '/label',
@@ -264,7 +264,7 @@ class FormHelperTest extends TestCase
 
         $result = $this->Form->input('title');
         $expected = [
-            'div' => ['class' => 'form-group required has-error'],
+            'div' => ['class' => 'form-group text required has-error'],
             'label' => ['class' => 'control-label col-md-2', 'for' => 'title'],
             'Title',
             '/label',
@@ -287,7 +287,7 @@ class FormHelperTest extends TestCase
 
         $result = $this->Form->input('published');
         $expected = [
-            'div' => ['class' => 'form-group has-error'],
+            'div' => ['class' => 'form-group checkbox has-error'],
             ['div' => ['class' => 'col-md-offset-2 col-md-6']],
             ['div' => ['class' => 'checkbox']],
             'input' => [
@@ -320,7 +320,7 @@ class FormHelperTest extends TestCase
 
         $result = $this->Form->input('title', ['prepend' => '@']);
         $expected = [
-            'div' => ['class' => 'form-group required'],
+            'div' => ['class' => 'form-group text required'],
             'label' => ['class' => 'control-label', 'for' => 'title'],
             'Title',
             '/label',
@@ -347,7 +347,7 @@ class FormHelperTest extends TestCase
 
         $result = $this->Form->input('title', ['append' => '@']);
         $expected = [
-            'div' => ['class' => 'form-group required'],
+            'div' => ['class' => 'form-group text required'],
             'label' => ['class' => 'control-label', 'for' => 'title'],
             'Title',
             '/label',
@@ -374,7 +374,7 @@ class FormHelperTest extends TestCase
 
         $result = $this->Form->input('title', ['prepend' => $this->Form->button('GO')]);
         $expected = [
-            'div' => ['class' => 'form-group required'],
+            'div' => ['class' => 'form-group text required'],
             'label' => ['class' => 'control-label', 'for' => 'title'],
             'Title',
             '/label',
@@ -403,7 +403,7 @@ class FormHelperTest extends TestCase
 
         $result = $this->Form->input('title', ['append' => $this->Form->button('GO')]);
         $expected = [
-            'div' => ['class' => 'form-group required'],
+            'div' => ['class' => 'form-group text required'],
             'label' => ['class' => 'control-label', 'for' => 'title'],
             'Title',
             '/label',
@@ -435,7 +435,7 @@ class FormHelperTest extends TestCase
             'options' => ['Yes', 'No']
         ]);
         $expected = [
-            ['div' => ['class' => 'form-group']],
+            ['div' => ['class' => 'form-group radio']],
             ['label' => true],
             'Published',
             '/label',
@@ -481,7 +481,7 @@ class FormHelperTest extends TestCase
             'options' => ['Yes', 'No']
         ]);
         $expected = [
-            ['div' => ['class' => 'form-group']],
+            ['div' => ['class' => 'form-group radio']],
             ['label' => true],
             'Published',
             '/label',
@@ -537,7 +537,7 @@ class FormHelperTest extends TestCase
             'options' => ['Yes', 'No']
         ]);
         $expected = [
-            ['div' => ['class' => 'form-group']],
+            ['div' => ['class' => 'form-group radio']],
             ['label' => ['class' => 'control-label col-sm-5']],
             'Published',
             '/label',
@@ -592,7 +592,7 @@ class FormHelperTest extends TestCase
             'options' => ['Yes', 'No']
         ]);
         $expected = [
-            ['div' => ['class' => 'form-group']],
+            ['div' => ['class' => 'form-group radio']],
             ['label' => ['class' => 'control-label col-sm-5']],
             'Published',
             '/label',
@@ -770,7 +770,7 @@ class FormHelperTest extends TestCase
 
         $result = $this->Form->input('title');
         $expected = [
-            'div' => ['class' => 'form-group required'],
+            'div' => ['class' => 'form-group text required'],
             'label' => [
                 'class' => 'control-label col-md-2',
                 'for' => 'title'
@@ -792,7 +792,7 @@ class FormHelperTest extends TestCase
 
         $result = $this->Form->input('published');
         $expected = [
-            'div' => ['class' => 'form-group'],
+            'div' => ['class' => 'form-group checkbox'],
             ['div' => ['class' => 'col-md-offset-2 col-md-6']],
             ['div' => ['class' => 'checkbox']],
             'input' => [
@@ -828,7 +828,7 @@ class FormHelperTest extends TestCase
 
         $result = $this->Form->input('title');
         $expected = [
-            'div' => ['class' => 'form-group required'],
+            'div' => ['class' => 'form-group text required'],
             'label' => [
                 'class' => 'control-label col-md-3',
                 'for' => 'title'
@@ -880,7 +880,7 @@ class FormHelperTest extends TestCase
 
         $result = $this->Form->input('title');
         $expected = [
-            'div' => ['class' => 'form-group required'],
+            'div' => ['class' => 'form-group text required'],
             'label' => [
                 'class' => 'control-label col-md-2',
                 'for' => 'title'
@@ -902,7 +902,7 @@ class FormHelperTest extends TestCase
 
         $result = $this->Form->input('published');
         $expected = [
-            'div' => ['class' => 'form-group'],
+            'div' => ['class' => 'form-group checkbox'],
             ['div' => ['class' => 'col-md-offset-2 col-md-6']],
             ['div' => ['class' => 'my-checkbox']],
             'input' => [
@@ -988,7 +988,7 @@ class FormHelperTest extends TestCase
             ]
         ]);
         $expected = [
-            ['div' => ['class' => 'form-group']],
+            ['div' => ['class' => 'form-group multicheckbox']],
             ['label' => []],
             'Users',
             '/label',
@@ -1034,7 +1034,7 @@ class FormHelperTest extends TestCase
 
         $result = $this->Form->input('title', ['help' => 'help text']);
         $expected = [
-            'div' => ['class' => 'form-group required'],
+            'div' => ['class' => 'form-group text required'],
             'label' => ['class' => 'control-label', 'for' => 'title'],
             'Title',
             '/label',
@@ -1083,7 +1083,7 @@ class FormHelperTest extends TestCase
 
         $result = $this->Form->input('title', ['help' => 'help text']);
         $expected = [
-            'div' => ['class' => 'form-group required has-error'],
+            'div' => ['class' => 'form-group text required has-error'],
             'label' => ['class' => 'control-label', 'for' => 'title'],
             'Title',
             '/label',
@@ -1111,7 +1111,7 @@ class FormHelperTest extends TestCase
 
         $result = $this->Form->input('title', ['help' => 'help text']);
         $expected = [
-            'div' => ['class' => 'form-group required'],
+            'div' => ['class' => 'form-group text required'],
             'label' => ['class' => 'control-label col-md-2', 'for' => 'title'],
             'Title',
             '/label',
@@ -1133,7 +1133,7 @@ class FormHelperTest extends TestCase
 
         $result = $this->Form->input('published', ['help' => 'help text']);
         $expected = [
-            'div' => ['class' => 'form-group'],
+            'div' => ['class' => 'form-group checkbox'],
             ['div' => ['class' => 'col-md-offset-2 col-md-6']],
             ['div' => ['class' => 'checkbox']],
             'input' => [
@@ -1166,7 +1166,7 @@ class FormHelperTest extends TestCase
 
         $result = $this->Form->input('title', ['help' => 'help text']);
         $expected = [
-            'div' => ['class' => 'form-group required has-error'],
+            'div' => ['class' => 'form-group text required has-error'],
             'label' => ['class' => 'control-label col-md-2', 'for' => 'title'],
             'Title',
             '/label',
