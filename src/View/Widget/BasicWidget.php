@@ -65,7 +65,7 @@ class BasicWidget extends \Cake\View\Widget\BasicWidget
      * Checks if an HTML markup is for a button.
      *
      * @param string $html Markup to check.
-     * @return boolean TRUE if it's a button.
+     * @return bool TRUE if it's a button.
      */
     protected function _isButton($html)
     {
