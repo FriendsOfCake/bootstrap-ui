@@ -55,6 +55,12 @@ class FlashHelperTest extends TestCase
                     'element' => 'Flash/default',
                     'params' => ['class' => 'foobar']
                 ],
+                'custom3' => [
+                    'key' => 'custom3',
+                    'message' => 'This is <a href="#">custom3</a>',
+                    'element' => 'Flash/default',
+                    'params' => ['escape' => false]
+                ],
             ]
         ]);
     }
@@ -96,6 +102,9 @@ class FlashHelperTest extends TestCase
         $result = $this->Flash->render('custom2');
         $this->assertContains('<div role="alert" class="foobar">', $result);
         $this->assertContains('This is custom2', $result);
+
+        $result = $this->Flash->render('custom3');
+        $this->assertContains('This is <a href="#">custom3</a>', $result);
     }
 
     /**

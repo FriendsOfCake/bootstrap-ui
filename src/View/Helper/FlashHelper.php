@@ -21,7 +21,8 @@ class FlashHelper extends Helper
      */
     protected $_defaultConfig = [
         'class' => ['alert', 'alert-dismissible', 'fade', 'in'],
-        'attributes' => ['role' => 'alert']
+        'attributes' => ['role' => 'alert'],
+        'element' => 'BootstrapUI.Flash/default'
     ];
 
     /**
@@ -71,7 +72,7 @@ class FlashHelper extends Helper
                 if (is_array($message['params']['class'])) {
                     $message['params']['class'][] = 'alert-' . $class;
                 }
-                $element = 'BootstrapUI.Flash/default';
+                $element = $this->_config['element'];
             }
 
             $out .= $this->_View->element($element, $message);
