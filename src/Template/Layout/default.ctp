@@ -71,10 +71,10 @@ $html5Shim =
 <script src="//oss.maxcdn.com/libs/respond.js/1.3.0/respond.min.js"></script>
 <![endif]-->
 HTML;
-$this->prepend('css', $this->Html->css(['bootstrap/bootstrap']));
+$this->prepend('css', $this->Html->css(['/bootstrap/css/bootstrap']));
 $this->append('css', $html5Shim);
 
-$this->prepend('script', $this->Html->script(['jquery/jquery', 'bootstrap/bootstrap']));
+$this->prepend('script', $this->Html->script(['/bootstrap/jquery/jquery', '/bootstrap/js/bootstrap']));
 
 ?>
 <!DOCTYPE html>
