@@ -191,6 +191,14 @@ $this->loadHelper(
 );
 ```
 
+To style Auth flash messages overwrite the default flash element key.
+
+```
+        $this->loadComponent('Auth', [
+            'flash' => ['element' => 'default'],
+            ...
+
+```
 
 **NOTE: Check tests for more examples.**
 
