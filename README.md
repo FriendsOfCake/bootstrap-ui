@@ -84,10 +84,11 @@ A quick way of getting the Bootstrap assets installed is using [bower]. Assuming
 
 ```
 bower install bootstrap
-mkdir -p webroot/css/bootstrap webroot/js/bootstrap webroot/js/jquery
+mkdir -p webroot/css/bootstrap webroot/js/bootstrap webroot/js/jquery webroot/css/fonts
 cp bower_components/bootstrap/dist/css/* webroot/css/bootstrap/.
 cp bower_components/bootstrap/dist/js/* webroot/js/bootstrap/.
 cp bower_components/jquery/dist/* webroot/js/jquery/.
+cp bower_components/bootstrap/dist/fonts/* webroot/css/fonts/.
 echo /bower_components >> .gitignore
 git add .gitignore \
 bower.json \
