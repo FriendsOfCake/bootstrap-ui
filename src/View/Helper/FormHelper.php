@@ -36,7 +36,7 @@ class FormHelper extends Helper
         'radioInlineFormGroup' => '{{label}}<div class="radio-inline-wrapper">{{input}}</div>',
         'radioNestingLabel' => '<div class="radio">{{hidden}}<label{{attrs}}>{{input}}{{text}}</label></div>',
         'staticControl' => '<p class="form-control-static">{{content}}</p>',
-        'select' => '<select class="form-control" name="{{name}}"{{attrs}}>{{content}}</select>'
+        'select' => '<select name="{{name}}"{{attrs}}>{{content}}</select>'
     ];
 
     /**
