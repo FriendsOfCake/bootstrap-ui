@@ -81,6 +81,30 @@ class FormHelperTest extends TestCase
         $this->assertHtml($expected, $result);
     }
 
+    public function testSelectInput()
+    {
+        $this->Form->create($this->article);
+
+        $result = $this->Form->input('foreign_key', [
+            'type' => 'select',
+            'class' => 'my-class'
+        ]);
+        $expected = [
+            'div' => ['class' => 'form-group select'],
+            'label' => ['for' => 'foreign-key'],
+            'Foreign Key',
+            '/label',
+            'select' => [
+                'name' => 'foreign_key',
+                'id' => 'foreign-key',
+                'class' => 'my-class form-control',
+            ],
+            '/select',
+            '/div'
+        ];
+        $this->assertHtml($expected, $result);
+    }
+
     public function testStaticControl()
     {
         unset($this->article['required']['title']);
