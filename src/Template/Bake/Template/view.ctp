@@ -115,9 +115,9 @@ foreach ($associations as $type => $data) {
         <?= $this->Text->autoParagraph(h($<%= $singularVar %>-><%= $field %>)); ?>
     </div>
 </div>
-<% 
+<%
 endforeach;
-endif; 
+endif;
 %>
 <%
 $relations = $associations['HasMany'] + $associations['BelongsToMany'];
