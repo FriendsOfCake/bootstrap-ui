@@ -6,16 +6,16 @@ use Cake\Utility\Inflector;
 $this->extend('../Layout/TwitterBootstrap/dashboard');
 $this->start('tb_actions');
 ?>
-<li><?= $this->Html->link(__('New <%= $singularHumanName %>'), ['action' => 'add']); ?></li>
+    <li><?= $this->Html->link(__('New <%= $singularHumanName %>'), ['action' => 'add']); ?></li>
 <%
 $done = [];
 foreach ($associations as $type => $data):
     foreach ($data as $alias => $details):
         if ($details['controller'] != $this->name && !in_array($details['controller'], $done)):
             %>
-<li><?= $this->Html->link(__('List <%= Inflector::humanize($details["controller"]) %>'), ['controller' => '<%= $details["controller"] %>', 'action' => 'index']); ?></li>
-            <li><?= $this->Html->link(__('New <%= Inflector::humanize(Inflector::singularize(Inflector::underscore($alias))) %>'), ['controller' => ' <%= $details["controller"] %>', 'action' => 'add']); ?></li>
-            <%
+    <li><?= $this->Html->link(__('List <%= Inflector::humanize($details["controller"]) %>'), ['controller' => '<%= $details["controller"] %>', 'action' => 'index']); ?></li>
+    <li><?= $this->Html->link(__('New <%= Inflector::humanize(Inflector::singularize(Inflector::underscore($alias))) %>'), ['controller' => ' <%= $details["controller"] %>', 'action' => 'add']); ?></li>
+<%
             $done[] = $details['controller'];
         endif;
     endforeach;
@@ -34,16 +34,16 @@ $fields = collection($fields)
 <table class="table table-striped" cellpadding="0" cellspacing="0">
     <thead>
         <tr>
-            <% foreach ($fields as $field): %>
+<% foreach ($fields as $field): %>
             <th><?= $this->Paginator->sort('<%= $field %>'); ?></th>
-            <% endforeach; %>
+<% endforeach; %>
             <th class="actions"><?= __('Actions'); ?></th>
         </tr>
     </thead>
     <tbody>
         <?php foreach ($<%= $pluralVar %> as $<%= $singularVar %>): ?>
         <tr>
-            <%
+<%
             foreach ($fields as $field) {
                 $isKey = false;
                 if (!empty($associations['BelongsTo'])) {
@@ -52,9 +52,9 @@ $fields = collection($fields)
                             $isKey = true;
                             %>
             <td>
-                                <?= $<%= $singularVar %>->has('<%= $details['property'] %>') ? $this->Html->link($<%= $singularVar %>-><%= $details['property'] %>-><%= $details['displayField'] %>, ['controller' => '<%= $details['controller'] %>', 'action' => 'view', $<%= $singularVar %>-><%= $details['property'] %>-><%= $details['primaryKey'][0] %>]) : '' ?>
-                            </td>
-                            <%
+                <?= $<%= $singularVar %>->has('<%= $details['property'] %>') ? $this->Html->link($<%= $singularVar %>-><%= $details['property'] %>-><%= $details['displayField'] %>, ['controller' => '<%= $details['controller'] %>', 'action' => 'view', $<%= $singularVar %>-><%= $details['property'] %>-><%= $details['primaryKey'][0] %>]) : '' ?>
+            </td>
+<%
                             break;
                         }
                     }
@@ -63,11 +63,11 @@ $fields = collection($fields)
                     if (!in_array($schema->columnType($field), ['integer', 'biginteger', 'decimal', 'float'])) {
                         %>
             <td><?= h($<%= $singularVar %>-><%= $field %>) ?></td>
-                        <%
+<%
                     } else {
                         %>
             <td><?= $this->Number->format($<%= $singularVar %>-><%= $field %>) ?></td>
-                        <%
+<%
                     }
                 }
             }
@@ -80,7 +80,6 @@ $fields = collection($fields)
                 <?= $this->Form->postLink('', ['action' => 'delete', <%= $pk %>], ['confirm' => __('Are you sure you want to delete # {0}?', <%= $pk %>), 'title' => __('Delete'), 'class' => 'btn btn-default glyphicon glyphicon-trash']) ?>
             </td>
         </tr>
-
         <?php endforeach; ?>
     </tbody>
 </table>
