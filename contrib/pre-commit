@@ -15,7 +15,7 @@ SFILES=${SFILES:-$FILES}
 if [ "$FILES" != "" ]
 then
     echo "Running PHPCS"
-    ./vendor/bin/phpcs --standard=vendor/cakephp/cakephp-codesniffer/CakePHP $SFILES
+    ./vendor/bin/phpcs --standard=vendor/cakephp/cakephp-codesniffer/CakePHP --ignore=*/config/Migrations/* $SFILES
     if [ $? != 0 ]
     then
         echo "PHPCS Errors found; commit aborted."
