@@ -19,10 +19,11 @@ $this->start('tb_body_start');
             </div>
             <div class="navbar-collapse collapse">
                 <ul class="nav navbar-nav navbar-right visible-xs">
-                    <?= $this->fetch('tb_sidebar') ?>
+                    <?= $this->fetch('tb_actions') ?>
                 </ul>
                 <!--
                 <ul class="nav navbar-nav navbar-right">
+                    <li class="nav-divider"></li>
                     <li><a href="#">Dashboard</a></li>
                     <li><a href="#">Settings</a></li>
                     <li><a href="#">Profile</a></li>
