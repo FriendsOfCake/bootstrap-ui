@@ -32,28 +32,36 @@ class FlashHelperTest extends TestCase
         $session->write([
             'Flash' => [
                 'flash' => [
-                    'key' => 'flash',
-                    'message' => 'This is a calling',
-                    'element' => 'Flash/default',
-                    'params' => []
+                    [
+                        'key' => 'flash',
+                        'message' => 'This is a calling',
+                        'element' => 'Flash/default',
+                        'params' => []
+                    ]
                 ],
                 'error' => [
-                    'key' => 'error',
-                    'message' => 'This is error',
-                    'element' => 'Flash/error',
-                    'params' => []
+                    [
+                        'key' => 'error',
+                        'message' => 'This is error',
+                        'element' => 'Flash/error',
+                        'params' => []
+                    ]
                 ],
                 'custom1' => [
-                    'key' => 'custom1',
-                    'message' => 'This is custom1',
-                    'element' => 'Flash/warning',
-                    'params' => []
+                    [
+                        'key' => 'custom1',
+                        'message' => 'This is custom1',
+                        'element' => 'Flash/warning',
+                        'params' => []
+                    ]
                 ],
                 'custom2' => [
-                    'key' => 'custom2',
-                    'message' => 'This is custom2',
-                    'element' => 'Flash/default',
-                    'params' => ['class' => 'foobar']
+                    [
+                        'key' => 'custom2',
+                        'message' => 'This is custom2',
+                        'element' => 'Flash/default',
+                        'params' => ['class' => 'foobar']
+                    ]
                 ],
             ]
         ]);
