@@ -987,6 +987,17 @@ class FormHelperTest extends TestCase
             ]
         ];
         $this->assertHtml($expected, $result);
+
+        $result = $this->Form->submit('Submit', ['class' => ['btn', 'btn-block']]);
+        $expected = [
+            'div' => ['class' => 'submit'],
+            'input' => [
+                'type' => 'submit',
+                'value' => 'Submit',
+                'class' => 'btn btn-block',
+            ]
+        ];
+        $this->assertHtml($expected, $result);
     }
 
     public function testStyledButton()
