@@ -1,5 +1,5 @@
 {
-    "name": "friendsofcake/bootstrap-ui",
+    "name": "2km/bootstrap-ui",
     "description": "Twitter Bootstrap 3 support for CakePHP 3",
     "type": "cakephp-plugin",
     "keywords": ["cakephp", "twitter", "bootstrap"],
