@@ -36,7 +36,7 @@ matrix:
       env: HHVM=1 DB=mysql db_dsn='mysql://travis@0.0.0.0/cakephp_test'
 
 before_script:
-  - phpenv config-rm xdebug.ini
+  - sh -c "if [ '$HHVM' != '1' ]; then phpenv config-rm xdebug.ini; fi"
 
   - composer self-update
   - composer install --prefer-dist --no-interaction
