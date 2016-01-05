@@ -5,6 +5,12 @@ class HtmlHelper extends \Cake\View\Helper\HtmlHelper
 {
     use OptionsAwareTrait;
 
+    private $grid = [];
+
+    private $gridOptions = [];
+
+    private $gridCounter = 0;
+
     /**
      * Returns Bootstrap badge markup. By default, uses `<SPAN>`.
      *
@@ -93,5 +99,71 @@ class HtmlHelper extends \Cake\View\Helper\HtmlHelper
         $tag = $options['tag'];
         unset($options['tag'], $options['type']);
         return $this->tag($tag, $text, $this->injectClasses($classes, $options));
+    }
+
+    /**
+     * Set the content of a cell in a Bootstrap's grid
+     *
+     * @param  string $text Text, or Html content will be insert in a cell of grid
+     * @return $this
+     */
+    public function gridContent($text = null)
+    {
+        $this->gridCounter++;
+
+        $this->grid[$this->gridCounter] = $text;
+
+        return $this;
+    }
+
+    /**
+     * Configure atribututes of a cell
+     *
+     * @param  array $options set the cell configuration
+     * @return $this
+     */
+    public function gridConfig($options = [])
+    {
+        $options += [
+            'type' => 'md',
+            'size' => 12,
+            'offset' => null, //['type'] => 'md', ['size'] => 12
+        ];
+
+        $this->gridOptions[$this->gridCounter][] = $options;
+
+        return $this;
+    }
+
+    /**
+     * Return html of all grid
+     *
+     * @return string $html of a Bootstrap grid
+     */
+    public function gridRender()
+    {
+        $html = '<div class="row">';
+        foreach ($this->grid as $key => $value) {
+            $class = null;
+            foreach ($this->gridOptions[$key] as $key2 => $config) {
+                if ($key2 > 0) {
+                    $class .= ' ';
+                }
+                $offset = null;
+                $class .= 'col-' . $config['type'] . '-' . $config['size'];
+                if (!empty($config['offset'])) {
+                    $offset .= 'col-' . $config['offset']['type'] . '-offset-' . $config['offset']['size'];
+                    $class .= ' ' . $offset;
+                }
+            }
+            if (empty($class)) {
+                $class = 'col-md-12';
+            }
+            $html .= '<div class="' . $class . '">' . $value . '</div>';
+        }
+        $html .= '</div>';
+        $this->gridCounter = 0;
+        $this->grid = $this->gridConfig = [];
+        return $html;
     }
 }
