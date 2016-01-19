@@ -40,10 +40,15 @@ $groupedFields += ['number' => [], 'string' => [], 'boolean' => [], 'date' => []
 $pk = "\$$singularVar->{$primaryKey[0]}";
 %>
 <?php
-/* @var $this \Cake\View\View */
 $this->extend('../Layout/TwitterBootstrap/dashboard');
-$this->start('tb_actions');
+
+<% foreach (['tb_actions', 'tb_sidebar'] as $block): %>
+
+$this->start('<%= $block %>');
 ?>
+<% if ('tb_sidebar' === $block): %>
+<ul class="nav nav-sidebar">
+<% endif; %>
 <li><?= $this->Html->link(__('Edit <%= $singularHumanName %>'), ['action' => 'edit', <%= $pk %>]) ?> </li>
 <li><?= $this->Form->postLink(__('Delete <%= $singularHumanName %>'), ['action' => 'delete', <%= $pk %>], ['confirm' => __('Are you sure you want to delete # {0}?', <%= $pk %>)]) ?> </li>
 <li><?= $this->Html->link(__('List <%= $pluralHumanName %>'), ['action' => 'index']) ?> </li>
@@ -60,10 +65,14 @@ foreach ($associations as $type => $data) {
         }
     }
 }
+if ('tb_sidebar' === $block):
 %>
-<?php $this->end(); ?>
-<?php $this->assign('tb_sidebar', '<ul class="nav nav-sidebar">' . $this->fetch('tb_actions') . '</ul>'); ?>
-
+</ul>
+<% endif; %>
+<?php
+$this->end();
+<% endforeach; %>
+?>
 <div class="panel panel-default">
     <!-- Panel header -->
     <div class="panel-heading">
