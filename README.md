@@ -30,7 +30,7 @@ Using [Composer][composer]:
 composer require friendsofcake/bootstrap-ui:~0.3
 ```
 
-You then need to load the plugin. In `boostrap.php`, something like:
+You then need to load the plugin. In `bootstrap.php` (note that this file is a part of cakephp and located at config/bootstrap.php), something like:
 
 ```php
 \Cake\Core\Plugin::load('BootstrapUI');
