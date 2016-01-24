@@ -40,6 +40,7 @@ $groupedFields += ['number' => [], 'string' => [], 'boolean' => [], 'date' => []
 $pk = "\$$singularVar->{$primaryKey[0]}";
 %>
 <?php
+/* @var $this \Cake\View\View */
 $this->extend('../Layout/TwitterBootstrap/dashboard');
 $this->start('tb_actions');
 ?>

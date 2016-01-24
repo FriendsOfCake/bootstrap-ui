@@ -30,10 +30,16 @@ Using [Composer][composer]:
 composer require friendsofcake/bootstrap-ui:~0.3
 ```
 
-You then need to load the plugin. In `boostrap.php`, something like:
+Then load the plugin by adding the following to your app's `config/boostrap.php`:
 
 ```php
 \Cake\Core\Plugin::load('BootstrapUI');
+```
+
+or using CakePHP's console:
+
+```
+./bin/cake plugin load BootstrapUI
 ```
 
 For a complete setup, add the following to your `src\View\AppView`:
