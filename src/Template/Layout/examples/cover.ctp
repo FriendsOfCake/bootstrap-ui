@@ -1,4 +1,5 @@
 <?php
+/* @var $this \Cake\View\View */
 use Cake\Core\Configure;
 
 $this->Html->css('BootstrapUI.cover', ['block' => true]);
