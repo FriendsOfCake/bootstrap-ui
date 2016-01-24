@@ -189,7 +189,14 @@ class FormHelper extends Helper
             'templateVars' => []
         ];
         $options = $this->_parseOptions($fieldName, $options);
-        $reset = $this->templates();
+
+        $newTemplates = $options['templates'];
+        if ($newTemplates) {
+            $this->templater()->push();
+            $templateMethod = is_string($options['templates']) ? 'load' : 'add';
+            $this->templater()->{$templateMethod}($options['templates']);
+            $options['templates'] = [];
+        }
 
         switch ($options['type']) {
             case 'checkbox':
@@ -203,22 +210,16 @@ class FormHelper extends Helper
                 break;
             case 'radio':
                 $isInline = (isset($options['inline']) && $options['inline'] === true);
-
-                $templates = [];
                 if ($isInline && $this->_align !== 'horizontal') {
-                    $templates['formGroup'] = $this->templater()->get('radioInlineFormGroup');
+                    $options['templates']['formGroup'] = $this->templater()->get('radioInlineFormGroup');
                 }
                 if (!$isInline) {
-                    $templates['nestingLabel'] = $this->templater()->get('radioNestingLabel');
+                    $options['templates']['nestingLabel'] = $this->templater()->get('radioNestingLabel');
                 }
-
-                $this->templater()->add($templates);
                 break;
             case 'select':
                 if (isset($options['multiple']) && $options['multiple'] === 'checkbox') {
-                    $this->templater()->add([
-                        'checkboxWrapper' => $this->templater()->get('multipleCheckboxWrapper')
-                    ]);
+                    $options['templates']['checkboxWrapper'] = $this->templater()->get('multipleCheckboxWrapper');
                     $options['type'] = 'multicheckbox';
                 }
                 break;
@@ -243,7 +244,9 @@ class FormHelper extends Helper
         }
 
         $result = parent::input($fieldName, $options);
-        $this->templates($reset);
+        if ($newTemplates) {
+            $this->templater()->pop();
+        }
         return $result;
     }
 
