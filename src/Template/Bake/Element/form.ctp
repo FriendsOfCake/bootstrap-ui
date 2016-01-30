@@ -8,10 +8,14 @@ $fields = collection($fields)
 });
 %>
 <?php
-/* @var $this \Cake\View\View */
 $this->extend('../Layout/TwitterBootstrap/dashboard');
-$this->start('tb_actions');
+<% foreach (['tb_actions', 'tb_sidebar'] as $block): %>
+
+$this->start('<%= $block %>');
 ?>
+<% if ('tb_sidebar' === $block): %>
+<ul class="nav nav-sidebar">
+<% endif; %>
 <% if (strpos($action, 'add') === false): %>
     <li><?=
     $this->Form->postLink(
@@ -37,9 +41,14 @@ foreach ($associations as $type => $data) {
         }
     }
 }
+if ('tb_sidebar' === $block):
 %>
-<?php $this->end(); ?>
-<?php $this->assign('tb_sidebar', '<ul class="nav nav-sidebar">' . $this->fetch('tb_actions') . '</ul>'); ?>
+</ul>
+<% endif; %>
+<?php
+$this->end();
+<% endforeach; %>
+?>
 <?= $this->Form->create($<%= $singularVar %>); ?>
 <fieldset>
     <legend><?= __('<%= Inflector::humanize($action) %> {0}', ['<%= $singularHumanName %>']) ?></legend>
