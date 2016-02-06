@@ -60,7 +60,7 @@ $this->prepend('meta', $this->Html->meta('author', null, ['name' => 'author', 'c
 $this->prepend('meta', $this->Html->meta('favicon.ico', '/favicon.ico', ['type' => 'icon']));
 
 /**
- * Prepend `css` block with TwitterBootstrap and Bootflat stylesheets and append
+ * Prepend `css` block with TwitterBootstrap and Bootstrap stylesheets and append
  * the `$html5Shim`.
  */
 $html5Shim =
