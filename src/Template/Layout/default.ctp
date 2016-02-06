@@ -60,7 +60,7 @@ $this->prepend('meta', $this->Html->meta('author', null, ['name' => 'author', 'c
 $this->prepend('meta', $this->Html->meta('favicon.ico', '/favicon.ico', ['type' => 'icon']));
 
 /**
- * Prepend `css` block with TwitterBootstrap and Bootflat stylesheets and append
+ * Prepend `css` block with Bootstrap stylesheets and append
  * the `$html5Shim`.
  */
 $html5Shim =
@@ -76,6 +76,9 @@ $this->prepend('css', $this->Html->css(['bootstrap/bootstrap']));
 
 $this->append('css', $html5Shim);
 
+/**
+ * Prepend `script` block with jQuery and Bootstrap scripts
+ */
 $this->prepend('script', $this->Html->script(['jquery/jquery', 'bootstrap/bootstrap']));
 
 ?>
