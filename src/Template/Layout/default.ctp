@@ -76,6 +76,9 @@ $this->prepend('css', $this->Html->css(['bootstrap/bootstrap']));
 
 $this->append('css', $html5Shim);
 
+/**
+ * Prepend `script` block with jQuery and Bootstrap scripts
+ */
 $this->prepend('script', $this->Html->script(['jquery/jquery', 'bootstrap/bootstrap']));
 
 ?>
