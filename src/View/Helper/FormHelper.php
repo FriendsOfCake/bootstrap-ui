@@ -189,6 +189,7 @@ class FormHelper extends Helper
             'templateVars' => []
         ];
         $options = $this->_parseOptions($fieldName, $options);
+        $reset = $this->templates();
 
         $newTemplates = $options['templates'];
         if ($newTemplates) {
@@ -244,9 +245,8 @@ class FormHelper extends Helper
         }
 
         $result = parent::input($fieldName, $options);
-        if ($newTemplates) {
-            $this->templater()->pop();
-        }
+        $this->templates($reset);
+
         return $result;
     }
 
