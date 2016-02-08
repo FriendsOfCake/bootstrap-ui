@@ -42,17 +42,48 @@ or using CakePHP's console:
 ./bin/cake plugin load BootstrapUI
 ```
 
-For a complete setup, add the following to your `src\View\AppView`:
+## AppView Setup
+Then for a complete setup, just make your `AppView` class extends `BootstrapUI\View\UIView`.
+The `src\View\AppView.php` then will be as the following: 
 
 ```php
-public $layout = 'BootstrapUI.default';
+namespace App\View;
 
-public function initialize()
+use BootstrapUI\View\UIView;
+
+class AppView extends UIView
 {
-    $this->loadHelper('Html', ['className' => 'BootstrapUI.Html']);
-    $this->loadHelper('Form', ['className' => 'BootstrapUI.Form']);
-    $this->loadHelper('Flash', ['className' => 'BootstrapUI.Flash']);
-    $this->loadHelper('Paginator', ['className' => 'BootstrapUI.Paginator']);
+
+    /**
+     * Initialization hook method.
+     */
+    public function initialize()
+    {
+        //Don't forget to call the parent::initialize()
+        parent::initialize();
+    }
+}
+```
+
+### AppView Setup Using UIViewTrait
+```php
+namespace App\View;
+
+use Cake\View\View;
+
+class AppView extends View
+{
+
+    use UIViewTrait;
+    
+    /**
+     * Initialization hook method.
+     */
+    public function initialize()
+    {
+        //render the initializeUI method from the UIViewTrait
+        $this->initializeUI();
+    }
 }
 ```
 
