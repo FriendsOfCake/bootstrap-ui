@@ -36,7 +36,9 @@ class FormHelper extends Helper
         'radioInlineFormGroup' => '{{label}}<div class="radio-inline-wrapper">{{input}}</div>',
         'radioNestingLabel' => '<div class="radio">{{hidden}}<label{{attrs}}>{{input}}{{text}}</label></div>',
         'staticControl' => '<p class="form-control-static">{{content}}</p>',
-        'select' => '<select name="{{name}}"{{attrs}}>{{content}}</select>'
+        'select' => '<select name="{{name}}"{{attrs}}>{{content}}</select>',
+        'inputGroupAddon' => '<span class="{{class}}">{{content}}</span>',
+        'inputGroupContainer' => '<div class="input-group">{{prepend}}{{content}}{{append}}</div>',
     ];
 
     /**
@@ -193,12 +195,9 @@ class FormHelper extends Helper
         ];
         $options = $this->_parseOptions($fieldName, $options);
 
-        $extraOptions = $options['prepend'] || $options['append'];
         $newTemplates = $options['templates'];
-        if ($newTemplates || $extraOptions) {
-            $this->templater()->push();
-        }
         if ($newTemplates) {
+            $this->templater()->push();
             $templateMethod = is_string($options['templates']) ? 'load' : 'add';
             $this->templater()->{$templateMethod}($options['templates']);
             $options['templates'] = [];
@@ -253,7 +252,7 @@ class FormHelper extends Helper
         }
 
         $result = parent::input($fieldName, $options);
-        if ($newTemplates || $extraOptions) {
+        if ($newTemplates) {
             $this->templater()->pop();
         }
         return $result;
