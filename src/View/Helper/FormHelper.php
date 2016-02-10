@@ -70,7 +70,6 @@ class FormHelper extends Helper
      */
     protected $_widgets = [
         'button' => 'BootstrapUI\View\Widget\ButtonWidget',
-        'checkbox' => 'BootstrapUI\View\Widget\CheckboxWidget',
         'radio' => ['BootstrapUI\View\Widget\RadioWidget', 'nestingLabel'],
         '_default' => 'BootstrapUI\View\Widget\BasicWidget',
     ];
@@ -194,7 +193,7 @@ class FormHelper extends Helper
         ];
         $options = $this->_parseOptions($fieldName, $options);
 
-        $extraOptions = $options['prepend'] || $options['append'] || $options['inline'];
+        $extraOptions = $options['prepend'] || $options['append'];
         $newTemplates = $options['templates'];
         if ($newTemplates || $extraOptions) {
             $this->templater()->push();
@@ -213,7 +212,11 @@ class FormHelper extends Helper
 
                 if ($options['inline']) {
                     $options['label'] = $this->injectClasses($options['type'] . '-inline', (array)$options['label']);
+                    if (!isset($newTemplates['checkboxContainer'])) {
+                        $options['templates']['checkboxContainer'] = '{{content}}';
+                    }
                 }
+                unset($options['inline']);
                 break;
             case 'radio':
                 if ($options['inline'] && $this->_align !== 'horizontal') {
