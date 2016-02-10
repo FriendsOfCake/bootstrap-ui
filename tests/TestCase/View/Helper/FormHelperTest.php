@@ -363,6 +363,27 @@ class FormHelperTest extends TestCase
             '/div'
         ];
         $this->assertHtml($expected, $result);
+
+        $result = $this->Form->input('url', ['prepend' => 'http://']);
+        $expected = [
+            'div' => ['class' => 'form-group text'],
+            'label' => ['class' => 'control-label', 'for' => 'url'],
+            'Url',
+            '/label',
+            ['div' => ['class' => 'input-group']],
+            'span' => ['class' => 'input-group-addon'],
+            'http://',
+            '/span',
+            'input' => [
+                'type' => 'text',
+                'name' => 'url',
+                'id' => 'url',
+                'class' => 'form-control'
+            ],
+            '/div',
+            '/div'
+        ];
+        $this->assertHtml($expected, $result);
     }
 
     public function testAddonAppendedInput()
