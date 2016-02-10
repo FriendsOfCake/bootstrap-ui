@@ -207,10 +207,12 @@ class FormHelper extends Helper
 
         switch ($options['type']) {
             case 'checkbox':
+                if (!isset($options['inline'])) {
+                    $options['inline'] = $this->checkClasses($options['type'] . '-inline', (array)$options['label']);
+                }
+
                 if ($options['inline']) {
                     $options['label'] = $this->injectClasses($options['type'] . '-inline', (array)$options['label']);
-                } else {
-                    $options['inline'] = $this->checkClasses($options['type'] . '-inline', (array)$options['label']);
                 }
                 break;
             case 'radio':
