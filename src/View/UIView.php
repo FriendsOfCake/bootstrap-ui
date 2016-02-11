@@ -5,10 +5,10 @@ namespace BootstrapUI\View;
 use Cake\View\View;
 
 /**
- * UIView, the customised BootstrapUI View class.
+ * UIView: the customised BootstrapUI View class.
  *
- * customises the $layout to the BootstrapUI's layout
- * and initialize the View with the BootstrapUI's helpers
+ * It customises the View::$layout to the BootstrapUI's layout and loads
+ * BootstrapUI's helpers.
  */
 class UIView extends View
 {
@@ -23,7 +23,6 @@ class UIView extends View
     {
         parent::initialize();
 
-        //render the initializeUI method from the UIViewTrait
         $this->initializeUI();
     }
 }
