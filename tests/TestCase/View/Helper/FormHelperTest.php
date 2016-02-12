@@ -1087,8 +1087,8 @@ class FormHelperTest extends TestCase
         ];
         $this->assertHtml($expected, $result);
     }
-	
-	public function testPrimaryStyledButton()
+
+    public function testPrimaryStyledButton()
     {
         $result = $this->Form->button('Submit', ['class' => 'primary']);
         $expected = [
