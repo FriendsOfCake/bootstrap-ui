@@ -16,6 +16,7 @@ class ButtonWidget extends \Cake\View\Widget\ButtonWidget
         'warning',
         'danger',
         'info',
+        'primary'
     ];
 
     /**
