@@ -1079,9 +1079,9 @@ class FormHelperTest extends TestCase
 
     public function testStyledButton()
     {
-        $result = $this->Form->button('Submit', ['class' => 'success']);
+        $result = $this->Form->button('Submit', ['class' => 'primary']);
         $expected = [
-            'button' => ['class' => 'btn-success btn', 'type' => 'submit'],
+            'button' => ['class' => 'btn-primary btn', 'type' => 'submit'],
             'Submit',
             '/button'
         ];
