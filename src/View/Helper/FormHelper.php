@@ -36,7 +36,9 @@ class FormHelper extends Helper
         'radioInlineFormGroup' => '{{label}}<div class="radio-inline-wrapper">{{input}}</div>',
         'radioNestingLabel' => '<div class="radio">{{hidden}}<label{{attrs}}>{{input}}{{text}}</label></div>',
         'staticControl' => '<p class="form-control-static">{{content}}</p>',
-        'select' => '<select name="{{name}}"{{attrs}}>{{content}}</select>'
+        'select' => '<select name="{{name}}"{{attrs}}>{{content}}</select>',
+        'inputGroupAddon' => '<span class="{{class}}">{{content}}</span>',
+        'inputGroupContainer' => '<div class="input-group">{{prepend}}{{content}}{{append}}</div>',
     ];
 
     /**
@@ -70,7 +72,6 @@ class FormHelper extends Helper
      */
     protected $_widgets = [
         'button' => 'BootstrapUI\View\Widget\ButtonWidget',
-        'checkbox' => 'BootstrapUI\View\Widget\CheckboxWidget',
         'radio' => ['BootstrapUI\View\Widget\RadioWidget', 'nestingLabel'],
         '_default' => 'BootstrapUI\View\Widget\BasicWidget',
     ];
@@ -194,12 +195,9 @@ class FormHelper extends Helper
         ];
         $options = $this->_parseOptions($fieldName, $options);
 
-        $extraOptions = $options['prepend'] || $options['append'] || $options['inline'];
         $newTemplates = $options['templates'];
-        if ($newTemplates || $extraOptions) {
-            $this->templater()->push();
-        }
         if ($newTemplates) {
+            $this->templater()->push();
             $templateMethod = is_string($options['templates']) ? 'load' : 'add';
             $this->templater()->{$templateMethod}($options['templates']);
             $options['templates'] = [];
@@ -213,7 +211,11 @@ class FormHelper extends Helper
 
                 if ($options['inline']) {
                     $options['label'] = $this->injectClasses($options['type'] . '-inline', (array)$options['label']);
+                    if (!isset($newTemplates['checkboxContainer'])) {
+                        $options['templates']['checkboxContainer'] = '{{content}}';
+                    }
                 }
+                unset($options['inline']);
                 break;
             case 'radio':
                 if ($options['inline'] && $this->_align !== 'horizontal') {
@@ -250,7 +252,7 @@ class FormHelper extends Helper
         }
 
         $result = parent::input($fieldName, $options);
-        if ($newTemplates || $extraOptions) {
+        if ($newTemplates) {
             $this->templater()->pop();
         }
         return $result;

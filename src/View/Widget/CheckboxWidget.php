@@ -19,6 +19,7 @@ class CheckboxWidget extends \Cake\View\Widget\CheckboxWidget
      *
      * Any other attributes passed in will be treated as HTML attributes.
      *
+     * @deprecated 0.4 This widget is no longer used.
      * @param array $data The data to create a checkbox with.
      * @param \Cake\View\Form\ContextInterface $context The current form context.
      * @return string Generated HTML string.

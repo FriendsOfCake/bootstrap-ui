@@ -30,35 +30,57 @@ class BasicWidget extends \Cake\View\Widget\BasicWidget
             'append' => null,
         ];
 
-        $input = $this->_templates->get('input');
-
-        if ($data['prepend']) {
-            if (is_string($data['prepend'])) {
-                $class = 'input-group-' . ($this->_isButton($data['prepend']) ? 'btn' : 'addon');
-                $input = '<span class="' . $class . '">' . $data['prepend'] . '</span>' . $input;
-            } else {
-                $class = 'input-group-btn';
-                $input = '<span class="' . $class . '">' . implode('', $data['prepend']) . '</span>' . $input;
-            }
-        }
-        if ($data['append']) {
-            if (is_string($data['append'])) {
-                $class = 'input-group-' . ($this->_isButton($data['append']) ? 'btn' : 'addon');
-                $input .= '<span class="' . $class . '">' . $data['append'] . '</span>';
-            } else {
-                $class = 'input-group-btn';
-                $input .= '<span class="' . $class . '">' . implode('', $data['append']) . '</span>';
-            }
-        }
-
-        if ($data['prepend'] || $data['append']) {
-            $input = '<div class="input-group">' . $input . '</div>';
-            $this->_templates->add(compact('input'));
-        }
-
+        $prepend = $data['prepend'];
+        $append = $data['append'];
         unset($data['append'], $data['prepend']);
 
-        return parent::render($data, $context);
+        $input = parent::render($data, $context);
+
+        if ($prepend) {
+            $prepend = $this->_addon($prepend, $data);
+        }
+        if ($append) {
+            $append = $this->_addon($append, $data);
+        }
+
+        if ($prepend || $append) {
+            $input = $this->_templates->format('inputGroupContainer', [
+                'append' => $append,
+                'prepend' => $prepend,
+                'content' => $input,
+                'templateVars' => $data['templateVars'],
+            ]);
+        }
+
+        return $input;
+    }
+
+    /**
+     * Get addon HTML.
+     *
+     * @param string|array $addon Addon content.
+     * @param array $data Widget data.
+     * @return string
+     */
+    protected function _addon($addon, $data)
+    {
+        if (is_string($addon)) {
+            $class = 'input-group-' . ($this->_isButton($addon) ? 'btn' : 'addon');
+            $addon = $this->_templates->format('inputGroupAddon', [
+                'class' => $class,
+                'content' => $addon,
+                'templateVars' => $data['templateVars'],
+            ]);
+        } else {
+            $class = 'input-group-btn';
+            $addon = $this->_templates->format('inputGroupAddon', [
+                'class' => $class,
+                'content' => implode('', $addon),
+                'templateVars' => $data['templateVars'],
+            ]);
+        }
+
+        return $addon;
     }
 
     /**
