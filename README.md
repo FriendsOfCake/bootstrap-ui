@@ -44,7 +44,7 @@ or using CakePHP's console:
 
 ## AppView Setup
 Then for a complete setup, just make your `AppView` class extends `BootstrapUI\View\UIView`.
-The `src\View\AppView.php` then will be as the following: 
+The `src\View\AppView.php` then will be as the following:
 
 ```php
 namespace App\View;
@@ -75,7 +75,7 @@ class AppView extends View
 {
 
     use UIViewTrait;
-    
+
     /**
      * Initialization hook method.
      */
