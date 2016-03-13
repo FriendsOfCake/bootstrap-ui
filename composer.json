@@ -33,7 +33,8 @@
     },
     "autoload-dev": {
         "psr-4": {
-            "BootstrapUI\\Test\\": "tests"
+            "BootstrapUI\\Test\\": "tests",
+            "TestApp\\": "tests/test_app/TestApp"
         }
     }
 }

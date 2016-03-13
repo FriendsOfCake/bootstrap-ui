@@ -9,24 +9,37 @@ use Cake\I18n\I18n;
 
 require_once 'vendor/autoload.php';
 
-// Path constants to a few helpful things.
 if (!defined('DS')) {
     define('DS', DIRECTORY_SEPARATOR);
 }
-
-define('ROOT', dirname(__DIR__) . DS);
-define('CAKE_CORE_INCLUDE_PATH', ROOT . 'vendor' . DS . 'cakephp' . DS . 'cakephp');
-define('CORE_PATH', ROOT . 'vendor' . DS . 'cakephp' . DS . 'cakephp' . DS);
-define('CAKE', CORE_PATH . 'src' . DS);
-define('TESTS', ROOT . 'tests');
-define('APP', ROOT . 'tests' . DS . 'test_files' . DS . 'app' . DS);
-define('APP_DIR', 'app');
+define('ROOT', dirname(__DIR__));
+define('APP_DIR', 'TestApp');
 define('WEBROOT_DIR', 'webroot');
-define('WWW_ROOT', dirname(APP) . DS . 'webroot' . DS);
+
 define('TMP', sys_get_temp_dir() . DS);
-define('CONFIG', APP . 'config' . DS);
-define('CACHE', TMP);
-define('LOGS', TMP);
+define('LOGS', TMP . 'logs' . DS);
+define('CACHE', TMP . 'cache' . DS);
+define('SESSIONS', TMP . 'sessions' . DS);
+
+define('CAKE_CORE_INCLUDE_PATH', ROOT . DS . 'vendor' . DS . 'cakephp' . DS . 'cakephp');
+define('CORE_PATH', CAKE_CORE_INCLUDE_PATH . DS);
+define('CAKE', CORE_PATH . 'src' . DS);
+define('CORE_TESTS', CORE_PATH . 'tests' . DS);
+define('CORE_TEST_CASES', CORE_TESTS . 'TestCase');
+define('TEST_APP', ROOT . DS . 'tests' . DS . 'test_app' . DS);
+
+// Point app constants to the test app.
+define('APP', TEST_APP . 'TestApp' . DS);
+define('WWW_ROOT', TEST_APP . 'webroot' . DS);
+define('CONFIG', TEST_APP . 'config' . DS);
+
+//@codingStandardsIgnoreStart
+@mkdir(LOGS);
+@mkdir(SESSIONS);
+@mkdir(CACHE);
+@mkdir(CACHE . 'views');
+@mkdir(CACHE . 'models');
+//@codingStandardsIgnoreEnd
 
 require_once CORE_PATH . 'config/bootstrap.php';
 
@@ -65,4 +78,4 @@ Cache::config([
     ]
 ]);
 
-Plugin::load('BootstrapUI', ['path' => ROOT]);
+Plugin::load('BootstrapUI', ['path' => ROOT . DS]);
