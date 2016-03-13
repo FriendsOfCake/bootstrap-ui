@@ -1338,4 +1338,33 @@ class FormHelperTest extends TestCase
         ];
         $this->assertHtml($expected, $result);
     }
+
+    /**
+     * Test that "form-control" class is added to specific inputs.
+     *
+     * @return void
+     */
+    public function testFormControlClassInjection()
+    {
+        $result = $this->Form->text('foo');
+        $this->assertContains('class="form-control"', $result);
+
+        $result = $this->Form->text('foo', ['class' => 'custom']);
+        $this->assertContains('class="custom form-control"', $result);
+
+        $result = $this->Form->select('foo');
+        $this->assertContains('class="form-control"', $result);
+
+        $result = $this->Form->textarea('foo');
+        $this->assertContains('class="form-control"', $result);
+
+        $result = $this->Form->file('foo');
+        $this->assertNotContains('"form-control"', $result);
+
+        $result = $this->Form->checkbox('foo');
+        $this->assertNotContains('"form-control"', $result);
+
+        $result = $this->Form->radio('foo', ['1' => 'Opt 1', '2' => 'Opt 2']);
+        $this->assertNotContains('"form-control"', $result);
+    }
 }
