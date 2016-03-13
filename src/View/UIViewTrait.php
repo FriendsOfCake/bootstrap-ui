@@ -13,7 +13,7 @@ trait UIViewTrait
      *
      * ### Options: Associative array with valid keys:
      *   - `layout`:
-     *      - If empty or true will use the plugin's layout
+     *      - If not set or true will use the plugin's layout
      *      - If a layout name passed it will be used
      *      - If false do nothing (will keep your layout)
      *
@@ -21,9 +21,11 @@ trait UIViewTrait
      */
     public function initializeUI(array $options = [])
     {
-        if (!isset($options['layout']) || $options['layout'] === true) {
+        if ((!isset($options['layout']) || $options['layout'] === true) &&
+            $this->layout === 'default'
+        ) {
             $this->layout = 'BootstrapUI.default';
-        } elseif (!empty($options['layout']) || $options['layout'] === '') {
+        } elseif (isset($options['layout']) && is_string($options['layout'])) {
             $this->layout = $options['layout'];
         }
 

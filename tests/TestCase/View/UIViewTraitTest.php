@@ -2,6 +2,7 @@
 
 namespace BootstrapUI\View;
 
+use Cake\Core\Configure;
 use Cake\TestSuite\TestCase;
 
 class UIViewTraitTest extends TestCase
@@ -17,6 +18,7 @@ class UIViewTraitTest extends TestCase
     {
         parent::setUp();
 
+        Configure::write('App.namespace', 'TestApp');
         $this->View = new UIView();
         $this->View->layout = 'default';
     }
@@ -62,5 +64,13 @@ class UIViewTraitTest extends TestCase
             'layout' => ''
         ]);
         $this->assertSame('', $this->View->layout);
+    }
+
+    public function testCellRendering()
+    {
+        $cell = $this->View->cell('Articles');
+
+        $this->assertEquals('display', $cell->template);
+        $this->assertEquals("articles cell display\n", "{$cell}");
     }
 }
