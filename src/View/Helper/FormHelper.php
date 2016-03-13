@@ -139,6 +139,123 @@ class FormHelper extends Helper
     }
 
     /**
+     * Missing method handler - implements various simple input types. Is used to create inputs
+     * of various types. e.g. `$this->Form->text();` will create `<input type="text" />` while
+     * `$this->Form->range();` will create `<input type="range" />`
+     *
+     * ### Usage
+     *
+     * ```
+     * $this->Form->search('User.query', ['value' => 'test']);
+     * ```
+     *
+     * Will make an input like:
+     *
+     * `<input type="search" id="UserQuery" name="User[query]" value="test" />`
+     *
+     * The first argument to an input type should always be the fieldname, in `Model.field` format.
+     * The second argument should always be an array of attributes for the input.
+     *
+     * @param string $method Method name / input type to make.
+     * @param array $params Parameters for the method call
+     * @return string Formatted input method.
+     * @throws \Cake\Core\Exception\Exception When there are no params for the method call.
+     */
+    public function __call($method, $params)
+    {
+        $options = [];
+        if (empty($params)) {
+            throw new Exception(sprintf('Missing field name for FormHelper::%s', $method));
+        }
+        if (isset($params[1])) {
+            $options = $params[1];
+        }
+        if (!isset($options['type'])) {
+            $options['type'] = $method;
+        }
+        $options = $this->injectClasses('form-control', $options);
+        $options = $this->_initInputField($params[0], $options);
+        return $this->widget($options['type'], $options);
+    }
+
+    /**
+     * Creates a textarea widget.
+     *
+     * ### Options:
+     *
+     * - `escape` - Whether or not the contents of the textarea should be escaped. Defaults to true.
+     *
+     * @param string $fieldName Name of a field, in the form "modelname.fieldname"
+     * @param array $options Array of HTML attributes, and special options above.
+     * @return string A generated HTML text input element
+     * @link http://book.cakephp.org/3.0/en/views/helpers/form.html#creating-textareas
+     */
+    public function textarea($fieldName, array $options = [])
+    {
+        $options = $this->injectClasses('form-control', $options);
+        return parent::textarea($fieldName, $options);
+    }
+
+    /**
+     * Returns a formatted SELECT element.
+     *
+     * ### Attributes:
+     *
+     * - `multiple` - show a multiple select box. If set to 'checkbox' multiple checkboxes will be
+     *   created instead.
+     * - `empty` - If true, the empty select option is shown. If a string,
+     *   that string is displayed as the empty element.
+     * - `escape` - If true contents of options will be HTML entity encoded. Defaults to true.
+     * - `val` The selected value of the input.
+     * - `disabled` - Control the disabled attribute. When creating a select box, set to true to disable the
+     *   select box. Set to an array to disable specific option elements.
+     *
+     * ### Using options
+     *
+     * A simple array will create normal options:
+     *
+     * ```
+     * $options = [1 => 'one', 2 => 'two'];
+     * $this->Form->select('Model.field', $options));
+     * ```
+     *
+     * While a nested options array will create optgroups with options inside them.
+     * ```
+     * $options = [
+     *  1 => 'bill',
+     *     'fred' => [
+     *         2 => 'fred',
+     *         3 => 'fred jr.'
+     *     ]
+     * ];
+     * $this->Form->select('Model.field', $options);
+     * ```
+     *
+     * If you have multiple options that need to have the same value attribute, you can
+     * use an array of arrays to express this:
+     *
+     * ```
+     * $options = [
+     *     ['text' => 'United states', 'value' => 'USA'],
+     *     ['text' => 'USA', 'value' => 'USA'],
+     * ];
+     * ```
+     *
+     * @param string $fieldName Name attribute of the SELECT
+     * @param array|\Traversable $options Array of the OPTION elements (as 'value'=>'Text' pairs) to be used in the
+     *   SELECT element
+     * @param array $attributes The HTML attributes of the select element.
+     * @return string Formatted SELECT element
+     * @see \Cake\View\Helper\FormHelper::multiCheckbox() for creating multiple checkboxes.
+     * @link http://book.cakephp.org/3.0/en/views/helpers/form.html#creating-select-pickers
+     */
+    public function select($fieldName, $options = [], array $attributes = [])
+    {
+        $attributes = $this->injectClasses('form-control', $attributes);
+        return parent::select($fieldName, $options, $attributes);
+    }
+
+    /**
      * Creates a submit button element.
      *
      * Overrides parent method to add CSS class `btn`, to the element.
@@ -238,10 +355,6 @@ class FormHelper extends Helper
                 if ($options['label'] !== false && strpos($this->templates('label'), 'class=') === false) {
                     $options['label'] = $this->injectClasses('control-label', (array)$options['label']);
                 }
-        }
-
-        if (!in_array($options['type'], ['checkbox', 'radio', 'hidden', 'staticControl'])) {
-            $options = $this->injectClasses('form-control', $options);
         }
 
         if ($options['help']) {
