@@ -11,7 +11,7 @@ trait UIViewTrait
     /**
      * Initialization hook method.
      *
-     * ### Options: Associative array with valid keys:
+     * @param array $options Associative array with valid keys:
      *   - `layout`:
      *      - If not set or true will use the plugin's layout
      *      - If a layout name passed it will be used
