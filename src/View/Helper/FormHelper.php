@@ -36,7 +36,6 @@ class FormHelper extends Helper
         'radioInlineFormGroup' => '{{label}}<div class="radio-inline-wrapper">{{input}}</div>',
         'radioNestingLabel' => '<div class="radio">{{hidden}}<label{{attrs}}>{{input}}{{text}}</label></div>',
         'staticControl' => '<p class="form-control-static">{{content}}</p>',
-        'select' => '<select name="{{name}}"{{attrs}}>{{content}}</select>',
         'inputGroupAddon' => '<span class="{{class}}">{{content}}</span>',
         'inputGroupContainer' => '<div class="input-group">{{prepend}}{{content}}{{append}}</div>',
     ];
@@ -73,6 +72,8 @@ class FormHelper extends Helper
     protected $_widgets = [
         'button' => 'BootstrapUI\View\Widget\ButtonWidget',
         'radio' => ['BootstrapUI\View\Widget\RadioWidget', 'nestingLabel'],
+        'select' => 'BootstrapUI\View\Widget\SelectBoxWidget',
+        'textarea' => 'BootstrapUI\View\Widget\TextareaWidget',
         '_default' => 'BootstrapUI\View\Widget\BasicWidget',
     ];
 
@@ -238,10 +239,6 @@ class FormHelper extends Helper
                 if ($options['label'] !== false && strpos($this->templates('label'), 'class=') === false) {
                     $options['label'] = $this->injectClasses('control-label', (array)$options['label']);
                 }
-        }
-
-        if (!in_array($options['type'], ['checkbox', 'radio', 'hidden', 'staticControl'])) {
-            $options = $this->injectClasses('form-control', $options);
         }
 
         if ($options['help']) {
