@@ -6,6 +6,8 @@ use Cake\View\Form\ContextInterface;
 
 class BasicWidget extends \Cake\View\Widget\BasicWidget
 {
+    use OptionsAwareTrait;
+
     /**
      * Render a text widget or other simple widget like email/tel/number.
      *
@@ -26,9 +28,13 @@ class BasicWidget extends \Cake\View\Widget\BasicWidget
     public function render(array $data, ContextInterface $context)
     {
         $data += [
+            'type' => 'text',
             'prepend' => null,
             'append' => null,
         ];
+        if ($data['type'] !== 'hidden') {
+            $data = $this->injectClasses('form-control', $data);
+        }
 
         $prepend = $data['prepend'];
         $append = $data['append'];
