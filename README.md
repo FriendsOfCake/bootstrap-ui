@@ -234,7 +234,7 @@ To style auth flash messages properly set the `flash` key in `AuthComponent` con
 ```
         $this->loadComponent('Auth', [
             'flash' => [
-                'element' => 'default', 
+                'element' => 'error', 
                 'key' => 'auth'
             ],
             ...
