@@ -11,6 +11,7 @@ Transparently use [Twitter Bootstrap 3][twbs3] with [CakePHP 3][cakephp].
 
 * CakePHP 3.x
 * Twitter Bootstrap 3.x
+* jQuery 1.9+
 
 ## What's included?
 
