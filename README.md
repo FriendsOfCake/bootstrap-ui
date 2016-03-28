@@ -60,7 +60,7 @@ You can run the tests for BootstrapUI by doing the following:
 
 [Bootstrap](http://getbootstrap.com/) - The Twitter Bootstrap framework.
 
-[Bootstrap SASS](https://github.com/twbs/bootstrap-sass) - The official SASS port of Bootstrap.
+[jQuery](https://jquery.com) - The jQuery JavaScript library.
 
 ## Usage
 
@@ -121,7 +121,7 @@ class AppView extends View
 
 ## BootstrapUI Layout
 
-BootstrapUI comes with it's own `layout.ctp` file and examples taken from the Twitter Bootstrap framework. If you
+BootstrapUI comes with it's own `layout.ctp` file and examples taken from the Twitter Bootstrap framework.
 
 When no layout for the view is defined the `BootstrapUI\View\UIViewTrait` will load it's own `layout.ctp` file. You can
 override this behavior in two ways.
@@ -180,14 +180,26 @@ webroot/js/bootstrap \
 webroot/js/jquery
 ```
 
-Finally, for those of you who want even more automation, some bake templates have been included. Use them
-like so:
+## Console Bake
+
+For those of you who want even more automation, some bake templates have been included. Use them like so:
 
 ```
 $ bin/cake bake.bake [subcommand] -t BootstrapUI
 ```
 
-## Usage
+## Helper Usage
+
+At the core of BootstrapUI is a collection of enhancements for CakePHP core helpers. These helpers replace the HTML
+templates used to render elements for the views. This allows you to create forms and components that use the Twitter
+Bootstrap styles.
+
+The current list of enhanced helpers are:
+
+- `BootstrapUI\View\Helper\FlashHelper`
+- `BootstrapUI\View\Helper\FormHelper`
+- `BootstrapUI\View\Helper\HtmlHelper`
+- `BootstrapUI\View\Helper\PaginatorHelper`
 
 ### Basic Form
 
