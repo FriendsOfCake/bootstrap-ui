@@ -15,6 +15,15 @@ use Cake\View\View;
  */
 class PaginatorHelperTest extends TestCase
 {
+    /**
+     * @var View
+     */
+    private $View;
+
+    /**
+     * @var PaginatorHelper
+     */
+    private $Paginator;
 
     /**
      * setUp method
@@ -50,6 +59,7 @@ class PaginatorHelperTest extends TestCase
         Router::connect('/:controller/:action/*');
         Router::connect('/:plugin/:controller/:action/*');
 
+        // @todo Set locale for unit test without using private property.
         $this->locale = I18n::locale();
     }
 

@@ -8,6 +8,16 @@ use Cake\View\View;
 
 class HtmlHelperTest extends TestCase
 {
+    /**
+     * @var View
+     */
+    private $View;
+
+    /**
+     * @var HtmlHelper
+     */
+    private $Html;
+
     public function setUp()
     {
         parent::setUp();

@@ -3,7 +3,6 @@
 namespace BootstrapUI\Test\TestCase\View\Helper;
 
 use BootstrapUI\View\Helper\FlashHelper;
-use Cake\Controller\Controller;
 use Cake\Network\Request;
 use Cake\Network\Session;
 use Cake\TestSuite\TestCase;
@@ -15,6 +14,15 @@ use Cake\View\View;
  */
 class FlashHelperTest extends TestCase
 {
+    /**
+     * @var View
+     */
+    private $View;
+
+    /**
+     * @var FlashHelper
+     */
+    private $Flash;
 
     /**
      * setUp method
