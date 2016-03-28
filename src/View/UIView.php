@@ -9,6 +9,11 @@ use Cake\View\View;
  *
  * It customises the View::$layout to the BootstrapUI's layout and loads
  * BootstrapUI's helpers.
+ *
+ * @property \BootstrapUI\View\Helper\FlashHelper $Flash
+ * @property \BootstrapUI\View\Helper\FormHelper $Form
+ * @property \BootstrapUI\View\Helper\HtmlHelper $Html
+ * @property \BootstrapUI\View\Helper\PaginatorHelper $Paginator
  */
 class UIView extends View
 {
