@@ -59,10 +59,17 @@ You can run the tests for Bootstrap-UI by doing the following:
 
 [Bootstrap SASS](https://github.com/twbs/bootstrap-sass) - The official SASS port of Bootstrap.
 
-## AppView Setup
+## Usage
 
-Then for a complete setup, just make your `AppView` class extends `BootstrapUI\View\UIView`.
-The `src\View\AppView.php` then will be as the following:
+You will need to modify your `src/View/AppView` class to either extend `BootstrapUI\View\UIView` or
+use the trait `BootStrapUI\View\UIViewTrait`.
+
+### AppView Setup
+
+For a quick setup, just make your `AppView` class extends `BootstrapUI\View\UIView`. The base class will handle
+the initializing and layout for your app.
+
+The `src\View\AppView.php` will look something like the following:
 
 ```php
 namespace App\View;
@@ -85,6 +92,9 @@ class AppView extends UIView
 
 ### AppView Setup Using UIViewTrait
 
+If you're adding BootstrapUI to an existing application. It might be easier to use the trait,
+as it gives you more control over the loading of the layout.
+
 ```php
 namespace App\View;
 
@@ -92,7 +102,6 @@ use Cake\View\View;
 
 class AppView extends View
 {
-
     use UIViewTrait;
 
     /**
