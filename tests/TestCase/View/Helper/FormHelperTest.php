@@ -425,7 +425,7 @@ class FormHelperTest extends TestCase
             '/label',
             ['div' => ['class' => 'input-group']],
             'span' => ['class' => 'input-group-btn'],
-            'button' => ['type' => 'submit', 'class' => 'btn'],
+            'button' => ['type' => 'submit', 'class' => 'btn btn-default'],
             'GO',
             '/button',
             '/span',
@@ -461,7 +461,7 @@ class FormHelperTest extends TestCase
                 'required' => 'required'
             ],
             'span' => ['class' => 'input-group-btn'],
-            'button' => ['type' => 'submit', 'class' => 'btn'],
+            'button' => ['type' => 'submit', 'class' => 'btn btn-default'],
             'GO',
             '/button',
             '/span',
@@ -1031,7 +1031,7 @@ class FormHelperTest extends TestCase
     {
         $result = $this->Form->button('Submit');
         $expected = [
-            'button' => ['class' => 'btn', 'type' => 'submit'],
+            'button' => ['class' => 'btn btn-default', 'type' => 'submit'],
             'Submit',
             '/button'
         ];
@@ -1046,7 +1046,7 @@ class FormHelperTest extends TestCase
             'input' => [
                 'type' => 'submit',
                 'value' => 'Submit',
-                'class' => 'btn',
+                'class' => 'btn btn-default',
             ]
         ];
         $this->assertHtml($expected, $result);
@@ -1060,7 +1060,7 @@ class FormHelperTest extends TestCase
             'input' => [
                 'type' => 'submit',
                 'value' => 'Submit',
-                'class' => 'btn btn-block',
+                'class' => 'btn btn-block btn-default',
             ]
         ];
         $this->assertHtml($expected, $result);
@@ -1071,7 +1071,7 @@ class FormHelperTest extends TestCase
             'input' => [
                 'type' => 'submit',
                 'value' => 'Submit',
-                'class' => 'btn btn-block',
+                'class' => 'btn btn-block btn-default',
             ]
         ];
         $this->assertHtml($expected, $result);

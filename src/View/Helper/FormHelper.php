@@ -2,6 +2,7 @@
 
 namespace BootstrapUI\View\Helper;
 
+use BootstrapUI\View\Widget\ButtonWidget;
 use Cake\Core\Configure\Engine\PhpConfig;
 use Cake\Utility\Hash;
 use Cake\View\Helper\FormHelper as Helper;
@@ -160,8 +161,8 @@ class FormHelper extends Helper
             $class = array_unique(array_merge($class, $optionsClass));
             unset($options['class']);
         }
-
         $options = Hash::merge($options, ['class' => $class]);
+        $options['class'] = ButtonWidget::applyStyle($options['class']);
 
         return parent::submit($caption, $options);
     }

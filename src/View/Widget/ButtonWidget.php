@@ -10,14 +10,37 @@ class ButtonWidget extends \Cake\View\Widget\ButtonWidget
 
     use OptionsAwareTrait;
 
-    protected $_styles = [
-        'default',
-        'success',
-        'warning',
-        'danger',
-        'info',
-        'primary'
+    protected static $_styles = [
+        'default', 'btn-default',
+        'success', 'btn-success',
+        'warning', 'btn-warning',
+        'danger', 'btn-danger',
+        'info', 'btn-info',
+        'primary', 'btn-primary'
     ];
+
+    /**
+     * Applies the button CSS styles for an array of CSS classnames.
+     *
+     * @param array $classes
+     * @return string
+     */
+    public static function applyStyle(array $classes) {
+        $default = true;
+        foreach ($classes as &$class) {
+            if (in_array($class, self::$_styles)) {
+                if(strpos($class, 'btn-') !== 0) {
+                    $class = 'btn-' . $class;
+                }
+                $default = false;
+                break;
+            }
+        }
+        if($default) {
+            $classes[] = 'btn-default';
+        }
+        return implode(' ', $classes);
+    }
 
     /**
      * Renders a button.
@@ -29,16 +52,7 @@ class ButtonWidget extends \Cake\View\Widget\ButtonWidget
     public function render(array $data, ContextInterface $context)
     {
         $data = $this->injectClasses('btn', $data);
-        $data['class'] = explode(' ', $data['class']);
-
-        foreach ($data['class'] as &$class) {
-            if (in_array($class, $this->_styles)) {
-                $class = 'btn-' . $class;
-                break;
-            }
-        }
-
-        $data['class'] = implode(' ', $data['class']);
+        $data['class'] = self::applyStyle(explode(' ', $data['class']));
         return parent::render($data, $context);
     }
 }
