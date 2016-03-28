@@ -43,7 +43,7 @@ or using CakePHP's console:
 ./bin/cake plugin load BootstrapUI
 ```
 
-> The BootstrapUI plugin does not come bundled with Twitter Bootstrap. Instructions for install the framework are below.
+> The BootstrapUI plugin does not come bundled with Twitter Bootstrap. Instructions for installing the framework are below.
 
 ## Running Tests
 
