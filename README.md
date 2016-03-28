@@ -22,7 +22,7 @@ Transparently use [Twitter Bootstrap 3][twbs3] with [CakePHP 3][cakephp].
 - Sample layouts (cover, signin, dashboard)
 - Bake templates *incomplete*
 
-## Install
+## Installing Bootstrap-UI via Composer
 
 Using [Composer][composer]:
 
@@ -42,9 +42,27 @@ or using CakePHP's console:
 ./bin/cake plugin load BootstrapUI
 ```
 
+## Running Tests
+
+You can run the tests for Bootstrap-UI by doing the following:
+
+```
+    $ composer install
+    $ vendor/bin/phpunit
+```
+
+## Some Handy Links
+
+[CakePHP](http://www.cakephp.org) - The rapid development PHP framework.
+
+[Bootstrap](http://getbootstrap.com/) - The Twitter Bootstrap framework.
+
+[Bootstrap SASS](https://github.com/twbs/bootstrap-sass) - The official SASS port of Bootstrap.
+
 ## AppView Setup
+
 Then for a complete setup, just make your `AppView` class extends `BootstrapUI\View\UIView`.
-The `src\View\AppView.php` then will be as the following: 
+The `src\View\AppView.php` then will be as the following:
 
 ```php
 namespace App\View;
@@ -66,6 +84,7 @@ class AppView extends UIView
 ```
 
 ### AppView Setup Using UIViewTrait
+
 ```php
 namespace App\View;
 
@@ -75,7 +94,7 @@ class AppView extends View
 {
 
     use UIViewTrait;
-    
+
     /**
      * Initialization hook method.
      */
@@ -234,7 +253,7 @@ To style auth flash messages properly set the `flash` key in `AuthComponent` con
 ```
         $this->loadComponent('Auth', [
             'flash' => [
-                'element' => 'error', 
+                'element' => 'error',
                 'key' => 'auth'
             ],
             ...
