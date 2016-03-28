@@ -20,9 +20,9 @@ class ButtonWidget extends \Cake\View\Widget\ButtonWidget
     ];
 
     /**
-     * Applies the button CSS styles for an array of CSS classnames.
+     * Applies the button CSS styles for an array of CSS classes.
      *
-     * @param array $classes
+     * @param array $classes A list of CSS classes.
      * @return string
      */
     public static function applyStyle(array $classes)
