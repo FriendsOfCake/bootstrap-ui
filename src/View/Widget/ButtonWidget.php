@@ -25,18 +25,19 @@ class ButtonWidget extends \Cake\View\Widget\ButtonWidget
      * @param array $classes
      * @return string
      */
-    public static function applyStyle(array $classes) {
+    public static function applyStyle(array $classes)
+    {
         $default = true;
         foreach ($classes as &$class) {
             if (in_array($class, self::$_styles)) {
-                if(strpos($class, 'btn-') !== 0) {
+                if (strpos($class, 'btn-') !== 0) {
                     $class = 'btn-' . $class;
                 }
                 $default = false;
                 break;
             }
         }
-        if($default) {
+        if ($default) {
             $classes[] = 'btn-default';
         }
         return implode(' ', $classes);
