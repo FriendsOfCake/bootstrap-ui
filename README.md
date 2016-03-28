@@ -22,7 +22,7 @@ Transparently use [Twitter Bootstrap 3][twbs3] with [CakePHP 3][cakephp].
 - Sample layouts (cover, signin, dashboard)
 - Bake templates *incomplete*
 
-## Installing Bootstrap-UI via Composer
+## Installing BootstrapUI via Composer
 
 Using [Composer][composer]:
 
@@ -44,11 +44,11 @@ or using CakePHP's console:
 
 ## Running Tests
 
-You can run the tests for Bootstrap-UI by doing the following:
+You can run the tests for BootstrapUI by doing the following:
 
 ```
     $ composer install
-    $ vendor/bin/phpunit
+    $ ./vendor/bin/phpunit
 ```
 
 ## Some Handy Links
@@ -66,8 +66,8 @@ use the trait `BootStrapUI\View\UIViewTrait`.
 
 ### AppView Setup
 
-For a quick setup, just make your `AppView` class extends `BootstrapUI\View\UIView`. The base class will handle
-the initializing and layout for your app.
+For a quick setup, just make your `AppView` class extend `BootstrapUI\View\UIView`. The base class will handle
+the initializing and loading of the BootstrapUI `layout.ctp` for your app.
 
 The `src\View\AppView.php` will look something like the following:
 
@@ -99,6 +99,7 @@ as it gives you more control over the loading of the layout.
 namespace App\View;
 
 use Cake\View\View;
+use BootstrapUI\View\UIViewTrait;
 
 class AppView extends View
 {
@@ -115,6 +116,18 @@ class AppView extends View
 }
 ```
 
+## BootstrapUI Layout
+
+BootstrapUI comes with it's own `layout.ctp` file and examples taken from the Twitter Bootstrap framework. If you
+
+When no layout for the view is defined the `BootstrapUI\View\UIViewTrait` will load it's own `layout.ctp` file. You can
+override this behavior in two ways.
+
+- Assign a layout to the view with `$this->layout('layout.ctp')`.
+- Disable auto loading of the layout in `BootstrapUI\View\UIViewTrait` with `$this->initializeUI(['layout'=>false]);`.
+
+### Loading the Twitter Bootstrap framework
+
 If you wish to use your own layout template, just make sure to include:
 
 ```php
@@ -123,7 +136,7 @@ echo $this->Html->css('path/to/bootstrap.css');
 echo $this->Html->script(['path/to/jquery.js', 'path/to/bootstrap.js']);
 ```
 
-When using the included layout (or a copy of), extra layout types (directly taken from the
+When using the BootstrapUI layout (or a copy of it), extra layout types (directly taken from the
 Bootstrap examples). You just need to copy them to your application's layouts directory:
 
 ```
@@ -144,6 +157,8 @@ Available types are:
 - blog *coming soon*
 
 **NOTE: Remember to set the stylesheets in the layouts you copy.**
+
+## Installing Twitter Bootstrap via Bower
 
 A quick way of getting the Bootstrap assets installed is using [bower]. Assuming you are in `ROOT`:
 
