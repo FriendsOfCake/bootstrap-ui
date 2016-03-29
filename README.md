@@ -5,12 +5,13 @@
 [![Total Downloads](https://img.shields.io/packagist/dt/friendsofcake/bootstrap-ui.svg?style=flat-square)](https://packagist.org/packages/friendsofcake/bootstrap-ui)
 [![License](https://img.shields.io/badge/license-MIT-blue.svg?style=flat-square)](https://packagist.org/packages/friendsofcake/bootstrap-ui)
 
-Transparently use [Twitter Bootstrap 3][twbs3] with [CakePHP 3][cakephp].
+Transparently use [Bootstrap 3][twbs3] with [CakePHP 3][cakephp].
 
 ## Requirements
 
 * CakePHP 3.x
-* Twitter Bootstrap 3.x
+* Bootstrap 3.x
+* jQuery 1.9+
 
 ## What's included?
 
@@ -18,11 +19,11 @@ Transparently use [Twitter Bootstrap 3][twbs3] with [CakePHP 3][cakephp].
 - FormHelper (align: default, inline, horizontal)
 - HtmlHelper (components: breadcrumbs, badge, label, icon)
 - PaginatorHelper
-- Widgets (basic, checkbox, radio, button)
+- Widgets (basic, radio, button, select, textarea)
 - Sample layouts (cover, signin, dashboard)
 - Bake templates *incomplete*
 
-## Install
+## Installing
 
 Using [Composer][composer]:
 
@@ -42,9 +43,17 @@ or using CakePHP's console:
 ./bin/cake plugin load BootstrapUI
 ```
 
-## AppView Setup
-Then for a complete setup, just make your `AppView` class extends `BootstrapUI\View\UIView`.
-The `src\View\AppView.php` then will be as the following: 
+## Usage
+
+You will need to modify your `src/View/AppView` class to either extend `BootstrapUI\View\UIView` or
+use the trait `BootStrapUI\View\UIViewTrait`.
+
+### AppView Setup
+
+For a quick setup, just make your `AppView` class extend `BootstrapUI\View\UIView`. The base class will handle
+the initializing and loading of the BootstrapUI `layout.ctp` for your app.
+
+The `src\View\AppView.php` will look something like the following:
 
 ```php
 namespace App\View;
@@ -66,16 +75,20 @@ class AppView extends UIView
 ```
 
 ### AppView Setup Using UIViewTrait
+
+If you're adding BootstrapUI to an existing application. It might be easier to use the trait,
+as it gives you more control over the loading of the layout.
+
 ```php
 namespace App\View;
 
 use Cake\View\View;
+use BootstrapUI\View\UIViewTrait;
 
 class AppView extends View
 {
-
     use UIViewTrait;
-    
+
     /**
      * Initialization hook method.
      */
@@ -87,6 +100,18 @@ class AppView extends View
 }
 ```
 
+## BootstrapUI Layout
+
+BootstrapUI comes with it's own `layout.ctp` file and examples taken from the Bootstrap framework.
+
+When no layout for the view is defined the `BootstrapUI\View\UIViewTrait` will load it's own `layout.ctp` file. You can
+override this behavior in two ways.
+
+- Assign a layout to the view with `$this->layout('layout.ctp')`.
+- Disable auto loading of the layout in `BootstrapUI\View\UIViewTrait` with `$this->initializeUI(['layout'=>false]);`.
+
+### Loading the Bootstrap framework
+
 If you wish to use your own layout template, just make sure to include:
 
 ```php
@@ -95,7 +120,7 @@ echo $this->Html->css('path/to/bootstrap.css');
 echo $this->Html->script(['path/to/jquery.js', 'path/to/bootstrap.js']);
 ```
 
-When using the included layout (or a copy of), extra layout types (directly taken from the
+When using the BootstrapUI layout (or a copy of it), extra layout types (directly taken from the
 Bootstrap examples). You just need to copy them to your application's layouts directory:
 
 ```
@@ -117,6 +142,8 @@ Available types are:
 
 **NOTE: Remember to set the stylesheets in the layouts you copy.**
 
+## Installing Bootstrap via Bower
+
 A quick way of getting the Bootstrap assets installed is using [bower]. Assuming you are in `ROOT`:
 
 ```
@@ -134,14 +161,30 @@ webroot/js/bootstrap \
 webroot/js/jquery
 ```
 
-Finally, for those of you who want even more automation, some bake templates have been included. Use them
-like so:
+## Console Bake
+
+For those of you who want even more automation, some bake templates have been included. Use them like so:
 
 ```
 $ bin/cake bake.bake [subcommand] -t BootstrapUI
 ```
 
-## Usage
+## Helper Usage
+
+At the core of BootstrapUI is a collection of enhancements for CakePHP core helpers. These helpers replace the HTML
+templates used to render elements for the views. This allows you to create forms and components that use the
+Bootstrap styles.
+
+The current list of enhanced helpers are:
+
+- `BootstrapUI\View\Helper\FlashHelper`
+- `BootstrapUI\View\Helper\FormHelper`
+- `BootstrapUI\View\Helper\HtmlHelper`
+- `BootstrapUI\View\Helper\PaginatorHelper`
+
+When the `BootstrapUI\View\UIViewTrait` is initialized it loads the above helpers with the same aliases as the
+CakePHP core helpers. That means that when you use `$this->Form->create()` in your views. The helper being used
+is from the BootstrapUI plugin.
 
 ### Basic Form
 
@@ -234,7 +277,7 @@ To style auth flash messages properly set the `flash` key in `AuthComponent` con
 ```
         $this->loadComponent('Auth', [
             'flash' => [
-                'element' => 'error', 
+                'element' => 'error',
                 'key' => 'auth'
             ],
             ...
@@ -242,6 +285,15 @@ To style auth flash messages properly set the `flash` key in `AuthComponent` con
 ```
 
 **NOTE: Check tests for more examples.**
+
+## Testing
+
+You can run the tests for BootstrapUI by doing the following:
+
+```
+    $ composer install
+    $ ./vendor/bin/phpunit
+```
 
 ## Patches & Features
 
@@ -256,7 +308,7 @@ To ensure your PRs are considered for upstream, you MUST follow the CakePHP codi
 hook has been included to automatically run the code sniffs for you. From your project's root directory:
 
 ```
-cp vendor/friendsofcake/bootstrap-ui/contrib/pre-commit .git/hooks/
+cp ./contrib/pre-commit .git/hooks/
 chmod 755 .git/hooks/pre-commit
 ```
 
