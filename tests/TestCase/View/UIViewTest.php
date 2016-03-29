@@ -7,6 +7,11 @@ use Cake\TestSuite\TestCase;
 class UIViewTest extends TestCase
 {
     /**
+     * @var UIView
+     */
+    public $View;
+
+    /**
      * setUp method
      *
      * @return void

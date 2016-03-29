@@ -1,7 +1,9 @@
 <?php
 namespace TestApp\View\Cell;
 
-class ArticlesCell extends \Cake\View\Cell
+use Cake\View\Cell;
+
+class ArticlesCell extends Cell
 {
 
     /**

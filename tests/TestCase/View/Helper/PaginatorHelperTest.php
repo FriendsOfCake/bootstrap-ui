@@ -15,6 +15,20 @@ use Cake\View\View;
  */
 class PaginatorHelperTest extends TestCase
 {
+    /**
+     * @var View
+     */
+    public $View;
+
+    /**
+     * @var PaginatorHelper
+     */
+    public $Paginator;
+
+    /**
+     * @var string
+     */
+    public $locale;
 
     /**
      * setUp method

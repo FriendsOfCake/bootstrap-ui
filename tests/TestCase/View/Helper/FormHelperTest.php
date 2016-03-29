@@ -13,6 +13,21 @@ use Cake\View\View;
 
 class FormHelperTest extends TestCase
 {
+    /**
+     * @var View
+     */
+    public $View;
+
+    /**
+     * @var FormHelper
+     */
+    public $Form;
+
+    /**
+     * @var array
+     */
+    public $article;
+
     public function setUp()
     {
         parent::setUp();
@@ -338,7 +353,7 @@ class FormHelperTest extends TestCase
         $this->assertHtml($expected, $result);
     }
 
-    public function testAddonPrependedInput()
+    public function testAddOnPrependedInput()
     {
         $this->Form->create($this->article);
 
@@ -386,7 +401,7 @@ class FormHelperTest extends TestCase
         $this->assertHtml($expected, $result);
     }
 
-    public function testAddonAppendedInput()
+    public function testAddOnAppendedInput()
     {
         $this->Form->create($this->article);
 
