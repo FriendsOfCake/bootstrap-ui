@@ -5,12 +5,12 @@
 [![Total Downloads](https://img.shields.io/packagist/dt/friendsofcake/bootstrap-ui.svg?style=flat-square)](https://packagist.org/packages/friendsofcake/bootstrap-ui)
 [![License](https://img.shields.io/badge/license-MIT-blue.svg?style=flat-square)](https://packagist.org/packages/friendsofcake/bootstrap-ui)
 
-Transparently use [Twitter Bootstrap 3][twbs3] with [CakePHP 3][cakephp].
+Transparently use [Bootstrap 3][twbs3] with [CakePHP 3][cakephp].
 
 ## Requirements
 
 * CakePHP 3.x
-* Twitter Bootstrap 3.x
+* Bootstrap 3.x
 * jQuery 1.9+
 
 ## What's included?
@@ -19,11 +19,11 @@ Transparently use [Twitter Bootstrap 3][twbs3] with [CakePHP 3][cakephp].
 - FormHelper (align: default, inline, horizontal)
 - HtmlHelper (components: breadcrumbs, badge, label, icon)
 - PaginatorHelper
-- Widgets (basic, checkbox, radio, button)
+- Widgets (basic, checkbox, radio, button, select, textarea)
 - Sample layouts (cover, signin, dashboard)
 - Bake templates *incomplete*
 
-## Installing BootstrapUI via Composer
+## Installing
 
 Using [Composer][composer]:
 
@@ -43,9 +43,8 @@ or using CakePHP's console:
 ./bin/cake plugin load BootstrapUI
 ```
 
-> The BootstrapUI plugin does not come bundled with Twitter Bootstrap. Instructions for installing the framework are below.
 
-## Running Tests
+## Testing
 
 You can run the tests for BootstrapUI by doing the following:
 
@@ -53,14 +52,6 @@ You can run the tests for BootstrapUI by doing the following:
     $ composer install
     $ ./vendor/bin/phpunit
 ```
-
-## Some Handy Links
-
-[CakePHP](http://www.cakephp.org) - The rapid development PHP framework.
-
-[Bootstrap](http://getbootstrap.com/) - The Twitter Bootstrap framework.
-
-[jQuery](https://jquery.com) - The jQuery JavaScript library.
 
 ## Usage
 
@@ -121,7 +112,7 @@ class AppView extends View
 
 ## BootstrapUI Layout
 
-BootstrapUI comes with it's own `layout.ctp` file and examples taken from the Twitter Bootstrap framework.
+BootstrapUI comes with it's own `layout.ctp` file and examples taken from the Bootstrap framework.
 
 When no layout for the view is defined the `BootstrapUI\View\UIViewTrait` will load it's own `layout.ctp` file. You can
 override this behavior in two ways.
@@ -129,7 +120,7 @@ override this behavior in two ways.
 - Assign a layout to the view with `$this->layout('layout.ctp')`.
 - Disable auto loading of the layout in `BootstrapUI\View\UIViewTrait` with `$this->initializeUI(['layout'=>false]);`.
 
-### Loading the Twitter Bootstrap framework
+### Loading the Bootstrap framework
 
 If you wish to use your own layout template, just make sure to include:
 
@@ -161,7 +152,7 @@ Available types are:
 
 **NOTE: Remember to set the stylesheets in the layouts you copy.**
 
-## Installing Twitter Bootstrap via Bower
+## Installing Bootstrap via Bower
 
 A quick way of getting the Bootstrap assets installed is using [bower]. Assuming you are in `ROOT`:
 
@@ -191,7 +182,7 @@ $ bin/cake bake.bake [subcommand] -t BootstrapUI
 ## Helper Usage
 
 At the core of BootstrapUI is a collection of enhancements for CakePHP core helpers. These helpers replace the HTML
-templates used to render elements for the views. This allows you to create forms and components that use the Twitter
+templates used to render elements for the views. This allows you to create forms and components that use the
 Bootstrap styles.
 
 The current list of enhanced helpers are:
@@ -318,7 +309,7 @@ To ensure your PRs are considered for upstream, you MUST follow the CakePHP codi
 hook has been included to automatically run the code sniffs for you. From your project's root directory:
 
 ```
-cp vendor/friendsofcake/bootstrap-ui/contrib/pre-commit .git/hooks/
+cp ./contrib/pre-commit .git/hooks/
 chmod 755 .git/hooks/pre-commit
 ```
 
