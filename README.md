@@ -19,7 +19,7 @@ Transparently use [Bootstrap 3][twbs3] with [CakePHP 3][cakephp].
 - FormHelper (align: default, inline, horizontal)
 - HtmlHelper (components: breadcrumbs, badge, label, icon)
 - PaginatorHelper
-- Widgets (basic, checkbox, radio, button, select, textarea)
+- Widgets (basic, radio, button, select, textarea)
 - Sample layouts (cover, signin, dashboard)
 - Bake templates *incomplete*
 
@@ -41,16 +41,6 @@ or using CakePHP's console:
 
 ```
 ./bin/cake plugin load BootstrapUI
-```
-
-
-## Testing
-
-You can run the tests for BootstrapUI by doing the following:
-
-```
-    $ composer install
-    $ ./vendor/bin/phpunit
 ```
 
 ## Usage
@@ -295,6 +285,15 @@ To style auth flash messages properly set the `flash` key in `AuthComponent` con
 ```
 
 **NOTE: Check tests for more examples.**
+
+## Testing
+
+You can run the tests for BootstrapUI by doing the following:
+
+```
+    $ composer install
+    $ ./vendor/bin/phpunit
+```
 
 ## Patches & Features
 
