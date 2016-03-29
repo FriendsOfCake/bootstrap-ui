@@ -2,7 +2,6 @@
 
 namespace BootstrapUI\View\Helper;
 
-use BootstrapUI\View\Widget\ButtonWidget;
 use Cake\Core\Configure\Engine\PhpConfig;
 use Cake\Utility\Hash;
 use Cake\View\Helper\FormHelper as Helper;
