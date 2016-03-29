@@ -17,12 +17,12 @@ class ButtonWidgetTest extends TestCase
     /**
      * @var StringTemplate
      */
-    private $templates;
+    public $templates;
 
     /**
      * @var ContextInterface
      */
-    private $context;
+    public $context;
 
     /**
      * setUp method
