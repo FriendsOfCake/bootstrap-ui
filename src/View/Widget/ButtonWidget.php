@@ -34,7 +34,7 @@ class ButtonWidget extends \Cake\View\Widget\ButtonWidget
      */
     public function render(array $data, ContextInterface $context)
     {
-        $data = $this->applyButtonStyles($data);
+        $data = $this->applyButtonClasses($data);
         return parent::render($data, $context);
     }
 }

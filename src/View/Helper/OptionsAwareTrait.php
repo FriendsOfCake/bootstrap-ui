@@ -38,7 +38,7 @@ trait OptionsAwareTrait
      * @param array $data An array of HTML attributes and options.
      * @return array An array of HTML attributes and options.
      */
-    public function applyButtonStyles(array $data)
+    public function applyButtonClasses(array $data)
     {
         if ($this->hasAnyClass($this->buttonClasses, $data)) {
             $data = $this->injectClasses('btn', $data);

@@ -154,7 +154,7 @@ class FormHelper extends Helper
      */
     public function submit($caption = null, array $options = [])
     {
-        $options = $this->applyButtonStyles($options);
+        $options = $this->applyButtonClasses($options);
         return parent::submit($caption, $options);
     }
 
