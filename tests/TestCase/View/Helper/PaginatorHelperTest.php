@@ -26,6 +26,11 @@ class PaginatorHelperTest extends TestCase
     public $Paginator;
 
     /**
+     * @var string
+     */
+    public $locale;
+
+    /**
      * setUp method
      *
      * @return void
@@ -59,7 +64,6 @@ class PaginatorHelperTest extends TestCase
         Router::connect('/:controller/:action/*');
         Router::connect('/:plugin/:controller/:action/*');
 
-        // @todo Set locale for unit test without using private property.
         $this->locale = I18n::locale();
     }
 
