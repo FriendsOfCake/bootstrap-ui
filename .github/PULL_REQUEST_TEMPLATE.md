@@ -1,5 +1,16 @@
-Describe the big picture of your changes here to communicate to the maintainers why we should accept this pull request.
+## Description
+In a short sentence describe this pull request's change.
 
-If it fixes a bug or resolves a feature request, be sure to link to that issue.
+## Summarize
+Write a list of the changes that were made.
 
-The best way to propose a feature is to open an issue first and discuss your ideas there before implementing them.
+- First change..
+- Second change..
+
+## Benefits
+(optional) If this PR is a feature or improvement. Describe the key benefits and intention here.
+
+## Related Issues
+This PR addresses the following issues.
+
+fixes #
