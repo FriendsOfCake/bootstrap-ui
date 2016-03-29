@@ -9,7 +9,7 @@ class UIViewTest extends TestCase
     /**
      * @var UIView
      */
-    private $View;
+    public $View;
 
     /**
      * setUp method

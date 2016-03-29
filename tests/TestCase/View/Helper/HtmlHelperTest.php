@@ -11,12 +11,12 @@ class HtmlHelperTest extends TestCase
     /**
      * @var View
      */
-    private $View;
+    public $View;
 
     /**
      * @var HtmlHelper
      */
-    private $Html;
+    public $Html;
 
     public function setUp()
     {

@@ -18,12 +18,12 @@ class PaginatorHelperTest extends TestCase
     /**
      * @var View
      */
-    private $View;
+    public $View;
 
     /**
      * @var PaginatorHelper
      */
-    private $Paginator;
+    public $Paginator;
 
     /**
      * setUp method
