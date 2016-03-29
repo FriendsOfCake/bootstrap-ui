@@ -19,8 +19,7 @@ class ButtonWidget extends \Cake\View\Widget\ButtonWidget
      */
     public function render(array $data, ContextInterface $context)
     {
-        $data = $this->injectClasses('btn', $data);
-        $data['class'] = $this->applyStyle(explode(' ', $data['class']));
+        $data = $this->applyButtonStyles($data);
         return parent::render($data, $context);
     }
 }
