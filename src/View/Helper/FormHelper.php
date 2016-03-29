@@ -162,7 +162,7 @@ class FormHelper extends Helper
             unset($options['class']);
         }
         $options = Hash::merge($options, ['class' => $class]);
-        $options['class'] = ButtonWidget::applyStyle($options['class']);
+        $options['class'] = $this->applyStyle($options['class']);
 
         return parent::submit($caption, $options);
     }
