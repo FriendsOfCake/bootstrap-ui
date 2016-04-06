@@ -154,15 +154,7 @@ class FormHelper extends Helper
      */
     public function submit($caption = null, array $options = [])
     {
-        $class = ['btn'];
-        if (array_key_exists('class', $options)) {
-            $optionsClass = is_array($options['class']) ? $options['class'] : explode(' ', $options['class']);
-            $class = array_unique(array_merge($class, $optionsClass));
-            unset($options['class']);
-        }
-
-        $options = Hash::merge($options, ['class' => $class]);
-
+        $options = $this->applyButtonClasses($options);
         return parent::submit($caption, $options);
     }
 
