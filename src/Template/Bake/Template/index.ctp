@@ -15,7 +15,7 @@ foreach ($associations as $type => $data):
         if ($details['controller'] != $this->name && !in_array($details['controller'], $done)):
             %>
     <li><?= $this->Html->link(__('List <%= Inflector::humanize($details["controller"]) %>'), ['controller' => '<%= $details["controller"] %>', 'action' => 'index']); ?></li>
-    <li><?= $this->Html->link(__('New <%= Inflector::humanize(Inflector::singularize(Inflector::underscore($alias))) %>'), ['controller' => ' <%= $details["controller"] %>', 'action' => 'add']); ?></li>
+    <li><?= $this->Html->link(__('New <%= Inflector::humanize(Inflector::singularize(Inflector::underscore($alias))) %>'), ['controller' => '<%= $details["controller"] %>', 'action' => 'add']); ?></li>
 <%
             $done[] = $details['controller'];
         endif;
