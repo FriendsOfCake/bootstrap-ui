@@ -41,9 +41,9 @@ trait OptionsAwareTrait
     public function applyButtonClasses(array $data)
     {
         if ($this->hasAnyClass($this->buttonClasses, $data)) {
-            $data = $this->injectClasses('btn', $data);
+            $data = $this->injectClasses(['btn'], $data);
         } else {
-            $data = $this->injectClasses('btn btn-default', $data);
+            $data = $this->injectClasses(['btn', 'btn-default'], $data);
         }
         return $this->renameClasses($this->buttonClassAliases, $data);
     }
