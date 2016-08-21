@@ -32,6 +32,7 @@ class TextareaWidget extends \Cake\View\Widget\TextareaWidget
     public function render(array $data, ContextInterface $context)
     {
         $data = $this->injectClasses('form-control', $data);
+
         return parent::render($data, $context);
     }
 }
