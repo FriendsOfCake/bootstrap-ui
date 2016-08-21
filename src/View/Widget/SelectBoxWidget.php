@@ -86,6 +86,7 @@ class SelectBoxWidget extends \Cake\View\Widget\SelectBoxWidget
     public function render(array $data, ContextInterface $context)
     {
         $data = $this->injectClasses('form-control', $data);
+
         return parent::render($data, $context);
     }
 }
