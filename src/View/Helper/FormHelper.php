@@ -155,6 +155,7 @@ class FormHelper extends Helper
     public function submit($caption = null, array $options = [])
     {
         $options = $this->applyButtonClasses($options);
+
         return parent::submit($caption, $options);
     }
 
@@ -244,6 +245,7 @@ class FormHelper extends Helper
         if ($newTemplates) {
             $this->templater()->pop();
         }
+
         return $result;
     }
 
@@ -260,6 +262,7 @@ class FormHelper extends Helper
     public function end(array $secureAttributes = [])
     {
         $this->_align = $this->_grid = null;
+
         return parent::end($secureAttributes);
     }
 
@@ -305,6 +308,7 @@ class FormHelper extends Helper
         }
 
         $options['type'] = 'hidden';
+
         return $static . $this->widget('hidden', $options);
     }
 
@@ -320,6 +324,7 @@ class FormHelper extends Helper
     protected function _getInput($fieldName, $options)
     {
         unset($options['help']);
+
         return parent::_getInput($fieldName, $options);
     }
 
@@ -335,6 +340,7 @@ class FormHelper extends Helper
         if (!$this->templater()->get($groupTemplate)) {
             $groupTemplate = 'formGroup';
         }
+
         return $this->templater()->format($groupTemplate, [
             'input' => $options['input'],
             'label' => $options['label'],
@@ -381,6 +387,7 @@ class FormHelper extends Helper
         if (is_string($options['label'])) {
             $options['label'] = ['text' => $options['label']];
         }
+
         return $options;
     }
 
@@ -418,6 +425,7 @@ class FormHelper extends Helper
 
         if ($this->_align === 'default') {
             $options['templates'] += $templates;
+
             return $options;
         }
 
@@ -425,6 +433,7 @@ class FormHelper extends Helper
 
         if ($this->_align === 'inline') {
             $options['templates'] += $templates;
+
             return $options;
         }
 
@@ -465,6 +474,7 @@ class FormHelper extends Helper
                 array_push($classes, sprintf($class, $screen) . $positions[$position]);
             }
         }
+
         return implode(' ', $classes);
     }
 
