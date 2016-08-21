@@ -17,6 +17,7 @@ class HtmlHelper extends \Cake\View\Helper\HtmlHelper
         $options += ['tag' => 'span'];
         $tag = $options['tag'];
         unset($options['tag']);
+
         return $this->tag($tag, $text, $this->injectClasses('badge', $options));
     }
 
@@ -44,6 +45,7 @@ class HtmlHelper extends \Cake\View\Helper\HtmlHelper
         $options += [
             'separator' => '',
         ];
+
         return parent::getCrumbList($this->injectClasses('breadcrumb', $options), $startText);
     }
 
@@ -92,6 +94,7 @@ class HtmlHelper extends \Cake\View\Helper\HtmlHelper
         $classes = ['label', 'label-' . $options['type']];
         $tag = $options['tag'];
         unset($options['tag'], $options['type']);
+
         return $this->tag($tag, $text, $this->injectClasses($classes, $options));
     }
 }
