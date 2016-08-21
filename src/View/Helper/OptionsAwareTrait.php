@@ -45,6 +45,7 @@ trait OptionsAwareTrait
         } else {
             $data = $this->injectClasses(['btn', 'btn-default'], $data);
         }
+
         return $this->renameClasses($this->buttonClassAliases, $data);
     }
 
@@ -66,6 +67,7 @@ trait OptionsAwareTrait
                 : $name;
         }
         $options['class'] = trim(implode(' ', $classes));
+
         return $options;
     }
 
@@ -88,6 +90,7 @@ trait OptionsAwareTrait
                 return true;
             }
         }
+
         return false;
     }
 
@@ -116,6 +119,7 @@ trait OptionsAwareTrait
 
         unset($options['skip']);
         $options['class'] = trim(implode(' ', $options['class']));
+
         return $options;
     }
 
@@ -155,6 +159,7 @@ trait OptionsAwareTrait
         if (!is_array($mixed)) {
             $mixed = explode(' ', $mixed);
         }
+
         return $mixed;
     }
 }
