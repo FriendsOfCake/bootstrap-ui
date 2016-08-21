@@ -41,6 +41,7 @@ class RadioWidget extends \Cake\View\Widget\RadioWidget
             'inline' => false,
         ];
         $this->_inline = $data['inline'];
+
         return parent::render($data, $context);
     }
 
@@ -65,6 +66,7 @@ class RadioWidget extends \Cake\View\Widget\RadioWidget
                 'class' => 'radio-inline'
             ];
         }
+
         return parent::_renderLabel($radio, $label, $input, $context, $escape);
     }
 }
