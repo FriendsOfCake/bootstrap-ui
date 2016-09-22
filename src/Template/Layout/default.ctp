@@ -65,7 +65,7 @@ $this->prepend('meta', $this->Html->meta('favicon.ico', '/favicon.ico', ['type' 
  */
 $html5Shim =
 <<<HTML
-    
+
     <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
     <!--[if lt IE 9]>
       <script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
@@ -89,6 +89,7 @@ $this->prepend('script', $this->Html->script(['jquery/jquery', 'bootstrap/bootst
     <head>
 
         <?= $this->Html->charset() ?>
+        <meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1">
 
         <title><?= $this->fetch('title') ?></title>
 
