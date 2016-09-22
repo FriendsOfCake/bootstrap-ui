@@ -1114,6 +1114,50 @@ class FormHelperTest extends TestCase
         $this->assertHtml($expected, $result);
     }
 
+    public function testSelectMultipleCheckbox()
+    {
+        $options = [
+            'Value 1' => 'Label 1',
+            'Value 2' => 'Label 2'
+        ];
+        $result = $this->Form->select('field', $options, ['multiple' => 'checkbox']);
+
+        $expected = [
+            'input' => [
+                'type' => 'hidden',
+                'name' => 'field',
+                'value' => '',
+            ],
+            ['div' => ['class' => 'checkbox']],
+            ['label' => ['for' => 'field-value-1']],
+            [
+                'input' => [
+                    'type' => 'checkbox',
+                    'name' => 'field[]',
+                    'id' => 'field-value-1',
+                    'value' => 'Value 1',
+                ]
+            ],
+            'Label 1',
+            '/label',
+            '/div',
+            ['div' => ['class' => 'checkbox']],
+            ['label' => ['for' => 'field-value-2']],
+            [
+                'input' => [
+                    'type' => 'checkbox',
+                    'name' => 'field[]',
+                    'id' => 'field-value-2',
+                    'value' => 'Value 2',
+                ]
+            ],
+            'Label 2',
+            '/label',
+            '/div',
+        ];
+        $this->assertHtml($expected, $result);
+    }
+
     public function testMultipleCheckboxInput()
     {
         $this->Form->create($this->article);
