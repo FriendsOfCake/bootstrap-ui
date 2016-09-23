@@ -31,7 +31,6 @@ class FormHelper extends Helper
         'help' => '<div class="help-block">{{content}}</div>',
         'inputContainer' => '<div class="form-group {{type}}{{required}}">{{content}}{{help}}</div>',
         'inputContainerError' => '<div class="form-group {{type}}{{required}} has-error">{{content}}{{error}}{{help}}</div>',
-        'multipleCheckboxWrapper' => '<div class="checkbox">{{label}}</div>',
         'radioInlineFormGroup' => '{{label}}<div class="radio-inline-wrapper">{{input}}</div>',
         'radioNestingLabel' => '<div class="radio">{{hidden}}<label{{attrs}}>{{input}}{{text}}</label></div>',
         'staticControl' => '<p class="form-control-static">{{content}}</p>',
@@ -220,7 +219,6 @@ class FormHelper extends Helper
                 break;
             case 'select':
                 if (isset($options['multiple']) && $options['multiple'] === 'checkbox') {
-                    $options['templates']['checkboxWrapper'] = $this->templater()->get('multipleCheckboxWrapper');
                     $options['type'] = 'multicheckbox';
                 }
                 break;
