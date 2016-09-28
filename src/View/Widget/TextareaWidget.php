@@ -1,7 +1,7 @@
 <?php
 namespace BootstrapUI\View\Widget;
 
-use BootstrapUI\View\Helper\OptionsAwareTrait;
+use BootstrapUI\View\Widget\InputgroupTrait;
 use Cake\View\Form\ContextInterface;
 
 /**
@@ -12,7 +12,7 @@ use Cake\View\Form\ContextInterface;
  */
 class TextareaWidget extends \Cake\View\Widget\TextareaWidget
 {
-    use OptionsAwareTrait;
+    use InputgroupTrait;
 
     /**
      * Render a text area form widget.
@@ -22,6 +22,8 @@ class TextareaWidget extends \Cake\View\Widget\TextareaWidget
      * - `name` - Set the input name.
      * - `val` - A string of the option to mark as selected.
      * - `escape` - Set to false to disable HTML escaping.
+     * - `append` Append addon to input.
+     * - `prepend` Prepend addon to input.
      *
      * All other keys will be converted into HTML attributes.
      *
@@ -31,8 +33,6 @@ class TextareaWidget extends \Cake\View\Widget\TextareaWidget
      */
     public function render(array $data, ContextInterface $context)
     {
-        $data = $this->injectClasses('form-control', $data);
-
-        return parent::render($data, $context);
+        return $this->output($data, $context);
     }
 }
