@@ -25,7 +25,7 @@ Transparently use [Bootstrap 3][twbs3] with [CakePHP 3][cakephp].
 
 ## Installing Using [Composer][composer]
 
-`cd` to your CakePHP directory and run the following command:
+`cd` to your project directory and run the following command:
 
 ```
 composer require friendsofcake/bootstrap-ui
