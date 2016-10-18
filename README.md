@@ -23,9 +23,9 @@ Transparently use [Bootstrap 3][twbs3] with [CakePHP 3][cakephp].
 - Sample layouts (cover, signin, dashboard)
 - Bake templates *incomplete*
 
-## Installing
+## Installing Using [Composer][composer]
 
-Using [Composer][composer]:
+Go to your CakePHP directory and run the following command:
 
 ```
 composer require friendsofcake/bootstrap-ui
