@@ -108,7 +108,7 @@ When no layout for the view is defined the `BootstrapUI\View\UIViewTrait` will l
 override this behavior in two ways.
 
 - Assign a layout to the view with `$this->layout('layout')`.
-- Disable auto loading of the layout in `BootstrapUI\View\UIViewTrait` with `$this->initializeUI(['layout' = >false]);`.
+- Disable auto loading of the layout in `BootstrapUI\View\UIViewTrait` with `$this->initializeUI(['layout' => false]);`.
 
 ### Loading the Bootstrap framework
 
