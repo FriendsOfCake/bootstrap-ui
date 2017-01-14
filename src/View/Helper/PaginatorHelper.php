@@ -18,9 +18,9 @@ class PaginatorHelper extends \Cake\View\Helper\PaginatorHelper
             'nextActive' => '<li class="next"><a rel="next" aria-label="Next" href="{{url}}">' .
                             '<span aria-hidden="true">{{text}}</span></a></li>',
             'nextDisabled' => '<li class="next disabled"><a><span aria-hidden="true">{{text}}</span></a></li>',
-            'prevActive' => '<li class="prev"><a rel="prev" aria-label="Previous" href="{{url}}">' .
+            'prevActive' => '<li class="previous"><a rel="prev" aria-label="Previous" href="{{url}}">' .
                             '<span aria-hidden="true">{{text}}</span></a></li>',
-            'prevDisabled' => '<li class="prev disabled"><a><span aria-hidden="true">{{text}}</span></a></li>',
+            'prevDisabled' => '<li class="previous disabled"><a><span aria-hidden="true">{{text}}</span></a></li>',
             'current' => '<li class="active"><span>{{text}} <span class="sr-only">(current)</span></span></li>',
         ] + $this->_defaultConfig['templates'];
 

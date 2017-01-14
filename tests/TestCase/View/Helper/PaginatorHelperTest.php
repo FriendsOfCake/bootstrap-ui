@@ -126,7 +126,7 @@ class PaginatorHelperTest extends TestCase
         $result = $this->Paginator->numbers(['prev' => true, 'next' => true]);
         $expected = [
             'ul' => ['class' => 'pagination'],
-            ['li' => ['class' => 'prev disabled']], ['a' => []], ['span' => ['aria-hidden' => 'true']], '&laquo;', '/span', '/a', '/li',
+            ['li' => ['class' => 'previous disabled']], ['a' => []], ['span' => ['aria-hidden' => 'true']], '&laquo;', '/span', '/a', '/li',
             '<li', ['a' => ['href' => '/index?page=4']], '4', '/a', '/li',
             '<li', ['a' => ['href' => '/index?page=5']], '5', '/a', '/li',
             '<li', ['a' => ['href' => '/index?page=6']], '6', '/a', '/li',
