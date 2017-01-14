@@ -209,6 +209,7 @@ class FormHelper extends Helper
                 }
                 unset($options['inline']);
                 break;
+
             case 'radio':
                 if ($options['inline'] && $this->_align !== 'horizontal') {
                     $options['templates']['formGroup'] = $this->templater()->get('radioInlineFormGroup');
@@ -217,13 +218,20 @@ class FormHelper extends Helper
                     $options['templates']['nestingLabel'] = $this->templater()->get('radioNestingLabel');
                 }
                 break;
+
             case 'select':
                 if (isset($options['multiple']) && $options['multiple'] === 'checkbox') {
                     $options['type'] = 'multicheckbox';
+                } else {
+                    if ($options['label'] !== false && strpos($this->templates('label'), 'class=') === false) {
+                        $options['label'] = $this->injectClasses('control-label', (array)$options['label']);
+                    }
                 }
                 break;
+
             case 'multiselect':
                 break;
+
             case 'textarea':
             default:
                 if ($options['label'] !== false && strpos($this->templates('label'), 'class=') === false) {

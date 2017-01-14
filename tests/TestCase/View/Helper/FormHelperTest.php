@@ -106,7 +106,7 @@ class FormHelperTest extends TestCase
         ]);
         $expected = [
             'div' => ['class' => 'form-group select'],
-            'label' => ['for' => 'foreign-key'],
+            'label' => ['class' => 'control-label', 'for' => 'foreign-key'],
             'Foreign Key',
             '/label',
             'select' => [
