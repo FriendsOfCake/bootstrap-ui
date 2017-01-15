@@ -9,17 +9,13 @@ trait InputgroupTrait
     use OptionsAwareTrait;
 
     /**
-     * Render a text widget or other simple widget like email/tel/number.
+     * Render a widget depending on which class this trait is used in.
      *
-     * This method accepts a number of keys:
+     * Apart from the standard data keys used by a widget you can use <thead>
+     * following extra keys:
      *
-     * - `name` The name attribute.
-     * - `val` The value attribute.
-     * - `escape` Set to false to disable escaping on all attributes.
      * - `append` Append addon to input.
      * - `prepend` Prepend addon to input.
-     *
-     * Any other keys provided in $data will be converted into HTML attributes.
      *
      * @param array $data The data to build an input with.
      * @param \Cake\View\Form\ContextInterface $context The current form context.
