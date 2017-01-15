@@ -169,8 +169,26 @@ class FormHelper extends Helper
      * @param string $fieldName This should be "Modelname.fieldname".
      * @param array $options Each type of input takes different options.
      * @return string Completed form widget.
+     * @deprecated Use control() instead.
      */
-    public function input($fieldName, array $options = [])
+    public function input($fieldName, array $options = []) {
+        return $this->control($fieldName, $options);
+    }
+
+    /**
+     * Generates a form input element complete with label and wrapper div.
+     *
+     * Adds extra option besides the ones supported by parent class method:
+     * - `append` - Append addon to input.
+     * - `prepend` - Prepend addon to input.
+     * - `inline` - Boolean for generating inline checkbox/radio.
+     * - `help` - Help text of include in the input container.
+     *
+     * @param string $fieldName This should be "Modelname.fieldname".
+     * @param array $options Each type of input takes different options.
+     * @return string Completed form widget.
+     */
+    public function control($fieldName, array $options = [])
     {
         $options += [
             'prepend' => null,
@@ -246,7 +264,7 @@ class FormHelper extends Helper
             );
         }
 
-        $result = parent::input($fieldName, $options);
+        $result = parent::control($fieldName, $options);
         if ($newTemplates) {
             $this->templater()->pop();
         }
