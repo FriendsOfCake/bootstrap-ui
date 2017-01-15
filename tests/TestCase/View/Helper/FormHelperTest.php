@@ -428,6 +428,33 @@ class FormHelperTest extends TestCase
         $this->assertHtml($expected, $result);
     }
 
+    public function testAddOnAppendedSelect()
+    {
+        $this->Form->create($this->article);
+
+        $result = $this->Form->input('author_id', ['append' => '@']);
+        $expected = [
+            'div' => ['class' => 'form-group select required'],
+            'label' => ['class' => 'control-label', 'for' => 'author-id'],
+            'Author',
+            '/label',
+            ['div' => ['class' => 'input-group']],
+            'select' => [
+                'name' => 'author_id',
+                'id' => 'author-id',
+                'required' => 'required',
+                'class' => 'form-control'
+            ],
+            '/select',
+            'span' => ['class' => 'input-group-addon'],
+            '@',
+            '/span',
+            '/div',
+            '/div'
+        ];
+        $this->assertHtml($expected, $result);
+    }
+
     public function testAddOnAppendedTextarea()
     {
         $this->Form->create($this->article);

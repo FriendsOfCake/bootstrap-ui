@@ -1,12 +1,12 @@
 <?php
 namespace BootstrapUI\View\Widget;
 
-use BootstrapUI\View\Helper\OptionsAwareTrait;
+use BootstrapUI\View\Widget\InputgroupTrait;
 use Cake\View\Form\ContextInterface;
 
 class SelectBoxWidget extends \Cake\View\Widget\SelectBoxWidget
 {
-    use OptionsAwareTrait;
+    use InputgroupTrait;
 
     /**
      * Render a select box form input.
@@ -85,8 +85,6 @@ class SelectBoxWidget extends \Cake\View\Widget\SelectBoxWidget
      */
     public function render(array $data, ContextInterface $context)
     {
-        $data = $this->injectClasses('form-control', $data);
-
-        return parent::render($data, $context);
+        return $this->output($data, $context);
     }
 }
