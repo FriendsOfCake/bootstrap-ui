@@ -428,6 +428,38 @@ class FormHelperTest extends TestCase
         $this->assertHtml($expected, $result);
     }
 
+    public function testAddOnAppendedTextarea()
+    {
+        $this->Form->create($this->article);
+
+        $result = $this->Form->input('body', [
+            'type' => 'textarea',
+            'append' => $this->Form->button('GO')
+        ]);
+        $expected = [
+            'div' => ['class' => 'form-group textarea'],
+            'label' => ['class' => 'control-label', 'for' => 'body'],
+            'Body',
+            '/label',
+            ['div' => ['class' => 'input-group']],
+            'textarea' => [
+                'name' => 'body',
+                'id' => 'body',
+                'class' => 'form-control',
+                'rows' => '5'
+            ],
+            '/textarea',
+            'span' => ['class' => 'input-group-btn'],
+            'button' => ['type' => 'submit', 'class' => 'btn btn-default'],
+            'GO',
+            '/button',
+            '/span',
+            '/div',
+            '/div'
+        ];
+        $this->assertHtml($expected, $result);
+    }
+
     public function testButtonPrependedInput()
     {
         $this->Form->create($this->article);

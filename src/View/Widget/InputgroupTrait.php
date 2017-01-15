@@ -28,11 +28,11 @@ trait InputgroupTrait
     public function output(array $data, ContextInterface $context)
     {
         $data += [
-            'type' => 'text',
             'prepend' => null,
             'append' => null,
         ];
-        if ($data['type'] !== 'hidden') {
+
+        if (!isset($data['type']) || $data['type'] !== 'hidden') {
             $data = $this->injectClasses('form-control', $data);
         }
 
