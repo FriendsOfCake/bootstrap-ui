@@ -33,6 +33,6 @@ class TextareaWidget extends \Cake\View\Widget\TextareaWidget
      */
     public function render(array $data, ContextInterface $context)
     {
-        return $this->output($data, $context);
+        return $this->_withInputGroup($data, $context);
     }
 }

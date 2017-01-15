@@ -9,10 +9,10 @@ trait InputgroupTrait
     use OptionsAwareTrait;
 
     /**
-     * Render a widget depending on which class this trait is used in.
+     * Render a widget with input group wrapper if requried.
      *
-     * Apart from the standard data keys used by a widget you can use <thead>
-     * following extra keys:
+     * Apart from the standard data keys used by a widget you can use following
+     * extra keys:
      *
      * - `append` Append addon to input.
      * - `prepend` Prepend addon to input.
@@ -21,7 +21,7 @@ trait InputgroupTrait
      * @param \Cake\View\Form\ContextInterface $context The current form context.
      * @return string
      */
-    public function output(array $data, ContextInterface $context)
+    public function _withInputGroup(array $data, ContextInterface $context)
     {
         $data += [
             'prepend' => null,

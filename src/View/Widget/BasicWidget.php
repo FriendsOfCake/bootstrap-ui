@@ -27,6 +27,6 @@ class BasicWidget extends \Cake\View\Widget\BasicWidget
      */
     public function render(array $data, ContextInterface $context)
     {
-        return $this->output($data, $context);
+        return $this->_withInputGroup($data, $context);
     }
 }
