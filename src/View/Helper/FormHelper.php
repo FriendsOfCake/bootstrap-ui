@@ -351,7 +351,7 @@ class FormHelper extends Helper
             'label' => $options['label'],
             'error' => $options['error'],
             'templateVars' => isset($options['options']['templateVars']) ? $options['options']['templateVars'] : [],
-            'help' => $options['options']['help']
+            'help' => isset($options['options']['help']) ? $options['options']['help'] : []
         ]);
     }
 
@@ -374,7 +374,7 @@ class FormHelper extends Helper
             'required' => $options['options']['required'] ? ' required' : '',
             'type' => $options['options']['type'],
             'templateVars' => isset($options['options']['templateVars']) ? $options['options']['templateVars'] : [],
-            'help' => $options['options']['help']
+            'help' => isset($options['options']['help']) ? $options['options']['help'] : []
         ]);
     }
 
