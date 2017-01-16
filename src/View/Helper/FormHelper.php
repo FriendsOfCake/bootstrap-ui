@@ -21,6 +21,13 @@ class FormHelper extends Helper
     protected $_align;
 
     /**
+     * The method to use when creating a control element for a form
+     *
+     * @var string
+     */
+    protected $_controlMethod;
+
+    /**
      * Default Bootstrap string templates.
      *
      * @var array
@@ -101,6 +108,11 @@ class FormHelper extends Helper
         }
 
         $this->_defaultWidgets = $this->_widgets + $this->_defaultWidgets;
+
+        $this->_controlMethod = 'input';
+        if (method_exists('Cake\View\Helper\FormHelper', 'control')) {
+            $this->_controlMethod = 'control';
+        }
 
         parent::__construct($View, $config);
     }
@@ -265,11 +277,8 @@ class FormHelper extends Helper
             );
         }
 
-        if (method_exists('Cake\View\Helper\FormHelper', 'control')) {
-            $result = parent::control($fieldName, $options);
-        } else {
-            $result = parent::input($fieldName, $options);
-        }
+        $controlMethod = $this->_controlMethod;
+        $result = parent::$controlMethod($fieldName, $options);
 
         if ($newTemplates) {
             $this->templater()->pop();
