@@ -171,7 +171,8 @@ class FormHelper extends Helper
      * @return string Completed form widget.
      * @deprecated Use control() instead.
      */
-    public function input($fieldName, array $options = []) {
+    public function input($fieldName, array $options = [])
+    {
         return $this->control($fieldName, $options);
     }
 
@@ -264,7 +265,12 @@ class FormHelper extends Helper
             );
         }
 
-        $result = parent::control($fieldName, $options);
+        if (method_exists('Cake\View\Helper\FormHelper', 'control')) {
+            $result = parent::control($fieldName, $options);
+        } else {
+            $result = parent::input($fieldName, $options);
+        }
+
         if ($newTemplates) {
             $this->templater()->pop();
         }
