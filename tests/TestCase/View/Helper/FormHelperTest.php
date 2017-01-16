@@ -96,6 +96,28 @@ class FormHelperTest extends TestCase
         $this->assertHtml($expected, $result);
     }
 
+    public function testBasicTextControl()
+    {
+        unset($this->article['required']['title']);
+        $this->Form->create($this->article);
+
+        $result = $this->Form->control('title');
+        $expected = [
+            'div' => ['class' => 'form-group text'],
+            'label' => ['class' => 'control-label', 'for' => 'title'],
+            'Title',
+            '/label',
+            'input' => [
+                'type' => 'text',
+                'name' => 'title',
+                'id' => 'title',
+                'class' => 'form-control',
+            ],
+            '/div'
+        ];
+        $this->assertHtml($expected, $result);
+    }
+
     public function testSelectInput()
     {
         $this->Form->create($this->article);
