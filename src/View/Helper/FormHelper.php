@@ -25,7 +25,7 @@ class FormHelper extends Helper
      *
      * @var string
      */
-    protected $_controlMethod;
+    protected $_controlMethod = 'input';
 
     /**
      * Default Bootstrap string templates.
@@ -109,7 +109,6 @@ class FormHelper extends Helper
 
         $this->_defaultWidgets = $this->_widgets + $this->_defaultWidgets;
 
-        $this->_controlMethod = 'input';
         if (method_exists('Cake\View\Helper\FormHelper', 'control')) {
             $this->_controlMethod = 'control';
         }
