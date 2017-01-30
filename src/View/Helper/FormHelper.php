@@ -379,7 +379,7 @@ class FormHelper extends Helper
         }
 
         return $this->templater()->format($groupTemplate, [
-            'input' => $options['input'],
+            'input' => isset($options['input']) ? $options['input'] : [],
             'label' => $options['label'],
             'error' => $options['error'],
             'templateVars' => isset($options['options']['templateVars']) ? $options['options']['templateVars'] : [],
