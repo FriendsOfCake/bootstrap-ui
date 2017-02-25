@@ -190,8 +190,8 @@ is from the BootstrapUI plugin.
 
 ```php
 echo $this->Form->create($article);
-echo $this->Form->input('title');
-echo $this->Form->input('published');
+echo $this->Form->control('title');
+echo $this->Form->control('published', ['type' => 'checkbox']);
 ```
 
 will render this HTML:
@@ -227,8 +227,8 @@ echo $this->Form->create($article, ['align' => [
         'right' => 4
     ]
 ]]);
-echo $this->Form->input('title');
-echo $this->Form->input('published');
+echo $this->Form->control('title');
+echo $this->Form->control('published', ['type' => 'checkbox']);
 ```
 
 will render this HTML:
