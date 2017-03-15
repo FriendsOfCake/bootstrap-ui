@@ -60,20 +60,20 @@ $this->end();
         }
         if (isset($keyFields[$field])) {
             %>
-    echo $this->Form->input('<%= $field %>', ['options' => $<%= $keyFields[$field] %>]);
+    echo $this->Form->control('<%= $field %>', ['options' => $<%= $keyFields[$field] %>]);
 <%
             continue;
         }
         if (!in_array($field, ['created', 'modified', 'updated'])) {
             %>
-    echo $this->Form->input('<%= $field %>');
+    echo $this->Form->control('<%= $field %>');
 <%
         }
     }
     if (!empty($associations['BelongsToMany'])) {
         foreach ($associations['BelongsToMany'] as $assocName => $assocData) {
             %>
-    echo $this->Form->input('<%= $assocData['property'] %>._ids', ['options' => $<%= $assocData['variable'] %>]);
+    echo $this->Form->control('<%= $assocData['property'] %>._ids', ['options' => $<%= $assocData['variable'] %>]);
 <%
         }
     }
