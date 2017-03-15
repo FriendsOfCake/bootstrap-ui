@@ -348,7 +348,7 @@ class FormHelperTest extends TestCase
 
         $result = $this->Form->input('published');
         $expected = [
-            'div' => ['class' => 'form-group checkbox has-error'],
+            'div' => ['class' => 'form-group has-error'],
             ['div' => ['class' => 'col-md-offset-2 col-md-6']],
             ['div' => ['class' => 'checkbox']],
             'input' => [
@@ -989,7 +989,7 @@ class FormHelperTest extends TestCase
 
         $result = $this->Form->input('published');
         $expected = [
-            'div' => ['class' => 'form-group checkbox'],
+            'div' => ['class' => 'form-group'],
             ['div' => ['class' => 'col-md-offset-2 col-md-6']],
             ['div' => ['class' => 'checkbox']],
             'input' => [
@@ -1099,7 +1099,7 @@ class FormHelperTest extends TestCase
 
         $result = $this->Form->input('published');
         $expected = [
-            'div' => ['class' => 'form-group checkbox'],
+            'div' => ['class' => 'form-group'],
             ['div' => ['class' => 'col-md-offset-2 col-md-6']],
             ['div' => ['class' => 'my-checkbox']],
             'input' => [
@@ -1422,7 +1422,7 @@ class FormHelperTest extends TestCase
 
         $result = $this->Form->input('published', ['help' => 'help text']);
         $expected = [
-            'div' => ['class' => 'form-group checkbox'],
+            'div' => ['class' => 'form-group'],
             ['div' => ['class' => 'col-md-offset-2 col-md-6']],
             ['div' => ['class' => 'checkbox']],
             'input' => [
