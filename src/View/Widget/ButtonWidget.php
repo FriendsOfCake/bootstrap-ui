@@ -10,7 +10,6 @@ class ButtonWidget extends \Cake\View\Widget\ButtonWidget
 
     use OptionsAwareTrait;
 
-
     /**
      * @var array
      * @deprecated This property is no longer used.
