@@ -1,0 +1,39 @@
+/*
+    date & dateTime inputs styles for cakePHP-BootstrapUI plugin
+*/
+.list-inline li.year,.list-inline li.month{
+    min-width: 100px;
+}
+.list-inline li{
+    min-width: 75px;
+}
+.date .list-inline,.datetime .list-inline {
+    width: 100%;
+}
+/*
+    [date] input styles :
+    hide each of [hour, minute, second, meridian]
+*/
+.date ul.list-inline li.month, .date ul.list-inline li.year {
+    width: 34.5%;
+}
+.date ul.list-inline li.day {
+    width: 31%;
+}
+.date ul.list-inline li.minute, .date ul.list-inline li.second, .date ul.list-inline li.meridian, .date ul.list-inline li.hour{
+    display:none;
+}
+
+/*
+    [datetime] input styles :
+    hide each of [hour, minute, second, meridian]
+*/
+.datetime ul.list-inline li {
+    width: 23%;
+}
+.datetime ul.list-inline li.minute,.datetime ul.list-inline li.hour {
+    width: 15.5%;
+}
+.datetime ul.list-inline li.second, .datetime ul.list-inline li.meridian{
+    display:none;
+}
