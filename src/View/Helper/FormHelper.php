@@ -63,7 +63,7 @@ class FormHelper extends Helper
             'label' => '<label class="control-label %s"{{attrs}}>{{text}}</label>',
             'formGroup' => '{{label}}<div class="%s">{{input}}{{error}}{{help}}</div>',
             'checkboxFormGroup' => '<div class="%s"><div class="checkbox">{{label}}</div>{{error}}{{help}}</div>',
-            'submitContainer' => '<div class="%s">{{content}}</div>',
+            'submitContainer' => '<div class="form-group"><div class="%s">{{content}}</div></div>',
             'inputContainer' => '<div class="form-group {{type}}{{required}}">{{content}}</div>',
             'inputContainerError' => '<div class="form-group {{type}}{{required}} has-error">{{content}}</div>',
             'checkboxContainer' => '<div class="form-group{{required}}">{{content}}</div>',

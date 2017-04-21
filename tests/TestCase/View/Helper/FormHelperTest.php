@@ -1173,6 +1173,24 @@ class FormHelperTest extends TestCase
         $this->assertHtml($expected, $result);
     }
 
+    public function testHorizontalFormSubmit()
+    {
+        $this->Form->create($this->article, ['align' => 'horizontal']);
+
+        $result = $this->Form->submit('Submit');
+        $expected = [
+            'div' => ['class' => 'form-group'],
+            ['div' => ['class' => 'col-md-offset-2 col-md-6']],
+            'input' => [
+                'type' => 'submit',
+                'value' => 'Submit',
+                'class' => 'btn btn-default',
+            ]
+        ];
+
+        $this->assertHtml($expected, $result);
+    }
+
     public function testStyledButton()
     {
         $result = $this->Form->button('Submit', ['class' => 'success']);
