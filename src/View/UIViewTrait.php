@@ -29,9 +29,17 @@ trait UIViewTrait
             $this->layout = $options['layout'];
         }
 
-        $this->loadHelper('Html', ['className' => 'BootstrapUI.Html']);
-        $this->loadHelper('Form', ['className' => 'BootstrapUI.Form']);
-        $this->loadHelper('Flash', ['className' => 'BootstrapUI.Flash']);
-        $this->loadHelper('Paginator', ['className' => 'BootstrapUI.Paginator']);
+        if (!$this->helpers()->has('Html')) {
+            $this->loadHelper('Html', ['className' => 'BootstrapUI.Html']);
+        }
+        if (!$this->helpers()->has('Form')) {
+            $this->loadHelper('Form', ['className' => 'BootstrapUI.Form']);
+        }
+        if (!$this->helpers()->has('Flash')) {
+            $this->loadHelper('Flash', ['className' => 'BootstrapUI.Flash']);
+        }
+        if (!$this->helpers()->has('Paginator')) {
+            $this->loadHelper('Paginator', ['className' => 'BootstrapUI.Paginator']);
+        }
     }
 }
