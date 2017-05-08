@@ -227,6 +227,14 @@ class FormHelper extends Helper
             $options['templates'] = [];
         }
 
+        $templater = $this->templater();
+        if (!empty($options['templates'])) {
+            $templater->push();
+            $templateMethod = is_string($options['templates']) ? 'load' : 'add';
+            $templater->{$templateMethod}($options['templates']);
+        }
+        unset($options['templates']);
+
         switch ($options['type']) {
             case 'checkbox':
                 if (!isset($options['inline'])) {
