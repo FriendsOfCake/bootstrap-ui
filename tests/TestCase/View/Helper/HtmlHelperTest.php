@@ -38,7 +38,7 @@ class HtmlHelperTest extends TestCase
         $expected = [
             'span' => ['class' => 'badge'],
             'foo',
-            '/span'
+            '/span',
         ];
         $this->assertHtml($expected, $result);
     }
@@ -48,21 +48,21 @@ class HtmlHelperTest extends TestCase
         $result = $this->Html->icon('foo');
         $expected = [
             'i' => ['class' => 'glyphicon glyphicon-foo'],
-            '/i'
+            '/i',
         ];
         $this->assertHtml($expected, $result);
 
         $result = $this->Html->icon('foo', ['iconSet' => 'fa']);
         $expected = [
             'i' => ['class' => 'fa fa-foo'],
-            '/i'
+            '/i',
         ];
         $this->assertHtml($expected, $result);
 
         $result = $this->Html->icon('foo', ['tag' => 'span']);
         $expected = [
             'span' => ['class' => 'glyphicon glyphicon-foo'],
-            '/span'
+            '/span',
         ];
         $this->assertHtml($expected, $result);
     }
@@ -73,7 +73,7 @@ class HtmlHelperTest extends TestCase
         $expected = [
             'span' => ['class' => 'label label-default'],
             'foo',
-            '/span'
+            '/span',
         ];
         $this->assertHtml($expected, $result);
 
@@ -81,7 +81,7 @@ class HtmlHelperTest extends TestCase
         $expected = [
             'span' => ['class' => 'label label-warning'],
             'foo',
-            '/span'
+            '/span',
         ];
         $this->assertHtml($expected, $result);
 
@@ -89,7 +89,7 @@ class HtmlHelperTest extends TestCase
         $expected = [
             'span' => ['class' => 'label label-custom'],
             'foo',
-            '/span'
+            '/span',
         ];
         $this->assertHtml($expected, $result);
     }
@@ -113,8 +113,33 @@ class HtmlHelperTest extends TestCase
             ['li' => ['class' => 'last']],
             'joe',
             '/li',
-            '/ul'
+            '/ul',
         ];
+        $this->assertHtml($expected, $result);
+    }
+
+    public function testGrid()
+    {
+        $result = $this->Html
+            ->gridContent('test 1')
+            ->gridConfig(['size' => 3])
+            ->gridConfig(['type' => 'xs', 'size' => 12])
+            ->gridContent('test 2')
+            ->gridConfig(['size' => 9])
+            ->gridConfig(['type' => 'xs', 'size' => 12])
+            ->gridRender();
+
+        $expected = [
+            'div' => ['class' => 'row'],
+            ['div' => ['class' => 'col-md-3 col-xs-12']],
+            'test 1',
+            '/div',
+            ['div' => ['class' => 'col-md-9 col-xs-12']],
+            'test 2',
+            '/div',
+            '/div',
+        ];
+
         $this->assertHtml($expected, $result);
     }
 }
