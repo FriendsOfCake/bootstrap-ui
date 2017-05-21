@@ -72,14 +72,14 @@ $html5Shim =
       <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
     <![endif]-->
 HTML;
-$this->prepend('css', $this->Html->css(['bootstrap/bootstrap']));
+$this->prepend('css', $this->Html->css(['https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css']));
 
 $this->append('css', $html5Shim);
 
-/**
- * Prepend `script` block with jQuery and Bootstrap scripts
- */
-$this->prepend('script', $this->Html->script(['jquery/jquery', 'bootstrap/bootstrap']));
+$this->prepend('script', $this->Html->script([
+    'https://code.jquery.com/jquery-1.12.0.min.js',
+    'https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js'
+]));
 
 ?>
 <!DOCTYPE html>
