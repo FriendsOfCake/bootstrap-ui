@@ -8,8 +8,9 @@
 
 namespace BootstrapUI\View\Helper;
 
+use \Cake\View\Helper\BreadcrumbsHelper as MainHelper;
 
-class BreadcrumbsHelper extends \Cake\View\Helper\BreadcrumbsHelper
+class BreadcrumbsHelper extends MainHelper
 {
     use OptionsAwareTrait;
 
@@ -37,8 +38,10 @@ class BreadcrumbsHelper extends \Cake\View\Helper\BreadcrumbsHelper
     /**
      * @inheritdoc
      */
-    public function render(array $attributes = [], array $separator = []) {
+    public function render(array $attributes = [], array $separator = [])
+    {
         $attributes = $attributes + $this->_defaultAttributes;
+
         return parent::render($attributes, $separator);
     }
 }
