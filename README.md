@@ -181,6 +181,7 @@ The current list of enhanced helpers are:
 - `BootstrapUI\View\Helper\FormHelper`
 - `BootstrapUI\View\Helper\HtmlHelper`
 - `BootstrapUI\View\Helper\PaginatorHelper`
+- `BootstrapUI\View\Helper\BreadcrumbsHelper`
 
 When the `BootstrapUI\View\UIViewTrait` is initialized it loads the above helpers with the same aliases as the
 CakePHP core helpers. That means that when you use `$this->Form->create()` in your views. The helper being used
