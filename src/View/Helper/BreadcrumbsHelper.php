@@ -1,10 +1,4 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: ngirardet
- * Date: 30.05.2017
- * Time: 12:03
- */
 
 namespace BootstrapUI\View\Helper;
 
