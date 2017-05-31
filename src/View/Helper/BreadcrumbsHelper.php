@@ -34,7 +34,7 @@ class BreadcrumbsHelper extends CoreBreadcrumbsHelper
      */
     public function render(array $attributes = [], array $separator = [])
     {
-        $attributes = $attributes + $this->_defaultAttributes;
+        $attributes += $this->_defaultAttributes;
 
         return parent::render($attributes, $separator);
     }
