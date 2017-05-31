@@ -2,7 +2,9 @@
 
 namespace BootstrapUI\View\Helper;
 
-class BreadcrumbsHelper extends \Cake\View\Helper\BreadcrumbsHelper
+use Cake\View\Helper\BreadcrumbsHelper as CoreBreadcrumbsHelper
+
+class BreadcrumbsHelper extends CoreBreadcrumbsHelper
 {
     use OptionsAwareTrait;
 
