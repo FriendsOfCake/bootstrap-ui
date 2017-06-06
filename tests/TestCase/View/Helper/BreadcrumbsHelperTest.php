@@ -48,7 +48,8 @@ class BreadcrumbsHelperTest extends TestCase
         $expected = '<ol class="breadcrumb"><li><span>jadb</span></li><li><span>admad</span></li><li><span>joe</span></li></ol>';
         $this->assertEquals($expected, $result);
     }
-    public function testAttributes() {
+    public function testAttributes()
+    {
         $attributes = [
             'wrapper' => ['class' => 'wrapper-class'],
             'separator' => ['class' => 'separator-class', 'innerAttrs' => ['class' => 'separator-inner-class']],
