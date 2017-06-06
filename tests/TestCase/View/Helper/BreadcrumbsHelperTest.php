@@ -58,7 +58,7 @@ class BreadcrumbsHelperTest extends TestCase
 
         $result = $this->Breadcrumbs
             ->add('joe', null, $attributes['itemWithoutLink'])
-            ->add('black', ['controller' => 'foo', 'action' => 'bar'], $attributes['itemWithoutLink'])
+            ->add('black', '/foo/bar', $attributes['itemWithoutLink'])
             ->render($attributes['wrapper'], $attributes['separator']);
 
         $expected = '<ol class="wrapper-class"><li class="itemWithoutLink-class"><span class="itemWithoutLink-inner-class">joe</span></li><li class="separator-class"><span class="separator-inner-class"></span></li><li class="itemWithoutLink-class"><a href="/foo/bar" class="itemWithoutLink-inner-class">black</a></li></ol>';
