@@ -48,4 +48,20 @@ class BreadcrumbsHelperTest extends TestCase
         $expected = '<ol class="breadcrumb"><li><span>jadb</span></li><li><span>admad</span></li><li><span>joe</span></li></ol>';
         $this->assertEquals($expected, $result);
     }
+    public function testAttributes() {
+        $attributes = [
+            'wrapper' => ['class' => 'wrapper-class'],
+            'separator' => ['class' => 'separator-class', 'innerAttrs' => ['class' => 'separator-inner-class']],
+            'item' => ['class' => 'item-class', 'innerAttrs' => ['class' => 'item-inner-class']],
+            'itemWithoutLink' => ['class' => 'itemWithoutLink-class', 'innerAttrs' => ['class' => 'itemWithoutLink-inner-class']],
+        ];
+
+        $result = $this->Breadcrumbs
+            ->add('joe', null, $attributes['itemWithoutLink'])
+            ->add('black', ['controller' => 'foo', 'action' => 'bar'], $attributes['itemWithoutLink'])
+            ->render($attributes['wrapper'], $attributes['separator']);
+
+        $expected = '<ol class="wrapper-class"><li class="itemWithoutLink-class"><span class="itemWithoutLink-inner-class">joe</span></li><li class="separator-class"><span class="separator-inner-class"></span></li><li class="itemWithoutLink-class"><a href="/foo/bar" class="itemWithoutLink-inner-class">black</a></li></ol>';
+        $this->assertEquals($expected, $result);
+    }
 }

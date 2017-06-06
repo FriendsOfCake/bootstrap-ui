@@ -2,7 +2,7 @@
 
 namespace BootstrapUI\View\Helper;
 
-use Cake\View\Helper\BreadcrumbsHelper as CoreBreadcrumbsHelper
+use Cake\View\Helper\BreadcrumbsHelper as CoreBreadcrumbsHelper;
 
 class BreadcrumbsHelper extends CoreBreadcrumbsHelper
 {
