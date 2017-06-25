@@ -2,6 +2,8 @@
 
 namespace BootstrapUI\View;
 
+use Cake\Core\Configure;
+
 /**
  * UIViewTrait: Trait that loads the custom UIBootstrap helpers and sets View
  * layout to the UIBootstrap's one.
