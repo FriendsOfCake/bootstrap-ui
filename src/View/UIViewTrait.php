@@ -2,8 +2,6 @@
 
 namespace BootstrapUI\View;
 
-use Cake\Core\Configure;
-
 /**
  * UIViewTrait: Trait that loads the custom UIBootstrap helpers and sets View
  * layout to the UIBootstrap's one.
@@ -35,7 +33,7 @@ trait UIViewTrait
         $this->loadHelper('Form', ['className' => 'BootstrapUI.Form']);
         $this->loadHelper('Flash', ['className' => 'BootstrapUI.Flash']);
         $this->loadHelper('Paginator', ['className' => 'BootstrapUI.Paginator']);
-        if (version_compare(Configure::version(), '3.3.6', '>')) {
+        if (class_exists('\Cake\View\Helper\BreadcrumbsHelper') {
             $this->loadHelper('Breadcrumbs', ['className' => 'BootstrapUI.Breadcrumbs']);
         }
     }
