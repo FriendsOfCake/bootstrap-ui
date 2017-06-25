@@ -1,7 +1,6 @@
 <?php
 namespace BootstrapUI\Test\TestCase\View\Helper;
 
-use Cake\Core\Configure;
 use Cake\TestSuite\TestCase;
 use Cake\View\View;
 
@@ -22,7 +21,7 @@ class BreadcrumbsHelperTest extends TestCase
         parent::setUp();
 
         $this->View = new View();
-        if (version_compare(Configure::version(), '3.3.6', '>')) {
+        if (class_exists('\Cake\View\Helper\BreadcrumbsHelper') {
             $this->Breadcrumbs = new \BootstrapUI\View\Helper\BreadcrumbsHelper($this->View);
         } else {
             $this->Breadcrumbs = null;
@@ -37,8 +36,8 @@ class BreadcrumbsHelperTest extends TestCase
 
     public function testCrumbList()
     {
-        if (version_compare(Configure::version(), '3.3.6', '<')) {
-            $this->markTestSkipped('Breadcrumb functionality only available on CakePHP version 3.3.6 and above');
+        if (!class_exists('\Cake\View\Helper\BreadcrumbsHelper') {
+            $this->markTestSkipped('BreadcrumbsHelper cannot be tested when core BreadcrumbsHelper class does not exist');
         }
 
         $result = $this->Breadcrumbs
@@ -53,8 +52,8 @@ class BreadcrumbsHelperTest extends TestCase
 
     public function testAttributes()
     {
-        if (version_compare(Configure::version(), '3.3.6', '<')) {
-            $this->markTestSkipped('Breadcrumb functionality only available on CakePHP version 3.3.6 and above');
+        if (!class_exists('\Cake\View\Helper\BreadcrumbsHelper') {
+            $this->markTestSkipped('BreadcrumbsHelper cannot be tested when core BreadcrumbsHelper class does not exist');
         }
 
         $attributes = [
