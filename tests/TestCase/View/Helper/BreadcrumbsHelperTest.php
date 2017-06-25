@@ -1,14 +1,7 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: ngirardet
- * Date: 30.05.2017
- * Time: 12:34
- */
-
 namespace BootstrapUI\Test\TestCase\View\Helper;
 
-use BootstrapUI\View\Helper\BreadcrumbsHelper;
+use Cake\Core\Configure;
 use Cake\TestSuite\TestCase;
 use Cake\View\View;
 
@@ -29,7 +22,11 @@ class BreadcrumbsHelperTest extends TestCase
         parent::setUp();
 
         $this->View = new View();
-        $this->Breadcrumbs = new BreadcrumbsHelper($this->View);
+        if (version_compare(Configure::version(), '3.3.6', '>')) {
+            $this->Breadcrumbs = new \BootstrapUI\View\Helper\BreadcrumbsHelper($this->View);
+        } else {
+            $this->Breadcrumbs = null;
+        }
     }
 
     public function tearDown()
@@ -37,8 +34,13 @@ class BreadcrumbsHelperTest extends TestCase
         parent::tearDown();
         unset($this->Breadcrumbs, $this->View);
     }
+
     public function testCrumbList()
     {
+        if (version_compare(Configure::version(), '3.3.6', '<')) {
+            $this->markTestSkipped('Breadcrumb functionality only available on CakePHP version 3.3.6 and above');
+        }
+
         $result = $this->Breadcrumbs
             ->add('jadb')
             ->add('admad')
@@ -48,8 +50,13 @@ class BreadcrumbsHelperTest extends TestCase
         $expected = '<ol class="breadcrumb"><li><span>jadb</span></li><li><span>admad</span></li><li><span>joe</span></li></ol>';
         $this->assertEquals($expected, $result);
     }
+
     public function testAttributes()
     {
+        if (version_compare(Configure::version(), '3.3.6', '<')) {
+            $this->markTestSkipped('Breadcrumb functionality only available on CakePHP version 3.3.6 and above');
+        }
+
         $attributes = [
             'wrapper' => ['class' => 'wrapper-class'],
             'separator' => ['class' => 'separator-class', 'innerAttrs' => ['class' => 'separator-inner-class']],
