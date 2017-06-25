@@ -21,7 +21,7 @@ class BreadcrumbsHelperTest extends TestCase
         parent::setUp();
 
         $this->View = new View();
-        if (class_exists('\Cake\View\Helper\BreadcrumbsHelper') {
+        if (class_exists('\Cake\View\Helper\BreadcrumbsHelper')) {
             $this->Breadcrumbs = new \BootstrapUI\View\Helper\BreadcrumbsHelper($this->View);
         } else {
             $this->Breadcrumbs = null;
@@ -36,7 +36,7 @@ class BreadcrumbsHelperTest extends TestCase
 
     public function testCrumbList()
     {
-        if (!class_exists('\Cake\View\Helper\BreadcrumbsHelper') {
+        if (!class_exists('\Cake\View\Helper\BreadcrumbsHelper')) {
             $this->markTestSkipped('BreadcrumbsHelper cannot be tested when core BreadcrumbsHelper class does not exist');
         }
 
@@ -52,7 +52,7 @@ class BreadcrumbsHelperTest extends TestCase
 
     public function testAttributes()
     {
-        if (!class_exists('\Cake\View\Helper\BreadcrumbsHelper') {
+        if (!class_exists('\Cake\View\Helper\BreadcrumbsHelper')) {
             $this->markTestSkipped('BreadcrumbsHelper cannot be tested when core BreadcrumbsHelper class does not exist');
         }
 
