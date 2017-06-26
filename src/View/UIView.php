@@ -14,6 +14,7 @@ use Cake\View\View;
  * @property \BootstrapUI\View\Helper\FormHelper $Form
  * @property \BootstrapUI\View\Helper\HtmlHelper $Html
  * @property \BootstrapUI\View\Helper\PaginatorHelper $Paginator
+ * @property \BootstrapUI\View\Helper\BreadcrumbsHelper $Breadcrumbs
  */
 class UIView extends View
 {
