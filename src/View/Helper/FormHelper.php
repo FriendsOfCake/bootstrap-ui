@@ -21,6 +21,13 @@ class FormHelper extends Helper
     protected $_align;
 
     /**
+     * Set on `Form::create()` to tell grid type.
+     *
+     * @var array|null
+     */
+    protected $_grid;
+
+    /**
      * The method to use when creating a control element for a form
      *
      * @var string

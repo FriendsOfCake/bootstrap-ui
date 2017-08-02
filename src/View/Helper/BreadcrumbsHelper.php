@@ -27,7 +27,7 @@ class BreadcrumbsHelper extends CoreBreadcrumbsHelper
     ];
 
     /**
-     * @inheritdoc
+     * {@inheritDoc}
      */
     public function render(array $attributes = [], array $separator = [])
     {
