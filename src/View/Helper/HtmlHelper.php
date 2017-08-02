@@ -77,7 +77,7 @@ class HtmlHelper extends \Cake\View\Helper\HtmlHelper
      * Returns Bootstrap label markup. By default, uses `<SPAN>`.
      *
      * @param string $text Text to show in label.
-     * @param array $options Additional HTML attributes.
+     * @param array|string $options Additional HTML attributes.
      * @return string HTML icon markup.
      */
     public function label($text, $options = [])
