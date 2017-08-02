@@ -21,7 +21,7 @@ trait InputgroupTrait
      * @param \Cake\View\Form\ContextInterface $context The current form context.
      * @return string
      */
-    public function _withInputGroup(array $data, ContextInterface $context)
+    protected function _withInputGroup(array $data, ContextInterface $context)
     {
         $data += [
             'prepend' => null,
