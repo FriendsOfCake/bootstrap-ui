@@ -75,6 +75,8 @@ class FormHelper extends Helper
             'inputContainerError' => '<div class="form-group {{type}}{{required}} has-error">{{content}}</div>',
             'checkboxContainer' => '<div class="form-group{{required}}">{{content}}</div>',
             'checkboxContainerError' => '<div class="form-group{{required}} has-error">{{content}}</div>',
+            'radioContainer' => '<div class="form-group{{required}}">{{content}}</div>',
+            'radioContainerError' => '<div class="form-group{{required}} has-error">{{content}}</div>',
         ]
     ];
 
