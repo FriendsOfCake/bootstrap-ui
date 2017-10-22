@@ -145,7 +145,7 @@ class FormHelperTest extends TestCase
     public function testStaticControl()
     {
         unset($this->article['required']['title']);
-        $this->article['defaults']['title'] = 'foo bar';
+        $this->article['defaults']['title'] = 'foo <u>bar</u>';
         $this->Form->create($this->article);
 
         $result = $this->Form->input('title', ['type' => 'staticControl']);
@@ -155,29 +155,32 @@ class FormHelperTest extends TestCase
             'Title',
             '/label',
             'p' => ['class' => 'form-control-static'],
-            'foo bar',
+            'foo &lt;u&gt;bar&lt;/u&gt;',
             '/p',
             'input' => [
                 'type' => 'hidden',
                 'name' => 'title',
                 'id' => 'title',
-                'value' => 'foo bar',
+                'value' => 'foo &lt;u&gt;bar&lt;/u&gt;',
             ],
             '/div'
         ];
         $this->assertHtml($expected, $result);
-        $this->assertSame(['title' => 'foo bar'], $this->Form->fields);
+        $this->assertSame(['title' => 'foo <u>bar</u>'], $this->Form->fields);
 
         $this->Form->fields = [];
 
-        $result = $this->Form->input('title', ['type' => 'staticControl', 'hiddenField' => false]);
+        $result = $this->Form->input('title', ['type' => 'staticControl', 'hiddenField' => false, 'escape' => false]);
         $expected = [
             'div' => ['class' => 'form-group staticControl'],
             'label' => ['class' => 'control-label', 'for' => 'title'],
             'Title',
             '/label',
             'p' => ['class' => 'form-control-static'],
-            'foo bar',
+            'foo',
+            'u' => [],
+            'bar',
+            '/u',
             '/p',
             '/div'
         ];
