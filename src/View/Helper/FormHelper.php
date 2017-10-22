@@ -329,6 +329,7 @@ class FormHelper extends Helper
     public function staticControl($fieldName, array $options = [])
     {
         $options += [
+            'escape' => true,
             'required' => false,
             'secure' => true,
             'hiddenField' => true
@@ -343,8 +344,9 @@ class FormHelper extends Helper
             ['secure' => static::SECURE_SKIP] + $options
         );
 
+        $content = $options['escape'] ? h($options['val']) : $options['val'];
         $static = $this->formatTemplate('staticControl', [
-            'content' => $options['val']
+            'content' => $content
         ]);
 
         if (!$hiddenField) {
