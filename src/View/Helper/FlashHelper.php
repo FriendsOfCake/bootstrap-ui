@@ -20,7 +20,7 @@ class FlashHelper extends Helper
      * @var array
      */
     protected $_defaultConfig = [
-        'class' => ['alert', 'alert-dismissible', 'fade', 'in'],
+        'class' => ['alert', 'alert-dismissible', 'fade', 'show'],
         'attributes' => ['role' => 'alert'],
         'element' => 'BootstrapUI.Flash/default'
     ];
@@ -64,7 +64,7 @@ class FlashHelper extends Helper
 
             $element = $message['element'];
             if (strpos($element, '.') === false &&
-                preg_match('#Flash/(default|success|error|info|warning)$#', $element, $matches)
+                preg_match('#Flash/(default|success|danger|info|error|primary|secondary|light|dark)$#', $element, $matches)
             ) {
                 $class = $matches[1];
                 $class = str_replace(['default', 'error'], ['info', 'danger'], $class);
