@@ -1501,6 +1501,32 @@ class FormHelperTest extends TestCase
     }
 
     /**
+     * @return void
+     */
+    public function testTooltip()
+    {
+        $this->Form->create($this->article);
+
+        $result = $this->Form->control('title', ['tooltip' => 'Some important additional notes.']);
+        $expected = [
+            'div' => ['class' => 'form-group text required'],
+            'label' => ['class' => 'control-label', 'for' => 'title'],
+            'Title',
+            'span' => ['rel' => 'tooltip', 'title' => 'Some important additional notes.', 'class' => 'glyphicon glyphicon-info-sign'],
+            '/label',
+            'input' => [
+                'type' => 'text',
+                'name' => 'title',
+                'id' => 'title',
+                'class' => 'form-control',
+                'required' => 'required'
+            ],
+            '/div'
+        ];
+        $this->assertHtml($expected, $result);
+    }
+
+    /**
      * Test that "form-control" class is added when using methods for specific input.
      *
      * @return void

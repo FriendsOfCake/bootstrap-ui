@@ -43,10 +43,11 @@ class FormHelper extends Helper
         'dateWidget' => '<ul class="list-inline"><li class="year">{{year}}</li><li class="month">{{month}}</li><li class="day">{{day}}</li><li class="hour">{{hour}}</li><li class="minute">{{minute}}</li><li class="second">{{second}}</li><li class="meridian">{{meridian}}</li></ul>',
         'error' => '<div class="help-block">{{content}}</div>',
         'help' => '<div class="help-block">{{content}}</div>',
+        'tooltip' => '<span rel="tooltip" title="{{content}}" class="glyphicon glyphicon-info-sign"></span>',
         'inputContainer' => '<div class="form-group {{type}}{{required}}">{{content}}{{help}}</div>',
         'inputContainerError' => '<div class="form-group {{type}}{{required}} has-error">{{content}}{{error}}{{help}}</div>',
         'radioInlineFormGroup' => '{{label}}<div class="radio-inline-wrapper">{{input}}</div>',
-        'radioNestingLabel' => '<div class="radio">{{hidden}}<label{{attrs}}>{{input}}{{text}}</label></div>',
+        'radioNestingLabel' => '<div class="radio">{{hidden}}<label{{attrs}}>{{input}}{{text}}{{tooltip}}</label></div>',
         'staticControl' => '<p class="form-control-static">{{content}}</p>',
         'inputGroupAddon' => '<span class="{{class}}">{{content}}</span>',
         'inputGroupContainer' => '<div class="input-group">{{prepend}}{{content}}{{append}}</div>',
@@ -63,11 +64,11 @@ class FormHelper extends Helper
             'checkboxContainerError' => '<div class="checkbox has-error">{{content}}{{error}}{{help}}</div>',
         ],
         'inline' => [
-            'label' => '<label class="sr-only"{{attrs}}>{{text}}</label>',
+            'label' => '<label class="sr-only"{{attrs}}>{{text}}{{tooltip}}</label>',
             'inputContainer' => '{{content}}'
         ],
         'horizontal' => [
-            'label' => '<label class="control-label %s"{{attrs}}>{{text}}</label>',
+            'label' => '<label class="control-label %s"{{attrs}}>{{text}}{{tooltip}}</label>',
             'formGroup' => '{{label}}<div class="%s">{{input}}{{error}}{{help}}</div>',
             'checkboxFormGroup' => '<div class="%s"><div class="checkbox">{{label}}</div>{{error}}{{help}}</div>',
             'submitContainer' => '<div class="form-group"><div class="%s">{{content}}</div></div>',
@@ -223,6 +224,7 @@ class FormHelper extends Helper
             'required' => null,
             'options' => null,
             'help' => null,
+            'tooltip' => null,
             'templates' => [],
             'templateVars' => []
         ];
@@ -285,6 +287,15 @@ class FormHelper extends Helper
                 'help',
                 ['content' => $options['help']]
             );
+        }
+
+        if ($options['tooltip']) {
+            $tooltip = $this->templater()->format(
+                'tooltip',
+                ['content' => $options['tooltip']]
+            );
+            $options['label']['templateVars']['tooltip'] = ' ' . $tooltip;
+            unset($options['tooltip']);
         }
 
         $controlMethod = $this->_controlMethod;
@@ -396,7 +407,7 @@ class FormHelper extends Helper
             'label' => $options['label'],
             'error' => $options['error'],
             'templateVars' => isset($options['options']['templateVars']) ? $options['options']['templateVars'] : [],
-            'help' => $options['options']['help']
+            'help' => $options['options']['help'],
         ]);
     }
 
@@ -419,7 +430,7 @@ class FormHelper extends Helper
             'required' => $options['options']['required'] ? ' required' : '',
             'type' => $options['options']['type'],
             'templateVars' => isset($options['options']['templateVars']) ? $options['options']['templateVars'] : [],
-            'help' => $options['options']['help']
+            'help' => $options['options']['help'],
         ]);
     }
 
