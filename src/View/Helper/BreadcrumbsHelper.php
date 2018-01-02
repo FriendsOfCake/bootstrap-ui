@@ -10,10 +10,9 @@ class BreadcrumbsHelper extends CoreBreadcrumbsHelper
      */
     protected $_defaultConfig = [
         'templates' => [
-            'wrapper' => '<ol{{attrs}}>{{content}}</ol>',
-            'item' => '<li{{attrs}}><a href="{{url}}"{{innerAttrs}}>{{title}}</a></li>{{separator}}',
-            'itemWithoutLink' => '<li{{attrs}}><span{{innerAttrs}}>{{title}}</span></li>{{separator}}',
-            'separator' => '<li{{attrs}}><span{{innerAttrs}}>{{separator}}</span></li>'
+            'wrapper' => '<nav aria-label="breadcrumb"><ol{{attrs}}>{{content}}</ol></nav>',
+            'item' => '<li class="breadcrumb-item"{{attrs}}><a href="{{url}}"{{innerAttrs}}>{{title}}</a></li>',
+            'itemWithoutLink' => '<li class="breadcrumb-item active" aria-current="page"{{attrs}}><span{{innerAttrs}}>{{title}}</span></li>',
         ]
     ];
 
