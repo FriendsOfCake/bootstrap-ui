@@ -15,13 +15,17 @@ class PaginatorHelper extends \Cake\View\Helper\PaginatorHelper
     public function __construct(View $View, array $config = [])
     {
         $this->_defaultConfig['templates'] = [
-            'nextActive' => '<li class="next"><a rel="next" aria-label="Next" href="{{url}}">' .
+            'nextActive' => '<li class="page-item"><a class="page-link" rel="next" aria-label="Next" href="{{url}}">' .
                             '<span aria-hidden="true">{{text}}</span></a></li>',
-            'nextDisabled' => '<li class="next disabled"><a><span aria-hidden="true">{{text}}</span></a></li>',
-            'prevActive' => '<li class="previous"><a rel="prev" aria-label="Previous" href="{{url}}">' .
+            'nextDisabled' => '<li class="page-item disabled"><a class="page-link" tabindex="-1"><span aria-hidden="true">{{text}}</span></a></li>',
+            'prevActive' => '<li class="page-item"><a class="page-link" rel="prev" aria-label="Previous" href="{{url}}">' .
                             '<span aria-hidden="true">{{text}}</span></a></li>',
-            'prevDisabled' => '<li class="previous disabled"><a><span aria-hidden="true">{{text}}</span></a></li>',
-            'current' => '<li class="active"><span>{{text}} <span class="sr-only">(current)</span></span></li>',
+            'prevDisabled' => '<li class="page-item disabled"><a class="page-link" tabindex="-1"><span aria-hidden="true">{{text}}</span></a></li>',
+            'current' => '<li class="page-item active"><a class="page-link" href="#">{{text}} <span class="sr-only">(current)</span></a></li>',
+            'first' => '<li class="page-item first"><a class="page-link" href="{{url}}">{{text}}</a></li>',
+            'last' => '<li class="page-item last"><a class="page-link" href="{{url}}">{{text}}</a></li>',
+            'number' => '<li class="page-item"><a class="page-link" href="{{url}}">{{text}}</a></li>',
+            'current' => '<li class="page-item active"><a class="page-link" href="">{{text}}</a></li>',
         ] + $this->_defaultConfig['templates'];
 
         parent::__construct($View, $config + [
@@ -74,14 +78,14 @@ class PaginatorHelper extends \Cake\View\Helper\PaginatorHelper
 
         if (isset($options['prev'])) {
             if ($options['prev'] === true) {
-                $options['prev'] = $this->config('labels.prev');
+                $options['prev'] = $this->setConfig('labels.prev');
             }
             $options['before'] .= $this->prev($options['prev'], ['escape' => false]);
         }
 
         if (isset($options['next'])) {
             if ($options['next'] === true) {
-                $options['next'] = $this->config('labels.next');
+                $options['next'] = $this->setConfig('labels.next');
             }
             $options['after'] = $this->next($options['next'], ['escape' => false]) . $options['after'];
         }
