@@ -16,12 +16,15 @@ class ButtonWidget extends \Cake\View\Widget\ButtonWidget
      * @see OptionsAwareTrait::applyButtonStyles
      */
     protected $_styles = [
-        'default',
+        'primary',
+        'secondary',
         'success',
         'warning',
         'danger',
         'info',
-        'primary'
+        'light',
+        'dark',
+        'link'
     ];
 
     /**

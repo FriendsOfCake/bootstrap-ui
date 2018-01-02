@@ -49,7 +49,7 @@ class ButtonWidgetTest extends TestCase
         $button = new ButtonWidget($this->templates);
         $result = $button->render(['name' => 'my_input'], $this->context);
         $expected = [
-            'button' => ['type' => 'submit', 'name' => 'my_input', 'class' => 'btn btn-default'],
+            'button' => ['type' => 'submit', 'name' => 'my_input', 'class' => 'btn btn-secondary'],
             '/button'
         ];
         $this->assertHtml($expected, $result);
@@ -102,7 +102,7 @@ class ButtonWidgetTest extends TestCase
         ];
         $result = $button->render($data, $this->context);
         $expected = [
-            'button' => ['type' => 'button', 'name' => 'my_input', 'class' => 'btn btn-default'],
+            'button' => ['type' => 'button', 'name' => 'my_input', 'class' => 'btn btn-secondary'],
             'Some button',
             '/button'
         ];
@@ -122,7 +122,7 @@ class ButtonWidgetTest extends TestCase
         ];
         $result = $button->render($data, $this->context);
         $expected = [
-            'button' => ['type' => 'submit', 'class' => 'btn btn-default'],
+            'button' => ['type' => 'submit', 'class' => 'btn btn-secondary'],
             'Some <value>',
             '/button'
         ];
@@ -131,7 +131,7 @@ class ButtonWidgetTest extends TestCase
         $data['escape'] = true;
         $result = $button->render($data, $this->context);
         $expected = [
-            'button' => ['type' => 'submit', 'class' => 'btn btn-default'],
+            'button' => ['type' => 'submit', 'class' => 'btn btn-secondary'],
             'Some &lt;value&gt;',
             '/button'
         ];
@@ -157,7 +157,7 @@ class ButtonWidgetTest extends TestCase
             'button' => [
                 'type' => 'submit',
                 'name' => 'my_input',
-                'class' => 'btn btn-default',
+                'class' => 'btn btn-secondary',
                 'required' => 'required'
             ],
             'Go',
@@ -187,7 +187,7 @@ class ButtonWidgetTest extends TestCase
             'button' => [
                 'type' => 'submit',
                 'custom' => 'value',
-                'class' => 'btn btn-default'
+                'class' => 'btn btn-secondary'
             ],
             'Go',
             '/button'

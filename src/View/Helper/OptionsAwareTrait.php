@@ -10,12 +10,15 @@ trait OptionsAwareTrait
      * @var array
      */
     public $buttonClasses = [
-        'default', 'btn-default',
+        'primary', 'btn-primary',
+        'secondary', 'btn-secondary',
         'success', 'btn-success',
-        'warning', 'btn-warning',
         'danger', 'btn-danger',
+        'warning', 'btn-warning',
         'info', 'btn-info',
-        'primary', 'btn-primary'
+        'light', 'btn-light',
+        'dark', 'btn-dark',
+        'link', 'btn-link',
     ];
 
     /**
@@ -24,12 +27,15 @@ trait OptionsAwareTrait
      * @var array
      */
     public $buttonClassAliases = [
-        'default' => 'btn-default',
-        'success' => 'btn-success',
-        'warning' => 'btn-warning',
-        'danger' => 'btn-danger',
-        'info' => 'btn-info',
-        'primary' => 'btn-primary'
+        'primary', 'btn-primary',
+        'secondary', 'btn-secondary',
+        'success', 'btn-success',
+        'danger', 'btn-danger',
+        'warning', 'btn-warning',
+        'info', 'btn-info',
+        'light', 'btn-light',
+        'dark', 'btn-dark',
+        'link', 'btn-link',
     ];
 
     /**
@@ -43,7 +49,7 @@ trait OptionsAwareTrait
         if ($this->hasAnyClass($this->buttonClasses, $data)) {
             $data = $this->injectClasses(['btn'], $data);
         } else {
-            $data = $this->injectClasses(['btn', 'btn-default'], $data);
+            $data = $this->injectClasses(['btn', 'btn-secondary'], $data);
         }
 
         return $this->renameClasses($this->buttonClassAliases, $data);
