@@ -6,6 +6,38 @@ class HtmlHelper extends \Cake\View\Helper\HtmlHelper
     use OptionsAwareTrait;
 
     /**
+     * A list of allowed styles for badges.
+     *
+     * @var array
+     */
+    public $badgeClasses = [
+        'primary', 'badge-primary',
+        'secondary', 'badge-secondary',
+        'success', 'badge-success',
+        'danger', 'badge-danger',
+        'warning', 'badge-warning',
+        'info', 'badge-info',
+        'light', 'badge-light',
+        'dark', 'badge-dark',
+    ];
+
+    /**
+     * A mapping of aliases for badges.
+     *
+     * @var array
+     */
+    public $badgeClassAliases = [
+        'primary' => 'badge-primary',
+        'secondary' => 'badge-secondary',
+        'success' => 'badge-success',
+        'danger' => 'badge-danger',
+        'warning' => 'badge-warning',
+        'info' => 'badge-info',
+        'light' => 'badge-light',
+        'dark' => 'badge-dark',
+    ];
+
+    /**
      * Returns Bootstrap badge markup. By default, uses `<SPAN>`.
      *
      * @param string $text Text to show in badge.
@@ -18,7 +50,15 @@ class HtmlHelper extends \Cake\View\Helper\HtmlHelper
         $tag = $options['tag'];
         unset($options['tag']);
 
-        return $this->tag($tag, $text, $this->injectClasses('badge', $options));
+        if ($this->hasAnyClass($this->badgeClasses, $options)) {
+            $options = $this->injectClasses(['badge'], $options);
+        } else {
+            $options = $this->injectClasses(['badge', 'secondary'], $options);
+        }
+
+        $classes = $this->renameClasses($this->badgeClassAliases, $options);
+
+        return $this->tag($tag, $text, $classes);
     }
 
     /**
