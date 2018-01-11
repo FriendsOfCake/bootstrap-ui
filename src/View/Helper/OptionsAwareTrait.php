@@ -27,29 +27,31 @@ trait OptionsAwareTrait
      * @var array
      */
     public $buttonClassAliases = [
-        'primary', 'btn-primary',
-        'secondary', 'btn-secondary',
-        'success', 'btn-success',
-        'danger', 'btn-danger',
-        'warning', 'btn-warning',
-        'info', 'btn-info',
-        'light', 'btn-light',
-        'dark', 'btn-dark',
-        'link', 'btn-link',
+        'primary' => 'btn-primary',
+        'secondary' =>'btn-secondary',
+        'success' => 'btn-success',
+        'danger' =>'btn-danger',
+        'warning' => 'btn-warning',
+        'info' => 'btn-info',
+        'light' => 'btn-light',
+        'dark' => 'btn-dark',
+        'link' =>'btn-link',
     ];
+
 
     /**
      * Contains the logic for applying style classes for buttons.
      *
      * @param array $data An array of HTML attributes and options.
      * @return array An array of HTML attributes and options.
+     * @todo generalize this to use it for any element (e.g. badges) with css classes
      */
     public function applyButtonClasses(array $data)
     {
         if ($this->hasAnyClass($this->buttonClasses, $data)) {
             $data = $this->injectClasses(['btn'], $data);
         } else {
-            $data = $this->injectClasses(['btn', 'btn-secondary'], $data);
+            $data = $this->injectClasses(['btn', 'secondary'], $data);
         }
 
         return $this->renameClasses($this->buttonClassAliases, $data);
@@ -65,6 +67,7 @@ trait OptionsAwareTrait
     public function renameClasses(array $classMap, array $options)
     {
         $options += ['class' => []];
+
         $options['class'] = $this->_toClassArray($options['class']);
         $classes = [];
         foreach ($options['class'] as $name) {
