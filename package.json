@@ -1,0 +1,29 @@
+{
+    "name": "bootstrap-ui",
+    "version": "1.2.1",
+    "description": "Twitter Bootstrap 4 support for CakePHP 3",
+    "main": "index.js",
+    "dependencies": {
+        "bootstrap": "^4.0.0-beta",
+        "jquery": "^3.2",
+        "popper.js": "^1.12"
+    },
+    "devDependencies": {},
+    "keywords": [
+        "cakephp",
+        "twitter",
+        "bootstrap"
+    ],
+    "author": "Jad Bitar http://jadb.io",
+    "contributors": [
+        {
+            "name": "Others",
+            "url": "https://github.com/friendsofcake/bootstrap-ui/graphs/contributors"
+        }
+    ],
+    "license": "MIT",
+    "repository": {
+        "type": "git",
+        "url": "git://github.com/FriendsOfCake/bootstrap-ui.git"
+    }
+}
