@@ -16,7 +16,7 @@ class FormHelper extends Helper
     /**
      * Set on `Form::create()` to tell if the type of alignment used (i.e. horizontal).
      *
-     * @var string
+     * @var string|null
      */
     protected $_align;
 
