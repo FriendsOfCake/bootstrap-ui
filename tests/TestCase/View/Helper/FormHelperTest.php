@@ -1508,12 +1508,12 @@ class FormHelperTest extends TestCase
         $this->Form->create($this->article);
 
         $result = $this->Form->control('title', ['tooltip' => 'Some important additional notes.']);
-        debug($result);
         $expected = [
             'div' => ['class' => 'form-group text required'],
             'label' => ['class' => 'control-label', 'for' => 'title'],
             'Title',
             'span' => ['data-toggle' => 'tooltip', 'title' => 'Some important additional notes.', 'class' => 'glyphicon glyphicon-info-sign'],
+            '/span',
             '/label',
             'input' => [
                 'type' => 'text',
@@ -1553,7 +1553,6 @@ class FormHelperTest extends TestCase
             '/div',
             '/div'
         ];
-        debug($result);
         $this->assertHtml($expected, $result);
     }
 

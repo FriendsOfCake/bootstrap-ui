@@ -42,6 +42,7 @@ class FormHelper extends Helper
     protected $_templates = [
         'dateWidget' => '<ul class="list-inline"><li class="year">{{year}}</li><li class="month">{{month}}</li><li class="day">{{day}}</li><li class="hour">{{hour}}</li><li class="minute">{{minute}}</li><li class="second">{{second}}</li><li class="meridian">{{meridian}}</li></ul>',
         'error' => '<div class="help-block">{{content}}</div>',
+        'label' => '<label{{attrs}}>{{text}}{{tooltip}}</label>',
         'help' => '<div class="help-block">{{content}}</div>',
         'tooltip' => '<span data-toggle="tooltip" title="{{content}}" class="glyphicon glyphicon-info-sign"></span>',
         'inputContainer' => '<div class="form-group {{type}}{{required}}">{{content}}{{help}}</div>',
