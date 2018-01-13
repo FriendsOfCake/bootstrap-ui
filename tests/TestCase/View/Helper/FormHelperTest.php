@@ -1508,11 +1508,12 @@ class FormHelperTest extends TestCase
         $this->Form->create($this->article);
 
         $result = $this->Form->control('title', ['tooltip' => 'Some important additional notes.']);
+        debug($result);
         $expected = [
             'div' => ['class' => 'form-group text required'],
             'label' => ['class' => 'control-label', 'for' => 'title'],
             'Title',
-            'span' => ['rel' => 'tooltip', 'title' => 'Some important additional notes.', 'class' => 'glyphicon glyphicon-info-sign'],
+            'span' => ['data-toggle' => 'tooltip', 'title' => 'Some important additional notes.', 'class' => 'glyphicon glyphicon-info-sign'],
             '/label',
             'input' => [
                 'type' => 'text',
@@ -1523,6 +1524,36 @@ class FormHelperTest extends TestCase
             ],
             '/div'
         ];
+        $this->assertHtml($expected, $result);
+    }
+
+    /**
+     * @return void
+     */
+    public function testTooltipHorizontal()
+    {
+        $this->Form->create($this->article, ['align' => 'horizontal']);
+
+        $result = $this->Form->control('title', ['tooltip' => 'Some important additional notes.']);
+        $expected = [
+            'div' => ['class' => 'form-group text required'],
+            'label' => ['class' => 'control-label col-md-2', 'for' => 'title'],
+            'Title ',
+            'span' => ['data-toggle' => 'tooltip', 'title' => 'Some important additional notes.', 'class' => 'glyphicon glyphicon-info-sign'],
+            '/span',
+            '/label',
+            ['div' => ['class' => 'col-md-6']],
+            'input' => [
+                'type' => 'text',
+                'name' => 'title',
+                'id' => 'title',
+                'class' => 'form-control',
+                'required' => 'required'
+            ],
+            '/div',
+            '/div'
+        ];
+        debug($result);
         $this->assertHtml($expected, $result);
     }
 
