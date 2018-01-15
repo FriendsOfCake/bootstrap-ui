@@ -18,7 +18,7 @@ $this->start('tb_body_start');
                     </div>
                 </div>
 
-                <div class="inner cover">
+                <div role="main" class="inner cover">
 <?php
 /**
  * Default `flash` block.
