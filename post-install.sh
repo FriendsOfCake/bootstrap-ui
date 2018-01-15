@@ -48,3 +48,7 @@ if [ -L $symlink ]; then
   rm -f $symlink
 fi
 ../../../bin/cake plugin assets symlink
+
+# Copy sample layouts
+echo "Copying sample layouts...";
+cp -R src/Template/Layout/examples ../../../src/Template/Layout/TwitterBootstrap
