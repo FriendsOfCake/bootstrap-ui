@@ -5,19 +5,21 @@
 [![Total Downloads](https://img.shields.io/packagist/dt/friendsofcake/bootstrap-ui.svg?style=flat-square)](https://packagist.org/packages/friendsofcake/bootstrap-ui)
 [![License](https://img.shields.io/badge/license-MIT-blue.svg?style=flat-square)](https://packagist.org/packages/friendsofcake/bootstrap-ui)
 
-Transparently use [Bootstrap 3][twbs3] with [CakePHP 3][cakephp].
+Transparently use [Bootstrap 4][twbs4] with [CakePHP 3][cakephp].
 
 ## Requirements
 
 * CakePHP 3.x
-* Bootstrap 3.x
-* jQuery 1.9+
+* Bootstrap 4.x
+* npm 5.x
+* jQuery 3.2+
+* Popper.js 1.x
 
 ## What's included?
 
-- FlashComponent + elements (types: error, info, success, warning)
-- FormHelper (align: default, inline, horizontal)
-- HtmlHelper (components: breadcrumbs, badge, label, icon)
+- FlashComponent + elements (types: primary, secondary, success, danger, warning, info, light, dark)
+- FormHelper (align: default, *inline (incomplete)*, horizontal)
+- HtmlHelper (components: breadcrumbs, badge, icon)
 - PaginatorHelper
 - Widgets (basic, radio, button, select, textarea)
 - Sample layouts (cover, signin, dashboard)
@@ -31,17 +33,12 @@ Transparently use [Bootstrap 3][twbs3] with [CakePHP 3][cakephp].
 composer require friendsofcake/bootstrap-ui
 ```
 
-Then load the plugin by adding the following to your app's `config/boostrap.php`:
+Composers `post-install-cmd` will execute a script which will:
 
-```php
-\Cake\Core\Plugin::load('BootstrapUI');
-```
-
-or using CakePHP's console:
-
-```
-./bin/cake plugin load BootstrapUI
-```
+- load the plugin (modifies config/bootstrap.php)
+- install the bootstrap assets (bootstrap's css/js files, jquery and popper.js)
+- symlink the assets to your webroot
+- copy some sample layouts to src/Template/Layout/
 
 ## Usage
 
@@ -142,23 +139,16 @@ Available types are:
 
 **NOTE: Remember to set the stylesheets in the layouts you copy.**
 
-## Installing Bootstrap via Bower
+## Installing Bootstrap via npm
 
-A quick way of getting the Bootstrap assets installed is using [bower]. Assuming you are in `ROOT`:
+The install script installs the bootstrap assets via [npm]. You can install them also by hand assuming you are in `ROOT`:
 
 ```
-bower install bootstrap
-mkdir -p webroot/css/bootstrap webroot/js/bootstrap webroot/js/jquery webroot/css/fonts
-cp bower_components/bootstrap/dist/css/* webroot/css/bootstrap/.
-cp bower_components/bootstrap/dist/js/* webroot/js/bootstrap/.
-cp bower_components/jquery/dist/* webroot/js/jquery/.
-cp bower_components/bootstrap/dist/fonts/* webroot/css/fonts/.
-echo /bower_components >> .gitignore
-git add .gitignore \
-bower.json \
-webroot/css/bootstrap \
-webroot/js/bootstrap \
-webroot/js/jquery
+npm install
+cp node_modules/bootstrap/dist/css/bootstrap.css webroot/css/
+cp node_modules/bootstrap/dist/js/bootstrap.js webroot/js/
+cp node_modules/jquery/dist/jquery.js webroot/js
+cp node_modules/popper.js/dist/popper.js webroot/js
 ```
 
 ## Console Bake
@@ -190,7 +180,7 @@ is from the BootstrapUI plugin.
 ### Basic Form
 
 ```php
-echo $this->Form->create($article);
+echo $this->Form->create($user);
 echo $this->Form->control('title');
 echo $this->Form->control('published', ['type' => 'checkbox']);
 ```
@@ -198,19 +188,22 @@ echo $this->Form->control('published', ['type' => 'checkbox']);
 will render this HTML:
 
 ```html
-<form method="post" accept-charset="utf-8" role="form" action="/articles/add">
-    <div style="display:none;"><input type="hidden" name="_method" value="POST"></div>
-    <div class="form-group">
-        <label class="control-label" for="title">Title</label>
-        <input type="text" name="title" required="required" id="title" class="form-control">
-    </div>
-    <div class="form-group">
-        <input type="hidden" name="published" value="0">
-        <label for="published">
-            <input type="checkbox" name="published" value="1" id="published" class="form-control">
-            Published
-        </label>
-    </div>
+<form method="post" accept-charset="utf-8" role="form" action="/users/add">
+  <div style="display:none;">
+    <input type="hidden" name="_method" value="POST">
+  </div>
+  <div class="form-group text">
+    <label class="col-form-label" for="title">Title</label>
+    <input type="text" name="title" id="title" class="form-control">
+  </div>
+  <div class="form-check">
+    <input type="hidden" name="published" value="0">
+    <label for="published">
+      <input type="checkbox" name="published" value="1" id="published">Published
+    </label>
+  </div>
+  <button type="submit" class="btn btn-secondary">Submit</button>
+</form>
 ```
 
 ### Horizontal Form
@@ -235,23 +228,27 @@ echo $this->Form->control('published', ['type' => 'checkbox']);
 will render this HTML:
 
 ```html
-<form method="post" accept-charset="utf-8" role="form" class="form-horizontal" action="/articles/add">
-    <div style="display:none;"><input type="hidden" name="_method" value="POST"></div>
-    <div class="form-group">
-        <label class="control-label col-sm-6 col-md-4" for="title">Title</label>
-        <div class="col-sm-6 col-md-4">
-            <input type="text" name="title" required="required" id="title" class="form-control">
-        </div>
+<form method="post" accept-charset="utf-8" class="form-horizontal" role="form" action="/users/add">
+  <div style="display:none;">
+    <input type="hidden" name="_method" value="POST">
+  </div>
+  <div class="form-group text">
+    <label class="col-form-label col-sm-6 col-md-4" for="title">Title</label>
+    <div class="col-sm-6 col-md-4">
+      <input type="text" name="title" id="title" class="form-control">
     </div>
-    <div class="form-group">
-        <div class="col-sm-offset-6 col-sm-6 col-md-offset-4 col-md-4">
-            <input type="hidden" name="published" value="0">
-            <label for="published">
-                <input type="checkbox" name="published" value="1" id="published" class="form-control">
-                Published
-            </label>
-        </div>
+  </div>
+  <div class="form-group">
+    <div class="col-sm-offset-6 col-md-offset-4 col-sm-6 col-md-4">
+      <div class="checkbox">
+        <input type="hidden" name="published" value="0">
+        <label for="published">
+          <input type="checkbox" name="published" value="1" id="published">Published
+        </label>
+      </div>
     </div>
+  </div>
+</form>
 ```
 
 ### Configuration
@@ -325,5 +322,5 @@ Copyright (c) 2015, Jad Bitar and licensed under [The MIT License][mit].
 [composer]:http://getcomposer.org
 [composer:ignore]:http://getcomposer.org/doc/faqs/should-i-commit-the-dependencies-in-my-vendor-directory.md
 [mit]:http://www.opensource.org/licenses/mit-license.php
-[twbs3]:http://getbootstrap.com
-[bower]:http://bower.io
+[twbs4]:http://getbootstrap.com
+[npm]:https://www.npmjs.com/
