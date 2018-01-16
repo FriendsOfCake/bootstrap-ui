@@ -1501,6 +1501,62 @@ class FormHelperTest extends TestCase
     }
 
     /**
+     * @return void
+     */
+    public function testTooltip()
+    {
+        $this->Form->create($this->article);
+
+        $result = $this->Form->control('title', ['tooltip' => 'Some important additional notes.']);
+        $expected = [
+            'div' => ['class' => 'form-group text required'],
+            'label' => ['class' => 'control-label', 'for' => 'title'],
+            'Title',
+            'span' => ['data-toggle' => 'tooltip', 'title' => 'Some important additional notes.', 'class' => 'glyphicon glyphicon-info-sign'],
+            '/span',
+            '/label',
+            'input' => [
+                'type' => 'text',
+                'name' => 'title',
+                'id' => 'title',
+                'class' => 'form-control',
+                'required' => 'required'
+            ],
+            '/div'
+        ];
+        $this->assertHtml($expected, $result);
+    }
+
+    /**
+     * @return void
+     */
+    public function testTooltipHorizontal()
+    {
+        $this->Form->create($this->article, ['align' => 'horizontal']);
+
+        $result = $this->Form->control('title', ['tooltip' => 'Some important additional notes.']);
+        $expected = [
+            'div' => ['class' => 'form-group text required'],
+            'label' => ['class' => 'control-label col-md-2', 'for' => 'title'],
+            'Title ',
+            'span' => ['data-toggle' => 'tooltip', 'title' => 'Some important additional notes.', 'class' => 'glyphicon glyphicon-info-sign'],
+            '/span',
+            '/label',
+            ['div' => ['class' => 'col-md-6']],
+            'input' => [
+                'type' => 'text',
+                'name' => 'title',
+                'id' => 'title',
+                'class' => 'form-control',
+                'required' => 'required'
+            ],
+            '/div',
+            '/div'
+        ];
+        $this->assertHtml($expected, $result);
+    }
+
+    /**
      * Test that "form-control" class is added when using methods for specific input.
      *
      * @return void
