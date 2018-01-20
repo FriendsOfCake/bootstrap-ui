@@ -36,13 +36,5 @@
             "BootstrapUI\\Test\\": "tests",
             "TestApp\\": "tests/test_app/TestApp"
         }
-    },
-    "scripts": {
-        "post-update-cmd": [
-            "bash post-install.sh"
-        ],
-        "post-install-cmd": [
-            "bash post-install.sh"
-        ]
     }
 }
