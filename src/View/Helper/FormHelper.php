@@ -232,8 +232,6 @@ class FormHelper extends Helper
         ];
         $options = $this->_parseOptions($fieldName, $options);
 
-
-
         $newTemplates = $options['templates'];
         if ($newTemplates) {
             $this->templater()->push();
@@ -289,17 +287,18 @@ class FormHelper extends Helper
         if ($options['help']) {
             if (is_string($options['help'])) {
                 $options['help'] = $this->templater()->format(
-                    'help', ['content' => $options['help']]
+                    'help',
+                    ['content' => $options['help']]
                 );
             } elseif (is_array($options['help'])) {
                 $options['help'] = $this->templater()->format(
-                    'help', [
+                    'help',
+                    [
                         'content' => $options['help']['content'],
                         'attrs' => $this->templater()->formatAttributes($options['help']),
                     ]
                 );
             }
-
         }
 
         if ($options['tooltip']) {
