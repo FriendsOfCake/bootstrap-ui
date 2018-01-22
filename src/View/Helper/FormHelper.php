@@ -43,7 +43,7 @@ class FormHelper extends Helper
         'dateWidget' => '<ul class="list-inline"><li class="year">{{year}}</li><li class="month">{{month}}</li><li class="day">{{day}}</li><li class="hour">{{hour}}</li><li class="minute">{{minute}}</li><li class="second">{{second}}</li><li class="meridian">{{meridian}}</li></ul>',
         'error' => '<div class="invalid-feedback">{{content}}</div>',
         'label' => '<label{{attrs}}>{{text}}{{tooltip}}</label>',
-        'help' => '<small id="{{name}}" class="form-text text-muted">{{content}}</small>',
+        'help' => '<small{{attrs}} class="form-text text-muted">{{content}}</small>',
         'tooltip' => '<span data-toggle="tooltip" title="{{content}}" class="glyphicon glyphicon-info-sign"></span>',
         'inputContainer' => '<div class="form-group {{type}}{{required}}">{{content}}{{help}}</div>',
         'inputContainerError' => '<div class="form-group {{type}}{{required}} is-invalid">{{content}}{{error}}{{help}}</div>',
@@ -232,6 +232,8 @@ class FormHelper extends Helper
         ];
         $options = $this->_parseOptions($fieldName, $options);
 
+
+
         $newTemplates = $options['templates'];
         if ($newTemplates) {
             $this->templater()->push();
@@ -285,10 +287,19 @@ class FormHelper extends Helper
         }
 
         if ($options['help']) {
-            $options['help'] = $this->templater()->format(
-                'help',
-                ['content' => $options['help']]
-            );
+            if (is_string($options['help'])) {
+                $options['help'] = $this->templater()->format(
+                    'help', ['content' => $options['help']]
+                );
+            } elseif (is_array($options['help'])) {
+                $options['help'] = $this->templater()->format(
+                    'help', [
+                        'content' => $options['help']['content'],
+                        'attrs' => $this->templater()->formatAttributes($options['help']),
+                    ]
+                );
+            }
+
         }
 
         if ($options['tooltip']) {
