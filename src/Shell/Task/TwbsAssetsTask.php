@@ -37,21 +37,21 @@ class TwbsAssetsTask extends Shell
      */
     public function installAssets()
     {
-        $this->out('<info>Checking npm...</info>');
+        $this->info('Checking npm...');
         if (!`which npm`) {
-            $this->abort(__('NPM (https://www.npmjs.com/) is required, but not installed. Aborting.'));
+            $this->abort('NPM (https://www.npmjs.com/) is required, but not installed. Aborting.');
         }
 
         chdir(Plugin::path('BootstrapUI'));
         $node_mod = new Folder('node_modules');
         if ($node_mod->delete()) {
-            $this->out(__('<success>Cleared node_modules...</success>'));
+            $this->success('Cleared node_modules...');
         }
 
         exec('npm install --verbose', $output, $return);
         $this->out($output);
         if ($return === 0) {
-            $this->out('<success>Bootstrap assets installed successfully.</success>');
+            $this->success('Bootstrap assets installed successfully.');
         } else {
             $this->abort('Bootstrap assets could not be installed.');
         }
@@ -65,9 +65,9 @@ class TwbsAssetsTask extends Shell
      */
     public function copyAssets()
     {
-        $this->out('<info>Clearing webroot and copying assets...</info>');
+        $this->info('Clearing webroot and copying assets...');
         if ($this->_clear($this->_assetDir, '^(?!cover)(?!dashboard)(?!signin).*$')) {
-            $this->out('<success>All files cleared...</success>');
+            $this->success('All files cleared...');
         }
 
         if (Configure::read('debug') === true) {
@@ -97,7 +97,7 @@ class TwbsAssetsTask extends Shell
      */
     public function copyLayouts($target = null)
     {
-        $this->out(__('<info>Copying sample layouts...</info>'));
+        $this->info(__('Copying sample layouts...'));
         $layoutDir = new Folder(Plugin::path('BootstrapUI') . 'src' . DS . 'Template' . DS . 'Layout' . DS . 'examples');
 
         if ($target == null) {
@@ -107,7 +107,7 @@ class TwbsAssetsTask extends Shell
         if (!$layoutDir->copy($target)) {
             $this->abort('Sample layouts could not be copied.');
         }
-        $this->out('<success>Sample layouts copied successfully.</success>');
+        $this->success('Sample layouts copied successfully.');
     }
 
     /**
@@ -126,9 +126,9 @@ class TwbsAssetsTask extends Shell
             }
 
             if ($file->copy($dir->path . DS . $file->name)) {
-                $this->out('<success>' . $file->name . ' successfully copied.</success>');
+                $this->success($file->name . ' successfully copied.');
             } else {
-                $this->out('<warning>' . $file->name . ' could not be copied.</warning>');
+                $this->warning($file->name . ' could not be copied.');
             }
         }
     }
