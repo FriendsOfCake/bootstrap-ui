@@ -316,7 +316,7 @@ You can set Flash Messages using the default Flash syntax. Supported types are `
 ```php
 $this->Flash->success('Your Success Message.');
 ```
-If your need to set other Bootstrap Alert styles you can this with:
+If you need to set other Bootstrap Alert styles you can do this with:
 ```php
 $this->Flash->set('Your Dark Message.', ['params' => ['class' => 'dark']]);
 ```
