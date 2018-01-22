@@ -33,19 +33,48 @@ Transparently use [Bootstrap 4][twbs4] with [CakePHP 3][cakephp].
 composer require friendsofcake/bootstrap-ui
 ```
 
-Composers `post-install-cmd` will execute a script which will:
+Then load the plugin by adding the following to your app's config/boostrap.php:
+```
+\Cake\Core\Plugin::load('BootstrapUI');
+```
 
-- load the plugin (modifies config/bootstrap.php)
-- install the bootstrap assets (bootstrap's css/js files, jquery and popper.js)
-- symlink the assets to your webroot
-- copy some sample layouts to src/Template/Layout/
+or using CakePHP's console:
+```
+bin/cake plugin load BootstrapUI
+```
 
 ## Usage
 
-You will need to modify your `src/View/AppView` class to either extend `BootstrapUI\View\UIView` or
-use the trait `BootStrapUI\View\UIViewTrait`.
+You can either use the Bootstrap Shell to make the necessary changes or do them manually.
 
-### AppView Setup
+### Installing Using the Bootstrap Shell
+
+1. To install install the bootstrap assets (bootstrap's css/js files, jquery and popper.js) via npm you can use the `install` command:
+
+    ```
+    bin/cake bootstrap install
+    ```
+    This will fetch all assets, copy the assets to plugin's webroot dir and symlink them to the app's webroot dir. Note that
+    in debug mode the Shell will copy all assets (including source maps) and in production mode only minified versions.
+2. You will need to modify your `src/View/AppView` class to either extend `BootstrapUI\View\UIView` or
+   use the trait `BootStrapUI\View\UIViewTrait`. For doing this you can either use the `modify_view` command or [change your view manually][bootstrap-ui#appview-setup]:
+   
+    ```
+    bin/cake bootstrap modify_view
+    ```
+
+    This will rewrite your `src/View/AppView` like described in [### AppView Setup].
+3. Bootstrap has it's own layout. You can install them using the `copy_layouts` command or do the changes like mentioned in [## BootstrapUI Layout] section:
+
+    ```
+    bin/cake bootstrap copy_layouts
+    ```
+    This will copy three sample layouts: `cover.ctp`, `dashboard.ctp` and `signin.ctp` to your app's `src/Template/Layout/TwitterBootstrap`.
+
+### Installing manually
+
+
+#### AppView Setup
 
 For a quick setup, just make your `AppView` class extend `BootstrapUI\View\UIView`. The base class will handle
 the initializing and loading of the BootstrapUI `layout.ctp` for your app.
@@ -71,7 +100,7 @@ class AppView extends UIView
 }
 ```
 
-### AppView Setup Using UIViewTrait
+#### AppView Setup Using UIViewTrait
 
 If you're adding BootstrapUI to an existing application. It might be easier to use the trait,
 as it gives you more control over the loading of the layout.
@@ -139,7 +168,7 @@ Available types are:
 
 **NOTE: Remember to set the stylesheets in the layouts you copy.**
 
-## Installing Bootstrap via npm
+## Installing Bootstrap assets via npm
 
 The install script installs the bootstrap assets via [npm]. You can install them also by hand assuming you are in `ROOT`:
 
@@ -156,7 +185,7 @@ cp node_modules/popper.js/dist/popper.js webroot/js
 For those of you who want even more automation, some bake templates have been included. Use them like so:
 
 ```
-$ bin/cake bake.bake [subcommand] -t BootstrapUI
+bin/cake bake.bake [subcommand] -t BootstrapUI
 ```
 
 ## Helper Usage
@@ -180,7 +209,7 @@ is from the BootstrapUI plugin.
 ### Basic Form
 
 ```php
-echo $this->Form->create($user);
+echo $this->Form->create($article);
 echo $this->Form->control('title');
 echo $this->Form->control('published', ['type' => 'checkbox']);
 ```
@@ -188,7 +217,7 @@ echo $this->Form->control('published', ['type' => 'checkbox']);
 will render this HTML:
 
 ```html
-<form method="post" accept-charset="utf-8" role="form" action="/users/add">
+<form method="post" accept-charset="utf-8" role="form" action="/articles/add">
   <div style="display:none;">
     <input type="hidden" name="_method" value="POST">
   </div>
@@ -228,7 +257,7 @@ echo $this->Form->control('published', ['type' => 'checkbox']);
 will render this HTML:
 
 ```html
-<form method="post" accept-charset="utf-8" class="form-horizontal" role="form" action="/users/add">
+<form method="post" accept-charset="utf-8" class="form-horizontal" role="form" action="/articles/add">
   <div style="display:none;">
     <input type="hidden" name="_method" value="POST">
   </div>
