@@ -64,7 +64,7 @@ class FlashHelper extends Helper
 
             $element = $message['element'];
             if (strpos($element, '.') === false &&
-                preg_match('#Flash/(default|success|danger|info|error|primary|secondary|light|dark)$#', $element, $matches)
+                preg_match('#Flash/(default|success|error|info|warning)$#', $element, $matches)
             ) {
                 $class = $matches[1];
                 $class = str_replace(['default', 'error'], ['info', 'danger'], $class);
@@ -72,6 +72,16 @@ class FlashHelper extends Helper
                 if (is_array($message['params']['class'])) {
                     $message['params']['class'][] = 'alert-' . $class;
                 }
+
+                if (is_string($message['params']['class']) &&
+                    preg_match('#primary|secondary|light|dark#', $message['params']['class'], $matches)
+                ) {
+                    $passedClass = $message['params']['class'];
+                    unset($message['params']['class']);
+                    $message['params']['class'] = $this->_config['class'];
+                    $message['params']['class'][] = 'alert-' . $classTest;
+                }
+
                 $element = $this->_config['element'];
             }
 

@@ -17,7 +17,7 @@ Transparently use [Bootstrap 4][twbs4] with [CakePHP 3][cakephp].
 
 ## What's included?
 
-- FlashComponent + elements (types: primary, secondary, success, danger, warning, info, light, dark)
+- FlashComponent + elements (types: error, info, success, warning)
 - FormHelper (align: default, *inline (incomplete)*, horizontal)
 - HtmlHelper (components: breadcrumbs, badge, icon)
 - PaginatorHelper
@@ -301,15 +301,26 @@ $this->loadHelper(
 
 To style auth flash messages properly set the `flash` key in `AuthComponent` config as shown:
 
+```php
+$this->loadComponent('Auth', [
+    'flash' => [
+        'element' => 'error',
+        'key' => 'auth'
+    ],
+    ...
 ```
-        $this->loadComponent('Auth', [
-            'flash' => [
-                'element' => 'error',
-                'key' => 'auth'
-            ],
-            ...
 
+### Flash Messages / Alerts
+
+You can set Flash Messages using the default Flash syntax. Supported types are `success`, `info`, `warning`, `error`.
+```php
+$this->Flash->success('Your Success Message.');
 ```
+If your need to set other Bootstrap Alert styles you can this with:
+```php
+$this->Flash->set('Your Dark Message.', ['params' => ['class' => 'dark']]);
+```
+Supported styles are `primary`, `secondary`, `light`, `dark`.
 
 **NOTE: Check tests for more examples.**
 
