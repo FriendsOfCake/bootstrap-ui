@@ -13,10 +13,10 @@ use Cake\Filesystem\Folder;
  */
 class TwbsAssetsTask extends Shell
 {
-    private $_assetDir;
-    private $_nodeDir;
-    private $_cssDir;
-    private $_jsDir;
+    protected $_assetDir;
+    protected $_nodeDir;
+    protected $_cssDir;
+    protected $_jsDir;
 
     /**
      * TwbsAssetsTask constructor.
@@ -116,7 +116,7 @@ class TwbsAssetsTask extends Shell
      * @param array $files Assetfiles to copy
      * @return void
      */
-    private function _copy(array $files)
+    protected function _copy(array $files)
     {
         foreach ($files as $file) {
             if ($file->ext() == 'css') {
@@ -135,12 +135,12 @@ class TwbsAssetsTask extends Shell
 
     /**
      * Clear folder of assets
-     * 
+     *
      * @param Cake\Filesystem\Folder $folder Folder to clear
      * @param string $except Files to skip
      * @return bool
      */
-    private function _clear($folder, $except)
+    protected function _clear($folder, $except)
     {
         $files = $folder->findRecursive($except);
         foreach ($files as $file) {
