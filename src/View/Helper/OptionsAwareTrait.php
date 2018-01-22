@@ -28,16 +28,15 @@ trait OptionsAwareTrait
      */
     public $buttonClassAliases = [
         'primary' => 'btn-primary',
-        'secondary' =>'btn-secondary',
+        'secondary' => 'btn-secondary',
         'success' => 'btn-success',
-        'danger' =>'btn-danger',
+        'danger' => 'btn-danger',
         'warning' => 'btn-warning',
         'info' => 'btn-info',
         'light' => 'btn-light',
         'dark' => 'btn-dark',
-        'link' =>'btn-link',
+        'link' => 'btn-link',
     ];
-
 
     /**
      * Contains the logic for applying style classes for buttons.
