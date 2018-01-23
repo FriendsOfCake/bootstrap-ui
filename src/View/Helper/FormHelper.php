@@ -49,7 +49,7 @@ class FormHelper extends Helper
         'inputContainerError' => '<div class="form-group {{type}}{{required}} is-invalid">{{content}}{{error}}{{help}}</div>',
         'radioInlineFormGroup' => '{{label}}<div class="form-check form-check-inline">{{input}}</div>',
         'radioNestingLabel' => '<div class="form-check">{{hidden}}<label{{attrs}}>{{input}}{{text}}{{tooltip}}</label></div>',
-        'staticControl' => '<input type="text" readonly class="form-control-plaintext" value="{{content}}>">',
+        'staticControl' => '<p class="form-control-plaintext">{{content}}</p>',
         'inputGroupAddon' => '<span class="{{class}}">{{content}}</span>',
         'inputGroupContainer' => '<div class="input-group">{{prepend}}{{content}}{{append}}</div>',
         'file' => '<input type="file" class="form-control-file" name="{{name}}"{{attrs}}>'
