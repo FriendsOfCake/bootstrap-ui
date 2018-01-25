@@ -7,31 +7,25 @@ $this->prepend('tb_body_attrs', ' class="' . implode(' ', [$this->request->contr
 $this->start('tb_body_start');
 ?>
 <body <?= $this->fetch('tb_body_attrs') ?>>
-    <header>
-        <nav class="navbar navbar-expand-md navbar-dark fixed-top bg-dark">
-            <?= $this->Html->link(Configure::read('App.title'), '/', ['class' => 'navbar-brand']) ?>
-            <button class="navbar-toggler d-lg-none" type="button" data-toggle="collapse" data-target="#navbarsExampleDefault" aria-controls="navbarsExampleDefault" aria-expanded="false" aria-label="Toggle navigation">
-                <span class="navbar-toggler-icon"></span>
-            </button>
+    <nav class="navbar navbar-dark sticky-top bg-dark flex-md-nowrap p-0">
+        <?= $this->Html->link(Configure::read('App.title'), '/', ['class' => 'navbar-brand col-sm-3 col-md-2 mr-0']) ?>
+        <input class="form-control form-control-dark w-100" type="text" placeholder="Search" aria-label="Search">
 
-            <div class="collapse navbar-collapse" id="navbarsExampleDefault">
-                <ul class="navbar-nav mr-auto">
-                    <?= $this->fetch('tb_actions') ?>
-                </ul>
-                <form class="form-inline mt-2 mt-md-0">
-                    <input class="form-control mr-sm-2" type="text" placeholder="Search" aria-label="Search">
-                    <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
-                </form>
-            </div>
-        </nav>
-    </header>
+        <ul class="navbar-nav px-3">
+            <li class="nav-item text-nowrap">
+                <a class="nav-link" href="#">Sign out</a>
+            </li>
+        </ul>
+    </nav>
 
     <div class="container-fluid">
         <div class="row">
-            <div class="col-sm-3 col-md-2 d-none d-sm-block bg-light sidebar">
-                <?= $this->fetch('tb_sidebar') ?>
-            </div>
-            <div class="col-sm-9 ml-sm-auto col-md-10 pt-3 main">
+            <nav class="col-md-2 d-none d-md-block bg-light sidebar">
+                <div class="sidebar-sticky">
+                    <?= $this->fetch('tb_sidebar') ?>
+                </div>
+            </nav>
+            <main role="main" class="col-md-9 ml-sm-auto col-lg-10 pt-3 px-4">
                 <h1 class="page-header"><?= $this->request->controller; ?></h1>
 <?php
 /**
@@ -49,5 +43,5 @@ $this->start('tb_body_end');
 echo '</body>';
 $this->end();
 
-$this->append('content', '</div></div></div>');
+$this->append('content', '</main></div></div>');
 echo $this->fetch('content');
