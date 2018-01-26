@@ -7,7 +7,11 @@ use Cake\Core\Configure;
  */
 if (!$this->fetch('html')) {
     $this->start('html');
-    printf('<html lang="%s">', Configure::read('App.language'));
+    if (Configure::check('App.language')) {
+        printf('<html lang="%s">', Configure::read('App.language'));
+    } else {
+        echo('<html>');
+    }
     $this->end();
 }
 
@@ -16,7 +20,9 @@ if (!$this->fetch('html')) {
  */
 if (!$this->fetch('title')) {
     $this->start('title');
-    echo Configure::read('App.title');
+    if (Configure::check('App.title')) {
+        echo Configure::read('App.title');
+    }
     $this->end();
 }
 
@@ -25,7 +31,11 @@ if (!$this->fetch('title')) {
  */
 if (!$this->fetch('tb_footer')) {
     $this->start('tb_footer');
-    printf('&copy;%s %s', date('Y'), Configure::read('App.title'));
+    if (Configure::check('App.title')) {
+        printf('&copy;%s %s', date('Y'), Configure::read('App.title'));
+    } else {
+        printf('&copy;%s', date('Y'));
+    }
     $this->end();
 }
 
@@ -56,7 +66,9 @@ if (!$this->fetch('tb_body_end')) {
 /**
  * Prepend `meta` block with `author` and `favicon`.
  */
-$this->prepend('meta', $this->Html->meta('author', null, ['name' => 'author', 'content' => Configure::read('App.author')]));
+if (Configure::check('App.author')) {
+    $this->prepend('meta', $this->Html->meta('author', null, ['name' => 'author', 'content' => Configure::read('App.author')]));
+}
 $this->prepend('meta', $this->Html->meta('favicon.ico', '/favicon.ico', ['type' => 'icon']));
 
 /**
@@ -70,23 +82,17 @@ $this->prepend('css', $this->Html->css(['BootstrapUI.bootstrap']));
  * Prepend `script` block with jQuery, Popper and Bootstrap scripts
  * Change jquery.min and bootstrap.min to use the compressed version
  */
-$this->prepend('script', $this->Html->script(['jquery/jquery', 'popper/popper', 'bootstrap/bootstrap']));
+$this->prepend('script', $this->Html->script(['BootstrapUI.jquery', 'BootstrapUI.popper', 'BootstrapUI.bootstrap']));
 
 ?>
 <!doctype html>
-
 <?= $this->fetch('html') ?>
-
     <head>
-
         <?= $this->Html->charset() ?>
         <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-
-        <title><?= $this->fetch('title') ?></title>
-
+        <title><?= h($this->fetch('title')) ?></title>
         <?= $this->fetch('meta') ?>
         <?= $this->fetch('css') ?>
-
     </head>
 
     <?php
