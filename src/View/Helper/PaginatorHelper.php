@@ -25,7 +25,6 @@ class PaginatorHelper extends \Cake\View\Helper\PaginatorHelper
             'first' => '<li class="page-item first"><a class="page-link" href="{{url}}">{{text}}</a></li>',
             'last' => '<li class="page-item last"><a class="page-link" href="{{url}}">{{text}}</a></li>',
             'number' => '<li class="page-item"><a class="page-link" href="{{url}}">{{text}}</a></li>',
-            'current' => '<li class="page-item active"><a class="page-link" href="">{{text}}</a></li>',
         ] + $this->_defaultConfig['templates'];
 
         parent::__construct($View, $config + [
@@ -51,7 +50,7 @@ class PaginatorHelper extends \Cake\View\Helper\PaginatorHelper
      *   using `'size' => 'lg'` would add class `pagination-lg` to UL tag.
      *
      * @param array $options Options for the numbers.
-     * @return string Numbers string.
+     * @return string|false Numbers string.
      * @link http://book.cakephp.org/3.0/en/views/helpers/paginator.html#creating-page-number-links
      */
     public function numbers(array $options = [])

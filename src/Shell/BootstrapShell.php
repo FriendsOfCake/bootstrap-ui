@@ -5,8 +5,17 @@ namespace BootstrapUI\Shell;
 use Cake\Console\Shell;
 use Cake\Filesystem\File;
 
+/**
+ * @property \BootstrapUI\Shell\Task\TwbsAssetsTask $TwbsAssets
+ * @property \Cake\Shell\Task\AssetsTask $Assets
+ */
 class BootstrapShell extends Shell
 {
+    /**
+     * Tasks used by this shell.
+     *
+     * @var array
+     */
     public $tasks = ['BootstrapUI.TwbsAssets', 'Assets'];
 
     /**
@@ -44,7 +53,7 @@ class BootstrapShell extends Shell
         $view->replaceText('class AppView extends View', 'class AppView extends UIView');
         $view->replaceText("    public function initialize()\n    {\n", "    public function initialize()\n    {\n        parent::initialize();\n");
 
-        $view->write($view->read());
+        $view->write((string)$view->read());
     }
 
     /**
