@@ -11,6 +11,11 @@ use Cake\Filesystem\File;
  */
 class BootstrapShell extends Shell
 {
+    /**
+     * Tasks used by this shell.
+     *
+     * @var array
+     */
     public $tasks = ['BootstrapUI.TwbsAssets', 'Assets'];
 
     /**
@@ -48,11 +53,7 @@ class BootstrapShell extends Shell
         $view->replaceText('class AppView extends View', 'class AppView extends UIView');
         $view->replaceText("    public function initialize()\n    {\n", "    public function initialize()\n    {\n        parent::initialize();\n");
 
-        if ($view->read() != false) {
-            $view->write($view->read());
-        } else {
-            $this->abort('AppView could not be modified.');
-        }
+        $view->write((string)$view->read());
     }
 
     /**

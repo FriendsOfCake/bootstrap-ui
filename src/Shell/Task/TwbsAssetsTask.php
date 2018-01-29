@@ -71,6 +71,7 @@ class TwbsAssetsTask extends Shell
         }
 
         $files = [];
+        $folders = [];
         if (Configure::read('debug') === true) {
             $folders[] = new Folder($this->_nodeDir->path . DS . 'bootstrap/dist');
             $folders[] = new Folder($this->_nodeDir->path . DS . 'jquery/dist');
@@ -120,6 +121,7 @@ class TwbsAssetsTask extends Shell
     protected function _copy(array $files)
     {
         foreach ($files as $file) {
+            $dir = null;
             if ($file->ext() == 'css') {
                 $dir = $this->_cssDir;
             } elseif ($file->ext() == 'js') {
@@ -137,7 +139,7 @@ class TwbsAssetsTask extends Shell
     /**
      * Clear folder of assets
      *
-     * @param Folder $folder Folder to clear
+     * @param \Cake\Filesystem\Folder $folder Folder to clear
      * @param string $except Files to skip
      * @return bool
      */
