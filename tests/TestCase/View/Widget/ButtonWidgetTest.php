@@ -63,12 +63,15 @@ class ButtonWidgetTest extends TestCase
     public function testRenderDifferentStyles()
     {
         $styles = [
-            'default',
+            'primary',
+            'secondary',
             'success',
             'warning',
             'danger',
             'info',
-            'primary'
+            'light',
+            'dark',
+            'link'
         ];
 
         $button = new ButtonWidget($this->templates);
