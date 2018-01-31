@@ -38,7 +38,7 @@ class OptionsAwareTraitTest extends TestCase
     public function testApplyButtonStyles()
     {
         $this->assertEquals(['class' => 'btn btn-secondary'], $this->object->applyButtonClasses([]));
-        foreach (['default', 'success', 'warning', 'danger', 'info', 'primary'] as $style) {
+        foreach (['primary', 'secondary', 'success', 'danger', 'warning', 'info', 'light', 'dark'] as $style) {
             $this->assertEquals(['class' => "btn-{$style} btn"], $this->object->applyButtonClasses(['class' => $style]));
             $this->assertEquals(['class' => "btn-{$style} btn"], $this->object->applyButtonClasses(['class' => "btn-$style"]));
         }
