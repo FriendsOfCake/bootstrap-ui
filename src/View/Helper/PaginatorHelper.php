@@ -24,7 +24,7 @@ class PaginatorHelper extends \Cake\View\Helper\PaginatorHelper
             'current' => '<li class="page-item active"><a class="page-link" href="#">{{text}} <span class="sr-only">(current)</span></a></li>',
             'first' => '<li class="page-item first"><a class="page-link" href="{{url}}">{{text}}</a></li>',
             'last' => '<li class="page-item last"><a class="page-link" href="{{url}}">{{text}}</a></li>',
-            'number' => '<li class="page-item"><a class="page-link" href="{{url}}">{{text}}</a></li>',
+            'number' => '<li class="page-item"><a class="page-link" href="{{url}}">{{text}}</a></li>'
         ] + $this->_defaultConfig['templates'];
 
         parent::__construct($View, $config + [
@@ -77,14 +77,14 @@ class PaginatorHelper extends \Cake\View\Helper\PaginatorHelper
 
         if (isset($options['prev'])) {
             if ($options['prev'] === true) {
-                $options['prev'] = $this->setConfig('labels.prev');
+                $options['prev'] = $this->getConfig('labels.prev');
             }
             $options['before'] .= $this->prev($options['prev'], ['escape' => false]);
         }
 
         if (isset($options['next'])) {
             if ($options['next'] === true) {
-                $options['next'] = $this->setConfig('labels.next');
+                $options['next'] = $this->getConfig('labels.next');
             }
             $options['after'] = $this->next($options['next'], ['escape' => false]) . $options['after'];
         }
