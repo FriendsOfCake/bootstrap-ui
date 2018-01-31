@@ -75,11 +75,11 @@ class FormHelper extends Helper
             'checkboxFormGroup' => '<div class="%s"><div class="checkbox">{{label}}</div>{{error}}{{help}}</div>',
             'submitContainer' => '<div class="form-group"><div class="%s">{{content}}</div></div>',
             'inputContainer' => '<div class="form-group {{type}}{{required}}">{{content}}</div>',
-            'inputContainerError' => '<div class="form-group {{type}}{{required}}">{{content}}</div>',
+            'inputContainerError' => '<div class="form-group {{type}}{{required}} is-invalid">{{content}}</div>',
             'checkboxContainer' => '<div class="form-group{{required}}">{{content}}</div>',
-            'checkboxContainerError' => '<div class="form-group{{required}}">{{content}}</div>',
+            'checkboxContainerError' => '<div class="form-group{{required}} is-invalid">{{content}}</div>',
             'radioContainer' => '<div class="form-group{{required}}">{{content}}</div>',
-            'radioContainerError' => '<div class="form-group{{required}}">{{content}}</div>',
+            'radioContainerError' => '<div class="form-group{{required}} is-invalid">{{content}}</div>',
         ]
     ];
 
