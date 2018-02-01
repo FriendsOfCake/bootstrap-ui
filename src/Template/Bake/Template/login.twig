@@ -1,7 +1,7 @@
 <?php $this->extend('../Layout/TwitterBootstrap/signin'); ?>
 
-<?= $this->Form->create(${{ singularVar }}, ['class' => 'form-signin']) ?>
-<img class="mb-4" src="https://getbootstrap.com/assets/brand/bootstrap-solid.svg" alt="" width="72" height="72">
+<?= $this->Form->create(${{ singularVar }}, ['class' => 'form-signin text-center']) ?>
+<?= $this->Html->image('BootstrapUI.Baked-with-CakePHP.svg', ['class' => 'mb-4', 'width' => '250']) ?>
 <h1 class="h3 mb-3 font-weight-normal"><?= __('Please sign in') ?></h1>
 <?= $this->Form->label('email', __('Email address'), ['class' => 'sr-only']) ?>
 <?= $this->Form->email('email', ['placeholder' => __('Email address'), 'autofocus']) ?>
