@@ -43,7 +43,6 @@ trait OptionsAwareTrait
      *
      * @param array $data An array of HTML attributes and options.
      * @return array An array of HTML attributes and options.
-     * @todo generalize this to use it for any element (e.g. badges) with css classes
      */
     public function applyButtonClasses(array $data)
     {

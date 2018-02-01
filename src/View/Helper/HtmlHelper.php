@@ -95,7 +95,6 @@ class HtmlHelper extends \Cake\View\Helper\HtmlHelper
      * @param string $name Name of icon (i.e. search, leaf, etc.).
      * @param array $options Additional HTML attributes.
      * @return string HTML icon markup.
-     * @todo BootStrap4 doesn't include icon libraries anymore. Needs to be refactored.
      */
     public function icon($name, array $options = [])
     {
