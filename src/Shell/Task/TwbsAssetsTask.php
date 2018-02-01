@@ -122,9 +122,9 @@ class TwbsAssetsTask extends Shell
     {
         foreach ($files as $file) {
             $dir = null;
-            if ($file->ext() == 'css') {
+            if (preg_match('/.css/', $file->name)) {
                 $dir = $this->_cssDir;
-            } elseif ($file->ext() == 'js') {
+            } elseif (preg_match('/.js|.min.map/', $file->name)) {
                 $dir = $this->_jsDir;
             }
 
