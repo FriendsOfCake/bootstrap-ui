@@ -66,7 +66,7 @@ class TwbsAssetsTask extends Shell
     public function copyAssets()
     {
         $this->info('Clearing webroot and copying assets...');
-        if ($this->_clear($this->_assetDir, '^(?!cover)(?!dashboard)(?!signin)(?!Baked-with-CakePHP.svg).*$')) {
+        if ($this->_clear($this->_assetDir, '^(?!cover)(?!dashboard)(?!signin)(?!baked-with-cakephp.svg).*$')) {
             $this->success('All files cleared...');
         }
 
