@@ -10,7 +10,7 @@ if (!$this->fetch('html')) {
     if (Configure::check('App.language')) {
         printf('<html lang="%s">', Configure::read('App.language'));
     } else {
-        echo('<html>');
+        echo '<html>';
     }
     $this->end();
 }
@@ -20,9 +20,7 @@ if (!$this->fetch('html')) {
  */
 if (!$this->fetch('title')) {
     $this->start('title');
-    if (Configure::check('App.title')) {
-        echo Configure::read('App.title');
-    }
+    echo Configure::read('App.title');
     $this->end();
 }
 
