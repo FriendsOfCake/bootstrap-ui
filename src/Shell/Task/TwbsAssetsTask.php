@@ -99,7 +99,7 @@ class TwbsAssetsTask extends Shell
      */
     public function copyLayouts($target = null)
     {
-        $this->info(__('Copying sample layouts...'));
+        $this->info('Copying sample layouts...');
         $layoutDir = new Folder(Plugin::path('BootstrapUI') . 'src' . DS . 'Template' . DS . 'Layout' . DS . 'examples');
 
         if ($target == null) {
