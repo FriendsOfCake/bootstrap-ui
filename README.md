@@ -14,6 +14,7 @@ Transparently use [Bootstrap 4][twbs4] with [CakePHP 3][cakephp].
 * npm 5.x
 * jQuery 3.2+
 * Popper.js 1.x
+* Fontawesome 5.x
 
 ## What's included?
 
@@ -58,7 +59,7 @@ You can either use the Bootstrap Shell to make the necessary changes or do them 
     in debug mode the Shell will copy all assets (including source maps) and in production mode only minified versions.
 2. You will need to modify your `src/View/AppView` class to either extend `BootstrapUI\View\UIView` or
    use the trait `BootStrapUI\View\UIViewTrait`. For doing this you can either use the `modify_view` command or [change your view manually][bootstrap-ui#appview-setup]:
-   
+
     ```
     bin/cake bootstrap modify_view
     ```
