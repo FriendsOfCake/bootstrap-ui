@@ -1499,7 +1499,7 @@ class FormHelperTest extends TestCase
             'div' => ['class' => 'form-group text required'],
             'label' => ['class' => 'col-form-label', 'for' => 'title'],
             'Title',
-            'span' => ['data-toggle' => 'tooltip', 'title' => 'Some important additional notes.', 'class' => 'glyphicon glyphicon-info-sign'],
+            'span' => ['data-toggle' => 'tooltip', 'title' => 'Some important additional notes.', 'class' => 'fas fa-info-circle'],
             '/span',
             '/label',
             'input' => [
@@ -1526,7 +1526,7 @@ class FormHelperTest extends TestCase
             'div' => ['class' => 'form-group text required'],
             'label' => ['class' => 'col-form-label col-md-2', 'for' => 'title'],
             'Title ',
-            'span' => ['data-toggle' => 'tooltip', 'title' => 'Some important additional notes.', 'class' => 'glyphicon glyphicon-info-sign'],
+            'span' => ['data-toggle' => 'tooltip', 'title' => 'Some important additional notes.', 'class' => 'fas fa-info-circle'],
             '/span',
             '/label',
             ['div' => ['class' => 'col-md-6']],
