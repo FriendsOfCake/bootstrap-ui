@@ -47,7 +47,7 @@ class HtmlHelperTest extends TestCase
     {
         $result = $this->Html->icon('foo');
         $expected = [
-            'i' => ['class' => 'glyphicon glyphicon-foo'],
+            'i' => ['class' => 'fas fa-foo'],
             '/i'
         ];
         $this->assertHtml($expected, $result);
@@ -59,9 +59,9 @@ class HtmlHelperTest extends TestCase
         ];
         $this->assertHtml($expected, $result);
 
-        $result = $this->Html->icon('foo', ['tag' => 'span']);
+        $result = $this->Html->icon('foo', ['tag' => 'span', 'size' => 'lg']);
         $expected = [
-            'span' => ['class' => 'glyphicon glyphicon-foo'],
+            'span' => ['class' => 'fas fa-foo fa-lg'],
             '/span'
         ];
         $this->assertHtml($expected, $result);
