@@ -29,12 +29,14 @@ trait UIViewTrait
             $this->layout = $options['layout'];
         }
 
-        $this->loadHelper('Html', ['className' => 'BootstrapUI.Html']);
-        $this->loadHelper('Form', ['className' => 'BootstrapUI.Form']);
-        $this->loadHelper('Flash', ['className' => 'BootstrapUI.Flash']);
-        $this->loadHelper('Paginator', ['className' => 'BootstrapUI.Paginator']);
-        if (class_exists('\Cake\View\Helper\BreadcrumbsHelper')) {
-            $this->loadHelper('Breadcrumbs', ['className' => 'BootstrapUI.Breadcrumbs']);
-        }
+        $helpers = [
+            'Html' => ['className' => 'BootstrapUI.Html'],
+            'Form' => ['className' => 'BootstrapUI.Form'],
+            'Flash' => ['className' => 'BootstrapUI.Flash'],
+            'Paginator' => ['className' => 'BootstrapUI.Paginator'],
+            'Breadcrumbs' => ['className' => 'BootstrapUI.Breadcrumbs'],
+        ];
+
+        $this->helpers = array_merge($helpers, $this->helpers);
     }
 }
