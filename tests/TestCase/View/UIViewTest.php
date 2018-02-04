@@ -62,7 +62,6 @@ class UIViewTest extends TestCase
             ],
         ]);
 
-        $expected = ['foo' => 'bar'];
         $this->assertEquals('bar', $View->Form->getConfig('foo'));
     }
 }
