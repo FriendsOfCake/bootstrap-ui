@@ -150,4 +150,29 @@ class HtmlHelper extends \Cake\View\Helper\HtmlHelper
             ),
         ]);
     }
+
+    /**
+     * Returns Bootstrap label markup. By default, uses `<SPAN>`.
+     *
+     * @param string $text Text to show in label.
+     * @param array|string $options Additional HTML attributes.
+     * @return string HTML icon markup.
+     */
+    public function label($text, $options = [])
+    {
+        if (is_string($options)) {
+            $options = ['type' => $options];
+        }
+
+        $options += [
+            'tag' => 'span',
+            'type' => 'default',
+        ];
+
+        $classes = ['label', 'label-' . $options['type']];
+        $tag = $options['tag'];
+        unset($options['tag'], $options['type']);
+
+        return $this->tag($tag, $text, $this->injectClasses($classes, $options));
+    }
 }
