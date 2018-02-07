@@ -198,6 +198,7 @@ trait OptionsAwareTrait
      */
     public function genAllClassNames($element)
     {
+        $classes = [];
         foreach ($this->classList as $class) {
             $classes[] = $this->genClassName($element, $class);
         }
