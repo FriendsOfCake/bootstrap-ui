@@ -94,4 +94,37 @@ class OptionsAwareTraitTest extends TestCase
         $this->assertTrue($this->object->checkClasses('a b c', ['class' => 'c b a']));
         $this->assertTrue($this->object->checkClasses('a b c', ['class' => ['c', 'b', 'a']]));
     }
+
+    public function testGenClassName()
+    {
+        $this->assertEquals('btn-success', $this->object->genClassName('btn', 'success'));
+        $this->assertEquals('btn-outline-primary', $this->object->genClassName('btn-outline', 'primary'));
+        $this->assertEquals('border-danger', $this->object->genClassName('border', 'danger'));
+    }
+
+    public function testGenAllClassNames()
+    {
+        $res = [
+            'primary',
+            'secondary',
+            'success',
+            'danger',
+            'warning',
+            'info',
+            'light',
+            'dark',
+            'link',
+            'btn-primary',
+            'btn-secondary',
+            'btn-success',
+            'btn-danger',
+            'btn-warning',
+            'btn-info',
+            'btn-light',
+            'btn-dark',
+            'btn-link'
+        ];
+
+        $this->assertEquals($res, $this->object->genAllClassNames('btn'));
+    }
 }
