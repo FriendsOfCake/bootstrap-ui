@@ -41,6 +41,14 @@ class HtmlHelperTest extends TestCase
             '/span'
         ];
         $this->assertHtml($expected, $result);
+
+        $result = $this->Html->badge('foo', ['class' => 'primary']);
+        $expected = [
+            'span' => ['class' => 'badge-primary badge'],
+            'foo',
+            '/span'
+        ];
+        $this->assertHtml($expected, $result);
     }
 
     public function testIcon()
@@ -87,6 +95,33 @@ class HtmlHelperTest extends TestCase
             'joe',
             '/li',
             '/ul'
+        ];
+        $this->assertHtml($expected, $result);
+    }
+
+    public function testLabel()
+    {
+        $result = $this->Html->label('foo');
+        $expected = [
+            'span' => ['class' => 'badge badge-secondary'],
+            'foo',
+            '/span'
+        ];
+        $this->assertHtml($expected, $result);
+
+        $result = $this->Html->label('foo', ['class' => 'primary']);
+        $expected = [
+            'span' => ['class' => 'badge-primary badge'],
+            'foo',
+            '/span'
+        ];
+        $this->assertHtml($expected, $result);
+
+        $result = $this->Html->label('foo', 'primary');
+        $expected = [
+            'span' => ['class' => 'badge-primary badge'],
+            'foo',
+            '/span'
         ];
         $this->assertHtml($expected, $result);
     }
