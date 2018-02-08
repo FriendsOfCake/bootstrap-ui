@@ -69,6 +69,12 @@ class FlashHelperTest extends TestCase
                     'element' => 'Flash/default',
                     'params' => ['escape' => false]
                 ],
+                'custom4' => [
+                    'key' => 'flash',
+                    'message' => 'testClass',
+                    'element' => 'Flash/default',
+                    'params' => ['class' => 'primary']
+                ]
             ]
         ]);
     }
@@ -91,6 +97,9 @@ class FlashHelperTest extends TestCase
      */
     public function testRender()
     {
+        $result = $this->Flash->render('nonExistentKey');
+        $this->assertNull($result);
+
         $result = $this->Flash->render();
         $this->assertContains('<div role="alert" class="alert alert-dismissible fade show alert-info">', $result);
         $this->assertContains('<button type="button" class="close" data-dismiss="alert" aria-label="Close">', $result);
@@ -113,6 +122,10 @@ class FlashHelperTest extends TestCase
 
         $result = $this->Flash->render('custom3');
         $this->assertContains('This is <a href="#">custom3</a>', $result);
+
+        $result = $this->Flash->render('custom4');
+        $this->assertContains('<div role="alert" class="alert alert-dismissible fade show alert-primary">', $result);
+        $this->assertContains('testClass</div>', $result);
     }
 
     /**
