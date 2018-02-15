@@ -5,6 +5,7 @@ use Cake\View\View;
 
 class PaginatorHelper extends \Cake\View\Helper\PaginatorHelper
 {
+    protected $_allowedSizes = ['sm', 'lg'];
 
     /**
      * Constructor. Overridden to merge passed args with URL options.
@@ -29,23 +30,27 @@ class PaginatorHelper extends \Cake\View\Helper\PaginatorHelper
 
         parent::__construct($View, $config + [
             'labels' => [
-                'prev' => '&laquo;',
-                'next' => '&raquo;',
+                'first' => '&laquo;',
+                'last' => '&raquo;',
+                'prev' => '&lsaquo;',
+                'next' => '&rsaquo;'
             ],
         ]);
     }
 
     /**
-     * Returns a set of numbers for the paged result set.
+     * Returns a set of numbers for the paged result set, wrapped in a ul.
      *
-     * In addition to the numbers, the method can also generate previous and next
+     * In addition to the numbers, the method can also generate previous/next and first/last
      * links using additional options as shown below which are not available in
-     * CakePHP core's PaginatorHelper::numbers().
+     * CakePHP core's PaginatorHelper::numbers(). It also wraps the numbers into a ul tag.
      *
      * ### Options
      *
+     * - `first` If set generates "first" link. Can be `true` or string.
      * - `prev` If set generates "previous" link. Can be `true` or string.
      * - `next` If set generates "next" link. Can be `true` or string.
+     * - `last` If set generates "last" link. Can be `true` or string.
      * - `size` Used to control sizing class added to UL tag. For eg.
      *   using `'size' => 'lg'` would add class `pagination-lg` to UL tag.
      *
@@ -53,19 +58,22 @@ class PaginatorHelper extends \Cake\View\Helper\PaginatorHelper
      * @return string|false Numbers string.
      * @link http://book.cakephp.org/3.0/en/views/helpers/paginator.html#creating-page-number-links
      */
-    public function numbers(array $options = [])
+    public function links(array $options = [])
     {
         $class = 'pagination';
 
         $options += [
             'class' => $class,
-            'after' => '</ul>',
+            'after' => '',
             'size' => null,
         ];
 
         $options['class'] = implode(' ', (array)$options['class']);
 
         if (!empty($options['size'])) {
+            if (!in_array($options['size'], $this->_allowedSizes)) {
+                return false;
+            }
             $options['class'] .= " {$class}-{$options['size']}";
         }
 
@@ -74,6 +82,14 @@ class PaginatorHelper extends \Cake\View\Helper\PaginatorHelper
         ];
 
         unset($options['class'], $options['size']);
+
+        if (isset($options['first'])) {
+            if ($options['first'] === true) {
+                $options['first'] = $this->getConfig('labels.first');
+            }
+            $options['before'] .= $this->first($options['first'], ['escape' => false]);
+            unset($options['first']);
+        }
 
         if (isset($options['prev'])) {
             if ($options['prev'] === true) {
@@ -86,8 +102,18 @@ class PaginatorHelper extends \Cake\View\Helper\PaginatorHelper
             if ($options['next'] === true) {
                 $options['next'] = $this->getConfig('labels.next');
             }
-            $options['after'] = $this->next($options['next'], ['escape' => false]) . $options['after'];
+            $options['after'] = $this->next($options['next'], ['escape' => false]);
         }
+
+        if (isset($options['last'])) {
+            if ($options['last'] === true) {
+                $options['last'] = $this->getConfig('labels.last');
+            }
+            $options['after'] .= $this->last($options['last'], ['escape' => false]);
+            unset($options['last']);
+        }
+
+        $options['after'] .= '</ul>';
 
         return parent::numbers($options);
     }
