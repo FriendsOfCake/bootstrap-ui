@@ -10,6 +10,7 @@ use Cake\Routing\Router;
 use Cake\TestSuite\TestCase;
 use Cake\Utility\Security;
 use Cake\View\View;
+use InvalidArgumentException;
 
 class FormHelperTest extends TestCase
 {
@@ -888,6 +889,14 @@ class FormHelperTest extends TestCase
             '/div'
         ];
         $this->assertHtml($expected, $result);
+
+        $result = $this->Form->create($this->article, ['align' => 'inline']);
+    }
+
+    public function testBasicFormEnd()
+    {
+        $this->Form->create($this->article);
+        $this->assertHtml('/form', $this->Form->end());
     }
 
     public function testFormCreateWithTemplatesFile()
@@ -1574,4 +1583,18 @@ class FormHelperTest extends TestCase
         $result = $this->Form->radio('foo', ['1' => 'Opt 1', '2' => 'Opt 2']);
         $this->assertNotContains('"form-control"', $result);
     }
+
+    public function testFormAlignment()
+    {
+        $this->expectException(InvalidArgumentException::class);
+        $this->Form->create($this->article, ['align' => 'foo']);
+    }
+
+/*    public function testConstruct()
+    {
+        $this->Form->create($this->article);
+        $this->_defaultConfig['templateSet'] = ['test'];
+
+        debug($this->Form);
+    }*/
 }
