@@ -3,6 +3,7 @@
 namespace BootstrapUI\Test\TestCase\View\Helper;
 
 use BootstrapUI\View\Helper\FlashHelper;
+use Cake\Core\Exception\Exception;
 use Cake\Network\Request;
 use Cake\Network\Session;
 use Cake\TestSuite\TestCase;
@@ -74,7 +75,8 @@ class FlashHelperTest extends TestCase
                     'message' => 'testClass',
                     'element' => 'Flash/default',
                     'params' => ['class' => 'primary']
-                ]
+                ],
+                'invalidKey' => 'foo'
             ]
         ]);
     }
@@ -126,6 +128,9 @@ class FlashHelperTest extends TestCase
         $result = $this->Flash->render('custom4');
         $this->assertContains('<div role="alert" class="alert alert-dismissible fade show alert-primary">', $result);
         $this->assertContains('testClass</div>', $result);
+
+        $this->expectException(\UnexpectedValueException::class);
+        $this->Flash->render('invalidKey');
     }
 
     /**
