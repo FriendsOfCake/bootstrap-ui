@@ -43,11 +43,15 @@ class BootstrapShell extends Shell
     /**
      * Modifies AppView to extend UIView
      *
+     * @param String $path Path to AppView
      * @return void
      */
-    public function modifyView()
+    public function modifyView($path = null)
     {
-        $view = new File(APP . 'View' . DS . 'AppView.php');
+        if ($path == null) {
+            $path = APP . 'View' . DS . 'AppView.php';
+        }
+        $view = new File($path);
 
         $view->replaceText('use Cake\\View\\View', 'use BootstrapUI\\View\\UIView');
         $view->replaceText('class AppView extends View', 'class AppView extends UIView');
