@@ -377,9 +377,11 @@ class FormHelperTest extends TestCase
             'Title',
             '/label',
             ['div' => ['class' => 'input-group']],
-            'span' => ['class' => 'input-group-addon'],
+            ['div' => ['class' => 'input-group-prepend']],
+            'span' => ['class' => 'input-group-text'],
             '@',
             '/span',
+            '/div',
             'input' => [
                 'type' => 'text',
                 'name' => 'title',
@@ -399,9 +401,11 @@ class FormHelperTest extends TestCase
             'Url',
             '/label',
             ['div' => ['class' => 'input-group']],
-            'span' => ['class' => 'input-group-addon'],
+            ['div' => ['class' => 'input-group-prepend']],
+            'span' => ['class' => 'input-group-text'],
             'http://',
             '/span',
+            '/div',
             'input' => [
                 'type' => 'text',
                 'name' => 'url',
@@ -432,9 +436,35 @@ class FormHelperTest extends TestCase
                 'class' => 'form-control',
                 'required' => 'required'
             ],
-            'span' => ['class' => 'input-group-addon'],
+            ['div' => ['class' => 'input-group-append']],
+            'span' => ['class' => 'input-group-text'],
             '@',
             '/span',
+            '/div',
+            '/div',
+            '/div'
+        ];
+        $this->assertHtml($expected, $result);
+
+        $result = $this->Form->input('title', ['append' => ['@', ['size' => 'lg']]]);
+        $expected = [
+            'div' => ['class' => 'form-group text required'],
+            'label' => ['class' => 'col-form-label', 'for' => 'title'],
+            'Title',
+            '/label',
+            ['div' => ['class' => 'input-group input-group-lg']],
+            'input' => [
+                'type' => 'text',
+                'name' => 'title',
+                'id' => 'title',
+                'class' => 'form-control',
+                'required' => 'required'
+            ],
+            ['div' => ['class' => 'input-group-append']],
+            'span' => ['class' => 'input-group-text'],
+            '@',
+            '/span',
+            '/div',
             '/div',
             '/div'
         ];
@@ -459,9 +489,11 @@ class FormHelperTest extends TestCase
                 'class' => 'form-control'
             ],
             '/select',
-            'span' => ['class' => 'input-group-addon'],
+            ['div' => ['class' => 'input-group-append']],
+            'span' => ['class' => 'input-group-text'],
             '@',
             '/span',
+            '/div',
             '/div',
             '/div'
         ];
@@ -489,11 +521,11 @@ class FormHelperTest extends TestCase
                 'rows' => '5'
             ],
             '/textarea',
-            'span' => ['class' => 'input-group-btn'],
+            ['div' => ['class' => 'input-group-append']],
             'button' => ['type' => 'submit', 'class' => 'btn btn-secondary'],
             'GO',
             '/button',
-            '/span',
+            '/div',
             '/div',
             '/div'
         ];
@@ -511,11 +543,11 @@ class FormHelperTest extends TestCase
             'Title',
             '/label',
             ['div' => ['class' => 'input-group']],
-            'span' => ['class' => 'input-group-btn'],
+            ['div' => ['class' => 'input-group-prepend']],
             'button' => ['type' => 'submit', 'class' => 'btn btn-secondary'],
             'GO',
             '/button',
-            '/span',
+            '/div',
             'input' => [
                 'type' => 'text',
                 'name' => 'title',
@@ -547,11 +579,11 @@ class FormHelperTest extends TestCase
                 'class' => 'form-control',
                 'required' => 'required'
             ],
-            'span' => ['class' => 'input-group-btn'],
+            ['div' => ['class' => 'input-group-append']],
             'button' => ['type' => 'submit', 'class' => 'btn btn-secondary'],
             'GO',
             '/button',
-            '/span',
+            '/div',
             '/div',
             '/div'
         ];
@@ -1326,6 +1358,26 @@ class FormHelperTest extends TestCase
                 'required' => 'required'
             ],
             ['small' => ['class' => 'form-text text-muted']],
+            'help text',
+            '/small',
+            '/div'
+        ];
+        $this->assertHtml($expected, $result);
+
+        $result = $this->Form->input('title', ['help' => ['content' => 'help text', 'id' => 'test']]);
+        $expected = [
+            'div' => ['class' => 'form-group text required'],
+            'label' => ['class' => 'col-form-label', 'for' => 'title'],
+            'Title',
+            '/label',
+            'input' => [
+                'type' => 'text',
+                'name' => 'title',
+                'id' => 'title',
+                'class' => 'form-control',
+                'required' => 'required'
+            ],
+            ['small' => ['id' => 'test', 'class' => 'form-text text-muted']],
             'help text',
             '/small',
             '/div'

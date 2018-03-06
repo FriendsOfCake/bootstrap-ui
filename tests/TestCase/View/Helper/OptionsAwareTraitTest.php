@@ -116,6 +116,8 @@ class OptionsAwareTraitTest extends TestCase
             'light',
             'dark',
             'link',
+            'sm',
+            'lg',
             'btn-primary',
             'btn-secondary',
             'btn-success',
@@ -124,7 +126,9 @@ class OptionsAwareTraitTest extends TestCase
             'btn-info',
             'btn-light',
             'btn-dark',
-            'btn-link'
+            'btn-link',
+            'btn-sm',
+            'btn-lg'
         ];
 
         $this->assertEquals($res, $this->object->genAllClassNames('btn'));
