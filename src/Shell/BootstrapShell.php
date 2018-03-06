@@ -43,7 +43,7 @@ class BootstrapShell extends Shell
     /**
      * Modifies AppView to extend UIView
      *
-     * @param tring $path Path to AppView
+     * @param string|null $path Path to AppView
      * @return void
      */
     public function modifyView($path = null)
