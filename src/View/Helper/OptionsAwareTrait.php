@@ -18,7 +18,9 @@ trait OptionsAwareTrait
         'info',
         'light',
         'dark',
-        'link'
+        'link',
+        'sm',
+        'lg'
     ];
 
     /**
@@ -33,7 +35,8 @@ trait OptionsAwareTrait
         'border',
         'btn',
         'btn-outline',
-        'list-group-item'
+        'list-group-item',
+        'input-group'
     ];
 
     /**

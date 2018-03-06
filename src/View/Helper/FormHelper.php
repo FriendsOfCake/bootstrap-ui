@@ -50,8 +50,9 @@ class FormHelper extends Helper
         'radioInlineFormGroup' => '{{label}}<div class="form-check form-check-inline">{{input}}</div>',
         'radioNestingLabel' => '<div class="form-check">{{hidden}}<label{{attrs}}>{{input}}{{text}}{{tooltip}}</label></div>',
         'staticControl' => '<p class="form-control-plaintext">{{content}}</p>',
-        'inputGroupAddon' => '<span class="{{class}}">{{content}}</span>',
-        'inputGroupContainer' => '<div class="input-group">{{prepend}}{{content}}{{append}}</div>',
+        'inputGroupAddon' => '<div class="{{class}}">{{content}}</div>',
+        'inputGroupContainer' => '<div{{attrs}}>{{prepend}}{{content}}{{append}}</div>',
+        'inputGroupText' => '<span class="input-group-text">{{content}}</span>',
         'file' => '<input type="file" class="form-control-file" name="{{name}}"{{attrs}}>'
     ];
 
@@ -295,7 +296,7 @@ class FormHelper extends Helper
                     'help',
                     [
                         'content' => $options['help']['content'],
-                        'attrs' => $this->templater()->formatAttributes($options['help']),
+                        'attrs' => $this->templater()->formatAttributes($options['help'], ['class', 'content']),
                     ]
                 );
             }
