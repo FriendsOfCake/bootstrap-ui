@@ -3,8 +3,8 @@
 namespace BootstrapUI\Test\TestCase\View\Helper;
 
 use BootstrapUI\View\Helper\FlashHelper;
+use Cake\Http\Session;
 use Cake\Network\Request;
-use Cake\Network\Session;
 use Cake\TestSuite\TestCase;
 use Cake\View\View;
 
@@ -122,7 +122,7 @@ class FlashHelperTest extends TestCase
      */
     public function testRenderForMultipleMessages()
     {
-        $this->View->request->session()->write([
+        $this->View->request->getSession()->write([
             'Flash' => [
                 'flash' => [
                     [

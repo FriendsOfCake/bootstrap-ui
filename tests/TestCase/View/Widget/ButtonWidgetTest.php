@@ -3,7 +3,7 @@
 namespace BootstrapUI\Test\TestCase\View\Widget;
 
 use BootstrapUI\View\Widget\ButtonWidget;
-use Cake\Network\Session;
+use Cake\Http\Session;
 use Cake\TestSuite\TestCase;
 use Cake\View\Form\ContextInterface;
 use Cake\View\StringTemplate;
