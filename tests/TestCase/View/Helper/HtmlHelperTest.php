@@ -2,9 +2,9 @@
 
 namespace BootstrapUI\Test\TestCase\View\Helper;
 
+use BootstrapUI\View\Helper\BreadcrumbsHelper;
 use BootstrapUI\View\Helper\HtmlHelper;
 use Cake\TestSuite\TestCase;
-use BootstrapUI\View\Helper\BreadcrumbsHelper;
 use Cake\View\View;
 
 class HtmlHelperTest extends TestCase

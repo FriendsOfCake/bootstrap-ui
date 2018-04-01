@@ -3,8 +3,8 @@
 namespace BootstrapUI\Test\TestCase\View\Helper;
 
 use BootstrapUI\View\Helper\FlashHelper;
-use Cake\Network\Request;
 use Cake\Http\Session;
+use Cake\Network\Request;
 use Cake\TestSuite\TestCase;
 use Cake\View\View;
 
