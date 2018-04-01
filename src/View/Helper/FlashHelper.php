@@ -40,11 +40,11 @@ class FlashHelper extends Helper
      */
     public function render($key = 'flash', array $options = [])
     {
-        if (!$this->request->session()->check("Flash.$key")) {
+        if (!$this->request->getSession()->check("Flash.$key")) {
             return null;
         }
 
-        $stack = $this->request->session()->read("Flash.$key");
+        $stack = $this->request->getSession()->read("Flash.$key");
         if (!is_array($stack)) {
             throw new \UnexpectedValueException(sprintf(
                 'Value for flash setting key "%s" must be an array.',
@@ -60,7 +60,7 @@ class FlashHelper extends Helper
         foreach ($stack as $message) {
             $message = $options + $message;
             $message['params'] += $this->_config;
-            $this->request->session()->delete("Flash.$key");
+            $this->request->getSession()->delete("Flash.$key");
 
             $element = $message['element'];
             if (strpos($element, '.') === false &&
