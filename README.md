@@ -148,6 +148,7 @@ A quick way of getting the Bootstrap assets installed is using [bower]. Assuming
 
 ```
 bower install bootstrap
+bower install jquery
 mkdir -p webroot/css/bootstrap webroot/js/bootstrap webroot/js/jquery webroot/css/fonts
 cp bower_components/bootstrap/dist/css/* webroot/css/bootstrap/.
 cp bower_components/bootstrap/dist/js/* webroot/js/bootstrap/.
