@@ -3,6 +3,7 @@ namespace BootstrapUI\View\Widget;
 
 use BootstrapUI\View\Helper\OptionsAwareTrait;
 use Cake\View\Form\ContextInterface;
+use Cake\View\View;
 
 trait InputgroupTrait
 {
@@ -16,6 +17,7 @@ trait InputgroupTrait
      *
      * - `append` Append addon to input.
      * - `prepend` Prepend addon to input.
+     * - `size` Append/Prepend can have option size (sm/lg) for wrapping container
      *
      * @param array $data The data to build an input with.
      * @param \Cake\View\Form\ContextInterface $context The current form context.
@@ -27,6 +29,7 @@ trait InputgroupTrait
             'prepend' => null,
             'append' => null,
         ];
+        $attrs[] = null;
 
         if (!isset($data['type']) || $data['type'] !== 'hidden') {
             $data = $this->injectClasses('form-control', $data);
@@ -39,14 +42,22 @@ trait InputgroupTrait
         $input = parent::render($data, $context);
 
         if ($prepend) {
-            $prepend = $this->_addon($prepend, $data);
+            $prepend = $this->_checkForOptions($prepend);
+            $attrs = $this->_processOptions($prepend, $attrs);
+            $data['inputClass'] = 'input-group-prepend';
+            $prepend = $this->_addon($prepend['content'], $data);
         }
+
         if ($append) {
-            $append = $this->_addon($append, $data);
+            $append = $this->_checkForOptions($append);
+            $attrs = $this->_processOptions($append, $attrs);
+            $data['inputClass'] = 'input-group-append';
+            $append = $this->_addon($append['content'], $data);
         }
 
         if ($prepend || $append) {
             $input = $this->_templates->format('inputGroupContainer', [
+                'attrs' => $this->_templates->formatAttributes($attrs),
                 'append' => $append,
                 'prepend' => $prepend,
                 'content' => $input,
@@ -66,21 +77,19 @@ trait InputgroupTrait
      */
     protected function _addon($addon, $data)
     {
-        if (is_string($addon)) {
-            $class = 'input-group-' . ($this->_isButton($addon) ? 'btn' : 'addon');
-            $addon = $this->_templates->format('inputGroupAddon', [
-                'class' => $class,
-                'content' => $addon,
-                'templateVars' => $data['templateVars'],
-            ]);
+        if ($this->_isButton($addon)) {
+            $element = $addon;
         } else {
-            $class = 'input-group-btn';
-            $addon = $this->_templates->format('inputGroupAddon', [
-                'class' => $class,
-                'content' => implode('', $addon),
-                'templateVars' => $data['templateVars'],
+            $element = $this->_templates->format('inputGroupText', [
+                'content' => $addon,
             ]);
         }
+
+        $addon = $this->_templates->format('inputGroupAddon', [
+            'class' => $data['inputClass'],
+            'content' => $element,
+            'templateVars' => $data['templateVars'],
+        ]);
 
         return $addon;
     }
@@ -94,5 +103,41 @@ trait InputgroupTrait
     protected function _isButton($html)
     {
         return strpos($html, '<button') !== false || strpos($html, 'type="submit"') !== false;
+    }
+
+    /**
+     * Checks, if prepend/append has options and formats them
+     *
+     * @param array|string $attachment prepend or append element. Can be a string or array, if contains options
+     * @return mixed
+     */
+    protected function _checkForOptions($attachment)
+    {
+        if (is_array($attachment)) {
+            $ret['content'] = $attachment[0];
+            $ret['options'] = $attachment[1];
+        } else {
+            $ret['content'] = $attachment;
+        }
+
+        return $ret;
+    }
+
+    /**
+     * Processes options given by prepend/append and adds them to wrapping container
+     *
+     * @param array $attachment prepend/append content and options
+     * @param array $attrs of wrapping container
+     * @return array attrs with classes
+     */
+    protected function _processOptions(array $attachment, array $attrs)
+    {
+        $attrs['class'][] = 'input-group';
+        if (isset($attachment['options']['size']) && $attachment['options']['size'] != null) {
+            $attrs['class'][] = $this->genClassName('input-group', $attachment['options']['size']);
+            $attrs['class'] = $this->_toClassArray($attrs['class']);
+        }
+
+        return $attrs;
     }
 }

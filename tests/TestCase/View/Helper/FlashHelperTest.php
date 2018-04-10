@@ -3,6 +3,7 @@
 namespace BootstrapUI\Test\TestCase\View\Helper;
 
 use BootstrapUI\View\Helper\FlashHelper;
+use Cake\Core\Exception\Exception;
 use Cake\Network\Request;
 use Cake\Network\Session;
 use Cake\TestSuite\TestCase;
@@ -69,6 +70,13 @@ class FlashHelperTest extends TestCase
                     'element' => 'Flash/default',
                     'params' => ['escape' => false]
                 ],
+                'custom4' => [
+                    'key' => 'flash',
+                    'message' => 'testClass',
+                    'element' => 'Flash/default',
+                    'params' => ['class' => 'primary']
+                ],
+                'invalidKey' => 'foo'
             ]
         ]);
     }
@@ -91,14 +99,17 @@ class FlashHelperTest extends TestCase
      */
     public function testRender()
     {
+        $result = $this->Flash->render('nonExistentKey');
+        $this->assertNull($result);
+
         $result = $this->Flash->render();
-        $this->assertContains('<div role="alert" class="alert alert-dismissible fade in alert-info">', $result);
+        $this->assertContains('<div role="alert" class="alert alert-dismissible fade show alert-info">', $result);
         $this->assertContains('<button type="button" class="close" data-dismiss="alert" aria-label="Close">', $result);
         $this->assertContains('<span aria-hidden="true">&times;</span></button>', $result);
         $this->assertContains('This is a calling', $result);
 
         $result = $this->Flash->render('error');
-        $this->assertContains('<div role="alert" class="alert alert-dismissible fade in alert-danger">', $result);
+        $this->assertContains('<div role="alert" class="alert alert-dismissible fade show alert-danger">', $result);
         $this->assertContains('<button type="button" class="close" data-dismiss="alert" aria-label="Close">', $result);
         $this->assertContains('This is error', $result);
 
@@ -113,6 +124,13 @@ class FlashHelperTest extends TestCase
 
         $result = $this->Flash->render('custom3');
         $this->assertContains('This is <a href="#">custom3</a>', $result);
+
+        $result = $this->Flash->render('custom4');
+        $this->assertContains('<div role="alert" class="alert alert-dismissible fade show alert-primary">', $result);
+        $this->assertContains('testClass</div>', $result);
+
+        $this->expectException(\UnexpectedValueException::class);
+        $this->Flash->render('invalidKey');
     }
 
     /**
@@ -150,7 +168,7 @@ class FlashHelperTest extends TestCase
         ]);
 
         $result = $this->Flash->render();
-        $this->assertContains('<div role="alert" class="alert alert-dismissible fade in alert-info">', $result);
+        $this->assertContains('<div role="alert" class="alert alert-dismissible fade show alert-info">', $result);
         $this->assertContains('<button type="button" class="close" data-dismiss="alert" aria-label="Close">', $result);
         $this->assertContains('<span aria-hidden="true">&times;</span></button>', $result);
         $this->assertContains('This is a calling', $result);
@@ -159,7 +177,7 @@ class FlashHelperTest extends TestCase
         $this->assertContains('This is a second message', $result);
 
         $result = $this->Flash->render('error');
-        $this->assertContains('<div role="alert" class="alert alert-dismissible fade in alert-danger">', $result);
+        $this->assertContains('<div role="alert" class="alert alert-dismissible fade show alert-danger">', $result);
         $this->assertContains('<button type="button" class="close" data-dismiss="alert" aria-label="Close">', $result);
         $this->assertContains('This is error', $result);
     }

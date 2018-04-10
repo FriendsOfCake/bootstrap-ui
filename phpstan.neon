@@ -1,0 +1,3 @@
+parameters:
+    ignoreErrors:
+        - '#Constant APP not found#'

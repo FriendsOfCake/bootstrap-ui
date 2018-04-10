@@ -14,7 +14,6 @@ if (!$this->fetch('tb_flash')) {
 }
 ?>
 <body <?= $this->fetch('tb_body_attrs') ?>>
-    <div class="container">
 <?php
 $this->end();
 
@@ -26,5 +25,4 @@ $this->start('tb_footer');
 echo ' ';
 $this->end();
 
-$this->append('content', '</div>');
 echo $this->fetch('content');

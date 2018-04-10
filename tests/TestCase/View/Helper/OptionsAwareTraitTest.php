@@ -37,8 +37,8 @@ class OptionsAwareTraitTest extends TestCase
 
     public function testApplyButtonStyles()
     {
-        $this->assertEquals(['class' => 'btn btn-default'], $this->object->applyButtonClasses([]));
-        foreach (['default', 'success', 'warning', 'danger', 'info', 'primary'] as $style) {
+        $this->assertEquals(['class' => 'btn btn-secondary'], $this->object->applyButtonClasses([]));
+        foreach (['primary', 'secondary', 'success', 'danger', 'warning', 'info', 'light', 'dark'] as $style) {
             $this->assertEquals(['class' => "btn-{$style} btn"], $this->object->applyButtonClasses(['class' => $style]));
             $this->assertEquals(['class' => "btn-{$style} btn"], $this->object->applyButtonClasses(['class' => "btn-$style"]));
         }
@@ -47,8 +47,8 @@ class OptionsAwareTraitTest extends TestCase
     public function testRenameClasses()
     {
         $this->assertEquals(['class' => ''], $this->object->renameClasses(['a' => 'b'], []));
-        $this->assertEquals(['class' => 'b'], $this->object->renameClasses(['a' => 'b'], ['class' => 'a']));
-        $this->assertEquals(['class' => 'b'], $this->object->renameClasses(['a' => 'b', 'c' => 'd'], ['class' => 'a']));
+        $this->assertEquals(['class' => 'btn-primary'], $this->object->renameClasses('btn', ['class' => 'primary']));
+        $this->assertEquals(['class' => 'alert-success'], $this->object->renameClasses('alert', ['class' => 'success']));
     }
 
     public function testHasAnyClass()
@@ -93,5 +93,44 @@ class OptionsAwareTraitTest extends TestCase
         $this->assertTrue($this->object->checkClasses('a', ['class' => 'a']));
         $this->assertTrue($this->object->checkClasses('a b c', ['class' => 'c b a']));
         $this->assertTrue($this->object->checkClasses('a b c', ['class' => ['c', 'b', 'a']]));
+    }
+
+    public function testGenClassName()
+    {
+        $this->assertEquals('btn-success', $this->object->genClassName('btn', 'success'));
+        $this->assertEquals('btn-outline-primary', $this->object->genClassName('btn-outline', 'primary'));
+        $this->assertEquals('border-danger', $this->object->genClassName('border', 'danger'));
+        $this->assertFalse($this->object->genClassName('unknown', 'primary'));
+        $this->assertFalse($this->object->genClassName('btn', 'unknown'));
+    }
+
+    public function testGenAllClassNames()
+    {
+        $res = [
+            'primary',
+            'secondary',
+            'success',
+            'danger',
+            'warning',
+            'info',
+            'light',
+            'dark',
+            'link',
+            'sm',
+            'lg',
+            'btn-primary',
+            'btn-secondary',
+            'btn-success',
+            'btn-danger',
+            'btn-warning',
+            'btn-info',
+            'btn-light',
+            'btn-dark',
+            'btn-link',
+            'btn-sm',
+            'btn-lg'
+        ];
+
+        $this->assertEquals($res, $this->object->genAllClassNames('btn'));
     }
 }

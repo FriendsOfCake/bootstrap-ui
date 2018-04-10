@@ -1,2 +1,10 @@
 vendor/
 composer.lock
+node_modules
+
+# Ignore assets, except some css
+webroot/css/*
+webroot/js/*
+!webroot/css/cover.css
+!webroot/css/dashboard.css
+!webroot/css/signin.css

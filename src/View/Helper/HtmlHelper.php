@@ -1,9 +1,33 @@
 <?php
 namespace BootstrapUI\View\Helper;
 
+use Cake\View\View;
+
 class HtmlHelper extends \Cake\View\Helper\HtmlHelper
 {
     use OptionsAwareTrait;
+
+    /**
+     * Constructor
+     *
+     * ### Settings
+     *
+     * - `iconDefaults`: Default for icons.
+     *
+     * @param \Cake\View\View $View The View this helper is being attached to.
+     * @param array $config Configuration settings for the helper.
+     */
+    public function __construct(View $View, array $config = [])
+    {
+        $this->_defaultConfig['iconDefaults'] = [
+            'tag' => 'i',
+            'iconSet' => 'fas',
+            'prefix' => 'fa',
+            'size' => null,
+        ];
+
+        parent::__construct($View, $config);
+    }
 
     /**
      * Returns Bootstrap badge markup. By default, uses `<SPAN>`.
@@ -18,7 +42,17 @@ class HtmlHelper extends \Cake\View\Helper\HtmlHelper
         $tag = $options['tag'];
         unset($options['tag']);
 
-        return $this->tag($tag, $text, $this->injectClasses('badge', $options));
+        $allClasses = $this->genAllClassNames('badge');
+
+        if ($this->hasAnyClass($allClasses, $options)) {
+            $options = $this->injectClasses('badge', $options);
+        } else {
+            $options = $this->injectClasses(['badge', 'secondary'], $options);
+        }
+
+        $classes = $this->renameClasses('badge', $options);
+
+        return $this->tag($tag, $text, $classes);
     }
 
     /**
@@ -50,51 +84,57 @@ class HtmlHelper extends \Cake\View\Helper\HtmlHelper
     }
 
     /**
-     * Returns Bootstrap icon markup. By default, uses `<I>` and `glypicon`.
+     * Returns bootstrap icon markup. By default, uses `<i>` tag and font awesome icon set.
      *
      * @param string $name Name of icon (i.e. search, leaf, etc.).
-     * @param array $options Additional HTML attributes.
+     * @param array $options Additional options and HTML attributes.
+     * ### Options
+     *
+     * - `iconSet`: Common class name for the icon set. Default 'fas'.
+     * - `prefix`: Prefix for class names. Default 'fa'.
+     * - `size`: Size class will be generated based of this. For e.g. if you use
+     *   size 'lg' class '<prefix>-lg` will be added. Default null.
+     *
+     * You can use `iconDefaults` option for the helper to set default values
+     * for above options.
+     *
      * @return string HTML icon markup.
      */
     public function icon($name, array $options = [])
     {
-        $options += [
-            'tag' => 'i',
-            'iconSet' => 'glyphicon',
+        $options += $this->getConfig('iconDefaults') + [
             'class' => null,
         ];
 
-        $classes = [$options['iconSet'], $options['iconSet'] . '-' . $name];
+        $classes = [$options['iconSet'], $options['prefix'] . '-' . $name];
+        if (!empty($options['size'])) {
+            $classes[] = $options['prefix'] . '-' . $options['size'];
+        }
         $options = $this->injectClasses($classes, $options);
 
         return $this->formatTemplate('tag', [
             'tag' => $options['tag'],
-            'attrs' => $this->templater()->formatAttributes($options, ['tag', 'iconSet']),
+            'attrs' => $this->templater()->formatAttributes(
+                $options,
+                ['tag', 'iconSet', 'prefix', 'size']
+            ),
         ]);
     }
 
     /**
-     * Returns Bootstrap label markup. By default, uses `<SPAN>`.
+     * Wrapper for Bootstrap baddge component
      *
      * @param string $text Text to show in label.
      * @param array|string $options Additional HTML attributes.
-     * @return string HTML icon markup.
+     * @deprecated label component has been removed from Bootstrap. Use badge component instead.
+     * @return string HTML badge markup.
      */
     public function label($text, $options = [])
     {
         if (is_string($options)) {
-            $options = ['type' => $options];
+            $options = ['class' => $options];
         }
 
-        $options += [
-            'tag' => 'span',
-            'type' => 'default',
-        ];
-
-        $classes = ['label', 'label-' . $options['type']];
-        $tag = $options['tag'];
-        unset($options['tag'], $options['type']);
-
-        return $this->tag($tag, $text, $this->injectClasses($classes, $options));
+        return $this->badge($text, $options);
     }
 }

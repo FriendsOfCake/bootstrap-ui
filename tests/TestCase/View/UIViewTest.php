@@ -45,4 +45,23 @@ class UIViewTest extends TestCase
         $this->View->initialize();
         $this->assertEquals('BootstrapUI.default', $this->View->layout);
     }
+
+    /**
+     * testHelperConfig
+     *
+     * @return void
+     */
+    public function testHelperConfig()
+    {
+        $View = new UIView(null, null, null, [
+            'helpers' => [
+                'Form' => [
+                    'className' => 'BootstrapUI.Form',
+                    'foo' => 'bar',
+                ],
+            ],
+        ]);
+
+        $this->assertEquals('bar', $View->Form->getConfig('foo'));
+    }
 }

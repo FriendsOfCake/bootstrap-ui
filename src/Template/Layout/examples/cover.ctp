@@ -3,46 +3,30 @@
 use Cake\Core\Configure;
 
 $this->Html->css('BootstrapUI.cover', ['block' => true]);
-$this->prepend('tb_body_attrs', ' class="' . implode(' ', [$this->request->controller, $this->request->action]) . '" ');
-$this->start('tb_body_start');
-?>
+$this->prepend('tb_body_attrs', 'class="text-center ' . implode(' ', [$this->request->controller, $this->request->action]) . '" ');
+
+
+$this->start('tb_body_start'); ?>
 <body <?= $this->fetch('tb_body_attrs') ?>>
-    <div class="site-wrapper">
-        <div class="site-wrapper-inner">
-            <div class="cover-container">
-
-                <div class="masthead clearfix">
-                    <div class="inner">
-                        <h3 class="masthead-brand"><?= Configure::read('App.title') ?></h3>
-                        <?= $this->fetch('tb_topnav') ?>
-                    </div>
-                </div>
-
-                <div class="inner cover">
-<?php
-/**
- * Default `flash` block.
- */
-if (!$this->fetch('tb_flash')) {
-    $this->start('tb_flash');
-    if (isset($this->Flash))
-        echo $this->Flash->render();
-    $this->end();
-}
-$this->end();
-
-$this->start('tb_body_end');
-?>
+    <div class="cover-container d-flex h-100 p-3 mx-auto flex-column">
+        <header class="masthead mb-auto">
+            <div class="inner">
+                <h3 class="masthead-brand"><?= Configure::read('App.title') ?></h3>
+                <nav class="nav nav-masthead justify-content-center">
+                    <?= $this->fetch('tb_topnav') ?>
+                </nav>
             </div>
-        </div>
+        </header>
+        <main role="main" class="inner cover">
+            <?= $this->fetch('content') ?>
+        </main>
+<?php $this->end(); ?>
+
+<?php $this->start('tb_body_end'); ?>
     </div>
 </body>
-<?php
-$this->end();
+<?php $this->end(); ?>
 
-$this->start('tb_footer');
-printf('<footer class="mastfoot"><div class="inner">&copy;%s %s</div></footer>', date('Y'), Configure::read('App.title'));
+<?php $this->start('tb_footer');
+printf('<footer class="mastfoot mt-auto"><div class="inner"><p>&copy;%s %s</p></div></footer>', date('Y'), Configure::read('App.title'));
 $this->end('tb_footer');
-
-$this->append('content', '</div>');
-echo $this->fetch('content');

@@ -46,7 +46,7 @@ class BreadcrumbsHelperTest extends TestCase
             ->add('joe')
             ->render();
 
-        $expected = '<ol class="breadcrumb"><li><span>jadb</span></li><li><span>admad</span></li><li><span>joe</span></li></ol>';
+        $expected = '<nav aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item" aria-current="page"><span>jadb</span></li><li class="breadcrumb-item" aria-current="page"><span>admad</span></li><li class="breadcrumb-item" aria-current="page"><span>joe</span></li></ol></nav>';
         $this->assertEquals($expected, $result);
     }
 
@@ -68,7 +68,7 @@ class BreadcrumbsHelperTest extends TestCase
             ->add('black', '/foo/bar', $attributes['itemWithoutLink'])
             ->render($attributes['wrapper'], $attributes['separator']);
 
-        $expected = '<ol class="wrapper-class"><li class="itemWithoutLink-class"><span class="itemWithoutLink-inner-class">joe</span></li><li class="separator-class"><span class="separator-inner-class"></span></li><li class="itemWithoutLink-class"><a href="/foo/bar" class="itemWithoutLink-inner-class">black</a></li></ol>';
+        $expected = '<nav aria-label="breadcrumb"><ol class="wrapper-class breadcrumb"><li class="itemWithoutLink-class breadcrumb-item" aria-current="page"><span class="itemWithoutLink-inner-class">joe</span></li><li class="itemWithoutLink-class breadcrumb-item"><a href="/foo/bar" class="itemWithoutLink-inner-class">black</a></li></ol></nav>';
         $this->assertEquals($expected, $result);
     }
 }

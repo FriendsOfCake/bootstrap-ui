@@ -1,0 +1,15 @@
+{% set fields = Bake.filterFields(fields, schema, modelObject) %}
+{% if strpos(action, 'add') is same as(false) %}
+    <li><?= $this->Form->postLink(__('Delete'), ['action' => 'delete', ${{ singularVar }}->{{ primaryKey[0] }}], ['confirm' => __('Are you sure you want to delete # {0}?', ${{ singularVar }}->{{ primaryKey[0] }}), 'class' => 'nav-link']) ?></li>
+{% endif %}
+    <li><?= $this->Html->link(__('List {{ pluralHumanName }}'), ['action' => 'index'], ['class' => 'nav-link']) ?></li>
+{%- set done = [] %}
+{%- for type, data in associations %}
+{%- for alias, details in data %}
+{%- if details.controller is not same as(_view.name) and details.controller not in done %}
+    <li><?= $this->Html->link(__('List {{ alias|underscore|humanize }}'), ['controller' => '{{ details.controller }}', 'action' => 'index'], ['class' => 'nav-link']) ?></li>
+    <li><?= $this->Html->link(__('New {{ alias|singularize|underscore|humanize }}'), ['controller' => '{{ details.controller }}', 'action' => 'add'], ['class' => 'nav-link']) ?></li>
+{%- set done = done|merge([details.controller]) %}
+{%- endif %}
+{%- endfor %}
+{% endfor %}

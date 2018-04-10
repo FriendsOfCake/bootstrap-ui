@@ -5,19 +5,22 @@
 [![Total Downloads](https://img.shields.io/packagist/dt/friendsofcake/bootstrap-ui.svg?style=flat-square)](https://packagist.org/packages/friendsofcake/bootstrap-ui)
 [![License](https://img.shields.io/badge/license-MIT-blue.svg?style=flat-square)](https://packagist.org/packages/friendsofcake/bootstrap-ui)
 
-Transparently use [Bootstrap 3][twbs3] with [CakePHP 3][cakephp].
+Transparently use [Bootstrap 4][twbs4] with [CakePHP 3][cakephp].
 
 ## Requirements
 
 * CakePHP 3.x
-* Bootstrap 3.x
-* jQuery 1.9+
+* Bootstrap 4.x
+* npm 5.x
+* jQuery 3.2+
+* Popper.js 1.x
+* Fontawesome 5.x
 
 ## What's included?
 
 - FlashComponent + elements (types: error, info, success, warning)
-- FormHelper (align: default, inline, horizontal)
-- HtmlHelper (components: breadcrumbs, badge, label, icon)
+- FormHelper (align: default, *inline (incomplete)*, horizontal)
+- HtmlHelper (components: breadcrumbs, badge, icon)
 - PaginatorHelper
 - Widgets (basic, radio, button, select, textarea)
 - Sample layouts (cover, signin, dashboard)
@@ -31,24 +34,48 @@ Transparently use [Bootstrap 3][twbs3] with [CakePHP 3][cakephp].
 composer require friendsofcake/bootstrap-ui
 ```
 
-Then load the plugin by adding the following to your app's `config/boostrap.php`:
-
-```php
+Then load the plugin by adding the following to your app's config/boostrap.php:
+```
 \Cake\Core\Plugin::load('BootstrapUI');
 ```
 
 or using CakePHP's console:
-
 ```
-./bin/cake plugin load BootstrapUI
+bin/cake plugin load BootstrapUI
 ```
 
 ## Usage
 
-You will need to modify your `src/View/AppView` class to either extend `BootstrapUI\View\UIView` or
-use the trait `BootStrapUI\View\UIViewTrait`.
+You can either use the Bootstrap Shell to make the necessary changes or do them manually.
 
-### AppView Setup
+### Installing Using the Bootstrap Shell
+
+1. To install install the bootstrap assets (bootstrap's css/js files, jquery and popper.js) via npm you can use the `install` command:
+
+    ```
+    bin/cake bootstrap install
+    ```
+    This will fetch all assets, copy the assets to plugin's webroot dir and symlink them to the app's webroot dir. Note that
+    in debug mode the Shell will copy all assets (including source maps) and in production mode only minified versions.
+2. You will need to modify your `src/View/AppView` class to either extend `BootstrapUI\View\UIView` or
+   use the trait `BootStrapUI\View\UIViewTrait`. For doing this you can either use the `modify_view` command or [change your view manually][bootstrap-ui#appview-setup]:
+
+    ```
+    bin/cake bootstrap modify_view
+    ```
+
+    This will rewrite your `src/View/AppView` like described in [### AppView Setup].
+3. Bootstrap has it's own layout. You can install them using the `copy_layouts` command or do the changes like mentioned in [## BootstrapUI Layout] section:
+
+    ```
+    bin/cake bootstrap copy_layouts
+    ```
+    This will copy three sample layouts: `cover.ctp`, `dashboard.ctp` and `signin.ctp` to your app's `src/Template/Layout/TwitterBootstrap`.
+
+### Installing manually
+
+
+#### AppView Setup
 
 For a quick setup, just make your `AppView` class extend `BootstrapUI\View\UIView`. The base class will handle
 the initializing and loading of the BootstrapUI `layout.ctp` for your app.
@@ -74,7 +101,7 @@ class AppView extends UIView
 }
 ```
 
-### AppView Setup Using UIViewTrait
+#### AppView Setup Using UIViewTrait
 
 If you're adding BootstrapUI to an existing application. It might be easier to use the trait,
 as it gives you more control over the loading of the layout.
@@ -142,23 +169,16 @@ Available types are:
 
 **NOTE: Remember to set the stylesheets in the layouts you copy.**
 
-## Installing Bootstrap via Bower
+## Installing Bootstrap assets via npm
 
-A quick way of getting the Bootstrap assets installed is using [bower]. Assuming you are in `ROOT`:
+The install script installs the bootstrap assets via [npm]. You can install them also by hand assuming you are in `ROOT`:
 
 ```
-bower install bootstrap
-mkdir -p webroot/css/bootstrap webroot/js/bootstrap webroot/js/jquery webroot/css/fonts
-cp bower_components/bootstrap/dist/css/* webroot/css/bootstrap/.
-cp bower_components/bootstrap/dist/js/* webroot/js/bootstrap/.
-cp bower_components/jquery/dist/* webroot/js/jquery/.
-cp bower_components/bootstrap/dist/fonts/* webroot/css/fonts/.
-echo /bower_components >> .gitignore
-git add .gitignore \
-bower.json \
-webroot/css/bootstrap \
-webroot/js/bootstrap \
-webroot/js/jquery
+npm install
+cp node_modules/bootstrap/dist/css/bootstrap.css webroot/css/
+cp node_modules/bootstrap/dist/js/bootstrap.js webroot/js/
+cp node_modules/jquery/dist/jquery.js webroot/js
+cp node_modules/popper.js/dist/popper.js webroot/js
 ```
 
 ## Console Bake
@@ -166,7 +186,7 @@ webroot/js/jquery
 For those of you who want even more automation, some bake templates have been included. Use them like so:
 
 ```
-$ bin/cake bake.bake [subcommand] -t BootstrapUI
+bin/cake bake.bake [subcommand] -t BootstrapUI
 ```
 
 ## Helper Usage
@@ -199,18 +219,21 @@ will render this HTML:
 
 ```html
 <form method="post" accept-charset="utf-8" role="form" action="/articles/add">
-    <div style="display:none;"><input type="hidden" name="_method" value="POST"></div>
-    <div class="form-group">
-        <label class="control-label" for="title">Title</label>
-        <input type="text" name="title" required="required" id="title" class="form-control">
-    </div>
-    <div class="form-group">
-        <input type="hidden" name="published" value="0">
-        <label for="published">
-            <input type="checkbox" name="published" value="1" id="published" class="form-control">
-            Published
-        </label>
-    </div>
+  <div style="display:none;">
+    <input type="hidden" name="_method" value="POST">
+  </div>
+  <div class="form-group text">
+    <label class="col-form-label" for="title">Title</label>
+    <input type="text" name="title" id="title" class="form-control">
+  </div>
+  <div class="form-check">
+    <input type="hidden" name="published" value="0">
+    <label for="published">
+      <input type="checkbox" name="published" value="1" id="published">Published
+    </label>
+  </div>
+  <button type="submit" class="btn btn-secondary">Submit</button>
+</form>
 ```
 
 ### Horizontal Form
@@ -235,23 +258,27 @@ echo $this->Form->control('published', ['type' => 'checkbox']);
 will render this HTML:
 
 ```html
-<form method="post" accept-charset="utf-8" role="form" class="form-horizontal" action="/articles/add">
-    <div style="display:none;"><input type="hidden" name="_method" value="POST"></div>
-    <div class="form-group">
-        <label class="control-label col-sm-6 col-md-4" for="title">Title</label>
-        <div class="col-sm-6 col-md-4">
-            <input type="text" name="title" required="required" id="title" class="form-control">
-        </div>
+<form method="post" accept-charset="utf-8" class="form-horizontal" role="form" action="/articles/add">
+  <div style="display:none;">
+    <input type="hidden" name="_method" value="POST">
+  </div>
+  <div class="form-group text">
+    <label class="col-form-label col-sm-6 col-md-4" for="title">Title</label>
+    <div class="col-sm-6 col-md-4">
+      <input type="text" name="title" id="title" class="form-control">
     </div>
-    <div class="form-group">
-        <div class="col-sm-offset-6 col-sm-6 col-md-offset-4 col-md-4">
-            <input type="hidden" name="published" value="0">
-            <label for="published">
-                <input type="checkbox" name="published" value="1" id="published" class="form-control">
-                Published
-            </label>
-        </div>
+  </div>
+  <div class="form-group">
+    <div class="col-sm-offset-6 col-md-offset-4 col-sm-6 col-md-4">
+      <div class="checkbox">
+        <input type="hidden" name="published" value="0">
+        <label for="published">
+          <input type="checkbox" name="published" value="1" id="published">Published
+        </label>
+      </div>
     </div>
+  </div>
+</form>
 ```
 
 ### Configuration
@@ -275,15 +302,26 @@ $this->loadHelper(
 
 To style auth flash messages properly set the `flash` key in `AuthComponent` config as shown:
 
+```php
+$this->loadComponent('Auth', [
+    'flash' => [
+        'element' => 'error',
+        'key' => 'auth'
+    ],
+    ...
 ```
-        $this->loadComponent('Auth', [
-            'flash' => [
-                'element' => 'error',
-                'key' => 'auth'
-            ],
-            ...
 
+### Flash Messages / Alerts
+
+You can set Flash Messages using the default Flash syntax. Supported types are `success`, `info`, `warning`, `error`.
+```php
+$this->Flash->success('Your Success Message.');
 ```
+If you need to set other Bootstrap Alert styles you can do this with:
+```php
+$this->Flash->set('Your Dark Message.', ['params' => ['class' => 'dark']]);
+```
+Supported styles are `primary`, `secondary`, `light`, `dark`.
 
 **NOTE: Check tests for more examples.**
 
@@ -325,5 +363,5 @@ Copyright (c) 2015, Jad Bitar and licensed under [The MIT License][mit].
 [composer]:http://getcomposer.org
 [composer:ignore]:http://getcomposer.org/doc/faqs/should-i-commit-the-dependencies-in-my-vendor-directory.md
 [mit]:http://www.opensource.org/licenses/mit-license.php
-[twbs3]:http://getbootstrap.com
-[bower]:http://bower.io
+[twbs4]:http://getbootstrap.com
+[npm]:https://www.npmjs.com/

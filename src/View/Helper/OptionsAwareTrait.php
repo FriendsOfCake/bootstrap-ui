@@ -5,31 +5,38 @@ namespace BootstrapUI\View\Helper;
 trait OptionsAwareTrait
 {
     /**
-     * A list of allowed styles for buttons.
+     * A list of allowed styles.
      *
      * @var array
      */
-    public $buttonClasses = [
-        'default', 'btn-default',
-        'success', 'btn-success',
-        'warning', 'btn-warning',
-        'danger', 'btn-danger',
-        'info', 'btn-info',
-        'primary', 'btn-primary'
+    public $classList = [
+        'primary',
+        'secondary',
+        'success',
+        'danger',
+        'warning',
+        'info',
+        'light',
+        'dark',
+        'link',
+        'sm',
+        'lg'
     ];
 
     /**
-     * A mapping of aliases for button styles.
+     * A list of all elements to which styles can be applied to.
      *
      * @var array
      */
-    public $buttonClassAliases = [
-        'default' => 'btn-default',
-        'success' => 'btn-success',
-        'warning' => 'btn-warning',
-        'danger' => 'btn-danger',
-        'info' => 'btn-info',
-        'primary' => 'btn-primary'
+    public $elementList = [
+        'alert',
+        'badge',
+        'bg',
+        'border',
+        'btn',
+        'btn-outline',
+        'list-group-item',
+        'input-group'
     ];
 
     /**
@@ -40,30 +47,33 @@ trait OptionsAwareTrait
      */
     public function applyButtonClasses(array $data)
     {
-        if ($this->hasAnyClass($this->buttonClasses, $data)) {
-            $data = $this->injectClasses(['btn'], $data);
+        $allClasses = $this->genAllClassNames('btn');
+
+        if ($this->hasAnyClass($allClasses, $data)) {
+            $data = $this->injectClasses('btn', $data);
         } else {
-            $data = $this->injectClasses(['btn', 'btn-default'], $data);
+            $data = $this->injectClasses(['btn', 'secondary'], $data);
         }
 
-        return $this->renameClasses($this->buttonClassAliases, $data);
+        return $this->renameClasses('btn', $data);
     }
 
     /**
      * Renames any CSS classes found in the options.
      *
-     * @param array $classMap Key/Value pair of class(es) to be renamed.
+     * @param string $element UI element to which the classname is applied.
      * @param array $options An array of HTML attributes and options.
      * @return array An array of HTML attributes and options.
      */
-    public function renameClasses(array $classMap, array $options)
+    public function renameClasses($element, array $options)
     {
         $options += ['class' => []];
+
         $options['class'] = $this->_toClassArray($options['class']);
         $classes = [];
         foreach ($options['class'] as $name) {
-            $classes[] = array_key_exists($name, $classMap)
-                ? $classMap[$name]
+            $classes[] = in_array($name, $this->classList)
+                ? $this->genClassName($element, $name)
                 : $name;
         }
         $options['class'] = trim(implode(' ', $classes));
@@ -161,5 +171,41 @@ trait OptionsAwareTrait
         }
 
         return $mixed;
+    }
+
+    /**
+     * Generates the classname of the given element
+     *
+     * @param string $element UI element to which the class can be applied (e.g. btn).
+     * @param string $class CSS class, which can be applied to the element.
+     * @return bool|string String of generated class, false if element/class not in list.
+     */
+    public function genClassName($element, $class)
+    {
+        if (!in_array($element, $this->elementList)) {
+            return false;
+        }
+
+        if (!in_array($class, $this->classList)) {
+            return false;
+        }
+
+        return $element . '-' . $class;
+    }
+
+    /**
+     * Generates a list of all classnames of a element
+     *
+     * @param string $element UI element
+     * @return array Array of all generated and raw styles
+     */
+    public function genAllClassNames($element)
+    {
+        $classes = [];
+        foreach ($this->classList as $class) {
+            $classes[] = $this->genClassName($element, $class);
+        }
+
+        return array_merge($this->classList, $classes);
     }
 }

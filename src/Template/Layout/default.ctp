@@ -7,7 +7,11 @@ use Cake\Core\Configure;
  */
 if (!$this->fetch('html')) {
     $this->start('html');
-    printf('<html lang="%s" class="no-js">', Configure::read('App.language'));
+    if (Configure::check('App.language')) {
+        printf('<html lang="%s">', Configure::read('App.language'));
+    } else {
+        echo '<html>';
+    }
     $this->end();
 }
 
@@ -25,7 +29,11 @@ if (!$this->fetch('title')) {
  */
 if (!$this->fetch('tb_footer')) {
     $this->start('tb_footer');
-    printf('&copy;%s %s', date('Y'), Configure::read('App.title'));
+    if (Configure::check('App.title')) {
+        printf('&copy;%s %s', date('Y'), Configure::read('App.title'));
+    } else {
+        printf('&copy;%s', date('Y'));
+    }
     $this->end();
 }
 
@@ -56,46 +64,33 @@ if (!$this->fetch('tb_body_end')) {
 /**
  * Prepend `meta` block with `author` and `favicon`.
  */
-$this->prepend('meta', $this->Html->meta('author', null, ['name' => 'author', 'content' => Configure::read('App.author')]));
+if (Configure::check('App.author')) {
+    $this->prepend('meta', $this->Html->meta('author', null, ['name' => 'author', 'content' => Configure::read('App.author')]));
+}
 $this->prepend('meta', $this->Html->meta('favicon.ico', '/favicon.ico', ['type' => 'icon']));
 
 /**
- * Prepend `css` block with Bootstrap stylesheets and append
- * the `$html5Shim`.
+ * Prepend `css` block with Bootstrap stylesheets
+ * Change to bootstrap.min to use the compressed version
  */
-$html5Shim =
-<<<HTML
+$this->prepend('css', $this->Html->css(['BootstrapUI.bootstrap']));
 
-    <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
-    <!--[if lt IE 9]>
-      <script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
-      <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
-    <![endif]-->
-HTML;
-$this->prepend('css', $this->Html->css(['bootstrap/bootstrap']));
-
-$this->append('css', $html5Shim);
 
 /**
- * Prepend `script` block with jQuery and Bootstrap scripts
+ * Prepend `script` block with jQuery, Popper and Bootstrap scripts
+ * Change jquery.min and bootstrap.min to use the compressed version
  */
-$this->prepend('script', $this->Html->script(['jquery/jquery', 'bootstrap/bootstrap']));
+$this->prepend('script', $this->Html->script(['BootstrapUI.jquery', 'BootstrapUI.popper', 'BootstrapUI.bootstrap']));
 
 ?>
-<!DOCTYPE html>
-
+<!doctype html>
 <?= $this->fetch('html') ?>
-
     <head>
-
         <?= $this->Html->charset() ?>
-        <meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1">
-
-        <title><?= $this->fetch('title') ?></title>
-
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+        <title><?= h($this->fetch('title')) ?></title>
         <?= $this->fetch('meta') ?>
         <?= $this->fetch('css') ?>
-
     </head>
 
     <?php

@@ -20,7 +20,7 @@ class FlashHelper extends Helper
      * @var array
      */
     protected $_defaultConfig = [
-        'class' => ['alert', 'alert-dismissible', 'fade', 'in'],
+        'class' => ['alert', 'alert-dismissible', 'fade', 'show'],
         'attributes' => ['role' => 'alert'],
         'element' => 'BootstrapUI.Flash/default'
     ];
@@ -72,6 +72,14 @@ class FlashHelper extends Helper
                 if (is_array($message['params']['class'])) {
                     $message['params']['class'][] = 'alert-' . $class;
                 }
+
+                if (is_string($message['params']['class']) &&
+                    preg_match('#primary|secondary|light|dark#', $message['params']['class'], $matches)
+                ) {
+                    $message['params']['class'] = $this->_config['class'];
+                    $message['params']['class'][] = 'alert-' . $matches[0];
+                }
+
                 $element = $this->_config['element'];
             }
 
@@ -79,15 +87,5 @@ class FlashHelper extends Helper
         }
 
         return $out;
-    }
-
-    /**
-     * Event listeners.
-     *
-     * @return array
-     */
-    public function implementedEvents()
-    {
-        return [];
     }
 }
