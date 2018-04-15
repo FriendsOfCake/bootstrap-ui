@@ -3,8 +3,8 @@
 namespace BootstrapUI\Test\TestCase\View\Helper;
 
 use BootstrapUI\View\Helper\FlashHelper;
+use Cake\Http\ServerRequest;
 use Cake\Http\Session;
-use Cake\Network\Request;
 use Cake\TestSuite\TestCase;
 use Cake\View\View;
 
@@ -34,7 +34,7 @@ class FlashHelperTest extends TestCase
         parent::setUp();
         $this->View = new View();
         $session = new Session();
-        $this->View->request = new Request(['session' => $session]);
+        $this->View->request = new ServerRequest(['session' => $session]);
         $this->Flash = new FlashHelper($this->View);
 
         $session->write([
