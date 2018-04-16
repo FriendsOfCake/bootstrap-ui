@@ -17,9 +17,10 @@
         }
     ],
     "require": {
-        "cakephp/cakephp": "^3.6"
+        "cakephp/cakephp": "^3.5"
     },
     "require-dev": {
+        "cakephp/chronos": "^1.1",
         "phpunit/phpunit": "^5.7.14|^6.0"
     },
     "support": {
