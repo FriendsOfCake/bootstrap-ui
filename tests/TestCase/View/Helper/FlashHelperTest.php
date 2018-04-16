@@ -4,7 +4,7 @@ namespace BootstrapUI\Test\TestCase\View\Helper;
 
 use BootstrapUI\View\Helper\FlashHelper;
 use Cake\Http\ServerRequest;
-use Cake\Http\Session;
+use Cake\Network\Session;
 use Cake\TestSuite\TestCase;
 use Cake\View\View;
 
@@ -33,7 +33,14 @@ class FlashHelperTest extends TestCase
     {
         parent::setUp();
         $this->View = new View();
-        $session = new Session();
+        $session = null;
+        if (method_exists($this, 'deprecated')) {
+            $this->deprecated(function () use (&$session) {
+                $session = new Session();
+            });
+        } else {
+            $session = new Session();
+        }
         $this->View->request = new ServerRequest(['session' => $session]);
         $this->Flash = new FlashHelper($this->View);
 
