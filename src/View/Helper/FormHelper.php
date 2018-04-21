@@ -280,7 +280,7 @@ class FormHelper extends Helper
 
             case 'textarea':
             default:
-                if ($options['label'] !== false && strpos($this->templates('label'), 'class=') === false) {
+                if ($options['label'] !== false && strpos($this->getTemplates('label'), 'class=') === false) {
                     $options['label'] = $this->injectClasses('col-form-label', (array)$options['label']);
                 }
         }
@@ -566,6 +566,6 @@ class FormHelper extends Helper
             }
         }
 
-        return $this->config('align');
+        return $this->getConfig('align');
     }
 }
