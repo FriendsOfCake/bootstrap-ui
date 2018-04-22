@@ -269,7 +269,7 @@ class FormHelper extends Helper
                 if (isset($options['multiple']) && $options['multiple'] === 'checkbox') {
                     $options['type'] = 'multicheckbox';
                 } else {
-                    if ($options['label'] !== false && strpos($this->templates('label'), 'class=') === false) {
+                    if ($options['label'] !== false && strpos($this->getTemplates('label'), 'class=') === false) {
                         $options['label'] = $this->injectClasses('col-form-label', (array)$options['label']);
                     }
                 }
