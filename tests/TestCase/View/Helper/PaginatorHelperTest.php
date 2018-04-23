@@ -58,7 +58,7 @@ class PaginatorHelperTest extends TestCase
                     'limit' => null,
                 ]
         ]);
-        
+
         Configure::write('Routing.prefixes', []);
         Router::reload();
         Router::connect('/:controller/:action/*');
@@ -86,7 +86,7 @@ class PaginatorHelperTest extends TestCase
      * @return void
      */
     public function testLinks()
-    { 
+    {
         $this->Paginator->request = $this->Paginator->request->withParam('paging', [
             'Client' => [
                 'page' => 8,

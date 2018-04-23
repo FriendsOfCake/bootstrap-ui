@@ -49,7 +49,7 @@ class FormHelperTest extends TestCase
                 ->withAttribute('webroot', '')
                 ->withAttribute('base', '');
         $this->Form->Url->request = $this->Form->request = $request;
-        
+
         $this->article = [
             'schema' => [
                 'id' => ['type' => 'integer'],
@@ -68,7 +68,7 @@ class FormHelperTest extends TestCase
         Security::setSalt('foo!');
         Router::connect('/:controller', ['action' => 'index']);
         Router::connect('/:controller/:action/*');
-        
+
         $this->locale = I18n::getLocale();
         I18n::setLocale('eng');
     }

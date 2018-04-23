@@ -565,7 +565,7 @@ class FormHelper extends Helper
                 return $align;
             }
         }
-        
+
         return $this->getConfig('align');
     }
 }
