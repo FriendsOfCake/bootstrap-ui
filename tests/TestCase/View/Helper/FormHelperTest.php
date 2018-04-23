@@ -4,7 +4,8 @@ namespace BootstrapUI\Test\TestCase\View\Helper;
 
 use BootstrapUI\View\Helper\FormHelper;
 use Cake\Core\Configure;
-use Cake\Network\Request;
+use Cake\Http\ServerRequest;
+use Cake\I18n\I18n;
 use Cake\ORM\TableRegistry;
 use Cake\Routing\Router;
 use Cake\TestSuite\TestCase;
@@ -40,14 +41,15 @@ class FormHelperTest extends TestCase
         $this->View = new View();
 
         $this->Form = new FormHelper($this->View);
-        $request = new Request('articles/add');
-        $request->here = '/articles/add';
-        $request['controller'] = 'articles';
-        $request['action'] = 'add';
-        $request->webroot = '';
-        $request->base = '';
+        $request = new ServerRequest('articles/add');
+        $request = $request
+                ->withRequestTarget('/articles/add')
+                ->withParam('controller', 'articles')
+                ->withParam('action', 'add')
+                ->withAttribute('webroot', '')
+                ->withAttribute('base', '');
         $this->Form->Url->request = $this->Form->request = $request;
-
+        
         $this->article = [
             'schema' => [
                 'id' => ['type' => 'integer'],
@@ -63,9 +65,12 @@ class FormHelperTest extends TestCase
             ]
         ];
 
-        Security::salt('foo!');
+        Security::setSalt('foo!');
         Router::connect('/:controller', ['action' => 'index']);
         Router::connect('/:controller/:action/*');
+        
+        $this->locale = I18n::getLocale();
+        I18n::setLocale('eng');
     }
 
     public function tearDown()
@@ -73,6 +78,7 @@ class FormHelperTest extends TestCase
         parent::tearDown();
         unset($this->Form, $this->View);
         TableRegistry::clear();
+        I18n::setLocale($this->locale);
     }
 
     public function testBasicTextInput()
@@ -1079,7 +1085,7 @@ class FormHelperTest extends TestCase
 
     public function testHorizontalFormCreateFromConfig()
     {
-        $this->Form->config([
+        $this->Form->setConfig([
             'align' => 'horizontal',
             'templateSet' => [
                 'horizontal' => [

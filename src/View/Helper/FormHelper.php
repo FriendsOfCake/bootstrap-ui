@@ -481,7 +481,7 @@ class FormHelper extends Helper
             $this->_grid = $options['align'];
             $options['align'] = 'horizontal';
         } elseif ($options['align'] === 'horizontal') {
-            $this->_grid = $this->config('grid');
+            $this->_grid = $this->getConfig('grid');
         }
 
         if (!in_array($options['align'], ['default', 'horizontal', 'inline'])) {
@@ -565,7 +565,7 @@ class FormHelper extends Helper
                 return $align;
             }
         }
-
+        
         return $this->getConfig('align');
     }
 }

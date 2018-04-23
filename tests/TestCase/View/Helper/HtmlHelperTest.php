@@ -75,30 +75,6 @@ class HtmlHelperTest extends TestCase
         $this->assertHtml($expected, $result);
     }
 
-    public function testCrumbList()
-    {
-        $result = $this->Html
-            ->addCrumb('jadb')
-            ->addCrumb('admad')
-            ->addCrumb('joe')
-            ->getCrumbList();
-
-        $expected = [
-            'ul' => ['class' => 'breadcrumb'],
-            ['li' => ['class' => 'first']],
-            'jadb',
-            '/li',
-            '<li',
-            'admad',
-            '/li',
-            ['li' => ['class' => 'last']],
-            'joe',
-            '/li',
-            '/ul'
-        ];
-        $this->assertHtml($expected, $result);
-    }
-
     public function testLabel()
     {
         $result = $this->Html->label('foo');
