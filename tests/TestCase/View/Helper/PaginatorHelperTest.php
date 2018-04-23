@@ -3,8 +3,8 @@ namespace BootstrapUI\Test\TestCase\View\Helper;
 
 use BootstrapUI\View\Helper\PaginatorHelper;
 use Cake\Core\Configure;
-use Cake\I18n\I18n;
 use Cake\Http\ServerRequest;
+use Cake\I18n\I18n;
 use Cake\Routing\Router;
 use Cake\TestSuite\TestCase;
 use Cake\View\View;
