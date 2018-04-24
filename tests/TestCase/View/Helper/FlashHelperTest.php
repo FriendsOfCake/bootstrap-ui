@@ -4,8 +4,7 @@ namespace BootstrapUI\Test\TestCase\View\Helper;
 
 use BootstrapUI\View\Helper\FlashHelper;
 use Cake\Core\Exception\Exception;
-use Cake\Network\Request;
-use Cake\Network\Session;
+use Cake\Http\ServerRequest;
 use Cake\TestSuite\TestCase;
 use Cake\View\View;
 
@@ -34,8 +33,17 @@ class FlashHelperTest extends TestCase
     {
         parent::setUp();
         $this->View = new View();
-        $session = new Session();
-        $this->View->request = new Request(['session' => $session]);
+
+        // load appropriate session class according to Cake version
+        if (class_exists('\Cake\Http\Session')) {
+            // 3.6 and later
+            $session = new \Cake\Http\Session();
+        } else {
+            // before 3.6
+            $session = new \Cake\Network\Session();
+        }
+
+        $this->View->request = new ServerRequest(['session' => $session]);
         $this->Flash = new FlashHelper($this->View);
 
         $session->write([
@@ -134,13 +142,13 @@ class FlashHelperTest extends TestCase
     }
 
     /**
-     * In CakePHP 3.1 you multple message per key
+     * In CakePHP 3.1 you multiple message per key
      *
      * @return void
      */
     public function testRenderForMultipleMessages()
     {
-        $this->View->request->session()->write([
+        $this->View->request->getSession()->write([
             'Flash' => [
                 'flash' => [
                     [

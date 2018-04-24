@@ -4,7 +4,8 @@ namespace BootstrapUI\Test\TestCase\View\Helper;
 
 use BootstrapUI\View\Helper\FormHelper;
 use Cake\Core\Configure;
-use Cake\Network\Request;
+use Cake\Http\ServerRequest;
+use Cake\I18n\I18n;
 use Cake\ORM\TableRegistry;
 use Cake\Routing\Router;
 use Cake\TestSuite\TestCase;
@@ -29,6 +30,11 @@ class FormHelperTest extends TestCase
      */
     public $article;
 
+    /**
+     * setUp method
+     *
+     * @return void
+     */
     public function setUp()
     {
         parent::setUp();
@@ -40,12 +46,13 @@ class FormHelperTest extends TestCase
         $this->View = new View();
 
         $this->Form = new FormHelper($this->View);
-        $request = new Request('articles/add');
-        $request->here = '/articles/add';
-        $request['controller'] = 'articles';
-        $request['action'] = 'add';
-        $request->webroot = '';
-        $request->base = '';
+        $request = new ServerRequest('articles/add');
+        $request = $request
+                ->withRequestTarget('/articles/add')
+                ->withParam('controller', 'articles')
+                ->withParam('action', 'add')
+                ->withAttribute('webroot', '')
+                ->withAttribute('base', '');
         $this->Form->Url->request = $this->Form->request = $request;
 
         $this->article = [
@@ -63,40 +70,32 @@ class FormHelperTest extends TestCase
             ]
         ];
 
-        Security::salt('foo!');
+        Security::setSalt('foo!');
         Router::connect('/:controller', ['action' => 'index']);
         Router::connect('/:controller/:action/*');
+
+        $this->locale = I18n::getLocale();
+        I18n::setLocale('eng');
     }
 
+    /**
+     * tearDown method
+     *
+     * @return void
+     */
     public function tearDown()
     {
         parent::tearDown();
         unset($this->Form, $this->View);
         TableRegistry::clear();
+        I18n::setLocale($this->locale);
     }
 
-    public function testBasicTextInput()
-    {
-        unset($this->article['required']['title']);
-        $this->Form->create($this->article);
-
-        $result = $this->Form->input('title');
-        $expected = [
-            'div' => ['class' => 'form-group text'],
-            'label' => ['class' => 'col-form-label', 'for' => 'title'],
-            'Title',
-            '/label',
-            'input' => [
-                'type' => 'text',
-                'name' => 'title',
-                'id' => 'title',
-                'class' => 'form-control',
-            ],
-            '/div'
-        ];
-        $this->assertHtml($expected, $result);
-    }
-
+    /**
+     * testBasicControl method
+     *
+     * @return void
+     */
     public function testBasicTextControl()
     {
         unset($this->article['required']['title']);
@@ -119,11 +118,16 @@ class FormHelperTest extends TestCase
         $this->assertHtml($expected, $result);
     }
 
-    public function testSelectInput()
+    /**
+     * testSelectControl method
+     *
+     * @return void
+     */
+    public function testSelectControl()
     {
         $this->Form->create($this->article);
 
-        $result = $this->Form->input('foreign_key', [
+        $result = $this->Form->control('foreign_key', [
             'type' => 'select',
             'class' => 'my-class'
         ]);
@@ -143,13 +147,18 @@ class FormHelperTest extends TestCase
         $this->assertHtml($expected, $result);
     }
 
+    /**
+     * testStaticControl method
+     *
+     * @return void
+     */
     public function testStaticControl()
     {
         unset($this->article['required']['title']);
         $this->article['defaults']['title'] = 'foo <u>bar</u>';
         $this->Form->create($this->article);
 
-        $result = $this->Form->input('title', ['type' => 'staticControl']);
+        $result = $this->Form->control('title', ['type' => 'staticControl']);
         $expected = [
             'div' => ['class' => 'form-group staticControl'],
             'label' => ['class' => 'col-form-label', 'for' => 'title'],
@@ -171,7 +180,7 @@ class FormHelperTest extends TestCase
 
         $this->Form->fields = [];
 
-        $result = $this->Form->input('title', ['type' => 'staticControl', 'hiddenField' => false, 'escape' => false]);
+        $result = $this->Form->control('title', ['type' => 'staticControl', 'hiddenField' => false, 'escape' => false]);
         $expected = [
             'div' => ['class' => 'form-group staticControl'],
             'label' => ['class' => 'col-form-label', 'for' => 'title'],
@@ -189,12 +198,17 @@ class FormHelperTest extends TestCase
         $this->assertEmpty($this->Form->fields);
     }
 
-    public function testNoLabelTextInput()
+    /**
+     * testNoLabelTextControl method
+     *
+     * @return void
+     */
+    public function testNoLabelTextControl()
     {
         unset($this->article['required']['title']);
         $this->Form->create($this->article);
 
-        $result = $this->Form->input('title', ['label' => false]);
+        $result = $this->Form->control('title', ['label' => false]);
         $expected = [
             'div' => ['class' => 'form-group text'],
             'input' => [
@@ -208,12 +222,17 @@ class FormHelperTest extends TestCase
         $this->assertHtml($expected, $result);
     }
 
-    public function testLabelledTextInput()
+    /**
+     * testLabelledTextControl method
+     *
+     * @return void
+     */
+    public function testLabelledTextControl()
     {
         unset($this->article['required']['title']);
         $this->Form->create($this->article);
 
-        $result = $this->Form->input('title', ['label' => 'Custom Title']);
+        $result = $this->Form->control('title', ['label' => 'Custom Title']);
         $expected = [
             'div' => ['class' => 'form-group text'],
             'label' => ['class' => 'col-form-label', 'for' => 'title'],
@@ -230,12 +249,17 @@ class FormHelperTest extends TestCase
         $this->assertHtml($expected, $result);
     }
 
-    public function testArrayLabelledTextInput()
+    /**
+     * testArrayLabelledTextControl method
+     *
+     * @return void
+     */
+    public function testArrayLabelledTextControl()
     {
         unset($this->article['required']['title']);
         $this->Form->create($this->article);
 
-        $result = $this->Form->input('title', ['label' => ['foo' => 'bar', 'text' => 'Custom Title']]);
+        $result = $this->Form->control('title', ['label' => ['foo' => 'bar', 'text' => 'Custom Title']]);
         $expected = [
             'div' => ['class' => 'form-group text'],
             'label' => ['class' => 'col-form-label', 'for' => 'title', 'foo' => 'bar'],
@@ -252,12 +276,17 @@ class FormHelperTest extends TestCase
         $this->assertHtml($expected, $result);
     }
 
-    public function testBasicPasswordInput()
+    /**
+     * testBasicPasswordControl method
+     *
+     * @return void
+     */
+    public function testBasicPasswordControl()
     {
         $this->article['schema']['password'] = ['type' => 'string'];
         $this->Form->create($this->article);
 
-        $result = $this->Form->input('password');
+        $result = $this->Form->control('password');
         $expected = [
             'div' => ['class' => 'form-group password'],
             'label' => ['class' => 'col-form-label', 'for' => 'password'],
@@ -274,11 +303,16 @@ class FormHelperTest extends TestCase
         $this->assertHtml($expected, $result);
     }
 
-    public function testRequiredTextInput()
+    /**
+     * testRequiredTextControl method
+     *
+     * @return void
+     */
+    public function testRequiredTextControl()
     {
         $this->Form->create($this->article);
 
-        $result = $this->Form->input('title');
+        $result = $this->Form->control('title');
         $expected = [
             'div' => ['class' => 'form-group text required'],
             'label' => ['class' => 'col-form-label', 'for' => 'title'],
@@ -296,7 +330,12 @@ class FormHelperTest extends TestCase
         $this->assertHtml($expected, $result);
     }
 
-    public function testErroredTextInput()
+    /**
+     * testErroredTextControl method
+     *
+     * @return void
+     */
+    public function testErroredTextControl()
     {
         $this->article['errors'] = [
             'title' => ['error message'],
@@ -304,7 +343,7 @@ class FormHelperTest extends TestCase
         ];
         $this->Form->create($this->article);
 
-        $result = $this->Form->input('title');
+        $result = $this->Form->control('title');
         $expected = [
             'div' => ['class' => 'form-group text required is-invalid'],
             'label' => ['class' => 'col-form-label', 'for' => 'title'],
@@ -327,7 +366,7 @@ class FormHelperTest extends TestCase
 
         $this->Form->create($this->article, ['align' => 'horizontal']);
 
-        $result = $this->Form->input('title');
+        $result = $this->Form->control('title');
         $expected = [
             'div' => ['class' => 'form-group text required is-invalid'],
             'label' => ['class' => 'col-form-label col-md-2', 'for' => 'title'],
@@ -350,7 +389,7 @@ class FormHelperTest extends TestCase
 
         $this->assertHtml($expected, $result);
 
-        $result = $this->Form->input('published');
+        $result = $this->Form->control('published');
         $expected = [
             ['div' => ['class' => 'form-group is-invalid']],
             ['div' => ['class' => 'col-md-offset-2 col-md-6']],
@@ -366,11 +405,16 @@ class FormHelperTest extends TestCase
         $this->assertHtml($expected, $result);
     }
 
-    public function testAddOnPrependedInput()
+    /**
+     * testAddOnPrependedControl method
+     *
+     * @return void
+     */
+    public function testAddOnPrependedConrol()
     {
         $this->Form->create($this->article);
 
-        $result = $this->Form->input('title', ['prepend' => '@']);
+        $result = $this->Form->control('title', ['prepend' => '@']);
         $expected = [
             'div' => ['class' => 'form-group text required'],
             'label' => ['class' => 'col-form-label', 'for' => 'title'],
@@ -394,7 +438,7 @@ class FormHelperTest extends TestCase
         ];
         $this->assertHtml($expected, $result);
 
-        $result = $this->Form->input('url', ['prepend' => 'http://']);
+        $result = $this->Form->control('url', ['prepend' => 'http://']);
         $expected = [
             'div' => ['class' => 'form-group text'],
             'label' => ['class' => 'col-form-label', 'for' => 'url'],
@@ -418,11 +462,16 @@ class FormHelperTest extends TestCase
         $this->assertHtml($expected, $result);
     }
 
-    public function testAddOnAppendedInput()
+    /**
+     * testAddOnAppendedControl method
+     *
+     * @return void
+     */
+    public function testAddOnAppendedControl()
     {
         $this->Form->create($this->article);
 
-        $result = $this->Form->input('title', ['append' => '@']);
+        $result = $this->Form->control('title', ['append' => '@']);
         $expected = [
             'div' => ['class' => 'form-group text required'],
             'label' => ['class' => 'col-form-label', 'for' => 'title'],
@@ -446,7 +495,7 @@ class FormHelperTest extends TestCase
         ];
         $this->assertHtml($expected, $result);
 
-        $result = $this->Form->input('title', ['append' => ['@', ['size' => 'lg']]]);
+        $result = $this->Form->control('title', ['append' => ['@', ['size' => 'lg']]]);
         $expected = [
             'div' => ['class' => 'form-group text required'],
             'label' => ['class' => 'col-form-label', 'for' => 'title'],
@@ -471,11 +520,16 @@ class FormHelperTest extends TestCase
         $this->assertHtml($expected, $result);
     }
 
+    /**
+     * testAddOnAppendedSelect method
+     *
+     * @return void
+     */
     public function testAddOnAppendedSelect()
     {
         $this->Form->create($this->article);
 
-        $result = $this->Form->input('author_id', ['append' => '@']);
+        $result = $this->Form->control('author_id', ['append' => '@']);
         $expected = [
             'div' => ['class' => 'form-group select required'],
             'label' => ['class' => 'col-form-label', 'for' => 'author-id'],
@@ -500,11 +554,16 @@ class FormHelperTest extends TestCase
         $this->assertHtml($expected, $result);
     }
 
+    /**
+     * testAddOnAppendedTextarea method
+     *
+     * @return void
+     */
     public function testAddOnAppendedTextarea()
     {
         $this->Form->create($this->article);
 
-        $result = $this->Form->input('body', [
+        $result = $this->Form->control('body', [
             'type' => 'textarea',
             'append' => $this->Form->button('GO')
         ]);
@@ -532,11 +591,16 @@ class FormHelperTest extends TestCase
         $this->assertHtml($expected, $result);
     }
 
-    public function testButtonPrependedInput()
+    /**
+     * testButtonPrependedControl method
+     *
+     * @return void
+     */
+    public function testButtonPrependedControl()
     {
         $this->Form->create($this->article);
 
-        $result = $this->Form->input('title', ['prepend' => $this->Form->button('GO')]);
+        $result = $this->Form->control('title', ['prepend' => $this->Form->button('GO')]);
         $expected = [
             'div' => ['class' => 'form-group text required'],
             'label' => ['class' => 'col-form-label', 'for' => 'title'],
@@ -561,11 +625,16 @@ class FormHelperTest extends TestCase
         $this->assertHtml($expected, $result);
     }
 
-    public function testButtonAppendedInput()
+    /**
+     * testButtonAppendedControl method
+     *
+     * @return void
+     */
+    public function testButtonAppendedControl()
     {
         $this->Form->create($this->article);
 
-        $result = $this->Form->input('title', ['append' => $this->Form->button('GO')]);
+        $result = $this->Form->control('title', ['append' => $this->Form->button('GO')]);
         $expected = [
             'div' => ['class' => 'form-group text required'],
             'label' => ['class' => 'col-form-label', 'for' => 'title'],
@@ -590,11 +659,16 @@ class FormHelperTest extends TestCase
         $this->assertHtml($expected, $result);
     }
 
-    public function testBasicRadioInput()
+    /**
+     * testBasicRadioControl method
+     *
+     * @return void
+     */
+    public function testBasicRadioControl()
     {
         $this->Form->create($this->article);
 
-        $result = $this->Form->input('published', [
+        $result = $this->Form->control('published', [
             'type' => 'radio',
             'options' => ['Yes', 'No']
         ]);
@@ -635,11 +709,16 @@ class FormHelperTest extends TestCase
         $this->assertHtml($expected, $result);
     }
 
-    public function testInlineRadioInput()
+    /**
+     * testInlineRadioControl method
+     *
+     * @return void
+     */
+    public function testInlineRadioControl()
     {
         $this->Form->create($this->article);
 
-        $result = $this->Form->input('published', [
+        $result = $this->Form->control('published', [
             'inline' => true,
             'type' => 'radio',
             'options' => ['Yes', 'No']
@@ -685,7 +764,12 @@ class FormHelperTest extends TestCase
         $this->assertHtml($expected, $result);
     }
 
-    public function testRadioInputHorizontal()
+    /**
+     * testHorizontalRadioControl method
+     *
+     * @return void
+     */
+    public function testHorizontalRadiocontrol()
     {
         $this->Form->create($this->article, [
             'align' => [
@@ -696,7 +780,7 @@ class FormHelperTest extends TestCase
             ]
         ]);
 
-        $result = $this->Form->input('published', [
+        $result = $this->Form->control('published', [
             'type' => 'radio',
             'options' => ['Yes', 'No']
         ]);
@@ -739,7 +823,12 @@ class FormHelperTest extends TestCase
         $this->assertHtml($expected, $result);
     }
 
-    public function testInlineRadioInputHorizontal()
+    /**
+     * testInlineHorizontalRadioControl method
+     *
+     * @return void
+     */
+    public function testInlineHorizontalRadioControl()
     {
         $this->Form->create($this->article, [
             'align' => [
@@ -750,7 +839,7 @@ class FormHelperTest extends TestCase
             ]
         ]);
 
-        $result = $this->Form->input('published', [
+        $result = $this->Form->control('published', [
             'inline' => true,
             'type' => 'radio',
             'options' => ['Yes', 'No']
@@ -797,11 +886,12 @@ class FormHelperTest extends TestCase
     }
 
     /**
+     * testCustomTemplateRadioControl method
      * https://github.com/FriendsOfCake/bootstrap-ui/pull/113
      *
      * @return void
      */
-    public function testRadioInputCustomTemplate()
+    public function testCustomTemplateRadioControl()
     {
         $templates = [
             'radioNestingLabel' => '<div class="radio custom-class">{{hidden}}<label{{attrs}}>{{input}}{{text}}</label></div>',
@@ -809,7 +899,7 @@ class FormHelperTest extends TestCase
 
         $this->Form->create($this->article);
 
-        $result = $this->Form->input('published', [
+        $result = $this->Form->control('published', [
             'type' => 'radio',
             'options' => ['Yes', 'No'],
             'templates' => $templates
@@ -852,11 +942,16 @@ class FormHelperTest extends TestCase
         $this->assertHtml($expected, $result);
     }
 
-    public function testBasicCheckboxInput()
+    /**
+     * testBasicCheckboxControl method
+     *
+     * @return void
+     */
+    public function testBasicCheckboxControl()
     {
         $this->Form->create($this->article);
 
-        $result = $this->Form->input('published');
+        $result = $this->Form->control('published');
         $expected = [
             'div' => ['class' => 'form-check'],
             'input' => [
@@ -878,11 +973,16 @@ class FormHelperTest extends TestCase
         $this->assertHtml($expected, $result);
     }
 
-    public function testInlineCheckboxInput()
+    /**
+     * testInlineCheckboxControl method
+     *
+     * @return void
+     */
+    public function testInlineCheckboxControl()
     {
         $this->Form->create($this->article);
 
-        $result = $this->Form->input('published', ['inline' => true]);
+        $result = $this->Form->control('published', ['inline' => true]);
         $expected = [
             'input' => [
                 'type' => 'hidden',
@@ -902,6 +1002,11 @@ class FormHelperTest extends TestCase
         $this->assertHtml($expected, $result);
     }
 
+    /**
+     * testBasicFormCreate method
+     *
+     * @return void
+     */
     public function testBasicFormCreate()
     {
         $result = $this->Form->create($this->article);
@@ -925,18 +1030,28 @@ class FormHelperTest extends TestCase
         $result = $this->Form->create($this->article, ['align' => 'inline']);
     }
 
+    /**
+     * testBasicFormEnd method
+     *
+     * @return void
+     */
     public function testBasicFormEnd()
     {
         $this->Form->create($this->article);
         $this->assertHtml('/form', $this->Form->end());
     }
 
+    /**
+     * testFormCreateWithTemplatesFile method
+     *
+     * @return void
+     */
     public function testFormCreateWithTemplatesFile()
     {
         unset($this->article['required']['title']);
         $this->Form->create($this->article, ['templates' => 'custom_templates']);
 
-        $result = $this->Form->input('title');
+        $result = $this->Form->control('title');
         $expected = [
             'div' => ['class' => 'custom-container form-group'],
             'label' => ['class' => 'col-form-label', 'for' => 'title'],
@@ -953,6 +1068,11 @@ class FormHelperTest extends TestCase
         $this->assertHtml($expected, $result);
     }
 
+    /**
+     * testInlineFormCreate method
+     *
+     * @return void
+     */
     public function testInlineFormCreate()
     {
         $result = $this->Form->create($this->article, ['class' => 'form-inline']);
@@ -975,6 +1095,11 @@ class FormHelperTest extends TestCase
         $this->assertHtml($expected, $result);
     }
 
+    /**
+     * testHorizontalFormCreate method
+     *
+     * @return void
+     */
     public function testHorizontalFormCreate()
     {
         $result = $this->Form->create($this->article, ['align' => 'horizontal']);
@@ -996,7 +1121,7 @@ class FormHelperTest extends TestCase
         ];
         $this->assertHtml($expected, $result);
 
-        $result = $this->Form->input('title');
+        $result = $this->Form->control('title');
         $expected = [
             'div' => ['class' => 'form-group text required'],
             'label' => [
@@ -1018,7 +1143,7 @@ class FormHelperTest extends TestCase
         ];
         $this->assertHtml($expected, $result);
 
-        $result = $this->Form->input('published');
+        $result = $this->Form->control('published');
         $expected = [
             'div' => ['class' => 'form-group'],
             ['div' => ['class' => 'col-md-offset-2 col-md-6']],
@@ -1044,6 +1169,11 @@ class FormHelperTest extends TestCase
         $this->assertHtml($expected, $result);
     }
 
+    /**
+     * testCustomGrid method
+     *
+     * @return void
+     */
     public function testCustomGrid()
     {
         $this->Form->create($this->article, [
@@ -1054,7 +1184,7 @@ class FormHelperTest extends TestCase
             ]
         ]);
 
-        $result = $this->Form->input('title');
+        $result = $this->Form->control('title');
         $expected = [
             'div' => ['class' => 'form-group text required'],
             'label' => [
@@ -1077,9 +1207,14 @@ class FormHelperTest extends TestCase
         $this->assertHtml($expected, $result);
     }
 
+    /**
+     * testHorizontalFormCreateFromConfig method
+     *
+     * @return void
+     */
     public function testHorizontalFormCreateFromConfig()
     {
-        $this->Form->config([
+        $this->Form->setConfig([
             'align' => 'horizontal',
             'templateSet' => [
                 'horizontal' => [
@@ -1106,7 +1241,7 @@ class FormHelperTest extends TestCase
         ];
         $this->assertHtml($expected, $result);
 
-        $result = $this->Form->input('title');
+        $result = $this->Form->control('title');
         $expected = [
             'div' => ['class' => 'form-group text required'],
             'label' => [
@@ -1128,7 +1263,7 @@ class FormHelperTest extends TestCase
         ];
         $this->assertHtml($expected, $result);
 
-        $result = $this->Form->input('published');
+        $result = $this->Form->control('published');
         $expected = [
             'div' => ['class' => 'form-group'],
             ['div' => ['class' => 'col-md-offset-2 col-md-6']],
@@ -1154,6 +1289,11 @@ class FormHelperTest extends TestCase
         $this->assertHtml($expected, $result);
     }
 
+    /**
+     * testBasicButton method
+     *
+     * @return void
+     */
     public function testBasicButton()
     {
         $result = $this->Form->button('Submit');
@@ -1165,6 +1305,11 @@ class FormHelperTest extends TestCase
         $this->assertHtml($expected, $result);
     }
 
+    /**
+     * testBasicFormSubmit method
+     *
+     * @return void
+     */
     public function testBasicFormSubmit()
     {
         $result = $this->Form->submit('Submit');
@@ -1179,6 +1324,11 @@ class FormHelperTest extends TestCase
         $this->assertHtml($expected, $result);
     }
 
+    /**
+     * testStyledFormSubmi method
+     *
+     * @return void
+     */
     public function testStyledFormSubmit()
     {
         $result = $this->Form->submit('Submit', ['class' => 'btn btn-block']);
@@ -1204,6 +1354,11 @@ class FormHelperTest extends TestCase
         $this->assertHtml($expected, $result);
     }
 
+    /**
+     * testHorizontalFormSubmit method
+     *
+     * @return void
+     */
     public function testHorizontalFormSubmit()
     {
         $this->Form->create($this->article, ['align' => 'horizontal']);
@@ -1222,6 +1377,11 @@ class FormHelperTest extends TestCase
         $this->assertHtml($expected, $result);
     }
 
+    /**
+     * testStyledButton method
+     *
+     * @return void
+     */
     public function testStyledButton()
     {
         $result = $this->Form->button('Submit', ['class' => 'success']);
@@ -1233,6 +1393,11 @@ class FormHelperTest extends TestCase
         $this->assertHtml($expected, $result);
     }
 
+    /**
+     * testPrimaryStyledButton method
+     *
+     * @return void
+     */
     public function testPrimaryStyledButton()
     {
         $result = $this->Form->button('Submit', ['class' => 'primary']);
@@ -1244,7 +1409,12 @@ class FormHelperTest extends TestCase
         $this->assertHtml($expected, $result);
     }
 
-    public function testSelectMultipleCheckbox()
+    /**
+     * testMultipleCheckboxSelect method
+     *
+     * @return void
+     */
+    public function testMultipleCheckboxSelect()
     {
         $options = [
             'Value 1' => 'Label 1',
@@ -1288,11 +1458,16 @@ class FormHelperTest extends TestCase
         $this->assertHtml($expected, $result);
     }
 
-    public function testMultipleCheckboxInput()
+    /**
+     * testMultipleCheckboxControl method
+     *
+     * @return void
+     */
+    public function testMultipleCheckboxControl()
     {
         $this->Form->create($this->article);
 
-        $result = $this->Form->input('users', [
+        $result = $this->Form->control('users', [
             'multiple' => 'checkbox',
             'options' => [
                 1 => 'User 1',
@@ -1340,11 +1515,16 @@ class FormHelperTest extends TestCase
         $this->assertHtml($expected, $result);
     }
 
+    /**
+     * testHelpText method
+     *
+     * @return void
+     */
     public function testHelpText()
     {
         $this->Form->create($this->article);
 
-        $result = $this->Form->input('title', ['help' => 'help text']);
+        $result = $this->Form->control('title', ['help' => 'help text']);
         $expected = [
             'div' => ['class' => 'form-group text required'],
             'label' => ['class' => 'col-form-label', 'for' => 'title'],
@@ -1364,7 +1544,7 @@ class FormHelperTest extends TestCase
         ];
         $this->assertHtml($expected, $result);
 
-        $result = $this->Form->input('title', ['help' => ['content' => 'help text', 'id' => 'test']]);
+        $result = $this->Form->control('title', ['help' => ['content' => 'help text', 'id' => 'test']]);
         $expected = [
             'div' => ['class' => 'form-group text required'],
             'label' => ['class' => 'col-form-label', 'for' => 'title'],
@@ -1384,7 +1564,7 @@ class FormHelperTest extends TestCase
         ];
         $this->assertHtml($expected, $result);
 
-        $result = $this->Form->input('published', ['help' => 'help text']);
+        $result = $this->Form->control('published', ['help' => 'help text']);
         $expected = [
             'div' => ['class' => 'form-check'],
             'input' => [
@@ -1413,7 +1593,7 @@ class FormHelperTest extends TestCase
         ];
         $this->Form->create($this->article);
 
-        $result = $this->Form->input('title', ['help' => 'help text']);
+        $result = $this->Form->control('title', ['help' => 'help text']);
         $expected = [
             'div' => ['class' => 'form-group text required is-invalid'],
             'label' => ['class' => 'col-form-label', 'for' => 'title'],
@@ -1436,7 +1616,7 @@ class FormHelperTest extends TestCase
         ];
         $this->assertHtml($expected, $result);
 
-        $result = $this->Form->input('title', [
+        $result = $this->Form->control('title', [
             'help' => 'help text',
             'templates' => ['help' => '<div class="custom-help-block">{{content}}</div>']
         ]);
@@ -1463,11 +1643,16 @@ class FormHelperTest extends TestCase
         $this->assertHtml($expected, $result);
     }
 
+    /**
+     * testHelpTextHorizontal method
+     *
+     * @return void
+     */
     public function testHelpTextHorizontal()
     {
         $this->Form->create($this->article, ['align' => 'horizontal']);
 
-        $result = $this->Form->input('title', ['help' => 'help text']);
+        $result = $this->Form->control('title', ['help' => 'help text']);
         $expected = [
             'div' => ['class' => 'form-group text required'],
             'label' => ['class' => 'col-form-label col-md-2', 'for' => 'title'],
@@ -1489,7 +1674,7 @@ class FormHelperTest extends TestCase
         ];
         $this->assertHtml($expected, $result);
 
-        $result = $this->Form->input('published', ['help' => 'help text']);
+        $result = $this->Form->control('published', ['help' => 'help text']);
         $expected = [
             'div' => ['class' => 'form-group'],
             ['div' => ['class' => 'col-md-offset-2 col-md-6']],
@@ -1522,7 +1707,7 @@ class FormHelperTest extends TestCase
         ];
         $this->Form->create($this->article, ['align' => 'horizontal']);
 
-        $result = $this->Form->input('title', ['help' => 'help text']);
+        $result = $this->Form->control('title', ['help' => 'help text']);
         $expected = [
             'div' => ['class' => 'form-group text required is-invalid'],
             'label' => ['class' => 'col-form-label col-md-2', 'for' => 'title'],
@@ -1549,6 +1734,8 @@ class FormHelperTest extends TestCase
     }
 
     /**
+     * testTooltip method
+     *
      * @return void
      */
     public function testTooltip()
@@ -1576,6 +1763,8 @@ class FormHelperTest extends TestCase
     }
 
     /**
+     * testTooltipHorizontal method
+     *
      * @return void
      */
     public function testTooltipHorizontal()
@@ -1636,6 +1825,11 @@ class FormHelperTest extends TestCase
         $this->assertNotContains('"form-control"', $result);
     }
 
+    /**
+     * testFormAlignment method
+     *
+     * @return void
+     */
     public function testFormAlignment()
     {
         $this->expectException(InvalidArgumentException::class);
