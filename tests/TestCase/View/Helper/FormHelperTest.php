@@ -32,7 +32,7 @@ class FormHelperTest extends TestCase
 
     /**
      * setUp method
-     * 
+     *
      * @return void
      */
     public function setUp()
@@ -80,7 +80,7 @@ class FormHelperTest extends TestCase
 
     /**
      * tearDown method
-     * 
+     *
      * @return void
      */
     public function tearDown()
@@ -93,7 +93,7 @@ class FormHelperTest extends TestCase
 
     /**
      * testBasicControl method
-     * 
+     *
      * @return void
      */
     public function testBasicTextControl()
@@ -120,7 +120,7 @@ class FormHelperTest extends TestCase
 
     /**
      * testSelectControl method
-     * 
+     *
      * @return void
      */
     public function testSelectControl()
@@ -149,7 +149,7 @@ class FormHelperTest extends TestCase
 
     /**
      * testStaticControl method
-     * 
+     *
      * @return void
      */
     public function testStaticControl()
@@ -200,7 +200,7 @@ class FormHelperTest extends TestCase
 
     /**
      * testNoLabelTextControl method
-     * 
+     *
      * @return void
      */
     public function testNoLabelTextControl()
@@ -224,7 +224,7 @@ class FormHelperTest extends TestCase
 
     /**
      * testLabelledTextControl method
-     * 
+     *
      * @return void
      */
     public function testLabelledTextControl()
@@ -251,7 +251,7 @@ class FormHelperTest extends TestCase
 
     /**
      * testArrayLabelledTextControl method
-     * 
+     *
      * @return void
      */
     public function testArrayLabelledTextControl()
@@ -278,7 +278,7 @@ class FormHelperTest extends TestCase
 
     /**
      * testBasicPasswordControl method
-     * 
+     *
      * @return void
      */
     public function testBasicPasswordControl()
@@ -305,7 +305,7 @@ class FormHelperTest extends TestCase
 
     /**
      * testRequiredTextControl method
-     * 
+     *
      * @return void
      */
     public function testRequiredTextControl()
@@ -332,7 +332,7 @@ class FormHelperTest extends TestCase
 
     /**
      * testErroredTextControl method
-     * 
+     *
      * @return void
      */
     public function testErroredTextControl()
@@ -407,7 +407,7 @@ class FormHelperTest extends TestCase
 
     /**
      * testAddOnPrependedControl method
-     * 
+     *
      * @return void
      */
     public function testAddOnPrependedConrol()
@@ -464,7 +464,7 @@ class FormHelperTest extends TestCase
 
     /**
      * testAddOnAppendedControl method
-     * 
+     *
      * @return void
      */
     public function testAddOnAppendedControl()
@@ -522,7 +522,7 @@ class FormHelperTest extends TestCase
 
     /**
      * testAddOnAppendedSelect method
-     * 
+     *
      * @return void
      */
     public function testAddOnAppendedSelect()
@@ -556,7 +556,7 @@ class FormHelperTest extends TestCase
 
     /**
      * testAddOnAppendedTextarea method
-     * 
+     *
      * @return void
      */
     public function testAddOnAppendedTextarea()
@@ -593,7 +593,7 @@ class FormHelperTest extends TestCase
 
     /**
      * testButtonPrependedControl method
-     * 
+     *
      * @return void
      */
     public function testButtonPrependedControl()
@@ -627,7 +627,7 @@ class FormHelperTest extends TestCase
 
     /**
      * testButtonAppendedControl method
-     * 
+     *
      * @return void
      */
     public function testButtonAppendedControl()
@@ -661,7 +661,7 @@ class FormHelperTest extends TestCase
 
     /**
      * testBasicRadioControl method
-     * 
+     *
      * @return void
      */
     public function testBasicRadioControl()
@@ -711,7 +711,7 @@ class FormHelperTest extends TestCase
 
     /**
      * testInlineRadioControl method
-     * 
+     *
      * @return void
      */
     public function testInlineRadioControl()
@@ -766,7 +766,7 @@ class FormHelperTest extends TestCase
 
     /**
      * testHorizontalRadioControl method
-     * 
+     *
      * @return void
      */
     public function testHorizontalRadiocontrol()
@@ -825,7 +825,7 @@ class FormHelperTest extends TestCase
 
     /**
      * testInlineHorizontalRadioControl method
-     * 
+     *
      * @return void
      */
     public function testInlineHorizontalRadioControl()
@@ -944,7 +944,7 @@ class FormHelperTest extends TestCase
 
     /**
      * testBasicCheckboxControl method
-     * 
+     *
      * @return void
      */
     public function testBasicCheckboxControl()
@@ -975,7 +975,7 @@ class FormHelperTest extends TestCase
 
     /**
      * testInlineCheckboxControl method
-     * 
+     *
      * @return void
      */
     public function testInlineCheckboxControl()
@@ -1004,7 +1004,7 @@ class FormHelperTest extends TestCase
 
     /**
      * testBasicFormCreate method
-     * 
+     *
      * @return void
      */
     public function testBasicFormCreate()
@@ -1032,7 +1032,7 @@ class FormHelperTest extends TestCase
 
     /**
      * testBasicFormEnd method
-     * 
+     *
      * @return void
      */
     public function testBasicFormEnd()
@@ -1043,7 +1043,7 @@ class FormHelperTest extends TestCase
 
     /**
      * testFormCreateWithTemplatesFile method
-     * 
+     *
      * @return void
      */
     public function testFormCreateWithTemplatesFile()
@@ -1070,7 +1070,7 @@ class FormHelperTest extends TestCase
 
     /**
      * testInlineFormCreate method
-     * 
+     *
      * @return void
      */
     public function testInlineFormCreate()
@@ -1097,7 +1097,7 @@ class FormHelperTest extends TestCase
 
     /**
      * testHorizontalFormCreate method
-     * 
+     *
      * @return void
      */
     public function testHorizontalFormCreate()
@@ -1171,7 +1171,7 @@ class FormHelperTest extends TestCase
 
     /**
      * testCustomGrid method
-     * 
+     *
      * @return void
      */
     public function testCustomGrid()
@@ -1209,7 +1209,7 @@ class FormHelperTest extends TestCase
 
     /**
      * testHorizontalFormCreateFromConfig method
-     * 
+     *
      * @return void
      */
     public function testHorizontalFormCreateFromConfig()
@@ -1291,7 +1291,7 @@ class FormHelperTest extends TestCase
 
     /**
      * testBasicButton method
-     * 
+     *
      * @return void
      */
     public function testBasicButton()
@@ -1307,7 +1307,7 @@ class FormHelperTest extends TestCase
 
     /**
      * testBasicFormSubmit method
-     * 
+     *
      * @return void
      */
     public function testBasicFormSubmit()
@@ -1326,7 +1326,7 @@ class FormHelperTest extends TestCase
 
     /**
      * testStyledFormSubmi method
-     * 
+     *
      * @return void
      */
     public function testStyledFormSubmit()
@@ -1356,7 +1356,7 @@ class FormHelperTest extends TestCase
 
     /**
      * testHorizontalFormSubmit method
-     * 
+     *
      * @return void
      */
     public function testHorizontalFormSubmit()
@@ -1379,7 +1379,7 @@ class FormHelperTest extends TestCase
 
     /**
      * testStyledButton method
-     * 
+     *
      * @return void
      */
     public function testStyledButton()
@@ -1395,7 +1395,7 @@ class FormHelperTest extends TestCase
 
     /**
      * testPrimaryStyledButton method
-     * 
+     *
      * @return void
      */
     public function testPrimaryStyledButton()
@@ -1411,7 +1411,7 @@ class FormHelperTest extends TestCase
 
     /**
      * testMultipleCheckboxSelect method
-     * 
+     *
      * @return void
      */
     public function testMultipleCheckboxSelect()
@@ -1460,7 +1460,7 @@ class FormHelperTest extends TestCase
 
     /**
      * testMultipleCheckboxControl method
-     * 
+     *
      * @return void
      */
     public function testMultipleCheckboxControl()
@@ -1517,7 +1517,7 @@ class FormHelperTest extends TestCase
 
     /**
      * testHelpText method
-     * 
+     *
      * @return void
      */
     public function testHelpText()
@@ -1645,7 +1645,7 @@ class FormHelperTest extends TestCase
 
     /**
      * testHelpTextHorizontal method
-     * 
+     *
      * @return void
      */
     public function testHelpTextHorizontal()
@@ -1735,7 +1735,7 @@ class FormHelperTest extends TestCase
 
     /**
      * testTooltip method
-     * 
+     *
      * @return void
      */
     public function testTooltip()
@@ -1764,7 +1764,7 @@ class FormHelperTest extends TestCase
 
     /**
      * testTooltipHorizontal method
-     * 
+     *
      * @return void
      */
     public function testTooltipHorizontal()
@@ -1827,7 +1827,7 @@ class FormHelperTest extends TestCase
 
     /**
      * testFormAlignment method
-     * 
+     *
      * @return void
      */
     public function testFormAlignment()
