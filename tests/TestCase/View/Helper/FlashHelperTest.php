@@ -35,7 +35,7 @@ class FlashHelperTest extends TestCase
         $this->View = new View();
 
         // load appropriate session class according to Cake version
-        if (!class_exists('\Cake\Http\Session')){
+        if (!class_exists('\Cake\Http\Session')) {
             // before 3.6
             $session = new \Cake\Network\Session();
         } else {
