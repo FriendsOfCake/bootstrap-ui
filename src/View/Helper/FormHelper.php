@@ -45,8 +45,8 @@ class FormHelper extends Helper
         'label' => '<label{{attrs}}>{{text}}{{tooltip}}</label>',
         'help' => '<div class="help-block">{{content}}</div>',
         'tooltip' => '<span data-toggle="tooltip" title="{{content}}" class="glyphicon glyphicon-info-sign"></span>',
-        'inputContainer' => '<div class="form-group {{type}}{{required}}">{{content}}{{help}}</div>',
-        'inputContainerError' => '<div class="form-group {{type}}{{required}} has-error">{{content}}{{error}}{{help}}</div>',
+        'inputContainer' => '<div class="form-group {{type}}{{required}}{{class}}"{{attrs}}>{{content}}{{help}}</div>',
+        'inputContainerError' => '<div class="form-group {{type}}{{required}}{{class}} has-error"{{attrs}}>{{content}}{{error}}{{help}}</div>',
         'radioInlineFormGroup' => '{{label}}<div class="radio-inline-wrapper">{{input}}</div>',
         'radioNestingLabel' => '<div class="radio">{{hidden}}<label{{attrs}}>{{input}}{{text}}{{tooltip}}</label></div>',
         'staticControl' => '<p class="form-control-static">{{content}}</p>',
@@ -73,8 +73,8 @@ class FormHelper extends Helper
             'formGroup' => '{{label}}<div class="%s">{{input}}{{error}}{{help}}</div>',
             'checkboxFormGroup' => '<div class="%s"><div class="checkbox">{{label}}</div>{{error}}{{help}}</div>',
             'submitContainer' => '<div class="form-group"><div class="%s">{{content}}</div></div>',
-            'inputContainer' => '<div class="form-group {{type}}{{required}}">{{content}}</div>',
-            'inputContainerError' => '<div class="form-group {{type}}{{required}} has-error">{{content}}</div>',
+            'inputContainer' => '<div class="form-group {{type}}{{required}}{{class}}"{{attrs}}>{{content}}</div>',
+            'inputContainerError' => '<div class="form-group {{type}}{{required}}{{class}} has-error"{{attrs}}>{{content}}</div>',
             'checkboxContainer' => '<div class="form-group{{required}}">{{content}}</div>',
             'checkboxContainerError' => '<div class="form-group{{required}} has-error">{{content}}</div>',
             'radioContainer' => '<div class="form-group{{required}}">{{content}}</div>',
@@ -385,7 +385,7 @@ class FormHelper extends Helper
      */
     protected function _getInput($fieldName, $options)
     {
-        unset($options['help']);
+        unset($options['help'], $options['inputContainerOptions']);
 
         return parent::_getInput($fieldName, $options);
     }
@@ -425,7 +425,11 @@ class FormHelper extends Helper
             $inputContainerTemplate = 'inputContainer' . $options['errorSuffix'];
         }
 
+        $inputContainerOptions = Hash::get($options, 'options.inputContainerOptions', []);
+        $class = Hash::get($inputContainerOptions, 'class', '');
         return $this->templater()->format($inputContainerTemplate, [
+            'attrs' => $this->templater()->formatAttributes($inputContainerOptions),
+            'class' => !empty($class) ? ' ' . $class . ' ' : '',
             'content' => $options['content'],
             'error' => $options['error'],
             'required' => $options['options']['required'] ? ' required' : '',

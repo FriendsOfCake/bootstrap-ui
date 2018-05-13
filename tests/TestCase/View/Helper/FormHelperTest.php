@@ -142,6 +142,51 @@ class FormHelperTest extends TestCase
         $this->assertHtml($expected, $result);
     }
 
+    public function testInputContainerOptions()
+    {
+        unset($this->article['required']['title']);
+        $this->Form->create($this->article);
+
+        $result = $this->Form->control('title', [
+            'inputContainerOptions' => ['class' => 'test']
+        ]);
+        $expected = [
+            'div' => ['class' => 'form-group text test'],
+            'label' => ['class' => 'control-label', 'for' => 'title'],
+            'Title',
+            '/label',
+            'input' => [
+                'type' => 'text',
+                'name' => 'title',
+                'id' => 'title',
+                'class' => 'form-control',
+            ],
+            '/div'
+        ];
+        $this->assertHtml($expected, $result);
+
+        $result = $this->Form->control('title', [
+            'inputContainerOptions' => [
+                'class' => 'test',
+                'attr' => 'value',
+            ]
+        ]);
+        $expected = [
+            'div' => ['class' => 'form-group text test', 'attr' => 'value'],
+            'label' => ['class' => 'control-label', 'for' => 'title'],
+            'Title',
+            '/label',
+            'input' => [
+                'type' => 'text',
+                'name' => 'title',
+                'id' => 'title',
+                'class' => 'form-control',
+            ],
+            '/div'
+        ];
+        $this->assertHtml($expected, $result);
+    }
+
     public function testStaticControl()
     {
         unset($this->article['required']['title']);
