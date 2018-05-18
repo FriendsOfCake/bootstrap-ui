@@ -93,5 +93,7 @@ class OptionsAwareTraitTest extends TestCase
         $this->assertTrue($this->object->checkClasses('a', ['class' => 'a']));
         $this->assertTrue($this->object->checkClasses('a b c', ['class' => 'c b a']));
         $this->assertTrue($this->object->checkClasses('a b c', ['class' => ['c', 'b', 'a']]));
+
+        $this->assertFalse($this->object->checkClasses('a', ['a']));
     }
 }

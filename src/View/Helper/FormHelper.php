@@ -549,7 +549,7 @@ class FormHelper extends Helper
     protected function _detectFormAlignment($options)
     {
         foreach (['horizontal', 'inline'] as $align) {
-            if ($this->checkClasses('form-' . $align, (array)$options['class'])) {
+            if ($this->checkClasses('form-' . $align, $options)) {
                 return $align;
             }
         }
