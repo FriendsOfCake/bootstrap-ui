@@ -31,7 +31,7 @@ Transparently use [Bootstrap 3][twbs3] with [CakePHP 3][cakephp].
 composer require friendsofcake/bootstrap-ui
 ```
 
-Then load the plugin by adding the following to your app's `config/boostrap.php`:
+Then load the plugin by adding the following to your app's `config/bootstrap.php`:
 
 ```php
 \Cake\Core\Plugin::load('BootstrapUI');
