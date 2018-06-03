@@ -27,7 +27,8 @@ class BootstrapShell extends Shell
     {
         $this->TwbsAssets->installAssets();
         $this->TwbsAssets->copyAssets();
-        $this->Assets->symlink();
+        $this->Assets->remove('BootstrapUI');
+        $this->Assets->symlink('BootstrapUI');
     }
 
     /**

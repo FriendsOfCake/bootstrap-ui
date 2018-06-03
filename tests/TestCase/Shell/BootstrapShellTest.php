@@ -31,15 +31,68 @@ class BootstrapShellTest extends TestCase
         unset($this->Shell);
     }
 
-    public function testInstall()
+    public function testInstallInDebugMode()
     {
         $this->Shell->install();
+
+        $pluginPath = Plugin::path('BootstrapUI');
+        $nodePath = $pluginPath . 'node_modules';
+        $webrootPath = $pluginPath . 'webroot' . DS;
+        $cssPath = $webrootPath . 'css' . DS;
+        $jsPath = $webrootPath . 'js' . DS;
+
+        $this->assertDirectoryExists($nodePath);
+        $this->assertDirectoryExists($webrootPath);
+        $this->assertDirectoryExists($cssPath);
+        $this->assertDirectoryExists($jsPath);
+
+        $appWebrootPath = WWW_ROOT . 'bootstrap_u_i' . DS;
+        $appCssPath = $webrootPath . 'css' . DS;
+        $appJsPath = $webrootPath . 'js' . DS;
+
+        $this->assertDirectoryExists($appWebrootPath);
+        $this->assertDirectoryExists($appCssPath);
+        $this->assertDirectoryExists($appJsPath);
+
+        $sourceFiles = (new Folder($webrootPath))->findRecursive();
+        $targetFiles = (new Folder($appWebrootPath))->findRecursive();
+        $this->assertEquals(count($sourceFiles), count($targetFiles));
+    }
+
+    public function testInstallInProductionMode()
+    {
         Configure::write('debug', false);
         $this->Shell->install();
+        Configure::write('debug', true);
 
-        $this->_assetDir = new Folder(Plugin::path('BootstrapUI') . 'webroot');
-        $this->assertDirectoryExists($this->_assetDir->path . DS . 'css');
-        $this->assertDirectoryExists($this->_assetDir->path . DS . 'js');
+        $pluginPath = Plugin::path('BootstrapUI');
+        $nodePath = $pluginPath . 'node_modules';
+        $webrootPath = $pluginPath . 'webroot' . DS;
+        $cssPath = $webrootPath . 'css' . DS;
+        $jsPath = $webrootPath . 'js' . DS;
+
+        $this->assertDirectoryExists($nodePath);
+        $this->assertDirectoryExists($webrootPath);
+
+        $this->assertDirectoryExists($cssPath);
+        $this->assertFileExists($cssPath . 'bootstrap.min.css');
+
+        $this->assertDirectoryExists($jsPath);
+        $this->assertFileExists($jsPath . 'bootstrap.min.js');
+        $this->assertFileExists($jsPath . 'jquery.min.js');
+        $this->assertFileExists($jsPath . 'popper.min.js');
+
+        $appWebrootPath = WWW_ROOT . 'bootstrap_u_i' . DS;
+        $appCssPath = $webrootPath . 'css' . DS;
+        $appJsPath = $webrootPath . 'js' . DS;
+
+        $this->assertDirectoryExists($appWebrootPath);
+        $this->assertDirectoryExists($appCssPath);
+        $this->assertDirectoryExists($appJsPath);
+
+        $sourceFiles = (new Folder($webrootPath))->findRecursive();
+        $targetFiles = (new Folder($appWebrootPath))->findRecursive();
+        $this->assertEquals(count($sourceFiles), count($targetFiles));
     }
 
     public function testCopyLayouts()
