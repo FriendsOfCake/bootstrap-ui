@@ -24,10 +24,10 @@ class TwbsAssetsTask extends Shell
     public function __construct()
     {
         parent::__construct();
-        $this->_assetDir = new Folder(Plugin::path('BootstrapUI') . 'webroot');
-        $this->_nodeDir = new Folder(Plugin::path('BootstrapUI') . 'node_modules');
-        $this->_cssDir = new Folder($this->_assetDir->path . DS . 'css');
-        $this->_jsDir = new Folder($this->_assetDir->path . DS . 'js');
+        $this->_assetDir = new Folder(Plugin::path('BootstrapUI') . 'webroot', true);
+        $this->_nodeDir = new Folder(Plugin::path('BootstrapUI') . 'node_modules', true);
+        $this->_cssDir = new Folder($this->_assetDir->path . DS . 'css', true);
+        $this->_jsDir = new Folder($this->_assetDir->path . DS . 'js', true);
     }
 
     /**
