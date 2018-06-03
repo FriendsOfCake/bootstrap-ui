@@ -80,7 +80,7 @@ class BootstrapShellTest extends TestCase
         $this->assertDirectoryExists($jsPath);
         $this->assertFileExists($jsPath . 'bootstrap.min.js');
         $this->assertFileExists($jsPath . 'jquery.min.js');
-        $this->assertFileExists($jsPath. 'popper.min.js');
+        $this->assertFileExists($jsPath . 'popper.min.js');
 
         $appWebrootPath = WWW_ROOT . 'bootstrap_u_i' . DS;
         $appCssPath = $webrootPath . 'css' . DS;
