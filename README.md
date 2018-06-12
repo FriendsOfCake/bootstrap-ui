@@ -142,21 +142,19 @@ Available types are:
 
 **NOTE: Remember to set the stylesheets in the layouts you copy.**
 
-## Installing Bootstrap via Bower
+## Installing Bootstrap via Composer
 
-A quick way of getting the Bootstrap assets installed is using [bower]. Assuming you are in `ROOT`:
+A quick way of getting the Bootstrap and jQuery assets installed is using composer. Assuming you are in `ROOT`:
 
 ```
-bower install bootstrap
-bower install jquery
+composer require twbs/bootstrap:3.3.7
+composer require components/jquery
 mkdir -p webroot/css/bootstrap webroot/js/bootstrap webroot/js/jquery webroot/css/fonts
-cp bower_components/bootstrap/dist/css/* webroot/css/bootstrap/.
-cp bower_components/bootstrap/dist/js/* webroot/js/bootstrap/.
-cp bower_components/jquery/dist/* webroot/js/jquery/.
-cp bower_components/bootstrap/dist/fonts/* webroot/css/fonts/.
-echo /bower_components >> .gitignore
+cp vendor/twbs/bootstrap/dist/css/* webroot/css/bootstrap/.
+cp vendor/twbs/bootstrap/dist/js/* webroot/js/bootstrap/.
+cp vendor/twbs/bootstrap/dist/fonts/* webroot/css/fonts/.
+cp vendor/components/jquery/jquery.js webroot/js/jquery/.
 git add .gitignore \
-bower.json \
 webroot/css/bootstrap \
 webroot/js/bootstrap \
 webroot/js/jquery
