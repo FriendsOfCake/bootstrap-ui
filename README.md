@@ -7,6 +7,8 @@
 
 Transparently use [Bootstrap 3][twbs3] with [CakePHP 3][cakephp].
 
+Note: Use `develop` branch for Bootstrap 4!
+
 ## Requirements
 
 * CakePHP 3.x
