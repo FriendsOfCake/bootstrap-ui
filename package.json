@@ -4,9 +4,9 @@
     "description": "Twitter Bootstrap 4 support for CakePHP 3",
     "main": "index.js",
     "dependencies": {
-        "bootstrap": "^4.0.0",
+        "bootstrap": "^4.1.0",
         "jquery": "^3.3.0",
-        "popper.js": "^1.13.0"
+        "popper.js": "^1.14.0"
     },
     "devDependencies": {},
     "keywords": [
