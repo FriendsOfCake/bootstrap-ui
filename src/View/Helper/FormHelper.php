@@ -63,8 +63,8 @@ class FormHelper extends Helper
      */
     protected $_templateSet = [
         'default' => [
-            'checkboxContainer' => '<div class="form-check"{{required}}>{{content}}{{help}}</div>',
-            'checkboxContainerError' => '<div class="form-check">{{content}}{{error}}{{help}}</div>',
+            'checkboxContainer' => '<div class="form-group {{type}}{{required}}">{{content}}{{help}}</div>',
+            'checkboxContainerError' => '<div class="form-group {{type}}{{required}} is-invalid">{{content}}{{error}}{{help}}</div>',
         ],
         'inline' => [
             'label' => '<label class="sr-only"{{attrs}}>{{text}}{{tooltip}}</label>',
@@ -77,8 +77,8 @@ class FormHelper extends Helper
             'submitContainer' => '<div class="form-group"><div class="%s">{{content}}</div></div>',
             'inputContainer' => '<div class="form-group {{type}}{{required}}">{{content}}</div>',
             'inputContainerError' => '<div class="form-group {{type}}{{required}} is-invalid">{{content}}</div>',
-            'checkboxContainer' => '<div class="form-group{{required}}">{{content}}</div>',
-            'checkboxContainerError' => '<div class="form-group{{required}} is-invalid">{{content}}</div>',
+            'checkboxContainer' => '<div class="form-group {{type}}{{required}}">{{content}}</div>',
+            'checkboxContainerError' => '<div class="form-group {{type}}{{required}} is-invalid">{{content}}</div>',
             'radioContainer' => '<div class="form-group{{required}}">{{content}}</div>',
             'radioContainerError' => '<div class="form-group{{required}} is-invalid">{{content}}</div>',
         ]

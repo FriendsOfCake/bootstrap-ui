@@ -364,6 +364,17 @@ class FormHelperTest extends TestCase
 
         $this->assertHtml($expected, $result);
 
+        $result = $this->Form->control('published');
+        $expected = [
+            ['div' => ['class' => 'form-group checkbox is-invalid']],
+            ['input' => ['type' => 'hidden', 'name' => 'published', 'class' => 'is-invalid', 'value' => '0']],
+            ['label' => ['for' => 'published']],
+            ['input' => ['type' => 'checkbox', 'name' => 'published', 'value' => '1', 'id' => 'published', 'class' => 'is-invalid']], 'Published', '/label',
+            ['div' => ['class' => 'invalid-feedback']], 'error message', '/div',
+            '/div'
+        ];
+        $this->assertHtml($expected, $result);
+
         $this->Form->create($this->article, ['align' => 'horizontal']);
 
         $result = $this->Form->control('title');
@@ -391,7 +402,7 @@ class FormHelperTest extends TestCase
 
         $result = $this->Form->control('published');
         $expected = [
-            ['div' => ['class' => 'form-group is-invalid']],
+            ['div' => ['class' => 'form-group checkbox is-invalid']],
             ['div' => ['class' => 'col-md-offset-2 col-md-6']],
             ['div' => ['class' => 'checkbox']],
             ['input' => ['type' => 'hidden', 'name' => 'published', 'class' => 'is-invalid', 'value' => '0']],
@@ -953,7 +964,7 @@ class FormHelperTest extends TestCase
 
         $result = $this->Form->control('published');
         $expected = [
-            'div' => ['class' => 'form-check'],
+            'div' => ['class' => 'form-group checkbox'],
             'input' => [
                 'type' => 'hidden',
                 'name' => 'published',
@@ -1145,7 +1156,7 @@ class FormHelperTest extends TestCase
 
         $result = $this->Form->control('published');
         $expected = [
-            'div' => ['class' => 'form-group'],
+            'div' => ['class' => 'form-group checkbox'],
             ['div' => ['class' => 'col-md-offset-2 col-md-6']],
             ['div' => ['class' => 'checkbox']],
             'input' => [
@@ -1265,7 +1276,7 @@ class FormHelperTest extends TestCase
 
         $result = $this->Form->control('published');
         $expected = [
-            'div' => ['class' => 'form-group'],
+            'div' => ['class' => 'form-group checkbox'],
             ['div' => ['class' => 'col-md-offset-2 col-md-6']],
             ['div' => ['class' => 'my-checkbox']],
             'input' => [
@@ -1566,7 +1577,7 @@ class FormHelperTest extends TestCase
 
         $result = $this->Form->control('published', ['help' => 'help text']);
         $expected = [
-            'div' => ['class' => 'form-check'],
+            'div' => ['class' => 'form-group checkbox'],
             'input' => [
                 'type' => 'hidden',
                 'name' => 'published',
@@ -1676,7 +1687,7 @@ class FormHelperTest extends TestCase
 
         $result = $this->Form->control('published', ['help' => 'help text']);
         $expected = [
-            'div' => ['class' => 'form-group'],
+            'div' => ['class' => 'form-group checkbox'],
             ['div' => ['class' => 'col-md-offset-2 col-md-6']],
             ['div' => ['class' => 'checkbox']],
             'input' => [
