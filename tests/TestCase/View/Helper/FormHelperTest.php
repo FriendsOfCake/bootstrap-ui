@@ -796,7 +796,7 @@ class FormHelperTest extends TestCase
             'options' => ['Yes', 'No']
         ]);
         $expected = [
-            ['div' => ['class' => 'form-group']],
+            ['div' => ['class' => 'form-group radio']],
             ['label' => ['class' => 'col-form-label col-sm-5']],
             'Published',
             '/label',
@@ -856,7 +856,7 @@ class FormHelperTest extends TestCase
             'options' => ['Yes', 'No']
         ]);
         $expected = [
-            ['div' => ['class' => 'form-group']],
+            ['div' => ['class' => 'form-group radio']],
             ['label' => ['class' => 'col-form-label col-sm-5']],
             'Published',
             '/label',

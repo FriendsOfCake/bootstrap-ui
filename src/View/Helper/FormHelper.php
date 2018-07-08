@@ -79,8 +79,8 @@ class FormHelper extends Helper
             'inputContainerError' => '<div class="form-group {{type}}{{required}} is-invalid">{{content}}</div>',
             'checkboxContainer' => '<div class="form-group {{type}}{{required}}">{{content}}</div>',
             'checkboxContainerError' => '<div class="form-group {{type}}{{required}} is-invalid">{{content}}</div>',
-            'radioContainer' => '<div class="form-group{{required}}">{{content}}</div>',
-            'radioContainerError' => '<div class="form-group{{required}} is-invalid">{{content}}</div>',
+            'radioContainer' => '<div class="form-group {{type}}{{required}}">{{content}}</div>',
+            'radioContainerError' => '<div class="form-group {{type}}{{required}} is-invalid">{{content}}</div>',
         ]
     ];
 
