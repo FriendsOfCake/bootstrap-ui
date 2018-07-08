@@ -522,7 +522,7 @@ class FormHelper extends Helper
     {
         $class = 'col-%s-';
         if ($offset) {
-            $class .= 'offset-';
+            $class = 'offset-%s-';
         }
 
         if (isset($this->_grid[$position])) {

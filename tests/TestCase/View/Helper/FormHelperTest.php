@@ -403,7 +403,7 @@ class FormHelperTest extends TestCase
         $result = $this->Form->control('published');
         $expected = [
             ['div' => ['class' => 'form-group row checkbox is-invalid']],
-            ['div' => ['class' => 'col-md-offset-2 col-md-6']],
+            ['div' => ['class' => 'offset-md-2 col-md-6']],
             ['div' => ['class' => 'checkbox']],
             ['input' => ['type' => 'hidden', 'name' => 'published', 'class' => 'is-invalid', 'value' => '0']],
             ['label' => ['for' => 'published']],
@@ -1157,7 +1157,7 @@ class FormHelperTest extends TestCase
         $result = $this->Form->control('published');
         $expected = [
             'div' => ['class' => 'form-group row checkbox'],
-            ['div' => ['class' => 'col-md-offset-2 col-md-6']],
+            ['div' => ['class' => 'offset-md-2 col-md-6']],
             ['div' => ['class' => 'checkbox']],
             'input' => [
                 'type' => 'hidden',
@@ -1277,7 +1277,7 @@ class FormHelperTest extends TestCase
         $result = $this->Form->control('published');
         $expected = [
             'div' => ['class' => 'form-group row checkbox'],
-            ['div' => ['class' => 'col-md-offset-2 col-md-6']],
+            ['div' => ['class' => 'offset-md-2 col-md-6']],
             ['div' => ['class' => 'my-checkbox']],
             'input' => [
                 'type' => 'hidden',
@@ -1377,7 +1377,7 @@ class FormHelperTest extends TestCase
         $result = $this->Form->submit('Submit');
         $expected = [
             'div' => ['class' => 'form-group'],
-            ['div' => ['class' => 'col-md-offset-2 col-md-6']],
+            ['div' => ['class' => 'offset-md-2 col-md-6']],
             'input' => [
                 'type' => 'submit',
                 'value' => 'Submit',
@@ -1688,7 +1688,7 @@ class FormHelperTest extends TestCase
         $result = $this->Form->control('published', ['help' => 'help text']);
         $expected = [
             'div' => ['class' => 'form-group row checkbox'],
-            ['div' => ['class' => 'col-md-offset-2 col-md-6']],
+            ['div' => ['class' => 'offset-md-2 col-md-6']],
             ['div' => ['class' => 'checkbox']],
             'input' => [
                 'type' => 'hidden',
