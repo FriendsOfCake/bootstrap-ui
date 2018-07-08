@@ -383,7 +383,7 @@ class FormHelperTest extends TestCase
             'label' => ['class' => 'col-form-label col-md-2', 'for' => 'title'],
             'Title',
             '/label',
-            ['div' => ['class' => 'col-md-6']],
+            ['div' => ['class' => 'col-md-10']],
             'input' => [
                 'type' => 'text',
                 'name' => 'title',
@@ -403,7 +403,7 @@ class FormHelperTest extends TestCase
         $result = $this->Form->control('published');
         $expected = [
             ['div' => ['class' => 'form-group row checkbox is-invalid']],
-            ['div' => ['class' => 'offset-md-2 col-md-6']],
+            ['div' => ['class' => 'offset-md-2 col-md-10']],
             ['div' => ['class' => 'checkbox']],
             ['input' => ['type' => 'hidden', 'name' => 'published', 'class' => 'is-invalid', 'value' => '0']],
             ['label' => ['for' => 'published']],
@@ -1141,7 +1141,7 @@ class FormHelperTest extends TestCase
             ],
             'Title',
             '/label',
-            ['div' => ['class' => 'col-md-6']],
+            ['div' => ['class' => 'col-md-10']],
             'input' => [
                 'type' => 'text',
                 'name' => 'title',
@@ -1157,7 +1157,7 @@ class FormHelperTest extends TestCase
         $result = $this->Form->control('published');
         $expected = [
             'div' => ['class' => 'form-group row checkbox'],
-            ['div' => ['class' => 'offset-md-2 col-md-6']],
+            ['div' => ['class' => 'offset-md-2 col-md-10']],
             ['div' => ['class' => 'checkbox']],
             'input' => [
                 'type' => 'hidden',
@@ -1261,7 +1261,7 @@ class FormHelperTest extends TestCase
             ],
             'Title',
             '/label',
-            ['div' => ['class' => 'col-md-6']],
+            ['div' => ['class' => 'col-md-10']],
             'input' => [
                 'type' => 'text',
                 'name' => 'title',
@@ -1277,7 +1277,7 @@ class FormHelperTest extends TestCase
         $result = $this->Form->control('published');
         $expected = [
             'div' => ['class' => 'form-group row checkbox'],
-            ['div' => ['class' => 'offset-md-2 col-md-6']],
+            ['div' => ['class' => 'offset-md-2 col-md-10']],
             ['div' => ['class' => 'my-checkbox']],
             'input' => [
                 'type' => 'hidden',
@@ -1377,7 +1377,7 @@ class FormHelperTest extends TestCase
         $result = $this->Form->submit('Submit');
         $expected = [
             'div' => ['class' => 'form-group'],
-            ['div' => ['class' => 'offset-md-2 col-md-6']],
+            ['div' => ['class' => 'offset-md-2 col-md-10']],
             'input' => [
                 'type' => 'submit',
                 'value' => 'Submit',
@@ -1669,7 +1669,7 @@ class FormHelperTest extends TestCase
             'label' => ['class' => 'col-form-label col-md-2', 'for' => 'title'],
             'Title',
             '/label',
-            ['div' => ['class' => 'col-md-6']],
+            ['div' => ['class' => 'col-md-10']],
             'input' => [
                 'type' => 'text',
                 'name' => 'title',
@@ -1688,7 +1688,7 @@ class FormHelperTest extends TestCase
         $result = $this->Form->control('published', ['help' => 'help text']);
         $expected = [
             'div' => ['class' => 'form-group row checkbox'],
-            ['div' => ['class' => 'offset-md-2 col-md-6']],
+            ['div' => ['class' => 'offset-md-2 col-md-10']],
             ['div' => ['class' => 'checkbox']],
             'input' => [
                 'type' => 'hidden',
@@ -1724,7 +1724,7 @@ class FormHelperTest extends TestCase
             'label' => ['class' => 'col-form-label col-md-2', 'for' => 'title'],
             'Title',
             '/label',
-            ['div' => ['class' => 'col-md-6']],
+            ['div' => ['class' => 'col-md-10']],
             'input' => [
                 'type' => 'text',
                 'name' => 'title',
@@ -1790,7 +1790,7 @@ class FormHelperTest extends TestCase
             'span' => ['data-toggle' => 'tooltip', 'title' => 'Some important additional notes.', 'class' => 'fas fa-info-circle'],
             '/span',
             '/label',
-            ['div' => ['class' => 'col-md-6']],
+            ['div' => ['class' => 'col-md-10']],
             'input' => [
                 'type' => 'text',
                 'name' => 'title',

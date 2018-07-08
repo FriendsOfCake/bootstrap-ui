@@ -110,8 +110,8 @@ class FormHelper extends Helper
             'errorClass' => 'is-invalid',
             'grid' => [
                 'left' => 2,
-                'middle' => 6,
-                'right' => 4
+                'middle' => 10,
+                'right' => 0,
             ],
             'templates' => $this->_templates + $this->_defaultConfig['templates'],
         ] + $this->_defaultConfig;
