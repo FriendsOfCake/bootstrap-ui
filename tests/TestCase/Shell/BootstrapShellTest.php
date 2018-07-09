@@ -57,6 +57,8 @@ class BootstrapShellTest extends TestCase
         $sourceFiles = (new Folder($webrootPath))->findRecursive();
         $targetFiles = (new Folder($appWebrootPath))->findRecursive();
         $this->assertEquals(count($sourceFiles), count($targetFiles));
+
+        (new Folder(WWW_ROOT))->delete();
     }
 
     public function testInstallInProductionMode()
@@ -93,20 +95,30 @@ class BootstrapShellTest extends TestCase
         $sourceFiles = (new Folder($webrootPath))->findRecursive();
         $targetFiles = (new Folder($appWebrootPath))->findRecursive();
         $this->assertEquals(count($sourceFiles), count($targetFiles));
+
+        (new Folder(WWW_ROOT))->delete();
     }
 
     public function testCopyLayouts()
     {
         $this->Shell->copyLayouts();
         $this->assertDirectoryExists(APP . 'Template' . DS . 'Layout' . DS . 'TwitterBootstrap');
+
+        (new Folder(APP . 'Template' . DS . 'Layout'))->delete();
     }
 
     public function testModifyView()
     {
         $view = new File(APP . 'View' . DS . 'AppView.php');
+        $original = $view->read();
+
         $this->Shell->modifyView();
         $this->assertContains('use BootstrapUI\\View\\UIView', (string)$view->read());
         $this->assertContains('class AppView extends UIView', (string)$view->read());
         $this->assertContains('parent::initialize();', (string)$view->read());
+
+        if ($view->writable()) {
+            $view->write($original);
+        }
     }
 }

@@ -63,8 +63,8 @@ class FormHelper extends Helper
      */
     protected $_templateSet = [
         'default' => [
-            'checkboxContainer' => '<div class="form-check"{{required}}>{{content}}{{help}}</div>',
-            'checkboxContainerError' => '<div class="form-check">{{content}}{{error}}{{help}}</div>',
+            'checkboxContainer' => '<div class="form-group {{type}}{{required}}">{{content}}{{help}}</div>',
+            'checkboxContainerError' => '<div class="form-group {{type}}{{required}} is-invalid">{{content}}{{error}}{{help}}</div>',
         ],
         'inline' => [
             'label' => '<label class="sr-only"{{attrs}}>{{text}}{{tooltip}}</label>',
@@ -75,12 +75,12 @@ class FormHelper extends Helper
             'formGroup' => '{{label}}<div class="%s">{{input}}{{error}}{{help}}</div>',
             'checkboxFormGroup' => '<div class="%s"><div class="checkbox">{{label}}</div>{{error}}{{help}}</div>',
             'submitContainer' => '<div class="form-group"><div class="%s">{{content}}</div></div>',
-            'inputContainer' => '<div class="form-group {{type}}{{required}}">{{content}}</div>',
-            'inputContainerError' => '<div class="form-group {{type}}{{required}} is-invalid">{{content}}</div>',
-            'checkboxContainer' => '<div class="form-group{{required}}">{{content}}</div>',
-            'checkboxContainerError' => '<div class="form-group{{required}} is-invalid">{{content}}</div>',
-            'radioContainer' => '<div class="form-group{{required}}">{{content}}</div>',
-            'radioContainerError' => '<div class="form-group{{required}} is-invalid">{{content}}</div>',
+            'inputContainer' => '<div class="form-group row {{type}}{{required}}">{{content}}</div>',
+            'inputContainerError' => '<div class="form-group row {{type}}{{required}} is-invalid">{{content}}</div>',
+            'checkboxContainer' => '<div class="form-group row {{type}}{{required}}">{{content}}</div>',
+            'checkboxContainerError' => '<div class="form-group row {{type}}{{required}} is-invalid">{{content}}</div>',
+            'radioContainer' => '<div class="form-group row {{type}}{{required}}">{{content}}</div>',
+            'radioContainerError' => '<div class="form-group row {{type}}{{required}} is-invalid">{{content}}</div>',
         ]
     ];
 
@@ -110,8 +110,8 @@ class FormHelper extends Helper
             'errorClass' => 'is-invalid',
             'grid' => [
                 'left' => 2,
-                'middle' => 6,
-                'right' => 4
+                'middle' => 10,
+                'right' => 0,
             ],
             'templates' => $this->_templates + $this->_defaultConfig['templates'],
         ] + $this->_defaultConfig;
@@ -268,21 +268,8 @@ class FormHelper extends Helper
             case 'select':
                 if (isset($options['multiple']) && $options['multiple'] === 'checkbox') {
                     $options['type'] = 'multicheckbox';
-                } else {
-                    if ($options['label'] !== false && strpos($this->getTemplates('label'), 'class=') === false) {
-                        $options['label'] = $this->injectClasses('col-form-label', (array)$options['label']);
-                    }
                 }
                 break;
-
-            case 'multiselect':
-                break;
-
-            case 'textarea':
-            default:
-                if ($options['label'] !== false && strpos($this->getTemplates('label'), 'class=') === false) {
-                    $options['label'] = $this->injectClasses('col-form-label', (array)$options['label']);
-                }
         }
 
         if ($options['help']) {
@@ -535,7 +522,7 @@ class FormHelper extends Helper
     {
         $class = 'col-%s-';
         if ($offset) {
-            $class .= 'offset-';
+            $class = 'offset-%s-';
         }
 
         if (isset($this->_grid[$position])) {
