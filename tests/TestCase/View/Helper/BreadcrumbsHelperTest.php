@@ -158,6 +158,34 @@ class BreadcrumbsHelperTest extends TestCase
         $this->assertHtml($expected, $result);
     }
 
+    public function testAriaCurrentLastWithLinkNoCrumbWithLink()
+    {
+        $this->Breadcrumbs->setConfig('ariaCurrent', 'lastWithLink');
+
+        $result = $this->Breadcrumbs
+            ->add('first')
+            ->add('second')
+            ->render();
+
+        $expected = [
+            'nav' => ['aria-label' => 'breadcrumb'],
+                'ol' => ['class' => 'breadcrumb'],
+                    ['li' => ['class' => 'breadcrumb-item']],
+                        ['span' => true],
+                        'first',
+                        '/span',
+                    '/li',
+                    ['li' => ['class' => 'breadcrumb-item']],
+                        ['span' => true],
+                        'second',
+                        '/span',
+                    '/li',
+                '/ol',
+            '/nav'
+        ];
+        $this->assertHtml($expected, $result);
+    }
+
     public function testAriaCurrentRemoveAndInject()
     {
         $result = $this->Breadcrumbs
@@ -209,5 +237,11 @@ class BreadcrumbsHelperTest extends TestCase
             '/nav'
         ];
         $this->assertHtml($expected, $result);
+    }
+
+    public function testNoCrumbs()
+    {
+        $result = $this->Breadcrumbs->render();
+        $this->assertEmpty($result);
     }
 }
