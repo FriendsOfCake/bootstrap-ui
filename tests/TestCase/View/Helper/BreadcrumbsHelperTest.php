@@ -22,11 +22,7 @@ class BreadcrumbsHelperTest extends TestCase
         parent::setUp();
 
         $this->View = new View();
-        if (class_exists('\Cake\View\Helper\BreadcrumbsHelper')) {
-            $this->Breadcrumbs = new BreadcrumbsHelper($this->View);
-        } else {
-            $this->markTestSkipped('BreadcrumbsHelper cannot be tested when core BreadcrumbsHelper class does not exist');
-        }
+        $this->Breadcrumbs = new BreadcrumbsHelper($this->View);
     }
 
     public function tearDown()
