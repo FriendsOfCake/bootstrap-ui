@@ -48,7 +48,7 @@ mb_internal_encoding('UTF-8');
 
 Configure::write('debug', true);
 Configure::write('App', [
-    'namespace' => 'App',
+    'namespace' => 'TestApp',
     'encoding' => 'UTF-8',
     'base' => false,
     'baseUrl' => false,
@@ -77,5 +77,10 @@ Cache::setConfig([
         'serialize' => true
     ]
 ]);
+
+if (!getenv('db_dsn')) {
+    putenv('db_dsn=sqlite:///:memory:');
+}
+ConnectionManager::setConfig('test', ['url' => getenv('db_dsn')]);
 
 Plugin::load('BootstrapUI', ['path' => ROOT . DS]);
