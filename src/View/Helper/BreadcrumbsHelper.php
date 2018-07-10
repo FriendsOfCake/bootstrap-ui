@@ -81,27 +81,31 @@ class BreadcrumbsHelper extends CoreBreadcrumbsHelper
      */
     protected function _injectAriaCurrentAttribute()
     {
-        if ($this->crumbs) {
-            $this->_removeAriaCurrentAttribute();
+        if (!$this->crumbs) {
+            return;
+        }
 
-            $key = null;
-            if ($this->getConfig('ariaCurrent') === 'lastWithLink') {
-                foreach (array_reverse($this->crumbs, true) as $key => $crumb) {
-                    if (isset($crumb['url'])) {
-                        break;
-                    }
-                }
-            } else {
-                $key = count($this->crumbs) - 1;
-            }
+        $this->_removeAriaCurrentAttribute();
 
-            if ($key) {
-                if (isset($this->crumbs[$key]['url'])) {
-                    $this->crumbs[$key]['options']['innerAttrs']['aria-current'] = 'page';
-                } else {
-                    $this->crumbs[$key]['options']['aria-current'] = 'page';
+        $key = null;
+        if ($this->getConfig('ariaCurrent') === 'lastWithLink') {
+            foreach (array_reverse($this->crumbs, true) as $key => $crumb) {
+                if (isset($crumb['url'])) {
+                    break;
                 }
             }
+        } else {
+            $key = count($this->crumbs) - 1;
+        }
+
+        if (!$key) {
+            return;
+        }
+
+        if (isset($this->crumbs[$key]['url'])) {
+            $this->crumbs[$key]['options']['innerAttrs']['aria-current'] = 'page';
+        } else {
+            $this->crumbs[$key]['options']['aria-current'] = 'page';
         }
     }
 
