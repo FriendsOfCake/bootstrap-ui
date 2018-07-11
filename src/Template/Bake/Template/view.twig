@@ -1,5 +1,4 @@
 <?php $this->extend('../Layout/TwitterBootstrap/dashboard'); ?>
-
 {% set associations = {'BelongsTo': [], 'HasOne': [], 'HasMany': [], 'BelongsToMany': []}|merge(associations) %}
 {% set fieldsData = Bake.getViewFieldsData(fields, schema, associations) %}
 {% set associationFields = fieldsData.associationFields %}
@@ -23,7 +22,6 @@
 {% endfor %}
 <?php $this->end(); ?>
 <?php $this->assign('tb_sidebar', '<ul class="nav flex-column">' . $this->fetch('tb_actions') . '</ul>'); ?>
-
 
 <div class="{{ pluralVar }} view large-9 medium-8 columns content">
     <h3><?= h(${{ singularVar }}->{{ displayField }}) ?></h3>
