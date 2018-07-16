@@ -20,7 +20,7 @@ class FlashHelper extends Helper
      * @var array
      */
     protected $_defaultConfig = [
-        'class' => ['alert', 'alert-dismissible', 'fade', 'in'],
+        'class' => ['alert', 'alert-dismissible', 'fade', 'show'],
         'attributes' => ['role' => 'alert'],
         'element' => 'BootstrapUI.Flash/default'
     ];
