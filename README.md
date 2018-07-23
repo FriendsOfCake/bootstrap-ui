@@ -109,7 +109,7 @@ BootstrapUI comes with its own `layout.ctp` file and examples taken from the Boo
 When no layout for the view is defined the `BootstrapUI\View\UIViewTrait` will load its own `layout.ctp` file. You can
 override this behavior in two ways.
 
-- Assign a layout to the view with `$this->layout('layout')`.
+- Assign a layout to the view with `$this->setLayout('layout')`.
 - Disable auto loading of the layout in `BootstrapUI\View\UIViewTrait` with `$this->initializeUI(['layout' => false]);`.
 
 ### Loading the Bootstrap framework
