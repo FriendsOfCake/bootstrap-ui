@@ -70,7 +70,7 @@ class BootstrapShell extends Shell
     {
         $parser = parent::getOptionParser();
 
-        return $parser->description([
+        return $parser->setDescription([
             'Bootstrap Shell',
             '',
             ''
