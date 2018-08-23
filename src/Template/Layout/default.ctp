@@ -73,14 +73,14 @@ $this->prepend('meta', $this->Html->meta('favicon.ico', '/favicon.ico', ['type' 
  * Prepend `css` block with Bootstrap stylesheets
  * Change to bootstrap.min to use the compressed version
  */
-$this->prepend('css', $this->Html->css(['BootstrapUI.bootstrap']));
+$this->prepend('css', $this->Html->css(['BootstrapUI.bootstrap.min']));
 
 
 /**
  * Prepend `script` block with jQuery, Popper and Bootstrap scripts
  * Change jquery.min and bootstrap.min to use the compressed version
  */
-$this->prepend('script', $this->Html->script(['BootstrapUI.jquery', 'BootstrapUI.popper', 'BootstrapUI.bootstrap']));
+$this->prepend('script', $this->Html->script(['BootstrapUI.jquery.min', 'BootstrapUI.popper.min', 'BootstrapUI.bootstrap.min']));
 
 ?>
 <!doctype html>
