@@ -72,21 +72,14 @@ class TwbsAssetsTask extends Shell
 
         $files = [];
         $folders = [];
-        if (Configure::read('debug') === true) {
-            $folders[] = new Folder($this->_nodeDir->path . DS . 'bootstrap/dist');
-            $folders[] = new Folder($this->_nodeDir->path . DS . 'jquery/dist');
-            $folders[] = new Folder($this->_nodeDir->path . DS . 'popper.js/dist');
+        $folders[] = new Folder($this->_nodeDir->path . DS . 'bootstrap/dist');
+        $folders[] = new Folder($this->_nodeDir->path . DS . 'jquery/dist');
+        $folders[] = new Folder($this->_nodeDir->path . DS . 'popper.js/dist');
 
-            foreach ($folders as $folder) {
-                foreach ($folder->findRecursive() as $file) {
-                    $files[] = new File($file);
-                }
+        foreach ($folders as $folder) {
+            foreach ($folder->findRecursive() as $file) {
+                $files[] = new File($file);
             }
-        } else {
-            $files[] = new File($this->_nodeDir->path . DS . 'bootstrap' . DS . 'dist' . DS . 'css' . DS . 'bootstrap.min.css');
-            $files[] = new File($this->_nodeDir->path . DS . 'bootstrap' . DS . 'dist' . DS . 'js' . DS . 'bootstrap.min.js');
-            $files[] = new File($this->_nodeDir->path . DS . 'jquery' . DS . 'dist' . DS . 'jquery.min.js');
-            $files[] = new File($this->_nodeDir->path . DS . 'popper.js' . DS . 'dist' . DS . 'popper.min.js');
         }
         $this->_copy($files);
     }
