@@ -61,12 +61,12 @@ class RadioWidget extends \Cake\View\Widget\RadioWidget
      */
     protected function _renderLabel($radio, $label, $input, $context, $escape)
     {
-        if ($this->_inline) {
-            $label = [
-                'text' => $radio['text'],
-                'class' => 'radio-inline'
-            ];
-        }
+        // if ($this->_inline) {
+        //     $label = [
+        //         'text' => $radio['text'],
+        //         'class' => 'radio-inline'
+        //     ];
+        // }
 
         return parent::_renderLabel($radio, $label, $input, $context, $escape);
     }
