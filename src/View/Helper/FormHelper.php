@@ -53,6 +53,7 @@ class FormHelper extends Helper
         'inputGroupAddon' => '<div class="{{class}}">{{content}}</div>',
         'inputGroupContainer' => '<div{{attrs}}>{{prepend}}{{content}}{{append}}</div>',
         'inputGroupText' => '<span class="input-group-text">{{content}}</span>',
+        'checkboxFormGroup' => '{{input}}{{label}}',
         'file' => '<input type="file" class="form-control-file" name="{{name}}"{{attrs}}>'
     ];
 
@@ -254,7 +255,7 @@ class FormHelper extends Helper
                     }
                 }
 
-                $options['templates']['nestingLabel'] = '{{hidden}}{{input}}<label{{attrs}}>{{text}}</label>';
+                $options['nestedInput'] = false;
                 $options['label'] = $this->injectClasses('form-check-label', (array)$options['label']);
                 $options = $this->injectClasses('form-check-input', (array)$options);
 
