@@ -53,6 +53,7 @@ class FormHelper extends Helper
         'inputGroupAddon' => '<div class="{{class}}">{{content}}</div>',
         'inputGroupContainer' => '<div{{attrs}}>{{prepend}}{{content}}{{append}}</div>',
         'inputGroupText' => '<span class="input-group-text">{{content}}</span>',
+        'checkboxFormGroup' => '{{input}}{{label}}',
         'file' => '<input type="file" class="form-control-file" name="{{name}}"{{attrs}}>'
     ];
 
@@ -63,8 +64,8 @@ class FormHelper extends Helper
      */
     protected $_templateSet = [
         'default' => [
-            'checkboxContainer' => '<div class="form-group {{type}}{{required}}">{{content}}{{help}}</div>',
-            'checkboxContainerError' => '<div class="form-group {{type}}{{required}} is-invalid">{{content}}{{error}}{{help}}</div>',
+            'checkboxContainer' => '<div class="form-group form-check {{type}}{{required}}">{{content}}{{help}}</div>',
+            'checkboxContainerError' => '<div class="form-group form-check {{type}}{{required}} is-invalid">{{content}}{{error}}{{help}}</div>',
         ],
         'inline' => [
             'label' => '<label class="sr-only"{{attrs}}>{{text}}{{tooltip}}</label>',
@@ -253,6 +254,11 @@ class FormHelper extends Helper
                         $options['templates']['checkboxContainer'] = '{{content}}';
                     }
                 }
+
+                $options['nestedInput'] = false;
+                $options['label'] = $this->injectClasses('form-check-label', (array)$options['label']);
+                $options = $this->injectClasses('form-check-input', (array)$options);
+
                 unset($options['inline']);
                 break;
 
