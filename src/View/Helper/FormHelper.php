@@ -63,8 +63,8 @@ class FormHelper extends Helper
      */
     protected $_templateSet = [
         'default' => [
-            'checkboxContainer' => '<div class="form-group {{type}}{{required}}">{{content}}{{help}}</div>',
-            'checkboxContainerError' => '<div class="form-group {{type}}{{required}} is-invalid">{{content}}{{error}}{{help}}</div>',
+            'checkboxContainer' => '<div class="form-group form-check {{type}}{{required}}">{{content}}{{help}}</div>',
+            'checkboxContainerError' => '<div class="form-group form-check {{type}}{{required}} is-invalid">{{content}}{{error}}{{help}}</div>',
         ],
         'inline' => [
             'label' => '<label class="sr-only"{{attrs}}>{{text}}{{tooltip}}</label>',
@@ -253,6 +253,11 @@ class FormHelper extends Helper
                         $options['templates']['checkboxContainer'] = '{{content}}';
                     }
                 }
+
+                $options['templates']['nestingLabel'] = '{{hidden}}{{input}}<label{{attrs}}>{{text}}</label>';
+                $options['label'] = $this->injectClasses('form-check-label', (array)$options['label']);
+                $options = $this->injectClasses('form-check-input', (array)$options);
+
                 unset($options['inline']);
                 break;
 
