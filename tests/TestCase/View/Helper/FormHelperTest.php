@@ -1000,7 +1000,7 @@ class FormHelperTest extends TestCase
         ];
         $this->assertHtml($expected, $result);
 
-        $result = $this->Form->create($this->article, ['align' => 'inline']);
+        $result = $this->Form->create($this->article, ['align' => 'horizontal']);
     }
 
     /**
