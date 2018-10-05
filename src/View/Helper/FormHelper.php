@@ -47,6 +47,10 @@ class FormHelper extends Helper
         'tooltip' => '<span data-toggle="tooltip" title="{{content}}" class="fas fa-info-circle"></span>',
         'inputContainer' => '<div class="form-group {{type}}{{required}}">{{content}}{{help}}</div>',
         'inputContainerError' => '<div class="form-group {{type}}{{required}} is-invalid">{{content}}{{error}}{{help}}</div>',
+        'checkboxContainer' => '<div class="form-group form-check {{type}}{{required}}">{{content}}{{help}}</div>',
+        'checkboxContainerError' => '<div class="form-group form-check {{type}}{{required}} is-invalid">{{content}}{{error}}{{help}}</div>',
+        'checkboxFormGroup' => '{{input}}{{label}}',
+        'radioWrapper' => '<div class="form-check">{{hidden}}{{input}}{{label}}</div>',
         'radioInlineFormGroup' => '{{label}}<div class="form-check form-check-inline">{{input}}</div>',
         'radioNestingLabel' => '<div class="form-check">{{hidden}}<label{{attrs}}>{{input}}{{text}}{{tooltip}}</label></div>',
         'staticControl' => '<p class="form-control-plaintext">{{content}}</p>',
@@ -63,8 +67,6 @@ class FormHelper extends Helper
      */
     protected $_templateSet = [
         'default' => [
-            'checkboxContainer' => '<div class="form-group {{type}}{{required}}">{{content}}{{help}}</div>',
-            'checkboxContainerError' => '<div class="form-group {{type}}{{required}} is-invalid">{{content}}{{error}}{{help}}</div>',
         ],
         'inline' => [
             'label' => '<label class="sr-only"{{attrs}}>{{text}}{{tooltip}}</label>',
@@ -72,8 +74,9 @@ class FormHelper extends Helper
         ],
         'horizontal' => [
             'label' => '<label class="col-form-label %s"{{attrs}}>{{text}}{{tooltip}}</label>',
+            'checkboxLabel' => '<label {{attrs}}>{{text}}{{tooltip}}</label>',
             'formGroup' => '{{label}}<div class="%s">{{input}}{{error}}{{help}}</div>',
-            'checkboxFormGroup' => '<div class="%s"><div class="checkbox">{{label}}</div>{{error}}{{help}}</div>',
+            'checkboxFormGroup' => '<div class="%s"><div class="form-check">{{input}}{{label}}</div>{{error}}{{help}}</div>',
             'submitContainer' => '<div class="form-group"><div class="%s">{{content}}</div></div>',
             'inputContainer' => '<div class="form-group row {{type}}{{required}}">{{content}}</div>',
             'inputContainerError' => '<div class="form-group row {{type}}{{required}} is-invalid">{{content}}</div>',
@@ -81,6 +84,7 @@ class FormHelper extends Helper
             'checkboxContainerError' => '<div class="form-group row {{type}}{{required}} is-invalid">{{content}}</div>',
             'radioContainer' => '<div class="form-group row {{type}}{{required}}">{{content}}</div>',
             'radioContainerError' => '<div class="form-group row {{type}}{{required}} is-invalid">{{content}}</div>',
+            'radioInlineWrapper' => '<div class="form-check form-check-inline">{{hidden}}{{input}}{{label}}</div>',
         ]
     ];
 
@@ -159,6 +163,13 @@ class FormHelper extends Helper
             'align' => null,
             'templates' => [],
         ];
+
+        if ($options['align'] === 'inline') {
+            trigger_error(
+                'Support for inline forms is currently broken. Patches to fix it are welcome.',
+                E_USER_WARNING
+            );
+        }
 
         return parent::create($model, $this->_formAlignment($options));
     }
@@ -243,6 +254,17 @@ class FormHelper extends Helper
 
         switch ($options['type']) {
             case 'checkbox':
+                if (!isset($options['nestedInput'])) {
+                    $options['nestedInput'] = false;
+                }
+
+                $options['label'] = $this->injectClasses('form-check-label', (array)$options['label']);
+                $options = $this->injectClasses('form-check-input', $options);
+
+                if ($this->_align === 'horizontal') {
+                    $options['templates']['label'] = $this->templater()->get('checkboxLabel');
+                }
+
                 if (!isset($options['inline'])) {
                     $options['inline'] = $this->checkClasses($options['type'] . '-inline', (array)$options['label']);
                 }
@@ -257,11 +279,23 @@ class FormHelper extends Helper
                 break;
 
             case 'radio':
+                $options = $this->injectClasses('form-check-input', $options);
+                if ($this->_align !== 'horizontal') {
+                    $options['label'] = $this->injectClasses('form-check-label', (array)$options['label']);
+                }
+
+                $options['labelOptions'] = isset($options['labelOptions']) ? $options['labelOptions'] : [];
+                if (!isset($options['labelOptions']['input'])) {
+                    $options['labelOptions']['input'] = false;
+                }
+                $options['labelOptions'] = $this->injectClasses('form-check-label', $options['labelOptions']);
+
+                if ($options['inline'] && $this->_align === 'horizontal') {
+                    $options['templates']['radioWrapper'] = $this->templater()->get('radioInlineWrapper');
+                }
+
                 if ($options['inline'] && $this->_align !== 'horizontal') {
                     $options['templates']['formGroup'] = $this->templater()->get('radioInlineFormGroup');
-                }
-                if (!$options['inline']) {
-                    $options['templates']['nestingLabel'] = $this->templater()->get('radioNestingLabel');
                 }
                 break;
 
