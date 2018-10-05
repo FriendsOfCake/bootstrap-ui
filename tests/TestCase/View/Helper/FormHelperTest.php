@@ -1293,7 +1293,7 @@ class FormHelperTest extends TestCase
             'input' => [
                 'type' => 'submit',
                 'value' => 'Submit',
-                'class' => 'btn btn-primary'
+                'class' => 'btn btn-primary',
             ]
         ];
         $this->assertHtml($expected, $result);
