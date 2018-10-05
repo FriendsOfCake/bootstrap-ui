@@ -735,7 +735,7 @@ class FormHelperTest extends TestCase
     {
         $this->Form->create($this->article);
 
-        $result = $this->Form->radio('published',  ['Yes', 'No']);
+        $result = $this->Form->radio('published', ['Yes', 'No']);
         $expected = [
             ['input' => [
                 'type' => 'hidden',
