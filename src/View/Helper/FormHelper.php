@@ -240,7 +240,8 @@ class FormHelper extends Helper
             'help' => null,
             'tooltip' => null,
             'templates' => [],
-            'templateVars' => []
+            'templateVars' => [],
+            'labelOptions' => true,
         ];
         $options = $this->_parseOptions($fieldName, $options);
 
@@ -284,11 +285,15 @@ class FormHelper extends Helper
                     $options['label'] = $this->injectClasses('form-check-label', (array)$options['label']);
                 }
 
-                $options['labelOptions'] = isset($options['labelOptions']) ? $options['labelOptions'] : [];
-                if (!isset($options['labelOptions']['input'])) {
-                    $options['labelOptions']['input'] = false;
+                if ($options['labelOptions'] !== false) {
+                    if ($options['labelOptions'] === true) {
+                        $options['labelOptions'] = [];
+                    }
+                    if (!isset($options['labelOptions']['input'])) {
+                        $options['labelOptions']['input'] = false;
+                    }
+                    $options['labelOptions'] = $this->injectClasses('form-check-label', $options['labelOptions']);
                 }
-                $options['labelOptions'] = $this->injectClasses('form-check-label', $options['labelOptions']);
 
                 if ($options['inline'] && $this->_align === 'horizontal') {
                     $options['templates']['radioWrapper'] = $this->templater()->get('radioInlineWrapper');
