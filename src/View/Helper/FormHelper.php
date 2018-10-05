@@ -189,6 +189,9 @@ class FormHelper extends Helper
      */
     public function submit($caption = null, array $options = [])
     {
+        $options += [
+            'class' => 'primary'
+        ];
         $options = $this->applyButtonClasses($options);
 
         return parent::submit($caption, $options);
