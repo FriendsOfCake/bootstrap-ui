@@ -727,6 +727,50 @@ class FormHelperTest extends TestCase
     }
 
     /**
+     * testRadio method
+     *
+     * @return void
+     */
+    public function testRadio()
+    {
+        $this->Form->create($this->article);
+
+        $result = $this->Form->radio('published',  ['Yes', 'No']);
+        $expected = [
+            ['input' => [
+                'type' => 'hidden',
+                'name' => 'published',
+                'value' => '',
+            ]],
+            ['div' => ['class' => 'form-check']],
+            ['input' => [
+                'type' => 'radio',
+                'name' => 'published',
+                'value' => 0,
+                'id' => 'published-0',
+                'class' => 'form-check-input'
+            ]],
+            ['label' => ['for' => 'published-0', 'class' => 'form-check-label']],
+            'Yes',
+            '/label',
+            '/div',
+            ['div' => ['class' => 'form-check']],
+            ['input' => [
+                'type' => 'radio',
+                'name' => 'published',
+                'value' => 1,
+                'id' => 'published-1',
+                'class' => 'form-check-input'
+            ]],
+            ['label' => ['for' => 'published-1', 'class' => 'form-check-label']],
+            'No',
+            '/label',
+            '/div',
+        ];
+        $this->assertHtml($expected, $result);
+    }
+
+    /**
      * testInlineRadioControl method
      *
      * @return void

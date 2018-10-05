@@ -286,16 +286,6 @@ class FormHelper extends Helper
                     $options['label'] = $this->injectClasses('form-check-label', (array)$options['label']);
                 }
 
-                if ($options['labelOptions'] !== false) {
-                    if ($options['labelOptions'] === true) {
-                        $options['labelOptions'] = [];
-                    }
-                    if (!isset($options['labelOptions']['input'])) {
-                        $options['labelOptions']['input'] = false;
-                    }
-                    $options['labelOptions'] = $this->injectClasses('form-check-label', $options['labelOptions']);
-                }
-
                 if ($options['inline'] && $this->_align === 'horizontal') {
                     $options['templates']['radioWrapper'] = $this->templater()->get('radioInlineWrapper');
                 }
@@ -353,6 +343,35 @@ class FormHelper extends Helper
     }
 
     /**
+     * Creates a set of radio widgets.
+     *
+     * ### Attributes:
+     *
+     * - `value` - Indicates the value when this radio button is checked.
+     * - `label` - Either `false` to disable label around the widget or an array of attributes for
+     *    the label tag. `selected` will be added to any classes e.g. `'class' => 'myclass'` where widget
+     *    is checked
+     * - `hiddenField` - boolean to indicate if you want the results of radio() to include
+     *    a hidden input with a value of ''. This is useful for creating radio sets that are non-continuous.
+     * - `disabled` - Set to `true` or `disabled` to disable all the radio buttons. Use an array of
+     *   values to disable specific radio buttons.
+     * - `empty` - Set to `true` to create an input with the value '' as the first option. When `true`
+     *   the radio label will be 'empty'. Set this option to a string to control the label value.
+     *
+     * @param string $fieldName Name of a field, like this "modelname.fieldname"
+     * @param array|\Traversable $options Radio button options array.
+     * @param array $attributes Array of attributes.
+     * @return string Completed radio widget set.
+     * @link https://book.cakephp.org/3.0/en/views/helpers/form.html#creating-radio-buttons
+     */
+    public function radio($fieldName, $options = [], array $attributes = [])
+    {
+        $attributes = $this->multiInputAttributes($attributes);
+
+        return parent::radio($fieldName, $options, $attributes);
+    }
+
+    /**
      * Creates a set of checkboxes out of options.
      *
      * ### Options
@@ -379,6 +398,19 @@ class FormHelper extends Helper
      */
     public function multiCheckbox($fieldName, $options, array $attributes = [])
     {
+        $attributes = $this->multiInputAttributes($attributes);
+
+        return parent::multiCheckbox($fieldName, $options, $attributes);
+    }
+
+    /**
+     * Set options for radio and multi checkbox inputs.
+     *
+     * @param array $attributes Attributes
+     * @return array
+     */
+    protected function multiInputAttributes(array $attributes)
+    {
         $attributes += ['label' => true];
 
         $attributes = $this->injectClasses('form-check-input', $attributes);
@@ -392,7 +424,7 @@ class FormHelper extends Helper
             $attributes['label'] = $this->injectClasses('form-check-label', $attributes['label']);
         }
 
-        return parent::multiCheckbox($fieldName, $options, $attributes);
+        return $attributes;
     }
 
     /**
