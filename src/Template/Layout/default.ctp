@@ -43,8 +43,9 @@ if (!$this->fetch('tb_body_start')) {
  */
 if (!$this->fetch('tb_flash')) {
     $this->start('tb_flash');
-    if (isset($this->Flash))
+    if (isset($this->Flash)) {
         echo $this->Flash->render();
+    }
     $this->end();
 }
 if (!$this->fetch('tb_body_end')) {
