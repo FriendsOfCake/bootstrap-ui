@@ -32,7 +32,7 @@ if (!$this->fetch('tb_footer')) {
 /**
  * Default `body` block.
  */
-$this->prepend('tb_body_attrs', ' class="' . implode(' ', [$this->request->controller, $this->request->action]) . '" ');
+$this->prepend('tb_body_attrs', ' class="' . implode(' ', [$this->request->getParam('controller'), $this->request->getParam('action')]) . '" ');
 if (!$this->fetch('tb_body_start')) {
     $this->start('tb_body_start');
     echo '<body' . $this->fetch('tb_body_attrs') . '>';
@@ -43,8 +43,9 @@ if (!$this->fetch('tb_body_start')) {
  */
 if (!$this->fetch('tb_flash')) {
     $this->start('tb_flash');
-    if (isset($this->Flash))
+    if (isset($this->Flash)) {
         echo $this->Flash->render();
+    }
     $this->end();
 }
 if (!$this->fetch('tb_body_end')) {

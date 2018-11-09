@@ -3,7 +3,7 @@
 use Cake\Core\Configure;
 
 $this->Html->css('BootstrapUI.cover', ['block' => true]);
-$this->prepend('tb_body_attrs', ' class="' . implode(' ', [$this->request->controller, $this->request->action]) . '" ');
+$this->prepend('tb_body_attrs', ' class="' . implode(' ', [$this->request->getParam('controller'), $this->request->getParam('action')]) . '" ');
 $this->start('tb_body_start');
 ?>
 <body <?= $this->fetch('tb_body_attrs') ?>>
@@ -25,8 +25,9 @@ $this->start('tb_body_start');
  */
 if (!$this->fetch('tb_flash')) {
     $this->start('tb_flash');
-    if (isset($this->Flash))
+    if (isset($this->Flash)) {
         echo $this->Flash->render();
+    }
     $this->end();
 }
 $this->end();
