@@ -727,6 +727,50 @@ class FormHelperTest extends TestCase
     }
 
     /**
+     * testRadio method
+     *
+     * @return void
+     */
+    public function testRadio()
+    {
+        $this->Form->create($this->article);
+
+        $result = $this->Form->radio('published', ['Yes', 'No']);
+        $expected = [
+            ['input' => [
+                'type' => 'hidden',
+                'name' => 'published',
+                'value' => '',
+            ]],
+            ['div' => ['class' => 'form-check']],
+            ['input' => [
+                'type' => 'radio',
+                'name' => 'published',
+                'value' => 0,
+                'id' => 'published-0',
+                'class' => 'form-check-input'
+            ]],
+            ['label' => ['for' => 'published-0', 'class' => 'form-check-label']],
+            'Yes',
+            '/label',
+            '/div',
+            ['div' => ['class' => 'form-check']],
+            ['input' => [
+                'type' => 'radio',
+                'name' => 'published',
+                'value' => 1,
+                'id' => 'published-1',
+                'class' => 'form-check-input'
+            ]],
+            ['label' => ['for' => 'published-1', 'class' => 'form-check-label']],
+            'No',
+            '/label',
+            '/div',
+        ];
+        $this->assertHtml($expected, $result);
+    }
+
+    /**
      * testInlineRadioControl method
      *
      * @return void
@@ -1403,29 +1447,31 @@ class FormHelperTest extends TestCase
                 'name' => 'field',
                 'value' => '',
             ],
-            ['div' => ['class' => 'checkbox']],
-            ['label' => ['for' => 'field-value-1']],
+            ['div' => ['class' => 'form-check']],
             [
                 'input' => [
                     'type' => 'checkbox',
                     'name' => 'field[]',
                     'id' => 'field-value-1',
                     'value' => 'Value 1',
+                    'class' => 'form-check-input'
                 ]
             ],
+            ['label' => ['for' => 'field-value-1', 'class' => 'form-check-label']],
             'Label 1',
             '/label',
             '/div',
-            ['div' => ['class' => 'checkbox']],
-            ['label' => ['for' => 'field-value-2']],
+            ['div' => ['class' => 'form-check']],
             [
                 'input' => [
                     'type' => 'checkbox',
                     'name' => 'field[]',
                     'id' => 'field-value-2',
                     'value' => 'Value 2',
+                    'class' => 'form-check-input'
                 ]
             ],
+            ['label' => ['for' => 'field-value-2', 'class' => 'form-check-label']],
             'Label 2',
             '/label',
             '/div',
@@ -1451,7 +1497,7 @@ class FormHelperTest extends TestCase
         ]);
         $expected = [
             ['div' => ['class' => 'form-group multicheckbox']],
-            ['label' => []],
+            ['label' => ['class' => 'form-check-label']],
             'Users',
             '/label',
             'input' => [
@@ -1459,29 +1505,31 @@ class FormHelperTest extends TestCase
                 'name' => 'users',
                 'value' => '',
             ],
-            ['div' => ['class' => 'checkbox']],
-            ['label' => ['for' => 'users-1']],
+            ['div' => ['class' => 'form-check']],
             [
                 'input' => [
                     'type' => 'checkbox',
                     'name' => 'users[]',
                     'id' => 'users-1',
                     'value' => 1,
+                    'class' => 'form-check-input',
                 ]
             ],
+            ['label' => ['for' => 'users-1', 'class' => 'form-check-label']],
             'User 1',
             '/label',
             '/div',
-            ['div' => ['class' => 'checkbox']],
-            ['label' => ['for' => 'users-2']],
+            ['div' => ['class' => 'form-check']],
             [
                 'input' => [
                     'type' => 'checkbox',
                     'name' => 'users[]',
                     'id' => 'users-2',
                     'value' => 2,
+                    'class' => 'form-check-input',
                 ]
             ],
+            ['label' => ['for' => 'users-2', 'class' => 'form-check-label']],
             'User 2',
             '/label',
             '/div',

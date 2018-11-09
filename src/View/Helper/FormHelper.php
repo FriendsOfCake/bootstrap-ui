@@ -50,6 +50,7 @@ class FormHelper extends Helper
         'checkboxContainer' => '<div class="form-group form-check {{type}}{{required}}">{{content}}{{help}}</div>',
         'checkboxContainerError' => '<div class="form-group form-check {{type}}{{required}} is-invalid">{{content}}{{error}}{{help}}</div>',
         'checkboxFormGroup' => '{{input}}{{label}}',
+        'checkboxWrapper' => '<div class="form-check">{{input}}{{label}}</div>',
         'radioWrapper' => '<div class="form-check">{{hidden}}{{input}}{{label}}</div>',
         'radioInlineFormGroup' => '{{label}}<div class="form-check form-check-inline">{{input}}</div>',
         'radioNestingLabel' => '<div class="form-check">{{hidden}}<label{{attrs}}>{{input}}{{text}}{{tooltip}}</label></div>',
@@ -243,7 +244,8 @@ class FormHelper extends Helper
             'help' => null,
             'tooltip' => null,
             'templates' => [],
-            'templateVars' => []
+            'templateVars' => [],
+            'labelOptions' => true,
         ];
         $options = $this->_parseOptions($fieldName, $options);
 
@@ -287,12 +289,6 @@ class FormHelper extends Helper
                     $options['label'] = $this->injectClasses('form-check-label', (array)$options['label']);
                 }
 
-                $options['labelOptions'] = isset($options['labelOptions']) ? $options['labelOptions'] : [];
-                if (!isset($options['labelOptions']['input'])) {
-                    $options['labelOptions']['input'] = false;
-                }
-                $options['labelOptions'] = $this->injectClasses('form-check-label', $options['labelOptions']);
-
                 if ($options['inline'] && $this->_align === 'horizontal') {
                     $options['templates']['radioWrapper'] = $this->templater()->get('radioInlineWrapper');
                 }
@@ -305,6 +301,10 @@ class FormHelper extends Helper
             case 'select':
                 if (isset($options['multiple']) && $options['multiple'] === 'checkbox') {
                     $options['type'] = 'multicheckbox';
+
+                    if ($this->_align !== 'horizontal') {
+                        $options['label'] = $this->injectClasses('form-check-label', (array)$options['label']);
+                    }
                 }
                 break;
         }
@@ -343,6 +343,91 @@ class FormHelper extends Helper
         }
 
         return $result;
+    }
+
+    /**
+     * Creates a set of radio widgets.
+     *
+     * ### Attributes:
+     *
+     * - `value` - Indicates the value when this radio button is checked.
+     * - `label` - Either `false` to disable label around the widget or an array of attributes for
+     *    the label tag. `selected` will be added to any classes e.g. `'class' => 'myclass'` where widget
+     *    is checked
+     * - `hiddenField` - boolean to indicate if you want the results of radio() to include
+     *    a hidden input with a value of ''. This is useful for creating radio sets that are non-continuous.
+     * - `disabled` - Set to `true` or `disabled` to disable all the radio buttons. Use an array of
+     *   values to disable specific radio buttons.
+     * - `empty` - Set to `true` to create an input with the value '' as the first option. When `true`
+     *   the radio label will be 'empty'. Set this option to a string to control the label value.
+     *
+     * @param string $fieldName Name of a field, like this "modelname.fieldname"
+     * @param array|\Traversable $options Radio button options array.
+     * @param array $attributes Array of attributes.
+     * @return string Completed radio widget set.
+     * @link https://book.cakephp.org/3.0/en/views/helpers/form.html#creating-radio-buttons
+     */
+    public function radio($fieldName, $options = [], array $attributes = [])
+    {
+        $attributes = $this->multiInputAttributes($attributes);
+
+        return parent::radio($fieldName, $options, $attributes);
+    }
+
+    /**
+     * Creates a set of checkboxes out of options.
+     *
+     * ### Options
+     *
+     * - `escape` - If true contents of options will be HTML entity encoded. Defaults to true.
+     * - `val` The selected value of the input.
+     * - `class` - When using multiple = checkbox the class name to apply to the divs. Defaults to 'checkbox'.
+     * - `disabled` - Control the disabled attribute. When creating checkboxes, `true` will disable all checkboxes.
+     *   You can also set disabled to a list of values you want to disable when creating checkboxes.
+     * - `hiddenField` - Set to false to remove the hidden field that ensures a value
+     *   is always submitted.
+     * - `label` - Either `false` to disable label around the widget or an array of attributes for
+     *   the label tag. `selected` will be added to any classes e.g. `'class' => 'myclass'` where
+     *   widget is checked
+     *
+     * Can be used in place of a select box with the multiple attribute.
+     *
+     * @param string $fieldName Name attribute of the SELECT
+     * @param array|\Traversable $options Array of the OPTION elements
+     *   (as 'value'=>'Text' pairs) to be used in the checkboxes element.
+     * @param array $attributes The HTML attributes of the select element.
+     * @return string Formatted SELECT element
+     * @see \Cake\View\Helper\FormHelper::select() for supported option formats.
+     */
+    public function multiCheckbox($fieldName, $options, array $attributes = [])
+    {
+        $attributes = $this->multiInputAttributes($attributes);
+
+        return parent::multiCheckbox($fieldName, $options, $attributes);
+    }
+
+    /**
+     * Set options for radio and multi checkbox inputs.
+     *
+     * @param array $attributes Attributes
+     * @return array
+     */
+    protected function multiInputAttributes(array $attributes)
+    {
+        $attributes += ['label' => true];
+
+        $attributes = $this->injectClasses('form-check-input', $attributes);
+        if ($attributes['label'] === true) {
+            $attributes['label'] = [];
+        }
+        if ($attributes['label'] !== false) {
+            if (!isset($attributes['label']['input'])) {
+                $attributes['label']['input'] = false;
+            }
+            $attributes['label'] = $this->injectClasses('form-check-label', $attributes['label']);
+        }
+
+        return $attributes;
     }
 
     /**
