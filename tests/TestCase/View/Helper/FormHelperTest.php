@@ -331,15 +331,16 @@ class FormHelperTest extends TestCase
     }
 
     /**
-     * testErroredTextControl method
+     * testErroredControl method
      *
      * @return void
      */
-    public function testErroredTextControl()
+    public function testErroredControl()
     {
         $this->article['errors'] = [
             'title' => ['error message'],
-            'published' => ['error message']
+            'published' => ['error message'],
+            'foreign_key' => ['error msg'],
         ];
         $this->Form->create($this->article);
 
@@ -373,6 +374,27 @@ class FormHelperTest extends TestCase
             'Published',
             '/label',
             ['div' => ['class' => 'invalid-feedback']], 'error message', '/div',
+            '/div'
+        ];
+        $this->assertHtml($expected, $result);
+
+        $result = $this->Form->control('foreign_key', [
+            'type' => 'select',
+        ]);
+        $expected = [
+            'div' => ['class' => 'form-group select is-invalid'],
+            'label' => ['for' => 'foreign-key'],
+            'Foreign Key',
+            '/label',
+            'select' => [
+                'name' => 'foreign_key',
+                'id' => 'foreign-key',
+                'class' => 'is-invalid form-control',
+            ],
+            '/select',
+            ['div' => ['class' => 'invalid-feedback']],
+            'error msg',
+            '/div',
             '/div'
         ];
         $this->assertHtml($expected, $result);
