@@ -50,15 +50,21 @@ class FormHelper extends Helper
         'checkboxContainer' => '<div class="form-group form-check {{type}}{{required}}">{{content}}{{help}}</div>',
         'checkboxContainerError' => '<div class="form-group form-check {{type}}{{required}} is-invalid">{{content}}{{error}}{{help}}</div>',
         'checkboxFormGroup' => '{{input}}{{label}}',
-        'checkboxWrapper' => '<div class="form-check">{{input}}{{label}}</div>',
-        'radioWrapper' => '<div class="form-check">{{hidden}}{{input}}{{label}}</div>',
+        'checkboxWrapper' => '<div class="form-check">{{label}}</div>',
+        'checkboxInlineWrapper' => '<div class="form-check form-check-inline">{{label}}</div>',
+        'radioWrapper' => '<div class="form-check">{{hidden}}{{label}}</div>',
         'radioInlineFormGroup' => '{{label}}<div class="form-check form-check-inline">{{input}}</div>',
         'radioNestingLabel' => '<div class="form-check">{{hidden}}<label{{attrs}}>{{input}}{{text}}{{tooltip}}</label></div>',
         'staticControl' => '<p class="form-control-plaintext">{{content}}</p>',
         'inputGroupAddon' => '<div class="{{class}}">{{content}}</div>',
         'inputGroupContainer' => '<div{{attrs}}>{{prepend}}{{content}}{{append}}</div>',
         'inputGroupText' => '<span class="input-group-text">{{content}}</span>',
-        'file' => '<input type="file" class="form-control-file" name="{{name}}"{{attrs}}>'
+        'file' => '<input type="file" class="form-control-file" name="{{name}}"{{attrs}}>',
+        'multicheckboxContainer' => '<fieldset class="form-group {{type}}{{required}}">{{content}}{{help}}</fieldset>',
+        'multicheckboxContainerError' => '<fieldset class="form-group {{type}}{{required}} is-invalid">{{content}}{{error}}{{help}}</fieldset>',
+        'multicheckboxLegend' => '<legend>{{text}}</legend>',
+        'nestingLabel' => '{{hidden}}{{input}}<label{{attrs}}>{{text}}{{tooltip}}</label>',
+        'nestingLabelNestedInput' => '{{hidden}}<label{{attrs}}>{{input}}{{text}}{{tooltip}}</label>',
     ];
 
     /**
@@ -71,7 +77,10 @@ class FormHelper extends Helper
         ],
         'inline' => [
             'label' => '<label class="sr-only"{{attrs}}>{{text}}{{tooltip}}</label>',
-            'inputContainer' => '{{content}}'
+            'inputContainer' => '{{content}}',
+            'multicheckboxContainer' => '<div class="form-group {{type}}{{required}}">{{content}}</div>',
+            'multicheckboxContainerError' => '<div class="form-group {{type}}{{required}} is-invalid">{{content}}</div>',
+            'multicheckboxLegend' => '<span class="sr-only">{{text}}</span>',
         ],
         'horizontal' => [
             'label' => '<label class="col-form-label %s"{{attrs}}>{{text}}{{tooltip}}</label>',
@@ -85,7 +94,10 @@ class FormHelper extends Helper
             'checkboxContainerError' => '<div class="form-group row {{type}}{{required}} is-invalid">{{content}}</div>',
             'radioContainer' => '<div class="form-group row {{type}}{{required}}">{{content}}</div>',
             'radioContainerError' => '<div class="form-group row {{type}}{{required}} is-invalid">{{content}}</div>',
-            'radioInlineWrapper' => '<div class="form-check form-check-inline">{{hidden}}{{input}}{{label}}</div>',
+            'radioInlineWrapper' => '<div class="form-check form-check-inline">{{hidden}}{{label}}</div>',
+            'multicheckboxContainer' => '<fieldset class="form-group {{type}}{{required}}"><div class="row">{{content}}</div></fieldset>',
+            'multicheckboxContainerError' => '<fieldset class="form-group {{type}}{{required}} is-invalid"><div class="row">{{content}}</div></fieldset>',
+            'multicheckboxLegend' => '<legend class="col-form-label pt-0 %s">{{text}}</legend>',
         ]
     ];
 
@@ -249,6 +261,12 @@ class FormHelper extends Helper
         ];
         $options = $this->_parseOptions($fieldName, $options);
 
+        if (!isset($options['nestedInput'])) {
+            $options['nestedInput'] = false;
+        }
+        $nestedInput = $options['nestedInput'];
+        unset($options['nestedInput']);
+
         $newTemplates = $options['templates'];
         if ($newTemplates) {
             $this->templater()->push();
@@ -304,6 +322,20 @@ class FormHelper extends Helper
 
                     if ($this->_align !== 'horizontal') {
                         $options['label'] = $this->injectClasses('form-check-label', (array)$options['label']);
+                    }
+                }
+
+                if ($options['type'] === 'multicheckbox') {
+                    $options['templates']['label'] = $this->templater()->get('multicheckboxLegend');
+
+                    if ($options['inline'] ||
+                        $this->_align === 'inline'
+                    ) {
+                        $options['templates']['checkboxWrapper'] = $this->templater()->get('checkboxInlineWrapper');
+                    }
+
+                    if ($nestedInput) {
+                        $options['templates']['nestingLabel'] = $this->templater()->get('nestingLabelNestedInput');
                     }
                 }
                 break;
@@ -421,9 +453,6 @@ class FormHelper extends Helper
             $attributes['label'] = [];
         }
         if ($attributes['label'] !== false) {
-            if (!isset($attributes['label']['input'])) {
-                $attributes['label']['input'] = false;
-            }
             $attributes['label'] = $this->injectClasses('form-check-label', $attributes['label']);
         }
 
@@ -623,6 +652,7 @@ class FormHelper extends Helper
         $offsetedGridClass = implode(' ', [$this->_gridClass('left', true), $this->_gridClass('middle')]);
 
         $templates['label'] = sprintf($templates['label'], $this->_gridClass('left'));
+        $templates['multicheckboxLegend'] = sprintf($templates['multicheckboxLegend'], $this->_gridClass('left'));
         $templates['formGroup'] = sprintf($templates['formGroup'], $this->_gridClass('middle'));
         foreach (['checkboxFormGroup', 'submitContainer'] as $value) {
             $templates[$value] = sprintf($templates[$value], $offsetedGridClass);
