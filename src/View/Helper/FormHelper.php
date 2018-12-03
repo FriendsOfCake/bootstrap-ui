@@ -60,9 +60,11 @@ class FormHelper extends Helper
         'inputGroupContainer' => '<div{{attrs}}>{{prepend}}{{content}}{{append}}</div>',
         'inputGroupText' => '<span class="input-group-text">{{content}}</span>',
         'file' => '<input type="file" class="form-control-file" name="{{name}}"{{attrs}}>',
-        'multicheckboxContainer' => '<fieldset class="form-group {{type}}{{required}}">{{content}}{{help}}</fieldset>',
-        'multicheckboxContainerError' => '<fieldset class="form-group {{type}}{{required}} is-invalid">{{content}}{{error}}{{help}}</fieldset>',
-        'multicheckboxLegend' => '<legend>{{text}}</legend>',
+        'multicheckboxContainer' => '<div class="form-group {{type}}{{required}}" role="group" aria-labelledby="{{groupId}}">{{content}}{{help}}</div>',
+        'multicheckboxContainerError' => '<div class="form-group {{type}}{{required}} is-invalid" role="group" aria-labelledby="{{groupId}}">{{content}}{{error}}{{help}}</div>',
+        'multicheckboxLabel' => '<label id="{{groupId}}" class="d-block">{{text}}</label>',
+        'multicheckboxWrapper' => '<fieldset class="form-group">{{content}}</fieldset>',
+        'multicheckboxTitle' => '<legend class="col-form-label pt-0">{{text}}</legend>',
         'nestingLabel' => '{{hidden}}{{input}}<label{{attrs}}>{{text}}{{tooltip}}</label>',
         'nestingLabelNestedInput' => '{{hidden}}<label{{attrs}}>{{input}}{{text}}{{tooltip}}</label>',
     ];
@@ -78,9 +80,9 @@ class FormHelper extends Helper
         'inline' => [
             'label' => '<label class="sr-only"{{attrs}}>{{text}}{{tooltip}}</label>',
             'inputContainer' => '{{content}}',
-            'multicheckboxContainer' => '<div class="form-group {{type}}{{required}}">{{content}}</div>',
-            'multicheckboxContainerError' => '<div class="form-group {{type}}{{required}} is-invalid">{{content}}</div>',
-            'multicheckboxLegend' => '<span class="sr-only">{{text}}</span>',
+            'multicheckboxContainer' => '<div class="form-group {{type}}{{required}}" role="group" aria-labelledby="{{groupId}}">{{content}}</div>',
+            'multicheckboxContainerError' => '<div class="form-group {{type}}{{required}} is-invalid" role="group" aria-labelledby="{{groupId}}">{{content}}</div>',
+            'multicheckboxLabel' => '<span id="{{groupId}}" class="sr-only">{{text}}</span>',
         ],
         'horizontal' => [
             'label' => '<label class="col-form-label %s"{{attrs}}>{{text}}{{tooltip}}</label>',
@@ -95,9 +97,9 @@ class FormHelper extends Helper
             'radioContainer' => '<div class="form-group row {{type}}{{required}}">{{content}}</div>',
             'radioContainerError' => '<div class="form-group row {{type}}{{required}} is-invalid">{{content}}</div>',
             'radioInlineWrapper' => '<div class="form-check form-check-inline">{{hidden}}{{label}}</div>',
-            'multicheckboxContainer' => '<fieldset class="form-group {{type}}{{required}}"><div class="row">{{content}}</div></fieldset>',
-            'multicheckboxContainerError' => '<fieldset class="form-group {{type}}{{required}} is-invalid"><div class="row">{{content}}</div></fieldset>',
-            'multicheckboxLegend' => '<legend class="col-form-label pt-0 %s">{{text}}</legend>',
+            'multicheckboxContainer' => '<div class="form-group {{type}}{{required}}" role="group" aria-labelledby="{{groupId}}"><div class="row">{{content}}</div></div>',
+            'multicheckboxContainerError' => '<div class="form-group {{type}}{{required}} is-invalid" role="group" aria-labelledby="{{groupId}}"><div class="row">{{content}}</div></div>',
+            'multicheckboxLabel' => '<label id="{{groupId}}" class="col-form-label d-block pt-0 %s">{{text}}</label>',
         ]
     ];
 
@@ -326,7 +328,8 @@ class FormHelper extends Helper
                 }
 
                 if ($options['type'] === 'multicheckbox') {
-                    $options['templates']['label'] = $this->templater()->get('multicheckboxLegend');
+                    $options['templateVars']['groupId'] = $this->_domId($fieldName . '-group-label');
+                    $options['templates']['label'] = $this->templater()->get('multicheckboxLabel');
 
                     if ($options['inline'] ||
                         $this->_align === 'inline'
@@ -652,7 +655,7 @@ class FormHelper extends Helper
         $offsetedGridClass = implode(' ', [$this->_gridClass('left', true), $this->_gridClass('middle')]);
 
         $templates['label'] = sprintf($templates['label'], $this->_gridClass('left'));
-        $templates['multicheckboxLegend'] = sprintf($templates['multicheckboxLegend'], $this->_gridClass('left'));
+        $templates['multicheckboxLabel'] = sprintf($templates['multicheckboxLabel'], $this->_gridClass('left'));
         $templates['formGroup'] = sprintf($templates['formGroup'], $this->_gridClass('middle'));
         foreach (['checkboxFormGroup', 'submitContainer'] as $value) {
             $templates[$value] = sprintf($templates[$value], $offsetedGridClass);
