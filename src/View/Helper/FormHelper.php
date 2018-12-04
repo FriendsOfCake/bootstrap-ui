@@ -50,15 +50,23 @@ class FormHelper extends Helper
         'checkboxContainer' => '<div class="form-group form-check {{type}}{{required}}">{{content}}{{help}}</div>',
         'checkboxContainerError' => '<div class="form-group form-check {{type}}{{required}} is-invalid">{{content}}{{error}}{{help}}</div>',
         'checkboxFormGroup' => '{{input}}{{label}}',
-        'checkboxWrapper' => '<div class="form-check">{{input}}{{label}}</div>',
-        'radioWrapper' => '<div class="form-check">{{hidden}}{{input}}{{label}}</div>',
+        'checkboxWrapper' => '<div class="form-check">{{label}}</div>',
+        'checkboxInlineWrapper' => '<div class="form-check form-check-inline">{{label}}</div>',
+        'radioWrapper' => '<div class="form-check">{{hidden}}{{label}}</div>',
         'radioInlineFormGroup' => '{{label}}<div class="form-check form-check-inline">{{input}}</div>',
         'radioNestingLabel' => '<div class="form-check">{{hidden}}<label{{attrs}}>{{input}}{{text}}{{tooltip}}</label></div>',
         'staticControl' => '<p class="form-control-plaintext">{{content}}</p>',
         'inputGroupAddon' => '<div class="{{class}}">{{content}}</div>',
         'inputGroupContainer' => '<div{{attrs}}>{{prepend}}{{content}}{{append}}</div>',
         'inputGroupText' => '<span class="input-group-text">{{content}}</span>',
-        'file' => '<input type="file" class="form-control-file" name="{{name}}"{{attrs}}>'
+        'file' => '<input type="file" class="form-control-file" name="{{name}}"{{attrs}}>',
+        'multicheckboxContainer' => '<div class="form-group {{type}}{{required}}" role="group" aria-labelledby="{{groupId}}">{{content}}{{help}}</div>',
+        'multicheckboxContainerError' => '<div class="form-group {{type}}{{required}} is-invalid" role="group" aria-labelledby="{{groupId}}">{{content}}{{error}}{{help}}</div>',
+        'multicheckboxLabel' => '<label id="{{groupId}}" class="d-block">{{text}}</label>',
+        'multicheckboxWrapper' => '<fieldset class="form-group">{{content}}</fieldset>',
+        'multicheckboxTitle' => '<legend class="col-form-label pt-0">{{text}}</legend>',
+        'nestingLabel' => '{{hidden}}{{input}}<label{{attrs}}>{{text}}{{tooltip}}</label>',
+        'nestingLabelNestedInput' => '{{hidden}}<label{{attrs}}>{{input}}{{text}}{{tooltip}}</label>',
     ];
 
     /**
@@ -71,7 +79,10 @@ class FormHelper extends Helper
         ],
         'inline' => [
             'label' => '<label class="sr-only"{{attrs}}>{{text}}{{tooltip}}</label>',
-            'inputContainer' => '{{content}}'
+            'inputContainer' => '{{content}}',
+            'multicheckboxContainer' => '<div class="form-group {{type}}{{required}}" role="group" aria-labelledby="{{groupId}}">{{content}}</div>',
+            'multicheckboxContainerError' => '<div class="form-group {{type}}{{required}} is-invalid" role="group" aria-labelledby="{{groupId}}">{{content}}</div>',
+            'multicheckboxLabel' => '<span id="{{groupId}}" class="sr-only">{{text}}</span>',
         ],
         'horizontal' => [
             'label' => '<label class="col-form-label %s"{{attrs}}>{{text}}{{tooltip}}</label>',
@@ -85,7 +96,10 @@ class FormHelper extends Helper
             'checkboxContainerError' => '<div class="form-group row {{type}}{{required}} is-invalid">{{content}}</div>',
             'radioContainer' => '<div class="form-group row {{type}}{{required}}">{{content}}</div>',
             'radioContainerError' => '<div class="form-group row {{type}}{{required}} is-invalid">{{content}}</div>',
-            'radioInlineWrapper' => '<div class="form-check form-check-inline">{{hidden}}{{input}}{{label}}</div>',
+            'radioInlineWrapper' => '<div class="form-check form-check-inline">{{hidden}}{{label}}</div>',
+            'multicheckboxContainer' => '<div class="form-group {{type}}{{required}}" role="group" aria-labelledby="{{groupId}}"><div class="row">{{content}}</div></div>',
+            'multicheckboxContainerError' => '<div class="form-group {{type}}{{required}} is-invalid" role="group" aria-labelledby="{{groupId}}"><div class="row">{{content}}</div></div>',
+            'multicheckboxLabel' => '<label id="{{groupId}}" class="col-form-label d-block pt-0 %s">{{text}}</label>',
         ]
     ];
 
@@ -236,6 +250,7 @@ class FormHelper extends Helper
             'prepend' => null,
             'append' => null,
             'inline' => null,
+            'nestedInput' => false,
             'type' => null,
             'label' => null,
             'error' => null,
@@ -248,6 +263,10 @@ class FormHelper extends Helper
             'labelOptions' => true,
         ];
         $options = $this->_parseOptions($fieldName, $options);
+
+        $inline = $options['inline'];
+        $nestedInput = $options['nestedInput'];
+        unset($options['inline'], $options['nestedInput']);
 
         $newTemplates = $options['templates'];
         if ($newTemplates) {
@@ -270,17 +289,16 @@ class FormHelper extends Helper
                     $options['templates']['label'] = $this->templater()->get('checkboxLabel');
                 }
 
-                if (!isset($options['inline'])) {
-                    $options['inline'] = $this->checkClasses($options['type'] . '-inline', (array)$options['label']);
+                if (!isset($inline)) {
+                    $inline = $this->checkClasses($options['type'] . '-inline', (array)$options['label']);
                 }
 
-                if ($options['inline']) {
+                if ($inline) {
                     $options['label'] = $this->injectClasses($options['type'] . '-inline', (array)$options['label']);
                     if (!isset($newTemplates['checkboxContainer'])) {
                         $options['templates']['checkboxContainer'] = '{{content}}';
                     }
                 }
-                unset($options['inline']);
                 break;
 
             case 'radio':
@@ -289,11 +307,11 @@ class FormHelper extends Helper
                     $options['label'] = $this->injectClasses('form-check-label', (array)$options['label']);
                 }
 
-                if ($options['inline'] && $this->_align === 'horizontal') {
+                if ($inline && $this->_align === 'horizontal') {
                     $options['templates']['radioWrapper'] = $this->templater()->get('radioInlineWrapper');
                 }
 
-                if ($options['inline'] && $this->_align !== 'horizontal') {
+                if ($inline && $this->_align !== 'horizontal') {
                     $options['templates']['formGroup'] = $this->templater()->get('radioInlineFormGroup');
                 }
                 break;
@@ -304,6 +322,21 @@ class FormHelper extends Helper
 
                     if ($this->_align !== 'horizontal') {
                         $options['label'] = $this->injectClasses('form-check-label', (array)$options['label']);
+                    }
+                }
+
+                if ($options['type'] === 'multicheckbox') {
+                    $options['templateVars']['groupId'] = $this->_domId($fieldName . '-group-label');
+                    $options['templates']['label'] = $this->templater()->get('multicheckboxLabel');
+
+                    if ($inline ||
+                        $this->_align === 'inline'
+                    ) {
+                        $options['templates']['checkboxWrapper'] = $this->templater()->get('checkboxInlineWrapper');
+                    }
+
+                    if ($nestedInput) {
+                        $options['templates']['nestingLabel'] = $this->templater()->get('nestingLabelNestedInput');
                     }
                 }
                 break;
@@ -421,9 +454,6 @@ class FormHelper extends Helper
             $attributes['label'] = [];
         }
         if ($attributes['label'] !== false) {
-            if (!isset($attributes['label']['input'])) {
-                $attributes['label']['input'] = false;
-            }
             $attributes['label'] = $this->injectClasses('form-check-label', $attributes['label']);
         }
 
@@ -623,6 +653,7 @@ class FormHelper extends Helper
         $offsetedGridClass = implode(' ', [$this->_gridClass('left', true), $this->_gridClass('middle')]);
 
         $templates['label'] = sprintf($templates['label'], $this->_gridClass('left'));
+        $templates['multicheckboxLabel'] = sprintf($templates['multicheckboxLabel'], $this->_gridClass('left'));
         $templates['formGroup'] = sprintf($templates['formGroup'], $this->_gridClass('middle'));
         foreach (['checkboxFormGroup', 'submitContainer'] as $value) {
             $templates[$value] = sprintf($templates[$value], $offsetedGridClass);

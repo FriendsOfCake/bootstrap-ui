@@ -1502,65 +1502,6 @@ class FormHelperTest extends TestCase
     }
 
     /**
-     * testMultipleCheckboxControl method
-     *
-     * @return void
-     */
-    public function testMultipleCheckboxControl()
-    {
-        $this->Form->create($this->article);
-
-        $result = $this->Form->control('users', [
-            'multiple' => 'checkbox',
-            'options' => [
-                1 => 'User 1',
-                2 => 'User 2'
-            ]
-        ]);
-        $expected = [
-            ['div' => ['class' => 'form-group multicheckbox']],
-            ['label' => ['class' => 'form-check-label']],
-            'Users',
-            '/label',
-            'input' => [
-                'type' => 'hidden',
-                'name' => 'users',
-                'value' => '',
-            ],
-            ['div' => ['class' => 'form-check']],
-            [
-                'input' => [
-                    'type' => 'checkbox',
-                    'name' => 'users[]',
-                    'id' => 'users-1',
-                    'value' => 1,
-                    'class' => 'form-check-input',
-                ]
-            ],
-            ['label' => ['for' => 'users-1', 'class' => 'form-check-label']],
-            'User 1',
-            '/label',
-            '/div',
-            ['div' => ['class' => 'form-check']],
-            [
-                'input' => [
-                    'type' => 'checkbox',
-                    'name' => 'users[]',
-                    'id' => 'users-2',
-                    'value' => 2,
-                    'class' => 'form-check-input',
-                ]
-            ],
-            ['label' => ['for' => 'users-2', 'class' => 'form-check-label']],
-            'User 2',
-            '/label',
-            '/div',
-            '/div'
-        ];
-        $this->assertHtml($expected, $result);
-    }
-
-    /**
      * testHelpText method
      *
      * @return void
@@ -1883,11 +1824,2425 @@ class FormHelperTest extends TestCase
         $this->Form->create($this->article, ['align' => 'foo']);
     }
 
-/*    public function testConstruct()
+    public function testDefaultAlignMultipleCheckboxControl()
     {
         $this->Form->create($this->article);
-        $this->_defaultConfig['templateSet'] = ['test'];
 
-        debug($this->Form);
-    }*/
+        $result = $this->Form->control('users', [
+            'multiple' => 'checkbox',
+            'options' => [
+                1 => 'option 1',
+                2 => 'option 2'
+            ]
+        ]);
+        $expected = [
+            ['div' => ['class' => 'form-group multicheckbox', 'role' => 'group', 'aria-labelledby' => 'users-group-label']],
+                ['label' => ['id' => 'users-group-label', 'class' => 'd-block']],
+                    'Users',
+                '/label',
+                ['input' => [
+                    'type' => 'hidden',
+                    'name' => 'users',
+                    'value' => '',
+                ]],
+                ['div' => ['class' => 'form-check']],
+                    ['input' => [
+                        'class' => 'form-check-input',
+                        'type' => 'checkbox',
+                        'name' => 'users[]',
+                        'id' => 'users-1',
+                        'value' => 1
+                    ]],
+                    ['label' => ['class' => 'form-check-label', 'for' => 'users-1']],
+                        'option 1',
+                    '/label',
+                '/div',
+                ['div' => ['class' => 'form-check']],
+                    ['input' => [
+                        'class' => 'form-check-input',
+                        'type' => 'checkbox',
+                        'name' => 'users[]',
+                        'id' => 'users-2',
+                        'value' => 2
+                    ]],
+                    ['label' => ['class' => 'form-check-label', 'for' => 'users-2']],
+                        'option 2',
+                    '/label',
+                '/div',
+            '/div',
+        ];
+        $this->assertHtml($expected, $result);
+    }
+
+    public function testDefaultAlignMultipleCheckboxControlNestedInput()
+    {
+        $this->Form->create($this->article);
+
+        $result = $this->Form->control('users', [
+            'multiple' => 'checkbox',
+            'options' => [
+                1 => 'option 1',
+                2 => 'option 2'
+            ],
+            'nestedInput' => true
+        ]);
+        $expected = [
+            ['div' => ['class' => 'form-group multicheckbox', 'role' => 'group', 'aria-labelledby' => 'users-group-label']],
+                ['label' => ['id' => 'users-group-label', 'class' => 'd-block']],
+                    'Users',
+                '/label',
+                ['input' => [
+                    'type' => 'hidden',
+                    'name' => 'users',
+                    'value' => '',
+                ]],
+                ['div' => ['class' => 'form-check']],
+                    ['label' => ['class' => 'form-check-label', 'for' => 'users-1']],
+                        ['input' => [
+                            'class' => 'form-check-input',
+                            'type' => 'checkbox',
+                            'name' => 'users[]',
+                            'id' => 'users-1',
+                            'value' => 1
+                        ]],
+                        'option 1',
+                    '/label',
+                '/div',
+                ['div' => ['class' => 'form-check']],
+                    ['label' => ['class' => 'form-check-label', 'for' => 'users-2']],
+                        ['input' => [
+                            'class' => 'form-check-input',
+                            'type' => 'checkbox',
+                            'name' => 'users[]',
+                            'id' => 'users-2',
+                            'value' => 2
+                        ]],
+                        'option 2',
+                    '/label',
+                '/div',
+            '/div',
+        ];
+        $this->assertHtml($expected, $result);
+    }
+
+    public function testDefaultAlignMultipleCheckboxControlInline()
+    {
+        $this->Form->create($this->article);
+
+        $result = $this->Form->control('users', [
+            'multiple' => 'checkbox',
+            'options' => [
+                1 => 'option 1',
+                2 => 'option 2'
+            ],
+            'inline' => true
+        ]);
+        $expected = [
+            ['div' => ['class' => 'form-group multicheckbox', 'role' => 'group', 'aria-labelledby' => 'users-group-label']],
+                ['label' => ['id' => 'users-group-label', 'class' => 'd-block']],
+                    'Users',
+                '/label',
+                ['input' => [
+                    'type' => 'hidden',
+                    'name' => 'users',
+                    'value' => '',
+                ]],
+                ['div' => ['class' => 'form-check form-check-inline']],
+                    ['input' => [
+                        'class' => 'form-check-input',
+                        'type' => 'checkbox',
+                        'name' => 'users[]',
+                        'id' => 'users-1',
+                        'value' => 1
+                    ]],
+                    ['label' => ['class' => 'form-check-label', 'for' => 'users-1']],
+                        'option 1',
+                    '/label',
+                '/div',
+                ['div' => ['class' => 'form-check form-check-inline']],
+                    ['input' => [
+                        'class' => 'form-check-input',
+                        'type' => 'checkbox',
+                        'name' => 'users[]',
+                        'id' => 'users-2',
+                        'value' => 2
+                    ]],
+                    ['label' => ['class' => 'form-check-label', 'for' => 'users-2']],
+                        'option 2',
+                    '/label',
+                '/div',
+            '/div',
+        ];
+        $this->assertHtml($expected, $result);
+    }
+
+    public function testDefaultAlignMultipleCheckboxControlInlineNestedInput()
+    {
+        $this->Form->create($this->article);
+
+        $result = $this->Form->control('users', [
+            'multiple' => 'checkbox',
+            'options' => [
+                1 => 'option 1',
+                2 => 'option 2'
+            ],
+            'inline' => true,
+            'nestedInput' => true
+        ]);
+        $expected = [
+            ['div' => ['class' => 'form-group multicheckbox', 'role' => 'group', 'aria-labelledby' => 'users-group-label']],
+                ['label' => ['id' => 'users-group-label', 'class' => 'd-block']],
+                    'Users',
+                '/label',
+                ['input' => [
+                    'type' => 'hidden',
+                    'name' => 'users',
+                    'value' => '',
+                ]],
+                ['div' => ['class' => 'form-check form-check-inline']],
+                    ['label' => ['class' => 'form-check-label', 'for' => 'users-1']],
+                        ['input' => [
+                            'class' => 'form-check-input',
+                            'type' => 'checkbox',
+                            'name' => 'users[]',
+                            'id' => 'users-1',
+                            'value' => 1
+                        ]],
+                        'option 1',
+                    '/label',
+                '/div',
+                ['div' => ['class' => 'form-check form-check-inline']],
+                    ['label' => ['class' => 'form-check-label', 'for' => 'users-2']],
+                        ['input' => [
+                            'class' => 'form-check-input',
+                            'type' => 'checkbox',
+                            'name' => 'users[]',
+                            'id' => 'users-2',
+                            'value' => 2
+                        ]],
+                        'option 2',
+                    '/label',
+                '/div',
+            '/div',
+        ];
+        $this->assertHtml($expected, $result);
+    }
+
+    public function testDefaultAlignMultipleCheckboxControlOptionGroups()
+    {
+        $this->Form->create($this->article);
+
+        $result = $this->Form->control('users', [
+            'multiple' => 'checkbox',
+            'options' => [
+                'group 1' => [
+                    1 => 'option 1',
+                    2 => 'option 2'
+                ],
+                'group 2' => [
+                    3 => 'option 3',
+                    4 => 'option 4'
+                ],
+            ]
+        ]);
+        $expected = [
+            ['div' => ['class' => 'form-group multicheckbox', 'role' => 'group', 'aria-labelledby' => 'users-group-label']],
+                ['label' => ['id' => 'users-group-label', 'class' => 'd-block']],
+                    'Users',
+                '/label',
+                ['input' => [
+                    'type' => 'hidden',
+                    'name' => 'users',
+                    'value' => '',
+                ]],
+                ['fieldset' => ['class' => 'form-group']],
+                    ['legend' => ['class' => 'col-form-label pt-0']],
+                        'group 1',
+                    '/legend',
+                    ['div' => ['class' => 'form-check']],
+                        ['input' => [
+                            'class' => 'form-check-input',
+                            'type' => 'checkbox',
+                            'name' => 'users[]',
+                            'id' => 'users-1',
+                            'value' => 1
+                        ]],
+                        ['label' => ['class' => 'form-check-label', 'for' => 'users-1']],
+                            'option 1',
+                        '/label',
+                    '/div',
+                    ['div' => ['class' => 'form-check']],
+                        ['input' => [
+                            'class' => 'form-check-input',
+                            'type' => 'checkbox',
+                            'name' => 'users[]',
+                            'id' => 'users-2',
+                            'value' => 2
+                        ]],
+                        ['label' => ['class' => 'form-check-label', 'for' => 'users-2']],
+                            'option 2',
+                        '/label',
+                    '/div',
+                 '/fieldset',
+                ['fieldset' => ['class' => 'form-group']],
+                    ['legend' => ['class' => 'col-form-label pt-0']],
+                        'group 2',
+                    '/legend',
+                    ['div' => ['class' => 'form-check']],
+                        ['input' => [
+                            'class' => 'form-check-input',
+                            'type' => 'checkbox',
+                            'name' => 'users[]',
+                            'id' => 'users-3',
+                            'value' => 3
+                        ]],
+                        ['label' => ['class' => 'form-check-label', 'for' => 'users-3']],
+                            'option 3',
+                        '/label',
+                    '/div',
+                    ['div' => ['class' => 'form-check']],
+                        ['input' => [
+                            'class' => 'form-check-input',
+                            'type' => 'checkbox',
+                            'name' => 'users[]',
+                            'id' => 'users-4',
+                            'value' => 4
+                        ]],
+                        ['label' => ['class' => 'form-check-label', 'for' => 'users-4']],
+                            'option 4',
+                        '/label',
+                    '/div',
+                 '/fieldset',
+            '/div',
+        ];
+        $this->assertHtml($expected, $result);
+    }
+
+    public function testDefaultAlignMultipleCheckboxControlOptionGroupsNestedInput()
+    {
+        $this->Form->create($this->article);
+
+        $result = $this->Form->control('users', [
+            'multiple' => 'checkbox',
+            'options' => [
+                'group 1' => [
+                    1 => 'option 1',
+                    2 => 'option 2'
+                ],
+                'group 2' => [
+                    3 => 'option 3',
+                    4 => 'option 4'
+                ],
+            ],
+            'nestedInput' => true
+        ]);
+        $expected = [
+            ['div' => ['class' => 'form-group multicheckbox', 'role' => 'group', 'aria-labelledby' => 'users-group-label']],
+                ['label' => ['id' => 'users-group-label', 'class' => 'd-block']],
+                    'Users',
+                '/label',
+                ['input' => [
+                    'type' => 'hidden',
+                    'name' => 'users',
+                    'value' => '',
+                ]],
+                ['fieldset' => ['class' => 'form-group']],
+                    ['legend' => ['class' => 'col-form-label pt-0']],
+                        'group 1',
+                    '/legend',
+                    ['div' => ['class' => 'form-check']],
+                        ['label' => ['class' => 'form-check-label', 'for' => 'users-1']],
+                            ['input' => [
+                                'class' => 'form-check-input',
+                                'type' => 'checkbox',
+                                'name' => 'users[]',
+                                'id' => 'users-1',
+                                'value' => 1
+                            ]],
+                            'option 1',
+                        '/label',
+                    '/div',
+                    ['div' => ['class' => 'form-check']],
+                        ['label' => ['class' => 'form-check-label', 'for' => 'users-2']],
+                            ['input' => [
+                                'class' => 'form-check-input',
+                                'type' => 'checkbox',
+                                'name' => 'users[]',
+                                'id' => 'users-2',
+                                'value' => 2
+                            ]],
+                            'option 2',
+                        '/label',
+                    '/div',
+                 '/fieldset',
+                ['fieldset' => ['class' => 'form-group']],
+                    ['legend' => ['class' => 'col-form-label pt-0']],
+                        'group 2',
+                    '/legend',
+                    ['div' => ['class' => 'form-check']],
+                        ['label' => ['class' => 'form-check-label', 'for' => 'users-3']],
+                            ['input' => [
+                                'class' => 'form-check-input',
+                                'type' => 'checkbox',
+                                'name' => 'users[]',
+                                'id' => 'users-3',
+                                'value' => 3
+                            ]],
+                            'option 3',
+                        '/label',
+                    '/div',
+                    ['div' => ['class' => 'form-check']],
+                        ['label' => ['class' => 'form-check-label', 'for' => 'users-4']],
+                            ['input' => [
+                                'class' => 'form-check-input',
+                                'type' => 'checkbox',
+                                'name' => 'users[]',
+                                'id' => 'users-4',
+                                'value' => 4
+                            ]],
+                            'option 4',
+                        '/label',
+                    '/div',
+                 '/fieldset',
+            '/div',
+        ];
+        $this->assertHtml($expected, $result);
+    }
+
+    public function testDefaultAlignMultipleCheckboxControlOptionGroupsInline()
+    {
+        $this->Form->create($this->article);
+
+        $result = $this->Form->control('users', [
+            'multiple' => 'checkbox',
+            'options' => [
+                'group 1' => [
+                    1 => 'option 1',
+                    2 => 'option 2'
+                ],
+                'group 2' => [
+                    3 => 'option 3',
+                    4 => 'option 4'
+                ],
+            ],
+            'inline' => true
+        ]);
+        $expected = [
+            ['div' => ['class' => 'form-group multicheckbox', 'role' => 'group', 'aria-labelledby' => 'users-group-label']],
+                ['label' => ['id' => 'users-group-label', 'class' => 'd-block']],
+                    'Users',
+                '/label',
+                ['input' => [
+                    'type' => 'hidden',
+                    'name' => 'users',
+                    'value' => '',
+                ]],
+                ['fieldset' => ['class' => 'form-group']],
+                    ['legend' => ['class' => 'col-form-label pt-0']],
+                        'group 1',
+                    '/legend',
+                    ['div' => ['class' => 'form-check form-check-inline']],
+                        ['input' => [
+                            'class' => 'form-check-input',
+                            'type' => 'checkbox',
+                            'name' => 'users[]',
+                            'id' => 'users-1',
+                            'value' => 1
+                        ]],
+                        ['label' => ['class' => 'form-check-label', 'for' => 'users-1']],
+                            'option 1',
+                        '/label',
+                    '/div',
+                    ['div' => ['class' => 'form-check form-check-inline']],
+                        ['input' => [
+                            'class' => 'form-check-input',
+                            'type' => 'checkbox',
+                            'name' => 'users[]',
+                            'id' => 'users-2',
+                            'value' => 2
+                        ]],
+                        ['label' => ['class' => 'form-check-label', 'for' => 'users-2']],
+                            'option 2',
+                        '/label',
+                    '/div',
+                 '/fieldset',
+                ['fieldset' => ['class' => 'form-group']],
+                    ['legend' => ['class' => 'col-form-label pt-0']],
+                        'group 2',
+                    '/legend',
+                    ['div' => ['class' => 'form-check form-check-inline']],
+                        ['input' => [
+                            'class' => 'form-check-input',
+                            'type' => 'checkbox',
+                            'name' => 'users[]',
+                            'id' => 'users-3',
+                            'value' => 3
+                        ]],
+                        ['label' => ['class' => 'form-check-label', 'for' => 'users-3']],
+                            'option 3',
+                        '/label',
+                    '/div',
+                    ['div' => ['class' => 'form-check form-check-inline']],
+                        ['input' => [
+                            'class' => 'form-check-input',
+                            'type' => 'checkbox',
+                            'name' => 'users[]',
+                            'id' => 'users-4',
+                            'value' => 4
+                        ]],
+                        ['label' => ['class' => 'form-check-label', 'for' => 'users-4']],
+                            'option 4',
+                        '/label',
+                    '/div',
+                 '/fieldset',
+            '/div',
+        ];
+        $this->assertHtml($expected, $result);
+    }
+
+    public function testDefaultAlignMultipleCheckboxControlOptionGroupsInlineNestedInput()
+    {
+        $this->Form->create($this->article);
+
+        $result = $this->Form->control('users', [
+            'multiple' => 'checkbox',
+            'options' => [
+                'group 1' => [
+                    1 => 'option 1',
+                    2 => 'option 2'
+                ],
+                'group 2' => [
+                    3 => 'option 3',
+                    4 => 'option 4'
+                ],
+            ],
+            'inline' => true,
+            'nestedInput' => true
+        ]);
+        $expected = [
+            ['div' => ['class' => 'form-group multicheckbox', 'role' => 'group', 'aria-labelledby' => 'users-group-label']],
+                ['label' => ['id' => 'users-group-label', 'class' => 'd-block']],
+                    'Users',
+                '/label',
+                ['input' => [
+                    'type' => 'hidden',
+                    'name' => 'users',
+                    'value' => '',
+                ]],
+                ['fieldset' => ['class' => 'form-group']],
+                    ['legend' => ['class' => 'col-form-label pt-0']],
+                        'group 1',
+                    '/legend',
+                    ['div' => ['class' => 'form-check form-check-inline']],
+                        ['label' => ['class' => 'form-check-label', 'for' => 'users-1']],
+                            ['input' => [
+                                'class' => 'form-check-input',
+                                'type' => 'checkbox',
+                                'name' => 'users[]',
+                                'id' => 'users-1',
+                                'value' => 1
+                            ]],
+                            'option 1',
+                        '/label',
+                    '/div',
+                    ['div' => ['class' => 'form-check form-check-inline']],
+                        ['label' => ['class' => 'form-check-label', 'for' => 'users-2']],
+                            ['input' => [
+                                'class' => 'form-check-input',
+                                'type' => 'checkbox',
+                                'name' => 'users[]',
+                                'id' => 'users-2',
+                                'value' => 2
+                            ]],
+                            'option 2',
+                        '/label',
+                    '/div',
+                 '/fieldset',
+                ['fieldset' => ['class' => 'form-group']],
+                    ['legend' => ['class' => 'col-form-label pt-0']],
+                        'group 2',
+                    '/legend',
+                    ['div' => ['class' => 'form-check form-check-inline']],
+                        ['label' => ['class' => 'form-check-label', 'for' => 'users-3']],
+                            ['input' => [
+                                'class' => 'form-check-input',
+                                'type' => 'checkbox',
+                                'name' => 'users[]',
+                                'id' => 'users-3',
+                                'value' => 3
+                            ]],
+                            'option 3',
+                        '/label',
+                    '/div',
+                    ['div' => ['class' => 'form-check form-check-inline']],
+                        ['label' => ['class' => 'form-check-label', 'for' => 'users-4']],
+                            ['input' => [
+                                'class' => 'form-check-input',
+                                'type' => 'checkbox',
+                                'name' => 'users[]',
+                                'id' => 'users-4',
+                                'value' => 4
+                            ]],
+                            'option 4',
+                        '/label',
+                    '/div',
+                 '/fieldset',
+            '/div',
+        ];
+        $this->assertHtml($expected, $result);
+    }
+
+    public function testDefaultAlignMultipleCheckboxControlOptionsGroupsAndSingleEntries()
+    {
+        $this->Form->create($this->article);
+
+        $result = $this->Form->control('users', [
+            'multiple' => 'checkbox',
+            'options' => [
+                1 => 'option 1',
+                2 => 'option 2',
+                'group' => [
+                    3 => 'option 3',
+                    4 => 'option 4',
+                ]
+            ]
+        ]);
+        $expected = [
+            ['div' => ['class' => 'form-group multicheckbox', 'role' => 'group', 'aria-labelledby' => 'users-group-label']],
+                ['label' => ['id' => 'users-group-label', 'class' => 'd-block']],
+                    'Users',
+                '/label',
+                ['input' => [
+                    'type' => 'hidden',
+                    'name' => 'users',
+                    'value' => '',
+                ]],
+                ['div' => ['class' => 'form-check']],
+                    ['input' => [
+                        'class' => 'form-check-input',
+                        'type' => 'checkbox',
+                        'name' => 'users[]',
+                        'id' => 'users-1',
+                        'value' => 1
+                    ]],
+                    ['label' => ['class' => 'form-check-label', 'for' => 'users-1']],
+                        'option 1',
+                    '/label',
+                '/div',
+                ['div' => ['class' => 'form-check']],
+                    ['input' => [
+                        'class' => 'form-check-input',
+                        'type' => 'checkbox',
+                        'name' => 'users[]',
+                        'id' => 'users-2',
+                        'value' => 2
+                    ]],
+                    ['label' => ['class' => 'form-check-label', 'for' => 'users-2']],
+                        'option 2',
+                    '/label',
+                '/div',
+                ['fieldset' => ['class' => 'form-group']],
+                    ['legend' => ['class' => 'col-form-label pt-0']],
+                        'group',
+                    '/legend',
+                    ['div' => ['class' => 'form-check']],
+                        ['input' => [
+                            'class' => 'form-check-input',
+                            'type' => 'checkbox',
+                            'name' => 'users[]',
+                            'id' => 'users-3',
+                            'value' => 3
+                        ]],
+                        ['label' => ['class' => 'form-check-label', 'for' => 'users-3']],
+                            'option 3',
+                        '/label',
+                    '/div',
+                    ['div' => ['class' => 'form-check']],
+                        ['input' => [
+                            'class' => 'form-check-input',
+                            'type' => 'checkbox',
+                            'name' => 'users[]',
+                            'id' => 'users-4',
+                            'value' => 4
+                        ]],
+                        ['label' => ['class' => 'form-check-label', 'for' => 'users-4']],
+                            'option 4',
+                        '/label',
+                    '/div',
+                 '/fieldset',
+            '/div',
+        ];
+        $this->assertHtml($expected, $result);
+    }
+
+    public function testDefaultAlignMultipleCheckboxControlOptionsGroupsAndSingleEntriesWithPerOptionConfiguration()
+    {
+        $this->Form->create($this->article);
+
+        $result = $this->Form->control('users', [
+            'multiple' => 'checkbox',
+            'options' => [
+                1 => 'option 1',
+                2 => 'option 2',
+                4 => [
+                    'text' => 'option 3',
+                    'value' => 12,
+                    'class' => 'custominputclass',
+                    'label' => [
+                        'class' => 'customlabelclass'
+                    ]
+                ],
+                'group' => [
+                    10 => 'option 4',
+                    20 => [
+                        'text' => 'option 4',
+                        'value' => 20,
+                        'class' => 'custominputclass'
+                    ],
+                    30 => [
+                        'text' => 'option 5 without label',
+                        'value' => 30,
+                        'label' => false
+                    ],
+                    40 => [
+                        'text' => 'option 6',
+                        'value' => 40,
+                        'label' => [
+                            'class' => 'customlabelclass'
+                        ]
+                    ],
+                ]
+            ],
+        ]);
+        $expected = [
+            ['div' => ['class' => 'form-group multicheckbox', 'role' => 'group', 'aria-labelledby' => 'users-group-label']],
+                ['label' => ['id' => 'users-group-label', 'class' => 'd-block']],
+                    'Users',
+                '/label',
+                ['input' => [
+                    'type' => 'hidden',
+                    'name' => 'users',
+                    'value' => '',
+                ]],
+                ['div' => ['class' => 'form-check']],
+                    ['input' => [
+                        'class' => 'form-check-input',
+                        'type' => 'checkbox',
+                        'name' => 'users[]',
+                        'id' => 'users-1',
+                        'value' => 1
+                    ]],
+                    ['label' => ['class' => 'form-check-label', 'for' => 'users-1']],
+                        'option 1',
+                    '/label',
+                '/div',
+                ['div' => ['class' => 'form-check']],
+                    ['input' => [
+                        'class' => 'form-check-input',
+                        'type' => 'checkbox',
+                        'name' => 'users[]',
+                        'id' => 'users-2',
+                        'value' => 2
+                    ]],
+                    ['label' => ['class' => 'form-check-label', 'for' => 'users-2']],
+                        'option 2',
+                    '/label',
+                '/div',
+                ['div' => ['class' => 'form-check']],
+                    ['input' => [
+                        'class' => 'custominputclass',
+                        'type' => 'checkbox',
+                        'name' => 'users[]',
+                        'id' => 'users-12',
+                        'value' => 12
+                    ]],
+                    ['label' => ['class' => 'customlabelclass', 'for' => 'users-12']],
+                        'option 3',
+                    '/label',
+                '/div',
+                ['fieldset' => ['class' => 'form-group']],
+                    ['legend' => ['class' => 'col-form-label pt-0']],
+                        'group',
+                    '/legend',
+                    ['div' => ['class' => 'form-check']],
+                        ['input' => [
+                            'class' => 'form-check-input',
+                            'type' => 'checkbox',
+                            'name' => 'users[]',
+                            'id' => 'users-10',
+                            'value' => 10
+                        ]],
+                        ['label' => ['class' => 'form-check-label', 'for' => 'users-10']],
+                            'option 4',
+                        '/label',
+                    '/div',
+                    ['div' => ['class' => 'form-check']],
+                        ['input' => [
+                            'class' => 'custominputclass',
+                            'type' => 'checkbox',
+                            'name' => 'users[]',
+                            'id' => 'users-20',
+                            'value' => 20
+                        ]],
+                        ['label' => ['class' => 'form-check-label', 'for' => 'users-20']],
+                            'option 4',
+                        '/label',
+                    '/div',
+                    ['div' => ['class' => 'form-check']],
+                        ['input' => [
+                            'class' => 'form-check-input',
+                            'type' => 'checkbox',
+                            'name' => 'users[]',
+                            'id' => 'users-30',
+                            'value' => 30
+                        ]],
+                    '/div',
+                    ['div' => ['class' => 'form-check']],
+                        ['input' => [
+                            'class' => 'form-check-input',
+                            'type' => 'checkbox',
+                            'name' => 'users[]',
+                            'id' => 'users-40',
+                            'value' => 40
+                        ]],
+                        ['label' => ['class' => 'customlabelclass', 'for' => 'users-40']],
+                            'option 6',
+                        '/label',
+                    '/div',
+                 '/fieldset',
+            '/div',
+        ];
+        $this->assertHtml($expected, $result);
+    }
+
+    public function testDefaultAlignMultipleCheckboxControlOptionsGroupsAndSingleEntriesNestedInput()
+    {
+        $this->Form->create($this->article);
+
+        $result = $this->Form->control('users', [
+            'multiple' => 'checkbox',
+            'options' => [
+                1 => 'option 1',
+                2 => 'option 2',
+                'group' => [
+                    3 => 'option 3',
+                    4 => 'option 4',
+                ]
+            ],
+            'nestedInput' => true
+        ]);
+        $expected = [
+            ['div' => ['class' => 'form-group multicheckbox', 'role' => 'group', 'aria-labelledby' => 'users-group-label']],
+                ['label' => ['id' => 'users-group-label', 'class' => 'd-block']],
+                    'Users',
+                '/label',
+                ['input' => [
+                    'type' => 'hidden',
+                    'name' => 'users',
+                    'value' => '',
+                ]],
+                ['div' => ['class' => 'form-check']],
+                    ['label' => ['class' => 'form-check-label', 'for' => 'users-1']],
+                        ['input' => [
+                            'class' => 'form-check-input',
+                            'type' => 'checkbox',
+                            'name' => 'users[]',
+                            'id' => 'users-1',
+                            'value' => 1
+                        ]],
+                        'option 1',
+                    '/label',
+                '/div',
+                ['div' => ['class' => 'form-check']],
+                    ['label' => ['class' => 'form-check-label', 'for' => 'users-2']],
+                        ['input' => [
+                            'class' => 'form-check-input',
+                            'type' => 'checkbox',
+                            'name' => 'users[]',
+                            'id' => 'users-2',
+                            'value' => 2
+                        ]],
+                        'option 2',
+                    '/label',
+                '/div',
+                ['fieldset' => ['class' => 'form-group']],
+                    ['legend' => ['class' => 'col-form-label pt-0']],
+                        'group',
+                    '/legend',
+                    ['div' => ['class' => 'form-check']],
+                        ['label' => ['class' => 'form-check-label', 'for' => 'users-3']],
+                            ['input' => [
+                                'class' => 'form-check-input',
+                                'type' => 'checkbox',
+                                'name' => 'users[]',
+                                'id' => 'users-3',
+                                'value' => 3
+                            ]],
+                            'option 3',
+                        '/label',
+                    '/div',
+                    ['div' => ['class' => 'form-check']],
+                        ['label' => ['class' => 'form-check-label', 'for' => 'users-4']],
+                            ['input' => [
+                                'class' => 'form-check-input',
+                                'type' => 'checkbox',
+                                'name' => 'users[]',
+                                'id' => 'users-4',
+                                'value' => 4
+                            ]],
+                            'option 4',
+                        '/label',
+                    '/div',
+                 '/fieldset',
+            '/div',
+        ];
+        $this->assertHtml($expected, $result);
+    }
+
+    public function testDefaultAlignMultipleCheckboxControlOptionsGroupsAndSingleEntriesWithPerOptionConfigurationNestedInput()
+    {
+        $this->Form->create($this->article);
+
+        $result = $this->Form->control('users', [
+            'multiple' => 'checkbox',
+            'options' => [
+                1 => 'option 1',
+                2 => 'option 2',
+                4 => [
+                    'text' => 'option 3',
+                    'value' => 12,
+                    'class' => 'custominputclass',
+                    'label' => [
+                        'class' => 'customlabelclass'
+                    ]
+                ],
+                'group' => [
+                    10 => 'option 4',
+                    20 => [
+                        'text' => 'option 4',
+                        'value' => 20,
+                        'class' => 'custominputclass'
+                    ],
+                    30 => [
+                        'text' => 'option 5 without label',
+                        'value' => 30,
+                        'label' => false
+                    ],
+                    40 => [
+                        'text' => 'option 6',
+                        'value' => 40,
+                        'label' => [
+                            'class' => 'customlabelclass'
+                        ]
+                    ],
+                ]
+            ],
+            'nestedInput' => true
+        ]);
+        $expected = [
+            ['div' => ['class' => 'form-group multicheckbox', 'role' => 'group', 'aria-labelledby' => 'users-group-label']],
+                ['label' => ['id' => 'users-group-label', 'class' => 'd-block']],
+                    'Users',
+                '/label',
+                ['input' => [
+                    'type' => 'hidden',
+                    'name' => 'users',
+                    'value' => '',
+                ]],
+                ['div' => ['class' => 'form-check']],
+                    ['label' => ['class' => 'form-check-label', 'for' => 'users-1']],
+                        ['input' => [
+                            'class' => 'form-check-input',
+                            'type' => 'checkbox',
+                            'name' => 'users[]',
+                            'id' => 'users-1',
+                            'value' => 1
+                        ]],
+                        'option 1',
+                    '/label',
+                '/div',
+                ['div' => ['class' => 'form-check']],
+                    ['label' => ['class' => 'form-check-label', 'for' => 'users-2']],
+                        ['input' => [
+                            'class' => 'form-check-input',
+                            'type' => 'checkbox',
+                            'name' => 'users[]',
+                            'id' => 'users-2',
+                            'value' => 2
+                        ]],
+                        'option 2',
+                    '/label',
+                '/div',
+                ['div' => ['class' => 'form-check']],
+                    ['label' => ['class' => 'customlabelclass', 'for' => 'users-12']],
+                        ['input' => [
+                            'class' => 'custominputclass',
+                            'type' => 'checkbox',
+                            'name' => 'users[]',
+                            'id' => 'users-12',
+                            'value' => 12
+                        ]],
+                        'option 3',
+                    '/label',
+                '/div',
+                ['fieldset' => ['class' => 'form-group']],
+                    ['legend' => ['class' => 'col-form-label pt-0']],
+                        'group',
+                    '/legend',
+                    ['div' => ['class' => 'form-check']],
+                        ['label' => ['class' => 'form-check-label', 'for' => 'users-10']],
+                            ['input' => [
+                                'class' => 'form-check-input',
+                                'type' => 'checkbox',
+                                'name' => 'users[]',
+                                'id' => 'users-10',
+                                'value' => 10
+                            ]],
+                            'option 4',
+                        '/label',
+                    '/div',
+                    ['div' => ['class' => 'form-check']],
+                        ['label' => ['class' => 'form-check-label', 'for' => 'users-20']],
+                            ['input' => [
+                                'class' => 'custominputclass',
+                                'type' => 'checkbox',
+                                'name' => 'users[]',
+                                'id' => 'users-20',
+                                'value' => 20
+                            ]],
+                            'option 4',
+                        '/label',
+                    '/div',
+                    ['div' => ['class' => 'form-check']],
+                        ['input' => [
+                            'class' => 'form-check-input',
+                            'type' => 'checkbox',
+                            'name' => 'users[]',
+                            'id' => 'users-30',
+                            'value' => 30
+                        ]],
+                    '/div',
+                    ['div' => ['class' => 'form-check']],
+                        ['label' => ['class' => 'customlabelclass', 'for' => 'users-40']],
+                            ['input' => [
+                                'class' => 'form-check-input',
+                                'type' => 'checkbox',
+                                'name' => 'users[]',
+                                'id' => 'users-40',
+                                'value' => 40
+                            ]],
+                            'option 6',
+                        '/label',
+                    '/div',
+                 '/fieldset',
+            '/div',
+        ];
+        $this->assertHtml($expected, $result);
+    }
+
+    public function testHorizontalAlignMultipleCheckboxControl()
+    {
+        $this->Form->create($this->article, [
+            'align' => [
+                'sm' => [
+                    'left' => 5,
+                    'middle' => 7
+                ]
+            ]
+        ]);
+
+        $result = $this->Form->control('users', [
+            'multiple' => 'checkbox',
+            'options' => [
+                1 => 'option 1',
+                2 => 'option 2'
+            ]
+        ]);
+        $expected = [
+            ['div' => ['class' => 'form-group multicheckbox', 'role' => 'group', 'aria-labelledby' => 'users-group-label']],
+                ['div' => ['class' => 'row']],
+                    ['label' => ['id' => 'users-group-label', 'class' => 'col-form-label d-block pt-0 col-sm-5']],
+                        'Users',
+                    '/label',
+                    ['div' => ['class' => 'col-sm-7']],
+                        ['input' => [
+                            'type' => 'hidden',
+                            'name' => 'users',
+                            'value' => '',
+                        ]],
+                        ['div' => ['class' => 'form-check']],
+                            ['input' => [
+                                'class' => 'form-check-input',
+                                'type' => 'checkbox',
+                                'name' => 'users[]',
+                                'id' => 'users-1',
+                                'value' => 1
+                            ]],
+                            ['label' => ['class' => 'form-check-label', 'for' => 'users-1']],
+                                'option 1',
+                            '/label',
+                        '/div',
+                        ['div' => ['class' => 'form-check']],
+                            ['input' => [
+                                'class' => 'form-check-input',
+                                'type' => 'checkbox',
+                                'name' => 'users[]',
+                                'id' => 'users-2',
+                                'value' => 2
+                            ]],
+                            ['label' => ['class' => 'form-check-label', 'for' => 'users-2']],
+                                'option 2',
+                            '/label',
+                        '/div',
+                    '/div',
+                '/div',
+            '/div',
+        ];
+        $this->assertHtml($expected, $result);
+    }
+
+    public function testHorizontalAlignMultipleCheckboxControlNestedInput()
+    {
+        $this->Form->create($this->article, [
+            'align' => [
+                'sm' => [
+                    'left' => 5,
+                    'middle' => 7
+                ]
+            ]
+        ]);
+
+        $result = $this->Form->control('users', [
+            'multiple' => 'checkbox',
+            'options' => [
+                1 => 'option 1',
+                2 => 'option 2'
+            ],
+            'nestedInput' => true
+        ]);
+        $expected = [
+            ['div' => ['class' => 'form-group multicheckbox', 'role' => 'group', 'aria-labelledby' => 'users-group-label']],
+                ['div' => ['class' => 'row']],
+                    ['label' => ['id' => 'users-group-label', 'class' => 'col-form-label d-block pt-0 col-sm-5']],
+                        'Users',
+                    '/label',
+                    ['div' => ['class' => 'col-sm-7']],
+                        ['input' => [
+                            'type' => 'hidden',
+                            'name' => 'users',
+                            'value' => '',
+                        ]],
+                        ['div' => ['class' => 'form-check']],
+                            ['label' => ['class' => 'form-check-label', 'for' => 'users-1']],
+                                ['input' => [
+                                    'class' => 'form-check-input',
+                                    'type' => 'checkbox',
+                                    'name' => 'users[]',
+                                    'id' => 'users-1',
+                                    'value' => 1
+                                ]],
+                                'option 1',
+                            '/label',
+                        '/div',
+                        ['div' => ['class' => 'form-check']],
+                            ['label' => ['class' => 'form-check-label', 'for' => 'users-2']],
+                                ['input' => [
+                                    'class' => 'form-check-input',
+                                    'type' => 'checkbox',
+                                    'name' => 'users[]',
+                                    'id' => 'users-2',
+                                    'value' => 2
+                                ]],
+                                'option 2',
+                            '/label',
+                        '/div',
+                    '/div',
+                '/div',
+            '/div',
+        ];
+        $this->assertHtml($expected, $result);
+    }
+
+    public function testHorizontalAlignMultipleCheckboxControlInline()
+    {
+        $this->Form->create($this->article, [
+            'align' => [
+                'sm' => [
+                    'left' => 5,
+                    'middle' => 7
+                ]
+            ]
+        ]);
+
+        $result = $this->Form->control('users', [
+            'multiple' => 'checkbox',
+            'options' => [
+                1 => 'option 1',
+                2 => 'option 2'
+            ],
+            'inline' => true
+        ]);
+        $expected = [
+            ['div' => ['class' => 'form-group multicheckbox', 'role' => 'group', 'aria-labelledby' => 'users-group-label']],
+                ['div' => ['class' => 'row']],
+                    ['label' => ['id' => 'users-group-label', 'class' => 'col-form-label d-block pt-0 col-sm-5']],
+                        'Users',
+                    '/label',
+                    ['div' => ['class' => 'col-sm-7']],
+                        ['input' => [
+                            'type' => 'hidden',
+                            'name' => 'users',
+                            'value' => '',
+                        ]],
+                        ['div' => ['class' => 'form-check form-check-inline']],
+                            ['input' => [
+                                'class' => 'form-check-input',
+                                'type' => 'checkbox',
+                                'name' => 'users[]',
+                                'id' => 'users-1',
+                                'value' => 1
+                            ]],
+                            ['label' => ['class' => 'form-check-label', 'for' => 'users-1']],
+                                'option 1',
+                            '/label',
+                        '/div',
+                        ['div' => ['class' => 'form-check form-check-inline']],
+                            ['input' => [
+                                'class' => 'form-check-input',
+                                'type' => 'checkbox',
+                                'name' => 'users[]',
+                                'id' => 'users-2',
+                                'value' => 2
+                            ]],
+                            ['label' => ['class' => 'form-check-label', 'for' => 'users-2']],
+                                'option 2',
+                            '/label',
+                        '/div',
+                    '/div',
+                '/div',
+            '/div',
+        ];
+        $this->assertHtml($expected, $result);
+    }
+
+    public function testHorizontalAlignMultipleCheckboxControlInlineNestedInput()
+    {
+        $this->Form->create($this->article, [
+            'align' => [
+                'sm' => [
+                    'left' => 5,
+                    'middle' => 7
+                ]
+            ]
+        ]);
+
+        $result = $this->Form->control('users', [
+            'multiple' => 'checkbox',
+            'options' => [
+                1 => 'option 1',
+                2 => 'option 2'
+            ],
+            'inline' => true,
+            'nestedInput' => true
+        ]);
+        $expected = [
+            ['div' => ['class' => 'form-group multicheckbox', 'role' => 'group', 'aria-labelledby' => 'users-group-label']],
+                ['div' => ['class' => 'row']],
+                    ['label' => ['id' => 'users-group-label', 'class' => 'col-form-label d-block pt-0 col-sm-5']],
+                        'Users',
+                    '/label',
+                    ['div' => ['class' => 'col-sm-7']],
+                        ['input' => [
+                            'type' => 'hidden',
+                            'name' => 'users',
+                            'value' => '',
+                        ]],
+                        ['div' => ['class' => 'form-check form-check-inline']],
+                            ['label' => ['class' => 'form-check-label', 'for' => 'users-1']],
+                                ['input' => [
+                                    'class' => 'form-check-input',
+                                    'type' => 'checkbox',
+                                    'name' => 'users[]',
+                                    'id' => 'users-1',
+                                    'value' => 1
+                                ]],
+                                'option 1',
+                            '/label',
+                        '/div',
+                        ['div' => ['class' => 'form-check form-check-inline']],
+                            ['label' => ['class' => 'form-check-label', 'for' => 'users-2']],
+                                ['input' => [
+                                    'class' => 'form-check-input',
+                                    'type' => 'checkbox',
+                                    'name' => 'users[]',
+                                    'id' => 'users-2',
+                                    'value' => 2
+                                ]],
+                                'option 2',
+                            '/label',
+                        '/div',
+                    '/div',
+                '/div',
+            '/div',
+        ];
+        $this->assertHtml($expected, $result);
+    }
+
+    public function testHorizontalAlignMultipleCheckboxControlOptionGroups()
+    {
+        $this->Form->create($this->article, [
+            'align' => [
+                'sm' => [
+                    'left' => 5,
+                    'middle' => 7
+                ]
+            ]
+        ]);
+
+        $result = $this->Form->control('users', [
+            'multiple' => 'checkbox',
+            'options' => [
+                'group 1' => [
+                    1 => 'option 1',
+                    2 => 'option 2'
+                ],
+                'group 2' => [
+                    3 => 'option 3',
+                    4 => 'option 4'
+                ],
+            ]
+        ]);
+        $expected = [
+            ['div' => ['class' => 'form-group multicheckbox', 'role' => 'group', 'aria-labelledby' => 'users-group-label']],
+                ['div' => ['class' => 'row']],
+                    ['label' => ['id' => 'users-group-label', 'class' => 'col-form-label d-block pt-0 col-sm-5']],
+                        'Users',
+                    '/label',
+                    ['div' => ['class' => 'col-sm-7']],
+                        ['input' => [
+                            'type' => 'hidden',
+                            'name' => 'users',
+                            'value' => '',
+                        ]],
+                        ['fieldset' => ['class' => 'form-group']],
+                            ['legend' => ['class' => 'col-form-label pt-0']],
+                                'group 1',
+                            '/legend',
+                            ['div' => ['class' => 'form-check']],
+                                ['input' => [
+                                    'class' => 'form-check-input',
+                                    'type' => 'checkbox',
+                                    'name' => 'users[]',
+                                    'id' => 'users-1',
+                                    'value' => 1
+                                ]],
+                                ['label' => ['class' => 'form-check-label', 'for' => 'users-1']],
+                                    'option 1',
+                                '/label',
+                            '/div',
+                            ['div' => ['class' => 'form-check']],
+                                ['input' => [
+                                    'class' => 'form-check-input',
+                                    'type' => 'checkbox',
+                                    'name' => 'users[]',
+                                    'id' => 'users-2',
+                                    'value' => 2
+                                ]],
+                                ['label' => ['class' => 'form-check-label', 'for' => 'users-2']],
+                                    'option 2',
+                                '/label',
+                            '/div',
+                         '/fieldset',
+                        ['fieldset' => ['class' => 'form-group']],
+                            ['legend' => ['class' => 'col-form-label pt-0']],
+                                'group 2',
+                            '/legend',
+                            ['div' => ['class' => 'form-check']],
+                                ['input' => [
+                                    'class' => 'form-check-input',
+                                    'type' => 'checkbox',
+                                    'name' => 'users[]',
+                                    'id' => 'users-3',
+                                    'value' => 3
+                                ]],
+                                ['label' => ['class' => 'form-check-label', 'for' => 'users-3']],
+                                    'option 3',
+                                '/label',
+                            '/div',
+                            ['div' => ['class' => 'form-check']],
+                                ['input' => [
+                                    'class' => 'form-check-input',
+                                    'type' => 'checkbox',
+                                    'name' => 'users[]',
+                                    'id' => 'users-4',
+                                    'value' => 4
+                                ]],
+                                ['label' => ['class' => 'form-check-label', 'for' => 'users-4']],
+                                    'option 4',
+                                '/label',
+                            '/div',
+                         '/fieldset',
+                    '/div',
+                '/div',
+            '/div',
+        ];
+        $this->assertHtml($expected, $result);
+    }
+
+    public function testHorizontalAlignMultipleCheckboxControlOptionGroupsNestedInput()
+    {
+        $this->Form->create($this->article, [
+            'align' => [
+                'sm' => [
+                    'left' => 5,
+                    'middle' => 7
+                ]
+            ]
+        ]);
+
+        $result = $this->Form->control('users', [
+            'multiple' => 'checkbox',
+            'options' => [
+                'group 1' => [
+                    1 => 'option 1',
+                    2 => 'option 2'
+                ],
+                'group 2' => [
+                    3 => 'option 3',
+                    4 => 'option 4'
+                ],
+            ],
+            'nestedInput' => true
+        ]);
+        $expected = [
+            ['div' => ['class' => 'form-group multicheckbox', 'role' => 'group', 'aria-labelledby' => 'users-group-label']],
+                ['div' => ['class' => 'row']],
+                    ['label' => ['id' => 'users-group-label', 'class' => 'col-form-label d-block pt-0 col-sm-5']],
+                        'Users',
+                    '/label',
+                    ['div' => ['class' => 'col-sm-7']],
+                        ['input' => [
+                            'type' => 'hidden',
+                            'name' => 'users',
+                            'value' => '',
+                        ]],
+                        ['fieldset' => ['class' => 'form-group']],
+                            ['legend' => ['class' => 'col-form-label pt-0']],
+                                'group 1',
+                            '/legend',
+                            ['div' => ['class' => 'form-check']],
+                                ['label' => ['class' => 'form-check-label', 'for' => 'users-1']],
+                                    ['input' => [
+                                        'class' => 'form-check-input',
+                                        'type' => 'checkbox',
+                                        'name' => 'users[]',
+                                        'id' => 'users-1',
+                                        'value' => 1
+                                    ]],
+                                    'option 1',
+                                '/label',
+                            '/div',
+                            ['div' => ['class' => 'form-check']],
+                                ['label' => ['class' => 'form-check-label', 'for' => 'users-2']],
+                                    ['input' => [
+                                        'class' => 'form-check-input',
+                                        'type' => 'checkbox',
+                                        'name' => 'users[]',
+                                        'id' => 'users-2',
+                                        'value' => 2
+                                    ]],
+                                    'option 2',
+                                '/label',
+                            '/div',
+                         '/fieldset',
+                        ['fieldset' => ['class' => 'form-group']],
+                            ['legend' => ['class' => 'col-form-label pt-0']],
+                                'group 2',
+                            '/legend',
+                            ['div' => ['class' => 'form-check']],
+                                ['label' => ['class' => 'form-check-label', 'for' => 'users-3']],
+                                    ['input' => [
+                                        'class' => 'form-check-input',
+                                        'type' => 'checkbox',
+                                        'name' => 'users[]',
+                                        'id' => 'users-3',
+                                        'value' => 3
+                                    ]],
+                                    'option 3',
+                                '/label',
+                            '/div',
+                            ['div' => ['class' => 'form-check']],
+                                ['label' => ['class' => 'form-check-label', 'for' => 'users-4']],
+                                    ['input' => [
+                                        'class' => 'form-check-input',
+                                        'type' => 'checkbox',
+                                        'name' => 'users[]',
+                                        'id' => 'users-4',
+                                        'value' => 4
+                                    ]],
+                                    'option 4',
+                                '/label',
+                            '/div',
+                         '/fieldset',
+                    '/div',
+                '/div',
+            '/div',
+        ];
+        $this->assertHtml($expected, $result);
+    }
+
+    public function testHorizontalAlignMultipleCheckboxControlOptionGroupsInline()
+    {
+        $this->Form->create($this->article, [
+            'align' => [
+                'sm' => [
+                    'left' => 5,
+                    'middle' => 7
+                ]
+            ]
+        ]);
+
+        $result = $this->Form->control('users', [
+            'multiple' => 'checkbox',
+            'options' => [
+                'group 1' => [
+                    1 => 'option 1',
+                    2 => 'option 2'
+                ],
+                'group 2' => [
+                    3 => 'option 3',
+                    4 => 'option 4'
+                ],
+            ],
+            'inline' => true
+        ]);
+        $expected = [
+            ['div' => ['class' => 'form-group multicheckbox', 'role' => 'group', 'aria-labelledby' => 'users-group-label']],
+                ['div' => ['class' => 'row']],
+                    ['label' => ['id' => 'users-group-label', 'class' => 'col-form-label d-block pt-0 col-sm-5']],
+                        'Users',
+                    '/label',
+                    ['div' => ['class' => 'col-sm-7']],
+                        ['input' => [
+                            'type' => 'hidden',
+                            'name' => 'users',
+                            'value' => '',
+                        ]],
+                        ['fieldset' => ['class' => 'form-group']],
+                            ['legend' => ['class' => 'col-form-label pt-0']],
+                                'group 1',
+                            '/legend',
+                            ['div' => ['class' => 'form-check form-check-inline']],
+                                ['input' => [
+                                    'class' => 'form-check-input',
+                                    'type' => 'checkbox',
+                                    'name' => 'users[]',
+                                    'id' => 'users-1',
+                                    'value' => 1
+                                ]],
+                                ['label' => ['class' => 'form-check-label', 'for' => 'users-1']],
+                                    'option 1',
+                                '/label',
+                            '/div',
+                            ['div' => ['class' => 'form-check form-check-inline']],
+                                ['input' => [
+                                    'class' => 'form-check-input',
+                                    'type' => 'checkbox',
+                                    'name' => 'users[]',
+                                    'id' => 'users-2',
+                                    'value' => 2
+                                ]],
+                                ['label' => ['class' => 'form-check-label', 'for' => 'users-2']],
+                                    'option 2',
+                                '/label',
+                            '/div',
+                         '/fieldset',
+                        ['fieldset' => ['class' => 'form-group']],
+                            ['legend' => ['class' => 'col-form-label pt-0']],
+                                'group 2',
+                            '/legend',
+                            ['div' => ['class' => 'form-check form-check-inline']],
+                                ['input' => [
+                                    'class' => 'form-check-input',
+                                    'type' => 'checkbox',
+                                    'name' => 'users[]',
+                                    'id' => 'users-3',
+                                    'value' => 3
+                                ]],
+                                ['label' => ['class' => 'form-check-label', 'for' => 'users-3']],
+                                    'option 3',
+                                '/label',
+                            '/div',
+                            ['div' => ['class' => 'form-check form-check-inline']],
+                                ['input' => [
+                                    'class' => 'form-check-input',
+                                    'type' => 'checkbox',
+                                    'name' => 'users[]',
+                                    'id' => 'users-4',
+                                    'value' => 4
+                                ]],
+                                ['label' => ['class' => 'form-check-label', 'for' => 'users-4']],
+                                    'option 4',
+                                '/label',
+                            '/div',
+                         '/fieldset',
+                    '/div',
+                '/div',
+            '/div',
+        ];
+        $this->assertHtml($expected, $result);
+    }
+
+    public function testHorizontalAlignMultipleCheckboxControlOptionGroupsInlineNestedInput()
+    {
+        $this->Form->create($this->article, [
+            'align' => [
+                'sm' => [
+                    'left' => 5,
+                    'middle' => 7
+                ]
+            ]
+        ]);
+
+        $result = $this->Form->control('users', [
+            'multiple' => 'checkbox',
+            'options' => [
+                'group 1' => [
+                    1 => 'option 1',
+                    2 => 'option 2'
+                ],
+                'group 2' => [
+                    3 => 'option 3',
+                    4 => 'option 4'
+                ],
+            ],
+            'inline' => true,
+            'nestedInput' => true
+        ]);
+        $expected = [
+            ['div' => ['class' => 'form-group multicheckbox', 'role' => 'group', 'aria-labelledby' => 'users-group-label']],
+                ['div' => ['class' => 'row']],
+                    ['label' => ['id' => 'users-group-label', 'class' => 'col-form-label d-block pt-0 col-sm-5']],
+                        'Users',
+                    '/label',
+                    ['div' => ['class' => 'col-sm-7']],
+                        ['input' => [
+                            'type' => 'hidden',
+                            'name' => 'users',
+                            'value' => '',
+                        ]],
+                        ['fieldset' => ['class' => 'form-group']],
+                            ['legend' => ['class' => 'col-form-label pt-0']],
+                                'group 1',
+                            '/legend',
+                            ['div' => ['class' => 'form-check form-check-inline']],
+                                ['label' => ['class' => 'form-check-label', 'for' => 'users-1']],
+                                    ['input' => [
+                                        'class' => 'form-check-input',
+                                        'type' => 'checkbox',
+                                        'name' => 'users[]',
+                                        'id' => 'users-1',
+                                        'value' => 1
+                                    ]],
+                                    'option 1',
+                                '/label',
+                            '/div',
+                            ['div' => ['class' => 'form-check form-check-inline']],
+                                ['label' => ['class' => 'form-check-label', 'for' => 'users-2']],
+                                    ['input' => [
+                                        'class' => 'form-check-input',
+                                        'type' => 'checkbox',
+                                        'name' => 'users[]',
+                                        'id' => 'users-2',
+                                        'value' => 2
+                                    ]],
+                                    'option 2',
+                                '/label',
+                            '/div',
+                         '/fieldset',
+                        ['fieldset' => ['class' => 'form-group']],
+                            ['legend' => ['class' => 'col-form-label pt-0']],
+                                'group 2',
+                            '/legend',
+                            ['div' => ['class' => 'form-check form-check-inline']],
+                                ['label' => ['class' => 'form-check-label', 'for' => 'users-3']],
+                                    ['input' => [
+                                        'class' => 'form-check-input',
+                                        'type' => 'checkbox',
+                                        'name' => 'users[]',
+                                        'id' => 'users-3',
+                                        'value' => 3
+                                    ]],
+                                    'option 3',
+                                '/label',
+                            '/div',
+                            ['div' => ['class' => 'form-check form-check-inline']],
+                                ['label' => ['class' => 'form-check-label', 'for' => 'users-4']],
+                                    ['input' => [
+                                        'class' => 'form-check-input',
+                                        'type' => 'checkbox',
+                                        'name' => 'users[]',
+                                        'id' => 'users-4',
+                                        'value' => 4
+                                    ]],
+                                    'option 4',
+                                '/label',
+                            '/div',
+                         '/fieldset',
+                    '/div',
+                '/div',
+            '/div',
+        ];
+        $this->assertHtml($expected, $result);
+    }
+
+    public function testHorizontalAlignMultipleCheckboxControlOptionsGroupsAndSingleEntries()
+    {
+        $this->Form->create($this->article, [
+            'align' => [
+                'sm' => [
+                    'left' => 5,
+                    'middle' => 7
+                ]
+            ]
+        ]);
+
+        $result = $this->Form->control('users', [
+            'multiple' => 'checkbox',
+            'options' => [
+                1 => 'option 1',
+                2 => 'option 2',
+                'group' => [
+                    3 => 'option 3',
+                    4 => 'option 4',
+                ]
+            ]
+        ]);
+        $expected = [
+            ['div' => ['class' => 'form-group multicheckbox', 'role' => 'group', 'aria-labelledby' => 'users-group-label']],
+                ['div' => ['class' => 'row']],
+                    ['label' => ['id' => 'users-group-label', 'class' => 'col-form-label d-block pt-0 col-sm-5']],
+                        'Users',
+                    '/label',
+                    ['div' => ['class' => 'col-sm-7']],
+                        ['input' => [
+                            'type' => 'hidden',
+                            'name' => 'users',
+                            'value' => '',
+                        ]],
+                        ['div' => ['class' => 'form-check']],
+                            ['input' => [
+                                'class' => 'form-check-input',
+                                'type' => 'checkbox',
+                                'name' => 'users[]',
+                                'id' => 'users-1',
+                                'value' => 1
+                            ]],
+                            ['label' => ['class' => 'form-check-label', 'for' => 'users-1']],
+                                'option 1',
+                            '/label',
+                        '/div',
+                        ['div' => ['class' => 'form-check']],
+                            ['input' => [
+                                'class' => 'form-check-input',
+                                'type' => 'checkbox',
+                                'name' => 'users[]',
+                                'id' => 'users-2',
+                                'value' => 2
+                            ]],
+                            ['label' => ['class' => 'form-check-label', 'for' => 'users-2']],
+                                'option 2',
+                            '/label',
+                        '/div',
+                        ['fieldset' => ['class' => 'form-group']],
+                            ['legend' => ['class' => 'col-form-label pt-0']],
+                                'group',
+                            '/legend',
+                            ['div' => ['class' => 'form-check']],
+                                ['input' => [
+                                    'class' => 'form-check-input',
+                                    'type' => 'checkbox',
+                                    'name' => 'users[]',
+                                    'id' => 'users-3',
+                                    'value' => 3
+                                ]],
+                                ['label' => ['class' => 'form-check-label', 'for' => 'users-3']],
+                                    'option 3',
+                                '/label',
+                            '/div',
+                            ['div' => ['class' => 'form-check']],
+                                ['input' => [
+                                    'class' => 'form-check-input',
+                                    'type' => 'checkbox',
+                                    'name' => 'users[]',
+                                    'id' => 'users-4',
+                                    'value' => 4
+                                ]],
+                                ['label' => ['class' => 'form-check-label', 'for' => 'users-4']],
+                                    'option 4',
+                                '/label',
+                            '/div',
+                         '/fieldset',
+                    '/div',
+                '/div',
+            '/div',
+        ];
+        $this->assertHtml($expected, $result);
+    }
+
+    public function testHorizontalAlignMultipleCheckboxControlOptionsGroupsAndSingleEntriesWithPerOptionConfiguration()
+    {
+        $this->Form->create($this->article, [
+            'align' => [
+                'sm' => [
+                    'left' => 5,
+                    'middle' => 7
+                ]
+            ]
+        ]);
+
+        $result = $this->Form->control('users', [
+            'multiple' => 'checkbox',
+            'options' => [
+                1 => 'option 1',
+                2 => 'option 2',
+                4 => [
+                    'text' => 'option 3',
+                    'value' => 12,
+                    'class' => 'custominputclass',
+                    'label' => [
+                        'class' => 'customlabelclass'
+                    ]
+                ],
+                'group' => [
+                    10 => 'option 4',
+                    20 => [
+                        'text' => 'option 4',
+                        'value' => 20,
+                        'class' => 'custominputclass'
+                    ],
+                    30 => [
+                        'text' => 'option 5 without label',
+                        'value' => 30,
+                        'label' => false
+                    ],
+                    40 => [
+                        'text' => 'option 6',
+                        'value' => 40,
+                        'label' => [
+                            'class' => 'customlabelclass'
+                        ]
+                    ],
+                ]
+            ],
+        ]);
+        $expected = [
+            ['div' => ['class' => 'form-group multicheckbox', 'role' => 'group', 'aria-labelledby' => 'users-group-label']],
+                ['div' => ['class' => 'row']],
+                    ['label' => ['id' => 'users-group-label', 'class' => 'col-form-label d-block pt-0 col-sm-5']],
+                        'Users',
+                    '/label',
+                    ['div' => ['class' => 'col-sm-7']],
+                        ['input' => [
+                            'type' => 'hidden',
+                            'name' => 'users',
+                            'value' => '',
+                        ]],
+                        ['div' => ['class' => 'form-check']],
+                            ['input' => [
+                                'class' => 'form-check-input',
+                                'type' => 'checkbox',
+                                'name' => 'users[]',
+                                'id' => 'users-1',
+                                'value' => 1
+                            ]],
+                            ['label' => ['class' => 'form-check-label', 'for' => 'users-1']],
+                                'option 1',
+                            '/label',
+                        '/div',
+                        ['div' => ['class' => 'form-check']],
+                            ['input' => [
+                                'class' => 'form-check-input',
+                                'type' => 'checkbox',
+                                'name' => 'users[]',
+                                'id' => 'users-2',
+                                'value' => 2
+                            ]],
+                            ['label' => ['class' => 'form-check-label', 'for' => 'users-2']],
+                                'option 2',
+                            '/label',
+                        '/div',
+                        ['div' => ['class' => 'form-check']],
+                            ['input' => [
+                                'class' => 'custominputclass',
+                                'type' => 'checkbox',
+                                'name' => 'users[]',
+                                'id' => 'users-12',
+                                'value' => 12
+                            ]],
+                            ['label' => ['class' => 'customlabelclass', 'for' => 'users-12']],
+                                'option 3',
+                            '/label',
+                        '/div',
+                        ['fieldset' => ['class' => 'form-group']],
+                            ['legend' => ['class' => 'col-form-label pt-0']],
+                                'group',
+                            '/legend',
+                            ['div' => ['class' => 'form-check']],
+                                ['input' => [
+                                    'class' => 'form-check-input',
+                                    'type' => 'checkbox',
+                                    'name' => 'users[]',
+                                    'id' => 'users-10',
+                                    'value' => 10
+                                ]],
+                                ['label' => ['class' => 'form-check-label', 'for' => 'users-10']],
+                                    'option 4',
+                                '/label',
+                            '/div',
+                            ['div' => ['class' => 'form-check']],
+                                ['input' => [
+                                    'class' => 'custominputclass',
+                                    'type' => 'checkbox',
+                                    'name' => 'users[]',
+                                    'id' => 'users-20',
+                                    'value' => 20
+                                ]],
+                                ['label' => ['class' => 'form-check-label', 'for' => 'users-20']],
+                                    'option 4',
+                                '/label',
+                            '/div',
+                            ['div' => ['class' => 'form-check']],
+                                ['input' => [
+                                    'class' => 'form-check-input',
+                                    'type' => 'checkbox',
+                                    'name' => 'users[]',
+                                    'id' => 'users-30',
+                                    'value' => 30
+                                ]],
+                            '/div',
+                            ['div' => ['class' => 'form-check']],
+                                ['input' => [
+                                    'class' => 'form-check-input',
+                                    'type' => 'checkbox',
+                                    'name' => 'users[]',
+                                    'id' => 'users-40',
+                                    'value' => 40
+                                ]],
+                                ['label' => ['class' => 'customlabelclass', 'for' => 'users-40']],
+                                    'option 6',
+                                '/label',
+                            '/div',
+                         '/fieldset',
+                    '/div',
+                '/div',
+            '/div',
+        ];
+        $this->assertHtml($expected, $result);
+    }
+
+    public function testHorizontalAlignMultipleCheckboxControlOptionsGroupsAndSingleEntriesNestedInput()
+    {
+        $this->Form->create($this->article, [
+            'align' => [
+                'sm' => [
+                    'left' => 5,
+                    'middle' => 7
+                ]
+            ]
+        ]);
+
+        $result = $this->Form->control('users', [
+            'multiple' => 'checkbox',
+            'options' => [
+                1 => 'option 1',
+                2 => 'option 2',
+                'group' => [
+                    3 => 'option 3',
+                    4 => 'option 4',
+                ]
+            ],
+            'nestedInput' => true
+        ]);
+        $expected = [
+            ['div' => ['class' => 'form-group multicheckbox', 'role' => 'group', 'aria-labelledby' => 'users-group-label']],
+                ['div' => ['class' => 'row']],
+                    ['label' => ['id' => 'users-group-label', 'class' => 'col-form-label d-block pt-0 col-sm-5']],
+                        'Users',
+                    '/label',
+                    ['div' => ['class' => 'col-sm-7']],
+                        ['input' => [
+                            'type' => 'hidden',
+                            'name' => 'users',
+                            'value' => '',
+                        ]],
+                        ['div' => ['class' => 'form-check']],
+                            ['label' => ['class' => 'form-check-label', 'for' => 'users-1']],
+                                ['input' => [
+                                    'class' => 'form-check-input',
+                                    'type' => 'checkbox',
+                                    'name' => 'users[]',
+                                    'id' => 'users-1',
+                                    'value' => 1
+                                ]],
+                                'option 1',
+                            '/label',
+                        '/div',
+                        ['div' => ['class' => 'form-check']],
+                            ['label' => ['class' => 'form-check-label', 'for' => 'users-2']],
+                                ['input' => [
+                                    'class' => 'form-check-input',
+                                    'type' => 'checkbox',
+                                    'name' => 'users[]',
+                                    'id' => 'users-2',
+                                    'value' => 2
+                                ]],
+                                'option 2',
+                            '/label',
+                        '/div',
+                        ['fieldset' => ['class' => 'form-group']],
+                            ['legend' => ['class' => 'col-form-label pt-0']],
+                                'group',
+                            '/legend',
+                            ['div' => ['class' => 'form-check']],
+                                ['label' => ['class' => 'form-check-label', 'for' => 'users-3']],
+                                    ['input' => [
+                                        'class' => 'form-check-input',
+                                        'type' => 'checkbox',
+                                        'name' => 'users[]',
+                                        'id' => 'users-3',
+                                        'value' => 3
+                                    ]],
+                                    'option 3',
+                                '/label',
+                            '/div',
+                            ['div' => ['class' => 'form-check']],
+                                ['label' => ['class' => 'form-check-label', 'for' => 'users-4']],
+                                    ['input' => [
+                                        'class' => 'form-check-input',
+                                        'type' => 'checkbox',
+                                        'name' => 'users[]',
+                                        'id' => 'users-4',
+                                        'value' => 4
+                                    ]],
+                                    'option 4',
+                                '/label',
+                            '/div',
+                         '/fieldset',
+                    '/div',
+                '/div',
+            '/div',
+        ];
+        $this->assertHtml($expected, $result);
+    }
+
+    public function testHorizontalAlignMultipleCheckboxControlOptionsGroupsAndSingleEntriesWithPerOptionConfigurationNestedInput()
+    {
+        $this->Form->create($this->article, [
+            'align' => [
+                'sm' => [
+                    'left' => 5,
+                    'middle' => 7
+                ]
+            ]
+        ]);
+
+        $result = $this->Form->control('users', [
+            'multiple' => 'checkbox',
+            'options' => [
+                1 => 'option 1',
+                2 => 'option 2',
+                4 => [
+                    'text' => 'option 3',
+                    'value' => 12,
+                    'class' => 'custominputclass',
+                    'label' => [
+                        'class' => 'customlabelclass'
+                    ]
+                ],
+                'group' => [
+                    10 => 'option 4',
+                    20 => [
+                        'text' => 'option 4',
+                        'value' => 20,
+                        'class' => 'custominputclass'
+                    ],
+                    30 => [
+                        'text' => 'option 5 without label',
+                        'value' => 30,
+                        'label' => false
+                    ],
+                    40 => [
+                        'text' => 'option 6',
+                        'value' => 40,
+                        'label' => [
+                            'class' => 'customlabelclass'
+                        ]
+                    ],
+                ]
+            ],
+            'nestedInput' => true
+        ]);
+        $expected = [
+            ['div' => ['class' => 'form-group multicheckbox', 'role' => 'group', 'aria-labelledby' => 'users-group-label']],
+                ['div' => ['class' => 'row']],
+                    ['label' => ['id' => 'users-group-label', 'class' => 'col-form-label d-block pt-0 col-sm-5']],
+                        'Users',
+                    '/label',
+                    ['div' => ['class' => 'col-sm-7']],
+                        ['input' => [
+                            'type' => 'hidden',
+                            'name' => 'users',
+                            'value' => '',
+                        ]],
+                        ['div' => ['class' => 'form-check']],
+                            ['label' => ['class' => 'form-check-label', 'for' => 'users-1']],
+                                ['input' => [
+                                    'class' => 'form-check-input',
+                                    'type' => 'checkbox',
+                                    'name' => 'users[]',
+                                    'id' => 'users-1',
+                                    'value' => 1
+                                ]],
+                                'option 1',
+                            '/label',
+                        '/div',
+                        ['div' => ['class' => 'form-check']],
+                            ['label' => ['class' => 'form-check-label', 'for' => 'users-2']],
+                                ['input' => [
+                                    'class' => 'form-check-input',
+                                    'type' => 'checkbox',
+                                    'name' => 'users[]',
+                                    'id' => 'users-2',
+                                    'value' => 2
+                                ]],
+                                'option 2',
+                            '/label',
+                        '/div',
+                        ['div' => ['class' => 'form-check']],
+                            ['label' => ['class' => 'customlabelclass', 'for' => 'users-12']],
+                                ['input' => [
+                                    'class' => 'custominputclass',
+                                    'type' => 'checkbox',
+                                    'name' => 'users[]',
+                                    'id' => 'users-12',
+                                    'value' => 12
+                                ]],
+                                'option 3',
+                            '/label',
+                        '/div',
+                        ['fieldset' => ['class' => 'form-group']],
+                            ['legend' => ['class' => 'col-form-label pt-0']],
+                                'group',
+                            '/legend',
+                            ['div' => ['class' => 'form-check']],
+                                ['label' => ['class' => 'form-check-label', 'for' => 'users-10']],
+                                    ['input' => [
+                                        'class' => 'form-check-input',
+                                        'type' => 'checkbox',
+                                        'name' => 'users[]',
+                                        'id' => 'users-10',
+                                        'value' => 10
+                                    ]],
+                                    'option 4',
+                                '/label',
+                            '/div',
+                            ['div' => ['class' => 'form-check']],
+                                ['label' => ['class' => 'form-check-label', 'for' => 'users-20']],
+                                    ['input' => [
+                                        'class' => 'custominputclass',
+                                        'type' => 'checkbox',
+                                        'name' => 'users[]',
+                                        'id' => 'users-20',
+                                        'value' => 20
+                                    ]],
+                                    'option 4',
+                                '/label',
+                            '/div',
+                            ['div' => ['class' => 'form-check']],
+                                ['input' => [
+                                    'class' => 'form-check-input',
+                                    'type' => 'checkbox',
+                                    'name' => 'users[]',
+                                    'id' => 'users-30',
+                                    'value' => 30
+                                ]],
+                            '/div',
+                            ['div' => ['class' => 'form-check']],
+                                ['label' => ['class' => 'customlabelclass', 'for' => 'users-40']],
+                                    ['input' => [
+                                        'class' => 'form-check-input',
+                                        'type' => 'checkbox',
+                                        'name' => 'users[]',
+                                        'id' => 'users-40',
+                                        'value' => 40
+                                    ]],
+                                    'option 6',
+                                '/label',
+                            '/div',
+                         '/fieldset',
+                    '/div',
+                '/div',
+            '/div',
+        ];
+        $this->assertHtml($expected, $result);
+    }
+
+    public function testInlineAlignMultipleCheckboxControl()
+    {
+        $this->withErrorReporting(0, function () {
+            $this->Form->create($this->article, [
+                'align' => 'inline'
+            ]);
+        });
+
+        $result = $this->Form->control('users', [
+            'multiple' => 'checkbox',
+            'options' => [
+                1 => 'option 1',
+                2 => 'option 2'
+            ]
+        ]);
+        $expected = [
+            ['div' => ['class' => 'form-group multicheckbox', 'role' => 'group', 'aria-labelledby' => 'users-group-label']],
+                ['span' => ['id' => 'users-group-label', 'class' => 'sr-only']],
+                    'Users',
+                '/span',
+                ['input' => [
+                    'type' => 'hidden',
+                    'name' => 'users',
+                    'value' => '',
+                ]],
+                ['div' => ['class' => 'form-check form-check-inline']],
+                    ['input' => [
+                        'class' => 'form-check-input',
+                        'type' => 'checkbox',
+                        'name' => 'users[]',
+                        'id' => 'users-1',
+                        'value' => 1
+                    ]],
+                    ['label' => ['class' => 'form-check-label', 'for' => 'users-1']],
+                        'option 1',
+                    '/label',
+                '/div',
+                ['div' => ['class' => 'form-check form-check-inline']],
+                    ['input' => [
+                        'class' => 'form-check-input',
+                        'type' => 'checkbox',
+                        'name' => 'users[]',
+                        'id' => 'users-2',
+                        'value' => 2
+                    ]],
+                    ['label' => ['class' => 'form-check-label', 'for' => 'users-2']],
+                        'option 2',
+                    '/label',
+                '/div',
+            '/div',
+        ];
+        $this->assertHtml($expected, $result);
+    }
+
+    public function testInlineAlignMultipleCheckboxControlWithPerOptionConfiguration()
+    {
+        $this->withErrorReporting(0, function () {
+            $this->Form->create($this->article, [
+                'align' => 'inline'
+            ]);
+        });
+
+        $result = $this->Form->control('users', [
+            'multiple' => 'checkbox',
+            'options' => [
+                1 => 'option 1',
+                2 => 'option 2',
+                4 => [
+                    'text' => 'option 3',
+                    'value' => 12,
+                    'class' => 'custominputclass',
+                    'label' => [
+                        'class' => 'customlabelclass'
+                    ]
+                ],
+            ],
+        ]);
+        $expected = [
+            ['div' => ['class' => 'form-group multicheckbox', 'role' => 'group', 'aria-labelledby' => 'users-group-label']],
+                ['span' => ['id' => 'users-group-label', 'class' => 'sr-only']],
+                    'Users',
+                '/span',
+                ['input' => [
+                    'type' => 'hidden',
+                    'name' => 'users',
+                    'value' => '',
+                ]],
+                ['div' => ['class' => 'form-check form-check-inline']],
+                    ['input' => [
+                        'class' => 'form-check-input',
+                        'type' => 'checkbox',
+                        'name' => 'users[]',
+                        'id' => 'users-1',
+                        'value' => 1
+                    ]],
+                    ['label' => ['class' => 'form-check-label', 'for' => 'users-1']],
+                        'option 1',
+                    '/label',
+                '/div',
+                ['div' => ['class' => 'form-check form-check-inline']],
+                    ['input' => [
+                        'class' => 'form-check-input',
+                        'type' => 'checkbox',
+                        'name' => 'users[]',
+                        'id' => 'users-2',
+                        'value' => 2
+                    ]],
+                    ['label' => ['class' => 'form-check-label', 'for' => 'users-2']],
+                        'option 2',
+                    '/label',
+                '/div',
+                ['div' => ['class' => 'form-check form-check-inline']],
+                    ['input' => [
+                        'class' => 'custominputclass',
+                        'type' => 'checkbox',
+                        'name' => 'users[]',
+                        'id' => 'users-12',
+                        'value' => 12
+                    ]],
+                    ['label' => ['class' => 'customlabelclass', 'for' => 'users-12']],
+                        'option 3',
+                    '/label',
+                '/div',
+            '/div',
+        ];
+        $this->assertHtml($expected, $result);
+    }
+
+    public function testInlineAlignMultipleCheckboxControlNestedInput()
+    {
+        $this->withErrorReporting(0, function () {
+            $this->Form->create($this->article, [
+                'align' => 'inline'
+            ]);
+        });
+
+        $result = $this->Form->control('users', [
+            'multiple' => 'checkbox',
+            'options' => [
+                1 => 'option 1',
+                2 => 'option 2'
+            ],
+            'nestedInput' => true
+        ]);
+        $expected = [
+            ['div' => ['class' => 'form-group multicheckbox', 'role' => 'group', 'aria-labelledby' => 'users-group-label']],
+                ['span' => ['id' => 'users-group-label', 'class' => 'sr-only']],
+                    'Users',
+                '/span',
+                ['input' => [
+                    'type' => 'hidden',
+                    'name' => 'users',
+                    'value' => '',
+                ]],
+                ['div' => ['class' => 'form-check form-check-inline']],
+                    ['label' => ['class' => 'form-check-label', 'for' => 'users-1']],
+                        ['input' => [
+                            'class' => 'form-check-input',
+                            'type' => 'checkbox',
+                            'name' => 'users[]',
+                            'id' => 'users-1',
+                            'value' => 1
+                        ]],
+                        'option 1',
+                    '/label',
+                '/div',
+                ['div' => ['class' => 'form-check form-check-inline']],
+                    ['label' => ['class' => 'form-check-label', 'for' => 'users-2']],
+                        ['input' => [
+                            'class' => 'form-check-input',
+                            'type' => 'checkbox',
+                            'name' => 'users[]',
+                            'id' => 'users-2',
+                            'value' => 2
+                        ]],
+                        'option 2',
+                    '/label',
+                '/div',
+            '/div',
+        ];
+        $this->assertHtml($expected, $result);
+    }
+
+    public function testInlineAlignMultipleCheckboxControlWithPerOptionConfigurationNestedInput()
+    {
+        $this->withErrorReporting(0, function () {
+            $this->Form->create($this->article, [
+                'align' => 'inline'
+            ]);
+        });
+
+        $result = $this->Form->control('users', [
+            'multiple' => 'checkbox',
+            'options' => [
+                1 => 'option 1',
+                2 => 'option 2',
+                4 => [
+                    'text' => 'option 3',
+                    'value' => 12,
+                    'class' => 'custominputclass',
+                    'label' => [
+                        'class' => 'customlabelclass'
+                    ]
+                ],
+            ],
+            'nestedInput' => true
+        ]);
+        $expected = [
+            ['div' => ['class' => 'form-group multicheckbox', 'role' => 'group', 'aria-labelledby' => 'users-group-label']],
+                ['span' => ['id' => 'users-group-label', 'class' => 'sr-only']],
+                    'Users',
+                '/span',
+                ['input' => [
+                    'type' => 'hidden',
+                    'name' => 'users',
+                    'value' => '',
+                ]],
+                ['div' => ['class' => 'form-check form-check-inline']],
+                    ['label' => ['class' => 'form-check-label', 'for' => 'users-1']],
+                        ['input' => [
+                            'class' => 'form-check-input',
+                            'type' => 'checkbox',
+                            'name' => 'users[]',
+                            'id' => 'users-1',
+                            'value' => 1
+                        ]],
+                        'option 1',
+                    '/label',
+                '/div',
+                ['div' => ['class' => 'form-check form-check-inline']],
+                    ['label' => ['class' => 'form-check-label', 'for' => 'users-2']],
+                        ['input' => [
+                            'class' => 'form-check-input',
+                            'type' => 'checkbox',
+                            'name' => 'users[]',
+                            'id' => 'users-2',
+                            'value' => 2
+                        ]],
+                        'option 2',
+                    '/label',
+                '/div',
+                ['div' => ['class' => 'form-check form-check-inline']],
+                    ['label' => ['class' => 'customlabelclass', 'for' => 'users-12']],
+                        ['input' => [
+                            'class' => 'custominputclass',
+                            'type' => 'checkbox',
+                            'name' => 'users[]',
+                            'id' => 'users-12',
+                            'value' => 12
+                        ]],
+                        'option 3',
+                    '/label',
+                '/div',
+            '/div',
+        ];
+        $this->assertHtml($expected, $result);
+    }
 }
