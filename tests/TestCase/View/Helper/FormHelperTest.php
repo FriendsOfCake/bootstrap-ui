@@ -1836,10 +1836,10 @@ class FormHelperTest extends TestCase
             ]
         ]);
         $expected = [
-            ['fieldset' => ['class' => 'form-group multicheckbox']],
-                ['legend' => true],
+            ['div' => ['class' => 'form-group multicheckbox', 'role' => 'group', 'aria-labelledby' => 'users-group-label']],
+                ['label' => ['id' => 'users-group-label', 'class' => 'd-block']],
                     'Users',
-                '/legend',
+                '/label',
                 ['input' => [
                     'type' => 'hidden',
                     'name' => 'users',
@@ -1869,7 +1869,7 @@ class FormHelperTest extends TestCase
                         'option 2',
                     '/label',
                 '/div',
-            '/fieldset',
+            '/div',
         ];
         $this->assertHtml($expected, $result);
     }
@@ -1887,10 +1887,10 @@ class FormHelperTest extends TestCase
             'nestedInput' => true
         ]);
         $expected = [
-            ['fieldset' => ['class' => 'form-group multicheckbox']],
-                ['legend' => true],
+            ['div' => ['class' => 'form-group multicheckbox', 'role' => 'group', 'aria-labelledby' => 'users-group-label']],
+                ['label' => ['id' => 'users-group-label', 'class' => 'd-block']],
                     'Users',
-                '/legend',
+                '/label',
                 ['input' => [
                     'type' => 'hidden',
                     'name' => 'users',
@@ -1920,7 +1920,110 @@ class FormHelperTest extends TestCase
                         'option 2',
                     '/label',
                 '/div',
-            '/fieldset',
+            '/div',
+        ];
+        $this->assertHtml($expected, $result);
+    }
+
+    public function testDefaultAlignMultipleCheckboxControlInline()
+    {
+        $this->Form->create($this->article);
+
+        $result = $this->Form->control('users', [
+            'multiple' => 'checkbox',
+            'options' => [
+                1 => 'option 1',
+                2 => 'option 2'
+            ],
+            'inline' => true
+        ]);
+        $expected = [
+            ['div' => ['class' => 'form-group multicheckbox', 'role' => 'group', 'aria-labelledby' => 'users-group-label']],
+                ['label' => ['id' => 'users-group-label', 'class' => 'd-block']],
+                    'Users',
+                '/label',
+                ['input' => [
+                    'type' => 'hidden',
+                    'name' => 'users',
+                    'value' => '',
+                ]],
+                ['div' => ['class' => 'form-check form-check-inline']],
+                    ['input' => [
+                        'class' => 'form-check-input',
+                        'type' => 'checkbox',
+                        'name' => 'users[]',
+                        'id' => 'users-1',
+                        'value' => 1
+                    ]],
+                    ['label' => ['class' => 'form-check-label', 'for' => 'users-1']],
+                        'option 1',
+                    '/label',
+                '/div',
+                ['div' => ['class' => 'form-check form-check-inline']],
+                    ['input' => [
+                        'class' => 'form-check-input',
+                        'type' => 'checkbox',
+                        'name' => 'users[]',
+                        'id' => 'users-2',
+                        'value' => 2
+                    ]],
+                    ['label' => ['class' => 'form-check-label', 'for' => 'users-2']],
+                        'option 2',
+                    '/label',
+                '/div',
+            '/div',
+        ];
+        $this->assertHtml($expected, $result);
+    }
+
+    public function testDefaultAlignMultipleCheckboxControlInlineNestedInput()
+    {
+        $this->Form->create($this->article);
+
+        $result = $this->Form->control('users', [
+            'multiple' => 'checkbox',
+            'options' => [
+                1 => 'option 1',
+                2 => 'option 2'
+            ],
+            'inline' => true,
+            'nestedInput' => true
+        ]);
+        $expected = [
+            ['div' => ['class' => 'form-group multicheckbox', 'role' => 'group', 'aria-labelledby' => 'users-group-label']],
+                ['label' => ['id' => 'users-group-label', 'class' => 'd-block']],
+                    'Users',
+                '/label',
+                ['input' => [
+                    'type' => 'hidden',
+                    'name' => 'users',
+                    'value' => '',
+                ]],
+                ['div' => ['class' => 'form-check form-check-inline']],
+                    ['label' => ['class' => 'form-check-label', 'for' => 'users-1']],
+                        ['input' => [
+                            'class' => 'form-check-input',
+                            'type' => 'checkbox',
+                            'name' => 'users[]',
+                            'id' => 'users-1',
+                            'value' => 1
+                        ]],
+                        'option 1',
+                    '/label',
+                '/div',
+                ['div' => ['class' => 'form-check form-check-inline']],
+                    ['label' => ['class' => 'form-check-label', 'for' => 'users-2']],
+                        ['input' => [
+                            'class' => 'form-check-input',
+                            'type' => 'checkbox',
+                            'name' => 'users[]',
+                            'id' => 'users-2',
+                            'value' => 2
+                        ]],
+                        'option 2',
+                    '/label',
+                '/div',
+            '/div',
         ];
         $this->assertHtml($expected, $result);
     }
@@ -1943,17 +2046,17 @@ class FormHelperTest extends TestCase
             ]
         ]);
         $expected = [
-            ['fieldset' => ['class' => 'form-group multicheckbox']],
-                ['legend' => true],
+            ['div' => ['class' => 'form-group multicheckbox', 'role' => 'group', 'aria-labelledby' => 'users-group-label']],
+                ['label' => ['id' => 'users-group-label', 'class' => 'd-block']],
                     'Users',
-                '/legend',
+                '/label',
                 ['input' => [
                     'type' => 'hidden',
                     'name' => 'users',
                     'value' => '',
                 ]],
-                ['fieldset' => true],
-                    ['legend' => true],
+                ['fieldset' => ['class' => 'form-group']],
+                    ['legend' => ['class' => 'col-form-label pt-0']],
                         'group 1',
                     '/legend',
                     ['div' => ['class' => 'form-check']],
@@ -1981,8 +2084,8 @@ class FormHelperTest extends TestCase
                         '/label',
                     '/div',
                  '/fieldset',
-                ['fieldset' => true],
-                    ['legend' => true],
+                ['fieldset' => ['class' => 'form-group']],
+                    ['legend' => ['class' => 'col-form-label pt-0']],
                         'group 2',
                     '/legend',
                     ['div' => ['class' => 'form-check']],
@@ -2010,7 +2113,7 @@ class FormHelperTest extends TestCase
                         '/label',
                     '/div',
                  '/fieldset',
-            '/fieldset',
+            '/div',
         ];
         $this->assertHtml($expected, $result);
     }
@@ -2034,17 +2137,17 @@ class FormHelperTest extends TestCase
             'nestedInput' => true
         ]);
         $expected = [
-            ['fieldset' => ['class' => 'form-group multicheckbox']],
-                ['legend' => true],
+            ['div' => ['class' => 'form-group multicheckbox', 'role' => 'group', 'aria-labelledby' => 'users-group-label']],
+                ['label' => ['id' => 'users-group-label', 'class' => 'd-block']],
                     'Users',
-                '/legend',
+                '/label',
                 ['input' => [
                     'type' => 'hidden',
                     'name' => 'users',
                     'value' => '',
                 ]],
-                ['fieldset' => true],
-                    ['legend' => true],
+                ['fieldset' => ['class' => 'form-group']],
+                    ['legend' => ['class' => 'col-form-label pt-0']],
                         'group 1',
                     '/legend',
                     ['div' => ['class' => 'form-check']],
@@ -2072,8 +2175,8 @@ class FormHelperTest extends TestCase
                         '/label',
                     '/div',
                  '/fieldset',
-                ['fieldset' => true],
-                    ['legend' => true],
+                ['fieldset' => ['class' => 'form-group']],
+                    ['legend' => ['class' => 'col-form-label pt-0']],
                         'group 2',
                     '/legend',
                     ['div' => ['class' => 'form-check']],
@@ -2101,7 +2204,190 @@ class FormHelperTest extends TestCase
                         '/label',
                     '/div',
                  '/fieldset',
-            '/fieldset',
+            '/div',
+        ];
+        $this->assertHtml($expected, $result);
+    }
+
+    public function testDefaultAlignMultipleCheckboxControlOptionGroupsInline()
+    {
+        $this->Form->create($this->article);
+
+        $result = $this->Form->control('users', [
+            'multiple' => 'checkbox',
+            'options' => [
+                'group 1' => [
+                    1 => 'option 1',
+                    2 => 'option 2'
+                ],
+                'group 2' => [
+                    3 => 'option 3',
+                    4 => 'option 4'
+                ],
+            ],
+            'inline' => true
+        ]);
+        $expected = [
+            ['div' => ['class' => 'form-group multicheckbox', 'role' => 'group', 'aria-labelledby' => 'users-group-label']],
+                ['label' => ['id' => 'users-group-label', 'class' => 'd-block']],
+                    'Users',
+                '/label',
+                ['input' => [
+                    'type' => 'hidden',
+                    'name' => 'users',
+                    'value' => '',
+                ]],
+                ['fieldset' => ['class' => 'form-group']],
+                    ['legend' => ['class' => 'col-form-label pt-0']],
+                        'group 1',
+                    '/legend',
+                    ['div' => ['class' => 'form-check form-check-inline']],
+                        ['input' => [
+                            'class' => 'form-check-input',
+                            'type' => 'checkbox',
+                            'name' => 'users[]',
+                            'id' => 'users-1',
+                            'value' => 1
+                        ]],
+                        ['label' => ['class' => 'form-check-label', 'for' => 'users-1']],
+                            'option 1',
+                        '/label',
+                    '/div',
+                    ['div' => ['class' => 'form-check form-check-inline']],
+                        ['input' => [
+                            'class' => 'form-check-input',
+                            'type' => 'checkbox',
+                            'name' => 'users[]',
+                            'id' => 'users-2',
+                            'value' => 2
+                        ]],
+                        ['label' => ['class' => 'form-check-label', 'for' => 'users-2']],
+                            'option 2',
+                        '/label',
+                    '/div',
+                 '/fieldset',
+                ['fieldset' => ['class' => 'form-group']],
+                    ['legend' => ['class' => 'col-form-label pt-0']],
+                        'group 2',
+                    '/legend',
+                    ['div' => ['class' => 'form-check form-check-inline']],
+                        ['input' => [
+                            'class' => 'form-check-input',
+                            'type' => 'checkbox',
+                            'name' => 'users[]',
+                            'id' => 'users-3',
+                            'value' => 3
+                        ]],
+                        ['label' => ['class' => 'form-check-label', 'for' => 'users-3']],
+                            'option 3',
+                        '/label',
+                    '/div',
+                    ['div' => ['class' => 'form-check form-check-inline']],
+                        ['input' => [
+                            'class' => 'form-check-input',
+                            'type' => 'checkbox',
+                            'name' => 'users[]',
+                            'id' => 'users-4',
+                            'value' => 4
+                        ]],
+                        ['label' => ['class' => 'form-check-label', 'for' => 'users-4']],
+                            'option 4',
+                        '/label',
+                    '/div',
+                 '/fieldset',
+            '/div',
+        ];
+        $this->assertHtml($expected, $result);
+    }
+
+    public function testDefaultAlignMultipleCheckboxControlOptionGroupsInlineNestedInput()
+    {
+        $this->Form->create($this->article);
+
+        $result = $this->Form->control('users', [
+            'multiple' => 'checkbox',
+            'options' => [
+                'group 1' => [
+                    1 => 'option 1',
+                    2 => 'option 2'
+                ],
+                'group 2' => [
+                    3 => 'option 3',
+                    4 => 'option 4'
+                ],
+            ],
+            'inline' => true,
+            'nestedInput' => true
+        ]);
+        $expected = [
+            ['div' => ['class' => 'form-group multicheckbox', 'role' => 'group', 'aria-labelledby' => 'users-group-label']],
+                ['label' => ['id' => 'users-group-label', 'class' => 'd-block']],
+                    'Users',
+                '/label',
+                ['input' => [
+                    'type' => 'hidden',
+                    'name' => 'users',
+                    'value' => '',
+                ]],
+                ['fieldset' => ['class' => 'form-group']],
+                    ['legend' => ['class' => 'col-form-label pt-0']],
+                        'group 1',
+                    '/legend',
+                    ['div' => ['class' => 'form-check form-check-inline']],
+                        ['label' => ['class' => 'form-check-label', 'for' => 'users-1']],
+                            ['input' => [
+                                'class' => 'form-check-input',
+                                'type' => 'checkbox',
+                                'name' => 'users[]',
+                                'id' => 'users-1',
+                                'value' => 1
+                            ]],
+                            'option 1',
+                        '/label',
+                    '/div',
+                    ['div' => ['class' => 'form-check form-check-inline']],
+                        ['label' => ['class' => 'form-check-label', 'for' => 'users-2']],
+                            ['input' => [
+                                'class' => 'form-check-input',
+                                'type' => 'checkbox',
+                                'name' => 'users[]',
+                                'id' => 'users-2',
+                                'value' => 2
+                            ]],
+                            'option 2',
+                        '/label',
+                    '/div',
+                 '/fieldset',
+                ['fieldset' => ['class' => 'form-group']],
+                    ['legend' => ['class' => 'col-form-label pt-0']],
+                        'group 2',
+                    '/legend',
+                    ['div' => ['class' => 'form-check form-check-inline']],
+                        ['label' => ['class' => 'form-check-label', 'for' => 'users-3']],
+                            ['input' => [
+                                'class' => 'form-check-input',
+                                'type' => 'checkbox',
+                                'name' => 'users[]',
+                                'id' => 'users-3',
+                                'value' => 3
+                            ]],
+                            'option 3',
+                        '/label',
+                    '/div',
+                    ['div' => ['class' => 'form-check form-check-inline']],
+                        ['label' => ['class' => 'form-check-label', 'for' => 'users-4']],
+                            ['input' => [
+                                'class' => 'form-check-input',
+                                'type' => 'checkbox',
+                                'name' => 'users[]',
+                                'id' => 'users-4',
+                                'value' => 4
+                            ]],
+                            'option 4',
+                        '/label',
+                    '/div',
+                 '/fieldset',
+            '/div',
         ];
         $this->assertHtml($expected, $result);
     }
@@ -2122,10 +2408,10 @@ class FormHelperTest extends TestCase
             ]
         ]);
         $expected = [
-            ['fieldset' => ['class' => 'form-group multicheckbox']],
-                ['legend' => true],
+            ['div' => ['class' => 'form-group multicheckbox', 'role' => 'group', 'aria-labelledby' => 'users-group-label']],
+                ['label' => ['id' => 'users-group-label', 'class' => 'd-block']],
                     'Users',
-                '/legend',
+                '/label',
                 ['input' => [
                     'type' => 'hidden',
                     'name' => 'users',
@@ -2155,8 +2441,8 @@ class FormHelperTest extends TestCase
                         'option 2',
                     '/label',
                 '/div',
-                ['fieldset' => true],
-                    ['legend' => true],
+                ['fieldset' => ['class' => 'form-group']],
+                    ['legend' => ['class' => 'col-form-label pt-0']],
                         'group',
                     '/legend',
                     ['div' => ['class' => 'form-check']],
@@ -2184,7 +2470,7 @@ class FormHelperTest extends TestCase
                         '/label',
                     '/div',
                  '/fieldset',
-            '/fieldset',
+            '/div',
         ];
         $this->assertHtml($expected, $result);
     }
@@ -2229,10 +2515,10 @@ class FormHelperTest extends TestCase
             ],
         ]);
         $expected = [
-            ['fieldset' => ['class' => 'form-group multicheckbox']],
-                ['legend' => true],
+            ['div' => ['class' => 'form-group multicheckbox', 'role' => 'group', 'aria-labelledby' => 'users-group-label']],
+                ['label' => ['id' => 'users-group-label', 'class' => 'd-block']],
                     'Users',
-                '/legend',
+                '/label',
                 ['input' => [
                     'type' => 'hidden',
                     'name' => 'users',
@@ -2274,8 +2560,8 @@ class FormHelperTest extends TestCase
                         'option 3',
                     '/label',
                 '/div',
-                ['fieldset' => true],
-                    ['legend' => true],
+                ['fieldset' => ['class' => 'form-group']],
+                    ['legend' => ['class' => 'col-form-label pt-0']],
                         'group',
                     '/legend',
                     ['div' => ['class' => 'form-check']],
@@ -2324,7 +2610,7 @@ class FormHelperTest extends TestCase
                         '/label',
                     '/div',
                  '/fieldset',
-            '/fieldset',
+            '/div',
         ];
         $this->assertHtml($expected, $result);
     }
@@ -2346,10 +2632,10 @@ class FormHelperTest extends TestCase
             'nestedInput' => true
         ]);
         $expected = [
-            ['fieldset' => ['class' => 'form-group multicheckbox']],
-                ['legend' => true],
+            ['div' => ['class' => 'form-group multicheckbox', 'role' => 'group', 'aria-labelledby' => 'users-group-label']],
+                ['label' => ['id' => 'users-group-label', 'class' => 'd-block']],
                     'Users',
-                '/legend',
+                '/label',
                 ['input' => [
                     'type' => 'hidden',
                     'name' => 'users',
@@ -2379,8 +2665,8 @@ class FormHelperTest extends TestCase
                         'option 2',
                     '/label',
                 '/div',
-                ['fieldset' => true],
-                    ['legend' => true],
+                ['fieldset' => ['class' => 'form-group']],
+                    ['legend' => ['class' => 'col-form-label pt-0']],
                         'group',
                     '/legend',
                     ['div' => ['class' => 'form-check']],
@@ -2408,7 +2694,7 @@ class FormHelperTest extends TestCase
                         '/label',
                     '/div',
                  '/fieldset',
-            '/fieldset',
+            '/div',
         ];
         $this->assertHtml($expected, $result);
     }
@@ -2454,10 +2740,10 @@ class FormHelperTest extends TestCase
             'nestedInput' => true
         ]);
         $expected = [
-            ['fieldset' => ['class' => 'form-group multicheckbox']],
-                ['legend' => true],
+            ['div' => ['class' => 'form-group multicheckbox', 'role' => 'group', 'aria-labelledby' => 'users-group-label']],
+                ['label' => ['id' => 'users-group-label', 'class' => 'd-block']],
                     'Users',
-                '/legend',
+                '/label',
                 ['input' => [
                     'type' => 'hidden',
                     'name' => 'users',
@@ -2499,8 +2785,8 @@ class FormHelperTest extends TestCase
                         'option 3',
                     '/label',
                 '/div',
-                ['fieldset' => true],
-                    ['legend' => true],
+                ['fieldset' => ['class' => 'form-group']],
+                    ['legend' => ['class' => 'col-form-label pt-0']],
                         'group',
                     '/legend',
                     ['div' => ['class' => 'form-check']],
@@ -2549,7 +2835,7 @@ class FormHelperTest extends TestCase
                         '/label',
                     '/div',
                  '/fieldset',
-            '/fieldset',
+            '/div',
         ];
         $this->assertHtml($expected, $result);
     }
@@ -2573,11 +2859,11 @@ class FormHelperTest extends TestCase
             ]
         ]);
         $expected = [
-            ['fieldset' => ['class' => 'form-group multicheckbox']],
+            ['div' => ['class' => 'form-group multicheckbox', 'role' => 'group', 'aria-labelledby' => 'users-group-label']],
                 ['div' => ['class' => 'row']],
-                    ['legend' => ['class' => 'col-form-label pt-0 col-sm-5']],
+                    ['label' => ['id' => 'users-group-label', 'class' => 'col-form-label d-block pt-0 col-sm-5']],
                         'Users',
-                    '/legend',
+                    '/label',
                     ['div' => ['class' => 'col-sm-7']],
                         ['input' => [
                             'type' => 'hidden',
@@ -2610,7 +2896,7 @@ class FormHelperTest extends TestCase
                         '/div',
                     '/div',
                 '/div',
-            '/fieldset',
+            '/div',
         ];
         $this->assertHtml($expected, $result);
     }
@@ -2635,11 +2921,11 @@ class FormHelperTest extends TestCase
             'nestedInput' => true
         ]);
         $expected = [
-            ['fieldset' => ['class' => 'form-group multicheckbox']],
+            ['div' => ['class' => 'form-group multicheckbox', 'role' => 'group', 'aria-labelledby' => 'users-group-label']],
                 ['div' => ['class' => 'row']],
-                    ['legend' => ['class' => 'col-form-label pt-0 col-sm-5']],
+                    ['label' => ['id' => 'users-group-label', 'class' => 'col-form-label d-block pt-0 col-sm-5']],
                         'Users',
-                    '/legend',
+                    '/label',
                     ['div' => ['class' => 'col-sm-7']],
                         ['input' => [
                             'type' => 'hidden',
@@ -2672,7 +2958,132 @@ class FormHelperTest extends TestCase
                         '/div',
                     '/div',
                 '/div',
-            '/fieldset',
+            '/div',
+        ];
+        $this->assertHtml($expected, $result);
+    }
+
+    public function testHorizontalAlignMultipleCheckboxControlInline()
+    {
+        $this->Form->create($this->article, [
+            'align' => [
+                'sm' => [
+                    'left' => 5,
+                    'middle' => 7
+                ]
+            ]
+        ]);
+
+        $result = $this->Form->control('users', [
+            'multiple' => 'checkbox',
+            'options' => [
+                1 => 'option 1',
+                2 => 'option 2'
+            ],
+            'inline' => true
+        ]);
+        $expected = [
+            ['div' => ['class' => 'form-group multicheckbox', 'role' => 'group', 'aria-labelledby' => 'users-group-label']],
+                ['div' => ['class' => 'row']],
+                    ['label' => ['id' => 'users-group-label', 'class' => 'col-form-label d-block pt-0 col-sm-5']],
+                        'Users',
+                    '/label',
+                    ['div' => ['class' => 'col-sm-7']],
+                        ['input' => [
+                            'type' => 'hidden',
+                            'name' => 'users',
+                            'value' => '',
+                        ]],
+                        ['div' => ['class' => 'form-check form-check-inline']],
+                            ['input' => [
+                                'class' => 'form-check-input',
+                                'type' => 'checkbox',
+                                'name' => 'users[]',
+                                'id' => 'users-1',
+                                'value' => 1
+                            ]],
+                            ['label' => ['class' => 'form-check-label', 'for' => 'users-1']],
+                                'option 1',
+                            '/label',
+                        '/div',
+                        ['div' => ['class' => 'form-check form-check-inline']],
+                            ['input' => [
+                                'class' => 'form-check-input',
+                                'type' => 'checkbox',
+                                'name' => 'users[]',
+                                'id' => 'users-2',
+                                'value' => 2
+                            ]],
+                            ['label' => ['class' => 'form-check-label', 'for' => 'users-2']],
+                                'option 2',
+                            '/label',
+                        '/div',
+                    '/div',
+                '/div',
+            '/div',
+        ];
+        $this->assertHtml($expected, $result);
+    }
+
+    public function testHorizontalAlignMultipleCheckboxControlInlineNestedInput()
+    {
+        $this->Form->create($this->article, [
+            'align' => [
+                'sm' => [
+                    'left' => 5,
+                    'middle' => 7
+                ]
+            ]
+        ]);
+
+        $result = $this->Form->control('users', [
+            'multiple' => 'checkbox',
+            'options' => [
+                1 => 'option 1',
+                2 => 'option 2'
+            ],
+            'inline' => true,
+            'nestedInput' => true
+        ]);
+        $expected = [
+            ['div' => ['class' => 'form-group multicheckbox', 'role' => 'group', 'aria-labelledby' => 'users-group-label']],
+                ['div' => ['class' => 'row']],
+                    ['label' => ['id' => 'users-group-label', 'class' => 'col-form-label d-block pt-0 col-sm-5']],
+                        'Users',
+                    '/label',
+                    ['div' => ['class' => 'col-sm-7']],
+                        ['input' => [
+                            'type' => 'hidden',
+                            'name' => 'users',
+                            'value' => '',
+                        ]],
+                        ['div' => ['class' => 'form-check form-check-inline']],
+                            ['label' => ['class' => 'form-check-label', 'for' => 'users-1']],
+                                ['input' => [
+                                    'class' => 'form-check-input',
+                                    'type' => 'checkbox',
+                                    'name' => 'users[]',
+                                    'id' => 'users-1',
+                                    'value' => 1
+                                ]],
+                                'option 1',
+                            '/label',
+                        '/div',
+                        ['div' => ['class' => 'form-check form-check-inline']],
+                            ['label' => ['class' => 'form-check-label', 'for' => 'users-2']],
+                                ['input' => [
+                                    'class' => 'form-check-input',
+                                    'type' => 'checkbox',
+                                    'name' => 'users[]',
+                                    'id' => 'users-2',
+                                    'value' => 2
+                                ]],
+                                'option 2',
+                            '/label',
+                        '/div',
+                    '/div',
+                '/div',
+            '/div',
         ];
         $this->assertHtml($expected, $result);
     }
@@ -2702,19 +3113,19 @@ class FormHelperTest extends TestCase
             ]
         ]);
         $expected = [
-            ['fieldset' => ['class' => 'form-group multicheckbox']],
+            ['div' => ['class' => 'form-group multicheckbox', 'role' => 'group', 'aria-labelledby' => 'users-group-label']],
                 ['div' => ['class' => 'row']],
-                    ['legend' => ['class' => 'col-form-label pt-0 col-sm-5']],
+                    ['label' => ['id' => 'users-group-label', 'class' => 'col-form-label d-block pt-0 col-sm-5']],
                         'Users',
-                    '/legend',
+                    '/label',
                     ['div' => ['class' => 'col-sm-7']],
                         ['input' => [
                             'type' => 'hidden',
                             'name' => 'users',
                             'value' => '',
                         ]],
-                        ['fieldset' => true],
-                            ['legend' => true],
+                        ['fieldset' => ['class' => 'form-group']],
+                            ['legend' => ['class' => 'col-form-label pt-0']],
                                 'group 1',
                             '/legend',
                             ['div' => ['class' => 'form-check']],
@@ -2742,8 +3153,8 @@ class FormHelperTest extends TestCase
                                 '/label',
                             '/div',
                          '/fieldset',
-                        ['fieldset' => true],
-                            ['legend' => true],
+                        ['fieldset' => ['class' => 'form-group']],
+                            ['legend' => ['class' => 'col-form-label pt-0']],
                                 'group 2',
                             '/legend',
                             ['div' => ['class' => 'form-check']],
@@ -2773,7 +3184,7 @@ class FormHelperTest extends TestCase
                          '/fieldset',
                     '/div',
                 '/div',
-            '/fieldset',
+            '/div',
         ];
         $this->assertHtml($expected, $result);
     }
@@ -2804,19 +3215,19 @@ class FormHelperTest extends TestCase
             'nestedInput' => true
         ]);
         $expected = [
-            ['fieldset' => ['class' => 'form-group multicheckbox']],
+            ['div' => ['class' => 'form-group multicheckbox', 'role' => 'group', 'aria-labelledby' => 'users-group-label']],
                 ['div' => ['class' => 'row']],
-                    ['legend' => ['class' => 'col-form-label pt-0 col-sm-5']],
+                    ['label' => ['id' => 'users-group-label', 'class' => 'col-form-label d-block pt-0 col-sm-5']],
                         'Users',
-                    '/legend',
+                    '/label',
                     ['div' => ['class' => 'col-sm-7']],
                         ['input' => [
                             'type' => 'hidden',
                             'name' => 'users',
                             'value' => '',
                         ]],
-                        ['fieldset' => true],
-                            ['legend' => true],
+                        ['fieldset' => ['class' => 'form-group']],
+                            ['legend' => ['class' => 'col-form-label pt-0']],
                                 'group 1',
                             '/legend',
                             ['div' => ['class' => 'form-check']],
@@ -2844,8 +3255,8 @@ class FormHelperTest extends TestCase
                                 '/label',
                             '/div',
                          '/fieldset',
-                        ['fieldset' => true],
-                            ['legend' => true],
+                        ['fieldset' => ['class' => 'form-group']],
+                            ['legend' => ['class' => 'col-form-label pt-0']],
                                 'group 2',
                             '/legend',
                             ['div' => ['class' => 'form-check']],
@@ -2875,7 +3286,212 @@ class FormHelperTest extends TestCase
                          '/fieldset',
                     '/div',
                 '/div',
-            '/fieldset',
+            '/div',
+        ];
+        $this->assertHtml($expected, $result);
+    }
+
+    public function testHorizontalAlignMultipleCheckboxControlOptionGroupsInline()
+    {
+        $this->Form->create($this->article, [
+            'align' => [
+                'sm' => [
+                    'left' => 5,
+                    'middle' => 7
+                ]
+            ]
+        ]);
+
+        $result = $this->Form->control('users', [
+            'multiple' => 'checkbox',
+            'options' => [
+                'group 1' => [
+                    1 => 'option 1',
+                    2 => 'option 2'
+                ],
+                'group 2' => [
+                    3 => 'option 3',
+                    4 => 'option 4'
+                ],
+            ],
+            'inline' => true
+        ]);
+        $expected = [
+            ['div' => ['class' => 'form-group multicheckbox', 'role' => 'group', 'aria-labelledby' => 'users-group-label']],
+                ['div' => ['class' => 'row']],
+                    ['label' => ['id' => 'users-group-label', 'class' => 'col-form-label d-block pt-0 col-sm-5']],
+                        'Users',
+                    '/label',
+                    ['div' => ['class' => 'col-sm-7']],
+                        ['input' => [
+                            'type' => 'hidden',
+                            'name' => 'users',
+                            'value' => '',
+                        ]],
+                        ['fieldset' => ['class' => 'form-group']],
+                            ['legend' => ['class' => 'col-form-label pt-0']],
+                                'group 1',
+                            '/legend',
+                            ['div' => ['class' => 'form-check form-check-inline']],
+                                ['input' => [
+                                    'class' => 'form-check-input',
+                                    'type' => 'checkbox',
+                                    'name' => 'users[]',
+                                    'id' => 'users-1',
+                                    'value' => 1
+                                ]],
+                                ['label' => ['class' => 'form-check-label', 'for' => 'users-1']],
+                                    'option 1',
+                                '/label',
+                            '/div',
+                            ['div' => ['class' => 'form-check form-check-inline']],
+                                ['input' => [
+                                    'class' => 'form-check-input',
+                                    'type' => 'checkbox',
+                                    'name' => 'users[]',
+                                    'id' => 'users-2',
+                                    'value' => 2
+                                ]],
+                                ['label' => ['class' => 'form-check-label', 'for' => 'users-2']],
+                                    'option 2',
+                                '/label',
+                            '/div',
+                         '/fieldset',
+                        ['fieldset' => ['class' => 'form-group']],
+                            ['legend' => ['class' => 'col-form-label pt-0']],
+                                'group 2',
+                            '/legend',
+                            ['div' => ['class' => 'form-check form-check-inline']],
+                                ['input' => [
+                                    'class' => 'form-check-input',
+                                    'type' => 'checkbox',
+                                    'name' => 'users[]',
+                                    'id' => 'users-3',
+                                    'value' => 3
+                                ]],
+                                ['label' => ['class' => 'form-check-label', 'for' => 'users-3']],
+                                    'option 3',
+                                '/label',
+                            '/div',
+                            ['div' => ['class' => 'form-check form-check-inline']],
+                                ['input' => [
+                                    'class' => 'form-check-input',
+                                    'type' => 'checkbox',
+                                    'name' => 'users[]',
+                                    'id' => 'users-4',
+                                    'value' => 4
+                                ]],
+                                ['label' => ['class' => 'form-check-label', 'for' => 'users-4']],
+                                    'option 4',
+                                '/label',
+                            '/div',
+                         '/fieldset',
+                    '/div',
+                '/div',
+            '/div',
+        ];
+        $this->assertHtml($expected, $result);
+    }
+
+    public function testHorizontalAlignMultipleCheckboxControlOptionGroupsInlineNestedInput()
+    {
+        $this->Form->create($this->article, [
+            'align' => [
+                'sm' => [
+                    'left' => 5,
+                    'middle' => 7
+                ]
+            ]
+        ]);
+
+        $result = $this->Form->control('users', [
+            'multiple' => 'checkbox',
+            'options' => [
+                'group 1' => [
+                    1 => 'option 1',
+                    2 => 'option 2'
+                ],
+                'group 2' => [
+                    3 => 'option 3',
+                    4 => 'option 4'
+                ],
+            ],
+            'inline' => true,
+            'nestedInput' => true
+        ]);
+        $expected = [
+            ['div' => ['class' => 'form-group multicheckbox', 'role' => 'group', 'aria-labelledby' => 'users-group-label']],
+                ['div' => ['class' => 'row']],
+                    ['label' => ['id' => 'users-group-label', 'class' => 'col-form-label d-block pt-0 col-sm-5']],
+                        'Users',
+                    '/label',
+                    ['div' => ['class' => 'col-sm-7']],
+                        ['input' => [
+                            'type' => 'hidden',
+                            'name' => 'users',
+                            'value' => '',
+                        ]],
+                        ['fieldset' => ['class' => 'form-group']],
+                            ['legend' => ['class' => 'col-form-label pt-0']],
+                                'group 1',
+                            '/legend',
+                            ['div' => ['class' => 'form-check form-check-inline']],
+                                ['label' => ['class' => 'form-check-label', 'for' => 'users-1']],
+                                    ['input' => [
+                                        'class' => 'form-check-input',
+                                        'type' => 'checkbox',
+                                        'name' => 'users[]',
+                                        'id' => 'users-1',
+                                        'value' => 1
+                                    ]],
+                                    'option 1',
+                                '/label',
+                            '/div',
+                            ['div' => ['class' => 'form-check form-check-inline']],
+                                ['label' => ['class' => 'form-check-label', 'for' => 'users-2']],
+                                    ['input' => [
+                                        'class' => 'form-check-input',
+                                        'type' => 'checkbox',
+                                        'name' => 'users[]',
+                                        'id' => 'users-2',
+                                        'value' => 2
+                                    ]],
+                                    'option 2',
+                                '/label',
+                            '/div',
+                         '/fieldset',
+                        ['fieldset' => ['class' => 'form-group']],
+                            ['legend' => ['class' => 'col-form-label pt-0']],
+                                'group 2',
+                            '/legend',
+                            ['div' => ['class' => 'form-check form-check-inline']],
+                                ['label' => ['class' => 'form-check-label', 'for' => 'users-3']],
+                                    ['input' => [
+                                        'class' => 'form-check-input',
+                                        'type' => 'checkbox',
+                                        'name' => 'users[]',
+                                        'id' => 'users-3',
+                                        'value' => 3
+                                    ]],
+                                    'option 3',
+                                '/label',
+                            '/div',
+                            ['div' => ['class' => 'form-check form-check-inline']],
+                                ['label' => ['class' => 'form-check-label', 'for' => 'users-4']],
+                                    ['input' => [
+                                        'class' => 'form-check-input',
+                                        'type' => 'checkbox',
+                                        'name' => 'users[]',
+                                        'id' => 'users-4',
+                                        'value' => 4
+                                    ]],
+                                    'option 4',
+                                '/label',
+                            '/div',
+                         '/fieldset',
+                    '/div',
+                '/div',
+            '/div',
         ];
         $this->assertHtml($expected, $result);
     }
@@ -2903,11 +3519,11 @@ class FormHelperTest extends TestCase
             ]
         ]);
         $expected = [
-            ['fieldset' => ['class' => 'form-group multicheckbox']],
+            ['div' => ['class' => 'form-group multicheckbox', 'role' => 'group', 'aria-labelledby' => 'users-group-label']],
                 ['div' => ['class' => 'row']],
-                    ['legend' => ['class' => 'col-form-label pt-0 col-sm-5']],
+                    ['label' => ['id' => 'users-group-label', 'class' => 'col-form-label d-block pt-0 col-sm-5']],
                         'Users',
-                    '/legend',
+                    '/label',
                     ['div' => ['class' => 'col-sm-7']],
                         ['input' => [
                             'type' => 'hidden',
@@ -2938,8 +3554,8 @@ class FormHelperTest extends TestCase
                                 'option 2',
                             '/label',
                         '/div',
-                        ['fieldset' => true],
-                            ['legend' => true],
+                        ['fieldset' => ['class' => 'form-group']],
+                            ['legend' => ['class' => 'col-form-label pt-0']],
                                 'group',
                             '/legend',
                             ['div' => ['class' => 'form-check']],
@@ -2969,7 +3585,7 @@ class FormHelperTest extends TestCase
                          '/fieldset',
                     '/div',
                 '/div',
-            '/fieldset',
+            '/div',
         ];
         $this->assertHtml($expected, $result);
     }
@@ -3021,11 +3637,11 @@ class FormHelperTest extends TestCase
             ],
         ]);
         $expected = [
-            ['fieldset' => ['class' => 'form-group multicheckbox']],
+            ['div' => ['class' => 'form-group multicheckbox', 'role' => 'group', 'aria-labelledby' => 'users-group-label']],
                 ['div' => ['class' => 'row']],
-                    ['legend' => ['class' => 'col-form-label pt-0 col-sm-5']],
+                    ['label' => ['id' => 'users-group-label', 'class' => 'col-form-label d-block pt-0 col-sm-5']],
                         'Users',
-                    '/legend',
+                    '/label',
                     ['div' => ['class' => 'col-sm-7']],
                         ['input' => [
                             'type' => 'hidden',
@@ -3068,8 +3684,8 @@ class FormHelperTest extends TestCase
                                 'option 3',
                             '/label',
                         '/div',
-                        ['fieldset' => true],
-                            ['legend' => true],
+                        ['fieldset' => ['class' => 'form-group']],
+                            ['legend' => ['class' => 'col-form-label pt-0']],
                                 'group',
                             '/legend',
                             ['div' => ['class' => 'form-check']],
@@ -3120,7 +3736,7 @@ class FormHelperTest extends TestCase
                          '/fieldset',
                     '/div',
                 '/div',
-            '/fieldset',
+            '/div',
         ];
         $this->assertHtml($expected, $result);
     }
@@ -3149,11 +3765,11 @@ class FormHelperTest extends TestCase
             'nestedInput' => true
         ]);
         $expected = [
-            ['fieldset' => ['class' => 'form-group multicheckbox']],
+            ['div' => ['class' => 'form-group multicheckbox', 'role' => 'group', 'aria-labelledby' => 'users-group-label']],
                 ['div' => ['class' => 'row']],
-                    ['legend' => ['class' => 'col-form-label pt-0 col-sm-5']],
+                    ['label' => ['id' => 'users-group-label', 'class' => 'col-form-label d-block pt-0 col-sm-5']],
                         'Users',
-                    '/legend',
+                    '/label',
                     ['div' => ['class' => 'col-sm-7']],
                         ['input' => [
                             'type' => 'hidden',
@@ -3184,8 +3800,8 @@ class FormHelperTest extends TestCase
                                 'option 2',
                             '/label',
                         '/div',
-                        ['fieldset' => true],
-                            ['legend' => true],
+                        ['fieldset' => ['class' => 'form-group']],
+                            ['legend' => ['class' => 'col-form-label pt-0']],
                                 'group',
                             '/legend',
                             ['div' => ['class' => 'form-check']],
@@ -3215,7 +3831,7 @@ class FormHelperTest extends TestCase
                          '/fieldset',
                     '/div',
                 '/div',
-            '/fieldset',
+            '/div',
         ];
         $this->assertHtml($expected, $result);
     }
@@ -3268,11 +3884,11 @@ class FormHelperTest extends TestCase
             'nestedInput' => true
         ]);
         $expected = [
-            ['fieldset' => ['class' => 'form-group multicheckbox']],
+            ['div' => ['class' => 'form-group multicheckbox', 'role' => 'group', 'aria-labelledby' => 'users-group-label']],
                 ['div' => ['class' => 'row']],
-                    ['legend' => ['class' => 'col-form-label pt-0 col-sm-5']],
+                    ['label' => ['id' => 'users-group-label', 'class' => 'col-form-label d-block pt-0 col-sm-5']],
                         'Users',
-                    '/legend',
+                    '/label',
                     ['div' => ['class' => 'col-sm-7']],
                         ['input' => [
                             'type' => 'hidden',
@@ -3315,8 +3931,8 @@ class FormHelperTest extends TestCase
                                 'option 3',
                             '/label',
                         '/div',
-                        ['fieldset' => true],
-                            ['legend' => true],
+                        ['fieldset' => ['class' => 'form-group']],
+                            ['legend' => ['class' => 'col-form-label pt-0']],
                                 'group',
                             '/legend',
                             ['div' => ['class' => 'form-check']],
@@ -3367,7 +3983,7 @@ class FormHelperTest extends TestCase
                          '/fieldset',
                     '/div',
                 '/div',
-            '/fieldset',
+            '/div',
         ];
         $this->assertHtml($expected, $result);
     }
@@ -3388,8 +4004,8 @@ class FormHelperTest extends TestCase
             ]
         ]);
         $expected = [
-            ['div' => ['class' => 'form-group multicheckbox']],
-                ['span' => ['class' => 'sr-only']],
+            ['div' => ['class' => 'form-group multicheckbox', 'role' => 'group', 'aria-labelledby' => 'users-group-label']],
+                ['span' => ['id' => 'users-group-label', 'class' => 'sr-only']],
                     'Users',
                 '/span',
                 ['input' => [
@@ -3450,8 +4066,8 @@ class FormHelperTest extends TestCase
             ],
         ]);
         $expected = [
-            ['div' => ['class' => 'form-group multicheckbox']],
-                ['span' => ['class' => 'sr-only']],
+            ['div' => ['class' => 'form-group multicheckbox', 'role' => 'group', 'aria-labelledby' => 'users-group-label']],
+                ['span' => ['id' => 'users-group-label', 'class' => 'sr-only']],
                     'Users',
                 '/span',
                 ['input' => [
@@ -3517,8 +4133,8 @@ class FormHelperTest extends TestCase
             'nestedInput' => true
         ]);
         $expected = [
-            ['div' => ['class' => 'form-group multicheckbox']],
-                ['span' => ['class' => 'sr-only']],
+            ['div' => ['class' => 'form-group multicheckbox', 'role' => 'group', 'aria-labelledby' => 'users-group-label']],
+                ['span' => ['id' => 'users-group-label', 'class' => 'sr-only']],
                     'Users',
                 '/span',
                 ['input' => [
@@ -3580,8 +4196,8 @@ class FormHelperTest extends TestCase
             'nestedInput' => true
         ]);
         $expected = [
-            ['div' => ['class' => 'form-group multicheckbox']],
-                ['span' => ['class' => 'sr-only']],
+            ['div' => ['class' => 'form-group multicheckbox', 'role' => 'group', 'aria-labelledby' => 'users-group-label']],
+                ['span' => ['id' => 'users-group-label', 'class' => 'sr-only']],
                     'Users',
                 '/span',
                 ['input' => [
