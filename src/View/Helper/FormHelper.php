@@ -263,6 +263,9 @@ class FormHelper extends Helper
         ];
         $options = $this->_parseOptions($fieldName, $options);
 
+        $inline = $options['inline'];
+        unset($options['inline']);
+
         if (!isset($options['nestedInput'])) {
             $options['nestedInput'] = false;
         }
@@ -290,17 +293,16 @@ class FormHelper extends Helper
                     $options['templates']['label'] = $this->templater()->get('checkboxLabel');
                 }
 
-                if (!isset($options['inline'])) {
-                    $options['inline'] = $this->checkClasses($options['type'] . '-inline', (array)$options['label']);
+                if (!isset($inline)) {
+                    $inline = $this->checkClasses($options['type'] . '-inline', (array)$options['label']);
                 }
 
-                if ($options['inline']) {
+                if ($inline) {
                     $options['label'] = $this->injectClasses($options['type'] . '-inline', (array)$options['label']);
                     if (!isset($newTemplates['checkboxContainer'])) {
                         $options['templates']['checkboxContainer'] = '{{content}}';
                     }
                 }
-                unset($options['inline']);
                 break;
 
             case 'radio':
@@ -309,11 +311,11 @@ class FormHelper extends Helper
                     $options['label'] = $this->injectClasses('form-check-label', (array)$options['label']);
                 }
 
-                if ($options['inline'] && $this->_align === 'horizontal') {
+                if ($inline && $this->_align === 'horizontal') {
                     $options['templates']['radioWrapper'] = $this->templater()->get('radioInlineWrapper');
                 }
 
-                if ($options['inline'] && $this->_align !== 'horizontal') {
+                if ($inline && $this->_align !== 'horizontal') {
                     $options['templates']['formGroup'] = $this->templater()->get('radioInlineFormGroup');
                 }
                 break;
@@ -331,7 +333,7 @@ class FormHelper extends Helper
                     $options['templateVars']['groupId'] = $this->_domId($fieldName . '-group-label');
                     $options['templates']['label'] = $this->templater()->get('multicheckboxLabel');
 
-                    if ($options['inline'] ||
+                    if ($inline ||
                         $this->_align === 'inline'
                     ) {
                         $options['templates']['checkboxWrapper'] = $this->templater()->get('checkboxInlineWrapper');
