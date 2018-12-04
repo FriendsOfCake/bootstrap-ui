@@ -697,58 +697,6 @@ class FormHelperTest extends TestCase
     }
 
     /**
-     * testBasicRadioControl method
-     *
-     * @return void
-     */
-    public function testBasicRadioControl()
-    {
-        $this->Form->create($this->article);
-
-        $result = $this->Form->control('published', [
-            'type' => 'radio',
-            'options' => ['Yes', 'No']
-        ]);
-        $expected = [
-            ['div' => ['class' => 'form-group radio']],
-            ['label' => ['class' => 'form-check-label']],
-            'Published',
-            '/label',
-            ['input' => [
-                'type' => 'hidden',
-                'name' => 'published',
-                'value' => '',
-            ]],
-            ['div' => ['class' => 'form-check']],
-            ['input' => [
-                'type' => 'radio',
-                'name' => 'published',
-                'value' => 0,
-                'id' => 'published-0',
-                'class' => 'form-check-input'
-            ]],
-            ['label' => ['for' => 'published-0', 'class' => 'form-check-label']],
-            'Yes',
-            '/label',
-            '/div',
-            ['div' => ['class' => 'form-check']],
-            ['input' => [
-                'type' => 'radio',
-                'name' => 'published',
-                'value' => 1,
-                'id' => 'published-1',
-                'class' => 'form-check-input'
-            ]],
-            ['label' => ['for' => 'published-1', 'class' => 'form-check-label']],
-            'No',
-            '/label',
-            '/div',
-            '/div'
-        ];
-        $this->assertHtml($expected, $result);
-    }
-
-    /**
      * testRadio method
      *
      * @return void
@@ -843,135 +791,6 @@ class FormHelperTest extends TestCase
             ]],
             'No',
             '/label',
-            '/div',
-            '/div'
-        ];
-        $this->assertHtml($expected, $result);
-    }
-
-    /**
-     * testHorizontalRadioControl method
-     *
-     * @return void
-     */
-    public function testHorizontalRadiocontrol()
-    {
-        $this->Form->create($this->article, [
-            'align' => [
-                'sm' => [
-                    'left' => 5,
-                    'middle' => 7
-                ]
-            ]
-        ]);
-
-        $result = $this->Form->control('published', [
-            'type' => 'radio',
-            'options' => ['Yes', 'No']
-        ]);
-        $expected = [
-            ['div' => ['class' => 'form-group row radio']],
-            ['label' => ['class' => 'col-form-label col-sm-5']],
-            'Published',
-            '/label',
-            ['div' => ['class' => 'col-sm-7']],
-            'input' => [
-                'type' => 'hidden',
-                'name' => 'published',
-                'value' => '',
-            ],
-            ['div' => ['class' => 'form-check']],
-            ['input' => [
-                'type' => 'radio',
-                'name' => 'published',
-                'value' => 0,
-                'id' => 'published-0',
-                'class' => 'form-check-input',
-            ]],
-            ['label' => ['for' => 'published-0', 'class' => 'form-check-label']],
-            'Yes',
-            '/label',
-            '/div',
-            ['div' => ['class' => 'form-check']],
-            ['input' => [
-                'type' => 'radio',
-                'name' => 'published',
-                'value' => 1,
-                'id' => 'published-1',
-                'class' => 'form-check-input',
-            ]],
-            ['label' => ['for' => 'published-1', 'class' => 'form-check-label']],
-            'No',
-            '/label',
-            '/div',
-            '/div',
-            '/div'
-        ];
-        $this->assertHtml($expected, $result);
-    }
-
-    /**
-     * testInlineHorizontalRadioControl method
-     *
-     * @return void
-     */
-    public function testInlineHorizontalRadioControl()
-    {
-        $this->Form->create($this->article, [
-            'align' => [
-                'sm' => [
-                    'left' => 5,
-                    'middle' => 7
-                ]
-            ]
-        ]);
-
-        $result = $this->Form->control('published', [
-            'inline' => true,
-            'type' => 'radio',
-            'options' => ['Yes', 'No']
-        ]);
-        $expected = [
-            ['div' => ['class' => 'form-group row radio']],
-            ['label' => ['class' => 'col-form-label col-sm-5']],
-            'Published',
-            '/label',
-            ['div' => ['class' => 'col-sm-7']],
-            'input' => [
-                'type' => 'hidden',
-                'name' => 'published',
-                'value' => '',
-            ],
-            ['div' => ['class' => 'form-check form-check-inline']],
-            ['input' => [
-                'type' => 'radio',
-                'name' => 'published',
-                'value' => 0,
-                'id' => 'published-0',
-                'class' => 'form-check-input',
-            ]],
-            ['label' => [
-                'for' => 'published-0',
-                'class' => 'form-check-label',
-            ]],
-            'Yes',
-            '/label',
-            '/div',
-            ['div' => ['class' => 'form-check form-check-inline']],
-            ['input' => [
-                'type' => 'radio',
-                'name' => 'published',
-                'value' => 1,
-                'id' => 'published-1',
-                'class' => 'form-check-input',
-            ]],
-            ['label' => [
-                'class' => 'form-check-label',
-                'for' => 'published-1'
-            ]],
-            'No',
-            '/label',
-            '/div',
             '/div',
             '/div'
         ];
@@ -1822,6 +1641,1161 @@ class FormHelperTest extends TestCase
     {
         $this->expectException(InvalidArgumentException::class);
         $this->Form->create($this->article, ['align' => 'foo']);
+    }
+
+    public function testDefaultAlignRadioControl()
+    {
+        $this->Form->create($this->article);
+
+        $result = $this->Form->control('users', [
+            'type' => 'radio',
+            'options' => [
+                1 => 'option 1',
+                2 => 'option 2'
+            ]
+        ]);
+        $expected = [
+            ['div' => ['class' => 'form-group radio', 'role' => 'group', 'aria-labelledby' => 'users-group-label']],
+                ['label' => ['id' => 'users-group-label', 'class' => 'd-block']],
+                    'Users',
+                '/label',
+                ['input' => [
+                    'type' => 'hidden',
+                    'name' => 'users',
+                    'value' => '',
+                ]],
+                ['div' => ['class' => 'form-check']],
+                    ['input' => [
+                        'class' => 'form-check-input',
+                        'type' => 'radio',
+                        'name' => 'users',
+                        'id' => 'users-1',
+                        'value' => 1
+                    ]],
+                    ['label' => ['class' => 'form-check-label', 'for' => 'users-1']],
+                        'option 1',
+                    '/label',
+                '/div',
+                ['div' => ['class' => 'form-check']],
+                    ['input' => [
+                        'class' => 'form-check-input',
+                        'type' => 'radio',
+                        'name' => 'users',
+                        'id' => 'users-2',
+                        'value' => 2
+                    ]],
+                    ['label' => ['class' => 'form-check-label', 'for' => 'users-2']],
+                        'option 2',
+                    '/label',
+                '/div',
+            '/div',
+        ];
+        $this->assertHtml($expected, $result);
+    }
+
+    public function testDefaultAlignRadioControlNestedInput()
+    {
+        $this->Form->create($this->article);
+
+        $result = $this->Form->control('users', [
+            'type' => 'radio',
+            'options' => [
+                1 => 'option 1',
+                2 => 'option 2'
+            ],
+            'nestedInput' => true
+        ]);
+        $expected = [
+            ['div' => ['class' => 'form-group radio', 'role' => 'group', 'aria-labelledby' => 'users-group-label']],
+                ['label' => ['id' => 'users-group-label', 'class' => 'd-block']],
+                    'Users',
+                '/label',
+                ['input' => [
+                    'type' => 'hidden',
+                    'name' => 'users',
+                    'value' => '',
+                ]],
+                ['div' => ['class' => 'form-check']],
+                    ['label' => ['class' => 'form-check-label', 'for' => 'users-1']],
+                        ['input' => [
+                            'class' => 'form-check-input',
+                            'type' => 'radio',
+                            'name' => 'users',
+                            'id' => 'users-1',
+                            'value' => 1
+                        ]],
+                        'option 1',
+                    '/label',
+                '/div',
+                ['div' => ['class' => 'form-check']],
+                    ['label' => ['class' => 'form-check-label', 'for' => 'users-2']],
+                        ['input' => [
+                            'class' => 'form-check-input',
+                            'type' => 'radio',
+                            'name' => 'users',
+                            'id' => 'users-2',
+                            'value' => 2
+                        ]],
+                        'option 2',
+                    '/label',
+                '/div',
+            '/div',
+        ];
+        $this->assertHtml($expected, $result);
+    }
+
+    public function testDefaultAlignRadioControlInline()
+    {
+        $this->Form->create($this->article);
+
+        $result = $this->Form->control('users', [
+            'type' => 'radio',
+            'options' => [
+                1 => 'option 1',
+                2 => 'option 2'
+            ],
+            'inline' => true
+        ]);
+        $expected = [
+            ['div' => ['class' => 'form-group radio', 'role' => 'group', 'aria-labelledby' => 'users-group-label']],
+                ['label' => ['id' => 'users-group-label', 'class' => 'd-block']],
+                    'Users',
+                '/label',
+                ['input' => [
+                    'type' => 'hidden',
+                    'name' => 'users',
+                    'value' => '',
+                ]],
+                ['div' => ['class' => 'form-check form-check-inline']],
+                    ['input' => [
+                        'class' => 'form-check-input',
+                        'type' => 'radio',
+                        'name' => 'users',
+                        'id' => 'users-1',
+                        'value' => 1
+                    ]],
+                    ['label' => ['class' => 'form-check-label', 'for' => 'users-1']],
+                        'option 1',
+                    '/label',
+                '/div',
+                ['div' => ['class' => 'form-check form-check-inline']],
+                    ['input' => [
+                        'class' => 'form-check-input',
+                        'type' => 'radio',
+                        'name' => 'users',
+                        'id' => 'users-2',
+                        'value' => 2
+                    ]],
+                    ['label' => ['class' => 'form-check-label', 'for' => 'users-2']],
+                        'option 2',
+                    '/label',
+                '/div',
+            '/div',
+        ];
+        $this->assertHtml($expected, $result);
+    }
+
+    public function testDefaultAlignRadioControlInlineNestedInput()
+    {
+        $this->Form->create($this->article);
+
+        $result = $this->Form->control('users', [
+            'type' => 'radio',
+            'options' => [
+                1 => 'option 1',
+                2 => 'option 2'
+            ],
+            'inline' => true,
+            'nestedInput' => true
+        ]);
+        $expected = [
+            ['div' => ['class' => 'form-group radio', 'role' => 'group', 'aria-labelledby' => 'users-group-label']],
+                ['label' => ['id' => 'users-group-label', 'class' => 'd-block']],
+                    'Users',
+                '/label',
+                ['input' => [
+                    'type' => 'hidden',
+                    'name' => 'users',
+                    'value' => '',
+                ]],
+                ['div' => ['class' => 'form-check form-check-inline']],
+                    ['label' => ['class' => 'form-check-label', 'for' => 'users-1']],
+                        ['input' => [
+                            'class' => 'form-check-input',
+                            'type' => 'radio',
+                            'name' => 'users',
+                            'id' => 'users-1',
+                            'value' => 1
+                        ]],
+                        'option 1',
+                    '/label',
+                '/div',
+                ['div' => ['class' => 'form-check form-check-inline']],
+                    ['label' => ['class' => 'form-check-label', 'for' => 'users-2']],
+                        ['input' => [
+                            'class' => 'form-check-input',
+                            'type' => 'radio',
+                            'name' => 'users',
+                            'id' => 'users-2',
+                            'value' => 2
+                        ]],
+                        'option 2',
+                    '/label',
+                '/div',
+            '/div',
+        ];
+        $this->assertHtml($expected, $result);
+    }
+
+    public function testDefaultAlignRadioPerOptionConfiguration()
+    {
+        $this->Form->create($this->article);
+
+        $result = $this->Form->control('users', [
+            'type' => 'radio',
+            'options' => [
+                1 => 'option 1',
+                2 => 'option 2',
+                4 => [
+                    'text' => 'option 3',
+                    'value' => 12,
+                    'class' => 'custominputclass',
+                    'label' => [
+                        'class' => 'customlabelclass'
+                    ]
+                ],
+            ],
+        ]);
+        $expected = [
+            ['div' => ['class' => 'form-group radio', 'role' => 'group', 'aria-labelledby' => 'users-group-label']],
+                ['label' => ['id' => 'users-group-label', 'class' => 'd-block']],
+                    'Users',
+                '/label',
+                ['input' => [
+                    'type' => 'hidden',
+                    'name' => 'users',
+                    'value' => '',
+                ]],
+                ['div' => ['class' => 'form-check']],
+                    ['input' => [
+                        'class' => 'form-check-input',
+                        'type' => 'radio',
+                        'name' => 'users',
+                        'id' => 'users-1',
+                        'value' => 1
+                    ]],
+                    ['label' => ['class' => 'form-check-label', 'for' => 'users-1']],
+                        'option 1',
+                    '/label',
+                '/div',
+                ['div' => ['class' => 'form-check']],
+                    ['input' => [
+                        'class' => 'form-check-input',
+                        'type' => 'radio',
+                        'name' => 'users',
+                        'id' => 'users-2',
+                        'value' => 2
+                    ]],
+                    ['label' => ['class' => 'form-check-label', 'for' => 'users-2']],
+                        'option 2',
+                    '/label',
+                '/div',
+                ['div' => ['class' => 'form-check']],
+                    ['input' => [
+                        'class' => 'custominputclass',
+                        'type' => 'radio',
+                        'name' => 'users',
+                        'id' => 'users-12',
+                        'value' => 12
+                    ]],
+                    ['label' => ['class' => 'form-check-label', 'for' => 'users-12']],
+                        'option 3',
+                    '/label',
+                '/div',
+            '/div',
+        ];
+        $this->assertHtml($expected, $result);
+    }
+
+    public function testDefaultAlignRadioPerOptionConfigurationInline()
+    {
+        $this->Form->create($this->article);
+
+        $result = $this->Form->control('users', [
+            'type' => 'radio',
+            'options' => [
+                1 => 'option 1',
+                2 => 'option 2',
+                4 => [
+                    'text' => 'option 3',
+                    'value' => 12,
+                    'class' => 'custominputclass',
+                    'label' => [
+                        'class' => 'customlabelclass'
+                    ]
+                ],
+            ],
+            'inline' => true,
+        ]);
+        $expected = [
+            ['div' => ['class' => 'form-group radio', 'role' => 'group', 'aria-labelledby' => 'users-group-label']],
+                ['label' => ['id' => 'users-group-label', 'class' => 'd-block']],
+                    'Users',
+                '/label',
+                ['input' => [
+                    'type' => 'hidden',
+                    'name' => 'users',
+                    'value' => '',
+                ]],
+                ['div' => ['class' => 'form-check form-check-inline']],
+                    ['input' => [
+                        'class' => 'form-check-input',
+                        'type' => 'radio',
+                        'name' => 'users',
+                        'id' => 'users-1',
+                        'value' => 1
+                    ]],
+                    ['label' => ['class' => 'form-check-label', 'for' => 'users-1']],
+                        'option 1',
+                    '/label',
+                '/div',
+                ['div' => ['class' => 'form-check form-check-inline']],
+                    ['input' => [
+                        'class' => 'form-check-input',
+                        'type' => 'radio',
+                        'name' => 'users',
+                        'id' => 'users-2',
+                        'value' => 2
+                    ]],
+                    ['label' => ['class' => 'form-check-label', 'for' => 'users-2']],
+                        'option 2',
+                    '/label',
+                '/div',
+                ['div' => ['class' => 'form-check form-check-inline']],
+                    ['input' => [
+                        'class' => 'custominputclass',
+                        'type' => 'radio',
+                        'name' => 'users',
+                        'id' => 'users-12',
+                        'value' => 12
+                    ]],
+                    ['label' => ['class' => 'form-check-label', 'for' => 'users-12']],
+                        'option 3',
+                    '/label',
+                '/div',
+            '/div',
+        ];
+        $this->assertHtml($expected, $result);
+    }
+
+    public function testDefaultAlignRadioPerOptionConfigurationInlineNestedInput()
+    {
+        $this->Form->create($this->article);
+
+        $result = $this->Form->control('users', [
+            'type' => 'radio',
+            'options' => [
+                1 => 'option 1',
+                2 => 'option 2',
+                4 => [
+                    'text' => 'option 3',
+                    'value' => 12,
+                    'class' => 'custominputclass',
+                    'label' => [
+                        'class' => 'customlabelclass'
+                    ]
+                ],
+            ],
+            'inline' => true,
+            'nestedInput' => true,
+        ]);
+        $expected = [
+            ['div' => ['class' => 'form-group radio', 'role' => 'group', 'aria-labelledby' => 'users-group-label']],
+                ['label' => ['id' => 'users-group-label', 'class' => 'd-block']],
+                    'Users',
+                '/label',
+                ['input' => [
+                    'type' => 'hidden',
+                    'name' => 'users',
+                    'value' => '',
+                ]],
+                ['div' => ['class' => 'form-check form-check-inline']],
+                    ['label' => ['class' => 'form-check-label', 'for' => 'users-1']],
+                        ['input' => [
+                            'class' => 'form-check-input',
+                            'type' => 'radio',
+                            'name' => 'users',
+                            'id' => 'users-1',
+                            'value' => 1
+                        ]],
+                        'option 1',
+                    '/label',
+                '/div',
+                ['div' => ['class' => 'form-check form-check-inline']],
+                    ['label' => ['class' => 'form-check-label', 'for' => 'users-2']],
+                        ['input' => [
+                            'class' => 'form-check-input',
+                            'type' => 'radio',
+                            'name' => 'users',
+                            'id' => 'users-2',
+                            'value' => 2
+                        ]],
+                        'option 2',
+                    '/label',
+                '/div',
+                ['div' => ['class' => 'form-check form-check-inline']],
+                    ['label' => ['class' => 'form-check-label', 'for' => 'users-12']],
+                        ['input' => [
+                            'class' => 'custominputclass',
+                            'type' => 'radio',
+                            'name' => 'users',
+                            'id' => 'users-12',
+                            'value' => 12
+                        ]],
+                        'option 3',
+                    '/label',
+                '/div',
+            '/div',
+        ];
+        $this->assertHtml($expected, $result);
+    }
+
+    public function testHorizontalAlignRadioControl()
+    {
+        $this->Form->create($this->article, [
+            'align' => [
+                'sm' => [
+                    'left' => 5,
+                    'middle' => 7
+                ]
+            ]
+        ]);
+
+        $result = $this->Form->control('users', [
+            'type' => 'radio',
+            'options' => [
+                1 => 'option 1',
+                2 => 'option 2'
+            ]
+        ]);
+        $expected = [
+            ['div' => ['class' => 'form-group row radio', 'role' => 'group', 'aria-labelledby' => 'users-group-label']],
+                ['label' => ['id' => 'users-group-label', 'class' => 'col-form-label d-block pt-0 col-sm-5']],
+                    'Users',
+                '/label',
+                ['div' => ['class' => 'col-sm-7']],
+                    ['input' => [
+                        'type' => 'hidden',
+                        'name' => 'users',
+                        'value' => '',
+                    ]],
+                    ['div' => ['class' => 'form-check']],
+                        ['input' => [
+                            'class' => 'form-check-input',
+                            'type' => 'radio',
+                            'name' => 'users',
+                            'id' => 'users-1',
+                            'value' => 1
+                        ]],
+                        ['label' => ['class' => 'form-check-label', 'for' => 'users-1']],
+                            'option 1',
+                        '/label',
+                    '/div',
+                    ['div' => ['class' => 'form-check']],
+                        ['input' => [
+                            'class' => 'form-check-input',
+                            'type' => 'radio',
+                            'name' => 'users',
+                            'id' => 'users-2',
+                            'value' => 2
+                        ]],
+                        ['label' => ['class' => 'form-check-label', 'for' => 'users-2']],
+                            'option 2',
+                        '/label',
+                    '/div',
+                '/div',
+            '/div',
+        ];
+        $this->assertHtml($expected, $result);
+    }
+
+    public function testHorizontalAlignRadioControlNestedInput()
+    {
+        $this->Form->create($this->article, [
+            'align' => [
+                'sm' => [
+                    'left' => 5,
+                    'middle' => 7
+                ]
+            ]
+        ]);
+
+        $result = $this->Form->control('users', [
+            'type' => 'radio',
+            'options' => [
+                1 => 'option 1',
+                2 => 'option 2'
+            ],
+            'nestedInput' => true
+        ]);
+        $expected = [
+            ['div' => ['class' => 'form-group row radio', 'role' => 'group', 'aria-labelledby' => 'users-group-label']],
+                 ['label' => ['id' => 'users-group-label', 'class' => 'col-form-label d-block pt-0 col-sm-5']],
+                    'Users',
+                '/label',
+                ['div' => ['class' => 'col-sm-7']],
+                    ['input' => [
+                        'type' => 'hidden',
+                        'name' => 'users',
+                        'value' => '',
+                    ]],
+                    ['div' => ['class' => 'form-check']],
+                        ['label' => ['class' => 'form-check-label', 'for' => 'users-1']],
+                            ['input' => [
+                                'class' => 'form-check-input',
+                                'type' => 'radio',
+                                'name' => 'users',
+                                'id' => 'users-1',
+                                'value' => 1
+                            ]],
+                            'option 1',
+                        '/label',
+                    '/div',
+                    ['div' => ['class' => 'form-check']],
+                        ['label' => ['class' => 'form-check-label', 'for' => 'users-2']],
+                            ['input' => [
+                                'class' => 'form-check-input',
+                                'type' => 'radio',
+                                'name' => 'users',
+                                'id' => 'users-2',
+                                'value' => 2
+                            ]],
+                            'option 2',
+                        '/label',
+                    '/div',
+                '/div',
+            '/div',
+        ];
+        $this->assertHtml($expected, $result);
+    }
+
+    public function testHorizontalAlignRadioControlInline()
+    {
+        $this->Form->create($this->article, [
+            'align' => [
+                'sm' => [
+                    'left' => 5,
+                    'middle' => 7
+                ]
+            ]
+        ]);
+
+        $result = $this->Form->control('users', [
+            'type' => 'radio',
+            'options' => [
+                1 => 'option 1',
+                2 => 'option 2'
+            ],
+            'inline' => true
+        ]);
+        $expected = [
+            ['div' => ['class' => 'form-group row radio', 'role' => 'group', 'aria-labelledby' => 'users-group-label']],
+                ['label' => ['id' => 'users-group-label', 'class' => 'col-form-label d-block pt-0 col-sm-5']],
+                    'Users',
+                '/label',
+                ['div' => ['class' => 'col-sm-7']],
+                    ['input' => [
+                        'type' => 'hidden',
+                        'name' => 'users',
+                        'value' => '',
+                    ]],
+                    ['div' => ['class' => 'form-check form-check-inline']],
+                        ['input' => [
+                            'class' => 'form-check-input',
+                            'type' => 'radio',
+                            'name' => 'users',
+                            'id' => 'users-1',
+                            'value' => 1
+                        ]],
+                        ['label' => ['class' => 'form-check-label', 'for' => 'users-1']],
+                            'option 1',
+                        '/label',
+                    '/div',
+                    ['div' => ['class' => 'form-check form-check-inline']],
+                        ['input' => [
+                            'class' => 'form-check-input',
+                            'type' => 'radio',
+                            'name' => 'users',
+                            'id' => 'users-2',
+                            'value' => 2
+                        ]],
+                        ['label' => ['class' => 'form-check-label', 'for' => 'users-2']],
+                            'option 2',
+                        '/label',
+                    '/div',
+                '/div',
+            '/div',
+        ];
+        $this->assertHtml($expected, $result);
+    }
+
+    public function testHorizontalAlignRadioControlInlineNestedInput()
+    {
+        $this->Form->create($this->article, [
+            'align' => [
+                'sm' => [
+                    'left' => 5,
+                    'middle' => 7
+                ]
+            ]
+        ]);
+
+        $result = $this->Form->control('users', [
+            'type' => 'radio',
+            'options' => [
+                1 => 'option 1',
+                2 => 'option 2'
+            ],
+            'inline' => true,
+            'nestedInput' => true
+        ]);
+        $expected = [
+            ['div' => ['class' => 'form-group row radio', 'role' => 'group', 'aria-labelledby' => 'users-group-label']],
+                ['label' => ['id' => 'users-group-label', 'class' => 'col-form-label d-block pt-0 col-sm-5']],
+                    'Users',
+                '/label',
+                ['div' => ['class' => 'col-sm-7']],
+                    ['input' => [
+                        'type' => 'hidden',
+                        'name' => 'users',
+                        'value' => '',
+                    ]],
+                    ['div' => ['class' => 'form-check form-check-inline']],
+                        ['label' => ['class' => 'form-check-label', 'for' => 'users-1']],
+                            ['input' => [
+                                'class' => 'form-check-input',
+                                'type' => 'radio',
+                                'name' => 'users',
+                                'id' => 'users-1',
+                                'value' => 1
+                            ]],
+                            'option 1',
+                        '/label',
+                    '/div',
+                    ['div' => ['class' => 'form-check form-check-inline']],
+                        ['label' => ['class' => 'form-check-label', 'for' => 'users-2']],
+                            ['input' => [
+                                'class' => 'form-check-input',
+                                'type' => 'radio',
+                                'name' => 'users',
+                                'id' => 'users-2',
+                                'value' => 2
+                            ]],
+                            'option 2',
+                        '/label',
+                    '/div',
+                '/div',
+            '/div',
+        ];
+        $this->assertHtml($expected, $result);
+    }
+
+    public function testHorizontalAlignRadioControlPerOptionConfiguration()
+    {
+        $this->Form->create($this->article, [
+            'align' => [
+                'sm' => [
+                    'left' => 5,
+                    'middle' => 7
+                ]
+            ]
+        ]);
+
+        $result = $this->Form->control('users', [
+            'type' => 'radio',
+            'options' => [
+                1 => 'option 1',
+                2 => 'option 2',
+                4 => [
+                    'text' => 'option 3',
+                    'value' => 12,
+                    'class' => 'custominputclass',
+                    'label' => [
+                        'class' => 'customlabelclass'
+                    ]
+                ],
+            ],
+        ]);
+        $expected = [
+            ['div' => ['class' => 'form-group row radio', 'role' => 'group', 'aria-labelledby' => 'users-group-label']],
+                ['label' => ['id' => 'users-group-label', 'class' => 'col-form-label d-block pt-0 col-sm-5']],
+                    'Users',
+                '/label',
+                ['div' => ['class' => 'col-sm-7']],
+                    ['input' => [
+                        'type' => 'hidden',
+                        'name' => 'users',
+                        'value' => '',
+                    ]],
+                    ['div' => ['class' => 'form-check']],
+                        ['input' => [
+                            'class' => 'form-check-input',
+                            'type' => 'radio',
+                            'name' => 'users',
+                            'id' => 'users-1',
+                            'value' => 1
+                        ]],
+                        ['label' => ['class' => 'form-check-label', 'for' => 'users-1']],
+                            'option 1',
+                        '/label',
+                    '/div',
+                    ['div' => ['class' => 'form-check']],
+                        ['input' => [
+                            'class' => 'form-check-input',
+                            'type' => 'radio',
+                            'name' => 'users',
+                            'id' => 'users-2',
+                            'value' => 2
+                        ]],
+                        ['label' => ['class' => 'form-check-label', 'for' => 'users-2']],
+                            'option 2',
+                        '/label',
+                    '/div',
+                    ['div' => ['class' => 'form-check']],
+                        ['input' => [
+                            'class' => 'custominputclass',
+                            'type' => 'radio',
+                            'name' => 'users',
+                            'id' => 'users-12',
+                            'value' => 12
+                        ]],
+                        ['label' => ['class' => 'form-check-label', 'for' => 'users-12']],
+                            'option 3',
+                        '/label',
+                    '/div',
+                '/div',
+            '/div',
+        ];
+        $this->assertHtml($expected, $result);
+    }
+
+    public function testHorizontalAlignRadioControlPerOptionConfigurationInline()
+    {
+        $this->Form->create($this->article, [
+            'align' => [
+                'sm' => [
+                    'left' => 5,
+                    'middle' => 7
+                ]
+            ]
+        ]);
+
+        $result = $this->Form->control('users', [
+            'type' => 'radio',
+            'options' => [
+                1 => 'option 1',
+                2 => 'option 2',
+                4 => [
+                    'text' => 'option 3',
+                    'value' => 12,
+                    'class' => 'custominputclass',
+                    'label' => [
+                        'class' => 'customlabelclass'
+                    ]
+                ],
+            ],
+            'inline' => true,
+        ]);
+        $expected = [
+            ['div' => ['class' => 'form-group row radio', 'role' => 'group', 'aria-labelledby' => 'users-group-label']],
+                ['label' => ['id' => 'users-group-label', 'class' => 'col-form-label d-block pt-0 col-sm-5']],
+                    'Users',
+                '/label',
+                ['div' => ['class' => 'col-sm-7']],
+                    ['input' => [
+                        'type' => 'hidden',
+                        'name' => 'users',
+                        'value' => '',
+                    ]],
+                    ['div' => ['class' => 'form-check form-check-inline']],
+                        ['input' => [
+                            'class' => 'form-check-input',
+                            'type' => 'radio',
+                            'name' => 'users',
+                            'id' => 'users-1',
+                            'value' => 1
+                        ]],
+                        ['label' => ['class' => 'form-check-label', 'for' => 'users-1']],
+                            'option 1',
+                        '/label',
+                    '/div',
+                    ['div' => ['class' => 'form-check form-check-inline']],
+                        ['input' => [
+                            'class' => 'form-check-input',
+                            'type' => 'radio',
+                            'name' => 'users',
+                            'id' => 'users-2',
+                            'value' => 2
+                        ]],
+                        ['label' => ['class' => 'form-check-label', 'for' => 'users-2']],
+                            'option 2',
+                        '/label',
+                    '/div',
+                    ['div' => ['class' => 'form-check form-check-inline']],
+                        ['input' => [
+                            'class' => 'custominputclass',
+                            'type' => 'radio',
+                            'name' => 'users',
+                            'id' => 'users-12',
+                            'value' => 12
+                        ]],
+                        ['label' => ['class' => 'form-check-label', 'for' => 'users-12']],
+                            'option 3',
+                        '/label',
+                    '/div',
+                '/div',
+            '/div',
+        ];
+        $this->assertHtml($expected, $result);
+    }
+
+    public function testHorizontalAlignRadioControlPerOptionConfigurationInlineNestedInput()
+    {
+        $this->Form->create($this->article, [
+            'align' => [
+                'sm' => [
+                    'left' => 5,
+                    'middle' => 7
+                ]
+            ]
+        ]);
+
+        $result = $this->Form->control('users', [
+            'type' => 'radio',
+            'options' => [
+                1 => 'option 1',
+                2 => 'option 2',
+                4 => [
+                    'text' => 'option 3',
+                    'value' => 12,
+                    'class' => 'custominputclass',
+                    'label' => [
+                        'class' => 'customlabelclass'
+                    ]
+                ],
+            ],
+            'inline' => true,
+            'nestedInput' => true,
+        ]);
+        $expected = [
+            ['div' => ['class' => 'form-group row radio', 'role' => 'group', 'aria-labelledby' => 'users-group-label']],
+                ['label' => ['id' => 'users-group-label', 'class' => 'col-form-label d-block pt-0 col-sm-5']],
+                    'Users',
+                '/label',
+                ['div' => ['class' => 'col-sm-7']],
+                    ['input' => [
+                        'type' => 'hidden',
+                        'name' => 'users',
+                        'value' => '',
+                    ]],
+                    ['div' => ['class' => 'form-check form-check-inline']],
+                        ['label' => ['class' => 'form-check-label', 'for' => 'users-1']],
+                            ['input' => [
+                                'class' => 'form-check-input',
+                                'type' => 'radio',
+                                'name' => 'users',
+                                'id' => 'users-1',
+                                'value' => 1
+                            ]],
+                            'option 1',
+                        '/label',
+                    '/div',
+                    ['div' => ['class' => 'form-check form-check-inline']],
+                        ['label' => ['class' => 'form-check-label', 'for' => 'users-2']],
+                            ['input' => [
+                                'class' => 'form-check-input',
+                                'type' => 'radio',
+                                'name' => 'users',
+                                'id' => 'users-2',
+                                'value' => 2
+                            ]],
+                            'option 2',
+                        '/label',
+                    '/div',
+                    ['div' => ['class' => 'form-check form-check-inline']],
+                        ['label' => ['class' => 'form-check-label', 'for' => 'users-12']],
+                            ['input' => [
+                                'class' => 'custominputclass',
+                                'type' => 'radio',
+                                'name' => 'users',
+                                'id' => 'users-12',
+                                'value' => 12
+                            ]],
+                            'option 3',
+                        '/label',
+                    '/div',
+                '/div',
+            '/div',
+        ];
+        $this->assertHtml($expected, $result);
+    }
+
+    public function testInlineAlignRadioControl()
+    {
+        $this->withErrorReporting(0, function () {
+            $this->Form->create($this->article, [
+                'align' => 'inline'
+            ]);
+        });
+
+        $result = $this->Form->control('users', [
+            'type' => 'radio',
+            'options' => [
+                1 => 'option 1',
+                2 => 'option 2'
+            ]
+        ]);
+        $expected = [
+            ['div' => ['class' => 'form-group radio', 'role' => 'group', 'aria-labelledby' => 'users-group-label']],
+                ['span' => ['id' => 'users-group-label', 'class' => 'sr-only']],
+                    'Users',
+                '/span',
+                ['input' => [
+                    'type' => 'hidden',
+                    'name' => 'users',
+                    'value' => '',
+                ]],
+                ['div' => ['class' => 'form-check form-check-inline']],
+                    ['input' => [
+                        'class' => 'form-check-input',
+                        'type' => 'radio',
+                        'name' => 'users',
+                        'id' => 'users-1',
+                        'value' => 1
+                    ]],
+                    ['label' => ['class' => 'form-check-label', 'for' => 'users-1']],
+                        'option 1',
+                    '/label',
+                '/div',
+                ['div' => ['class' => 'form-check form-check-inline']],
+                    ['input' => [
+                        'class' => 'form-check-input',
+                        'type' => 'radio',
+                        'name' => 'users',
+                        'id' => 'users-2',
+                        'value' => 2
+                    ]],
+                    ['label' => ['class' => 'form-check-label', 'for' => 'users-2']],
+                        'option 2',
+                    '/label',
+                '/div',
+            '/div',
+        ];
+        $this->assertHtml($expected, $result);
+    }
+
+    public function testInlineAlignRadioControlWithPerOptionConfiguration()
+    {
+        $this->withErrorReporting(0, function () {
+            $this->Form->create($this->article, [
+                'align' => 'inline'
+            ]);
+        });
+
+        $result = $this->Form->control('users', [
+            'type' => 'radio',
+            'options' => [
+                1 => 'option 1',
+                2 => 'option 2',
+                4 => [
+                    'text' => 'option 3',
+                    'value' => 12,
+                    'class' => 'custominputclass',
+                    'label' => [
+                        'class' => 'customlabelclass'
+                    ]
+                ],
+            ],
+        ]);
+        $expected = [
+            ['div' => ['class' => 'form-group radio', 'role' => 'group', 'aria-labelledby' => 'users-group-label']],
+                ['span' => ['id' => 'users-group-label', 'class' => 'sr-only']],
+                    'Users',
+                '/span',
+                ['input' => [
+                    'type' => 'hidden',
+                    'name' => 'users',
+                    'value' => '',
+                ]],
+                ['div' => ['class' => 'form-check form-check-inline']],
+                    ['input' => [
+                        'class' => 'form-check-input',
+                        'type' => 'radio',
+                        'name' => 'users',
+                        'id' => 'users-1',
+                        'value' => 1
+                    ]],
+                    ['label' => ['class' => 'form-check-label', 'for' => 'users-1']],
+                        'option 1',
+                    '/label',
+                '/div',
+                ['div' => ['class' => 'form-check form-check-inline']],
+                    ['input' => [
+                        'class' => 'form-check-input',
+                        'type' => 'radio',
+                        'name' => 'users',
+                        'id' => 'users-2',
+                        'value' => 2
+                    ]],
+                    ['label' => ['class' => 'form-check-label', 'for' => 'users-2']],
+                        'option 2',
+                    '/label',
+                '/div',
+                ['div' => ['class' => 'form-check form-check-inline']],
+                    ['input' => [
+                        'class' => 'custominputclass',
+                        'type' => 'radio',
+                        'name' => 'users',
+                        'id' => 'users-12',
+                        'value' => 12
+                    ]],
+                    ['label' => ['class' => 'form-check-label', 'for' => 'users-12']],
+                        'option 3',
+                    '/label',
+                '/div',
+            '/div',
+        ];
+        $this->assertHtml($expected, $result);
+    }
+
+    public function testInlineAlignRadioControlNestedInput()
+    {
+        $this->withErrorReporting(0, function () {
+            $this->Form->create($this->article, [
+                'align' => 'inline'
+            ]);
+        });
+
+        $result = $this->Form->control('users', [
+            'type' => 'radio',
+            'options' => [
+                1 => 'option 1',
+                2 => 'option 2'
+            ],
+            'nestedInput' => true
+        ]);
+        $expected = [
+            ['div' => ['class' => 'form-group radio', 'role' => 'group', 'aria-labelledby' => 'users-group-label']],
+                ['span' => ['id' => 'users-group-label', 'class' => 'sr-only']],
+                    'Users',
+                '/span',
+                ['input' => [
+                    'type' => 'hidden',
+                    'name' => 'users',
+                    'value' => '',
+                ]],
+                ['div' => ['class' => 'form-check form-check-inline']],
+                    ['label' => ['class' => 'form-check-label', 'for' => 'users-1']],
+                        ['input' => [
+                            'class' => 'form-check-input',
+                            'type' => 'radio',
+                            'name' => 'users',
+                            'id' => 'users-1',
+                            'value' => 1
+                        ]],
+                        'option 1',
+                    '/label',
+                '/div',
+                ['div' => ['class' => 'form-check form-check-inline']],
+                    ['label' => ['class' => 'form-check-label', 'for' => 'users-2']],
+                        ['input' => [
+                            'class' => 'form-check-input',
+                            'type' => 'radio',
+                            'name' => 'users',
+                            'id' => 'users-2',
+                            'value' => 2
+                        ]],
+                        'option 2',
+                    '/label',
+                '/div',
+            '/div',
+        ];
+        $this->assertHtml($expected, $result);
+    }
+
+    public function testInlineAlignRadioControlWithPerOptionConfigurationNestedInput()
+    {
+        $this->withErrorReporting(0, function () {
+            $this->Form->create($this->article, [
+                'align' => 'inline'
+            ]);
+        });
+
+        $result = $this->Form->control('users', [
+            'type' => 'radio',
+            'options' => [
+                1 => 'option 1',
+                2 => 'option 2',
+                4 => [
+                    'text' => 'option 3',
+                    'value' => 12,
+                    'class' => 'custominputclass',
+                    'label' => [
+                        'class' => 'customlabelclass'
+                    ]
+                ],
+            ],
+            'nestedInput' => true
+        ]);
+        $expected = [
+            ['div' => ['class' => 'form-group radio', 'role' => 'group', 'aria-labelledby' => 'users-group-label']],
+                ['span' => ['id' => 'users-group-label', 'class' => 'sr-only']],
+                    'Users',
+                '/span',
+                ['input' => [
+                    'type' => 'hidden',
+                    'name' => 'users',
+                    'value' => '',
+                ]],
+                ['div' => ['class' => 'form-check form-check-inline']],
+                    ['label' => ['class' => 'form-check-label', 'for' => 'users-1']],
+                        ['input' => [
+                            'class' => 'form-check-input',
+                            'type' => 'radio',
+                            'name' => 'users',
+                            'id' => 'users-1',
+                            'value' => 1
+                        ]],
+                        'option 1',
+                    '/label',
+                '/div',
+                ['div' => ['class' => 'form-check form-check-inline']],
+                    ['label' => ['class' => 'form-check-label', 'for' => 'users-2']],
+                        ['input' => [
+                            'class' => 'form-check-input',
+                            'type' => 'radio',
+                            'name' => 'users',
+                            'id' => 'users-2',
+                            'value' => 2
+                        ]],
+                        'option 2',
+                    '/label',
+                '/div',
+                ['div' => ['class' => 'form-check form-check-inline']],
+                    ['label' => ['class' => 'form-check-label', 'for' => 'users-12']],
+                        ['input' => [
+                            'class' => 'custominputclass',
+                            'type' => 'radio',
+                            'name' => 'users',
+                            'id' => 'users-12',
+                            'value' => 12
+                        ]],
+                        'option 3',
+                    '/label',
+                '/div',
+            '/div',
+        ];
+        $this->assertHtml($expected, $result);
     }
 
     public function testDefaultAlignMultipleCheckboxControl()

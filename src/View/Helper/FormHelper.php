@@ -52,9 +52,11 @@ class FormHelper extends Helper
         'checkboxFormGroup' => '{{input}}{{label}}',
         'checkboxWrapper' => '<div class="form-check">{{label}}</div>',
         'checkboxInlineWrapper' => '<div class="form-check form-check-inline">{{label}}</div>',
+        'radioContainer' => '<div class="form-group {{type}}{{required}}" role="group" aria-labelledby="{{groupId}}">{{content}}{{help}}</div>',
+        'radioContainerError' => '<div class="form-group {{type}}{{required}} is-invalid" role="group" aria-labelledby="{{groupId}}">{{content}}{{error}}{{help}}</div>',
+        'radioLabel' => '<label id="{{groupId}}" class="d-block">{{text}}</label>',
         'radioWrapper' => '<div class="form-check">{{hidden}}{{label}}</div>',
-        'radioInlineFormGroup' => '{{label}}<div class="form-check form-check-inline">{{input}}</div>',
-        'radioNestingLabel' => '<div class="form-check">{{hidden}}<label{{attrs}}>{{input}}{{text}}{{tooltip}}</label></div>',
+        'radioInlineWrapper' => '<div class="form-check form-check-inline">{{label}}</div>',
         'staticControl' => '<p class="form-control-plaintext">{{content}}</p>',
         'inputGroupAddon' => '<div class="{{class}}">{{content}}</div>',
         'inputGroupContainer' => '<div{{attrs}}>{{prepend}}{{content}}{{append}}</div>',
@@ -80,6 +82,9 @@ class FormHelper extends Helper
         'inline' => [
             'label' => '<label class="sr-only"{{attrs}}>{{text}}{{tooltip}}</label>',
             'inputContainer' => '{{content}}',
+            'radioContainer' => '<div class="form-group {{type}}{{required}}" role="group" aria-labelledby="{{groupId}}">{{content}}</div>',
+            'radioContainerError' => '<div class="form-group {{type}}{{required}} is-invalid" role="group" aria-labelledby="{{groupId}}">{{content}}</div>',
+            'radioLabel' => '<span id="{{groupId}}" class="sr-only">{{text}}</span>',
             'multicheckboxContainer' => '<div class="form-group {{type}}{{required}}" role="group" aria-labelledby="{{groupId}}">{{content}}</div>',
             'multicheckboxContainerError' => '<div class="form-group {{type}}{{required}} is-invalid" role="group" aria-labelledby="{{groupId}}">{{content}}</div>',
             'multicheckboxLabel' => '<span id="{{groupId}}" class="sr-only">{{text}}</span>',
@@ -94,9 +99,9 @@ class FormHelper extends Helper
             'inputContainerError' => '<div class="form-group row {{type}}{{required}} is-invalid">{{content}}</div>',
             'checkboxContainer' => '<div class="form-group row {{type}}{{required}}">{{content}}</div>',
             'checkboxContainerError' => '<div class="form-group row {{type}}{{required}} is-invalid">{{content}}</div>',
-            'radioContainer' => '<div class="form-group row {{type}}{{required}}">{{content}}</div>',
-            'radioContainerError' => '<div class="form-group row {{type}}{{required}} is-invalid">{{content}}</div>',
-            'radioInlineWrapper' => '<div class="form-check form-check-inline">{{hidden}}{{label}}</div>',
+            'radioContainer' => '<div class="form-group row {{type}}{{required}}" role="group" aria-labelledby="{{groupId}}">{{content}}</div>',
+            'radioContainerError' => '<div class="form-group row {{type}}{{required}} is-invalid" role="group" aria-labelledby="{{groupId}}">{{content}}</div>',
+            'radioLabel' => '<label id="{{groupId}}" class="col-form-label d-block pt-0 %s">{{text}}</label>',
             'multicheckboxContainer' => '<div class="form-group {{type}}{{required}}" role="group" aria-labelledby="{{groupId}}"><div class="row">{{content}}</div></div>',
             'multicheckboxContainerError' => '<div class="form-group {{type}}{{required}} is-invalid" role="group" aria-labelledby="{{groupId}}"><div class="row">{{content}}</div></div>',
             'multicheckboxLabel' => '<label id="{{groupId}}" class="col-form-label d-block pt-0 %s">{{text}}</label>',
@@ -110,7 +115,6 @@ class FormHelper extends Helper
      */
     protected $_widgets = [
         'button' => 'BootstrapUI\View\Widget\ButtonWidget',
-        'radio' => ['BootstrapUI\View\Widget\RadioWidget', 'nestingLabel'],
         'select' => 'BootstrapUI\View\Widget\SelectBoxWidget',
         'textarea' => 'BootstrapUI\View\Widget\TextareaWidget',
         '_default' => 'BootstrapUI\View\Widget\BasicWidget',
@@ -303,16 +307,18 @@ class FormHelper extends Helper
 
             case 'radio':
                 $options = $this->injectClasses('form-check-input', $options);
-                if ($this->_align !== 'horizontal') {
-                    $options['label'] = $this->injectClasses('form-check-label', (array)$options['label']);
-                }
 
-                if ($inline && $this->_align === 'horizontal') {
+                $options['templateVars']['groupId'] = $this->_domId($fieldName . '-group-label');
+                $options['templates']['label'] = $this->templater()->get('radioLabel');
+
+                if ($inline ||
+                    $this->_align === 'inline'
+                ) {
                     $options['templates']['radioWrapper'] = $this->templater()->get('radioInlineWrapper');
                 }
 
-                if ($inline && $this->_align !== 'horizontal') {
-                    $options['templates']['formGroup'] = $this->templater()->get('radioInlineFormGroup');
+                if ($nestedInput) {
+                    $options['templates']['nestingLabel'] = $this->templater()->get('nestingLabelNestedInput');
                 }
                 break;
 
@@ -653,6 +659,7 @@ class FormHelper extends Helper
         $offsetedGridClass = implode(' ', [$this->_gridClass('left', true), $this->_gridClass('middle')]);
 
         $templates['label'] = sprintf($templates['label'], $this->_gridClass('left'));
+        $templates['radioLabel'] = sprintf($templates['radioLabel'], $this->_gridClass('left'));
         $templates['multicheckboxLabel'] = sprintf($templates['multicheckboxLabel'], $this->_gridClass('left'));
         $templates['formGroup'] = sprintf($templates['formGroup'], $this->_gridClass('middle'));
         foreach (['checkboxFormGroup', 'submitContainer'] as $value) {
