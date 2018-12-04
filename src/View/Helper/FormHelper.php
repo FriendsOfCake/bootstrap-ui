@@ -61,7 +61,6 @@ class FormHelper extends Helper
         'inputGroupAddon' => '<div class="{{class}}">{{content}}</div>',
         'inputGroupContainer' => '<div{{attrs}}>{{prepend}}{{content}}{{append}}</div>',
         'inputGroupText' => '<span class="input-group-text">{{content}}</span>',
-        'file' => '<input type="file" class="form-control-file" name="{{name}}"{{attrs}}>',
         'multicheckboxContainer' => '<div class="form-group {{type}}{{required}}" role="group" aria-labelledby="{{groupId}}">{{content}}{{help}}</div>',
         'multicheckboxContainerError' => '<div class="form-group {{type}}{{required}} is-invalid" role="group" aria-labelledby="{{groupId}}">{{content}}{{error}}{{help}}</div>',
         'multicheckboxLabel' => '<label id="{{groupId}}" class="d-block">{{text}}</label>',
@@ -115,6 +114,7 @@ class FormHelper extends Helper
      */
     protected $_widgets = [
         'button' => 'BootstrapUI\View\Widget\ButtonWidget',
+        'file' => 'BootstrapUI\View\Widget\FileWidget',
         'select' => 'BootstrapUI\View\Widget\SelectBoxWidget',
         'textarea' => 'BootstrapUI\View\Widget\TextareaWidget',
         '_default' => 'BootstrapUI\View\Widget\BasicWidget',

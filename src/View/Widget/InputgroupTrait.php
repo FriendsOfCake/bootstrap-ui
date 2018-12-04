@@ -26,20 +26,22 @@ trait InputgroupTrait
     protected function _withInputGroup(array $data, ContextInterface $context)
     {
         $data += [
+            'type' => null,
             'prepend' => null,
             'append' => null,
+            'injectFormControl' => true,
         ];
-        $attrs[] = null;
 
-        if (!isset($data['type']) || $data['type'] !== 'hidden') {
+        if ($data['injectFormControl'] && $data['type'] !== 'hidden') {
             $data = $this->injectClasses('form-control', $data);
         }
 
         $prepend = $data['prepend'];
         $append = $data['append'];
-        unset($data['append'], $data['prepend']);
+        unset($data['append'], $data['prepend'], $data['injectFormControl']);
 
         $input = parent::render($data, $context);
+        $attrs[] = null;
 
         if ($prepend) {
             $prepend = $this->_checkForOptions($prepend);
