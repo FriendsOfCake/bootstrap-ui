@@ -250,6 +250,7 @@ class FormHelper extends Helper
             'prepend' => null,
             'append' => null,
             'inline' => null,
+            'nestedInput' => false,
             'type' => null,
             'label' => null,
             'error' => null,
@@ -264,13 +265,8 @@ class FormHelper extends Helper
         $options = $this->_parseOptions($fieldName, $options);
 
         $inline = $options['inline'];
-        unset($options['inline']);
-
-        if (!isset($options['nestedInput'])) {
-            $options['nestedInput'] = false;
-        }
         $nestedInput = $options['nestedInput'];
-        unset($options['nestedInput']);
+        unset($options['inline'], $options['nestedInput']);
 
         $newTemplates = $options['templates'];
         if ($newTemplates) {
