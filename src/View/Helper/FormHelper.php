@@ -90,7 +90,7 @@ class FormHelper extends Helper
         ],
         'horizontal' => [
             'label' => '<label class="col-form-label %s"{{attrs}}>{{text}}{{tooltip}}</label>',
-            'labelFile' => '<label class="col-form-label pt-1 %s"{{attrs}}>{{text}}{{tooltip}}</label>',
+            'fileLabel' => '<label class="col-form-label pt-1 %s"{{attrs}}>{{text}}{{tooltip}}</label>',
             'checkboxLabel' => '<label {{attrs}}>{{text}}{{tooltip}}</label>',
             'formGroup' => '{{label}}<div class="%s">{{input}}{{error}}{{help}}</div>',
             'checkboxFormGroup' => '<div class="%s"><div class="form-check">{{input}}{{label}}</div>{{error}}{{help}}</div>',
@@ -350,7 +350,7 @@ class FormHelper extends Helper
 
             case 'file':
                 if ($this->_align === 'horizontal') {
-                    $options['templates']['label'] = $this->templater()->get('labelFile');
+                    $options['templates']['label'] = $this->templater()->get('fileLabel');
                 }
 
                 break;
@@ -668,7 +668,7 @@ class FormHelper extends Helper
 
         $templates['label'] = sprintf($templates['label'], $this->_gridClass('left'));
         $templates['radioLabel'] = sprintf($templates['radioLabel'], $this->_gridClass('left'));
-        $templates['labelFile'] = sprintf($templates['labelFile'], $this->_gridClass('left'));
+        $templates['fileLabel'] = sprintf($templates['fileLabel'], $this->_gridClass('left'));
         $templates['multicheckboxLabel'] = sprintf($templates['multicheckboxLabel'], $this->_gridClass('left'));
         $templates['formGroup'] = sprintf($templates['formGroup'], $this->_gridClass('middle'));
         foreach (['checkboxFormGroup', 'submitContainer'] as $value) {
