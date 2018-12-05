@@ -119,6 +119,33 @@ class FormHelperTest extends TestCase
     }
 
     /**
+     * testFileControl method
+     *
+     * @return void
+     */
+    public function testFileControl()
+    {
+        $this->Form->create();
+
+        $result = $this->Form->control('file', ['type' => 'file']);
+        $expected = [
+            'div' => ['class' => 'form-group file'],
+            'label' => ['for' => 'file'],
+            'File',
+            '/label',
+            'input' => [
+                'type' => 'file',
+                'name' => 'file',
+                'id' => 'file',
+                'class' => 'form-control-file',
+            ],
+            '/div'
+        ];
+
+        $this->assertHtml($expected, $result);
+    }
+
+    /**
      * testSelectControl method
      *
      * @return void
@@ -341,6 +368,7 @@ class FormHelperTest extends TestCase
             'title' => ['error message'],
             'published' => ['error message'],
             'foreign_key' => ['error msg'],
+            'file' => ['upload error'],
         ];
         $this->Form->create($this->article);
 
@@ -394,6 +422,25 @@ class FormHelperTest extends TestCase
             '/select',
             ['div' => ['class' => 'invalid-feedback']],
             'error msg',
+            '/div',
+            '/div'
+        ];
+        $this->assertHtml($expected, $result);
+
+        $result = $this->Form->control('file', ['type' => 'file']);
+        $expected = [
+            'div' => ['class' => 'form-group file is-invalid'],
+            'label' => ['for' => 'file'],
+            'File',
+            '/label',
+            'input' => [
+                'type' => 'file',
+                'name' => 'file',
+                'id' => 'file',
+                'class' => 'is-invalid form-control-file',
+            ],
+            ['div' => ['class' => 'invalid-feedback']],
+            'upload error',
             '/div',
             '/div'
         ];
@@ -995,6 +1042,27 @@ class FormHelperTest extends TestCase
                 'id' => 'title',
                 'class' => 'form-control',
                 'required' => 'required',
+            ],
+            '/div',
+            '/div'
+        ];
+        $this->assertHtml($expected, $result);
+
+        $result = $this->Form->control('file', ['type' => 'file']);
+        $expected = [
+            'div' => ['class' => 'form-group row file'],
+            'label' => [
+                'class' => 'col-form-label pt-1 col-md-2',
+                'for' => 'file'
+            ],
+            'File',
+            '/label',
+            ['div' => ['class' => 'col-md-10']],
+            'input' => [
+                'type' => 'file',
+                'name' => 'file',
+                'id' => 'file',
+                'class' => 'form-control-file',
             ],
             '/div',
             '/div'

@@ -61,7 +61,6 @@ class FormHelper extends Helper
         'inputGroupAddon' => '<div class="{{class}}">{{content}}</div>',
         'inputGroupContainer' => '<div{{attrs}}>{{prepend}}{{content}}{{append}}</div>',
         'inputGroupText' => '<span class="input-group-text">{{content}}</span>',
-        'file' => '<input type="file" class="form-control-file" name="{{name}}"{{attrs}}>',
         'multicheckboxContainer' => '<div class="form-group {{type}}{{required}}" role="group" aria-labelledby="{{groupId}}">{{content}}{{help}}</div>',
         'multicheckboxContainerError' => '<div class="form-group {{type}}{{required}} is-invalid" role="group" aria-labelledby="{{groupId}}">{{content}}{{error}}{{help}}</div>',
         'multicheckboxLabel' => '<label id="{{groupId}}" class="d-block">{{text}}</label>',
@@ -91,6 +90,7 @@ class FormHelper extends Helper
         ],
         'horizontal' => [
             'label' => '<label class="col-form-label %s"{{attrs}}>{{text}}{{tooltip}}</label>',
+            'fileLabel' => '<label class="col-form-label pt-1 %s"{{attrs}}>{{text}}{{tooltip}}</label>',
             'checkboxLabel' => '<label {{attrs}}>{{text}}{{tooltip}}</label>',
             'formGroup' => '{{label}}<div class="%s">{{input}}{{error}}{{help}}</div>',
             'checkboxFormGroup' => '<div class="%s"><div class="form-check">{{input}}{{label}}</div>{{error}}{{help}}</div>',
@@ -115,6 +115,7 @@ class FormHelper extends Helper
      */
     protected $_widgets = [
         'button' => 'BootstrapUI\View\Widget\ButtonWidget',
+        'file' => 'BootstrapUI\View\Widget\FileWidget',
         'select' => 'BootstrapUI\View\Widget\SelectBoxWidget',
         'textarea' => 'BootstrapUI\View\Widget\TextareaWidget',
         '_default' => 'BootstrapUI\View\Widget\BasicWidget',
@@ -345,6 +346,13 @@ class FormHelper extends Helper
                         $options['templates']['nestingLabel'] = $this->templater()->get('nestingLabelNestedInput');
                     }
                 }
+                break;
+
+            case 'file':
+                if ($this->_align === 'horizontal') {
+                    $options['templates']['label'] = $this->templater()->get('fileLabel');
+                }
+
                 break;
         }
 
@@ -660,6 +668,7 @@ class FormHelper extends Helper
 
         $templates['label'] = sprintf($templates['label'], $this->_gridClass('left'));
         $templates['radioLabel'] = sprintf($templates['radioLabel'], $this->_gridClass('left'));
+        $templates['fileLabel'] = sprintf($templates['fileLabel'], $this->_gridClass('left'));
         $templates['multicheckboxLabel'] = sprintf($templates['multicheckboxLabel'], $this->_gridClass('left'));
         $templates['formGroup'] = sprintf($templates['formGroup'], $this->_gridClass('middle'));
         foreach (['checkboxFormGroup', 'submitContainer'] as $value) {
