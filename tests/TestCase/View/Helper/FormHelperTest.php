@@ -1048,6 +1048,27 @@ class FormHelperTest extends TestCase
         ];
         $this->assertHtml($expected, $result);
 
+        $result = $this->Form->control('file', ['type' => 'file']);
+        $expected = [
+            'div' => ['class' => 'form-group row file'],
+            'label' => [
+                'class' => 'col-form-label pt-1 col-md-2',
+                'for' => 'file'
+            ],
+            'File',
+            '/label',
+            ['div' => ['class' => 'col-md-10']],
+            'input' => [
+                'type' => 'file',
+                'name' => 'file',
+                'id' => 'file',
+                'class' => 'form-control-file',
+            ],
+            '/div',
+            '/div'
+        ];
+        $this->assertHtml($expected, $result);
+
         $result = $this->Form->control('published');
         $expected = [
             'div' => ['class' => 'form-group row checkbox'],
