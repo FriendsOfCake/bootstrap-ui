@@ -28,13 +28,6 @@ class FormHelper extends Helper
     protected $_grid;
 
     /**
-     * The method to use when creating a control element for a form
-     *
-     * @var string
-     */
-    protected $_controlMethod = 'input';
-
-    /**
      * Default Bootstrap string templates.
      *
      * @var array
@@ -147,10 +140,6 @@ class FormHelper extends Helper
         }
 
         $this->_defaultWidgets = $this->_widgets + $this->_defaultWidgets;
-
-        if (method_exists('Cake\View\Helper\FormHelper', 'control')) {
-            $this->_controlMethod = 'control';
-        }
 
         parent::__construct($View, $config);
     }
@@ -382,8 +371,7 @@ class FormHelper extends Helper
             unset($options['tooltip']);
         }
 
-        $controlMethod = $this->_controlMethod;
-        $result = parent::$controlMethod($fieldName, $options);
+        $result = parent::control($fieldName, $options);
 
         if ($newTemplates) {
             $this->templater()->pop();
