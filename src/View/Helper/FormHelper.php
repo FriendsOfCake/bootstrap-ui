@@ -33,11 +33,19 @@ class FormHelper extends Helper
      * @var array
      */
     protected $_templates = [
-        'dateWidget' => '<ul class="list-inline"><li class="year">{{year}}</li><li class="month">{{month}}</li><li class="day">{{day}}</li><li class="hour">{{hour}}</li><li class="minute">{{minute}}</li><li class="second">{{second}}</li><li class="meridian">{{meridian}}</li></ul>',
         'error' => '<div class="invalid-feedback">{{content}}</div>',
         'label' => '<label{{attrs}}>{{text}}{{tooltip}}</label>',
         'help' => '<small{{attrs}} class="form-text text-muted">{{content}}</small>',
         'tooltip' => '<span data-toggle="tooltip" title="{{content}}" class="fas fa-info-circle"></span>',
+        'dateWidget' => '<ul class="list-inline">{{year}}{{month}}{{day}}{{hour}}{{minute}}{{second}}{{meridian}}</ul>',
+        'dateWidgetPart' => '<li class="list-inline-item {{part}}"><select name="{{name}}"{{attrs}}>{{content}}</select></li>',
+        'datetimeContainer' => '<div class="form-group {{type}}{{required}}" role="group" aria-labelledby="{{groupId}}">{{content}}{{help}}</div>',
+        'datetimeContainerError' => '<div class="form-group {{type}}{{required}} is-invalid" role="group" aria-labelledby="{{groupId}}">{{content}}{{error}}{{help}}</div>',
+        'dateContainer' => '<div class="form-group {{type}}{{required}}" role="group" aria-labelledby="{{groupId}}">{{content}}{{help}}</div>',
+        'dateContainerError' => '<div class="form-group {{type}}{{required}} is-invalid" role="group" aria-labelledby="{{groupId}}">{{content}}{{error}}{{help}}</div>',
+        'timeContainer' => '<div class="form-group {{type}}{{required}}" role="group" aria-labelledby="{{groupId}}">{{content}}{{help}}</div>',
+        'timeContainerError' => '<div class="form-group {{type}}{{required}} is-invalid" role="group" aria-labelledby="{{groupId}}">{{content}}{{error}}{{help}}</div>',
+        'datetimeLabel' => '<label id="{{groupId}}">{{text}}</label>',
         'inputContainer' => '<div class="form-group {{type}}{{required}}">{{content}}{{help}}</div>',
         'inputContainerError' => '<div class="form-group {{type}}{{required}} is-invalid">{{content}}{{error}}{{help}}</div>',
         'checkboxContainer' => '<div class="form-group form-check {{type}}{{required}}">{{content}}{{help}}</div>',
@@ -75,6 +83,13 @@ class FormHelper extends Helper
         ],
         'inline' => [
             'label' => '<label class="sr-only"{{attrs}}>{{text}}{{tooltip}}</label>',
+            'datetimeContainer' => '<div class="form-group {{type}}{{required}}" role="group" aria-labelledby="{{groupId}}">{{content}}</div>',
+            'datetimeContainerError' => '<div class="form-group {{type}}{{required}} is-invalid" role="group" aria-labelledby="{{groupId}}">{{content}}</div>',
+            'dateContainer' => '<div class="form-group {{type}}{{required}}" role="group" aria-labelledby="{{groupId}}">{{content}}</div>',
+            'dateContainerError' => '<div class="form-group {{type}}{{required}} is-invalid" role="group" aria-labelledby="{{groupId}}">{{content}}</div>',
+            'timeContainer' => '<div class="form-group {{type}}{{required}}" role="group" aria-labelledby="{{groupId}}">{{content}}</div>',
+            'timeContainerError' => '<div class="form-group {{type}}{{required}} is-invalid" role="group" aria-labelledby="{{groupId}}">{{content}}</div>',
+            'datetimeLabel' => '<span id="{{groupId}}" class="sr-only">{{text}}</span>',
             'inputContainer' => '{{content}}',
             'radioContainer' => '<div class="form-group {{type}}{{required}}" role="group" aria-labelledby="{{groupId}}">{{content}}</div>',
             'radioContainerError' => '<div class="form-group {{type}}{{required}} is-invalid" role="group" aria-labelledby="{{groupId}}">{{content}}</div>',
@@ -88,6 +103,13 @@ class FormHelper extends Helper
             'fileLabel' => '<label class="col-form-label pt-1 %s"{{attrs}}>{{text}}{{tooltip}}</label>',
             'formGroup' => '{{label}}<div class="%s">{{input}}{{error}}{{help}}</div>',
             'checkboxFormGroup' => '<div class="%s"><div class="form-check">{{input}}{{label}}</div>{{error}}{{help}}</div>',
+            'datetimeContainer' => '<div class="form-group row {{type}}{{required}}" role="group" aria-labelledby="{{groupId}}">{{content}}</div>',
+            'datetimeContainerError' => '<div class="form-group row {{type}}{{required}} is-invalid" role="group" aria-labelledby="{{groupId}}">{{content}}</div>',
+            'dateContainer' => '<div class="form-group row {{type}}{{required}}" role="group" aria-labelledby="{{groupId}}">{{content}}</div>',
+            'dateContainerError' => '<div class="form-group row {{type}}{{required}} is-invalid" role="group" aria-labelledby="{{groupId}}">{{content}}</div>',
+            'timeContainer' => '<div class="form-group row {{type}}{{required}}" role="group" aria-labelledby="{{groupId}}">{{content}}</div>',
+            'timeContainerError' => '<div class="form-group row {{type}}{{required}} is-invalid" role="group" aria-labelledby="{{groupId}}">{{content}}</div>',
+            'datetimeLabel' => '<label id="{{groupId}}" class="col-form-label %s">{{text}}</label>',
             'checkboxInlineFormGroup' => '<div class="%s"><div class="form-check form-check-inline">{{input}}{{label}}</div></div>',
             'submitContainer' => '<div class="form-group"><div class="%s">{{content}}</div></div>',
             'inputContainer' => '<div class="form-group row {{type}}{{required}}">{{content}}</div>',
@@ -273,6 +295,14 @@ class FormHelper extends Helper
         }
 
         switch ($options['type']) {
+            case 'datetime':
+            case 'date':
+            case 'time':
+                $options['templateVars']['groupId'] = $this->_domId($fieldName . '-group-label');
+                $options['templates']['label'] = $this->templater()->get('datetimeLabel');
+                $options['templates']['select'] = $this->templater()->get('dateWidgetPart');
+                break;
+
             case 'checkbox':
                 $options['label'] = $this->injectClasses('form-check-label', (array)$options['label']);
                 $options = $this->injectClasses('form-check-input', $options);
@@ -605,6 +635,34 @@ class FormHelper extends Helper
     }
 
     /**
+     * {@inheritdoc}
+     */
+    protected function _datetimeOptions($options)
+    {
+        $options = parent::_datetimeOptions($options);
+
+        $errorClass = $this->getConfig('errorClass');
+        $hasError = $this->hasAnyClass($errorClass, $options);
+
+        foreach ($this->_datetimeParts as $part) {
+            if (isset($options[$part]) &&
+                $options[$part] !== false
+            ) {
+                if ($hasError) {
+                    $options[$part] = $this->addClass($options[$part], $errorClass);
+                }
+
+                $options[$part] += ['templateVars' => []];
+                $options[$part]['templateVars'] += [
+                    'part' => $part
+                ];
+            }
+        }
+
+        return $options;
+    }
+
+    /**
      * Form alignment detector/switcher.
      *
      * @param array $options Options.
@@ -653,6 +711,7 @@ class FormHelper extends Helper
         $offsetedGridClass = implode(' ', [$this->_gridClass('left', true), $this->_gridClass('middle')]);
 
         $templates['label'] = sprintf($templates['label'], $this->_gridClass('left'));
+        $templates['datetimeLabel'] = sprintf($templates['datetimeLabel'], $this->_gridClass('left'));
         $templates['radioLabel'] = sprintf($templates['radioLabel'], $this->_gridClass('left'));
         $templates['fileLabel'] = sprintf($templates['fileLabel'], $this->_gridClass('left'));
         $templates['multicheckboxLabel'] = sprintf($templates['multicheckboxLabel'], $this->_gridClass('left'));
