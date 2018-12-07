@@ -42,6 +42,8 @@ class FormHelper extends Helper
         'inputContainerError' => '<div class="form-group {{type}}{{required}} is-invalid">{{content}}{{error}}{{help}}</div>',
         'checkboxContainer' => '<div class="form-group form-check {{type}}{{required}}">{{content}}{{help}}</div>',
         'checkboxContainerError' => '<div class="form-group form-check {{type}}{{required}} is-invalid">{{content}}{{error}}{{help}}</div>',
+        'checkboxInlineContainer' => '<div class="form-check form-check-inline {{type}}{{required}}">{{content}}</div>',
+        'checkboxInlineContainerError' => '<div class="form-check form-check-inline {{type}}{{required}} is-invalid">{{content}}</div>',
         'checkboxFormGroup' => '{{input}}{{label}}',
         'checkboxWrapper' => '<div class="form-check">{{label}}</div>',
         'checkboxInlineWrapper' => '<div class="form-check form-check-inline">{{label}}</div>',
@@ -84,9 +86,9 @@ class FormHelper extends Helper
         'horizontal' => [
             'label' => '<label class="col-form-label %s"{{attrs}}>{{text}}{{tooltip}}</label>',
             'fileLabel' => '<label class="col-form-label pt-1 %s"{{attrs}}>{{text}}{{tooltip}}</label>',
-            'checkboxLabel' => '<label {{attrs}}>{{text}}{{tooltip}}</label>',
             'formGroup' => '{{label}}<div class="%s">{{input}}{{error}}{{help}}</div>',
             'checkboxFormGroup' => '<div class="%s"><div class="form-check">{{input}}{{label}}</div>{{error}}{{help}}</div>',
+            'checkboxInlineFormGroup' => '<div class="%s"><div class="form-check form-check-inline">{{input}}{{label}}</div></div>',
             'submitContainer' => '<div class="form-group"><div class="%s">{{content}}</div></div>',
             'inputContainer' => '<div class="form-group row {{type}}{{required}}">{{content}}</div>',
             'inputContainerError' => '<div class="form-group row {{type}}{{required}} is-invalid">{{content}}</div>',
@@ -272,26 +274,22 @@ class FormHelper extends Helper
 
         switch ($options['type']) {
             case 'checkbox':
-                if (!isset($options['nestedInput'])) {
-                    $options['nestedInput'] = false;
-                }
-
                 $options['label'] = $this->injectClasses('form-check-label', (array)$options['label']);
                 $options = $this->injectClasses('form-check-input', $options);
 
                 if ($this->_align === 'horizontal') {
-                    $options['templates']['label'] = $this->templater()->get('checkboxLabel');
+                    $inline = false;
                 }
 
-                if (!isset($inline)) {
-                    $inline = $this->checkClasses($options['type'] . '-inline', (array)$options['label']);
+                if ($inline ||
+                    $this->_align === 'inline'
+                ) {
+                    $options['templates']['checkboxContainer'] = $this->templater()->get('checkboxInlineContainer');
+                    $options['templates']['checkboxContainerError'] = $this->templater()->get('checkboxInlineContainerError');
                 }
 
-                if ($inline) {
-                    $options['label'] = $this->injectClasses($options['type'] . '-inline', (array)$options['label']);
-                    if (!isset($newTemplates['checkboxContainer'])) {
-                        $options['templates']['checkboxContainer'] = '{{content}}';
-                    }
+                if ($nestedInput) {
+                    $options['templates']['nestingLabel'] = $this->templater()->get('nestingLabelNestedInput');
                 }
                 break;
 
@@ -659,7 +657,7 @@ class FormHelper extends Helper
         $templates['fileLabel'] = sprintf($templates['fileLabel'], $this->_gridClass('left'));
         $templates['multicheckboxLabel'] = sprintf($templates['multicheckboxLabel'], $this->_gridClass('left'));
         $templates['formGroup'] = sprintf($templates['formGroup'], $this->_gridClass('middle'));
-        foreach (['checkboxFormGroup', 'submitContainer'] as $value) {
+        foreach (['checkboxFormGroup', 'checkboxInlineFormGroup', 'submitContainer'] as $value) {
             $templates[$value] = sprintf($templates[$value], $offsetedGridClass);
         }
 
