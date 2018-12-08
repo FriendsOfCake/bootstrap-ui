@@ -298,6 +298,8 @@ class FormHelper extends Helper
             case 'datetime':
             case 'date':
             case 'time':
+                $options['hasError'] = $this->_getContext()->hasError($fieldName);
+
                 $options['templateVars']['groupId'] = $this->_domId($fieldName . '-group-label');
                 $options['templates']['label'] = $this->templater()->get('datetimeLabel');
                 $options['templates']['select'] = $this->templater()->get('dateWidgetPart');
@@ -642,7 +644,8 @@ class FormHelper extends Helper
         $options = parent::_datetimeOptions($options);
 
         $errorClass = $this->getConfig('errorClass');
-        $hasError = $this->hasAnyClass($errorClass, $options);
+        $hasError = isset($options['hasError']) && $options['hasError'] === true;
+        unset($options['hasError']);
 
         foreach ($this->_datetimeParts as $part) {
             if (isset($options[$part]) &&
