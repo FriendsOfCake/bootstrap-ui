@@ -43,9 +43,7 @@ class FormHelperTest extends TestCase
         Configure::write('App.base', '');
         Configure::write('App.namespace', 'BootstrapUI\Test\TestCase\View\Helper');
         Configure::delete('Asset');
-        $this->View = new View();
 
-        $this->Form = new FormHelper($this->View);
         $request = new ServerRequest('articles/add');
         $request = $request
                 ->withRequestTarget('/articles/add')
@@ -53,7 +51,8 @@ class FormHelperTest extends TestCase
                 ->withParam('action', 'add')
                 ->withAttribute('webroot', '')
                 ->withAttribute('base', '');
-        $this->Form->Url->request = $this->Form->request = $request;
+        $this->View = new View($request);
+        $this->Form = new FormHelper($this->View);
 
         $this->article = [
             'schema' => [

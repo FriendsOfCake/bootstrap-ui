@@ -38,14 +38,11 @@ class PaginatorHelperTest extends TestCase
     public function setUp()
     {
         parent::setUp();
+
         Configure::write('Config.language', 'eng');
-        $this->View = new View();
-        $this->Paginator = new PaginatorHelper($this->View);
-        $this->Paginator->Js = $this->getMockBuilder('Cake\View\Helper\PaginatorHelper')
-            ->setConstructorArgs([$this->View])
-            ->getMock();
+
         $request = new ServerRequest();
-        $this->Paginator->request = $request->withParam('paging', [
+        $request = $request->withParam('paging', [
                 'Article' => [
                     'page' => 1,
                     'current' => 9,
@@ -58,6 +55,12 @@ class PaginatorHelperTest extends TestCase
                     'limit' => null,
                 ]
         ]);
+
+        $this->View = new View($request);
+        $this->Paginator = new PaginatorHelper($this->View);
+        $this->Paginator->Js = $this->getMockBuilder('Cake\View\Helper\PaginatorHelper')
+            ->setConstructorArgs([$this->View])
+            ->getMock();
 
         Configure::write('Routing.prefixes', []);
         Router::reload();
@@ -87,7 +90,7 @@ class PaginatorHelperTest extends TestCase
      */
     public function testLinks()
     {
-        $this->Paginator->request = $this->Paginator->request->withParam('paging', [
+        $request = $this->Paginator->getView()->getRequest()->withParam('paging', [
             'Client' => [
                 'page' => 8,
                 'current' => 3,
@@ -97,6 +100,7 @@ class PaginatorHelperTest extends TestCase
                 'pageCount' => 15,
             ]
         ]);
+        $this->Paginator->getView()->setRequest($request);
         $result = $this->Paginator->links();
         $expected = [
             'ul' => ['class' => 'pagination'],
@@ -113,7 +117,7 @@ class PaginatorHelperTest extends TestCase
         ];
         $this->assertHtml($expected, $result);
 
-        $this->Paginator->request = $this->Paginator->request->withParam('paging', [
+        $request = $this->Paginator->getView()->getRequest()->withParam('paging', [
             'Client' => [
                 'page' => 8,
                 'current' => 3,
@@ -123,6 +127,7 @@ class PaginatorHelperTest extends TestCase
                 'pageCount' => 15,
             ]
         ]);
+        $this->Paginator->getView()->setRequest($request);
         $result = $this->Paginator->links(['prev' => true, 'next' => true, 'first' => true, 'last' => true]);
         $expected = [
             'ul' => ['class' => 'pagination'],
@@ -143,7 +148,7 @@ class PaginatorHelperTest extends TestCase
         ];
         $this->assertHtml($expected, $result);
 
-        $this->Paginator->request = $this->Paginator->request->withParam('paging', [
+        $request = $this->Paginator->getView()->getRequest()->withParam('paging', [
             'Client' => [
                 'page' => 1,
                 'current' => 1,
@@ -153,6 +158,7 @@ class PaginatorHelperTest extends TestCase
                 'pageCount' => 2,
             ]
         ]);
+        $this->Paginator->getView()->setRequest($request);
         $result = $this->Paginator->links(['size' => 'lg']);
         $expected = [
             'ul' => ['class' => 'pagination pagination-lg'],

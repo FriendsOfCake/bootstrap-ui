@@ -13,8 +13,8 @@ class BakeTest extends ConsoleIntegrationTestCase
     protected $generatedFile = '';
 
     public $fixtures = [
-        'plugin.BootstrapUI.articles',
-        'plugin.BootstrapUI.authors'
+        'plugin.BootstrapUI.Articles',
+        'plugin.BootstrapUI.Authors'
     ];
 
     public function setUp()
@@ -23,9 +23,11 @@ class BakeTest extends ConsoleIntegrationTestCase
 
         $this->_compareBasePath = Plugin::path('BootstrapUI') . 'tests' . DS . 'comparisons' . DS . 'Template' . DS;
 
-        Plugin::load('Bake');
-        Plugin::load('WyriHaximus/TwigView', [
-            'bootstrap' => true,
+        $this->loadPlugins([
+            'Bake',
+            'WyriHaximus/TwigView' => [
+                'bootstrap' => true,
+            ]
         ]);
     }
 
