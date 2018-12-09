@@ -87,4 +87,4 @@ if (!getenv('db_dsn')) {
 }
 ConnectionManager::setConfig('test', ['url' => getenv('db_dsn')]);
 
-Plugin::load('BootstrapUI', ['path' => ROOT . DS]);
+Plugin::getCollection()->add(new \BootstrapUI\Plugin(['path' => ROOT . DS]));
