@@ -5,6 +5,7 @@ namespace BootstrapUI\Test\TestCase\View\Helper;
 use BootstrapUI\View\Helper\FlashHelper;
 use Cake\Core\Exception\Exception;
 use Cake\Http\ServerRequest;
+use Cake\Http\Session;
 use Cake\TestSuite\TestCase;
 use Cake\View\View;
 
@@ -32,18 +33,9 @@ class FlashHelperTest extends TestCase
     public function setUp()
     {
         parent::setUp();
-        $this->View = new View();
 
-        // load appropriate session class according to Cake version
-        if (class_exists('\Cake\Http\Session')) {
-            // 3.6 and later
-            $session = new \Cake\Http\Session();
-        } else {
-            // before 3.6
-            $session = new \Cake\Network\Session();
-        }
-
-        $this->View->request = new ServerRequest(['session' => $session]);
+        $session = new Session();
+        $this->View = new View(new ServerRequest(['session' => $session]));
         $this->Flash = new FlashHelper($this->View);
 
         $session->write([
@@ -148,7 +140,7 @@ class FlashHelperTest extends TestCase
      */
     public function testRenderForMultipleMessages()
     {
-        $this->View->request->getSession()->write([
+        $this->View->getRequest()->getSession()->write([
             'Flash' => [
                 'flash' => [
                     [
