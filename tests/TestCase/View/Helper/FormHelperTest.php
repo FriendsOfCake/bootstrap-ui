@@ -31,6 +31,19 @@ class FormHelperTest extends TestCase
     public $article;
 
     /**
+     * @var array
+     */
+    public $dateRegex = [
+        'daysRegex' => 'preg:/(?:<option value="0?([\d]+)">\\1<\/option>[\r\n]*)*/',
+        'monthsRegex' => 'preg:/(?:<option value="[\d]+">[\w]+<\/option>[\r\n]*)*/',
+        'yearsRegex' => 'preg:/(?:<option value="([\d]+)">\\1<\/option>[\r\n]*)*/',
+        'hoursRegex' => 'preg:/(?:<option value="0?([\d]+)">\\1<\/option>[\r\n]*)*/',
+        'minutesRegex' => 'preg:/(?:<option value="([\d]+)">0?\\1<\/option>[\r\n]*)*/',
+        'secondsRegex' => 'preg:/(?:<option value="([\d]+)">0?\\1<\/option>[\r\n]*)*/',
+        'meridianRegex' => 'preg:/(?:<option value="(am|pm)">\\1<\/option>[\r\n]*)*/',
+    ];
+
+    /**
      * setUp method
      *
      * @return void
@@ -1678,6 +1691,277 @@ class FormHelperTest extends TestCase
     {
         $this->expectException(InvalidArgumentException::class);
         $this->Form->create($this->article, ['align' => 'foo']);
+    }
+
+    public function testDefaultAlignDatetimeControl()
+    {
+        $this->Form->create($this->article);
+
+        $now = time();
+
+        $result = $this->Form->control('created', [
+            'type' => 'datetime',
+            'timeFormat' => 12,
+            'second' => true,
+            'value' => $now,
+        ]);
+        $expected = [
+            ['div' => ['class' => 'form-group datetime', 'role' => 'group', 'aria-labelledby' => 'created-group-label']],
+                ['label' => ['id' => 'created-group-label']],
+                    'Created',
+                '/label',
+                ['ul' => ['class' => 'list-inline']],
+                    ['li' => ['class' => 'list-inline-item year']],
+                        ['select' => ['name' => 'created[year]', 'class' => 'form-control']],
+                            $this->dateRegex['yearsRegex'],
+                            ['option' => ['value' => date('Y', $now), 'selected' => 'selected']],
+                                date('Y', $now),
+                            '/option',
+                        '*/select',
+                    '/li',
+                    ['li' => ['class' => 'list-inline-item month']],
+                        ['select' => ['name' => 'created[month]', 'class' => 'form-control']],
+                            $this->dateRegex['monthsRegex'],
+                            ['option' => ['value' => date('m', $now), 'selected' => 'selected']],
+                                date('F', $now),
+                            '/option',
+                        '*/select',
+                    '/li',
+                    ['li' => ['class' => 'list-inline-item day']],
+                        ['select' => ['name' => 'created[day]', 'class' => 'form-control']],
+                            $this->dateRegex['daysRegex'],
+                            ['option' => ['value' => date('d', $now), 'selected' => 'selected']],
+                                date('j', $now),
+                            '/option',
+                        '*/select',
+                    '/li',
+                    ['li' => ['class' => 'list-inline-item hour']],
+                        ['select' => ['name' => 'created[hour]', 'class' => 'form-control']],
+                            $this->dateRegex['hoursRegex'],
+                            ['option' => ['value' => date('H', $now), 'selected' => 'selected']],
+                                date('G', $now),
+                            '/option',
+                        '*/select',
+                    '/li',
+                    ['li' => ['class' => 'list-inline-item minute']],
+                        ['select' => ['name' => 'created[minute]', 'class' => 'form-control']],
+                            $this->dateRegex['minutesRegex'],
+                            ['option' => ['value' => date('i', $now), 'selected' => 'selected']],
+                                date('i', $now),
+                            '/option',
+                        '*/select',
+                    '/li',
+                    ['li' => ['class' => 'list-inline-item second']],
+                        ['select' => ['name' => 'created[second]', 'class' => 'form-control']],
+                            $this->dateRegex['secondsRegex'],
+                            ['option' => ['value' => date('s', $now), 'selected' => 'selected']],
+                                date('s', $now),
+                            '/option',
+                        '*/select',
+                    '/li',
+                    ['li' => ['class' => 'list-inline-item meridian']],
+                        ['select' => ['name' => 'created[meridian]', 'class' => 'form-control']],
+                            $this->dateRegex['meridianRegex'],
+                            ['option' => ['value' => date('a', $now), 'selected' => 'selected']],
+                                date('a', $now),
+                            '/option',
+                        '*/select',
+                    '/li',
+                '/ul',
+            '/div',
+        ];
+        $this->assertHtml($expected, $result);
+    }
+
+    public function testDefaultAlignDatetimeControlDate()
+    {
+        $this->Form->create($this->article);
+
+        $now = time();
+
+        $result = $this->Form->control('created', [
+            'type' => 'date',
+            'value' => $now,
+        ]);
+        $expected = [
+            ['div' => ['class' => 'form-group date', 'role' => 'group', 'aria-labelledby' => 'created-group-label']],
+                ['label' => ['id' => 'created-group-label']],
+                    'Created',
+                '/label',
+                ['ul' => ['class' => 'list-inline']],
+                    ['li' => ['class' => 'list-inline-item year']],
+                        ['select' => ['name' => 'created[year]', 'class' => 'form-control']],
+                            $this->dateRegex['yearsRegex'],
+                            ['option' => ['value' => date('Y', $now), 'selected' => 'selected']],
+                                date('Y', $now),
+                            '/option',
+                        '*/select',
+                    '/li',
+                    ['li' => ['class' => 'list-inline-item month']],
+                        ['select' => ['name' => 'created[month]', 'class' => 'form-control']],
+                            $this->dateRegex['monthsRegex'],
+                            ['option' => ['value' => date('m', $now), 'selected' => 'selected']],
+                                date('F', $now),
+                            '/option',
+                        '*/select',
+                    '/li',
+                    ['li' => ['class' => 'list-inline-item day']],
+                        ['select' => ['name' => 'created[day]', 'class' => 'form-control']],
+                            $this->dateRegex['daysRegex'],
+                            ['option' => ['value' => date('d', $now), 'selected' => 'selected']],
+                                date('j', $now),
+                            '/option',
+                        '*/select',
+                    '/li',
+                '/ul',
+            '/div',
+        ];
+        $this->assertHtml($expected, $result);
+    }
+
+    public function testDefaultAlignDatetimeControlTime()
+    {
+        $this->Form->create($this->article);
+
+        $now = time();
+
+        $result = $this->Form->control('created', [
+            'type' => 'time',
+            'timeFormat' => 12,
+            'second' => true,
+            'value' => $now,
+        ]);
+        $expected = [
+            ['div' => ['class' => 'form-group time', 'role' => 'group', 'aria-labelledby' => 'created-group-label']],
+                ['label' => ['id' => 'created-group-label']],
+                    'Created',
+                '/label',
+                ['ul' => ['class' => 'list-inline']],
+                    ['li' => ['class' => 'list-inline-item hour']],
+                        ['select' => ['name' => 'created[hour]', 'class' => 'form-control']],
+                            $this->dateRegex['hoursRegex'],
+                            ['option' => ['value' => date('H', $now), 'selected' => 'selected']],
+                                date('G', $now),
+                            '/option',
+                        '*/select',
+                    '/li',
+                    ['li' => ['class' => 'list-inline-item minute']],
+                        ['select' => ['name' => 'created[minute]', 'class' => 'form-control']],
+                            $this->dateRegex['minutesRegex'],
+                            ['option' => ['value' => date('i', $now), 'selected' => 'selected']],
+                                date('i', $now),
+                            '/option',
+                        '*/select',
+                    '/li',
+                    ['li' => ['class' => 'list-inline-item second']],
+                        ['select' => ['name' => 'created[second]', 'class' => 'form-control']],
+                            $this->dateRegex['secondsRegex'],
+                            ['option' => ['value' => date('s', $now), 'selected' => 'selected']],
+                                date('s', $now),
+                            '/option',
+                        '*/select',
+                    '/li',
+                    ['li' => ['class' => 'list-inline-item meridian']],
+                        ['select' => ['name' => 'created[meridian]', 'class' => 'form-control']],
+                            $this->dateRegex['meridianRegex'],
+                            ['option' => ['value' => date('a', $now), 'selected' => 'selected']],
+                                date('a', $now),
+                            '/option',
+                        '*/select',
+                    '/li',
+                '/ul',
+            '/div',
+        ];
+        $this->assertHtml($expected, $result);
+    }
+
+    public function testDefaultAlignDatetimeControlCustomContainerTemplateViaTemplater()
+    {
+        $this->Form->create($this->article);
+
+        $result = $this->Form->control('created', [
+            'type' => 'datetime',
+        ]);
+        $this->assertContains('<div class="form-group datetime" role="group" aria-labelledby="created-group-label">', $result);
+
+        $result = $this->Form->control('created', [
+            'type' => 'date',
+        ]);
+        $this->assertContains('<div class="form-group date" role="group" aria-labelledby="created-group-label">', $result);
+
+        $result = $this->Form->control('created', [
+            'type' => 'time',
+        ]);
+        $this->assertContains('<div class="form-group time" role="group" aria-labelledby="created-group-label">', $result);
+
+        $this->Form->setTemplates([
+            'datetimeContainer' => '<div class="custom datetimeContainer {{type}}{{required}}" role="group" aria-labelledby="{{groupId}}">{{content}}</div>',
+            'dateContainer' => '<div class="custom dateContainer {{type}}{{required}}" role="group" aria-labelledby="{{groupId}}">{{content}}</div>',
+            'timeContainer' => '<div class="custom timeContainer {{type}}{{required}}" role="group" aria-labelledby="{{groupId}}">{{content}}</div>',
+        ]);
+        $result = $this->Form->control('created', [
+            'type' => 'datetime',
+        ]);
+        $this->assertContains('<div class="custom datetimeContainer datetime" role="group" aria-labelledby="created-group-label">', $result);
+
+        $result = $this->Form->control('created', [
+            'type' => 'date',
+        ]);
+        $this->assertContains('<div class="custom dateContainer date" role="group" aria-labelledby="created-group-label">', $result);
+
+        $result = $this->Form->control('created', [
+            'type' => 'time',
+        ]);
+        $this->assertContains('<div class="custom timeContainer time" role="group" aria-labelledby="created-group-label">', $result);
+    }
+
+    public function testDefaultAlignDatetimeControlCustomContainerErrorTemplateViaOptions()
+    {
+        $this->article['errors'] = [
+            'created' => [
+                'foo' => 'bar'
+            ]
+        ];
+        $this->Form->create($this->article);
+
+        $result = $this->Form->control('created', [
+            'type' => 'datetime',
+        ]);
+        $this->assertContains('<div class="form-group datetime is-invalid" role="group" aria-labelledby="created-group-label">', $result);
+
+        $result = $this->Form->control('created', [
+            'type' => 'date',
+        ]);
+        $this->assertContains('<div class="form-group date is-invalid" role="group" aria-labelledby="created-group-label">', $result);
+
+        $result = $this->Form->control('created', [
+            'type' => 'time',
+        ]);
+        $this->assertContains('<div class="form-group time is-invalid" role="group" aria-labelledby="created-group-label">', $result);
+
+        $result = $this->Form->control('created', [
+            'type' => 'datetime',
+            'templates' => [
+                'datetimeContainerError' => '<div class="custom datetimeContainerError {{type}}{{required}}" role="group" aria-labelledby="{{groupId}}">{{content}}</div>'
+            ]
+        ]);
+        $this->assertContains('<div class="custom datetimeContainerError datetime" role="group" aria-labelledby="created-group-label">', $result);
+
+        $result = $this->Form->control('created', [
+            'type' => 'date',
+            'templates' => [
+                'dateContainerError' => '<div class="custom dateContainerError {{type}}{{required}}" role="group" aria-labelledby="{{groupId}}">{{content}}</div>'
+            ]
+        ]);
+        $this->assertContains('<div class="custom dateContainerError date" role="group" aria-labelledby="created-group-label">', $result);
+
+        $result = $this->Form->control('created', [
+            'type' => 'time',
+            'templates' => [
+                'timeContainerError' => '<div class="custom timeContainerError {{type}}{{required}}" role="group" aria-labelledby="{{groupId}}">{{content}}</div>'
+            ]
+        ]);
+        $this->assertContains('<div class="custom timeContainerError time" role="group" aria-labelledby="created-group-label">', $result);
     }
 
     public function testDefaultAlignCheckboxControl()
