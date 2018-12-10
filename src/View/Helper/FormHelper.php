@@ -99,7 +99,7 @@ class FormHelper extends Helper
             'datetimeContainerError' => '<div class="form-group row {{type}}{{required}} is-invalid" role="group" aria-labelledby="{{groupId}}">{{content}}</div>',
             'datetimeLabel' => '<label id="{{groupId}}" class="col-form-label %s">{{text}}</label>',
             'checkboxInlineFormGroup' => '<div class="%s"><div class="form-check form-check-inline">{{input}}{{label}}</div></div>',
-            'submitContainer' => '<div class="form-group"><div class="%s">{{content}}</div></div>',
+            'submitContainer' => '<div class="form-group row"><div class="%s">{{content}}</div></div>',
             'inputContainer' => '<div class="form-group row {{type}}{{required}}">{{content}}</div>',
             'inputContainerError' => '<div class="form-group row {{type}}{{required}} is-invalid">{{content}}</div>',
             'checkboxContainer' => '<div class="form-group row {{type}}{{required}}">{{content}}</div>',

@@ -1215,25 +1215,6 @@ class FormHelperTest extends TestCase
     }
 
     /**
-     * testBasicFormSubmit method
-     *
-     * @return void
-     */
-    public function testBasicFormSubmit()
-    {
-        $result = $this->Form->submit('Submit');
-        $expected = [
-            'div' => ['class' => 'submit'],
-            'input' => [
-                'type' => 'submit',
-                'value' => 'Submit',
-                'class' => 'btn-primary btn',
-            ]
-        ];
-        $this->assertHtml($expected, $result);
-    }
-
-    /**
      * testStyledFormSubmi method
      *
      * @return void
@@ -1260,29 +1241,6 @@ class FormHelperTest extends TestCase
                 'class' => 'btn btn-block btn-secondary',
             ]
         ];
-        $this->assertHtml($expected, $result);
-    }
-
-    /**
-     * testHorizontalFormSubmit method
-     *
-     * @return void
-     */
-    public function testHorizontalFormSubmit()
-    {
-        $this->Form->create($this->article, ['align' => 'horizontal']);
-
-        $result = $this->Form->submit('Submit');
-        $expected = [
-            'div' => ['class' => 'form-group'],
-            ['div' => ['class' => 'offset-md-2 col-md-10']],
-            'input' => [
-                'type' => 'submit',
-                'value' => 'Submit',
-                'class' => 'btn-primary btn',
-            ]
-        ];
-
         $this->assertHtml($expected, $result);
     }
 
@@ -6560,6 +6518,70 @@ class FormHelperTest extends TestCase
                     '/label',
                 '/div',
             '/div',
+        ];
+        $this->assertHtml($expected, $result);
+    }
+
+    public function testDefaultAlignSubmit()
+    {
+        $this->Form->create($this->article);
+
+        $result = $this->Form->submit('Submit');
+        $expected = [
+            'div' => ['class' => 'submit'],
+                'input' => [
+                    'type' => 'submit',
+                    'value' => 'Submit',
+                    'class' => 'btn-primary btn',
+                ],
+            '/div'
+        ];
+        $this->assertHtml($expected, $result);
+    }
+
+    public function testHorizontalAlignSubmit()
+    {
+        $this->Form->create($this->article, [
+            'align' => [
+                'sm' => [
+                    'left' => 5,
+                    'middle' => 7
+                ]
+            ]
+        ]);
+
+        $result = $this->Form->submit('Submit');
+        $expected = [
+            'div' => ['class' => 'form-group row'],
+                ['div' => ['class' => 'offset-sm-5 col-sm-7']],
+                    'input' => [
+                        'type' => 'submit',
+                        'value' => 'Submit',
+                        'class' => 'btn-primary btn',
+                    ],
+                '/div',
+            '/div'
+        ];
+        $this->assertHtml($expected, $result);
+    }
+
+    public function testInlineAlignSubmit()
+    {
+        $this->withErrorReporting(0, function () {
+            $this->Form->create($this->article, [
+                'align' => 'inline'
+            ]);
+        });
+
+        $result = $this->Form->submit('Submit');
+        $expected = [
+            'div' => ['class' => 'submit'],
+                'input' => [
+                    'type' => 'submit',
+                    'value' => 'Submit',
+                    'class' => 'btn-primary btn',
+                ],
+            '/div'
         ];
         $this->assertHtml($expected, $result);
     }
