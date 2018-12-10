@@ -37,7 +37,7 @@ class FormHelper extends Helper
         'label' => '<label{{attrs}}>{{text}}{{tooltip}}</label>',
         'help' => '<small{{attrs}} class="form-text text-muted">{{content}}</small>',
         'tooltip' => '<span data-toggle="tooltip" title="{{content}}" class="fas fa-info-circle"></span>',
-        'dateWidget' => '<ul class="list-inline">{{year}}{{month}}{{day}}{{hour}}{{minute}}{{second}}{{meridian}}</ul>',
+        'dateWidget' => '<ul class="list-inline mb-0">{{year}}{{month}}{{day}}{{hour}}{{minute}}{{second}}{{meridian}}</ul>',
         'dateWidgetPart' => '<li class="list-inline-item {{part}}"><select name="{{name}}"{{attrs}}>{{content}}</select></li>',
         'datetimeContainer' => '<div class="form-group {{type}}{{required}}" role="group" aria-labelledby="{{groupId}}">{{content}}{{help}}</div>',
         'datetimeContainerError' => '<div class="form-group {{type}}{{required}} is-invalid" role="group" aria-labelledby="{{groupId}}">{{content}}{{error}}{{help}}</div>',
