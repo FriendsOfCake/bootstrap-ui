@@ -107,8 +107,8 @@ class FormHelper extends Helper
             'radioContainer' => '<div class="form-group row {{type}}{{required}}" role="group" aria-labelledby="{{groupId}}">{{content}}</div>',
             'radioContainerError' => '<div class="form-group row {{type}}{{required}} is-invalid" role="group" aria-labelledby="{{groupId}}">{{content}}</div>',
             'radioLabel' => '<label id="{{groupId}}" class="col-form-label d-block pt-0 %s">{{text}}</label>',
-            'multicheckboxContainer' => '<div class="form-group {{type}}{{required}}" role="group" aria-labelledby="{{groupId}}"><div class="row">{{content}}</div></div>',
-            'multicheckboxContainerError' => '<div class="form-group {{type}}{{required}} is-invalid" role="group" aria-labelledby="{{groupId}}"><div class="row">{{content}}</div></div>',
+            'multicheckboxContainer' => '<div class="form-group row {{type}}{{required}}" role="group" aria-labelledby="{{groupId}}">{{content}}</div>',
+            'multicheckboxContainerError' => '<div class="form-group row {{type}}{{required}} is-invalid" role="group" aria-labelledby="{{groupId}}">{{content}}</div>',
             'multicheckboxLabel' => '<label id="{{groupId}}" class="col-form-label d-block pt-0 %s">{{text}}</label>',
         ]
     ];
