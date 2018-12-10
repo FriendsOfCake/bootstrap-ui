@@ -39,7 +39,7 @@ class BreadcrumbsHelper extends CoreBreadcrumbsHelper
     {
         $attributes = $this->injectClasses($this->_defaultAttributes['class']['wrapper'], $attributes);
 
-        $this->_injectAriaCurrentAttribute();
+        $this->_markActiveCrumb();
 
         return parent::render($attributes, $separator);
     }
@@ -75,17 +75,18 @@ class BreadcrumbsHelper extends CoreBreadcrumbsHelper
     }
 
     /**
-     * Injects the `aria-current` attribute into the current set of crumbs.
+     * Marks the active crumb in the current set of crumbs with an
+     * `active` class and the `aria-current` attribute.
      *
      * @return void
      */
-    protected function _injectAriaCurrentAttribute()
+    protected function _markActiveCrumb()
     {
         if (!$this->crumbs) {
             return;
         }
 
-        $this->_removeAriaCurrentAttribute();
+        $this->_clearActiveCrumb();
 
         $key = null;
         if ($this->getConfig('ariaCurrent') === 'lastWithLink') {
@@ -102,6 +103,8 @@ class BreadcrumbsHelper extends CoreBreadcrumbsHelper
             return;
         }
 
+        $this->crumbs[$key]['options'] = $this->injectClasses('active', $this->crumbs[$key]['options']);
+
         if (isset($this->crumbs[$key]['url'])) {
             $this->crumbs[$key]['options']['innerAttrs']['aria-current'] = 'page';
         } else {
@@ -110,13 +113,16 @@ class BreadcrumbsHelper extends CoreBreadcrumbsHelper
     }
 
     /**
-     * Removes the `aria-current` attribute from the current set of crumbs.
+     * Removes the `active` class and the `aria-current` attribute from
+     * the active crumb in the current set of crumbs.
      *
      * @return void
      */
-    protected function _removeAriaCurrentAttribute()
+    protected function _clearActiveCrumb()
     {
         foreach ($this->crumbs as $key => $crumb) {
+            $this->crumbs[$key]['options'] = $this->removeClasses('active', $this->crumbs[$key]['options']);
+
             unset(
                 $this->crumbs[$key]['options']['innerAttrs']['aria-current'],
                 $this->crumbs[$key]['options']['aria-current']

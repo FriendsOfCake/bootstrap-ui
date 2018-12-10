@@ -82,6 +82,18 @@ class OptionsAwareTraitTest extends TestCase
         $this->assertEquals(['class' => 'x y z a b c'], $this->object->injectClasses('a b c', ['class' => 'x y z', 'skip' => 'm']));
     }
 
+    public function testRemoveClasses()
+    {
+        $this->assertEquals(['class' => ''], $this->object->removeClasses('a', []));
+        $this->assertEquals(['class' => ''], $this->object->removeClasses('a', ['class' => 'a']));
+        $this->assertEquals(['class' => ''], $this->object->removeClasses('a', ['class' => 'a a a']));
+        $this->assertEquals(['class' => 'b c'], $this->object->removeClasses('a', ['class' => 'a b c']));
+        $this->assertEquals(['class' => 'b'], $this->object->removeClasses('a c', ['class' => 'a b c']));
+        $this->assertEquals(['class' => 'a b c'], $this->object->removeClasses('x y z', ['class' => 'a b c']));
+        $this->assertEquals(['class' => 'b c'], $this->object->removeClasses('a', ['class' => ['a', 'b', 'c']]));
+        $this->assertEquals(['class' => 'b'], $this->object->removeClasses(['a', 'c'], ['class' => ['a', 'b', 'c']]));
+    }
+
     public function testCheckClasses()
     {
         foreach (['a', 'a b c', ['a'], ['a', 'b', 'c']] as $class) {

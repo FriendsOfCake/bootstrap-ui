@@ -134,6 +134,34 @@ trait OptionsAwareTrait
     }
 
     /**
+     * Removes classes from `$options['class']`.
+     *
+     * @param array|string $classes Name of class(es) to remove.
+     * @param array $options An array of HTML attributes and options.
+     * @return array An array of HTML attributes and options.
+     */
+    public function removeClasses($classes, array $options)
+    {
+        $options += ['class' => []];
+
+        $options['class'] = $this->_toClassArray($options['class']);
+        $classes = $this->_toClassArray($classes);
+
+        foreach ($classes as $class) {
+            $indices = array_keys($options['class'], $class);
+            foreach ($indices as $index) {
+                if ($index !== false) {
+                    unset($options['class'][$index]);
+                }
+            }
+        }
+
+        $options['class'] = trim(implode(' ', $options['class']));
+
+        return $options;
+    }
+
+    /**
      * Checks if `$classes` are part of the `$options['class']`.
      *
      * @param array|string $classes Name of class(es) to check.
