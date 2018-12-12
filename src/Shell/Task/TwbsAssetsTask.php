@@ -74,7 +74,7 @@ class TwbsAssetsTask extends Shell
         $folders = [];
         $folders[] = new Folder($this->_nodeDir->path . DS . 'bootstrap/dist');
         $folders[] = new Folder($this->_nodeDir->path . DS . 'jquery/dist');
-        $folders[] = new Folder($this->_nodeDir->path . DS . 'popper.js/dist');
+        $folders[] = new Folder($this->_nodeDir->path . DS . 'popper.js/dist/umd');
 
         foreach ($folders as $folder) {
             foreach ($folder->findRecursive() as $file) {
