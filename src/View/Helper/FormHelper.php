@@ -4,6 +4,7 @@ namespace BootstrapUI\View\Helper;
 
 use Cake\Core\Configure\Engine\PhpConfig;
 use Cake\Utility\Hash;
+use Cake\Utility\Inflector;
 use Cake\View\Helper\FormHelper as Helper;
 use Cake\View\View;
 use InvalidArgumentException;
@@ -94,7 +95,6 @@ class FormHelper extends Helper
             'datetimeContainer' => '<div class="form-group {{type}}{{required}}" role="group" aria-labelledby="{{groupId}}">{{content}}</div>',
             'datetimeContainerError' => '<div class="form-group {{type}}{{required}} is-invalid" role="group" aria-labelledby="{{groupId}}">{{content}}</div>',
             'datetimeLabel' => '<span id="{{groupId}}" class="sr-only">{{text}}</span>',
-            'inputContainer' => '{{content}}',
             'radioContainer' => '<div class="form-group {{type}}{{required}}" role="group" aria-labelledby="{{groupId}}">{{content}}</div>',
             'radioContainerError' => '<div class="form-group {{type}}{{required}} is-invalid" role="group" aria-labelledby="{{groupId}}">{{content}}</div>',
             'radioLabel' => '<span id="{{groupId}}" class="sr-only">{{text}}</span>',
@@ -407,6 +407,7 @@ class FormHelper extends Helper
                 if ($custom &&
                     $options['type'] !== 'multicheckbox'
                 ) {
+                    $options['injectFormControl'] = false;
                     $options = $this->injectClasses('custom-select', $options);
                 }
                 break;
@@ -425,6 +426,19 @@ class FormHelper extends Helper
                     if ($options['prepend'] ||
                         $options['append']
                     ) {
+                        if ($options['label'] === null) {
+                            $options['label'] = [];
+                        }
+                        if ($options['label'] !== false &&
+                            !isset($options['label']['text'])
+                        ) {
+                            $text = $fieldName;
+                            if (strpos($text, '.') !== false) {
+                                $fieldElements = explode('.', $text);
+                                $text = array_pop($fieldElements);
+                            }
+                            $options['label']['text'] = __(Inflector::humanize(Inflector::underscore($text)));
+                        }
                         $options['inputGroupLabel'] = $options['label'];
                         $options['label'] = false;
 
