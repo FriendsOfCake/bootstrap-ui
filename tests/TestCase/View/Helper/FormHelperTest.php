@@ -2233,7 +2233,6 @@ class FormHelperTest extends TestCase
         $this->assertContains('<div class="custom timeContainerError time" role="group" aria-labelledby="created-group-label">', $result);
     }
 
-
     public function testInlineAlignDatetimeControl()
     {
         $this->withErrorReporting(0, function () {
@@ -6557,6 +6556,2733 @@ class FormHelperTest extends TestCase
                     'value' => 'Submit',
                     'class' => 'btn-primary btn',
                 ],
+            '/div'
+        ];
+        $this->assertHtml($expected, $result);
+    }
+
+    public function testDefaultAlignCustomCheckboxControl()
+    {
+        $this->Form->create($this->article);
+
+        $result = $this->Form->control('users', [
+            'type' => 'checkbox',
+            'custom' => true,
+        ]);
+        $expected = [
+            ['div' => ['class' => 'form-group custom-control custom-checkbox checkbox']],
+                ['input' => [
+                    'type' => 'hidden',
+                    'name' => 'users',
+                    'value' => 0,
+                ]],
+                ['input' => [
+                    'type' => 'checkbox',
+                    'name' => 'users',
+                    'value' => '1',
+                    'id' => 'users',
+                    'class' => 'custom-control-input',
+                ]],
+                ['label' => ['class' => 'custom-control-label', 'for' => 'users']],
+                    'Users',
+                '/label',
+            '/div'
+        ];
+        $this->assertHtml($expected, $result);
+    }
+
+    public function testDefaultAlignCustomCheckboxControlInline()
+    {
+        $this->Form->create($this->article);
+
+        $result = $this->Form->control('users', [
+            'type' => 'checkbox',
+            'custom' => true,
+            'inline' => true,
+        ]);
+        $expected = [
+            ['div' => ['class' => 'form-group custom-control custom-checkbox custom-control-inline checkbox']],
+                ['input' => [
+                    'type' => 'hidden',
+                    'name' => 'users',
+                    'value' => 0,
+                ]],
+                ['input' => [
+                    'type' => 'checkbox',
+                    'name' => 'users',
+                    'value' => '1',
+                    'id' => 'users',
+                    'class' => 'custom-control-input',
+                ]],
+                ['label' => ['class' => 'custom-control-label', 'for' => 'users']],
+                    'Users',
+                '/label',
+            '/div'
+        ];
+        $this->assertHtml($expected, $result);
+    }
+
+    public function testHorizontalAlignCustomCheckboxControl()
+    {
+        $this->Form->create($this->article, [
+            'align' => [
+                'sm' => [
+                    'left' => 5,
+                    'middle' => 7
+                ]
+            ]
+        ]);
+
+        $result = $this->Form->control('users', [
+            'type' => 'checkbox',
+            'custom' => true,
+        ]);
+        $expected = [
+            'div' => ['class' => 'form-group row checkbox'],
+                ['div' => ['class' => 'offset-sm-5 col-sm-7']],
+                    ['div' => ['class' => 'custom-control custom-checkbox']],
+                        ['input' => [
+                            'type' => 'hidden',
+                            'name' => 'users',
+                            'value' => 0,
+                        ]],
+                        ['input' => [
+                            'type' => 'checkbox',
+                            'name' => 'users',
+                            'value' => '1',
+                            'id' => 'users',
+                            'class' => 'custom-control-input',
+                        ]],
+                        ['label' => ['class' => 'custom-control-label', 'for' => 'users']],
+                            'Users',
+                        '/label',
+                    '/div',
+                '/div',
+            '/div'
+        ];
+        $this->assertHtml($expected, $result);
+    }
+
+    public function testHorizontalAlignCustomCheckboxControlInline()
+    {
+        $this->Form->create($this->article, [
+            'align' => [
+                'sm' => [
+                    'left' => 5,
+                    'middle' => 7
+                ]
+            ]
+        ]);
+
+        $result = $this->Form->control('users', [
+            'type' => 'checkbox',
+            'custom' => true,
+            'inline' => true,
+        ]);
+        $expected = [
+            'div' => ['class' => 'form-group row checkbox'],
+                ['div' => ['class' => 'offset-sm-5 col-sm-7']],
+                    ['div' => ['class' => 'custom-control custom-checkbox']],
+                        ['input' => [
+                            'type' => 'hidden',
+                            'name' => 'users',
+                            'value' => 0,
+                        ]],
+                        ['input' => [
+                            'type' => 'checkbox',
+                            'name' => 'users',
+                            'value' => '1',
+                            'id' => 'users',
+                            'class' => 'custom-control-input',
+                        ]],
+                        ['label' => ['class' => 'custom-control-label', 'for' => 'users']],
+                            'Users',
+                        '/label',
+                    '/div',
+                '/div',
+            '/div'
+        ];
+        $this->assertHtml($expected, $result);
+    }
+
+    public function testInlineAlignCustomCheckboxControl()
+    {
+        $this->withErrorReporting(0, function () {
+            $this->Form->create($this->article, [
+                'align' => 'inline'
+            ]);
+        });
+
+        $result = $this->Form->control('users', [
+            'type' => 'checkbox',
+            'custom' => true,
+        ]);
+        $expected = [
+            ['div' => ['class' => 'form-group custom-control custom-checkbox custom-control-inline checkbox']],
+                ['input' => [
+                    'type' => 'hidden',
+                    'name' => 'users',
+                    'value' => 0,
+                ]],
+                ['input' => [
+                    'type' => 'checkbox',
+                    'name' => 'users',
+                    'value' => '1',
+                    'id' => 'users',
+                    'class' => 'custom-control-input',
+                ]],
+                ['label' => ['class' => 'custom-control-label', 'for' => 'users']],
+                    'Users',
+                '/label',
+            '/div'
+        ];
+        $this->assertHtml($expected, $result);
+    }
+
+    public function testInlineAlignCustomCheckboxControlInline()
+    {
+        $this->withErrorReporting(0, function () {
+            $this->Form->create($this->article, [
+                'align' => 'inline'
+            ]);
+        });
+
+        $result = $this->Form->control('users', [
+            'type' => 'checkbox',
+            'custom' => true,
+            'inline' => true,
+        ]);
+        $expected = [
+            ['div' => ['class' => 'form-group custom-control custom-checkbox custom-control-inline checkbox']],
+                ['input' => [
+                    'type' => 'hidden',
+                    'name' => 'users',
+                    'value' => 0,
+                ]],
+                ['input' => [
+                    'type' => 'checkbox',
+                    'name' => 'users',
+                    'value' => '1',
+                    'id' => 'users',
+                    'class' => 'custom-control-input',
+                ]],
+                ['label' => ['class' => 'custom-control-label', 'for' => 'users']],
+                    'Users',
+                '/label',
+            '/div'
+        ];
+        $this->assertHtml($expected, $result);
+    }
+
+    public function testDefaultAlignCustomRadioControl()
+    {
+        $this->Form->create($this->article);
+
+        $result = $this->Form->control('users', [
+            'type' => 'radio',
+            'options' => [
+                1 => 'option 1',
+                2 => 'option 2'
+            ],
+            'custom' => true,
+        ]);
+        $expected = [
+            ['div' => ['class' => 'form-group radio', 'role' => 'group', 'aria-labelledby' => 'users-group-label']],
+                ['label' => ['id' => 'users-group-label', 'class' => 'd-block']],
+                    'Users',
+                '/label',
+                ['input' => [
+                    'type' => 'hidden',
+                    'name' => 'users',
+                    'value' => '',
+                ]],
+                ['div' => ['class' => 'custom-control custom-radio']],
+                    ['input' => [
+                        'class' => 'custom-control-input',
+                        'type' => 'radio',
+                        'name' => 'users',
+                        'id' => 'users-1',
+                        'value' => 1
+                    ]],
+                    ['label' => ['class' => 'custom-control-label', 'for' => 'users-1']],
+                        'option 1',
+                    '/label',
+                '/div',
+                ['div' => ['class' => 'custom-control custom-radio']],
+                    ['input' => [
+                        'class' => 'custom-control-input',
+                        'type' => 'radio',
+                        'name' => 'users',
+                        'id' => 'users-2',
+                        'value' => 2
+                    ]],
+                    ['label' => ['class' => 'custom-control-label', 'for' => 'users-2']],
+                        'option 2',
+                    '/label',
+                '/div',
+            '/div',
+        ];
+        $this->assertHtml($expected, $result);
+    }
+
+    public function testDefaultAlignCustomRadioControlInline()
+    {
+        $this->Form->create($this->article);
+
+        $result = $this->Form->control('users', [
+            'type' => 'radio',
+            'options' => [
+                1 => 'option 1',
+                2 => 'option 2'
+            ],
+            'custom' => true,
+            'inline' => true
+        ]);
+        $expected = [
+            ['div' => ['class' => 'form-group radio', 'role' => 'group', 'aria-labelledby' => 'users-group-label']],
+                ['label' => ['id' => 'users-group-label', 'class' => 'd-block']],
+                    'Users',
+                '/label',
+                ['input' => [
+                    'type' => 'hidden',
+                    'name' => 'users',
+                    'value' => '',
+                ]],
+                ['div' => ['class' => 'custom-control custom-radio custom-control-inline']],
+                    ['input' => [
+                        'class' => 'custom-control-input',
+                        'type' => 'radio',
+                        'name' => 'users',
+                        'id' => 'users-1',
+                        'value' => 1
+                    ]],
+                    ['label' => ['class' => 'custom-control-label', 'for' => 'users-1']],
+                        'option 1',
+                    '/label',
+                '/div',
+                ['div' => ['class' => 'custom-control custom-radio custom-control-inline']],
+                    ['input' => [
+                        'class' => 'custom-control-input',
+                        'type' => 'radio',
+                        'name' => 'users',
+                        'id' => 'users-2',
+                        'value' => 2
+                    ]],
+                    ['label' => ['class' => 'custom-control-label', 'for' => 'users-2']],
+                        'option 2',
+                    '/label',
+                '/div',
+            '/div',
+        ];
+        $this->assertHtml($expected, $result);
+    }
+
+    public function testDefaultAlignCustomRadioControlPerOptionConfiguration()
+    {
+        $this->Form->create($this->article);
+
+        $result = $this->Form->control('users', [
+            'type' => 'radio',
+            'options' => [
+                1 => 'option 1',
+                2 => 'option 2',
+                4 => [
+                    'text' => 'option 3',
+                    'value' => 12,
+                    'class' => 'custominputclass',
+                    'label' => [
+                        'class' => 'customlabelclass'
+                    ]
+                ],
+            ],
+            'custom' => true,
+        ]);
+        $expected = [
+            ['div' => ['class' => 'form-group radio', 'role' => 'group', 'aria-labelledby' => 'users-group-label']],
+                ['label' => ['id' => 'users-group-label', 'class' => 'd-block']],
+                    'Users',
+                '/label',
+                ['input' => [
+                    'type' => 'hidden',
+                    'name' => 'users',
+                    'value' => '',
+                ]],
+                ['div' => ['class' => 'custom-control custom-radio']],
+                    ['input' => [
+                        'class' => 'custom-control-input',
+                        'type' => 'radio',
+                        'name' => 'users',
+                        'id' => 'users-1',
+                        'value' => 1
+                    ]],
+                    ['label' => ['class' => 'custom-control-label', 'for' => 'users-1']],
+                        'option 1',
+                    '/label',
+                '/div',
+                ['div' => ['class' => 'custom-control custom-radio']],
+                    ['input' => [
+                        'class' => 'custom-control-input',
+                        'type' => 'radio',
+                        'name' => 'users',
+                        'id' => 'users-2',
+                        'value' => 2
+                    ]],
+                    ['label' => ['class' => 'custom-control-label', 'for' => 'users-2']],
+                        'option 2',
+                    '/label',
+                '/div',
+                ['div' => ['class' => 'custom-control custom-radio']],
+                    ['input' => [
+                        'class' => 'custominputclass',
+                        'type' => 'radio',
+                        'name' => 'users',
+                        'id' => 'users-12',
+                        'value' => 12
+                    ]],
+                    ['label' => ['class' => 'custom-control-label', 'for' => 'users-12']],
+                        'option 3',
+                    '/label',
+                '/div',
+            '/div',
+        ];
+        $this->assertHtml($expected, $result);
+    }
+
+    public function testDefaultAlignCustomRadioControlPerOptionConfigurationInline()
+    {
+        $this->Form->create($this->article);
+
+        $result = $this->Form->control('users', [
+            'type' => 'radio',
+            'options' => [
+                1 => 'option 1',
+                2 => 'option 2',
+                4 => [
+                    'text' => 'option 3',
+                    'value' => 12,
+                    'class' => 'custominputclass',
+                    'label' => [
+                        'class' => 'customlabelclass'
+                    ]
+                ],
+            ],
+            'custom' => true,
+            'inline' => true,
+        ]);
+        $expected = [
+            ['div' => ['class' => 'form-group radio', 'role' => 'group', 'aria-labelledby' => 'users-group-label']],
+                ['label' => ['id' => 'users-group-label', 'class' => 'd-block']],
+                    'Users',
+                '/label',
+                ['input' => [
+                    'type' => 'hidden',
+                    'name' => 'users',
+                    'value' => '',
+                ]],
+                ['div' => ['class' => 'custom-control custom-radio custom-control-inline']],
+                    ['input' => [
+                        'class' => 'custom-control-input',
+                        'type' => 'radio',
+                        'name' => 'users',
+                        'id' => 'users-1',
+                        'value' => 1
+                    ]],
+                    ['label' => ['class' => 'custom-control-label', 'for' => 'users-1']],
+                        'option 1',
+                    '/label',
+                '/div',
+                ['div' => ['class' => 'custom-control custom-radio custom-control-inline']],
+                    ['input' => [
+                        'class' => 'custom-control-input',
+                        'type' => 'radio',
+                        'name' => 'users',
+                        'id' => 'users-2',
+                        'value' => 2
+                    ]],
+                    ['label' => ['class' => 'custom-control-label', 'for' => 'users-2']],
+                        'option 2',
+                    '/label',
+                '/div',
+                ['div' => ['class' => 'custom-control custom-radio custom-control-inline']],
+                    ['input' => [
+                        'class' => 'custominputclass',
+                        'type' => 'radio',
+                        'name' => 'users',
+                        'id' => 'users-12',
+                        'value' => 12
+                    ]],
+                    ['label' => ['class' => 'custom-control-label', 'for' => 'users-12']],
+                        'option 3',
+                    '/label',
+                '/div',
+            '/div',
+        ];
+        $this->assertHtml($expected, $result);
+    }
+
+    public function testHorizontalAlignCustomRadioControl()
+    {
+        $this->Form->create($this->article, [
+            'align' => [
+                'sm' => [
+                    'left' => 5,
+                    'middle' => 7
+                ]
+            ]
+        ]);
+
+        $result = $this->Form->control('users', [
+            'type' => 'radio',
+            'options' => [
+                1 => 'option 1',
+                2 => 'option 2'
+            ],
+            'custom' => true,
+        ]);
+        $expected = [
+            ['div' => ['class' => 'form-group row radio', 'role' => 'group', 'aria-labelledby' => 'users-group-label']],
+                ['label' => ['id' => 'users-group-label', 'class' => 'col-form-label d-block pt-0 col-sm-5']],
+                    'Users',
+                '/label',
+                ['div' => ['class' => 'col-sm-7']],
+                    ['input' => [
+                        'type' => 'hidden',
+                        'name' => 'users',
+                        'value' => '',
+                    ]],
+                    ['div' => ['class' => 'custom-control custom-radio']],
+                        ['input' => [
+                            'class' => 'custom-control-input',
+                            'type' => 'radio',
+                            'name' => 'users',
+                            'id' => 'users-1',
+                            'value' => 1
+                        ]],
+                        ['label' => ['class' => 'custom-control-label', 'for' => 'users-1']],
+                            'option 1',
+                        '/label',
+                    '/div',
+                    ['div' => ['class' => 'custom-control custom-radio']],
+                        ['input' => [
+                            'class' => 'custom-control-input',
+                            'type' => 'radio',
+                            'name' => 'users',
+                            'id' => 'users-2',
+                            'value' => 2
+                        ]],
+                        ['label' => ['class' => 'custom-control-label', 'for' => 'users-2']],
+                            'option 2',
+                        '/label',
+                    '/div',
+                '/div',
+            '/div',
+        ];
+        $this->assertHtml($expected, $result);
+    }
+
+    public function testHorizontalAlignCustomRadioControlInline()
+    {
+        $this->Form->create($this->article, [
+            'align' => [
+                'sm' => [
+                    'left' => 5,
+                    'middle' => 7
+                ]
+            ]
+        ]);
+
+        $result = $this->Form->control('users', [
+            'type' => 'radio',
+            'options' => [
+                1 => 'option 1',
+                2 => 'option 2'
+            ],
+            'custom' => true,
+            'inline' => true
+        ]);
+        $expected = [
+            ['div' => ['class' => 'form-group row radio', 'role' => 'group', 'aria-labelledby' => 'users-group-label']],
+                ['label' => ['id' => 'users-group-label', 'class' => 'col-form-label d-block pt-0 col-sm-5']],
+                    'Users',
+                '/label',
+                ['div' => ['class' => 'col-sm-7']],
+                    ['input' => [
+                        'type' => 'hidden',
+                        'name' => 'users',
+                        'value' => '',
+                    ]],
+                    ['div' => ['class' => 'custom-control custom-radio custom-control-inline']],
+                        ['input' => [
+                            'class' => 'custom-control-input',
+                            'type' => 'radio',
+                            'name' => 'users',
+                            'id' => 'users-1',
+                            'value' => 1
+                        ]],
+                        ['label' => ['class' => 'custom-control-label', 'for' => 'users-1']],
+                            'option 1',
+                        '/label',
+                    '/div',
+                    ['div' => ['class' => 'custom-control custom-radio custom-control-inline']],
+                        ['input' => [
+                            'class' => 'custom-control-input',
+                            'type' => 'radio',
+                            'name' => 'users',
+                            'id' => 'users-2',
+                            'value' => 2
+                        ]],
+                        ['label' => ['class' => 'custom-control-label', 'for' => 'users-2']],
+                            'option 2',
+                        '/label',
+                    '/div',
+                '/div',
+            '/div',
+        ];
+        $this->assertHtml($expected, $result);
+    }
+
+    public function testHorizontalAlignCustomRadioControlPerOptionConfiguration()
+    {
+        $this->Form->create($this->article, [
+            'align' => [
+                'sm' => [
+                    'left' => 5,
+                    'middle' => 7
+                ]
+            ]
+        ]);
+
+        $result = $this->Form->control('users', [
+            'type' => 'radio',
+            'options' => [
+                1 => 'option 1',
+                2 => 'option 2',
+                4 => [
+                    'text' => 'option 3',
+                    'value' => 12,
+                    'class' => 'custominputclass',
+                    'label' => [
+                        'class' => 'customlabelclass'
+                    ]
+                ],
+            ],
+            'custom' => true,
+        ]);
+        $expected = [
+            ['div' => ['class' => 'form-group row radio', 'role' => 'group', 'aria-labelledby' => 'users-group-label']],
+                ['label' => ['id' => 'users-group-label', 'class' => 'col-form-label d-block pt-0 col-sm-5']],
+                    'Users',
+                '/label',
+                ['div' => ['class' => 'col-sm-7']],
+                    ['input' => [
+                        'type' => 'hidden',
+                        'name' => 'users',
+                        'value' => '',
+                    ]],
+                    ['div' => ['class' => 'custom-control custom-radio']],
+                        ['input' => [
+                            'class' => 'custom-control-input',
+                            'type' => 'radio',
+                            'name' => 'users',
+                            'id' => 'users-1',
+                            'value' => 1
+                        ]],
+                        ['label' => ['class' => 'custom-control-label', 'for' => 'users-1']],
+                            'option 1',
+                        '/label',
+                    '/div',
+                    ['div' => ['class' => 'custom-control custom-radio']],
+                        ['input' => [
+                            'class' => 'custom-control-input',
+                            'type' => 'radio',
+                            'name' => 'users',
+                            'id' => 'users-2',
+                            'value' => 2
+                        ]],
+                        ['label' => ['class' => 'custom-control-label', 'for' => 'users-2']],
+                            'option 2',
+                        '/label',
+                    '/div',
+                    ['div' => ['class' => 'custom-control custom-radio']],
+                        ['input' => [
+                            'class' => 'custominputclass',
+                            'type' => 'radio',
+                            'name' => 'users',
+                            'id' => 'users-12',
+                            'value' => 12
+                        ]],
+                        ['label' => ['class' => 'custom-control-label', 'for' => 'users-12']],
+                            'option 3',
+                        '/label',
+                    '/div',
+                '/div',
+            '/div',
+        ];
+        $this->assertHtml($expected, $result);
+    }
+
+    public function testHorizontalAlignCustomRadioControlPerOptionConfigurationInline()
+    {
+        $this->Form->create($this->article, [
+            'align' => [
+                'sm' => [
+                    'left' => 5,
+                    'middle' => 7
+                ]
+            ]
+        ]);
+
+        $result = $this->Form->control('users', [
+            'type' => 'radio',
+            'options' => [
+                1 => 'option 1',
+                2 => 'option 2',
+                4 => [
+                    'text' => 'option 3',
+                    'value' => 12,
+                    'class' => 'custominputclass',
+                    'label' => [
+                        'class' => 'customlabelclass'
+                    ]
+                ],
+            ],
+            'custom' => true,
+            'inline' => true,
+        ]);
+        $expected = [
+            ['div' => ['class' => 'form-group row radio', 'role' => 'group', 'aria-labelledby' => 'users-group-label']],
+                ['label' => ['id' => 'users-group-label', 'class' => 'col-form-label d-block pt-0 col-sm-5']],
+                    'Users',
+                '/label',
+                ['div' => ['class' => 'col-sm-7']],
+                    ['input' => [
+                        'type' => 'hidden',
+                        'name' => 'users',
+                        'value' => '',
+                    ]],
+                    ['div' => ['class' => 'custom-control custom-radio custom-control-inline']],
+                        ['input' => [
+                            'class' => 'custom-control-input',
+                            'type' => 'radio',
+                            'name' => 'users',
+                            'id' => 'users-1',
+                            'value' => 1
+                        ]],
+                        ['label' => ['class' => 'custom-control-label', 'for' => 'users-1']],
+                            'option 1',
+                        '/label',
+                    '/div',
+                    ['div' => ['class' => 'custom-control custom-radio custom-control-inline']],
+                        ['input' => [
+                            'class' => 'custom-control-input',
+                            'type' => 'radio',
+                            'name' => 'users',
+                            'id' => 'users-2',
+                            'value' => 2
+                        ]],
+                        ['label' => ['class' => 'custom-control-label', 'for' => 'users-2']],
+                            'option 2',
+                        '/label',
+                    '/div',
+                    ['div' => ['class' => 'custom-control custom-radio custom-control-inline']],
+                        ['input' => [
+                            'class' => 'custominputclass',
+                            'type' => 'radio',
+                            'name' => 'users',
+                            'id' => 'users-12',
+                            'value' => 12
+                        ]],
+                        ['label' => ['class' => 'custom-control-label', 'for' => 'users-12']],
+                            'option 3',
+                        '/label',
+                    '/div',
+                '/div',
+            '/div',
+        ];
+        $this->assertHtml($expected, $result);
+    }
+
+    public function testInlineAlignCustomRadioControl()
+    {
+        $this->withErrorReporting(0, function () {
+            $this->Form->create($this->article, [
+                'align' => 'inline'
+            ]);
+        });
+
+        $result = $this->Form->control('users', [
+            'type' => 'radio',
+            'options' => [
+                1 => 'option 1',
+                2 => 'option 2'
+            ],
+            'custom' => true,
+        ]);
+        $expected = [
+            ['div' => ['class' => 'form-group radio', 'role' => 'group', 'aria-labelledby' => 'users-group-label']],
+                ['span' => ['id' => 'users-group-label', 'class' => 'sr-only']],
+                    'Users',
+                '/span',
+                ['input' => [
+                    'type' => 'hidden',
+                    'name' => 'users',
+                    'value' => '',
+                ]],
+                ['div' => ['class' => 'custom-control custom-radio custom-control-inline']],
+                    ['input' => [
+                        'class' => 'custom-control-input',
+                        'type' => 'radio',
+                        'name' => 'users',
+                        'id' => 'users-1',
+                        'value' => 1
+                    ]],
+                    ['label' => ['class' => 'custom-control-label', 'for' => 'users-1']],
+                        'option 1',
+                    '/label',
+                '/div',
+                ['div' => ['class' => 'custom-control custom-radio custom-control-inline']],
+                    ['input' => [
+                        'class' => 'custom-control-input',
+                        'type' => 'radio',
+                        'name' => 'users',
+                        'id' => 'users-2',
+                        'value' => 2
+                    ]],
+                    ['label' => ['class' => 'custom-control-label', 'for' => 'users-2']],
+                        'option 2',
+                    '/label',
+                '/div',
+            '/div',
+        ];
+        $this->assertHtml($expected, $result);
+    }
+
+    public function testInlineAlignCustomRadioControlWithPerOptionConfiguration()
+    {
+        $this->withErrorReporting(0, function () {
+            $this->Form->create($this->article, [
+                'align' => 'inline'
+            ]);
+        });
+
+        $result = $this->Form->control('users', [
+            'type' => 'radio',
+            'options' => [
+                1 => 'option 1',
+                2 => 'option 2',
+                4 => [
+                    'text' => 'option 3',
+                    'value' => 12,
+                    'class' => 'custominputclass',
+                    'label' => [
+                        'class' => 'customlabelclass'
+                    ]
+                ],
+            ],
+            'custom' => true,
+        ]);
+        $expected = [
+            ['div' => ['class' => 'form-group radio', 'role' => 'group', 'aria-labelledby' => 'users-group-label']],
+                ['span' => ['id' => 'users-group-label', 'class' => 'sr-only']],
+                    'Users',
+                '/span',
+                ['input' => [
+                    'type' => 'hidden',
+                    'name' => 'users',
+                    'value' => '',
+                ]],
+                ['div' => ['class' => 'custom-control custom-radio custom-control-inline']],
+                    ['input' => [
+                        'class' => 'custom-control-input',
+                        'type' => 'radio',
+                        'name' => 'users',
+                        'id' => 'users-1',
+                        'value' => 1
+                    ]],
+                    ['label' => ['class' => 'custom-control-label', 'for' => 'users-1']],
+                        'option 1',
+                    '/label',
+                '/div',
+                ['div' => ['class' => 'custom-control custom-radio custom-control-inline']],
+                    ['input' => [
+                        'class' => 'custom-control-input',
+                        'type' => 'radio',
+                        'name' => 'users',
+                        'id' => 'users-2',
+                        'value' => 2
+                    ]],
+                    ['label' => ['class' => 'custom-control-label', 'for' => 'users-2']],
+                        'option 2',
+                    '/label',
+                '/div',
+                ['div' => ['class' => 'custom-control custom-radio custom-control-inline']],
+                    ['input' => [
+                        'class' => 'custominputclass',
+                        'type' => 'radio',
+                        'name' => 'users',
+                        'id' => 'users-12',
+                        'value' => 12
+                    ]],
+                    ['label' => ['class' => 'custom-control-label', 'for' => 'users-12']],
+                        'option 3',
+                    '/label',
+                '/div',
+            '/div',
+        ];
+        $this->assertHtml($expected, $result);
+    }
+
+    public function testDefaultAlignCustomMultipleCheckboxControl()
+    {
+        $this->Form->create($this->article);
+
+        $result = $this->Form->control('users', [
+            'multiple' => 'checkbox',
+            'options' => [
+                1 => 'option 1',
+                2 => 'option 2'
+            ],
+            'custom' => true,
+        ]);
+        $expected = [
+            ['div' => ['class' => 'form-group multicheckbox', 'role' => 'group', 'aria-labelledby' => 'users-group-label']],
+                ['label' => ['id' => 'users-group-label', 'class' => 'd-block']],
+                    'Users',
+                '/label',
+                ['input' => [
+                    'type' => 'hidden',
+                    'name' => 'users',
+                    'value' => '',
+                ]],
+                ['div' => ['class' => 'custom-control custom-checkbox']],
+                    ['input' => [
+                        'class' => 'custom-control-input',
+                        'type' => 'checkbox',
+                        'name' => 'users[]',
+                        'id' => 'users-1',
+                        'value' => 1
+                    ]],
+                    ['label' => ['class' => 'custom-control-label', 'for' => 'users-1']],
+                        'option 1',
+                    '/label',
+                '/div',
+                ['div' => ['class' => 'custom-control custom-checkbox']],
+                    ['input' => [
+                        'class' => 'custom-control-input',
+                        'type' => 'checkbox',
+                        'name' => 'users[]',
+                        'id' => 'users-2',
+                        'value' => 2
+                    ]],
+                    ['label' => ['class' => 'custom-control-label', 'for' => 'users-2']],
+                        'option 2',
+                    '/label',
+                '/div',
+            '/div',
+        ];
+        $this->assertHtml($expected, $result);
+    }
+
+    public function testDefaultAlignCustomMultipleCheckboxControlInline()
+    {
+        $this->Form->create($this->article);
+
+        $result = $this->Form->control('users', [
+            'multiple' => 'checkbox',
+            'options' => [
+                1 => 'option 1',
+                2 => 'option 2'
+            ],
+            'custom' => true,
+            'inline' => true
+        ]);
+        $expected = [
+            ['div' => ['class' => 'form-group multicheckbox', 'role' => 'group', 'aria-labelledby' => 'users-group-label']],
+                ['label' => ['id' => 'users-group-label', 'class' => 'd-block']],
+                    'Users',
+                '/label',
+                ['input' => [
+                    'type' => 'hidden',
+                    'name' => 'users',
+                    'value' => '',
+                ]],
+                ['div' => ['class' => 'custom-control custom-checkbox custom-control-inline']],
+                    ['input' => [
+                        'class' => 'custom-control-input',
+                        'type' => 'checkbox',
+                        'name' => 'users[]',
+                        'id' => 'users-1',
+                        'value' => 1
+                    ]],
+                    ['label' => ['class' => 'custom-control-label', 'for' => 'users-1']],
+                        'option 1',
+                    '/label',
+                '/div',
+                ['div' => ['class' => 'custom-control custom-checkbox custom-control-inline']],
+                    ['input' => [
+                        'class' => 'custom-control-input',
+                        'type' => 'checkbox',
+                        'name' => 'users[]',
+                        'id' => 'users-2',
+                        'value' => 2
+                    ]],
+                    ['label' => ['class' => 'custom-control-label', 'for' => 'users-2']],
+                        'option 2',
+                    '/label',
+                '/div',
+            '/div',
+        ];
+        $this->assertHtml($expected, $result);
+    }
+
+    public function testDefaultAlignCustomMultipleCheckboxControlOptionGroups()
+    {
+        $this->Form->create($this->article);
+
+        $result = $this->Form->control('users', [
+            'multiple' => 'checkbox',
+            'options' => [
+                'group 1' => [
+                    1 => 'option 1',
+                    2 => 'option 2'
+                ],
+                'group 2' => [
+                    3 => 'option 3',
+                    4 => 'option 4'
+                ],
+            ],
+            'custom' => true,
+        ]);
+        $expected = [
+            ['div' => ['class' => 'form-group multicheckbox', 'role' => 'group', 'aria-labelledby' => 'users-group-label']],
+                ['label' => ['id' => 'users-group-label', 'class' => 'd-block']],
+                    'Users',
+                '/label',
+                ['input' => [
+                    'type' => 'hidden',
+                    'name' => 'users',
+                    'value' => '',
+                ]],
+                ['fieldset' => ['class' => 'form-group']],
+                    ['legend' => ['class' => 'col-form-label pt-0']],
+                        'group 1',
+                    '/legend',
+                    ['div' => ['class' => 'custom-control custom-checkbox']],
+                        ['input' => [
+                            'class' => 'custom-control-input',
+                            'type' => 'checkbox',
+                            'name' => 'users[]',
+                            'id' => 'users-1',
+                            'value' => 1
+                        ]],
+                        ['label' => ['class' => 'custom-control-label', 'for' => 'users-1']],
+                            'option 1',
+                        '/label',
+                    '/div',
+                    ['div' => ['class' => 'custom-control custom-checkbox']],
+                        ['input' => [
+                            'class' => 'custom-control-input',
+                            'type' => 'checkbox',
+                            'name' => 'users[]',
+                            'id' => 'users-2',
+                            'value' => 2
+                        ]],
+                        ['label' => ['class' => 'custom-control-label', 'for' => 'users-2']],
+                            'option 2',
+                        '/label',
+                    '/div',
+                 '/fieldset',
+                ['fieldset' => ['class' => 'form-group']],
+                    ['legend' => ['class' => 'col-form-label pt-0']],
+                        'group 2',
+                    '/legend',
+                    ['div' => ['class' => 'custom-control custom-checkbox']],
+                        ['input' => [
+                            'class' => 'custom-control-input',
+                            'type' => 'checkbox',
+                            'name' => 'users[]',
+                            'id' => 'users-3',
+                            'value' => 3
+                        ]],
+                        ['label' => ['class' => 'custom-control-label', 'for' => 'users-3']],
+                            'option 3',
+                        '/label',
+                    '/div',
+                    ['div' => ['class' => 'custom-control custom-checkbox']],
+                        ['input' => [
+                            'class' => 'custom-control-input',
+                            'type' => 'checkbox',
+                            'name' => 'users[]',
+                            'id' => 'users-4',
+                            'value' => 4
+                        ]],
+                        ['label' => ['class' => 'custom-control-label', 'for' => 'users-4']],
+                            'option 4',
+                        '/label',
+                    '/div',
+                 '/fieldset',
+            '/div',
+        ];
+        $this->assertHtml($expected, $result);
+    }
+
+    public function testDefaultAlignCustomMultipleCheckboxControlOptionGroupsInline()
+    {
+        $this->Form->create($this->article);
+
+        $result = $this->Form->control('users', [
+            'multiple' => 'checkbox',
+            'options' => [
+                'group 1' => [
+                    1 => 'option 1',
+                    2 => 'option 2'
+                ],
+                'group 2' => [
+                    3 => 'option 3',
+                    4 => 'option 4'
+                ],
+            ],
+            'custom' => true,
+            'inline' => true
+        ]);
+        $expected = [
+            ['div' => ['class' => 'form-group multicheckbox', 'role' => 'group', 'aria-labelledby' => 'users-group-label']],
+                ['label' => ['id' => 'users-group-label', 'class' => 'd-block']],
+                    'Users',
+                '/label',
+                ['input' => [
+                    'type' => 'hidden',
+                    'name' => 'users',
+                    'value' => '',
+                ]],
+                ['fieldset' => ['class' => 'form-group']],
+                    ['legend' => ['class' => 'col-form-label pt-0']],
+                        'group 1',
+                    '/legend',
+                    ['div' => ['class' => 'custom-control custom-checkbox custom-control-inline']],
+                        ['input' => [
+                            'class' => 'custom-control-input',
+                            'type' => 'checkbox',
+                            'name' => 'users[]',
+                            'id' => 'users-1',
+                            'value' => 1
+                        ]],
+                        ['label' => ['class' => 'custom-control-label', 'for' => 'users-1']],
+                            'option 1',
+                        '/label',
+                    '/div',
+                    ['div' => ['class' => 'custom-control custom-checkbox custom-control-inline']],
+                        ['input' => [
+                            'class' => 'custom-control-input',
+                            'type' => 'checkbox',
+                            'name' => 'users[]',
+                            'id' => 'users-2',
+                            'value' => 2
+                        ]],
+                        ['label' => ['class' => 'custom-control-label', 'for' => 'users-2']],
+                            'option 2',
+                        '/label',
+                    '/div',
+                 '/fieldset',
+                ['fieldset' => ['class' => 'form-group']],
+                    ['legend' => ['class' => 'col-form-label pt-0']],
+                        'group 2',
+                    '/legend',
+                    ['div' => ['class' => 'custom-control custom-checkbox custom-control-inline']],
+                        ['input' => [
+                            'class' => 'custom-control-input',
+                            'type' => 'checkbox',
+                            'name' => 'users[]',
+                            'id' => 'users-3',
+                            'value' => 3
+                        ]],
+                        ['label' => ['class' => 'custom-control-label', 'for' => 'users-3']],
+                            'option 3',
+                        '/label',
+                    '/div',
+                    ['div' => ['class' => 'custom-control custom-checkbox custom-control-inline']],
+                        ['input' => [
+                            'class' => 'custom-control-input',
+                            'type' => 'checkbox',
+                            'name' => 'users[]',
+                            'id' => 'users-4',
+                            'value' => 4
+                        ]],
+                        ['label' => ['class' => 'custom-control-label', 'for' => 'users-4']],
+                            'option 4',
+                        '/label',
+                    '/div',
+                 '/fieldset',
+            '/div',
+        ];
+        $this->assertHtml($expected, $result);
+    }
+
+    public function testDefaultAlignCustomMultipleCheckboxControlOptionsGroupsAndSingleEntries()
+    {
+        $this->Form->create($this->article);
+
+        $result = $this->Form->control('users', [
+            'multiple' => 'checkbox',
+            'options' => [
+                1 => 'option 1',
+                2 => 'option 2',
+                'group' => [
+                    3 => 'option 3',
+                    4 => 'option 4',
+                ]
+            ],
+            'custom' => true,
+        ]);
+        $expected = [
+            ['div' => ['class' => 'form-group multicheckbox', 'role' => 'group', 'aria-labelledby' => 'users-group-label']],
+                ['label' => ['id' => 'users-group-label', 'class' => 'd-block']],
+                    'Users',
+                '/label',
+                ['input' => [
+                    'type' => 'hidden',
+                    'name' => 'users',
+                    'value' => '',
+                ]],
+                ['div' => ['class' => 'custom-control custom-checkbox']],
+                    ['input' => [
+                        'class' => 'custom-control-input',
+                        'type' => 'checkbox',
+                        'name' => 'users[]',
+                        'id' => 'users-1',
+                        'value' => 1
+                    ]],
+                    ['label' => ['class' => 'custom-control-label', 'for' => 'users-1']],
+                        'option 1',
+                    '/label',
+                '/div',
+                ['div' => ['class' => 'custom-control custom-checkbox']],
+                    ['input' => [
+                        'class' => 'custom-control-input',
+                        'type' => 'checkbox',
+                        'name' => 'users[]',
+                        'id' => 'users-2',
+                        'value' => 2
+                    ]],
+                    ['label' => ['class' => 'custom-control-label', 'for' => 'users-2']],
+                        'option 2',
+                    '/label',
+                '/div',
+                ['fieldset' => ['class' => 'form-group']],
+                    ['legend' => ['class' => 'col-form-label pt-0']],
+                        'group',
+                    '/legend',
+                    ['div' => ['class' => 'custom-control custom-checkbox']],
+                        ['input' => [
+                            'class' => 'custom-control-input',
+                            'type' => 'checkbox',
+                            'name' => 'users[]',
+                            'id' => 'users-3',
+                            'value' => 3
+                        ]],
+                        ['label' => ['class' => 'custom-control-label', 'for' => 'users-3']],
+                            'option 3',
+                        '/label',
+                    '/div',
+                    ['div' => ['class' => 'custom-control custom-checkbox']],
+                        ['input' => [
+                            'class' => 'custom-control-input',
+                            'type' => 'checkbox',
+                            'name' => 'users[]',
+                            'id' => 'users-4',
+                            'value' => 4
+                        ]],
+                        ['label' => ['class' => 'custom-control-label', 'for' => 'users-4']],
+                            'option 4',
+                        '/label',
+                    '/div',
+                 '/fieldset',
+            '/div',
+        ];
+        $this->assertHtml($expected, $result);
+    }
+
+    public function testDefaultAlignCustomMultipleCheckboxControlOptionsGroupsAndSingleEntriesWithPerOptionConfiguration()
+    {
+        $this->Form->create($this->article);
+
+        $result = $this->Form->control('users', [
+            'multiple' => 'checkbox',
+            'options' => [
+                1 => 'option 1',
+                2 => 'option 2',
+                4 => [
+                    'text' => 'option 3',
+                    'value' => 12,
+                    'class' => 'custominputclass',
+                    'label' => [
+                        'class' => 'customlabelclass'
+                    ]
+                ],
+                'group' => [
+                    10 => 'option 4',
+                    20 => [
+                        'text' => 'option 4',
+                        'value' => 20,
+                        'class' => 'custominputclass'
+                    ],
+                    40 => [
+                        'text' => 'option 6',
+                        'value' => 40,
+                        'label' => [
+                            'class' => 'customlabelclass'
+                        ]
+                    ],
+                ]
+            ],
+            'custom' => true,
+        ]);
+        $expected = [
+            ['div' => ['class' => 'form-group multicheckbox', 'role' => 'group', 'aria-labelledby' => 'users-group-label']],
+                ['label' => ['id' => 'users-group-label', 'class' => 'd-block']],
+                    'Users',
+                '/label',
+                ['input' => [
+                    'type' => 'hidden',
+                    'name' => 'users',
+                    'value' => '',
+                ]],
+                ['div' => ['class' => 'custom-control custom-checkbox']],
+                    ['input' => [
+                        'class' => 'custom-control-input',
+                        'type' => 'checkbox',
+                        'name' => 'users[]',
+                        'id' => 'users-1',
+                        'value' => 1
+                    ]],
+                    ['label' => ['class' => 'custom-control-label', 'for' => 'users-1']],
+                        'option 1',
+                    '/label',
+                '/div',
+                ['div' => ['class' => 'custom-control custom-checkbox']],
+                    ['input' => [
+                        'class' => 'custom-control-input',
+                        'type' => 'checkbox',
+                        'name' => 'users[]',
+                        'id' => 'users-2',
+                        'value' => 2
+                    ]],
+                    ['label' => ['class' => 'custom-control-label', 'for' => 'users-2']],
+                        'option 2',
+                    '/label',
+                '/div',
+                ['div' => ['class' => 'custom-control custom-checkbox']],
+                    ['input' => [
+                        'class' => 'custominputclass',
+                        'type' => 'checkbox',
+                        'name' => 'users[]',
+                        'id' => 'users-12',
+                        'value' => 12
+                    ]],
+                    ['label' => ['class' => 'customlabelclass', 'for' => 'users-12']],
+                        'option 3',
+                    '/label',
+                '/div',
+                ['fieldset' => ['class' => 'form-group']],
+                    ['legend' => ['class' => 'col-form-label pt-0']],
+                        'group',
+                    '/legend',
+                    ['div' => ['class' => 'custom-control custom-checkbox']],
+                        ['input' => [
+                            'class' => 'custom-control-input',
+                            'type' => 'checkbox',
+                            'name' => 'users[]',
+                            'id' => 'users-10',
+                            'value' => 10
+                        ]],
+                        ['label' => ['class' => 'custom-control-label', 'for' => 'users-10']],
+                            'option 4',
+                        '/label',
+                    '/div',
+                    ['div' => ['class' => 'custom-control custom-checkbox']],
+                        ['input' => [
+                            'class' => 'custominputclass',
+                            'type' => 'checkbox',
+                            'name' => 'users[]',
+                            'id' => 'users-20',
+                            'value' => 20
+                        ]],
+                        ['label' => ['class' => 'custom-control-label', 'for' => 'users-20']],
+                            'option 4',
+                        '/label',
+                    '/div',
+                    ['div' => ['class' => 'custom-control custom-checkbox']],
+                        ['input' => [
+                            'class' => 'custom-control-input',
+                            'type' => 'checkbox',
+                            'name' => 'users[]',
+                            'id' => 'users-40',
+                            'value' => 40
+                        ]],
+                        ['label' => ['class' => 'customlabelclass', 'for' => 'users-40']],
+                            'option 6',
+                        '/label',
+                    '/div',
+                 '/fieldset',
+            '/div',
+        ];
+        $this->assertHtml($expected, $result);
+    }
+
+    public function testHorizontalAlignCustomMultipleCheckboxControl()
+    {
+        $this->Form->create($this->article, [
+            'align' => [
+                'sm' => [
+                    'left' => 5,
+                    'middle' => 7
+                ]
+            ]
+        ]);
+
+        $result = $this->Form->control('users', [
+            'multiple' => 'checkbox',
+            'options' => [
+                1 => 'option 1',
+                2 => 'option 2'
+            ],
+            'custom' => true,
+        ]);
+        $expected = [
+            ['div' => ['class' => 'form-group row multicheckbox', 'role' => 'group', 'aria-labelledby' => 'users-group-label']],
+                ['label' => ['id' => 'users-group-label', 'class' => 'col-form-label d-block pt-0 col-sm-5']],
+                    'Users',
+                '/label',
+                ['div' => ['class' => 'col-sm-7']],
+                    ['input' => [
+                        'type' => 'hidden',
+                        'name' => 'users',
+                        'value' => '',
+                    ]],
+                    ['div' => ['class' => 'custom-control custom-checkbox']],
+                        ['input' => [
+                            'class' => 'custom-control-input',
+                            'type' => 'checkbox',
+                            'name' => 'users[]',
+                            'id' => 'users-1',
+                            'value' => 1
+                        ]],
+                        ['label' => ['class' => 'custom-control-label', 'for' => 'users-1']],
+                            'option 1',
+                        '/label',
+                    '/div',
+                    ['div' => ['class' => 'custom-control custom-checkbox']],
+                        ['input' => [
+                            'class' => 'custom-control-input',
+                            'type' => 'checkbox',
+                            'name' => 'users[]',
+                            'id' => 'users-2',
+                            'value' => 2
+                        ]],
+                        ['label' => ['class' => 'custom-control-label', 'for' => 'users-2']],
+                            'option 2',
+                        '/label',
+                    '/div',
+                '/div',
+            '/div',
+        ];
+        $this->assertHtml($expected, $result);
+    }
+
+    public function testHorizontalAlignCustomMultipleCheckboxControlInline()
+    {
+        $this->Form->create($this->article, [
+            'align' => [
+                'sm' => [
+                    'left' => 5,
+                    'middle' => 7
+                ]
+            ]
+        ]);
+
+        $result = $this->Form->control('users', [
+            'multiple' => 'checkbox',
+            'options' => [
+                1 => 'option 1',
+                2 => 'option 2'
+            ],
+            'custom' => true,
+            'inline' => true
+        ]);
+        $expected = [
+            ['div' => ['class' => 'form-group row multicheckbox', 'role' => 'group', 'aria-labelledby' => 'users-group-label']],
+                ['label' => ['id' => 'users-group-label', 'class' => 'col-form-label d-block pt-0 col-sm-5']],
+                    'Users',
+                '/label',
+                ['div' => ['class' => 'col-sm-7']],
+                    ['input' => [
+                        'type' => 'hidden',
+                        'name' => 'users',
+                        'value' => '',
+                    ]],
+                    ['div' => ['class' => 'custom-control custom-checkbox custom-control-inline']],
+                        ['input' => [
+                            'class' => 'custom-control-input',
+                            'type' => 'checkbox',
+                            'name' => 'users[]',
+                            'id' => 'users-1',
+                            'value' => 1
+                        ]],
+                        ['label' => ['class' => 'custom-control-label', 'for' => 'users-1']],
+                            'option 1',
+                        '/label',
+                    '/div',
+                    ['div' => ['class' => 'custom-control custom-checkbox custom-control-inline']],
+                        ['input' => [
+                            'class' => 'custom-control-input',
+                            'type' => 'checkbox',
+                            'name' => 'users[]',
+                            'id' => 'users-2',
+                            'value' => 2
+                        ]],
+                        ['label' => ['class' => 'custom-control-label', 'for' => 'users-2']],
+                            'option 2',
+                        '/label',
+                    '/div',
+                '/div',
+            '/div',
+        ];
+        $this->assertHtml($expected, $result);
+    }
+
+    public function testHorizontalAlignCustomMultipleCheckboxControlOptionGroups()
+    {
+        $this->Form->create($this->article, [
+            'align' => [
+                'sm' => [
+                    'left' => 5,
+                    'middle' => 7
+                ]
+            ]
+        ]);
+
+        $result = $this->Form->control('users', [
+            'multiple' => 'checkbox',
+            'options' => [
+                'group 1' => [
+                    1 => 'option 1',
+                    2 => 'option 2'
+                ],
+                'group 2' => [
+                    3 => 'option 3',
+                    4 => 'option 4'
+                ],
+            ],
+            'custom' => true,
+        ]);
+        $expected = [
+            ['div' => ['class' => 'form-group row multicheckbox', 'role' => 'group', 'aria-labelledby' => 'users-group-label']],
+                ['label' => ['id' => 'users-group-label', 'class' => 'col-form-label d-block pt-0 col-sm-5']],
+                    'Users',
+                '/label',
+                ['div' => ['class' => 'col-sm-7']],
+                    ['input' => [
+                        'type' => 'hidden',
+                        'name' => 'users',
+                        'value' => '',
+                    ]],
+                    ['fieldset' => ['class' => 'form-group']],
+                        ['legend' => ['class' => 'col-form-label pt-0']],
+                            'group 1',
+                        '/legend',
+                        ['div' => ['class' => 'custom-control custom-checkbox']],
+                            ['input' => [
+                                'class' => 'custom-control-input',
+                                'type' => 'checkbox',
+                                'name' => 'users[]',
+                                'id' => 'users-1',
+                                'value' => 1
+                            ]],
+                            ['label' => ['class' => 'custom-control-label', 'for' => 'users-1']],
+                                'option 1',
+                            '/label',
+                        '/div',
+                        ['div' => ['class' => 'custom-control custom-checkbox']],
+                            ['input' => [
+                                'class' => 'custom-control-input',
+                                'type' => 'checkbox',
+                                'name' => 'users[]',
+                                'id' => 'users-2',
+                                'value' => 2
+                            ]],
+                            ['label' => ['class' => 'custom-control-label', 'for' => 'users-2']],
+                                'option 2',
+                            '/label',
+                        '/div',
+                     '/fieldset',
+                    ['fieldset' => ['class' => 'form-group']],
+                        ['legend' => ['class' => 'col-form-label pt-0']],
+                            'group 2',
+                        '/legend',
+                        ['div' => ['class' => 'custom-control custom-checkbox']],
+                            ['input' => [
+                                'class' => 'custom-control-input',
+                                'type' => 'checkbox',
+                                'name' => 'users[]',
+                                'id' => 'users-3',
+                                'value' => 3
+                            ]],
+                            ['label' => ['class' => 'custom-control-label', 'for' => 'users-3']],
+                                'option 3',
+                            '/label',
+                        '/div',
+                        ['div' => ['class' => 'custom-control custom-checkbox']],
+                            ['input' => [
+                                'class' => 'custom-control-input',
+                                'type' => 'checkbox',
+                                'name' => 'users[]',
+                                'id' => 'users-4',
+                                'value' => 4
+                            ]],
+                            ['label' => ['class' => 'custom-control-label', 'for' => 'users-4']],
+                                'option 4',
+                            '/label',
+                        '/div',
+                     '/fieldset',
+                '/div',
+            '/div',
+        ];
+        $this->assertHtml($expected, $result);
+    }
+
+    public function testHorizontalAlignCustomMultipleCheckboxControlOptionGroupsInline()
+    {
+        $this->Form->create($this->article, [
+            'align' => [
+                'sm' => [
+                    'left' => 5,
+                    'middle' => 7
+                ]
+            ]
+        ]);
+
+        $result = $this->Form->control('users', [
+            'multiple' => 'checkbox',
+            'options' => [
+                'group 1' => [
+                    1 => 'option 1',
+                    2 => 'option 2'
+                ],
+                'group 2' => [
+                    3 => 'option 3',
+                    4 => 'option 4'
+                ],
+            ],
+            'custom' => true,
+            'inline' => true
+        ]);
+        $expected = [
+            ['div' => ['class' => 'form-group row multicheckbox', 'role' => 'group', 'aria-labelledby' => 'users-group-label']],
+                ['label' => ['id' => 'users-group-label', 'class' => 'col-form-label d-block pt-0 col-sm-5']],
+                    'Users',
+                '/label',
+                ['div' => ['class' => 'col-sm-7']],
+                    ['input' => [
+                        'type' => 'hidden',
+                        'name' => 'users',
+                        'value' => '',
+                    ]],
+                    ['fieldset' => ['class' => 'form-group']],
+                        ['legend' => ['class' => 'col-form-label pt-0']],
+                            'group 1',
+                        '/legend',
+                        ['div' => ['class' => 'custom-control custom-checkbox custom-control-inline']],
+                            ['input' => [
+                                'class' => 'custom-control-input',
+                                'type' => 'checkbox',
+                                'name' => 'users[]',
+                                'id' => 'users-1',
+                                'value' => 1
+                            ]],
+                            ['label' => ['class' => 'custom-control-label', 'for' => 'users-1']],
+                                'option 1',
+                            '/label',
+                        '/div',
+                        ['div' => ['class' => 'custom-control custom-checkbox custom-control-inline']],
+                            ['input' => [
+                                'class' => 'custom-control-input',
+                                'type' => 'checkbox',
+                                'name' => 'users[]',
+                                'id' => 'users-2',
+                                'value' => 2
+                            ]],
+                            ['label' => ['class' => 'custom-control-label', 'for' => 'users-2']],
+                                'option 2',
+                            '/label',
+                        '/div',
+                     '/fieldset',
+                    ['fieldset' => ['class' => 'form-group']],
+                        ['legend' => ['class' => 'col-form-label pt-0']],
+                            'group 2',
+                        '/legend',
+                        ['div' => ['class' => 'custom-control custom-checkbox custom-control-inline']],
+                            ['input' => [
+                                'class' => 'custom-control-input',
+                                'type' => 'checkbox',
+                                'name' => 'users[]',
+                                'id' => 'users-3',
+                                'value' => 3
+                            ]],
+                            ['label' => ['class' => 'custom-control-label', 'for' => 'users-3']],
+                                'option 3',
+                            '/label',
+                        '/div',
+                        ['div' => ['class' => 'custom-control custom-checkbox custom-control-inline']],
+                            ['input' => [
+                                'class' => 'custom-control-input',
+                                'type' => 'checkbox',
+                                'name' => 'users[]',
+                                'id' => 'users-4',
+                                'value' => 4
+                            ]],
+                            ['label' => ['class' => 'custom-control-label', 'for' => 'users-4']],
+                                'option 4',
+                            '/label',
+                        '/div',
+                     '/fieldset',
+                '/div',
+            '/div',
+        ];
+        $this->assertHtml($expected, $result);
+    }
+
+    public function testHorizontalAlignCustomMultipleCheckboxControlOptionsGroupsAndSingleEntries()
+    {
+        $this->Form->create($this->article, [
+            'align' => [
+                'sm' => [
+                    'left' => 5,
+                    'middle' => 7
+                ]
+            ]
+        ]);
+
+        $result = $this->Form->control('users', [
+            'multiple' => 'checkbox',
+            'options' => [
+                1 => 'option 1',
+                2 => 'option 2',
+                'group' => [
+                    3 => 'option 3',
+                    4 => 'option 4',
+                ]
+            ],
+            'custom' => true,
+        ]);
+        $expected = [
+            ['div' => ['class' => 'form-group row multicheckbox', 'role' => 'group', 'aria-labelledby' => 'users-group-label']],
+                ['label' => ['id' => 'users-group-label', 'class' => 'col-form-label d-block pt-0 col-sm-5']],
+                    'Users',
+                '/label',
+                ['div' => ['class' => 'col-sm-7']],
+                    ['input' => [
+                        'type' => 'hidden',
+                        'name' => 'users',
+                        'value' => '',
+                    ]],
+                    ['div' => ['class' => 'custom-control custom-checkbox']],
+                        ['input' => [
+                            'class' => 'custom-control-input',
+                            'type' => 'checkbox',
+                            'name' => 'users[]',
+                            'id' => 'users-1',
+                            'value' => 1
+                        ]],
+                        ['label' => ['class' => 'custom-control-label', 'for' => 'users-1']],
+                            'option 1',
+                        '/label',
+                    '/div',
+                    ['div' => ['class' => 'custom-control custom-checkbox']],
+                        ['input' => [
+                            'class' => 'custom-control-input',
+                            'type' => 'checkbox',
+                            'name' => 'users[]',
+                            'id' => 'users-2',
+                            'value' => 2
+                        ]],
+                        ['label' => ['class' => 'custom-control-label', 'for' => 'users-2']],
+                            'option 2',
+                        '/label',
+                    '/div',
+                    ['fieldset' => ['class' => 'form-group']],
+                        ['legend' => ['class' => 'col-form-label pt-0']],
+                            'group',
+                        '/legend',
+                        ['div' => ['class' => 'custom-control custom-checkbox']],
+                            ['input' => [
+                                'class' => 'custom-control-input',
+                                'type' => 'checkbox',
+                                'name' => 'users[]',
+                                'id' => 'users-3',
+                                'value' => 3
+                            ]],
+                            ['label' => ['class' => 'custom-control-label', 'for' => 'users-3']],
+                                'option 3',
+                            '/label',
+                        '/div',
+                        ['div' => ['class' => 'custom-control custom-checkbox']],
+                            ['input' => [
+                                'class' => 'custom-control-input',
+                                'type' => 'checkbox',
+                                'name' => 'users[]',
+                                'id' => 'users-4',
+                                'value' => 4
+                            ]],
+                            ['label' => ['class' => 'custom-control-label', 'for' => 'users-4']],
+                                'option 4',
+                            '/label',
+                        '/div',
+                     '/fieldset',
+                '/div',
+            '/div',
+        ];
+        $this->assertHtml($expected, $result);
+    }
+
+    public function testHorizontalAlignCustomMultipleCheckboxControlOptionsGroupsAndSingleEntriesWithPerOptionConfiguration()
+    {
+        $this->Form->create($this->article, [
+            'align' => [
+                'sm' => [
+                    'left' => 5,
+                    'middle' => 7
+                ]
+            ]
+        ]);
+
+        $result = $this->Form->control('users', [
+            'multiple' => 'checkbox',
+            'options' => [
+                1 => 'option 1',
+                2 => 'option 2',
+                4 => [
+                    'text' => 'option 3',
+                    'value' => 12,
+                    'class' => 'custominputclass',
+                    'label' => [
+                        'class' => 'customlabelclass'
+                    ]
+                ],
+                'group' => [
+                    10 => 'option 4',
+                    20 => [
+                        'text' => 'option 4',
+                        'value' => 20,
+                        'class' => 'custominputclass'
+                    ],
+                    40 => [
+                        'text' => 'option 6',
+                        'value' => 40,
+                        'label' => [
+                            'class' => 'customlabelclass'
+                        ]
+                    ],
+                ]
+            ],
+            'custom' => true,
+        ]);
+        $expected = [
+            ['div' => ['class' => 'form-group row multicheckbox', 'role' => 'group', 'aria-labelledby' => 'users-group-label']],
+                ['label' => ['id' => 'users-group-label', 'class' => 'col-form-label d-block pt-0 col-sm-5']],
+                    'Users',
+                '/label',
+                ['div' => ['class' => 'col-sm-7']],
+                    ['input' => [
+                        'type' => 'hidden',
+                        'name' => 'users',
+                        'value' => '',
+                    ]],
+                    ['div' => ['class' => 'custom-control custom-checkbox']],
+                        ['input' => [
+                            'class' => 'custom-control-input',
+                            'type' => 'checkbox',
+                            'name' => 'users[]',
+                            'id' => 'users-1',
+                            'value' => 1
+                        ]],
+                        ['label' => ['class' => 'custom-control-label', 'for' => 'users-1']],
+                            'option 1',
+                        '/label',
+                    '/div',
+                    ['div' => ['class' => 'custom-control custom-checkbox']],
+                        ['input' => [
+                            'class' => 'custom-control-input',
+                            'type' => 'checkbox',
+                            'name' => 'users[]',
+                            'id' => 'users-2',
+                            'value' => 2
+                        ]],
+                        ['label' => ['class' => 'custom-control-label', 'for' => 'users-2']],
+                            'option 2',
+                        '/label',
+                    '/div',
+                    ['div' => ['class' => 'custom-control custom-checkbox']],
+                        ['input' => [
+                            'class' => 'custominputclass',
+                            'type' => 'checkbox',
+                            'name' => 'users[]',
+                            'id' => 'users-12',
+                            'value' => 12
+                        ]],
+                        ['label' => ['class' => 'customlabelclass', 'for' => 'users-12']],
+                            'option 3',
+                        '/label',
+                    '/div',
+                    ['fieldset' => ['class' => 'form-group']],
+                        ['legend' => ['class' => 'col-form-label pt-0']],
+                            'group',
+                        '/legend',
+                        ['div' => ['class' => 'custom-control custom-checkbox']],
+                            ['input' => [
+                                'class' => 'custom-control-input',
+                                'type' => 'checkbox',
+                                'name' => 'users[]',
+                                'id' => 'users-10',
+                                'value' => 10
+                            ]],
+                            ['label' => ['class' => 'custom-control-label', 'for' => 'users-10']],
+                                'option 4',
+                            '/label',
+                        '/div',
+                        ['div' => ['class' => 'custom-control custom-checkbox']],
+                            ['input' => [
+                                'class' => 'custominputclass',
+                                'type' => 'checkbox',
+                                'name' => 'users[]',
+                                'id' => 'users-20',
+                                'value' => 20
+                            ]],
+                            ['label' => ['class' => 'custom-control-label', 'for' => 'users-20']],
+                                'option 4',
+                            '/label',
+                        '/div',
+                        ['div' => ['class' => 'custom-control custom-checkbox']],
+                            ['input' => [
+                                'class' => 'custom-control-input',
+                                'type' => 'checkbox',
+                                'name' => 'users[]',
+                                'id' => 'users-40',
+                                'value' => 40
+                            ]],
+                            ['label' => ['class' => 'customlabelclass', 'for' => 'users-40']],
+                                'option 6',
+                            '/label',
+                        '/div',
+                     '/fieldset',
+                '/div',
+            '/div',
+        ];
+        $this->assertHtml($expected, $result);
+    }
+
+    public function testInlineAlignCustomMultipleCheckboxControl()
+    {
+        $this->withErrorReporting(0, function () {
+            $this->Form->create($this->article, [
+                'align' => 'inline'
+            ]);
+        });
+
+        $result = $this->Form->control('users', [
+            'multiple' => 'checkbox',
+            'options' => [
+                1 => 'option 1',
+                2 => 'option 2'
+            ],
+            'custom' => true,
+        ]);
+        $expected = [
+            ['div' => ['class' => 'form-group multicheckbox', 'role' => 'group', 'aria-labelledby' => 'users-group-label']],
+                ['span' => ['id' => 'users-group-label', 'class' => 'sr-only']],
+                    'Users',
+                '/span',
+                ['input' => [
+                    'type' => 'hidden',
+                    'name' => 'users',
+                    'value' => '',
+                ]],
+                ['div' => ['class' => 'custom-control custom-checkbox custom-control-inline']],
+                    ['input' => [
+                        'class' => 'custom-control-input',
+                        'type' => 'checkbox',
+                        'name' => 'users[]',
+                        'id' => 'users-1',
+                        'value' => 1
+                    ]],
+                    ['label' => ['class' => 'custom-control-label', 'for' => 'users-1']],
+                        'option 1',
+                    '/label',
+                '/div',
+                ['div' => ['class' => 'custom-control custom-checkbox custom-control-inline']],
+                    ['input' => [
+                        'class' => 'custom-control-input',
+                        'type' => 'checkbox',
+                        'name' => 'users[]',
+                        'id' => 'users-2',
+                        'value' => 2
+                    ]],
+                    ['label' => ['class' => 'custom-control-label', 'for' => 'users-2']],
+                        'option 2',
+                    '/label',
+                '/div',
+            '/div',
+        ];
+        $this->assertHtml($expected, $result);
+    }
+
+    public function testInlineAlignCustomMultipleCheckboxControlWithPerOptionConfiguration()
+    {
+        $this->withErrorReporting(0, function () {
+            $this->Form->create($this->article, [
+                'align' => 'inline'
+            ]);
+        });
+
+        $result = $this->Form->control('users', [
+            'multiple' => 'checkbox',
+            'options' => [
+                1 => 'option 1',
+                2 => 'option 2',
+                4 => [
+                    'text' => 'option 3',
+                    'value' => 12,
+                    'class' => 'custominputclass',
+                    'label' => [
+                        'class' => 'customlabelclass'
+                    ]
+                ],
+            ],
+            'custom' => true,
+        ]);
+        $expected = [
+            ['div' => ['class' => 'form-group multicheckbox', 'role' => 'group', 'aria-labelledby' => 'users-group-label']],
+                ['span' => ['id' => 'users-group-label', 'class' => 'sr-only']],
+                    'Users',
+                '/span',
+                ['input' => [
+                    'type' => 'hidden',
+                    'name' => 'users',
+                    'value' => '',
+                ]],
+                ['div' => ['class' => 'custom-control custom-checkbox custom-control-inline']],
+                    ['input' => [
+                        'class' => 'custom-control-input',
+                        'type' => 'checkbox',
+                        'name' => 'users[]',
+                        'id' => 'users-1',
+                        'value' => 1
+                    ]],
+                    ['label' => ['class' => 'custom-control-label', 'for' => 'users-1']],
+                        'option 1',
+                    '/label',
+                '/div',
+                ['div' => ['class' => 'custom-control custom-checkbox custom-control-inline']],
+                    ['input' => [
+                        'class' => 'custom-control-input',
+                        'type' => 'checkbox',
+                        'name' => 'users[]',
+                        'id' => 'users-2',
+                        'value' => 2
+                    ]],
+                    ['label' => ['class' => 'custom-control-label', 'for' => 'users-2']],
+                        'option 2',
+                    '/label',
+                '/div',
+                ['div' => ['class' => 'custom-control custom-checkbox custom-control-inline']],
+                    ['input' => [
+                        'class' => 'custominputclass',
+                        'type' => 'checkbox',
+                        'name' => 'users[]',
+                        'id' => 'users-12',
+                        'value' => 12
+                    ]],
+                    ['label' => ['class' => 'customlabelclass', 'for' => 'users-12']],
+                        'option 3',
+                    '/label',
+                '/div',
+            '/div',
+        ];
+        $this->assertHtml($expected, $result);
+    }
+
+    public function testDefaultAlignCustomSelectControl()
+    {
+        $this->Form->create($this->article);
+
+        $result = $this->Form->control('users', [
+            'type' => 'select',
+            'options' => [
+                1 => 'option 1',
+                2 => 'option 2',
+            ],
+            'custom' => true
+        ]);
+        $expected = [
+            ['div' => ['class' => 'form-group select']],
+                ['label' => ['for' => 'users']],
+                    'Users',
+                '/label',
+                ['select' => ['name' => 'users', 'id' => 'users', 'class' => 'custom-select']],
+                    ['option' => ['value' => '1']],
+                        'option 1',
+                    '/option',
+                    ['option' => ['value' => '2']],
+                        'option 2',
+                    '/option',
+                '/select',
+            '/div',
+        ];
+        $this->assertHtml($expected, $result);
+    }
+
+    public function testDefaultAlignCustomSelectControlInputGroupAppend()
+    {
+        $this->Form->create($this->article);
+
+        $result = $this->Form->control('users', [
+            'type' => 'select',
+            'options' => [
+                1 => 'option 1',
+                2 => 'option 2',
+            ],
+            'custom' => true,
+            'append' => 'append',
+        ]);
+        $expected = [
+            ['div' => ['class' => 'form-group select']],
+                ['label' => ['for' => 'users']],
+                    'Users',
+                '/label',
+                ['div' => ['class' => 'input-group']],
+                    ['select' => ['name' => 'users', 'id' => 'users', 'class' => 'custom-select']],
+                        ['option' => ['value' => '1']],
+                            'option 1',
+                        '/option',
+                        ['option' => ['value' => '2']],
+                            'option 2',
+                        '/option',
+                    '/select',
+                    ['div' => ['class' => 'input-group-append']],
+                        ['span' => ['class' => 'input-group-text']],
+                            'append',
+                        '/span',
+                    '/div',
+                '/div',
+            '/div',
+        ];
+        $this->assertHtml($expected, $result);
+    }
+
+    public function testDefaultAlignCustomSelectControlInputGroupPrepend()
+    {
+        $this->Form->create($this->article);
+
+        $result = $this->Form->control('users', [
+            'type' => 'select',
+            'options' => [
+                1 => 'option 1',
+                2 => 'option 2',
+            ],
+            'custom' => true,
+            'prepend' => 'prepend',
+        ]);
+        $expected = [
+            ['div' => ['class' => 'form-group select']],
+                ['label' => ['for' => 'users']],
+                    'Users',
+                '/label',
+                ['div' => ['class' => 'input-group']],
+                    ['div' => ['class' => 'input-group-prepend']],
+                        ['span' => ['class' => 'input-group-text']],
+                            'prepend',
+                        '/span',
+                    '/div',
+                    ['select' => ['name' => 'users', 'id' => 'users', 'class' => 'custom-select']],
+                        ['option' => ['value' => '1']],
+                            'option 1',
+                        '/option',
+                        ['option' => ['value' => '2']],
+                            'option 2',
+                        '/option',
+                    '/select',
+                '/div',
+            '/div',
+        ];
+        $this->assertHtml($expected, $result);
+    }
+
+    public function testHorizontalAlignCustomSelectControl()
+    {
+        $this->Form->create($this->article, [
+            'align' => [
+                'sm' => [
+                    'left' => 5,
+                    'middle' => 7
+                ]
+            ]
+        ]);
+
+        $result = $this->Form->control('users', [
+            'type' => 'select',
+            'options' => [
+                1 => 'option 1',
+                2 => 'option 2',
+            ],
+            'custom' => true
+        ]);
+        $expected = [
+            ['div' => ['class' => 'form-group row select']],
+                ['label' => ['class' => 'col-form-label col-sm-5', 'for' => 'users']],
+                    'Users',
+                '/label',
+                ['div' => ['class' => 'col-sm-7']],
+                    ['select' => ['name' => 'users', 'id' => 'users', 'class' => 'custom-select']],
+                        ['option' => ['value' => '1']],
+                            'option 1',
+                        '/option',
+                        ['option' => ['value' => '2']],
+                            'option 2',
+                        '/option',
+                    '/select',
+                '/div',
+            '/div',
+        ];
+        $this->assertHtml($expected, $result);
+    }
+
+    public function testHorizontalAlignCustomSelectControlInputGroupAppend()
+    {
+        $this->Form->create($this->article, [
+            'align' => [
+                'sm' => [
+                    'left' => 5,
+                    'middle' => 7
+                ]
+            ]
+        ]);
+
+        $result = $this->Form->control('users', [
+            'type' => 'select',
+            'options' => [
+                1 => 'option 1',
+                2 => 'option 2',
+            ],
+            'custom' => true,
+            'append' => 'append',
+        ]);
+        $expected = [
+            ['div' => ['class' => 'form-group row select']],
+                ['label' => ['class' => 'col-form-label col-sm-5', 'for' => 'users']],
+                    'Users',
+                '/label',
+                ['div' => ['class' => 'col-sm-7']],
+                    ['div' => ['class' => 'input-group']],
+                        ['select' => ['name' => 'users', 'id' => 'users', 'class' => 'custom-select']],
+                            ['option' => ['value' => '1']],
+                                'option 1',
+                            '/option',
+                            ['option' => ['value' => '2']],
+                                'option 2',
+                            '/option',
+                        '/select',
+                        ['div' => ['class' => 'input-group-append']],
+                            ['span' => ['class' => 'input-group-text']],
+                                'append',
+                            '/span',
+                        '/div',
+                    '/div',
+                '/div',
+            '/div',
+        ];
+        $this->assertHtml($expected, $result);
+    }
+
+    public function testHorizontalAlignCustomSelectControlInputGroupPrepend()
+    {
+        $this->Form->create($this->article, [
+            'align' => [
+                'sm' => [
+                    'left' => 5,
+                    'middle' => 7
+                ]
+            ]
+        ]);
+
+        $result = $this->Form->control('users', [
+            'type' => 'select',
+            'options' => [
+                1 => 'option 1',
+                2 => 'option 2',
+            ],
+            'custom' => true,
+            'prepend' => 'prepend',
+        ]);
+        $expected = [
+            ['div' => ['class' => 'form-group row select']],
+                ['label' => ['class' => 'col-form-label col-sm-5', 'for' => 'users']],
+                    'Users',
+                '/label',
+                ['div' => ['class' => 'col-sm-7']],
+                    ['div' => ['class' => 'input-group']],
+                        ['div' => ['class' => 'input-group-prepend']],
+                            ['span' => ['class' => 'input-group-text']],
+                                'prepend',
+                            '/span',
+                        '/div',
+                        ['select' => ['name' => 'users', 'id' => 'users', 'class' => 'custom-select']],
+                            ['option' => ['value' => '1']],
+                                'option 1',
+                            '/option',
+                            ['option' => ['value' => '2']],
+                                'option 2',
+                            '/option',
+                        '/select',
+                    '/div',
+                '/div',
+            '/div',
+        ];
+        $this->assertHtml($expected, $result);
+    }
+
+    public function testInlineAlignCustomSelectControl()
+    {
+        $this->withErrorReporting(0, function () {
+            $this->Form->create($this->article, [
+                'align' => 'inline'
+            ]);
+        });
+
+        $result = $this->Form->control('users', [
+            'type' => 'select',
+            'options' => [
+                1 => 'option 1',
+                2 => 'option 2',
+            ],
+            'custom' => true
+        ]);
+        $expected = [
+            ['div' => ['class' => 'form-group select']],
+                ['label' => ['class' => 'sr-only', 'for' => 'users']],
+                    'Users',
+                '/label',
+                ['select' => ['name' => 'users', 'id' => 'users', 'class' => 'custom-select']],
+                    ['option' => ['value' => '1']],
+                        'option 1',
+                    '/option',
+                    ['option' => ['value' => '2']],
+                        'option 2',
+                    '/option',
+                '/select',
+            '/div',
+        ];
+        $this->assertHtml($expected, $result);
+    }
+
+    public function testInlineAlignCustomSelectControlInputGroupAppend()
+    {
+        $this->withErrorReporting(0, function () {
+            $this->Form->create($this->article, [
+                'align' => 'inline'
+            ]);
+        });
+
+        $result = $this->Form->control('users', [
+            'type' => 'select',
+            'options' => [
+                1 => 'option 1',
+                2 => 'option 2',
+            ],
+            'custom' => true,
+            'append' => 'append',
+        ]);
+        $expected = [
+            ['div' => ['class' => 'form-group select']],
+                ['label' => ['class' => 'sr-only', 'for' => 'users']],
+                    'Users',
+                '/label',
+                ['div' => ['class' => 'input-group']],
+                    ['select' => ['name' => 'users', 'id' => 'users', 'class' => 'custom-select']],
+                        ['option' => ['value' => '1']],
+                            'option 1',
+                        '/option',
+                        ['option' => ['value' => '2']],
+                            'option 2',
+                        '/option',
+                    '/select',
+                    ['div' => ['class' => 'input-group-append']],
+                        ['span' => ['class' => 'input-group-text']],
+                            'append',
+                        '/span',
+                    '/div',
+                '/div',
+            '/div',
+        ];
+        $this->assertHtml($expected, $result);
+    }
+
+    public function testInlineAlignCustomSelectControlInputGroupPrepend()
+    {
+        $this->withErrorReporting(0, function () {
+            $this->Form->create($this->article, [
+                'align' => 'inline'
+            ]);
+        });
+
+        $result = $this->Form->control('users', [
+            'type' => 'select',
+            'options' => [
+                1 => 'option 1',
+                2 => 'option 2',
+            ],
+            'custom' => true,
+            'prepend' => 'prepend',
+        ]);
+        $expected = [
+            ['div' => ['class' => 'form-group select']],
+                ['label' => ['class' => 'sr-only', 'for' => 'users']],
+                    'Users',
+                '/label',
+                ['div' => ['class' => 'input-group']],
+                    ['div' => ['class' => 'input-group-prepend']],
+                        ['span' => ['class' => 'input-group-text']],
+                            'prepend',
+                        '/span',
+                    '/div',
+                    ['select' => ['name' => 'users', 'id' => 'users', 'class' => 'custom-select']],
+                        ['option' => ['value' => '1']],
+                            'option 1',
+                        '/option',
+                        ['option' => ['value' => '2']],
+                            'option 2',
+                        '/option',
+                    '/select',
+                '/div',
+            '/div',
+        ];
+        $this->assertHtml($expected, $result);
+    }
+
+    public function testDefaultAlignCustomFileControl()
+    {
+        $this->Form->create($this->article);
+
+        $result = $this->Form->control('file', [
+            'type' => 'file',
+            'custom' => true,
+        ]);
+        $expected = [
+            ['div' => ['class' => 'form-group file']],
+                ['div' => ['class' => 'custom-file']],
+                    ['input' => [
+                        'type' => 'file',
+                        'name' => 'file',
+                        'id' => 'file',
+                        'class' => 'custom-file-input',
+                    ]],
+                    ['label' => ['class' => 'custom-file-label', 'for' => 'file']],
+                        'File',
+                    '/label',
+                 '/div',
+            '/div'
+        ];
+        $this->assertHtml($expected, $result);
+    }
+
+    public function testDefaultAlignCustomFileControlInputGroupAppend()
+    {
+        $this->Form->create($this->article);
+
+        $result = $this->Form->control('file', [
+            'type' => 'file',
+            'custom' => true,
+            'append' => 'append',
+        ]);
+        $expected = [
+            ['div' => ['class' => 'form-group file']],
+                ['div' => ['class' => 'input-group']],
+                    ['div' => ['class' => 'custom-file']],
+                        ['input' => [
+                            'type' => 'file',
+                            'name' => 'file',
+                            'id' => 'file',
+                            'class' => 'custom-file-input',
+                        ]],
+                        ['label' => ['class' => 'custom-file-label', 'for' => 'file']],
+                            'File',
+                        '/label',
+                     '/div',
+                    ['div' => ['class' => 'input-group-append']],
+                        ['span' => ['class' => 'input-group-text']],
+                            'append',
+                        '/span',
+                    '/div',
+                '/div',
+            '/div'
+        ];
+        $this->assertHtml($expected, $result);
+    }
+
+    public function testDefaultAlignCustomFileControlInputGroupPrepend()
+    {
+        $this->Form->create($this->article);
+
+        $result = $this->Form->control('file', [
+            'type' => 'file',
+            'custom' => true,
+            'prepend' => 'prepend',
+        ]);
+        $expected = [
+            ['div' => ['class' => 'form-group file']],
+                ['div' => ['class' => 'input-group']],
+                    ['div' => ['class' => 'input-group-prepend']],
+                        ['span' => ['class' => 'input-group-text']],
+                            'prepend',
+                        '/span',
+                    '/div',
+                    ['div' => ['class' => 'custom-file']],
+                        ['input' => [
+                            'type' => 'file',
+                            'name' => 'file',
+                            'id' => 'file',
+                            'class' => 'custom-file-input',
+                        ]],
+                        ['label' => ['class' => 'custom-file-label', 'for' => 'file']],
+                            'File',
+                        '/label',
+                     '/div',
+                '/div',
+            '/div'
+        ];
+        $this->assertHtml($expected, $result);
+    }
+
+    public function testHorizontalAlignCustomFileControl()
+    {
+        $this->Form->create($this->article, [
+            'align' => [
+                'sm' => [
+                    'left' => 5,
+                    'middle' => 7
+                ]
+            ]
+        ]);
+
+        $result = $this->Form->control('file', [
+            'type' => 'file',
+            'custom' => true,
+        ]);
+        $expected = [
+            ['div' => ['class' => 'form-group row file']],
+                ['div' => ['class' => 'offset-sm-5 col-sm-7']],
+                    ['div' => ['class' => 'custom-file']],
+                        ['input' => [
+                            'type' => 'file',
+                            'name' => 'file',
+                            'id' => 'file',
+                            'class' => 'custom-file-input',
+                        ]],
+                        ['label' => ['class' => 'custom-file-label', 'for' => 'file']],
+                            'File',
+                        '/label',
+                    '/div',
+                '/div',
+            '/div'
+        ];
+        $this->assertHtml($expected, $result);
+    }
+
+    public function testHorizontalAlignCustomFileControlInputGroupAppend()
+    {
+        $this->Form->create($this->article, [
+            'align' => [
+                'sm' => [
+                    'left' => 5,
+                    'middle' => 7
+                ]
+            ]
+        ]);
+
+        $result = $this->Form->control('file', [
+            'type' => 'file',
+            'custom' => true,
+            'append' => 'append',
+        ]);
+        $expected = [
+            ['div' => ['class' => 'form-group row file']],
+                ['div' => ['class' => 'offset-sm-5 col-sm-7']],
+                    ['div' => ['class' => 'input-group']],
+                        ['div' => ['class' => 'custom-file']],
+                            ['input' => [
+                                'type' => 'file',
+                                'name' => 'file',
+                                'id' => 'file',
+                                'class' => 'custom-file-input',
+                            ]],
+                            ['label' => ['class' => 'custom-file-label', 'for' => 'file']],
+                                'File',
+                            '/label',
+                         '/div',
+                        ['div' => ['class' => 'input-group-append']],
+                            ['span' => ['class' => 'input-group-text']],
+                                'append',
+                            '/span',
+                        '/div',
+                    '/div',
+                '/div',
+            '/div'
+        ];
+        $this->assertHtml($expected, $result);
+    }
+
+    public function testHorizontalAlignCustomFileControlInputGroupPrepend()
+    {
+        $this->Form->create($this->article, [
+            'align' => [
+                'sm' => [
+                    'left' => 5,
+                    'middle' => 7
+                ]
+            ]
+        ]);
+
+        $result = $this->Form->control('file', [
+            'type' => 'file',
+            'custom' => true,
+            'prepend' => 'prepend',
+        ]);
+        $expected = [
+            ['div' => ['class' => 'form-group row file']],
+                ['div' => ['class' => 'offset-sm-5 col-sm-7']],
+                    ['div' => ['class' => 'input-group']],
+                        ['div' => ['class' => 'input-group-prepend']],
+                            ['span' => ['class' => 'input-group-text']],
+                                'prepend',
+                            '/span',
+                        '/div',
+                        ['div' => ['class' => 'custom-file']],
+                            ['input' => [
+                                'type' => 'file',
+                                'name' => 'file',
+                                'id' => 'file',
+                                'class' => 'custom-file-input',
+                            ]],
+                            ['label' => ['class' => 'custom-file-label', 'for' => 'file']],
+                                'File',
+                            '/label',
+                         '/div',
+                    '/div',
+                '/div',
+            '/div'
+        ];
+        $this->assertHtml($expected, $result);
+    }
+
+    public function testInlineAlignCustomFileControl()
+    {
+        $this->withErrorReporting(0, function () {
+            $this->Form->create($this->article, [
+                'align' => 'inline'
+            ]);
+        });
+
+        $result = $this->Form->control('file', [
+            'type' => 'file',
+            'custom' => true,
+        ]);
+        $expected = [
+            ['div' => ['class' => 'form-group file']],
+                ['div' => ['class' => 'custom-file']],
+                    ['input' => [
+                        'type' => 'file',
+                        'name' => 'file',
+                        'id' => 'file',
+                        'class' => 'custom-file-input',
+                    ]],
+                    ['label' => ['class' => 'custom-file-label', 'for' => 'file']],
+                        'File',
+                    '/label',
+                 '/div',
+            '/div'
+        ];
+        $this->assertHtml($expected, $result);
+    }
+
+    public function testInlineAlignCustomFileControlInputGroupAppend()
+    {
+        $this->withErrorReporting(0, function () {
+            $this->Form->create($this->article, [
+                'align' => 'inline'
+            ]);
+        });
+
+        $result = $this->Form->control('file', [
+            'type' => 'file',
+            'custom' => true,
+            'append' => 'append',
+        ]);
+        $expected = [
+            ['div' => ['class' => 'form-group file']],
+                ['div' => ['class' => 'input-group']],
+                    ['div' => ['class' => 'custom-file']],
+                        ['input' => [
+                            'type' => 'file',
+                            'name' => 'file',
+                            'id' => 'file',
+                            'class' => 'custom-file-input',
+                        ]],
+                        ['label' => ['class' => 'custom-file-label', 'for' => 'file']],
+                            'File',
+                        '/label',
+                     '/div',
+                    ['div' => ['class' => 'input-group-append']],
+                        ['span' => ['class' => 'input-group-text']],
+                            'append',
+                        '/span',
+                    '/div',
+                '/div',
+            '/div'
+        ];
+        $this->assertHtml($expected, $result);
+    }
+
+    public function testInlineAlignCustomFileControlInputGroupPrepend()
+    {
+        $this->withErrorReporting(0, function () {
+            $this->Form->create($this->article, [
+                'align' => 'inline'
+            ]);
+        });
+
+        $result = $this->Form->control('file', [
+            'type' => 'file',
+            'custom' => true,
+            'prepend' => 'prepend',
+        ]);
+        $expected = [
+            ['div' => ['class' => 'form-group file']],
+                ['div' => ['class' => 'input-group']],
+                    ['div' => ['class' => 'input-group-prepend']],
+                        ['span' => ['class' => 'input-group-text']],
+                            'prepend',
+                        '/span',
+                    '/div',
+                    ['div' => ['class' => 'custom-file']],
+                        ['input' => [
+                            'type' => 'file',
+                            'name' => 'file',
+                            'id' => 'file',
+                            'class' => 'custom-file-input',
+                        ]],
+                        ['label' => ['class' => 'custom-file-label', 'for' => 'file']],
+                            'File',
+                        '/label',
+                     '/div',
+                '/div',
             '/div'
         ];
         $this->assertHtml($expected, $result);
