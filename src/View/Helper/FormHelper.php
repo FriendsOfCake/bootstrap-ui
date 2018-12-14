@@ -437,7 +437,7 @@ class FormHelper extends Helper
                                 $fieldElements = explode('.', $text);
                                 $text = array_pop($fieldElements);
                             }
-                            $options['label']['text'] =  __(Inflector::humanize(Inflector::underscore($text)));
+                            $options['label']['text'] = __(Inflector::humanize(Inflector::underscore($text)));
                         }
                         $options['inputGroupLabel'] = $options['label'];
                         $options['label'] = false;
