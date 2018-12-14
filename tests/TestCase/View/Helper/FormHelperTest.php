@@ -2233,7 +2233,6 @@ class FormHelperTest extends TestCase
         $this->assertContains('<div class="custom timeContainerError time" role="group" aria-labelledby="created-group-label">', $result);
     }
 
-
     public function testInlineAlignDatetimeControl()
     {
         $this->withErrorReporting(0, function () {
