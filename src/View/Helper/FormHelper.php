@@ -95,7 +95,6 @@ class FormHelper extends Helper
             'datetimeContainer' => '<div class="form-group {{type}}{{required}}" role="group" aria-labelledby="{{groupId}}">{{content}}</div>',
             'datetimeContainerError' => '<div class="form-group {{type}}{{required}} is-invalid" role="group" aria-labelledby="{{groupId}}">{{content}}</div>',
             'datetimeLabel' => '<span id="{{groupId}}" class="sr-only">{{text}}</span>',
-            'inputContainer' => '{{content}}',
             'radioContainer' => '<div class="form-group {{type}}{{required}}" role="group" aria-labelledby="{{groupId}}">{{content}}</div>',
             'radioContainerError' => '<div class="form-group {{type}}{{required}} is-invalid" role="group" aria-labelledby="{{groupId}}">{{content}}</div>',
             'radioLabel' => '<span id="{{groupId}}" class="sr-only">{{text}}</span>',
