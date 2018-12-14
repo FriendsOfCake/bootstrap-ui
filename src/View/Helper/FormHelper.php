@@ -4,6 +4,7 @@ namespace BootstrapUI\View\Helper;
 
 use Cake\Core\Configure\Engine\PhpConfig;
 use Cake\Utility\Hash;
+use Cake\Utility\Inflector;
 use Cake\View\Helper\FormHelper as Helper;
 use Cake\View\View;
 use InvalidArgumentException;
@@ -425,6 +426,19 @@ class FormHelper extends Helper
                     if ($options['prepend'] ||
                         $options['append']
                     ) {
+                        if ($options['label'] === null) {
+                            $options['label'] = [];
+                        }
+                        if ($options['label'] !== false &&
+                            !isset($options['label']['text'])
+                        ) {
+                            $text = $fieldName;
+                            if (strpos($text, '.') !== false) {
+                                $fieldElements = explode('.', $text);
+                                $text = array_pop($fieldElements);
+                            }
+                            $options['label']['text'] =  __(Inflector::humanize(Inflector::underscore($text)));
+                        }
                         $options['inputGroupLabel'] = $options['label'];
                         $options['label'] = false;
 

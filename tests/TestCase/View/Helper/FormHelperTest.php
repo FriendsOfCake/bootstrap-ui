@@ -9287,4 +9287,214 @@ class FormHelperTest extends TestCase
         ];
         $this->assertHtml($expected, $result);
     }
+
+    public function testCustomFileControlInputGroupInferLabelFromField()
+    {
+        $this->Form->create($this->article);
+
+        $result = $this->Form->control('file', [
+            'type' => 'file',
+            'custom' => true,
+            'append' => 'append',
+        ]);
+        $expected = [
+            ['div' => ['class' => 'form-group file']],
+                ['div' => ['class' => 'input-group']],
+                    ['div' => ['class' => 'custom-file']],
+                        ['input' => [
+                            'type' => 'file',
+                            'name' => 'file',
+                            'id' => 'file',
+                            'class' => 'custom-file-input',
+                        ]],
+                        ['label' => ['class' => 'custom-file-label', 'for' => 'file']],
+                            'File',
+                        '/label',
+                     '/div',
+                    ['div' => ['class' => 'input-group-append']],
+                        ['span' => ['class' => 'input-group-text']],
+                            'append',
+                        '/span',
+                    '/div',
+                '/div',
+            '/div'
+        ];
+        $this->assertHtml($expected, $result);
+    }
+
+    public function testCustomFileControlInputGroupInferLabelFromAssociatedField()
+    {
+        $this->Form->create($this->article);
+
+        $result = $this->Form->control('associated.0.file', [
+            'type' => 'file',
+            'custom' => true,
+            'append' => 'append',
+        ]);
+        $expected = [
+            ['div' => ['class' => 'form-group file']],
+                ['div' => ['class' => 'input-group']],
+                    ['div' => ['class' => 'custom-file']],
+                        ['input' => [
+                            'type' => 'file',
+                            'name' => 'associated[0][file]',
+                            'id' => 'associated-0-file',
+                            'class' => 'custom-file-input',
+                        ]],
+                        ['label' => ['class' => 'custom-file-label', 'for' => 'associated-0-file']],
+                            'File',
+                        '/label',
+                     '/div',
+                    ['div' => ['class' => 'input-group-append']],
+                        ['span' => ['class' => 'input-group-text']],
+                            'append',
+                        '/span',
+                    '/div',
+                '/div',
+            '/div'
+        ];
+        $this->assertHtml($expected, $result);
+    }
+
+    public function testCustomFileControlInputGroupLabelTextFromOptions()
+    {
+        $this->Form->create($this->article);
+
+        $result = $this->Form->control('file', [
+            'type' => 'file',
+            'label' => [
+                'text' => 'text'
+            ],
+            'custom' => true,
+            'append' => 'append',
+        ]);
+        $expected = [
+            ['div' => ['class' => 'form-group file']],
+                ['div' => ['class' => 'input-group']],
+                    ['div' => ['class' => 'custom-file']],
+                        ['input' => [
+                            'type' => 'file',
+                            'name' => 'file',
+                            'id' => 'file',
+                            'class' => 'custom-file-input',
+                        ]],
+                        ['label' => ['class' => 'custom-file-label', 'for' => 'file']],
+                            'text',
+                        '/label',
+                     '/div',
+                    ['div' => ['class' => 'input-group-append']],
+                        ['span' => ['class' => 'input-group-text']],
+                            'append',
+                        '/span',
+                    '/div',
+                '/div',
+            '/div'
+        ];
+        $this->assertHtml($expected, $result);
+    }
+
+    public function testCustomFileControlInputGroupLabelAttributes()
+    {
+        $this->Form->create($this->article);
+
+        $result = $this->Form->control('file', [
+            'type' => 'file',
+            'label' => [
+                'foo' => 'bar'
+            ],
+            'custom' => true,
+            'append' => 'append',
+        ]);
+        $expected = [
+            ['div' => ['class' => 'form-group file']],
+                ['div' => ['class' => 'input-group']],
+                    ['div' => ['class' => 'custom-file']],
+                        ['input' => [
+                            'type' => 'file',
+                            'name' => 'file',
+                            'id' => 'file',
+                            'class' => 'custom-file-input',
+                        ]],
+                        ['label' => ['class' => 'custom-file-label', 'foo' => 'bar', 'for' => 'file']],
+                            'File',
+                        '/label',
+                     '/div',
+                    ['div' => ['class' => 'input-group-append']],
+                        ['span' => ['class' => 'input-group-text']],
+                            'append',
+                        '/span',
+                    '/div',
+                '/div',
+            '/div'
+        ];
+        $this->assertHtml($expected, $result);
+    }
+
+    public function testCustomFileControlInputGroupLabelEscaping()
+    {
+        $result = $this->Form->control('file', [
+            'type' => 'file',
+            'label' => [
+                'text' => '<b>text</b>',
+            ],
+            'custom' => true,
+            'append' => 'append',
+        ]);
+        $expected = [
+            ['div' => ['class' => 'form-group file']],
+                ['div' => ['class' => 'input-group']],
+                    ['div' => ['class' => 'custom-file']],
+                        ['input' => [
+                            'type' => 'file',
+                            'name' => 'file',
+                            'id' => 'file',
+                            'class' => 'custom-file-input',
+                        ]],
+                        ['label' => ['class' => 'custom-file-label', 'for' => 'file']],
+                            '&lt;b&gt;text&lt;/b&gt;',
+                        '/label',
+                     '/div',
+                    ['div' => ['class' => 'input-group-append']],
+                        ['span' => ['class' => 'input-group-text']],
+                            'append',
+                        '/span',
+                    '/div',
+                '/div',
+            '/div'
+        ];
+        $this->assertHtml($expected, $result);
+
+        $result = $this->Form->control('file', [
+            'type' => 'file',
+            'label' => [
+                'text' => '<b>text</b>',
+                'escape' => false
+            ],
+            'custom' => true,
+            'append' => 'append',
+        ]);
+        $expected = [
+            ['div' => ['class' => 'form-group file']],
+                ['div' => ['class' => 'input-group']],
+                    ['div' => ['class' => 'custom-file']],
+                        ['input' => [
+                            'type' => 'file',
+                            'name' => 'file',
+                            'id' => 'file',
+                            'class' => 'custom-file-input',
+                        ]],
+                        ['label' => ['class' => 'custom-file-label', 'for' => 'file']],
+                            ['b' => true], 'text', '/b',
+                        '/label',
+                     '/div',
+                    ['div' => ['class' => 'input-group-append']],
+                        ['span' => ['class' => 'input-group-text']],
+                            'append',
+                        '/span',
+                    '/div',
+                '/div',
+            '/div'
+        ];
+        $this->assertHtml($expected, $result);
+    }
 }
