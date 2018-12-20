@@ -21,7 +21,7 @@ class UIViewTest extends TestCase
         parent::setUp();
 
         $this->View = new UIView();
-        $this->View->layout = 'default';
+        $this->View->setLayout('default');
     }
 
     /**
