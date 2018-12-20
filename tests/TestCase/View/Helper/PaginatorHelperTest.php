@@ -44,8 +44,8 @@ class PaginatorHelperTest extends TestCase
         $this->Paginator->Js = $this->getMockBuilder('Cake\View\Helper\PaginatorHelper')
             ->setConstructorArgs([$this->View])
             ->getMock();
-        $this->Paginator->request = new Request();
-        $this->Paginator->request = $this->Paginator->request->withAttribute('params', [
+        $this->Paginator->getView()->setRequest(new Request());
+        $this->Paginator->getView()->setRequest($this->Paginator->getView()->getRequest()->withAttribute('params', [
             'paging' => [
                 'Article' => [
                     'page' => 1,
@@ -59,7 +59,7 @@ class PaginatorHelperTest extends TestCase
                     'limit' => null,
                 ]
             ]
-        ]);
+        ]));
 
         Configure::write('Routing.prefixes', []);
         Router::reload();
