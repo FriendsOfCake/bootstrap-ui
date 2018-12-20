@@ -45,7 +45,7 @@ class FormHelperTest extends TestCase
         $request = $request->withParam('action', 'add');
         $request = $request->withAttribute('webroot', '');
         $request = $request->withAttribute('base', '');
-        $this->Form->Url->request = $this->Form->request = $request;
+        $this->Form->Url->request = $this->Form->getView()->setRequest($request);
 
         $this->article = [
             'schema' => [
