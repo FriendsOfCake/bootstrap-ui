@@ -21,7 +21,7 @@ class UIViewTest extends TestCase
         parent::setUp();
 
         $this->View = new UIView();
-        $this->View->layout = 'default';
+        $this->View->setLayout('default');
     }
 
     /**
@@ -43,6 +43,6 @@ class UIViewTest extends TestCase
     public function testInitialize()
     {
         $this->View->initialize();
-        $this->assertEquals('BootstrapUI.default', $this->View->layout);
+        $this->assertEquals('BootstrapUI.default', $this->View->getLayout());
     }
 }

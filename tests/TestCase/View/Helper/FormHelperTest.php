@@ -4,7 +4,7 @@ namespace BootstrapUI\Test\TestCase\View\Helper;
 
 use BootstrapUI\View\Helper\FormHelper;
 use Cake\Core\Configure;
-use Cake\Network\Request;
+use Cake\Http\ServerRequest as Request;
 use Cake\ORM\TableRegistry;
 use Cake\Routing\Router;
 use Cake\TestSuite\TestCase;
@@ -36,16 +36,16 @@ class FormHelperTest extends TestCase
         Configure::write('App.base', '');
         Configure::write('App.namespace', 'BootstrapUI\Test\TestCase\View\Helper');
         Configure::delete('Asset');
-        $this->View = new View();
+
+        $request = new Request('articles/add');
+        $this->View = new View($request);
 
         $this->Form = new FormHelper($this->View);
-        $request = new Request('articles/add');
         $request = $request->withAttribute('here', '/articles/add');
         $request = $request->withParam('controller', 'articles');
         $request = $request->withParam('action', 'add');
         $request = $request->withAttribute('webroot', '');
         $request = $request->withAttribute('base', '');
-        $this->Form->Url->request = $this->Form->request = $request;
 
         $this->article = [
             'schema' => [
