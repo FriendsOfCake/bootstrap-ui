@@ -41,7 +41,7 @@ class FlashHelperTest extends TestCase
         } else {
             $session = new Session();
         }
-        $this->View->request = new ServerRequest(['session' => $session]);
+        $this->View->setRequest(new ServerRequest(['session' => $session]));
         $this->Flash = new FlashHelper($this->View);
 
         $session->write([
