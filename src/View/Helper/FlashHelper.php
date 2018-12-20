@@ -3,6 +3,7 @@
 namespace BootstrapUI\View\Helper;
 
 use Cake\View\Helper;
+use Cake\View\View;
 
 /**
  * FlashHelper class to render flash messages.
@@ -24,6 +25,30 @@ class FlashHelper extends Helper
         'attributes' => ['role' => 'alert'],
         'element' => 'BootstrapUI.Flash/default'
     ];
+
+    /**
+     * Request instance.
+     *
+     * @var \Cake\Http\ServerRequest;
+     */
+    public $request;
+
+    /**
+     * Constructor
+     *
+     * @param \Cake\View\View $View View
+     * @param array $config Config
+     */
+    public function __construct(View $View, array $config = [])
+    {
+        if (method_exists($View, 'getRequest')) {
+            $this->request = $View->getRequest();
+        } else {
+            $this->request = $View->request;
+        }
+
+        parent::__construct($View, $config);
+    }
 
     /**
      * Similar to the core's FlashHelper used to render the message set in FlashComponent::set().

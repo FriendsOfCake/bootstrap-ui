@@ -2,10 +2,11 @@
 
 namespace BootstrapUI\Test\TestCase\View\Helper;
 
+use BootstrapUI\TestSuite\TestCase;
 use BootstrapUI\View\Helper\FlashHelper;
+use Cake\Core\Plugin;
 use Cake\Http\ServerRequest;
 use Cake\Network\Session;
-use Cake\TestSuite\TestCase;
 use Cake\View\View;
 
 /**
@@ -25,6 +26,11 @@ class FlashHelperTest extends TestCase
     public $Flash;
 
     /**
+     * @var Session
+     */
+    public $session;
+
+    /**
      * setUp method
      *
      * @return void
@@ -32,19 +38,16 @@ class FlashHelperTest extends TestCase
     public function setUp()
     {
         parent::setUp();
-        $this->View = new View();
-        $session = null;
-        if (method_exists($this, 'deprecated')) {
-            $this->deprecated(function () use (&$session) {
-                $session = new Session();
-            });
-        } else {
-            $session = new Session();
-        }
-        $this->View->request = new ServerRequest(['session' => $session]);
-        $this->Flash = new FlashHelper($this->View);
 
-        $session->write([
+        $this->deprecated(function () {
+            Plugin::load('BootstrapUI', ['path' => ROOT . DS]);
+            $this->session = new Session();
+        });
+
+        $this->View = new View(new ServerRequest(['session' => $this->session]));
+        $this->Flash = new FlashHelper($this->View, []);
+
+        $this->session->write([
             'Flash' => [
                 'flash' => [
                     'key' => 'flash',
@@ -129,7 +132,7 @@ class FlashHelperTest extends TestCase
      */
     public function testRenderForMultipleMessages()
     {
-        $this->View->request->getSession()->write([
+        $this->session->write([
             'Flash' => [
                 'flash' => [
                     [

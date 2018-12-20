@@ -5,6 +5,12 @@ use Cake\View\View;
 
 class PaginatorHelper extends \Cake\View\Helper\PaginatorHelper
 {
+    /**
+     * Request instance.
+     *
+     * @var \Cake\Http\ServerRequest;
+     */
+    public $request;
 
     /**
      * Constructor. Overridden to merge passed args with URL options.
@@ -14,6 +20,12 @@ class PaginatorHelper extends \Cake\View\Helper\PaginatorHelper
      */
     public function __construct(View $View, array $config = [])
     {
+        if (method_exists($View, 'getRequest')) {
+            $this->request = $View->getRequest();
+        } else {
+            $this->request = $View->request;
+        }
+
         $this->_defaultConfig['templates'] = [
             'nextActive' => '<li class="next"><a rel="next" aria-label="Next" href="{{url}}">' .
                             '<span aria-hidden="true">{{text}}</span></a></li>',

@@ -3,8 +3,8 @@ namespace BootstrapUI\Test\TestCase\View\Helper;
 
 use BootstrapUI\View\Helper\PaginatorHelper;
 use Cake\Core\Configure;
+use Cake\Http\ServerRequest as Request;
 use Cake\I18n\I18n;
-use Cake\Network\Request;
 use Cake\Routing\Router;
 use Cake\TestSuite\TestCase;
 use Cake\View\View;
@@ -26,11 +26,6 @@ class PaginatorHelperTest extends TestCase
     public $Paginator;
 
     /**
-     * @var string
-     */
-    public $locale;
-
-    /**
      * setUp method
      *
      * @return void
@@ -38,48 +33,10 @@ class PaginatorHelperTest extends TestCase
     public function setUp()
     {
         parent::setUp();
-        Configure::write('Config.language', 'eng');
-        $this->View = new View();
-        $this->Paginator = new PaginatorHelper($this->View);
-        $this->Paginator->Js = $this->getMockBuilder('Cake\View\Helper\PaginatorHelper')
-            ->setConstructorArgs([$this->View])
-            ->getMock();
-        $this->Paginator->request = new Request();
-        $this->Paginator->request = $this->Paginator->request->withAttribute('params', [
-            'paging' => [
-                'Article' => [
-                    'page' => 1,
-                    'current' => 9,
-                    'count' => 62,
-                    'prevPage' => false,
-                    'nextPage' => true,
-                    'pageCount' => 7,
-                    'sort' => null,
-                    'direction' => null,
-                    'limit' => null,
-                ]
-            ]
-        ]);
 
-        Configure::write('Routing.prefixes', []);
         Router::reload();
         Router::connect('/:controller/:action/*');
         Router::connect('/:plugin/:controller/:action/*');
-
-        $this->locale = I18n::getLocale();
-    }
-
-    /**
-     * tearDown method
-     *
-     * @return void
-     */
-    public function tearDown()
-    {
-        parent::tearDown();
-        unset($this->View, $this->Paginator);
-
-        I18n::setLocale($this->locale);
     }
 
     /**
@@ -89,7 +46,7 @@ class PaginatorHelperTest extends TestCase
      */
     public function testNumbers()
     {
-        $this->Paginator->request = $this->Paginator->request->withParam('paging', [
+        $this->setupHelper([
             'Client' => [
                 'page' => 8,
                 'current' => 3,
@@ -97,7 +54,7 @@ class PaginatorHelperTest extends TestCase
                 'prevPage' => false,
                 'nextPage' => 2,
                 'pageCount' => 15,
-            ]
+            ],
         ]);
         $result = $this->Paginator->numbers();
         $expected = [
@@ -143,7 +100,7 @@ class PaginatorHelperTest extends TestCase
         ];
         $this->assertHtml($expected, $result);
 
-        $this->Paginator->request = $this->Paginator->request->withParam('paging', [
+        $this->setupHelper([
             'Client' => [
                 'page' => 1,
                 'current' => 1,
@@ -151,7 +108,7 @@ class PaginatorHelperTest extends TestCase
                 'prevPage' => false,
                 'nextPage' => 2,
                 'pageCount' => 2,
-            ]
+            ],
         ]);
         $result = $this->Paginator->numbers(['size' => 'lg']);
         $expected = [
@@ -161,5 +118,17 @@ class PaginatorHelperTest extends TestCase
             '/ul'
         ];
         $this->assertHtml($expected, $result);
+    }
+
+    protected function setupHelper($options)
+    {
+        $request = new Request();
+        $request = $request->withAttribute('params', [
+            'pass' => [],
+            'paging' => $options,
+        ]);
+
+        $this->View = new View($request);
+        $this->Paginator = new PaginatorHelper($this->View);
     }
 }

@@ -77,5 +77,3 @@ Cache::setConfig([
         'serialize' => true
     ]
 ]);
-
-Plugin::load('BootstrapUI', ['path' => ROOT . DS]);
