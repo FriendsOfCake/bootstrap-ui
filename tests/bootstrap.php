@@ -78,4 +78,4 @@ Cache::setConfig([
     ]
 ]);
 
-Plugin::addPlugin('BootstrapUI', ['path' => ROOT . DS]);
+Plugin::load('BootstrapUI', ['path' => ROOT . DS]);
