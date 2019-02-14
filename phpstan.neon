@@ -1,4 +1,6 @@
 parameters:
-    level: 3
+    level: 5
     ignoreErrors:
         - "#Offset 'element' does not exist on array\\('params' => mixed\\)#"
+        - '#Access to protected property Cake\\View\\View::\$request#'
+        - "#Call to function method_exists\\(\\) with '.+Helper.+' and 'control' will always evaluate to false#"
