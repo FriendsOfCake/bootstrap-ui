@@ -37,5 +37,8 @@
             "BootstrapUI\\Test\\": "tests",
             "TestApp\\": "tests/test_app/TestApp"
         }
+    },
+    "scripts": {
+        "test": "phpunit"
     }
 }
