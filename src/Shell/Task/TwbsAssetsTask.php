@@ -38,7 +38,7 @@ class TwbsAssetsTask extends Shell
     public function installAssets()
     {
         $this->info('Checking npm...');
-        if (!`which npm`) {
+        if (strtoupper(substr(PHP_OS, 0, 3)) !== 'WIN' && !`which npm`) {
             $this->abort('NPM (https://www.npmjs.com/) is required, but not installed. Aborting.');
         }
 
