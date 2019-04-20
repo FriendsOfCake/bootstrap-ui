@@ -23,7 +23,7 @@ class BootstrapShell extends Shell
      *
      * @return void
      */
-    public function install()
+    public function install(): void
     {
         $this->TwbsAssets->installAssets();
         $this->TwbsAssets->copyAssets();
@@ -36,7 +36,7 @@ class BootstrapShell extends Shell
      *
      * @return void
      */
-    public function copyLayouts()
+    public function copyLayouts(): void
     {
         $this->TwbsAssets->copyLayouts();
     }
@@ -47,7 +47,7 @@ class BootstrapShell extends Shell
      * @param string|null $path Path to AppView
      * @return void
      */
-    public function modifyView($path = null)
+    public function modifyView(?string $path = null): void
     {
         if ($path == null) {
             $path = APP . 'View' . DS . 'AppView.php';
@@ -66,7 +66,7 @@ class BootstrapShell extends Shell
      *
      * @return \Cake\Console\ConsoleOptionParser
      */
-    public function getOptionParser()
+    public function getOptionParser(): \Cake\Console\ConsoleOptionParser
     {
         $parser = parent::getOptionParser();
 

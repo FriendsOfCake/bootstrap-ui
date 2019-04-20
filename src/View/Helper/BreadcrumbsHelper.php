@@ -35,7 +35,7 @@ class BreadcrumbsHelper extends CoreBreadcrumbsHelper
     /**
      * {@inheritDoc}
      */
-    public function render(array $attributes = [], array $separator = [])
+    public function render(array $attributes = [], array $separator = []): string
     {
         $attributes = $this->injectClasses($this->_defaultAttributes['class']['wrapper'], $attributes);
 
@@ -47,7 +47,7 @@ class BreadcrumbsHelper extends CoreBreadcrumbsHelper
     /**
      * {@inheritDoc}
      */
-    public function add($title, $url = null, array $options = [])
+    public function add($title, $url = null, array $options = []): \Cake\View\Helper\BreadcrumbsHelper
     {
         $options = $this->injectClasses($this->_defaultAttributes['class']['item'], $options);
 
@@ -57,7 +57,7 @@ class BreadcrumbsHelper extends CoreBreadcrumbsHelper
     /**
      * {@inheritDoc}
      */
-    public function prepend($title, $url = null, array $options = [])
+    public function prepend($title, $url = null, array $options = []): \Cake\View\Helper\BreadcrumbsHelper
     {
         $options = $this->injectClasses($this->_defaultAttributes['class']['item'], $options);
 
@@ -67,7 +67,7 @@ class BreadcrumbsHelper extends CoreBreadcrumbsHelper
     /**
      * {@inheritDoc}
      */
-    public function insertAt($index, $title, $url = null, array $options = [])
+    public function insertAt(int $index, string $title, $url = null, array $options = []): \Cake\View\Helper\BreadcrumbsHelper
     {
         $options = $this->injectClasses($this->_defaultAttributes['class']['item'], $options);
 
@@ -80,7 +80,7 @@ class BreadcrumbsHelper extends CoreBreadcrumbsHelper
      *
      * @return void
      */
-    protected function _markActiveCrumb()
+    protected function _markActiveCrumb(): void
     {
         if (!$this->crumbs) {
             return;
@@ -118,7 +118,7 @@ class BreadcrumbsHelper extends CoreBreadcrumbsHelper
      *
      * @return void
      */
-    protected function _clearActiveCrumb()
+    protected function _clearActiveCrumb(): void
     {
         foreach ($this->crumbs as $key => $crumb) {
             $this->crumbs[$key]['options'] = $this->removeClasses('active', $this->crumbs[$key]['options']);

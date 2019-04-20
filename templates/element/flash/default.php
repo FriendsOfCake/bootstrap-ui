@@ -10,4 +10,3 @@ BUTTON;
 }
 
 echo $this->Html->div($class, $message, $params['attributes']);
-?>

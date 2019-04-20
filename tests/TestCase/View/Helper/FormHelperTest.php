@@ -57,7 +57,7 @@ class FormHelperTest extends TestCase
         Configure::write('App.namespace', 'BootstrapUI\Test\TestCase\View\Helper');
         Configure::delete('Asset');
 
-        $request = new ServerRequest('articles/add');
+        $request = new ServerRequest(['url' => '/articles/add']);
         $request = $request
                 ->withRequestTarget('/articles/add')
                 ->withParam('controller', 'articles')
@@ -360,6 +360,8 @@ class FormHelperTest extends TestCase
             'input' => [
                 'type' => 'text',
                 'name' => 'title',
+                'oninvalid' => 'this.setCustomValidity(&#039;This field is required&#039;)',
+                'onvalid' => 'this.setCustomValidity(&#039;&#039;)',
                 'id' => 'title',
                 'class' => 'form-control',
                 'required' => 'required'
@@ -393,9 +395,11 @@ class FormHelperTest extends TestCase
             'input' => [
                 'type' => 'text',
                 'name' => 'title',
+                'required' => 'required',
+                'oninvalid' => 'this.setCustomValidity(&#039;This field is required&#039;)',
+                'onvalid' => 'this.setCustomValidity(&#039;&#039;)',
                 'id' => 'title',
                 'class' => 'is-invalid form-control',
-                'required' => 'required'
             ],
             ['div' => ['class' => 'invalid-feedback']],
             'error message',
@@ -470,9 +474,11 @@ class FormHelperTest extends TestCase
             'input' => [
                 'type' => 'text',
                 'name' => 'title',
+                'required' => 'required',
+                'oninvalid' => 'this.setCustomValidity(&#039;This field is required&#039;)',
+                'onvalid' => 'this.setCustomValidity(&#039;&#039;)',
                 'id' => 'title',
                 'class' => 'is-invalid form-control',
-                'required' => 'required'
             ],
             ['div' => ['class' => 'invalid-feedback']],
             'error message',
@@ -525,9 +531,11 @@ class FormHelperTest extends TestCase
             'input' => [
                 'type' => 'text',
                 'name' => 'title',
+                'required' => 'required',
+                'oninvalid' => 'this.setCustomValidity(&#039;This field is required&#039;)',
+                'onvalid' => 'this.setCustomValidity(&#039;&#039;)',
                 'id' => 'title',
                 'class' => 'form-control',
-                'required' => 'required'
             ],
             '/div',
             '/div'
@@ -577,9 +585,11 @@ class FormHelperTest extends TestCase
             'input' => [
                 'type' => 'text',
                 'name' => 'title',
+                'required' => 'required',
+                'oninvalid' => 'this.setCustomValidity(&#039;This field is required&#039;)',
+                'onvalid' => 'this.setCustomValidity(&#039;&#039;)',
                 'id' => 'title',
                 'class' => 'form-control',
-                'required' => 'required'
             ],
             ['div' => ['class' => 'input-group-append']],
             'span' => ['class' => 'input-group-text'],
@@ -601,9 +611,11 @@ class FormHelperTest extends TestCase
             'input' => [
                 'type' => 'text',
                 'name' => 'title',
+                'required' => 'required',
+                'oninvalid' => 'this.setCustomValidity(&#039;This field is required&#039;)',
+                'onvalid' => 'this.setCustomValidity(&#039;&#039;)',
                 'id' => 'title',
                 'class' => 'form-control',
-                'required' => 'required'
             ],
             ['div' => ['class' => 'input-group-append']],
             'span' => ['class' => 'input-group-text'],
@@ -634,9 +646,11 @@ class FormHelperTest extends TestCase
             ['div' => ['class' => 'input-group']],
             'select' => [
                 'name' => 'author_id',
-                'id' => 'author-id',
+                'oninvalid' => 'this.setCustomValidity(&#039;This field is required&#039;)',
+                'onvalid' => 'this.setCustomValidity(&#039;&#039;)',
                 'required' => 'required',
-                'class' => 'form-control'
+                'id' => 'author-id',
+                'class' => 'form-control',
             ],
             '/select',
             ['div' => ['class' => 'input-group-append']],
@@ -711,9 +725,11 @@ class FormHelperTest extends TestCase
             'input' => [
                 'type' => 'text',
                 'name' => 'title',
+                'required' => 'required',
+                'oninvalid' => 'this.setCustomValidity(&#039;This field is required&#039;)',
+                'onvalid' => 'this.setCustomValidity(&#039;&#039;)',
                 'id' => 'title',
                 'class' => 'form-control',
-                'required' => 'required'
             ],
             '/div',
             '/div'
@@ -740,9 +756,11 @@ class FormHelperTest extends TestCase
             'input' => [
                 'type' => 'text',
                 'name' => 'title',
+                'required' => 'required',
+                'oninvalid' => 'this.setCustomValidity(&#039;This field is required&#039;)',
+                'onvalid' => 'this.setCustomValidity(&#039;&#039;)',
                 'id' => 'title',
                 'class' => 'form-control',
-                'required' => 'required'
             ],
             ['div' => ['class' => 'input-group-append']],
             'button' => ['type' => 'submit', 'class' => 'btn btn-secondary'],
@@ -1020,9 +1038,11 @@ class FormHelperTest extends TestCase
             'input' => [
                 'type' => 'text',
                 'name' => 'title',
+                'required' => 'required',
+                'oninvalid' => 'this.setCustomValidity(&#039;This field is required&#039;)',
+                'onvalid' => 'this.setCustomValidity(&#039;&#039;)',
                 'id' => 'title',
                 'class' => 'form-control',
-                'required' => 'required',
             ],
             '/div',
             '/div'
@@ -1065,7 +1085,7 @@ class FormHelperTest extends TestCase
                 'name' => 'published',
                 'id' => 'published',
                 'value' => 1,
-                'class' => 'form-check-input'
+                'class' => 'form-check-input',
             ]],
             'label' => ['for' => 'published', 'class' => 'form-check-label'],
             'Published',
@@ -1105,9 +1125,11 @@ class FormHelperTest extends TestCase
             'input' => [
                 'type' => 'text',
                 'name' => 'title',
+                'required' => 'required',
+                'oninvalid' => 'this.setCustomValidity(&#039;This field is required&#039;)',
+                'onvalid' => 'this.setCustomValidity(&#039;&#039;)',
                 'id' => 'title',
                 'class' => 'form-control',
-                'required' => 'required',
             ],
             '/div',
             '/div'
@@ -1162,9 +1184,11 @@ class FormHelperTest extends TestCase
             'input' => [
                 'type' => 'text',
                 'name' => 'title',
+                'required' => 'required',
+                'oninvalid' => 'this.setCustomValidity(&#039;This field is required&#039;)',
+                'onvalid' => 'this.setCustomValidity(&#039;&#039;)',
                 'id' => 'title',
                 'class' => 'form-control',
-                'required' => 'required',
             ],
             '/div',
             '/div'
@@ -1345,9 +1369,11 @@ class FormHelperTest extends TestCase
             'input' => [
                 'type' => 'text',
                 'name' => 'title',
+                'required' => 'required',
+                'oninvalid' => 'this.setCustomValidity(&#039;This field is required&#039;)',
+                'onvalid' => 'this.setCustomValidity(&#039;&#039;)',
                 'id' => 'title',
                 'class' => 'form-control',
-                'required' => 'required'
             ],
             ['small' => ['class' => 'form-text text-muted']],
             'help text',
@@ -1475,9 +1501,11 @@ class FormHelperTest extends TestCase
             'input' => [
                 'type' => 'text',
                 'name' => 'title',
+                'required' => 'required',
+                'oninvalid' => 'this.setCustomValidity(&#039;This field is required&#039;)',
+                'onvalid' => 'this.setCustomValidity(&#039;&#039;)',
                 'id' => 'title',
                 'class' => 'form-control',
-                'required' => 'required'
             ],
             ['small' => ['class' => 'form-text text-muted']],
             'help text',
@@ -1502,7 +1530,7 @@ class FormHelperTest extends TestCase
                 'name' => 'published',
                 'id' => 'published',
                 'value' => 1,
-                'class' => 'form-check-input'
+                'class' => 'form-check-input',
             ]],
             'label' => ['for' => 'published', 'class' => 'form-check-label'],
             'Published',
@@ -1531,9 +1559,11 @@ class FormHelperTest extends TestCase
             'input' => [
                 'type' => 'text',
                 'name' => 'title',
+                'required' => 'required',
+                'oninvalid' => 'this.setCustomValidity(&#039;This field is required&#039;)',
+                'onvalid' => 'this.setCustomValidity(&#039;&#039;)',
                 'id' => 'title',
                 'class' => 'is-invalid form-control',
-                'required' => 'required'
             ],
             ['div' => ['class' => 'invalid-feedback']],
             'error message',
@@ -1567,9 +1597,11 @@ class FormHelperTest extends TestCase
             'input' => [
                 'type' => 'text',
                 'name' => 'title',
+                'required' => 'required',
+                'oninvalid' => 'this.setCustomValidity(&#039;This field is required&#039;)',
+                'onvalid' => 'this.setCustomValidity(&#039;&#039;)',
                 'id' => 'title',
                 'class' => 'form-control',
-                'required' => 'required'
             ],
             '/div'
         ];
@@ -1597,9 +1629,11 @@ class FormHelperTest extends TestCase
             'input' => [
                 'type' => 'text',
                 'name' => 'title',
+                'required' => 'required',
+                'oninvalid' => 'this.setCustomValidity(&#039;This field is required&#039;)',
+                'onvalid' => 'this.setCustomValidity(&#039;&#039;)',
                 'id' => 'title',
                 'class' => 'form-control',
-                'required' => 'required'
             ],
             '/div',
             '/div'

@@ -16,12 +16,18 @@
             "homepage": "https://github.com/friendsofcake/bootstrap-ui/graphs/contributors"
         }
     ],
+    "prefer-stable": true,
+    "minimum-stability": "dev",
     "require": {
-        "cakephp/cakephp": "^3.7.0"
+        "cakephp/cakephp": "4.x-dev as 4.0.0"
     },
     "require-dev": {
-        "phpunit/phpunit": "^5.7.14|^6.0",
-        "cakephp/bake": "^1.8"
+        "phpunit/phpunit": "^7",
+        "cakephp/bake": "4.x-dev as 4.0.0",
+        "vlucas/phpdotenv": "^3.3",
+        "rector/rector": "^0.4.11",
+        "cakephp/cakephp-codesniffer": "dev-master",
+        "phpstan/phpstan": "^0.11.0@dev"
     },
     "support": {
         "issues": "http://github.com/friendsofcake/bootstrap-ui/issues",
@@ -39,6 +45,12 @@
         }
     },
     "scripts": {
+        "check": [
+            "@test",
+            "@cs-check"
+        ],
+        "cs-check": "phpcs -p --standard=vendor/cakephp/cakephp-codesniffer/CakePHP src/ tests/",
+        "cs-fix": "phpcbf --standard=vendor/cakephp/cakephp-codesniffer/CakePHP src/ tests/",
         "test": "phpunit"
     }
 }

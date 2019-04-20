@@ -49,7 +49,7 @@ class FileWidget extends \Cake\View\Widget\FileWidget
      * @param \Cake\View\Form\ContextInterface $context The current form context.
      * @return string HTML elements.
      */
-    public function render(array $data, ContextInterface $context)
+    public function render(array $data, ContextInterface $context): string
     {
         $data['injectFormControl'] = false;
 

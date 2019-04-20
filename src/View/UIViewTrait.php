@@ -19,7 +19,7 @@ trait UIViewTrait
      *
      * @return void
      */
-    public function initializeUI(array $options = [])
+    public function initializeUI(array $options = []): void
     {
         if ((!isset($options['layout']) || $options['layout'] === true) &&
             $this->layout === 'default'

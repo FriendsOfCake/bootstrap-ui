@@ -34,7 +34,7 @@ class ButtonWidget extends \Cake\View\Widget\ButtonWidget
      * @param \Cake\View\Form\ContextInterface $context The current form context.
      * @return string
      */
-    public function render(array $data, ContextInterface $context)
+    public function render(array $data, ContextInterface $context): string
     {
         $data = $this->applyButtonClasses($data);
 

@@ -17,7 +17,7 @@
     </tr>
     </thead>
     <tbody>
-        <?php foreach ($articles as $article): ?>
+        <?php foreach ($articles as $article) : ?>
         <tr>
             <td><?= $this->Number->format($article->id) ?></td>
             <td><?= $article->has('author') ? $this->Html->link($article->author->name, ['controller' => 'Authors', 'action' => 'view', $article->author->id]) : '' ?></td>
