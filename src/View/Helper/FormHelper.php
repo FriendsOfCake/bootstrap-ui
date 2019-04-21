@@ -38,8 +38,6 @@ class FormHelper extends Helper
         'label' => '<label{{attrs}}>{{text}}{{tooltip}}</label>',
         'help' => '<small{{attrs}} class="form-text text-muted">{{content}}</small>',
         'tooltip' => '<span data-toggle="tooltip" title="{{content}}" class="fas fa-info-circle"></span>',
-        'dateWidget' => '<ul class="list-inline mb-0">{{year}}{{month}}{{day}}{{hour}}{{minute}}{{second}}{{meridian}}</ul>',
-        'dateWidgetPart' => '<li class="list-inline-item {{part}}"><select name="{{name}}"{{attrs}}>{{content}}</select></li>',
         'datetimeContainer' => '<div class="form-group {{type}}{{required}}" role="group" aria-labelledby="{{groupId}}">{{content}}{{help}}</div>',
         'datetimeContainerError' => '<div class="form-group {{type}}{{required}} is-invalid" role="group" aria-labelledby="{{groupId}}">{{content}}{{error}}{{help}}</div>',
         'datetimeLabel' => '<label id="{{groupId}}">{{text}}</label>',
@@ -288,8 +286,6 @@ class FormHelper extends Helper
 
                 $options['templateVars']['groupId'] = $this->_domId($fieldName . '-group-label');
                 $options['templates']['label'] = $this->templater()->get('datetimeLabel');
-                $options['templates']['select'] = $this->templater()->get('dateWidgetPart');
-                $options['templates']['select'] = $this->templater()->get('dateWidgetPart');
                 $options['templates']['inputContainer'] = $this->templater()->get('datetimeContainer');
                 $options['templates']['inputContainerError'] = $this->templater()->get('datetimeContainerError');
                 break;

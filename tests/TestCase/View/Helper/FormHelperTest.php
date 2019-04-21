@@ -1926,13 +1926,13 @@ class FormHelperTest extends TestCase
             ]
         ]);
 
-        $now = time();
+        $now = new \DateTime('now');
 
         $result = $this->Form->control('created', [
-            'type' => 'datetime',
+            'type' => 'datetime-local',
             'timeFormat' => 12,
             'second' => true,
-            'value' => $now,
+            'value' => $now->format('Y-m-d H:i:s'),
         ]);
         $expected = [
             ['div' => ['class' => 'form-group row datetime', 'role' => 'group', 'aria-labelledby' => 'created-group-label']],
