@@ -44,7 +44,7 @@ class BakeTest extends ConsoleIntegrationTestCase
 
     public function testBakeAdd()
     {
-        $this->generatedFile = APP . 'Template/Articles/add.php';
+        $this->generatedFile = TEST_APP . 'templates/Articles/add.php';
 
         $this->exec('bake template Articles add -t BootstrapUI');
 
@@ -57,7 +57,7 @@ class BakeTest extends ConsoleIntegrationTestCase
 
     public function testBakeEdit()
     {
-        $this->generatedFile = APP . 'Template/Articles/edit.php';
+        $this->generatedFile = TEST_APP . 'templates/Articles/edit.php';
 
         $this->exec('bake template Articles edit -t BootstrapUI');
 
@@ -83,7 +83,7 @@ class BakeTest extends ConsoleIntegrationTestCase
 
     public function testBakeLogin()
     {
-        $this->generatedFile = APP . 'Template/Articles/login.php';
+        $this->generatedFile = TEST_APP . 'templates/Articles/login.php';
 
         $this->exec('bake template Articles login -t BootstrapUI');
 
@@ -96,7 +96,7 @@ class BakeTest extends ConsoleIntegrationTestCase
 
     public function testBakeView()
     {
-        $this->generatedFile = APP . 'Template/Articles/view.php';
+        $this->generatedFile = TEST_APP . 'templates/Articles/view.php';
 
         $this->exec('bake template Articles view -t BootstrapUI');
 
