@@ -102,9 +102,9 @@ class BootstrapShellTest extends TestCase
     public function testCopyLayouts()
     {
         $this->Shell->copyLayouts();
-        $this->assertDirectoryExists(dirname(APP) . 'templates' . DS . 'layout' . DS . 'TwitterBootstrap');
+        $this->assertDirectoryExists(dirname(APP) . DS . 'templates' . DS . 'layout' . DS . 'TwitterBootstrap');
 
-        (new Folder(dirname(APP) . 'templates' . DS . 'layout'))->delete();
+        (new Folder(dirname(APP) . DS . 'templates' . DS . 'layout'))->delete();
     }
 
     public function testModifyView()

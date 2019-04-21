@@ -96,7 +96,7 @@ class TwbsAssetsTask extends Shell
         $layoutDir = new Folder(Plugin::path('BootstrapUI') . 'templates' . DS . 'layout' . DS . 'examples');
 
         if ($target == null) {
-            $target = dirname(APP) . 'templates' . DS . 'layout' . DS . 'TwitterBootstrap';
+            $target = dirname(APP) . DS . 'templates' . DS . 'layout' . DS . 'TwitterBootstrap';
         }
 
         if (!$layoutDir->copy($target)) {
