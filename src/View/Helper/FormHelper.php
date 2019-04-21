@@ -289,6 +289,7 @@ class FormHelper extends Helper
                 $options['templateVars']['groupId'] = $this->_domId($fieldName . '-group-label');
                 $options['templates']['label'] = $this->templater()->get('datetimeLabel');
                 $options['templates']['select'] = $this->templater()->get('dateWidgetPart');
+                $options['templates']['select'] = $this->templater()->get('dateWidgetPart');
                 $options['templates']['inputContainer'] = $this->templater()->get('datetimeContainer');
                 $options['templates']['inputContainerError'] = $this->templater()->get('datetimeContainerError');
                 break;
