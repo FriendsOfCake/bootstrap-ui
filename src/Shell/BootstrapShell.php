@@ -56,7 +56,7 @@ class BootstrapShell extends Shell
 
         $view->replaceText('use Cake\\View\\View', 'use BootstrapUI\\View\\UIView');
         $view->replaceText('class AppView extends View', 'class AppView extends UIView');
-        $view->replaceText("    public function initialize()\n    {\n", "    public function initialize()\n    {\n        parent::initialize();\n");
+        $view->replaceText("    public function initialize(): void\n    {\n", "    public function initialize(): void\n    {\n        parent::initialize();\n");
 
         $view->write((string)$view->read());
     }
