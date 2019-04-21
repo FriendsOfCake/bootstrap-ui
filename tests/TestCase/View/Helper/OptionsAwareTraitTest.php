@@ -46,7 +46,6 @@ class OptionsAwareTraitTest extends TestCase
 
     public function testRenameClasses()
     {
-        $this->assertEquals(['class' => ''], $this->object->renameClasses(['a' => 'b'], []));
         $this->assertEquals(['class' => 'btn-primary'], $this->object->renameClasses('btn', ['class' => 'primary']));
         $this->assertEquals(['class' => 'alert-success'], $this->object->renameClasses('alert', ['class' => 'success']));
     }

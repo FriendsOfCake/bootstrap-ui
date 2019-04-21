@@ -29,6 +29,7 @@ class BakeTest extends ConsoleIntegrationTestCase
                 'bootstrap' => true,
             ]
         ]);
+        $this->useCommandRunner();
     }
 
     public function tearDown()
@@ -43,7 +44,7 @@ class BakeTest extends ConsoleIntegrationTestCase
 
     public function testBakeAdd()
     {
-        $this->generatedFile = APP . 'Template/Articles/add.ctp';
+        $this->generatedFile = APP . 'Template/Articles/add.php';
 
         $this->exec('bake template Articles add -t BootstrapUI');
 
@@ -51,12 +52,12 @@ class BakeTest extends ConsoleIntegrationTestCase
         $this->assertFileExists($this->generatedFile);
 
         $result = file_get_contents($this->generatedFile);
-        $this->assertSameAsFile(__FUNCTION__ . '.ctp', $result);
+        $this->assertSameAsFile(__FUNCTION__ . '.php', $result);
     }
 
     public function testBakeEdit()
     {
-        $this->generatedFile = APP . 'Template/Articles/edit.ctp';
+        $this->generatedFile = APP . 'Template/Articles/edit.php';
 
         $this->exec('bake template Articles edit -t BootstrapUI');
 
@@ -64,12 +65,12 @@ class BakeTest extends ConsoleIntegrationTestCase
         $this->assertFileExists($this->generatedFile);
 
         $result = file_get_contents($this->generatedFile);
-        $this->assertSameAsFile(__FUNCTION__ . '.ctp', $result);
+        $this->assertSameAsFile(__FUNCTION__ . '.php', $result);
     }
 
     public function testBakeIndex()
     {
-        $this->generatedFile = APP . 'Template/Articles/index.ctp';
+        $this->generatedFile = TEST_APP . 'templates/Articles/index.php';
 
         $this->exec('bake template Articles index -t BootstrapUI');
 
@@ -77,12 +78,12 @@ class BakeTest extends ConsoleIntegrationTestCase
         $this->assertFileExists($this->generatedFile);
 
         $result = file_get_contents($this->generatedFile);
-        $this->assertSameAsFile(__FUNCTION__ . '.ctp', $result);
+        $this->assertSameAsFile(__FUNCTION__ . '.php', $result);
     }
 
     public function testBakeLogin()
     {
-        $this->generatedFile = APP . 'Template/Articles/login.ctp';
+        $this->generatedFile = APP . 'Template/Articles/login.php';
 
         $this->exec('bake template Articles login -t BootstrapUI');
 
@@ -90,12 +91,12 @@ class BakeTest extends ConsoleIntegrationTestCase
         $this->assertFileExists($this->generatedFile);
 
         $result = file_get_contents($this->generatedFile);
-        $this->assertSameAsFile(__FUNCTION__ . '.ctp', $result);
+        $this->assertSameAsFile(__FUNCTION__ . '.php', $result);
     }
 
     public function testBakeView()
     {
-        $this->generatedFile = APP . 'Template/Articles/view.ctp';
+        $this->generatedFile = APP . 'Template/Articles/view.php';
 
         $this->exec('bake template Articles view -t BootstrapUI');
 
@@ -103,6 +104,6 @@ class BakeTest extends ConsoleIntegrationTestCase
         $this->assertFileExists($this->generatedFile);
 
         $result = file_get_contents($this->generatedFile);
-        $this->assertSameAsFile(__FUNCTION__ . '.ctp', $result);
+        $this->assertSameAsFile(__FUNCTION__ . '.php', $result);
     }
 }

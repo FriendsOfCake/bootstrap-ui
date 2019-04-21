@@ -65,7 +65,7 @@ Configure::write('App', [
     'cssBaseUrl' => 'css/',
     'paths' => [
         'plugins' => [dirname(APP) . DS . 'plugins' . DS],
-        'templates' => [APP . 'Template' . DS]
+        'templates' => [TEST_APP . 'templates' . DS]
     ]
 ]);
 
@@ -88,3 +88,4 @@ if (!getenv('db_dsn')) {
 ConnectionManager::setConfig('test', ['url' => getenv('db_dsn')]);
 
 Plugin::getCollection()->add(new \BootstrapUI\Plugin(['path' => ROOT . DS]));
+Plugin::getCollection()->add(new \Bake\Plugin());

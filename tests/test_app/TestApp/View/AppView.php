@@ -6,7 +6,7 @@ use Cake\View\View;
 
 class AppView extends View
 {
-    public function initialize()
+    public function initialize(): void
     {
     }
 }

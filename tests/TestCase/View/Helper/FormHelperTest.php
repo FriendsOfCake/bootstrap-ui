@@ -942,7 +942,7 @@ class FormHelperTest extends TestCase
     public function testBasicFormEnd()
     {
         $this->Form->create($this->article);
-        $this->assertHtml('/form', $this->Form->end());
+        $this->assertHtml(['/form'], $this->Form->end());
     }
 
     /**
