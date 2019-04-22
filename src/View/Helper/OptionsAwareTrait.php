@@ -1,4 +1,5 @@
 <?php
+declare(strict_types=1);
 
 namespace BootstrapUI\View\Helper;
 
@@ -194,6 +195,9 @@ trait OptionsAwareTrait
      */
     protected function _toClassArray($mixed): array
     {
+        if ($mixed === null) {
+            return [];
+        }
         if (!is_array($mixed)) {
             $mixed = explode(' ', $mixed);
         }
