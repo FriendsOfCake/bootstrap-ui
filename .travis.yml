@@ -27,8 +27,7 @@ before_script:
 
   - composer update --no-interaction
 
-  - if [[ $PHPCS = 1 ]]; then composer require cakephp/cakephp-codesniffer:^3.0; fi
-  - if [[ $PHPSTAN = 1 ]]; then composer require phpstan/phpstan:^0.9; fi
+  - if [[ $PHPSTAN = 1 ]]; then composer stan-setup; fi
 
 script:
   - if [[ $DEFAULT = 1 ]]; then vendor/bin/phpunit; fi
