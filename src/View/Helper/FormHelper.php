@@ -707,35 +707,6 @@ class FormHelper extends Helper
     }
 
     /**
-     * {@inheritdoc}
-     */
-    protected function _datetimeOptions($options)
-    {
-        $options = parent::_datetimeOptions($options);
-
-        $errorClass = $this->getConfig('errorClass');
-        $hasError = isset($options['hasError']) && $options['hasError'] === true;
-        unset($options['hasError']);
-
-        foreach ($this->_datetimeParts as $part) {
-            if (isset($options[$part]) &&
-                $options[$part] !== false
-            ) {
-                if ($hasError) {
-                    $options[$part] = $this->addClass($options[$part], $errorClass);
-                }
-
-                $options[$part] += ['templateVars' => []];
-                $options[$part]['templateVars'] += [
-                    'part' => $part
-                ];
-            }
-        }
-
-        return $options;
-    }
-
-    /**
      * Form alignment detector/switcher.
      *
      * @param array $options Options.
