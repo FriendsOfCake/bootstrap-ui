@@ -1,0 +1,126 @@
+<?xml version="1.0"?>
+<psalm
+    totallyTyped="false"
+    allowCoercionFromStringToClassConst="true"
+    allowStringToStandInForClass="true"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xmlns="https://getpsalm.org/schema/config"
+    xsi:schemaLocation="https://getpsalm.org/schema/config vendor/vimeo/psalm/config.xsd"
+>
+    <projectFiles>
+        <directory name="src" />
+        <ignoreFiles>
+        </ignoreFiles>
+    </projectFiles>
+
+    <issueHandlers>
+        <LessSpecificReturnType errorLevel="info" />
+
+        <!-- level 3 issues - slightly lazy code writing, but provably low false-negatives -->
+
+        <MissingClosureReturnType errorLevel="info" />
+        <MissingPropertyType errorLevel="info" />
+
+        <PropertyNotSetInConstructor errorLevel="info" />
+        <MissingConstructor>
+        </MissingConstructor>
+        <MissingClosureParamType errorLevel="info" />
+        <MissingParamType errorLevel="info" />
+
+        <RedundantCondition>
+            <errorLevel type="suppress">
+            </errorLevel>
+        </RedundantCondition>
+
+        <DocblockTypeContradiction errorLevel="info" />
+        <RedundantConditionGivenDocblockType errorLevel="info" />
+
+        <UnresolvableInclude errorLevel="info" />
+
+        <!-- level 4 issues - points to possible deficiencies in logic, higher false-positives -->
+
+        <MoreSpecificReturnType errorLevel="info" />
+        <LessSpecificReturnStatement errorLevel="info" />
+        <TypeCoercion errorLevel="info" />
+
+        <PossiblyInvalidArrayAccess errorLevel="info" />
+        <PossiblyInvalidArrayOffset errorLevel="info" />
+        <PossiblyInvalidFunctionCall errorLevel="info" />
+        <PossiblyInvalidIterator errorLevel="info" />
+        <PossiblyInvalidMethodCall errorLevel="info" />
+        <PossiblyInvalidOperand errorLevel="info" />
+        <PossiblyInvalidPropertyAssignment errorLevel="info" />
+        <PossiblyNullArgument errorLevel="info" />
+        <PossiblyNullArrayAccess errorLevel="info" />
+        <PossiblyNullArrayAssignment errorLevel="info" />
+        <PossiblyNullArrayOffset errorLevel="info" />
+        <PossiblyNullOperand errorLevel="info" />
+        <PossiblyNullPropertyAssignment errorLevel="info" />
+        <PossiblyNullPropertyAssignmentValue errorLevel="info" />
+        <PossiblyNullPropertyFetch errorLevel="info" />
+        <PossiblyNullReference errorLevel="info" />
+
+        <!-- level 5 issues - should be avoided at mosts costs... -->
+
+        <InvalidScalarArgument errorLevel="info" />
+        <InvalidOperand errorLevel="info" />
+        <NoInterfaceProperties errorLevel="info" />
+        <TypeDoesNotContainType errorLevel="info" />
+        <TypeDoesNotContainNull errorLevel="info" />
+        <ImplementedReturnTypeMismatch errorLevel="info" />
+
+        <!-- level 6 issues - really bad things -->
+
+        <NullableReturnStatement>
+            <errorLevel type="suppress">
+            </errorLevel>
+        </NullableReturnStatement>
+
+        <MoreSpecificImplementedParamType errorLevel="info" />
+        <LessSpecificImplementedReturnType errorLevel="info" />
+
+        <!-- level 7 issues - even worse -->
+        <InvalidArgument errorLevel="info" />
+
+        <InvalidPropertyAssignmentValue>
+            <errorLevel type="suppress">
+            </errorLevel>
+        </InvalidPropertyAssignmentValue>
+
+        <!-- CakePHP Specific -->
+        <DeprecatedClass>
+            <errorLevel type="suppress">
+            </errorLevel>
+        </DeprecatedClass>
+
+        <PossiblyUndefinedArrayOffset>
+        </PossiblyUndefinedArrayOffset>
+
+        <UndefinedConstant errorLevel="suppress" />
+
+        <UndefinedPropertyAssignment>
+        </UndefinedPropertyAssignment>
+
+        <UndefinedPropertyFetch>
+        </UndefinedPropertyFetch>
+
+        <EmptyArrayAccess>
+        </EmptyArrayAccess>
+
+        <LoopInvalidation>
+        </LoopInvalidation>
+
+        <UndefinedClass>
+        </UndefinedClass>
+
+        <UndefinedMethod>
+        </UndefinedMethod>
+
+        <NullReference>
+        </NullReference>
+
+        <PossiblyUndefinedMethod>
+        </PossiblyUndefinedMethod>
+
+    </issueHandlers>
+</psalm>
