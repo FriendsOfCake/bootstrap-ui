@@ -7,6 +7,7 @@ use Cake\View\Form\ContextInterface;
 
 class BasicWidget extends \Cake\View\Widget\BasicWidget
 {
+
     use InputgroupTrait;
 
     /**

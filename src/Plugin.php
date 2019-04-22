@@ -8,6 +8,7 @@ use Cake\Core\PluginApplicationInterface;
 
 class Plugin extends BasePlugin
 {
+
     /**
      * Plugin name.
      *

@@ -5,6 +5,7 @@ namespace BootstrapUI\View\Helper;
 
 trait OptionsAwareTrait
 {
+
     /**
      * A list of allowed styles.
      *

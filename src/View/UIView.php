@@ -19,6 +19,7 @@ use Cake\View\View;
  */
 class UIView extends View
 {
+
     use UIViewTrait;
 
     /**

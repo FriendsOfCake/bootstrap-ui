@@ -7,7 +7,7 @@
 
 <?php $this->start('tb_actions'); ?>
 <li><?= $this->Html->link(__('Edit {{ singularHumanName }}'), ['action' => 'edit', {{ pK|raw }}], ['class' => 'nav-link']) ?></li>
-<li><?= $this->Form->postLink( __('Delete {{ singularHumanName }}'), ['action' => 'delete', {{ pK|raw }}], ['confirm' => __('Are you sure you want to delete # {0}?', ${{ singularVar }}->{{ primaryKey[0] }}), 'class' => 'nav-link'] ) ?></li>
+<li><?= $this->Form->postLink(__('Delete {{ singularHumanName }}'), ['action' => 'delete', {{ pK|raw }}], ['confirm' => __('Are you sure you want to delete # {0}?', ${{ singularVar }}->{{ primaryKey[0] }}), 'class' => 'nav-link']) ?></li>
 <li><?= $this->Html->link(__('List {{ pluralHumanName }}'), ['action' => 'index'], ['class' => 'nav-link']) ?> </li>
 <li><?= $this->Html->link(__('New {{ singularHumanName }}'), ['action' => 'add'], ['class' => 'nav-link']) ?> </li>
 {% set done = [] %}

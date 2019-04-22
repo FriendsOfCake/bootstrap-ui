@@ -14,6 +14,7 @@ use Cake\Filesystem\Folder;
  */
 class TwbsAssetsTask extends Shell
 {
+
     protected $_assetDir;
     protected $_nodeDir;
     protected $_cssDir;

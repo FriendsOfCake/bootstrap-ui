@@ -8,6 +8,7 @@ use Cake\View\View;
 
 trait InputgroupTrait
 {
+
     use OptionsAwareTrait;
 
     /**

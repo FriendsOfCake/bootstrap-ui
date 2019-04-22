@@ -9,6 +9,7 @@ namespace BootstrapUI\View;
  */
 trait UIViewTrait
 {
+
     /**
      * Initialization hook method.
      *

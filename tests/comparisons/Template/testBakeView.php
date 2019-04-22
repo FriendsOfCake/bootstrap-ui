@@ -2,7 +2,7 @@
 
 <?php $this->start('tb_actions'); ?>
 <li><?= $this->Html->link(__('Edit Article'), ['action' => 'edit', $article->id], ['class' => 'nav-link']) ?></li>
-<li><?= $this->Form->postLink( __('Delete Article'), ['action' => 'delete', $article->id], ['confirm' => __('Are you sure you want to delete # {0}?', $article->id), 'class' => 'nav-link'] ) ?></li>
+<li><?= $this->Form->postLink(__('Delete Article'), ['action' => 'delete', $article->id], ['confirm' => __('Are you sure you want to delete # {0}?', $article->id), 'class' => 'nav-link']) ?></li>
 <li><?= $this->Html->link(__('List Articles'), ['action' => 'index'], ['class' => 'nav-link']) ?> </li>
 <li><?= $this->Html->link(__('New Article'), ['action' => 'add'], ['class' => 'nav-link']) ?> </li>
 <li><?= $this->Html->link(__('List Authors'), ['controller' => 'Authors', 'action' => 'index'], ['class' => 'nav-link']) ?></li>
