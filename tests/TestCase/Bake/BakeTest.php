@@ -1,4 +1,5 @@
 <?php
+declare(strict_types=1);
 namespace BootstrapUI\Shell;
 
 use Cake\Console\Shell;
@@ -14,7 +15,7 @@ class BakeTest extends ConsoleIntegrationTestCase
 
     public $fixtures = [
         'plugin.BootstrapUI.Articles',
-        'plugin.BootstrapUI.Authors'
+        'plugin.BootstrapUI.Authors',
     ];
 
     public function setUp()
@@ -27,7 +28,7 @@ class BakeTest extends ConsoleIntegrationTestCase
             'Bake',
             'WyriHaximus/TwigView' => [
                 'bootstrap' => true,
-            ]
+            ],
         ]);
         $this->useCommandRunner();
     }

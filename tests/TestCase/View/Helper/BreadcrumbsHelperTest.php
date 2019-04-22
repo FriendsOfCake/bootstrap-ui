@@ -1,4 +1,5 @@
 <?php
+declare(strict_types=1);
 namespace BootstrapUI\Test\TestCase\View\Helper;
 
 use BootstrapUI\View\Helper\BreadcrumbsHelper;
@@ -82,7 +83,7 @@ class BreadcrumbsHelperTest extends TestCase
                         '/span',
                     '/li',
                 '/ol',
-            '/nav'
+            '/nav',
         ];
         $this->assertHtml($expected, $result);
     }
@@ -115,7 +116,7 @@ class BreadcrumbsHelperTest extends TestCase
                         '/a',
                     '/li',
                 '/ol',
-            '/nav'
+            '/nav',
         ];
         $this->assertHtml($expected, $result);
     }
@@ -149,7 +150,7 @@ class BreadcrumbsHelperTest extends TestCase
                         '/span',
                     '/li',
                 '/ol',
-            '/nav'
+            '/nav',
         ];
         $this->assertHtml($expected, $result);
     }
@@ -177,7 +178,7 @@ class BreadcrumbsHelperTest extends TestCase
                         '/span',
                     '/li',
                 '/ol',
-            '/nav'
+            '/nav',
         ];
         $this->assertHtml($expected, $result);
     }
@@ -203,7 +204,7 @@ class BreadcrumbsHelperTest extends TestCase
                         '/span',
                     '/li',
                 '/ol',
-            '/nav'
+            '/nav',
         ];
         $this->assertHtml($expected, $result);
 
@@ -230,7 +231,7 @@ class BreadcrumbsHelperTest extends TestCase
                         '/span',
                     '/li',
                 '/ol',
-            '/nav'
+            '/nav',
         ];
         $this->assertHtml($expected, $result);
     }

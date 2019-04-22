@@ -1,6 +1,5 @@
 <?php
 declare(strict_types=1);
-
 namespace BootstrapUI\View\Helper;
 
 use Cake\View\Helper;
@@ -11,7 +10,6 @@ use Cake\View\Helper;
  */
 class FlashHelper extends Helper
 {
-
     /**
      * Default config
      *
@@ -23,7 +21,7 @@ class FlashHelper extends Helper
     protected $_defaultConfig = [
         'class' => ['alert', 'alert-dismissible', 'fade', 'show'],
         'attributes' => ['role' => 'alert'],
-        'element' => 'BootstrapUI.flash/default'
+        'element' => 'BootstrapUI.flash/default',
     ];
 
     /**

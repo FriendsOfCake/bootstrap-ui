@@ -2,12 +2,10 @@
 declare(strict_types=1);
 namespace BootstrapUI\View\Widget;
 
-use BootstrapUI\View\Widget\InputgroupTrait;
 use Cake\View\Form\ContextInterface;
 
 class BasicWidget extends \Cake\View\Widget\BasicWidget
 {
-
     use InputgroupTrait;
 
     /**

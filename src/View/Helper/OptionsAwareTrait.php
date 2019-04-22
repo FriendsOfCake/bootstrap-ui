@@ -1,11 +1,9 @@
 <?php
 declare(strict_types=1);
-
 namespace BootstrapUI\View\Helper;
 
 trait OptionsAwareTrait
 {
-
     /**
      * A list of allowed styles.
      *
@@ -22,7 +20,7 @@ trait OptionsAwareTrait
         'dark',
         'link',
         'sm',
-        'lg'
+        'lg',
     ];
 
     /**
@@ -38,7 +36,7 @@ trait OptionsAwareTrait
         'btn',
         'btn-outline',
         'list-group-item',
-        'input-group'
+        'input-group',
     ];
 
     /**

@@ -1,6 +1,5 @@
 <?php
 declare(strict_types=1);
-
 namespace BootstrapUI\Shell;
 
 use Cake\Console\Shell;
@@ -12,7 +11,6 @@ use Cake\Filesystem\File;
  */
 class BootstrapShell extends Shell
 {
-
     /**
      * Tasks used by this shell.
      *
@@ -75,13 +73,13 @@ class BootstrapShell extends Shell
         return $parser->setDescription([
             'Bootstrap Shell',
             '',
-            ''
+            '',
         ])->addSubcommand('install', [
-            'help' => 'Installs Bootstrap assets and links them to app\'s webroot.'
+            'help' => 'Installs Bootstrap assets and links them to app\'s webroot.',
         ])->addSubcommand('copyLayouts', [
-            'help' => 'Copies sample layouts to app\'s Template/Layout/TwitterBootstrap folder.'
+            'help' => 'Copies sample layouts to app\'s Template/Layout/TwitterBootstrap folder.',
         ])->addSubcommand('modifyView', [
-            'help' => 'Modifies AppView.php to extend this plugin\'s UIView. Don\'t use, if you have a already modified AppView'
+            'help' => 'Modifies AppView.php to extend this plugin\'s UIView. Don\'t use, if you have a already modified AppView',
         ]);
     }
 }

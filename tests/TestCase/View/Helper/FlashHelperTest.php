@@ -1,9 +1,8 @@
 <?php
-
+declare(strict_types=1);
 namespace BootstrapUI\Test\TestCase\View\Helper;
 
 use BootstrapUI\View\Helper\FlashHelper;
-use Cake\Core\Exception\Exception;
 use Cake\Http\ServerRequest;
 use Cake\Http\Session;
 use Cake\TestSuite\TestCase;
@@ -44,40 +43,40 @@ class FlashHelperTest extends TestCase
                     'key' => 'flash',
                     'message' => 'This is a calling',
                     'element' => 'Flash/default',
-                    'params' => []
+                    'params' => [],
                 ],
                 'error' => [
                     'key' => 'error',
                     'message' => 'This is error',
                     'element' => 'Flash/error',
-                    'params' => []
+                    'params' => [],
                 ],
                 'custom1' => [
                     'key' => 'custom1',
                     'message' => 'This is custom1',
                     'element' => 'Flash/warning',
-                    'params' => []
+                    'params' => [],
                 ],
                 'custom2' => [
                     'key' => 'custom2',
                     'message' => 'This is custom2',
                     'element' => 'Flash/default',
-                    'params' => ['class' => 'foobar']
+                    'params' => ['class' => 'foobar'],
                 ],
                 'custom3' => [
                     'key' => 'custom3',
                     'message' => 'This is <a href="#">custom3</a>',
                     'element' => 'Flash/default',
-                    'params' => ['escape' => false]
+                    'params' => ['escape' => false],
                 ],
                 'custom4' => [
                     'key' => 'flash',
                     'message' => 'testClass',
                     'element' => 'Flash/default',
-                    'params' => ['class' => 'primary']
+                    'params' => ['class' => 'primary'],
                 ],
-                'invalidKey' => 'foo'
-            ]
+                'invalidKey' => 'foo',
+            ],
         ]);
     }
 
@@ -147,13 +146,13 @@ class FlashHelperTest extends TestCase
                         'key' => 'flash',
                         'message' => 'This is a calling',
                         'element' => 'Flash/default',
-                        'params' => []
+                        'params' => [],
                     ],
                     [
                         'key' => 'flash',
                         'message' => 'This is a second message',
                         'element' => 'Flash/default',
-                        'params' => ['class' => ['extra']]
+                        'params' => ['class' => ['extra']],
                     ],
                 ],
                 'error' => [
@@ -161,10 +160,10 @@ class FlashHelperTest extends TestCase
                         'key' => 'error',
                         'message' => 'This is error',
                         'element' => 'Flash/error',
-                        'params' => []
-                    ]
-                ]
-            ]
+                        'params' => [],
+                    ],
+                ],
+            ],
         ]);
 
         $result = $this->Flash->render();

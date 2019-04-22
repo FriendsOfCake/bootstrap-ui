@@ -2,7 +2,6 @@
 declare(strict_types=1);
 namespace BootstrapUI\View\Widget;
 
-use BootstrapUI\View\Widget\InputgroupTrait;
 use Cake\View\Form\ContextInterface;
 
 /**
@@ -13,7 +12,6 @@ use Cake\View\Form\ContextInterface;
  */
 class TextareaWidget extends \Cake\View\Widget\TextareaWidget
 {
-
     use InputgroupTrait;
 
     /**

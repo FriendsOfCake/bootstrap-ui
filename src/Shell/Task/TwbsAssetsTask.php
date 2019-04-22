@@ -1,10 +1,8 @@
 <?php
 declare(strict_types=1);
-
 namespace BootstrapUI\Shell\Task;
 
 use Cake\Console\Shell;
-use Cake\Core\Configure;
 use Cake\Core\Plugin;
 use Cake\Filesystem\File;
 use Cake\Filesystem\Folder;
@@ -14,7 +12,6 @@ use Cake\Filesystem\Folder;
  */
 class TwbsAssetsTask extends Shell
 {
-
     protected $_assetDir;
     protected $_nodeDir;
     protected $_cssDir;
@@ -92,7 +89,7 @@ class TwbsAssetsTask extends Shell
      * @param string $target The destination path
      * @return void
      */
-    public function copyLayouts(string $target = null): void
+    public function copyLayouts(?string $target = null): void
     {
         $this->info('Copying sample layouts...');
         $layoutDir = new Folder(Plugin::path('BootstrapUI') . 'templates' . DS . 'layout' . DS . 'examples');

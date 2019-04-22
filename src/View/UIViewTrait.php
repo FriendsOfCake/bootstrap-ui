@@ -1,6 +1,5 @@
 <?php
 declare(strict_types=1);
-
 namespace BootstrapUI\View;
 
 /**
@@ -9,7 +8,6 @@ namespace BootstrapUI\View;
  */
 trait UIViewTrait
 {
-
     /**
      * Initialization hook method.
      *

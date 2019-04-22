@@ -2,7 +2,6 @@
 declare(strict_types=1);
 namespace BootstrapUI\View\Widget;
 
-use BootstrapUI\View\Widget\InputgroupTrait;
 use Cake\View\Form\ContextInterface;
 use Cake\View\StringTemplate;
 use Cake\View\Widget\LabelWidget;
@@ -12,7 +11,6 @@ use Cake\View\Widget\LabelWidget;
  */
 class FileWidget extends \Cake\View\Widget\FileWidget
 {
-
     use InputgroupTrait;
 
     /**
@@ -67,7 +65,7 @@ class FileWidget extends \Cake\View\Widget\FileWidget
 
         if (isset($data['inputGroupLabel'])) {
             $data['inputGroupLabel'] += [
-                'for' => $data['id']
+                'for' => $data['id'],
             ];
             $data['templateVars']['label'] = $this->_label->render($data['inputGroupLabel'], $context);
             unset($data['inputGroupLabel']);

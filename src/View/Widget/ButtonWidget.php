@@ -1,6 +1,5 @@
 <?php
 declare(strict_types=1);
-
 namespace BootstrapUI\View\Widget;
 
 use BootstrapUI\View\Helper\OptionsAwareTrait;
@@ -8,7 +7,6 @@ use Cake\View\Form\ContextInterface;
 
 class ButtonWidget extends \Cake\View\Widget\ButtonWidget
 {
-
     use OptionsAwareTrait;
 
     /**
@@ -25,7 +23,7 @@ class ButtonWidget extends \Cake\View\Widget\ButtonWidget
         'info',
         'light',
         'dark',
-        'link'
+        'link',
     ];
 
     /**

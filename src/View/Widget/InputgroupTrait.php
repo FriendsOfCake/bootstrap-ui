@@ -4,11 +4,9 @@ namespace BootstrapUI\View\Widget;
 
 use BootstrapUI\View\Helper\OptionsAwareTrait;
 use Cake\View\Form\ContextInterface;
-use Cake\View\View;
 
 trait InputgroupTrait
 {
-
     use OptionsAwareTrait;
 
     /**

@@ -1,6 +1,5 @@
 <?php
 declare(strict_types=1);
-
 namespace BootstrapUI\View;
 
 use Cake\View\View;
@@ -19,7 +18,6 @@ use Cake\View\View;
  */
 class UIView extends View
 {
-
     use UIViewTrait;
 
     /**

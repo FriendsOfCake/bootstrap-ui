@@ -1,6 +1,5 @@
 <?php
 declare(strict_types=1);
-
 namespace BootstrapUI\View\Helper;
 
 use Cake\Core\Configure\Engine\PhpConfig;
@@ -12,7 +11,6 @@ use InvalidArgumentException;
 
 class FormHelper extends Helper
 {
-
     use OptionsAwareTrait;
 
     /**
@@ -124,7 +122,7 @@ class FormHelper extends Helper
             'multicheckboxContainer' => '<div class="form-group row {{type}}{{required}}" role="group" aria-labelledby="{{groupId}}">{{content}}</div>',
             'multicheckboxContainerError' => '<div class="form-group row {{type}}{{required}} is-invalid" role="group" aria-labelledby="{{groupId}}">{{content}}</div>',
             'multicheckboxLabel' => '<label id="{{groupId}}" class="col-form-label d-block pt-0 %s">{{text}}</label>',
-        ]
+        ],
     ];
 
     /**
@@ -226,7 +224,7 @@ class FormHelper extends Helper
     public function submit(?string $caption = null, array $options = []): string
     {
         $options += [
-            'class' => 'primary'
+            'class' => 'primary',
         ];
         $options = $this->applyButtonClasses($options);
 
@@ -597,7 +595,7 @@ class FormHelper extends Helper
             'escape' => true,
             'required' => false,
             'secure' => true,
-            'hiddenField' => true
+            'hiddenField' => true,
         ];
 
         $secure = $options['secure'];
@@ -611,7 +609,7 @@ class FormHelper extends Helper
 
         $content = $options['escape'] ? h($options['val']) : $options['val'];
         $static = $this->formatTemplate('staticControl', [
-            'content' => $content
+            'content' => $content,
         ]);
 
         if (!$hiddenField) {

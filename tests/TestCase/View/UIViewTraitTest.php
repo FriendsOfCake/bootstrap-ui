@@ -1,5 +1,5 @@
 <?php
-
+declare(strict_types=1);
 namespace BootstrapUI\View;
 
 use Cake\Core\Configure;
@@ -50,23 +50,23 @@ class UIViewTraitTest extends TestCase
         $this->assertEquals('BootstrapUI.default', $this->View->getLayout());
 
         $this->View->initializeUI([
-            'layout' => true
+            'layout' => true,
         ]);
         $this->assertEquals('BootstrapUI.default', $this->View->getLayout());
 
         $this->View->initializeUI([
-            'layout' => 'myLayout'
+            'layout' => 'myLayout',
         ]);
         $this->assertEquals('myLayout', $this->View->getLayout());
 
         $this->View->setLayout('other_layout');
         $this->View->initializeUI([
-            'layout' => false
+            'layout' => false,
         ]);
         $this->assertEquals('other_layout', $this->View->getLayout());
 
         $this->View->initializeUI([
-            'layout' => ''
+            'layout' => '',
         ]);
         $this->assertSame('', $this->View->getLayout());
     }
@@ -77,6 +77,6 @@ class UIViewTraitTest extends TestCase
 
         $this->assertEquals('display', $cell->viewBuilder()->getTemplate());
         // 2016-03-28: used trim() to remove LF. assert was failing on Windows.
-        $this->assertEquals("articles cell display", trim($cell));
+        $this->assertEquals("articles cell display", trim((string)$cell));
     }
 }

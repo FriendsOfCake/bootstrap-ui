@@ -1,5 +1,5 @@
 <?php
-
+declare(strict_types=1);
 namespace BootstrapUI\Test\TestCase\View\Helper;
 
 use BootstrapUI\View\Helper\OptionsAwareTrait;
@@ -10,7 +10,6 @@ use Cake\TestSuite\TestCase;
  */
 class TestOptionsAware
 {
-
     use OptionsAwareTrait;
 }
 
@@ -139,7 +138,7 @@ class OptionsAwareTraitTest extends TestCase
             'btn-dark',
             'btn-link',
             'btn-sm',
-            'btn-lg'
+            'btn-lg',
         ];
 
         $this->assertEquals($res, $this->object->genAllClassNames('btn'));

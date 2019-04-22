@@ -1,5 +1,5 @@
 <?php
-
+declare(strict_types=1);
 namespace BootstrapUI\Test\TestCase\View\Helper;
 
 use BootstrapUI\View\Helper\HtmlHelper;
@@ -38,7 +38,7 @@ class HtmlHelperTest extends TestCase
         $expected = [
             'span' => ['class' => 'badge badge-secondary'],
             'foo',
-            '/span'
+            '/span',
         ];
         $this->assertHtml($expected, $result);
 
@@ -46,7 +46,7 @@ class HtmlHelperTest extends TestCase
         $expected = [
             'span' => ['class' => 'badge-primary badge'],
             'foo',
-            '/span'
+            '/span',
         ];
         $this->assertHtml($expected, $result);
     }
@@ -56,21 +56,21 @@ class HtmlHelperTest extends TestCase
         $result = $this->Html->icon('foo');
         $expected = [
             'i' => ['class' => 'fas fa-foo'],
-            '/i'
+            '/i',
         ];
         $this->assertHtml($expected, $result);
 
         $result = $this->Html->icon('foo', ['iconSet' => 'fa']);
         $expected = [
             'i' => ['class' => 'fa fa-foo'],
-            '/i'
+            '/i',
         ];
         $this->assertHtml($expected, $result);
 
         $result = $this->Html->icon('foo', ['tag' => 'span', 'size' => 'lg']);
         $expected = [
             'span' => ['class' => 'fas fa-foo fa-lg'],
-            '/span'
+            '/span',
         ];
         $this->assertHtml($expected, $result);
     }
@@ -81,7 +81,7 @@ class HtmlHelperTest extends TestCase
         $expected = [
             'span' => ['class' => 'badge badge-secondary'],
             'foo',
-            '/span'
+            '/span',
         ];
         $this->assertHtml($expected, $result);
 
@@ -89,7 +89,7 @@ class HtmlHelperTest extends TestCase
         $expected = [
             'span' => ['class' => 'badge-primary badge'],
             'foo',
-            '/span'
+            '/span',
         ];
         $this->assertHtml($expected, $result);
 
@@ -97,7 +97,7 @@ class HtmlHelperTest extends TestCase
         $expected = [
             'span' => ['class' => 'badge-primary badge'],
             'foo',
-            '/span'
+            '/span',
         ];
         $this->assertHtml($expected, $result);
     }

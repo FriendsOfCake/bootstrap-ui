@@ -1,10 +1,7 @@
 <?php
-
+declare(strict_types=1);
 namespace BootstrapUI\Shell;
 
-use BootstrapUI\Shell\BootstrapShell;
-use BootstrapUI\Shell\Task\TwbsAssetsTask;
-use Cake\Console\Shell;
 use Cake\Core\Configure;
 use Cake\Core\Plugin;
 use Cake\Filesystem\File;

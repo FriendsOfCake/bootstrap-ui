@@ -6,7 +6,6 @@ use Cake\View\View;
 
 class PaginatorHelper extends \Cake\View\Helper\PaginatorHelper
 {
-
     protected $_allowedSizes = ['sm', 'lg'];
 
     /**
@@ -27,7 +26,7 @@ class PaginatorHelper extends \Cake\View\Helper\PaginatorHelper
             'current' => '<li class="page-item active"><a class="page-link" href="#">{{text}} <span class="sr-only">(current)</span></a></li>',
             'first' => '<li class="page-item first"><a class="page-link" href="{{url}}">{{text}}</a></li>',
             'last' => '<li class="page-item last"><a class="page-link" href="{{url}}">{{text}}</a></li>',
-            'number' => '<li class="page-item"><a class="page-link" href="{{url}}">{{text}}</a></li>'
+            'number' => '<li class="page-item"><a class="page-link" href="{{url}}">{{text}}</a></li>',
         ] + $this->_defaultConfig['templates'];
 
         parent::__construct($View, $config + [
@@ -35,7 +34,7 @@ class PaginatorHelper extends \Cake\View\Helper\PaginatorHelper
                 'first' => '&laquo;',
                 'last' => '&raquo;',
                 'prev' => '&lsaquo;',
-                'next' => '&rsaquo;'
+                'next' => '&rsaquo;',
             ],
         ]);
     }
