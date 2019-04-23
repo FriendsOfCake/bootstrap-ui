@@ -56,7 +56,10 @@ class BootstrapShell extends Shell
 
         $view->replaceText('use Cake\\View\\View', 'use BootstrapUI\\View\\UIView');
         $view->replaceText('class AppView extends View', 'class AppView extends UIView');
-        $view->replaceText("    public function initialize(): void\n    {\n", "    public function initialize(): void\n    {\n        parent::initialize();\n");
+        $view->replaceText(
+            "    public function initialize(): void\n    {\n",
+            "    public function initialize(): void\n    {\n        parent::initialize();\n"
+        );
 
         $view->write((string)$view->read());
     }
@@ -79,7 +82,8 @@ class BootstrapShell extends Shell
         ])->addSubcommand('copyLayouts', [
             'help' => 'Copies sample layouts to app\'s Template/Layout/TwitterBootstrap folder.',
         ])->addSubcommand('modifyView', [
-            'help' => 'Modifies AppView.php to extend this plugin\'s UIView. Don\'t use, if you have a already modified AppView',
+            'help' => 'Modifies AppView.php to extend this plugin\'s UIView. Don\'t use, ' .
+                'if you have a already modified AppView',
         ]);
     }
 }

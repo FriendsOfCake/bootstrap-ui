@@ -2,16 +2,8 @@
 declare(strict_types=1);
 namespace BootstrapUI\Test\TestCase\View\Helper;
 
-use BootstrapUI\View\Helper\OptionsAwareTrait;
 use Cake\TestSuite\TestCase;
-
-/**
- * TestOptionsAware
- */
-class TestOptionsAware
-{
-    use OptionsAwareTrait;
-}
+use TestApp\Test\TestOptionsAware;
 
 /**
  * OptionsAwareTraitTest

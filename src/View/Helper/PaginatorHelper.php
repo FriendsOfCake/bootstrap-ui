@@ -17,13 +17,18 @@ class PaginatorHelper extends \Cake\View\Helper\PaginatorHelper
     public function __construct(View $View, array $config = [])
     {
         $this->_defaultConfig['templates'] = [
-            'nextActive' => '<li class="page-item"><a class="page-link" rel="next" aria-label="Next" href="{{url}}">' .
+            'nextActive' => '<li class="page-item">' .
+                            '<a class="page-link" rel="next" aria-label="Next" href="{{url}}">' .
                             '<span aria-hidden="true">{{text}}</span></a></li>',
-            'nextDisabled' => '<li class="page-item disabled"><a class="page-link" tabindex="-1"><span aria-hidden="true">{{text}}</span></a></li>',
-            'prevActive' => '<li class="page-item"><a class="page-link" rel="prev" aria-label="Previous" href="{{url}}">' .
+            'nextDisabled' => '<li class="page-item disabled"><a class="page-link" tabindex="-1">' .
                             '<span aria-hidden="true">{{text}}</span></a></li>',
-            'prevDisabled' => '<li class="page-item disabled"><a class="page-link" tabindex="-1"><span aria-hidden="true">{{text}}</span></a></li>',
-            'current' => '<li class="page-item active"><a class="page-link" href="#">{{text}} <span class="sr-only">(current)</span></a></li>',
+            'prevActive' => '<li class="page-item">' .
+                            '<a class="page-link" rel="prev" aria-label="Previous" href="{{url}}">' .
+                            '<span aria-hidden="true">{{text}}</span></a></li>',
+            'prevDisabled' => '<li class="page-item disabled">' .
+                            '<a class="page-link" tabindex="-1"><span aria-hidden="true">{{text}}</span></a></li>',
+            'current' => '<li class="page-item active">' .
+                            '<a class="page-link" href="#">{{text}} <span class="sr-only">(current)</span></a></li>',
             'first' => '<li class="page-item first"><a class="page-link" href="{{url}}">{{text}}</a></li>',
             'last' => '<li class="page-item last"><a class="page-link" href="{{url}}">{{text}}</a></li>',
             'number' => '<li class="page-item"><a class="page-link" href="{{url}}">{{text}}</a></li>',
