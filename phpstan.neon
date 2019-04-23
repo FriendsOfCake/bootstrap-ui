@@ -1,8 +1,8 @@
 parameters:
     level: 5
+    autoload_files:
+        - tests/bootstrap.php
     ignoreErrors:
-        - '#Constant APP not found#'
-        - '#Constant DS not found#'
         -
             message: '#Method BootstrapUI\\View\\Helper\\BreadcrumbsHelper::(add|prepend|insertAt)\(\) should return \$this\(Cake\\View\\Helper\\BreadcrumbsHelper\) but returns \$this\(BootstrapUI\\View\\Helper\\BreadcrumbsHelper\).#'
             path: 'src/View/Helper/BreadcrumbsHelper.php' 
