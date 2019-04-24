@@ -4,8 +4,5 @@ parameters:
         - tests/bootstrap.php
     ignoreErrors:
         -
-            message: '#Method BootstrapUI\\View\\Helper\\BreadcrumbsHelper::(add|prepend|insertAt)\(\) should return \$this\(Cake\\View\\Helper\\BreadcrumbsHelper\) but returns \$this\(BootstrapUI\\View\\Helper\\BreadcrumbsHelper\).#'
-            path: 'src/View/Helper/BreadcrumbsHelper.php' 
-        -
             message: '#Offset.*#'
             path: 'src/View/Helper/FlashHelper.php' 
