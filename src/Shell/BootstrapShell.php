@@ -2,6 +2,7 @@
 declare(strict_types=1);
 namespace BootstrapUI\Shell;
 
+use Cake\Console\ConsoleOptionParser;
 use Cake\Console\Shell;
 use Cake\Filesystem\File;
 
@@ -69,7 +70,7 @@ class BootstrapShell extends Shell
      *
      * @return \Cake\Console\ConsoleOptionParser
      */
-    public function getOptionParser(): \Cake\Console\ConsoleOptionParser
+    public function getOptionParser(): ConsoleOptionParser
     {
         $parser = parent::getOptionParser();
 
