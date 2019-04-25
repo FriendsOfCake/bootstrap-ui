@@ -48,7 +48,7 @@ class BreadcrumbsHelper extends CoreBreadcrumbsHelper
     /**
      * {@inheritDoc}
      */
-    public function add($title, $url = null, array $options = []): CoreBreadcrumbsHelper
+    public function add($title, $url = null, array $options = [])
     {
         $options = $this->injectClasses($this->_defaultAttributes['class']['item'], $options);
 
@@ -58,7 +58,7 @@ class BreadcrumbsHelper extends CoreBreadcrumbsHelper
     /**
      * {@inheritDoc}
      */
-    public function prepend($title, $url = null, array $options = []): CoreBreadcrumbsHelper
+    public function prepend($title, $url = null, array $options = [])
     {
         $options = $this->injectClasses($this->_defaultAttributes['class']['item'], $options);
 
@@ -68,7 +68,7 @@ class BreadcrumbsHelper extends CoreBreadcrumbsHelper
     /**
      * {@inheritDoc}
      */
-    public function insertAt(int $index, string $title, $url = null, array $options = []): CoreBreadcrumbsHelper
+    public function insertAt(int $index, string $title, $url = null, array $options = [])
     {
         $options = $this->injectClasses($this->_defaultAttributes['class']['item'], $options);
 
