@@ -46,7 +46,8 @@ class BreadcrumbsHelper extends CoreBreadcrumbsHelper
     }
 
     /**
-     * {@inheritDoc}
+     * @inheritDoc
+     * @return $this     
      */
     public function add($title, $url = null, array $options = [])
     {
@@ -56,7 +57,8 @@ class BreadcrumbsHelper extends CoreBreadcrumbsHelper
     }
 
     /**
-     * {@inheritDoc}
+     * @inheritDoc
+     * @return $this     
      */
     public function prepend($title, $url = null, array $options = [])
     {
@@ -66,7 +68,8 @@ class BreadcrumbsHelper extends CoreBreadcrumbsHelper
     }
 
     /**
-     * {@inheritDoc}
+     * @inheritDoc
+     * @return $this     
      */
     public function insertAt(int $index, string $title, $url = null, array $options = [])
     {
