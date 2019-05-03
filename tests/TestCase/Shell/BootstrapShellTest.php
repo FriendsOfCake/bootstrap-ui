@@ -10,7 +10,7 @@ use Cake\TestSuite\TestCase;
 
 class BootstrapShellTest extends TestCase
 {
-    public function setUp()
+    public function setUp(): void
     {
         parent::setUp();
 
@@ -22,7 +22,7 @@ class BootstrapShellTest extends TestCase
         $this->Shell->loadTasks();
     }
 
-    public function tearDown()
+    public function tearDown(): void
     {
         parent::tearDown();
         unset($this->Shell);

@@ -18,7 +18,7 @@ class BreadcrumbsHelperTest extends TestCase
      */
     public $Breadcrumbs;
 
-    public function setUp()
+    public function setUp(): void
     {
         parent::setUp();
 
@@ -26,7 +26,7 @@ class BreadcrumbsHelperTest extends TestCase
         $this->Breadcrumbs = new BreadcrumbsHelper($this->View);
     }
 
-    public function tearDown()
+    public function tearDown(): void
     {
         parent::tearDown();
         unset($this->Breadcrumbs, $this->View);

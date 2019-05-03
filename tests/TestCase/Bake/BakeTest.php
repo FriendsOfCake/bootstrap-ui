@@ -18,7 +18,7 @@ class BakeTest extends ConsoleIntegrationTestCase
         'plugin.BootstrapUI.Authors',
     ];
 
-    public function setUp()
+    public function setUp(): void
     {
         parent::setUp();
 
@@ -33,7 +33,7 @@ class BakeTest extends ConsoleIntegrationTestCase
         $this->useCommandRunner();
     }
 
-    public function tearDown()
+    public function tearDown(): void
     {
         parent::tearDown();
 

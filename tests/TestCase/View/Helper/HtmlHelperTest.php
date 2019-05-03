@@ -18,7 +18,7 @@ class HtmlHelperTest extends TestCase
      */
     public $Html;
 
-    public function setUp()
+    public function setUp(): void
     {
         parent::setUp();
 
@@ -26,7 +26,7 @@ class HtmlHelperTest extends TestCase
         $this->Html = new HtmlHelper($this->View);
     }
 
-    public function tearDown()
+    public function tearDown(): void
     {
         parent::tearDown();
         unset($this->Html, $this->View);
