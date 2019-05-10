@@ -234,6 +234,12 @@ trait OptionsAwareTrait
             $classes[] = $this->genClassName($element, $class);
         }
 
+        if ($element === 'btn') {
+            foreach ($this->classList as $class) {
+                $classes[] = $this->genClassName('btn-outline', $class);
+            }
+        }
+
         return array_merge($this->classList, $classes);
     }
 }
