@@ -37,6 +37,7 @@ class Element
     {
         $reflection = new ReflectionClass(self::class);
         $elements = $reflection->getConstants();
+
         return array_values($elements);
     }
 }
