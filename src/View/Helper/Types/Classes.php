@@ -7,8 +7,10 @@ use ReflectionException;
 
 /**
  * Classes
+ *
+ * All available bootstrap classes
  */
-class Classes
+final class Classes extends Type
 {
     /** @var string The primary class */
     const PRIMARY = 'primary';
@@ -32,18 +34,4 @@ class Classes
     const SM = 'sm';
     /** @var string The large class */
     const LG = 'lg';
-
-    /**
-     * Get all defined classes
-     *
-     * @return array
-     * @throws ReflectionException On reflection error
-     */
-    public static function getClasses()
-    {
-        $reflection = new ReflectionClass(self::class);
-        $elements = $reflection->getConstants();
-
-        return array_values($elements);
-    }
 }

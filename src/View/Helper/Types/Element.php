@@ -7,8 +7,10 @@ use ReflectionException;
 
 /**
  * Element
+ *
+ * All available bootstrap elements
  */
-class Element
+final class Element extends Type
 {
     /** @var string The alert element */
     const ALERT = 'alert';
@@ -26,18 +28,4 @@ class Element
     const LIST_GROUP_ITEM = 'list-group-item';
     /** @var string The input group element */
     const INPUT_GROUP = 'input-group';
-
-    /**
-     * Get all defined elements
-     *
-     * @return array
-     * @throws ReflectionException On reflection error
-     */
-    public static function getElements()
-    {
-        $reflection = new ReflectionClass(self::class);
-        $elements = $reflection->getConstants();
-
-        return array_values($elements);
-    }
 }

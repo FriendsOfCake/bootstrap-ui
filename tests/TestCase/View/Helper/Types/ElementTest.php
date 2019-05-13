@@ -15,11 +15,11 @@ class ElementTest extends TestCase
      *
      * @return void
      *
-     * @covers \BootstrapUI\View\Helper\Types\Element::getElements
+     * @covers \BootstrapUI\View\Helper\Types\Element::values
      */
     public function testGetElements()
     {
-        $elements = Element::getElements();
+        $elements = Element::values();
         $expected = [
             Element::ALERT,
             Element::BADGE,

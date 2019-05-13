@@ -40,7 +40,7 @@ trait OptionsAwareTrait
         $options['class'] = $this->_toClassArray($options['class']);
         $classes = [];
         foreach ($options['class'] as $name) {
-            $classes[] = in_array($name, Classes::getClasses())
+            $classes[] = in_array($name, Classes::values())
                 ? $this->genClassName($element, $name)
                 : $name;
         }
@@ -178,11 +178,11 @@ trait OptionsAwareTrait
      */
     public function genClassName($element, $class)
     {
-        if (!in_array($element, Element::getElements())) {
+        if (!in_array($element, Element::values())) {
             return false;
         }
 
-        if (!in_array($class, Classes::getClasses())) {
+        if (!in_array($class, Classes::values())) {
             return false;
         }
 
@@ -198,16 +198,16 @@ trait OptionsAwareTrait
     public function genAllClassNames($element)
     {
         $classes = [];
-        foreach (Classes::getClasses() as $class) {
+        foreach (Classes::values() as $class) {
             $classes[] = $this->genClassName($element, $class);
         }
 
         if ($element === Element::BTN) {
-            foreach (Classes::getClasses() as $class) {
+            foreach (Classes::values() as $class) {
                 $classes[] = $this->genClassName(Element::BTN_OUTLINE, $class);
             }
         }
 
-        return array_merge(Classes::getClasses(), $classes);
+        return array_merge(Classes::values(), $classes);
     }
 }

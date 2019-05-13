@@ -15,11 +15,11 @@ class ClassesTest extends TestCase
      *
      * @return void
      *
-     * @covers \BootstrapUI\View\Helper\Types\Classes::getClasses
+     * @covers \BootstrapUI\View\Helper\Types\Classes::values
      */
     public function testGetElements()
     {
-        $elements = Classes::getClasses();
+        $elements = Classes::values();
         $expected = [
             Classes::PRIMARY,
             Classes::SECONDARY,
