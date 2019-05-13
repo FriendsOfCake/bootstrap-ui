@@ -2,43 +2,11 @@
 
 namespace BootstrapUI\View\Helper;
 
+use BootstrapUI\View\Helper\Types\Classes;
+use BootstrapUI\View\Helper\Types\Element;
+
 trait OptionsAwareTrait
 {
-    /**
-     * A list of allowed styles.
-     *
-     * @var array
-     */
-    public $classList = [
-        'primary',
-        'secondary',
-        'success',
-        'danger',
-        'warning',
-        'info',
-        'light',
-        'dark',
-        'link',
-        'sm',
-        'lg'
-    ];
-
-    /**
-     * A list of all elements to which styles can be applied to.
-     *
-     * @var array
-     */
-    public $elementList = [
-        'alert',
-        'badge',
-        'bg',
-        'border',
-        'btn',
-        'btn-outline',
-        'list-group-item',
-        'input-group'
-    ];
-
     /**
      * Contains the logic for applying style classes for buttons.
      *
@@ -47,15 +15,15 @@ trait OptionsAwareTrait
      */
     public function applyButtonClasses(array $data)
     {
-        $allClasses = $this->genAllClassNames('btn');
+        $allClasses = $this->genAllClassNames(Element::BTN);
 
         if ($this->hasAnyClass($allClasses, $data)) {
-            $data = $this->injectClasses('btn', $data);
+            $data = $this->injectClasses(Element::BTN, $data);
         } else {
-            $data = $this->injectClasses(['btn', 'secondary'], $data);
+            $data = $this->injectClasses([Element::BTN, Classes::SECONDARY], $data);
         }
 
-        return $this->renameClasses('btn', $data);
+        return $this->renameClasses(Element::BTN, $data);
     }
 
     /**
@@ -72,7 +40,7 @@ trait OptionsAwareTrait
         $options['class'] = $this->_toClassArray($options['class']);
         $classes = [];
         foreach ($options['class'] as $name) {
-            $classes[] = in_array($name, $this->classList)
+            $classes[] = in_array($name, Classes::values())
                 ? $this->genClassName($element, $name)
                 : $name;
         }
@@ -210,11 +178,11 @@ trait OptionsAwareTrait
      */
     public function genClassName($element, $class)
     {
-        if (!in_array($element, $this->elementList)) {
+        if (!in_array($element, Element::values())) {
             return false;
         }
 
-        if (!in_array($class, $this->classList)) {
+        if (!in_array($class, Classes::values())) {
             return false;
         }
 
@@ -230,10 +198,16 @@ trait OptionsAwareTrait
     public function genAllClassNames($element)
     {
         $classes = [];
-        foreach ($this->classList as $class) {
+        foreach (Classes::values() as $class) {
             $classes[] = $this->genClassName($element, $class);
         }
 
-        return array_merge($this->classList, $classes);
+        if ($element === Element::BTN) {
+            foreach (Classes::values() as $class) {
+                $classes[] = $this->genClassName(Element::BTN_OUTLINE, $class);
+            }
+        }
+
+        return array_merge(Classes::values(), $classes);
     }
 }
