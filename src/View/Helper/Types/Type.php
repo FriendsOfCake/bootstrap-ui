@@ -3,7 +3,6 @@
 namespace BootstrapUI\View\Helper\Types;
 
 use ReflectionClass;
-use ReflectionException;
 
 /**
  * Type
@@ -14,7 +13,7 @@ abstract class Type implements TypeInterface
      * Get all constant values of a class
      *
      * @return array|mixed
-     * @throws ReflectionException
+     * @throws \ReflectionException
      */
     public static function values()
     {
