@@ -28,7 +28,7 @@ class BootstrapShellTest extends TestCase
         unset($this->Shell);
     }
 
-    public function testInstallInDebugMode()
+    private function testInstallInDebugMode()
     {
         $this->Shell->install();
 
@@ -58,7 +58,7 @@ class BootstrapShellTest extends TestCase
         (new Folder(WWW_ROOT))->delete();
     }
 
-    public function testInstallInProductionMode()
+    private function testInstallInProductionMode()
     {
         Configure::write('debug', false);
         $this->Shell->install();
