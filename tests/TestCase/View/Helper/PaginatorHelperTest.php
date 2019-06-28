@@ -1,5 +1,6 @@
 <?php
 declare(strict_types=1);
+
 namespace BootstrapUI\Test\TestCase\View\Helper;
 
 use BootstrapUI\View\Helper\PaginatorHelper;

@@ -1,5 +1,6 @@
 <?php
 declare(strict_types=1);
+
 namespace BootstrapUI\Shell;
 
 use Cake\Console\ConsoleOptionParser;

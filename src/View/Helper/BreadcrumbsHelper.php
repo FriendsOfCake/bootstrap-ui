@@ -1,5 +1,6 @@
 <?php
 declare(strict_types=1);
+
 namespace BootstrapUI\View\Helper;
 
 use Cake\View\Helper\BreadcrumbsHelper as CoreBreadcrumbsHelper;

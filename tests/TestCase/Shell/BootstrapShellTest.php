@@ -1,5 +1,6 @@
 <?php
 declare(strict_types=1);
+
 namespace BootstrapUI\Shell;
 
 use Cake\Core\Configure;
@@ -28,7 +29,7 @@ class BootstrapShellTest extends TestCase
         unset($this->Shell);
     }
 
-    private function testInstallInDebugMode()
+    public function testInstallInDebugMode()
     {
         $this->Shell->install();
 
@@ -58,7 +59,7 @@ class BootstrapShellTest extends TestCase
         (new Folder(WWW_ROOT))->delete();
     }
 
-    private function testInstallInProductionMode()
+    public function testInstallInProductionMode()
     {
         Configure::write('debug', false);
         $this->Shell->install();

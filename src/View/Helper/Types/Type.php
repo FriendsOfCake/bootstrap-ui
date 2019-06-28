@@ -1,4 +1,5 @@
 <?php
+declare(strict_types=1);
 
 namespace BootstrapUI\View\Helper\Types;
 
@@ -17,7 +18,7 @@ abstract class Type implements TypeInterface
      */
     public static function values()
     {
-        $called = get_called_class();
+        $called = static::class;
         $reflection = new ReflectionClass($called);
         $elements = $reflection->getConstants();
 

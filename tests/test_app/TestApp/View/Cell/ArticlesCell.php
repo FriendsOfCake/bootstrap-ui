@@ -1,5 +1,6 @@
 <?php
 declare(strict_types=1);
+
 namespace TestApp\View\Cell;
 
 use Cake\View\Cell;

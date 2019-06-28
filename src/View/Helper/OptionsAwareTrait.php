@@ -1,5 +1,6 @@
 <?php
 declare(strict_types=1);
+
 namespace BootstrapUI\View\Helper;
 
 use BootstrapUI\View\Helper\Types\Classes;
@@ -208,8 +209,8 @@ trait OptionsAwareTrait
         if ($element === Element::BTN) {
             foreach (Classes::values() as $class) {
                 $classes[] = $this->genClassName(Element::BTN_OUTLINE, $class);
-    }
-}
+            }
+        }
 
         return array_merge(Classes::values(), $classes);
     }

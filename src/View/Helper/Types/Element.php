@@ -1,9 +1,7 @@
 <?php
+declare(strict_types=1);
 
 namespace BootstrapUI\View\Helper\Types;
-
-use ReflectionClass;
-use ReflectionException;
 
 /**
  * Element
@@ -13,19 +11,19 @@ use ReflectionException;
 final class Element extends Type
 {
     /** @var string The alert element */
-    const ALERT = 'alert';
+    public const ALERT = 'alert';
     /** @var string The badge element */
-    const BADGE = 'badge';
+    public const BADGE = 'badge';
     /** @var string The bg (background) element */
-    const BG = 'bg';
+    public const BG = 'bg';
     /** @var string The border element */
-    const BORDER = 'border';
+    public const BORDER = 'border';
     /** @var string The button element */
-    const BTN = 'btn';
+    public const BTN = 'btn';
     /** @var string The outline button element */
-    const BTN_OUTLINE = 'btn-outline';
+    public const BTN_OUTLINE = 'btn-outline';
     /** @var string The list group item element */
-    const LIST_GROUP_ITEM = 'list-group-item';
+    public const LIST_GROUP_ITEM = 'list-group-item';
     /** @var string The input group element */
-    const INPUT_GROUP = 'input-group';
+    public const INPUT_GROUP = 'input-group';
 }
