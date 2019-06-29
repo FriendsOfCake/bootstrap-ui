@@ -111,9 +111,9 @@ class BootstrapShellTest extends TestCase
         $original = $view->read();
 
         $this->Shell->modifyView();
-        $this->assertContains('use BootstrapUI\\View\\UIView', (string)$view->read());
-        $this->assertContains('class AppView extends UIView', (string)$view->read());
-        $this->assertContains('parent::initialize();', (string)$view->read());
+        $this->assertStringContainsString('use BootstrapUI\\View\\UIView', (string)$view->read());
+        $this->assertStringContainsString('class AppView extends UIView', (string)$view->read());
+        $this->assertStringContainsString('parent::initialize();', (string)$view->read());
 
         if ($view->writable()) {
             $view->write($original);

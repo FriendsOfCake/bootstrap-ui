@@ -1656,28 +1656,28 @@ class FormHelperTest extends TestCase
     public function testFormControlClassInjection()
     {
         $result = $this->Form->text('foo');
-        $this->assertContains('class="form-control"', $result);
+        $this->assertStringContainsString('class="form-control"', $result);
 
         $result = $this->Form->text('foo', ['class' => 'custom']);
-        $this->assertContains('class="custom form-control"', $result);
+        $this->assertStringContainsString('class="custom form-control"', $result);
 
         $result = $this->Form->select('foo');
-        $this->assertContains('class="form-control"', $result);
+        $this->assertStringContainsString('class="form-control"', $result);
 
         $result = $this->Form->textarea('foo');
-        $this->assertContains('class="form-control"', $result);
+        $this->assertStringContainsString('class="form-control"', $result);
 
         $result = $this->Form->dateTime('foo');
-        $this->assertContains('class="form-control"', $result);
+        $this->assertStringContainsString('class="form-control"', $result);
 
         $result = $this->Form->file('foo');
-        $this->assertNotContains('"form-control"', $result);
+        $this->assertStringNotContainsString('"form-control"', $result);
 
         $result = $this->Form->checkbox('foo');
-        $this->assertNotContains('"form-control"', $result);
+        $this->assertStringNotContainsString('"form-control"', $result);
 
         $result = $this->Form->radio('foo', ['1' => 'Opt 1', '2' => 'Opt 2']);
-        $this->assertNotContains('"form-control"', $result);
+        $this->assertStringNotContainsString('"form-control"', $result);
     }
 
     /**
@@ -1780,17 +1780,17 @@ class FormHelperTest extends TestCase
         $result = $this->Form->control('created', [
             'type' => 'datetime',
         ]);
-        $this->assertContains('<div class="form-group datetime" role="group" aria-labelledby="created-group-label">', $result);
+        $this->assertStringContainsString('<div class="form-group datetime" role="group" aria-labelledby="created-group-label">', $result);
 
         $result = $this->Form->control('created', [
             'type' => 'date',
         ]);
-        $this->assertContains('<div class="form-group date" role="group" aria-labelledby="created-group-label">', $result);
+        $this->assertStringContainsString('<div class="form-group date" role="group" aria-labelledby="created-group-label">', $result);
 
         $result = $this->Form->control('created', [
             'type' => 'time',
         ]);
-        $this->assertContains('<div class="form-group time" role="group" aria-labelledby="created-group-label">', $result);
+        $this->assertStringContainsString('<div class="form-group time" role="group" aria-labelledby="created-group-label">', $result);
 
         $this->Form->setTemplates([
             'datetimeContainer' => '<div class="custom datetimeContainer {{type}}{{required}}" role="group" aria-labelledby="{{groupId}}">{{content}}</div>',
@@ -1800,17 +1800,17 @@ class FormHelperTest extends TestCase
         $result = $this->Form->control('created', [
             'type' => 'datetime',
         ]);
-        $this->assertContains('<div class="custom datetimeContainer datetime" role="group" aria-labelledby="created-group-label">', $result);
+        $this->assertStringContainsString('<div class="custom datetimeContainer datetime" role="group" aria-labelledby="created-group-label">', $result);
 
         $result = $this->Form->control('created', [
             'type' => 'date',
         ]);
-        $this->assertContains('<div class="custom dateContainer date" role="group" aria-labelledby="created-group-label">', $result);
+        $this->assertStringContainsString('<div class="custom dateContainer date" role="group" aria-labelledby="created-group-label">', $result);
 
         $result = $this->Form->control('created', [
             'type' => 'time',
         ]);
-        $this->assertContains('<div class="custom timeContainer time" role="group" aria-labelledby="created-group-label">', $result);
+        $this->assertStringContainsString('<div class="custom timeContainer time" role="group" aria-labelledby="created-group-label">', $result);
     }
 
     public function testDefaultAlignDatetimeControlCustomContainerErrorTemplateViaOptions()
@@ -1825,17 +1825,17 @@ class FormHelperTest extends TestCase
         $result = $this->Form->control('created', [
             'type' => 'datetime',
         ]);
-        $this->assertContains('<div class="form-group datetime is-invalid" role="group" aria-labelledby="created-group-label">', $result);
+        $this->assertStringContainsString('<div class="form-group datetime is-invalid" role="group" aria-labelledby="created-group-label">', $result);
 
         $result = $this->Form->control('created', [
             'type' => 'date',
         ]);
-        $this->assertContains('<div class="form-group date is-invalid" role="group" aria-labelledby="created-group-label">', $result);
+        $this->assertStringContainsString('<div class="form-group date is-invalid" role="group" aria-labelledby="created-group-label">', $result);
 
         $result = $this->Form->control('created', [
             'type' => 'time',
         ]);
-        $this->assertContains('<div class="form-group time is-invalid" role="group" aria-labelledby="created-group-label">', $result);
+        $this->assertStringContainsString('<div class="form-group time is-invalid" role="group" aria-labelledby="created-group-label">', $result);
 
         $result = $this->Form->control('created', [
             'type' => 'datetime',
@@ -1843,7 +1843,7 @@ class FormHelperTest extends TestCase
                 'datetimeContainerError' => '<div class="custom datetimeContainerError {{type}}{{required}}" role="group" aria-labelledby="{{groupId}}">{{content}}</div>',
             ],
         ]);
-        $this->assertContains('<div class="custom datetimeContainerError datetime" role="group" aria-labelledby="created-group-label">', $result);
+        $this->assertStringContainsString('<div class="custom datetimeContainerError datetime" role="group" aria-labelledby="created-group-label">', $result);
 
         $result = $this->Form->control('created', [
             'type' => 'date',
@@ -1851,7 +1851,7 @@ class FormHelperTest extends TestCase
                 'dateContainerError' => '<div class="custom dateContainerError {{type}}{{required}}" role="group" aria-labelledby="{{groupId}}">{{content}}</div>',
             ],
         ]);
-        $this->assertContains('<div class="custom dateContainerError date" role="group" aria-labelledby="created-group-label">', $result);
+        $this->assertStringContainsString('<div class="custom dateContainerError date" role="group" aria-labelledby="created-group-label">', $result);
 
         $result = $this->Form->control('created', [
             'type' => 'time',
@@ -1859,7 +1859,7 @@ class FormHelperTest extends TestCase
                 'timeContainerError' => '<div class="custom timeContainerError {{type}}{{required}}" role="group" aria-labelledby="{{groupId}}">{{content}}</div>',
             ],
         ]);
-        $this->assertContains('<div class="custom timeContainerError time" role="group" aria-labelledby="created-group-label">', $result);
+        $this->assertStringContainsString('<div class="custom timeContainerError time" role="group" aria-labelledby="created-group-label">', $result);
     }
 
     public function testHorizontalAlignDatetimeControl()
@@ -1984,17 +1984,17 @@ class FormHelperTest extends TestCase
         $result = $this->Form->control('created', [
             'type' => 'datetime',
         ]);
-        $this->assertContains('<div class="form-group row datetime" role="group" aria-labelledby="created-group-label">', $result);
+        $this->assertStringContainsString('<div class="form-group row datetime" role="group" aria-labelledby="created-group-label">', $result);
 
         $result = $this->Form->control('created', [
             'type' => 'date',
         ]);
-        $this->assertContains('<div class="form-group row date" role="group" aria-labelledby="created-group-label">', $result);
+        $this->assertStringContainsString('<div class="form-group row date" role="group" aria-labelledby="created-group-label">', $result);
 
         $result = $this->Form->control('created', [
             'type' => 'time',
         ]);
-        $this->assertContains('<div class="form-group row time" role="group" aria-labelledby="created-group-label">', $result);
+        $this->assertStringContainsString('<div class="form-group row time" role="group" aria-labelledby="created-group-label">', $result);
 
         $this->Form->setTemplates([
             'datetimeContainer' => '<div class="custom datetimeContainer {{type}}{{required}}" role="group" aria-labelledby="{{groupId}}">{{content}}</div>',
@@ -2004,17 +2004,17 @@ class FormHelperTest extends TestCase
         $result = $this->Form->control('created', [
             'type' => 'datetime',
         ]);
-        $this->assertContains('<div class="custom datetimeContainer datetime" role="group" aria-labelledby="created-group-label">', $result);
+        $this->assertStringContainsString('<div class="custom datetimeContainer datetime" role="group" aria-labelledby="created-group-label">', $result);
 
         $result = $this->Form->control('created', [
             'type' => 'date',
         ]);
-        $this->assertContains('<div class="custom dateContainer date" role="group" aria-labelledby="created-group-label">', $result);
+        $this->assertStringContainsString('<div class="custom dateContainer date" role="group" aria-labelledby="created-group-label">', $result);
 
         $result = $this->Form->control('created', [
             'type' => 'time',
         ]);
-        $this->assertContains('<div class="custom timeContainer time" role="group" aria-labelledby="created-group-label">', $result);
+        $this->assertStringContainsString('<div class="custom timeContainer time" role="group" aria-labelledby="created-group-label">', $result);
     }
 
     public function testHorizontalAlignDatetimeControlCustomContainerErrorTemplateViaOptions()
@@ -2036,17 +2036,17 @@ class FormHelperTest extends TestCase
         $result = $this->Form->control('created', [
             'type' => 'datetime',
         ]);
-        $this->assertContains('<div class="form-group row datetime is-invalid" role="group" aria-labelledby="created-group-label">', $result);
+        $this->assertStringContainsString('<div class="form-group row datetime is-invalid" role="group" aria-labelledby="created-group-label">', $result);
 
         $result = $this->Form->control('created', [
             'type' => 'date',
         ]);
-        $this->assertContains('<div class="form-group row date is-invalid" role="group" aria-labelledby="created-group-label">', $result);
+        $this->assertStringContainsString('<div class="form-group row date is-invalid" role="group" aria-labelledby="created-group-label">', $result);
 
         $result = $this->Form->control('created', [
             'type' => 'time',
         ]);
-        $this->assertContains('<div class="form-group row time is-invalid" role="group" aria-labelledby="created-group-label">', $result);
+        $this->assertStringContainsString('<div class="form-group row time is-invalid" role="group" aria-labelledby="created-group-label">', $result);
 
         $result = $this->Form->control('created', [
             'type' => 'datetime',
@@ -2054,7 +2054,7 @@ class FormHelperTest extends TestCase
                 'datetimeContainerError' => '<div class="custom datetimeContainerError {{type}}{{required}}" role="group" aria-labelledby="{{groupId}}">{{content}}</div>',
             ],
         ]);
-        $this->assertContains('<div class="custom datetimeContainerError datetime" role="group" aria-labelledby="created-group-label">', $result);
+        $this->assertStringContainsString('<div class="custom datetimeContainerError datetime" role="group" aria-labelledby="created-group-label">', $result);
 
         $result = $this->Form->control('created', [
             'type' => 'date',
@@ -2062,7 +2062,7 @@ class FormHelperTest extends TestCase
                 'dateContainerError' => '<div class="custom dateContainerError {{type}}{{required}}" role="group" aria-labelledby="{{groupId}}">{{content}}</div>',
             ],
         ]);
-        $this->assertContains('<div class="custom dateContainerError date" role="group" aria-labelledby="created-group-label">', $result);
+        $this->assertStringContainsString('<div class="custom dateContainerError date" role="group" aria-labelledby="created-group-label">', $result);
 
         $result = $this->Form->control('created', [
             'type' => 'time',
@@ -2070,7 +2070,7 @@ class FormHelperTest extends TestCase
                 'timeContainerError' => '<div class="custom timeContainerError {{type}}{{required}}" role="group" aria-labelledby="{{groupId}}">{{content}}</div>',
             ],
         ]);
-        $this->assertContains('<div class="custom timeContainerError time" role="group" aria-labelledby="created-group-label">', $result);
+        $this->assertStringContainsString('<div class="custom timeContainerError time" role="group" aria-labelledby="created-group-label">', $result);
     }
 
     public function testInlineAlignDatetimeControl()
@@ -2177,17 +2177,17 @@ class FormHelperTest extends TestCase
         $result = $this->Form->control('created', [
             'type' => 'datetime',
         ]);
-        $this->assertContains('<div class="form-group datetime" role="group" aria-labelledby="created-group-label">', $result);
+        $this->assertStringContainsString('<div class="form-group datetime" role="group" aria-labelledby="created-group-label">', $result);
 
         $result = $this->Form->control('created', [
             'type' => 'date',
         ]);
-        $this->assertContains('<div class="form-group date" role="group" aria-labelledby="created-group-label">', $result);
+        $this->assertStringContainsString('<div class="form-group date" role="group" aria-labelledby="created-group-label">', $result);
 
         $result = $this->Form->control('created', [
             'type' => 'time',
         ]);
-        $this->assertContains('<div class="form-group time" role="group" aria-labelledby="created-group-label">', $result);
+        $this->assertStringContainsString('<div class="form-group time" role="group" aria-labelledby="created-group-label">', $result);
 
         $this->Form->setTemplates([
             'datetimeContainer' => '<div class="custom datetimeContainer {{type}}{{required}}" role="group" aria-labelledby="{{groupId}}">{{content}}</div>',
@@ -2197,17 +2197,17 @@ class FormHelperTest extends TestCase
         $result = $this->Form->control('created', [
             'type' => 'datetime',
         ]);
-        $this->assertContains('<div class="custom datetimeContainer datetime" role="group" aria-labelledby="created-group-label">', $result);
+        $this->assertStringContainsString('<div class="custom datetimeContainer datetime" role="group" aria-labelledby="created-group-label">', $result);
 
         $result = $this->Form->control('created', [
             'type' => 'date',
         ]);
-        $this->assertContains('<div class="custom dateContainer date" role="group" aria-labelledby="created-group-label">', $result);
+        $this->assertStringContainsString('<div class="custom dateContainer date" role="group" aria-labelledby="created-group-label">', $result);
 
         $result = $this->Form->control('created', [
             'type' => 'time',
         ]);
-        $this->assertContains('<div class="custom timeContainer time" role="group" aria-labelledby="created-group-label">', $result);
+        $this->assertStringContainsString('<div class="custom timeContainer time" role="group" aria-labelledby="created-group-label">', $result);
     }
 
     public function testInlineAlignDatetimeControlCustomContainerErrorTemplateViaOptions()
@@ -2226,17 +2226,17 @@ class FormHelperTest extends TestCase
         $result = $this->Form->control('created', [
             'type' => 'datetime',
         ]);
-        $this->assertContains('<div class="form-group datetime is-invalid" role="group" aria-labelledby="created-group-label">', $result);
+        $this->assertStringContainsString('<div class="form-group datetime is-invalid" role="group" aria-labelledby="created-group-label">', $result);
 
         $result = $this->Form->control('created', [
             'type' => 'date',
         ]);
-        $this->assertContains('<div class="form-group date is-invalid" role="group" aria-labelledby="created-group-label">', $result);
+        $this->assertStringContainsString('<div class="form-group date is-invalid" role="group" aria-labelledby="created-group-label">', $result);
 
         $result = $this->Form->control('created', [
             'type' => 'time',
         ]);
-        $this->assertContains('<div class="form-group time is-invalid" role="group" aria-labelledby="created-group-label">', $result);
+        $this->assertStringContainsString('<div class="form-group time is-invalid" role="group" aria-labelledby="created-group-label">', $result);
 
         $result = $this->Form->control('created', [
             'type' => 'datetime',
@@ -2244,7 +2244,7 @@ class FormHelperTest extends TestCase
                 'datetimeContainerError' => '<div class="custom datetimeContainerError {{type}}{{required}}" role="group" aria-labelledby="{{groupId}}">{{content}}</div>',
             ],
         ]);
-        $this->assertContains('<div class="custom datetimeContainerError datetime" role="group" aria-labelledby="created-group-label">', $result);
+        $this->assertStringContainsString('<div class="custom datetimeContainerError datetime" role="group" aria-labelledby="created-group-label">', $result);
 
         $result = $this->Form->control('created', [
             'type' => 'date',
@@ -2252,7 +2252,7 @@ class FormHelperTest extends TestCase
                 'dateContainerError' => '<div class="custom dateContainerError {{type}}{{required}}" role="group" aria-labelledby="{{groupId}}">{{content}}</div>',
             ],
         ]);
-        $this->assertContains('<div class="custom dateContainerError date" role="group" aria-labelledby="created-group-label">', $result);
+        $this->assertStringContainsString('<div class="custom dateContainerError date" role="group" aria-labelledby="created-group-label">', $result);
 
         $result = $this->Form->control('created', [
             'type' => 'time',
@@ -2260,7 +2260,7 @@ class FormHelperTest extends TestCase
                 'timeContainerError' => '<div class="custom timeContainerError {{type}}{{required}}" role="group" aria-labelledby="{{groupId}}">{{content}}</div>',
             ],
         ]);
-        $this->assertContains('<div class="custom timeContainerError time" role="group" aria-labelledby="created-group-label">', $result);
+        $this->assertStringContainsString('<div class="custom timeContainerError time" role="group" aria-labelledby="created-group-label">', $result);
     }
 
     public function testDefaultAlignCheckboxControl()

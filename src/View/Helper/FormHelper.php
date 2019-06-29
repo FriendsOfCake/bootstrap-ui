@@ -168,7 +168,7 @@ class FormHelper extends Helper
      */
     protected $_widgets = [
         'button' => 'BootstrapUI\View\Widget\ButtonWidget',
-        'datetime' => ['BootstrapUI\View\Widget\DateTimeWidget', 'select'],
+        'datetime' => 'BootstrapUI\View\Widget\DateTimeWidget',
         'file' => ['BootstrapUI\View\Widget\FileWidget', 'label'],
         'select' => 'BootstrapUI\View\Widget\SelectBoxWidget',
         'textarea' => 'BootstrapUI\View\Widget\TextareaWidget',

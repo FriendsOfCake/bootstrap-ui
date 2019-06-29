@@ -23,9 +23,8 @@
         "cakephp/cakephp": "4.x-dev as 4.0.0"
     },
     "require-dev": {
-        "phpunit/phpunit": "^7",
+        "phpunit/phpunit": "^8.0",
         "cakephp/bake": "4.x-dev as 4.0.0",
-        "vlucas/phpdotenv": "^3.3",
         "cakephp/cakephp-codesniffer": "dev-next"
     },
     "support": {
