@@ -1,4 +1,5 @@
 <?php
+declare(strict_types=1);
 
 namespace BootstrapUI\View\Helper;
 
@@ -13,7 +14,7 @@ trait OptionsAwareTrait
      * @param array $data An array of HTML attributes and options.
      * @return array An array of HTML attributes and options.
      */
-    public function applyButtonClasses(array $data)
+    public function applyButtonClasses(array $data): array
     {
         $allClasses = $this->genAllClassNames(Element::BTN);
 
@@ -33,7 +34,7 @@ trait OptionsAwareTrait
      * @param array $options An array of HTML attributes and options.
      * @return array An array of HTML attributes and options.
      */
-    public function renameClasses($element, array $options)
+    public function renameClasses(string $element, array $options): array
     {
         $options += ['class' => []];
 
@@ -56,7 +57,7 @@ trait OptionsAwareTrait
      * @param array $options An array of HTML attributes and options.
      * @return bool True if any one of the class names was found.
      */
-    public function hasAnyClass($classes, array $options)
+    public function hasAnyClass($classes, array $options): bool
     {
         $options += ['class' => []];
 
@@ -81,7 +82,7 @@ trait OptionsAwareTrait
      * @param array $options An array of HTML attributes and options.
      * @return array An array of HTML attributes and options.
      */
-    public function injectClasses($classes, array $options)
+    public function injectClasses($classes, array $options): array
     {
         $options += ['class' => [], 'skip' => []];
 
@@ -108,7 +109,7 @@ trait OptionsAwareTrait
      * @param array $options An array of HTML attributes and options.
      * @return array An array of HTML attributes and options.
      */
-    public function removeClasses($classes, array $options)
+    public function removeClasses($classes, array $options): array
     {
         $options += ['class' => []];
 
@@ -136,7 +137,7 @@ trait OptionsAwareTrait
      * @param array $options An array of HTML attributes and options.
      * @return bool False if one or more class(es) do not exist.
      */
-    public function checkClasses($classes, array $options)
+    public function checkClasses($classes, array $options): bool
     {
         if (empty($options['class'])) {
             return false;
@@ -160,8 +161,11 @@ trait OptionsAwareTrait
      * @param mixed $mixed One or more classes.
      * @return array Classes as array.
      */
-    protected function _toClassArray($mixed)
+    protected function _toClassArray($mixed): array
     {
+        if ($mixed === null) {
+            return [];
+        }
         if (!is_array($mixed)) {
             $mixed = explode(' ', $mixed);
         }
@@ -176,7 +180,7 @@ trait OptionsAwareTrait
      * @param string $class CSS class, which can be applied to the element.
      * @return bool|string String of generated class, false if element/class not in list.
      */
-    public function genClassName($element, $class)
+    public function genClassName(string $element, string $class)
     {
         if (!in_array($element, Element::values())) {
             return false;
@@ -195,7 +199,7 @@ trait OptionsAwareTrait
      * @param string $element UI element
      * @return array Array of all generated and raw styles
      */
-    public function genAllClassNames($element)
+    public function genAllClassNames(string $element): array
     {
         $classes = [];
         foreach (Classes::values() as $class) {

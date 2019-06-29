@@ -1,4 +1,5 @@
 <?php
+declare(strict_types=1);
 
 namespace BootstrapUI\View\Helper;
 
@@ -10,7 +11,6 @@ use Cake\View\Helper;
  */
 class FlashHelper extends Helper
 {
-
     /**
      * Default config
      *
@@ -22,7 +22,7 @@ class FlashHelper extends Helper
     protected $_defaultConfig = [
         'class' => ['alert', 'alert-dismissible', 'fade', 'show'],
         'attributes' => ['role' => 'alert'],
-        'element' => 'BootstrapUI.Flash/default'
+        'element' => 'BootstrapUI.flash/default',
     ];
 
     /**
@@ -38,7 +38,7 @@ class FlashHelper extends Helper
      *   in session.
      * @throws \UnexpectedValueException If value for flash settings key is not an array.
      */
-    public function render($key = 'flash', array $options = [])
+    public function render(string $key = 'flash', array $options = []): ?string
     {
         if (!$this->getView()->getRequest()->getSession()->check("Flash.$key")) {
             return null;

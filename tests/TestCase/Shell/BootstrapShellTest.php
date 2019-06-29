@@ -1,10 +1,8 @@
 <?php
+declare(strict_types=1);
 
 namespace BootstrapUI\Shell;
 
-use BootstrapUI\Shell\BootstrapShell;
-use BootstrapUI\Shell\Task\TwbsAssetsTask;
-use Cake\Console\Shell;
 use Cake\Core\Configure;
 use Cake\Core\Plugin;
 use Cake\Filesystem\File;
@@ -13,7 +11,7 @@ use Cake\TestSuite\TestCase;
 
 class BootstrapShellTest extends TestCase
 {
-    public function setUp()
+    public function setUp(): void
     {
         parent::setUp();
 
@@ -25,7 +23,7 @@ class BootstrapShellTest extends TestCase
         $this->Shell->loadTasks();
     }
 
-    public function tearDown()
+    public function tearDown(): void
     {
         parent::tearDown();
         unset($this->Shell);
@@ -102,9 +100,9 @@ class BootstrapShellTest extends TestCase
     public function testCopyLayouts()
     {
         $this->Shell->copyLayouts();
-        $this->assertDirectoryExists(APP . 'Template' . DS . 'Layout' . DS . 'TwitterBootstrap');
+        $this->assertDirectoryExists(dirname(APP) . DS . 'templates' . DS . 'layout' . DS . 'TwitterBootstrap');
 
-        (new Folder(APP . 'Template' . DS . 'Layout'))->delete();
+        (new Folder(dirname(APP) . DS . 'templates' . DS . 'layout'))->delete();
     }
 
     public function testModifyView()
@@ -113,9 +111,9 @@ class BootstrapShellTest extends TestCase
         $original = $view->read();
 
         $this->Shell->modifyView();
-        $this->assertContains('use BootstrapUI\\View\\UIView', (string)$view->read());
-        $this->assertContains('class AppView extends UIView', (string)$view->read());
-        $this->assertContains('parent::initialize();', (string)$view->read());
+        $this->assertStringContainsString('use BootstrapUI\\View\\UIView', (string)$view->read());
+        $this->assertStringContainsString('class AppView extends UIView', (string)$view->read());
+        $this->assertStringContainsString('parent::initialize();', (string)$view->read());
 
         if ($view->writable()) {
             $view->write($original);

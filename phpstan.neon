@@ -1,4 +1,8 @@
 parameters:
     level: 5
+    autoload_files:
+        - tests/bootstrap.php
     ignoreErrors:
-        - '#Constant APP not found#'
+        -
+            message: '#Offset.*#'
+            path: 'src/View/Helper/FlashHelper.php' 

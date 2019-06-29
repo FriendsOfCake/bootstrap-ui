@@ -5,7 +5,7 @@ namespace BootstrapUI\View\Widget;
 
 use Cake\View\Form\ContextInterface;
 
-class SelectBoxWidget extends \Cake\View\Widget\SelectBoxWidget
+class DateTimeWidget extends \Cake\View\Widget\DateTimeWidget
 {
     use InputgroupTrait;
 

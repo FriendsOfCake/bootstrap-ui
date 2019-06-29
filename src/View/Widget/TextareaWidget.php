@@ -1,7 +1,8 @@
 <?php
+declare(strict_types=1);
+
 namespace BootstrapUI\View\Widget;
 
-use BootstrapUI\View\Widget\InputgroupTrait;
 use Cake\View\Form\ContextInterface;
 
 /**
@@ -31,7 +32,7 @@ class TextareaWidget extends \Cake\View\Widget\TextareaWidget
      * @param \Cake\View\Form\ContextInterface $context The current form context.
      * @return string HTML elements.
      */
-    public function render(array $data, ContextInterface $context)
+    public function render(array $data, ContextInterface $context): string
     {
         return $this->_withInputGroup($data, $context);
     }

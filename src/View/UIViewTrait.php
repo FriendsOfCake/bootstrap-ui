@@ -1,4 +1,5 @@
 <?php
+declare(strict_types=1);
 
 namespace BootstrapUI\View;
 
@@ -19,7 +20,7 @@ trait UIViewTrait
      *
      * @return void
      */
-    public function initializeUI(array $options = [])
+    public function initializeUI(array $options = []): void
     {
         if ((!isset($options['layout']) || $options['layout'] === true) &&
             $this->layout === 'default'

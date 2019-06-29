@@ -1,4 +1,5 @@
 <?php
+declare(strict_types=1);
 
 namespace BootstrapUI\View\Widget;
 
@@ -7,7 +8,6 @@ use Cake\View\Form\ContextInterface;
 
 class ButtonWidget extends \Cake\View\Widget\ButtonWidget
 {
-
     use OptionsAwareTrait;
 
     /**
@@ -24,7 +24,7 @@ class ButtonWidget extends \Cake\View\Widget\ButtonWidget
         'info',
         'light',
         'dark',
-        'link'
+        'link',
     ];
 
     /**
@@ -34,7 +34,7 @@ class ButtonWidget extends \Cake\View\Widget\ButtonWidget
      * @param \Cake\View\Form\ContextInterface $context The current form context.
      * @return string
      */
-    public function render(array $data, ContextInterface $context)
+    public function render(array $data, ContextInterface $context): string
     {
         $data = $this->applyButtonClasses($data);
 

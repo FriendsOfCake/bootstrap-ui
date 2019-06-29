@@ -1,4 +1,6 @@
 <?php
+declare(strict_types=1);
+
 namespace BootstrapUI\View\Helper;
 
 use Cake\View\Helper\BreadcrumbsHelper as CoreBreadcrumbsHelper;
@@ -16,8 +18,8 @@ class BreadcrumbsHelper extends CoreBreadcrumbsHelper
             'wrapper' => '<nav aria-label="breadcrumb"><ol{{attrs}}>{{content}}</ol></nav>',
             'item' => '<li{{attrs}}><a href="{{url}}"{{innerAttrs}}>{{title}}</a></li>',
             'itemWithoutLink' => '<li{{attrs}}><span{{innerAttrs}}>{{title}}</span></li>',
-            'separator' => ''
-        ]
+            'separator' => '',
+        ],
     ];
 
     /**
@@ -28,14 +30,14 @@ class BreadcrumbsHelper extends CoreBreadcrumbsHelper
     protected $_defaultAttributes = [
         'class' => [
             'wrapper' => 'breadcrumb',
-            'item' => 'breadcrumb-item'
-        ]
+            'item' => 'breadcrumb-item',
+        ],
     ];
 
     /**
      * {@inheritDoc}
      */
-    public function render(array $attributes = [], array $separator = [])
+    public function render(array $attributes = [], array $separator = []): string
     {
         $attributes = $this->injectClasses($this->_defaultAttributes['class']['wrapper'], $attributes);
 
@@ -45,7 +47,8 @@ class BreadcrumbsHelper extends CoreBreadcrumbsHelper
     }
 
     /**
-     * {@inheritDoc}
+     * @inheritDoc
+     * @return $this
      */
     public function add($title, $url = null, array $options = [])
     {
@@ -55,7 +58,8 @@ class BreadcrumbsHelper extends CoreBreadcrumbsHelper
     }
 
     /**
-     * {@inheritDoc}
+     * @inheritDoc
+     * @return $this
      */
     public function prepend($title, $url = null, array $options = [])
     {
@@ -65,9 +69,10 @@ class BreadcrumbsHelper extends CoreBreadcrumbsHelper
     }
 
     /**
-     * {@inheritDoc}
+     * @inheritDoc
+     * @return $this
      */
-    public function insertAt($index, $title, $url = null, array $options = [])
+    public function insertAt(int $index, string $title, $url = null, array $options = [])
     {
         $options = $this->injectClasses($this->_defaultAttributes['class']['item'], $options);
 
@@ -80,7 +85,7 @@ class BreadcrumbsHelper extends CoreBreadcrumbsHelper
      *
      * @return void
      */
-    protected function _markActiveCrumb()
+    protected function _markActiveCrumb(): void
     {
         if (!$this->crumbs) {
             return;
@@ -118,7 +123,7 @@ class BreadcrumbsHelper extends CoreBreadcrumbsHelper
      *
      * @return void
      */
-    protected function _clearActiveCrumb()
+    protected function _clearActiveCrumb(): void
     {
         foreach ($this->crumbs as $key => $crumb) {
             $this->crumbs[$key]['options'] = $this->removeClasses('active', $this->crumbs[$key]['options']);

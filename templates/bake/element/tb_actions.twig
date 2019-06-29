@@ -1,5 +1,5 @@
 {% set fields = Bake.filterFields(fields, schema, modelObject) %}
-{% if strpos(action, 'add') is same as(false) %}
+{%- if 'add' not in action %}
 <li><?= $this->Form->postLink(__('Delete'), ['action' => 'delete', ${{ singularVar }}->{{ primaryKey[0] }}], ['confirm' => __('Are you sure you want to delete # {0}?', ${{ singularVar }}->{{ primaryKey[0] }}), 'class' => 'nav-link']) ?></li>
 {% endif %}
 <li><?= $this->Html->link(__('List {{ pluralHumanName }}'), ['action' => 'index'], ['class' => 'nav-link']) ?></li>

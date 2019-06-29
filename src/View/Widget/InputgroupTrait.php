@@ -1,9 +1,10 @@
 <?php
+declare(strict_types=1);
+
 namespace BootstrapUI\View\Widget;
 
 use BootstrapUI\View\Helper\OptionsAwareTrait;
 use Cake\View\Form\ContextInterface;
-use Cake\View\View;
 
 trait InputgroupTrait
 {
@@ -23,7 +24,7 @@ trait InputgroupTrait
      * @param \Cake\View\Form\ContextInterface $context The current form context.
      * @return string
      */
-    protected function _withInputGroup(array $data, ContextInterface $context)
+    protected function _withInputGroup(array $data, ContextInterface $context): string
     {
         $data += [
             'type' => null,
@@ -77,7 +78,7 @@ trait InputgroupTrait
      * @param array $data Widget data.
      * @return string
      */
-    protected function _addon($addon, $data)
+    protected function _addon($addon, array $data): string
     {
         if ($this->_isButton($addon)) {
             $element = $addon;
@@ -102,7 +103,7 @@ trait InputgroupTrait
      * @param string $html Markup to check.
      * @return bool TRUE if it's a button.
      */
-    protected function _isButton($html)
+    protected function _isButton(string $html): bool
     {
         return strpos($html, '<button') !== false || strpos($html, 'type="submit"') !== false;
     }
@@ -132,7 +133,7 @@ trait InputgroupTrait
      * @param array $attrs of wrapping container
      * @return array attrs with classes
      */
-    protected function _processOptions(array $attachment, array $attrs)
+    protected function _processOptions(array $attachment, array $attrs): array
     {
         $attrs['class'][] = 'input-group';
         if (isset($attachment['options']['size']) && $attachment['options']['size'] != null) {

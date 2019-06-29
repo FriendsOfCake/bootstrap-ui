@@ -1,7 +1,9 @@
 <?php
+declare(strict_types=1);
 
 namespace BootstrapUI\Shell;
 
+use Cake\Console\ConsoleOptionParser;
 use Cake\Console\Shell;
 use Cake\Filesystem\File;
 
@@ -23,7 +25,7 @@ class BootstrapShell extends Shell
      *
      * @return void
      */
-    public function install()
+    public function install(): void
     {
         $this->TwbsAssets->installAssets();
         $this->TwbsAssets->copyAssets();
@@ -36,7 +38,7 @@ class BootstrapShell extends Shell
      *
      * @return void
      */
-    public function copyLayouts()
+    public function copyLayouts(): void
     {
         $this->TwbsAssets->copyLayouts();
     }
@@ -47,7 +49,7 @@ class BootstrapShell extends Shell
      * @param string|null $path Path to AppView
      * @return void
      */
-    public function modifyView($path = null)
+    public function modifyView(?string $path = null): void
     {
         if ($path == null) {
             $path = APP . 'View' . DS . 'AppView.php';
@@ -56,7 +58,10 @@ class BootstrapShell extends Shell
 
         $view->replaceText('use Cake\\View\\View', 'use BootstrapUI\\View\\UIView');
         $view->replaceText('class AppView extends View', 'class AppView extends UIView');
-        $view->replaceText("    public function initialize()\n    {\n", "    public function initialize()\n    {\n        parent::initialize();\n");
+        $view->replaceText(
+            "    public function initialize(): void\n    {\n",
+            "    public function initialize(): void\n    {\n        parent::initialize();\n"
+        );
 
         $view->write((string)$view->read());
     }
@@ -66,20 +71,21 @@ class BootstrapShell extends Shell
      *
      * @return \Cake\Console\ConsoleOptionParser
      */
-    public function getOptionParser()
+    public function getOptionParser(): ConsoleOptionParser
     {
         $parser = parent::getOptionParser();
 
         return $parser->setDescription([
             'Bootstrap Shell',
             '',
-            ''
+            '',
         ])->addSubcommand('install', [
-            'help' => 'Installs Bootstrap assets and links them to app\'s webroot.'
+            'help' => 'Installs Bootstrap assets and links them to app\'s webroot.',
         ])->addSubcommand('copyLayouts', [
-            'help' => 'Copies sample layouts to app\'s Template/Layout/TwitterBootstrap folder.'
+            'help' => 'Copies sample layouts to app\'s Template/Layout/TwitterBootstrap folder.',
         ])->addSubcommand('modifyView', [
-            'help' => 'Modifies AppView.php to extend this plugin\'s UIView. Don\'t use, if you have a already modified AppView'
+            'help' => 'Modifies AppView.php to extend this plugin\'s UIView. Don\'t use, ' .
+                'if you have a already modified AppView',
         ]);
     }
 }

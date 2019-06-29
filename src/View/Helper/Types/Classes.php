@@ -1,9 +1,7 @@
 <?php
+declare(strict_types=1);
 
 namespace BootstrapUI\View\Helper\Types;
-
-use ReflectionClass;
-use ReflectionException;
 
 /**
  * Classes
@@ -13,25 +11,25 @@ use ReflectionException;
 final class Classes extends Type
 {
     /** @var string The primary class */
-    const PRIMARY = 'primary';
+    public const PRIMARY = 'primary';
     /** @var string The secondary clss */
-    const SECONDARY = 'secondary';
+    public const SECONDARY = 'secondary';
     /** @var string The success class */
-    const SUCCESS = 'success';
+    public const SUCCESS = 'success';
     /** @var string The danger class */
-    const DANGER = 'danger';
+    public const DANGER = 'danger';
     /** @var string The warning class */
-    const WARNING = 'warning';
+    public const WARNING = 'warning';
     /** @var string The info class */
-    const INFO = 'info';
+    public const INFO = 'info';
     /** @var string The light class */
-    const LIGHT = 'light';
+    public const LIGHT = 'light';
     /** @var string The dark class */
-    const DARK = 'dark';
+    public const DARK = 'dark';
     /** @var string The link class */
-    const LINK = 'link';
+    public const LINK = 'link';
     /** @var string The small class */
-    const SM = 'sm';
+    public const SM = 'sm';
     /** @var string The large class */
-    const LG = 'lg';
+    public const LG = 'lg';
 }

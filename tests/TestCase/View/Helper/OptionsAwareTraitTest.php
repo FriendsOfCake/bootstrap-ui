@@ -1,18 +1,10 @@
 <?php
+declare(strict_types=1);
 
 namespace BootstrapUI\Test\TestCase\View\Helper;
 
-use BootstrapUI\View\Helper\OptionsAwareTrait;
 use Cake\TestSuite\TestCase;
-
-/**
- * TestOptionsAware
- */
-class TestOptionsAware
-{
-
-    use OptionsAwareTrait;
-}
+use TestApp\Test\TestOptionsAware;
 
 /**
  * OptionsAwareTraitTest
@@ -29,7 +21,7 @@ class OptionsAwareTraitTest extends TestCase
      *
      * @return void
      */
-    public function setUp()
+    public function setUp(): void
     {
         parent::setUp();
         $this->object = new TestOptionsAware();
@@ -46,7 +38,6 @@ class OptionsAwareTraitTest extends TestCase
 
     public function testRenameClasses()
     {
-        $this->assertEquals(['class' => ''], $this->object->renameClasses(['a' => 'b'], []));
         $this->assertEquals(['class' => 'btn-primary'], $this->object->renameClasses('btn', ['class' => 'primary']));
         $this->assertEquals(['class' => 'alert-success'], $this->object->renameClasses('alert', ['class' => 'success']));
     }
@@ -151,7 +142,7 @@ class OptionsAwareTraitTest extends TestCase
             'btn-outline-dark',
             'btn-outline-link',
             'btn-outline-sm',
-            'btn-outline-lg'
+            'btn-outline-lg',
         ];
 
         $this->assertEquals($res, $this->object->genAllClassNames('btn'));

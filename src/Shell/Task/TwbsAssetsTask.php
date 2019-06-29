@@ -1,9 +1,9 @@
 <?php
+declare(strict_types=1);
 
 namespace BootstrapUI\Shell\Task;
 
 use Cake\Console\Shell;
-use Cake\Core\Configure;
 use Cake\Core\Plugin;
 use Cake\Filesystem\File;
 use Cake\Filesystem\Folder;
@@ -35,7 +35,7 @@ class TwbsAssetsTask extends Shell
      *
      * @return void
      */
-    public function installAssets()
+    public function installAssets(): void
     {
         $this->info('Checking npm...');
         if (strtoupper(substr(PHP_OS, 0, 3)) !== 'WIN' && !`which npm`) {
@@ -63,7 +63,7 @@ class TwbsAssetsTask extends Shell
      *
      * @return void
      */
-    public function copyAssets()
+    public function copyAssets(): void
     {
         $this->info('Clearing webroot and copying assets...');
         if ($this->_clear($this->_assetDir, '^(?!cover)(?!dashboard)(?!signin)(?!baked-with-cakephp.svg).*$')) {
@@ -90,13 +90,13 @@ class TwbsAssetsTask extends Shell
      * @param string $target The destination path
      * @return void
      */
-    public function copyLayouts($target = null)
+    public function copyLayouts(?string $target = null): void
     {
         $this->info('Copying sample layouts...');
-        $layoutDir = new Folder(Plugin::path('BootstrapUI') . 'src' . DS . 'Template' . DS . 'Layout' . DS . 'examples');
+        $layoutDir = new Folder(Plugin::path('BootstrapUI') . 'templates' . DS . 'layout' . DS . 'examples');
 
         if ($target == null) {
-            $target = APP . 'Template' . DS . 'Layout' . DS . 'TwitterBootstrap';
+            $target = dirname(APP) . DS . 'templates' . DS . 'layout' . DS . 'TwitterBootstrap';
         }
 
         if (!$layoutDir->copy($target)) {
@@ -111,7 +111,7 @@ class TwbsAssetsTask extends Shell
      * @param array $files Assetfiles to copy
      * @return void
      */
-    protected function _copy(array $files)
+    protected function _copy(array $files): void
     {
         foreach ($files as $file) {
             $dir = null;
@@ -136,7 +136,7 @@ class TwbsAssetsTask extends Shell
      * @param string $except Files to skip
      * @return bool
      */
-    protected function _clear(Folder $folder, $except)
+    protected function _clear(Folder $folder, string $except): bool
     {
         $files = $folder->findRecursive($except);
         foreach ($files as $file) {

@@ -8,6 +8,7 @@ if (in_array('alert-dismissible', $class)) {
 BUTTON;
     $message = $button . $message;
 }
-
+if (is_array($class)) {
+    $class = join(' ', $class);
+}
 echo $this->Html->div($class, $message, $params['attributes']);
-?>

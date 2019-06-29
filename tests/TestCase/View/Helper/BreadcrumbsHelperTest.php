@@ -1,4 +1,6 @@
 <?php
+declare(strict_types=1);
+
 namespace BootstrapUI\Test\TestCase\View\Helper;
 
 use BootstrapUI\View\Helper\BreadcrumbsHelper;
@@ -17,7 +19,7 @@ class BreadcrumbsHelperTest extends TestCase
      */
     public $Breadcrumbs;
 
-    public function setUp()
+    public function setUp(): void
     {
         parent::setUp();
 
@@ -25,7 +27,7 @@ class BreadcrumbsHelperTest extends TestCase
         $this->Breadcrumbs = new BreadcrumbsHelper($this->View);
     }
 
-    public function tearDown()
+    public function tearDown(): void
     {
         parent::tearDown();
         unset($this->Breadcrumbs, $this->View);
@@ -82,7 +84,7 @@ class BreadcrumbsHelperTest extends TestCase
                         '/span',
                     '/li',
                 '/ol',
-            '/nav'
+            '/nav',
         ];
         $this->assertHtml($expected, $result);
     }
@@ -115,7 +117,7 @@ class BreadcrumbsHelperTest extends TestCase
                         '/a',
                     '/li',
                 '/ol',
-            '/nav'
+            '/nav',
         ];
         $this->assertHtml($expected, $result);
     }
@@ -149,7 +151,7 @@ class BreadcrumbsHelperTest extends TestCase
                         '/span',
                     '/li',
                 '/ol',
-            '/nav'
+            '/nav',
         ];
         $this->assertHtml($expected, $result);
     }
@@ -177,7 +179,7 @@ class BreadcrumbsHelperTest extends TestCase
                         '/span',
                     '/li',
                 '/ol',
-            '/nav'
+            '/nav',
         ];
         $this->assertHtml($expected, $result);
     }
@@ -203,7 +205,7 @@ class BreadcrumbsHelperTest extends TestCase
                         '/span',
                     '/li',
                 '/ol',
-            '/nav'
+            '/nav',
         ];
         $this->assertHtml($expected, $result);
 
@@ -230,7 +232,7 @@ class BreadcrumbsHelperTest extends TestCase
                         '/span',
                     '/li',
                 '/ol',
-            '/nav'
+            '/nav',
         ];
         $this->assertHtml($expected, $result);
     }

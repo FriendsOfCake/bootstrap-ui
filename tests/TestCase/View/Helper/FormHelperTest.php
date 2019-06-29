@@ -1,4 +1,5 @@
 <?php
+declare(strict_types=1);
 
 namespace BootstrapUI\Test\TestCase\View\Helper;
 
@@ -48,7 +49,7 @@ class FormHelperTest extends TestCase
      *
      * @return void
      */
-    public function setUp()
+    public function setUp(): void
     {
         parent::setUp();
 
@@ -57,7 +58,7 @@ class FormHelperTest extends TestCase
         Configure::write('App.namespace', 'BootstrapUI\Test\TestCase\View\Helper');
         Configure::delete('Asset');
 
-        $request = new ServerRequest('articles/add');
+        $request = new ServerRequest(['url' => '/articles/add']);
         $request = $request
                 ->withRequestTarget('/articles/add')
                 ->withParam('controller', 'articles')
@@ -74,12 +75,12 @@ class FormHelperTest extends TestCase
                 'title' => ['type' => 'string', 'null' => true],
                 'body' => 'text',
                 'published' => ['type' => 'boolean', 'length' => 1, 'default' => 0],
-                '_constraints' => ['primary' => ['type' => 'primary', 'columns' => ['id']]]
+                '_constraints' => ['primary' => ['type' => 'primary', 'columns' => ['id']]],
             ],
             'required' => [
                 'author_id' => true,
                 'title' => true,
-            ]
+            ],
         ];
 
         Security::setSalt('foo!');
@@ -95,7 +96,7 @@ class FormHelperTest extends TestCase
      *
      * @return void
      */
-    public function tearDown()
+    public function tearDown(): void
     {
         parent::tearDown();
         unset($this->Form, $this->View);
@@ -125,7 +126,7 @@ class FormHelperTest extends TestCase
                 'id' => 'title',
                 'class' => 'form-control',
             ],
-            '/div'
+            '/div',
         ];
         $this->assertHtml($expected, $result);
     }
@@ -151,7 +152,7 @@ class FormHelperTest extends TestCase
                 'id' => 'file',
                 'class' => 'form-control-file',
             ],
-            '/div'
+            '/div',
         ];
 
         $this->assertHtml($expected, $result);
@@ -168,7 +169,7 @@ class FormHelperTest extends TestCase
 
         $result = $this->Form->control('foreign_key', [
             'type' => 'select',
-            'class' => 'my-class'
+            'class' => 'my-class',
         ]);
         $expected = [
             'div' => ['class' => 'form-group select'],
@@ -181,7 +182,7 @@ class FormHelperTest extends TestCase
                 'class' => 'my-class form-control',
             ],
             '/select',
-            '/div'
+            '/div',
         ];
         $this->assertHtml($expected, $result);
     }
@@ -212,7 +213,7 @@ class FormHelperTest extends TestCase
                 'id' => 'title',
                 'value' => 'foo &lt;u&gt;bar&lt;/u&gt;',
             ],
-            '/div'
+            '/div',
         ];
         $this->assertHtml($expected, $result);
         $this->assertSame(['title' => 'foo <u>bar</u>'], $this->Form->fields);
@@ -231,7 +232,7 @@ class FormHelperTest extends TestCase
             'bar',
             '/u',
             '/p',
-            '/div'
+            '/div',
         ];
         $this->assertHtml($expected, $result);
         $this->assertEmpty($this->Form->fields);
@@ -256,7 +257,7 @@ class FormHelperTest extends TestCase
                 'id' => 'title',
                 'class' => 'form-control',
             ],
-            '/div'
+            '/div',
         ];
         $this->assertHtml($expected, $result);
     }
@@ -283,7 +284,7 @@ class FormHelperTest extends TestCase
                 'id' => 'title',
                 'class' => 'form-control',
             ],
-            '/div'
+            '/div',
         ];
         $this->assertHtml($expected, $result);
     }
@@ -310,7 +311,7 @@ class FormHelperTest extends TestCase
                 'id' => 'title',
                 'class' => 'form-control',
             ],
-            '/div'
+            '/div',
         ];
         $this->assertHtml($expected, $result);
     }
@@ -337,7 +338,7 @@ class FormHelperTest extends TestCase
                 'id' => 'password',
                 'class' => 'form-control',
             ],
-            '/div'
+            '/div',
         ];
         $this->assertHtml($expected, $result);
     }
@@ -360,11 +361,13 @@ class FormHelperTest extends TestCase
             'input' => [
                 'type' => 'text',
                 'name' => 'title',
+                'oninvalid' => 'this.setCustomValidity(&#039;This field is required&#039;)',
+                'onvalid' => 'this.setCustomValidity(&#039;&#039;)',
                 'id' => 'title',
                 'class' => 'form-control',
-                'required' => 'required'
+                'required' => 'required',
             ],
-            '/div'
+            '/div',
         ];
         $this->assertHtml($expected, $result);
     }
@@ -393,14 +396,16 @@ class FormHelperTest extends TestCase
             'input' => [
                 'type' => 'text',
                 'name' => 'title',
+                'required' => 'required',
+                'oninvalid' => 'this.setCustomValidity(&#039;This field is required&#039;)',
+                'onvalid' => 'this.setCustomValidity(&#039;&#039;)',
                 'id' => 'title',
                 'class' => 'is-invalid form-control',
-                'required' => 'required'
             ],
             ['div' => ['class' => 'invalid-feedback']],
             'error message',
             '/div',
-            '/div'
+            '/div',
         ];
 
         $this->assertHtml($expected, $result);
@@ -414,7 +419,7 @@ class FormHelperTest extends TestCase
             'Published',
             '/label',
             ['div' => ['class' => 'invalid-feedback']], 'error message', '/div',
-            '/div'
+            '/div',
         ];
         $this->assertHtml($expected, $result);
 
@@ -435,7 +440,7 @@ class FormHelperTest extends TestCase
             ['div' => ['class' => 'invalid-feedback']],
             'error msg',
             '/div',
-            '/div'
+            '/div',
         ];
         $this->assertHtml($expected, $result);
 
@@ -454,7 +459,7 @@ class FormHelperTest extends TestCase
             ['div' => ['class' => 'invalid-feedback']],
             'upload error',
             '/div',
-            '/div'
+            '/div',
         ];
         $this->assertHtml($expected, $result);
 
@@ -470,15 +475,17 @@ class FormHelperTest extends TestCase
             'input' => [
                 'type' => 'text',
                 'name' => 'title',
+                'required' => 'required',
+                'oninvalid' => 'this.setCustomValidity(&#039;This field is required&#039;)',
+                'onvalid' => 'this.setCustomValidity(&#039;&#039;)',
                 'id' => 'title',
                 'class' => 'is-invalid form-control',
-                'required' => 'required'
             ],
             ['div' => ['class' => 'invalid-feedback']],
             'error message',
             '/div',
             '/div',
-            '/div'
+            '/div',
         ];
 
         $this->assertHtml($expected, $result);
@@ -496,7 +503,7 @@ class FormHelperTest extends TestCase
             '/div',
             ['div' => ['class' => 'invalid-feedback']], 'error message', '/div',
             '/div',
-            '/div'
+            '/div',
         ];
         $this->assertHtml($expected, $result);
     }
@@ -525,12 +532,14 @@ class FormHelperTest extends TestCase
             'input' => [
                 'type' => 'text',
                 'name' => 'title',
+                'required' => 'required',
+                'oninvalid' => 'this.setCustomValidity(&#039;This field is required&#039;)',
+                'onvalid' => 'this.setCustomValidity(&#039;&#039;)',
                 'id' => 'title',
                 'class' => 'form-control',
-                'required' => 'required'
             ],
             '/div',
-            '/div'
+            '/div',
         ];
         $this->assertHtml($expected, $result);
 
@@ -550,10 +559,10 @@ class FormHelperTest extends TestCase
                 'type' => 'text',
                 'name' => 'url',
                 'id' => 'url',
-                'class' => 'form-control'
+                'class' => 'form-control',
             ],
             '/div',
-            '/div'
+            '/div',
         ];
         $this->assertHtml($expected, $result);
     }
@@ -577,9 +586,11 @@ class FormHelperTest extends TestCase
             'input' => [
                 'type' => 'text',
                 'name' => 'title',
+                'required' => 'required',
+                'oninvalid' => 'this.setCustomValidity(&#039;This field is required&#039;)',
+                'onvalid' => 'this.setCustomValidity(&#039;&#039;)',
                 'id' => 'title',
                 'class' => 'form-control',
-                'required' => 'required'
             ],
             ['div' => ['class' => 'input-group-append']],
             'span' => ['class' => 'input-group-text'],
@@ -587,7 +598,7 @@ class FormHelperTest extends TestCase
             '/span',
             '/div',
             '/div',
-            '/div'
+            '/div',
         ];
         $this->assertHtml($expected, $result);
 
@@ -601,9 +612,11 @@ class FormHelperTest extends TestCase
             'input' => [
                 'type' => 'text',
                 'name' => 'title',
+                'required' => 'required',
+                'oninvalid' => 'this.setCustomValidity(&#039;This field is required&#039;)',
+                'onvalid' => 'this.setCustomValidity(&#039;&#039;)',
                 'id' => 'title',
                 'class' => 'form-control',
-                'required' => 'required'
             ],
             ['div' => ['class' => 'input-group-append']],
             'span' => ['class' => 'input-group-text'],
@@ -611,7 +624,7 @@ class FormHelperTest extends TestCase
             '/span',
             '/div',
             '/div',
-            '/div'
+            '/div',
         ];
         $this->assertHtml($expected, $result);
     }
@@ -634,9 +647,11 @@ class FormHelperTest extends TestCase
             ['div' => ['class' => 'input-group']],
             'select' => [
                 'name' => 'author_id',
-                'id' => 'author-id',
+                'oninvalid' => 'this.setCustomValidity(&#039;This field is required&#039;)',
+                'onvalid' => 'this.setCustomValidity(&#039;&#039;)',
                 'required' => 'required',
-                'class' => 'form-control'
+                'id' => 'author-id',
+                'class' => 'form-control',
             ],
             '/select',
             ['div' => ['class' => 'input-group-append']],
@@ -645,7 +660,7 @@ class FormHelperTest extends TestCase
             '/span',
             '/div',
             '/div',
-            '/div'
+            '/div',
         ];
         $this->assertHtml($expected, $result);
     }
@@ -661,7 +676,7 @@ class FormHelperTest extends TestCase
 
         $result = $this->Form->control('body', [
             'type' => 'textarea',
-            'append' => $this->Form->button('GO')
+            'append' => $this->Form->button('GO'),
         ]);
         $expected = [
             'div' => ['class' => 'form-group textarea'],
@@ -673,7 +688,7 @@ class FormHelperTest extends TestCase
                 'name' => 'body',
                 'id' => 'body',
                 'class' => 'form-control',
-                'rows' => '5'
+                'rows' => '5',
             ],
             '/textarea',
             ['div' => ['class' => 'input-group-append']],
@@ -682,7 +697,7 @@ class FormHelperTest extends TestCase
             '/button',
             '/div',
             '/div',
-            '/div'
+            '/div',
         ];
         $this->assertHtml($expected, $result);
     }
@@ -711,12 +726,14 @@ class FormHelperTest extends TestCase
             'input' => [
                 'type' => 'text',
                 'name' => 'title',
+                'required' => 'required',
+                'oninvalid' => 'this.setCustomValidity(&#039;This field is required&#039;)',
+                'onvalid' => 'this.setCustomValidity(&#039;&#039;)',
                 'id' => 'title',
                 'class' => 'form-control',
-                'required' => 'required'
             ],
             '/div',
-            '/div'
+            '/div',
         ];
         $this->assertHtml($expected, $result);
     }
@@ -740,9 +757,11 @@ class FormHelperTest extends TestCase
             'input' => [
                 'type' => 'text',
                 'name' => 'title',
+                'required' => 'required',
+                'oninvalid' => 'this.setCustomValidity(&#039;This field is required&#039;)',
+                'onvalid' => 'this.setCustomValidity(&#039;&#039;)',
                 'id' => 'title',
                 'class' => 'form-control',
-                'required' => 'required'
             ],
             ['div' => ['class' => 'input-group-append']],
             'button' => ['type' => 'submit', 'class' => 'btn btn-secondary'],
@@ -750,7 +769,7 @@ class FormHelperTest extends TestCase
             '/button',
             '/div',
             '/div',
-            '/div'
+            '/div',
         ];
         $this->assertHtml($expected, $result);
     }
@@ -777,7 +796,7 @@ class FormHelperTest extends TestCase
                 'name' => 'published',
                 'value' => 0,
                 'id' => 'published-0',
-                'class' => 'form-check-input'
+                'class' => 'form-check-input',
             ]],
             ['label' => ['for' => 'published-0', 'class' => 'form-check-label']],
             'Yes',
@@ -789,7 +808,7 @@ class FormHelperTest extends TestCase
                 'name' => 'published',
                 'value' => 1,
                 'id' => 'published-1',
-                'class' => 'form-check-input'
+                'class' => 'form-check-input',
             ]],
             ['label' => ['for' => 'published-1', 'class' => 'form-check-label']],
             'No',
@@ -813,7 +832,7 @@ class FormHelperTest extends TestCase
         $result = $this->Form->control('published', [
             'inline' => true,
             'type' => 'radio',
-            'options' => ['Yes', 'No']
+            'options' => ['Yes', 'No'],
         ]);
         $expected = [
             ['div' => ['class' => 'form-group radio']],
@@ -824,34 +843,34 @@ class FormHelperTest extends TestCase
             ['input' => [
                 'type' => 'hidden',
                 'name' => 'published',
-                'value' => ''
+                'value' => '',
             ]],
             ['label' => [
                 'class' => 'radio-inline',
-                'for' => 'published-0'
+                'for' => 'published-0',
             ]],
             ['input' => [
                 'type' => 'radio',
                 'name' => 'published',
                 'value' => 0,
-                'id' => 'published-0'
+                'id' => 'published-0',
             ]],
             'Yes',
             '/label',
             ['label' => [
                 'class' => 'radio-inline',
-                'for' => 'published-1'
+                'for' => 'published-1',
             ]],
             ['input' => [
                 'type' => 'radio',
                 'name' => 'published',
                 'value' => 1,
-                'id' => 'published-1'
+                'id' => 'published-1',
             ]],
             'No',
             '/label',
             '/div',
-            '/div'
+            '/div',
         ];
         $this->assertHtml($expected, $result);
     }
@@ -878,12 +897,12 @@ class FormHelperTest extends TestCase
                 'name' => 'published',
                 'id' => 'published',
                 'value' => 1,
-                'class' => 'form-check-input'
+                'class' => 'form-check-input',
             ]],
             'label' => ['for' => 'published', 'class' => 'form-check-label'],
             'Published',
             '/label',
-            '/div'
+            '/div',
         ];
         $this->assertHtml($expected, $result);
     }
@@ -907,9 +926,9 @@ class FormHelperTest extends TestCase
             'input' => [
                 'type' => 'hidden',
                 'name' => '_method',
-                'value' => 'POST'
+                'value' => 'POST',
             ],
-            '/div'
+            '/div',
         ];
         $this->assertHtml($expected, $result);
 
@@ -924,7 +943,7 @@ class FormHelperTest extends TestCase
     public function testBasicFormEnd()
     {
         $this->Form->create($this->article);
-        $this->assertHtml('/form', $this->Form->end());
+        $this->assertHtml(['/form'], $this->Form->end());
     }
 
     /**
@@ -949,7 +968,7 @@ class FormHelperTest extends TestCase
                 'id' => 'title',
                 'class' => 'form-control',
             ],
-            '/div'
+            '/div',
         ];
         $this->assertHtml($expected, $result);
     }
@@ -974,9 +993,9 @@ class FormHelperTest extends TestCase
             'input' => [
                 'type' => 'hidden',
                 'name' => '_method',
-                'value' => 'POST'
+                'value' => 'POST',
             ],
-            '/div'
+            '/div',
         ];
         $this->assertHtml($expected, $result);
     }
@@ -1001,9 +1020,9 @@ class FormHelperTest extends TestCase
             'input' => [
                 'type' => 'hidden',
                 'name' => '_method',
-                'value' => 'POST'
+                'value' => 'POST',
             ],
-            '/div'
+            '/div',
         ];
         $this->assertHtml($expected, $result);
 
@@ -1012,7 +1031,7 @@ class FormHelperTest extends TestCase
             'div' => ['class' => 'form-group row text required'],
             'label' => [
                 'class' => 'col-form-label col-md-2',
-                'for' => 'title'
+                'for' => 'title',
             ],
             'Title',
             '/label',
@@ -1020,12 +1039,14 @@ class FormHelperTest extends TestCase
             'input' => [
                 'type' => 'text',
                 'name' => 'title',
+                'required' => 'required',
+                'oninvalid' => 'this.setCustomValidity(&#039;This field is required&#039;)',
+                'onvalid' => 'this.setCustomValidity(&#039;&#039;)',
                 'id' => 'title',
                 'class' => 'form-control',
-                'required' => 'required',
             ],
             '/div',
-            '/div'
+            '/div',
         ];
         $this->assertHtml($expected, $result);
 
@@ -1034,7 +1055,7 @@ class FormHelperTest extends TestCase
             'div' => ['class' => 'form-group row file'],
             'label' => [
                 'class' => 'col-form-label pt-1 col-md-2',
-                'for' => 'file'
+                'for' => 'file',
             ],
             'File',
             '/label',
@@ -1046,7 +1067,7 @@ class FormHelperTest extends TestCase
                 'class' => 'form-control-file',
             ],
             '/div',
-            '/div'
+            '/div',
         ];
         $this->assertHtml($expected, $result);
 
@@ -1065,14 +1086,14 @@ class FormHelperTest extends TestCase
                 'name' => 'published',
                 'id' => 'published',
                 'value' => 1,
-                'class' => 'form-check-input'
+                'class' => 'form-check-input',
             ]],
             'label' => ['for' => 'published', 'class' => 'form-check-label'],
             'Published',
             '/label',
             '/div',
             '/div',
-            '/div'
+            '/div',
         ];
         $this->assertHtml($expected, $result);
     }
@@ -1088,8 +1109,8 @@ class FormHelperTest extends TestCase
             'align' => [
                 'left' => 3,
                 'middle' => 5,
-                'right' => 4
-            ]
+                'right' => 4,
+            ],
         ]);
 
         $result = $this->Form->control('title');
@@ -1097,7 +1118,7 @@ class FormHelperTest extends TestCase
             'div' => ['class' => 'form-group row text required'],
             'label' => [
                 'class' => 'col-form-label col-md-3',
-                'for' => 'title'
+                'for' => 'title',
             ],
             'Title',
             '/label',
@@ -1105,12 +1126,14 @@ class FormHelperTest extends TestCase
             'input' => [
                 'type' => 'text',
                 'name' => 'title',
+                'required' => 'required',
+                'oninvalid' => 'this.setCustomValidity(&#039;This field is required&#039;)',
+                'onvalid' => 'this.setCustomValidity(&#039;&#039;)',
                 'id' => 'title',
                 'class' => 'form-control',
-                'required' => 'required',
             ],
             '/div',
-            '/div'
+            '/div',
         ];
         $this->assertHtml($expected, $result);
     }
@@ -1126,9 +1149,9 @@ class FormHelperTest extends TestCase
             'align' => 'horizontal',
             'templateSet' => [
                 'horizontal' => [
-                    'checkboxFormGroup' => '<div class="%s"><div class="form-check my-checkbox">{{input}}{{label}}</div>{{error}}{{help}}</div>'
-                ]
-            ]
+                    'checkboxFormGroup' => '<div class="%s"><div class="form-check my-checkbox">{{input}}{{label}}</div>{{error}}{{help}}</div>',
+                ],
+            ],
         ]);
         $result = $this->Form->create($this->article);
         $expected = [
@@ -1143,9 +1166,9 @@ class FormHelperTest extends TestCase
             'input' => [
                 'type' => 'hidden',
                 'name' => '_method',
-                'value' => 'POST'
+                'value' => 'POST',
             ],
-            '/div'
+            '/div',
         ];
         $this->assertHtml($expected, $result);
 
@@ -1154,7 +1177,7 @@ class FormHelperTest extends TestCase
             'div' => ['class' => 'form-group row text required'],
             'label' => [
                 'class' => 'col-form-label col-md-2',
-                'for' => 'title'
+                'for' => 'title',
             ],
             'Title',
             '/label',
@@ -1162,12 +1185,14 @@ class FormHelperTest extends TestCase
             'input' => [
                 'type' => 'text',
                 'name' => 'title',
+                'required' => 'required',
+                'oninvalid' => 'this.setCustomValidity(&#039;This field is required&#039;)',
+                'onvalid' => 'this.setCustomValidity(&#039;&#039;)',
                 'id' => 'title',
                 'class' => 'form-control',
-                'required' => 'required',
             ],
             '/div',
-            '/div'
+            '/div',
         ];
         $this->assertHtml($expected, $result);
 
@@ -1193,7 +1218,7 @@ class FormHelperTest extends TestCase
             '/label',
             '/div',
             '/div',
-            '/div'
+            '/div',
         ];
         $this->assertHtml($expected, $result);
     }
@@ -1209,7 +1234,7 @@ class FormHelperTest extends TestCase
         $expected = [
             'button' => ['class' => 'btn btn-secondary', 'type' => 'submit'],
             'Submit',
-            '/button'
+            '/button',
         ];
         $this->assertHtml($expected, $result);
     }
@@ -1228,7 +1253,7 @@ class FormHelperTest extends TestCase
                 'type' => 'submit',
                 'value' => 'Submit',
                 'class' => 'btn btn-block btn-secondary',
-            ]
+            ],
         ];
         $this->assertHtml($expected, $result);
 
@@ -1239,7 +1264,7 @@ class FormHelperTest extends TestCase
                 'type' => 'submit',
                 'value' => 'Submit',
                 'class' => 'btn btn-block btn-secondary',
-            ]
+            ],
         ];
         $this->assertHtml($expected, $result);
     }
@@ -1255,7 +1280,7 @@ class FormHelperTest extends TestCase
         $expected = [
             'button' => ['class' => 'btn-success btn', 'type' => 'submit'],
             'Submit',
-            '/button'
+            '/button',
         ];
         $this->assertHtml($expected, $result);
     }
@@ -1271,7 +1296,7 @@ class FormHelperTest extends TestCase
         $expected = [
             'button' => ['class' => 'btn-primary btn', 'type' => 'submit'],
             'Submit',
-            '/button'
+            '/button',
         ];
         $this->assertHtml($expected, $result);
     }
@@ -1285,7 +1310,7 @@ class FormHelperTest extends TestCase
     {
         $options = [
             'Value 1' => 'Label 1',
-            'Value 2' => 'Label 2'
+            'Value 2' => 'Label 2',
         ];
         $result = $this->Form->select('field', $options, ['multiple' => 'checkbox']);
 
@@ -1302,8 +1327,8 @@ class FormHelperTest extends TestCase
                     'name' => 'field[]',
                     'id' => 'field-value-1',
                     'value' => 'Value 1',
-                    'class' => 'form-check-input'
-                ]
+                    'class' => 'form-check-input',
+                ],
             ],
             ['label' => ['for' => 'field-value-1', 'class' => 'form-check-label']],
             'Label 1',
@@ -1316,8 +1341,8 @@ class FormHelperTest extends TestCase
                     'name' => 'field[]',
                     'id' => 'field-value-2',
                     'value' => 'Value 2',
-                    'class' => 'form-check-input'
-                ]
+                    'class' => 'form-check-input',
+                ],
             ],
             ['label' => ['for' => 'field-value-2', 'class' => 'form-check-label']],
             'Label 2',
@@ -1345,14 +1370,16 @@ class FormHelperTest extends TestCase
             'input' => [
                 'type' => 'text',
                 'name' => 'title',
+                'required' => 'required',
+                'oninvalid' => 'this.setCustomValidity(&#039;This field is required&#039;)',
+                'onvalid' => 'this.setCustomValidity(&#039;&#039;)',
                 'id' => 'title',
                 'class' => 'form-control',
-                'required' => 'required'
             ],
             ['small' => ['class' => 'form-text text-muted']],
             'help text',
             '/small',
-            '/div'
+            '/div',
         ];
         $this->assertHtml($expected, $result);
 
@@ -1367,12 +1394,14 @@ class FormHelperTest extends TestCase
                 'name' => 'title',
                 'id' => 'title',
                 'class' => 'form-control',
-                'required' => 'required'
+                'required' => 'required',
+                'oninvalid' => 'this.setCustomValidity(&#039;This field is required&#039;)',
+                'onvalid' => 'this.setCustomValidity(&#039;&#039;)',
             ],
             ['small' => ['id' => 'test', 'class' => 'form-text text-muted']],
             'help text',
             '/small',
-            '/div'
+            '/div',
         ];
         $this->assertHtml($expected, $result);
 
@@ -1389,7 +1418,7 @@ class FormHelperTest extends TestCase
                 'name' => 'published',
                 'id' => 'published',
                 'value' => 1,
-                'class' => 'form-check-input'
+                'class' => 'form-check-input',
             ]],
             'label' => ['for' => 'published', 'class' => 'form-check-label'],
             'Published',
@@ -1397,12 +1426,12 @@ class FormHelperTest extends TestCase
             ['small' => ['class' => 'form-text text-muted']],
             'help text',
             '/small',
-            '/div'
+            '/div',
         ];
         $this->assertHtml($expected, $result);
 
         $this->article['errors'] = [
-            'title' => ['error message']
+            'title' => ['error message'],
         ];
         $this->Form->create($this->article);
 
@@ -1417,7 +1446,9 @@ class FormHelperTest extends TestCase
                 'name' => 'title',
                 'id' => 'title',
                 'class' => 'is-invalid form-control',
-                'required' => 'required'
+                'required' => 'required',
+                'oninvalid' => 'this.setCustomValidity(&#039;This field is required&#039;)',
+                'onvalid' => 'this.setCustomValidity(&#039;&#039;)',
             ],
             ['div' => ['class' => 'invalid-feedback']],
             'error message',
@@ -1425,13 +1456,13 @@ class FormHelperTest extends TestCase
             ['small' => ['class' => 'form-text text-muted']],
             'help text',
             '/small',
-            '/div'
+            '/div',
         ];
         $this->assertHtml($expected, $result);
 
         $result = $this->Form->control('title', [
             'help' => 'help text',
-            'templates' => ['help' => '<div class="custom-help-block">{{content}}</div>']
+            'templates' => ['help' => '<div class="custom-help-block">{{content}}</div>'],
         ]);
         $expected = [
             'div' => ['class' => 'form-group text required is-invalid'],
@@ -1443,7 +1474,9 @@ class FormHelperTest extends TestCase
                 'name' => 'title',
                 'id' => 'title',
                 'class' => 'is-invalid form-control',
-                'required' => 'required'
+                'required' => 'required',
+                'oninvalid' => 'this.setCustomValidity(&#039;This field is required&#039;)',
+                'onvalid' => 'this.setCustomValidity(&#039;&#039;)',
             ],
             ['div' => ['class' => 'invalid-feedback']],
             'error message',
@@ -1451,7 +1484,7 @@ class FormHelperTest extends TestCase
             ['div' => ['class' => 'custom-help-block']],
             'help text',
             '/div',
-            '/div'
+            '/div',
         ];
         $this->assertHtml($expected, $result);
     }
@@ -1475,15 +1508,17 @@ class FormHelperTest extends TestCase
             'input' => [
                 'type' => 'text',
                 'name' => 'title',
+                'required' => 'required',
+                'oninvalid' => 'this.setCustomValidity(&#039;This field is required&#039;)',
+                'onvalid' => 'this.setCustomValidity(&#039;&#039;)',
                 'id' => 'title',
                 'class' => 'form-control',
-                'required' => 'required'
             ],
             ['small' => ['class' => 'form-text text-muted']],
             'help text',
             '/small',
             '/div',
-            '/div'
+            '/div',
         ];
         $this->assertHtml($expected, $result);
 
@@ -1502,7 +1537,7 @@ class FormHelperTest extends TestCase
                 'name' => 'published',
                 'id' => 'published',
                 'value' => 1,
-                'class' => 'form-check-input'
+                'class' => 'form-check-input',
             ]],
             'label' => ['for' => 'published', 'class' => 'form-check-label'],
             'Published',
@@ -1512,12 +1547,12 @@ class FormHelperTest extends TestCase
             'help text',
             '/small',
             '/div',
-            '/div'
+            '/div',
         ];
         $this->assertHtml($expected, $result);
 
         $this->article['errors'] = [
-            'title' => ['error message']
+            'title' => ['error message'],
         ];
         $this->Form->create($this->article, ['align' => 'horizontal']);
 
@@ -1531,9 +1566,11 @@ class FormHelperTest extends TestCase
             'input' => [
                 'type' => 'text',
                 'name' => 'title',
+                'required' => 'required',
+                'oninvalid' => 'this.setCustomValidity(&#039;This field is required&#039;)',
+                'onvalid' => 'this.setCustomValidity(&#039;&#039;)',
                 'id' => 'title',
                 'class' => 'is-invalid form-control',
-                'required' => 'required'
             ],
             ['div' => ['class' => 'invalid-feedback']],
             'error message',
@@ -1542,7 +1579,7 @@ class FormHelperTest extends TestCase
             'help text',
             '/small',
             '/div',
-            '/div'
+            '/div',
         ];
         $this->assertHtml($expected, $result);
     }
@@ -1567,11 +1604,13 @@ class FormHelperTest extends TestCase
             'input' => [
                 'type' => 'text',
                 'name' => 'title',
+                'required' => 'required',
+                'oninvalid' => 'this.setCustomValidity(&#039;This field is required&#039;)',
+                'onvalid' => 'this.setCustomValidity(&#039;&#039;)',
                 'id' => 'title',
                 'class' => 'form-control',
-                'required' => 'required'
             ],
-            '/div'
+            '/div',
         ];
         $this->assertHtml($expected, $result);
     }
@@ -1597,12 +1636,14 @@ class FormHelperTest extends TestCase
             'input' => [
                 'type' => 'text',
                 'name' => 'title',
+                'required' => 'required',
+                'oninvalid' => 'this.setCustomValidity(&#039;This field is required&#039;)',
+                'onvalid' => 'this.setCustomValidity(&#039;&#039;)',
                 'id' => 'title',
                 'class' => 'form-control',
-                'required' => 'required'
             ],
             '/div',
-            '/div'
+            '/div',
         ];
         $this->assertHtml($expected, $result);
     }
@@ -1615,28 +1656,28 @@ class FormHelperTest extends TestCase
     public function testFormControlClassInjection()
     {
         $result = $this->Form->text('foo');
-        $this->assertContains('class="form-control"', $result);
+        $this->assertStringContainsString('class="form-control"', $result);
 
         $result = $this->Form->text('foo', ['class' => 'custom']);
-        $this->assertContains('class="custom form-control"', $result);
+        $this->assertStringContainsString('class="custom form-control"', $result);
 
         $result = $this->Form->select('foo');
-        $this->assertContains('class="form-control"', $result);
+        $this->assertStringContainsString('class="form-control"', $result);
 
         $result = $this->Form->textarea('foo');
-        $this->assertContains('class="form-control"', $result);
+        $this->assertStringContainsString('class="form-control"', $result);
 
         $result = $this->Form->dateTime('foo');
-        $this->assertContains('class="form-control"', $result);
+        $this->assertStringContainsString('class="form-control"', $result);
 
         $result = $this->Form->file('foo');
-        $this->assertNotContains('"form-control"', $result);
+        $this->assertStringNotContainsString('"form-control"', $result);
 
         $result = $this->Form->checkbox('foo');
-        $this->assertNotContains('"form-control"', $result);
+        $this->assertStringNotContainsString('"form-control"', $result);
 
         $result = $this->Form->radio('foo', ['1' => 'Opt 1', '2' => 'Opt 2']);
-        $this->assertNotContains('"form-control"', $result);
+        $this->assertStringNotContainsString('"form-control"', $result);
     }
 
     /**
@@ -1654,77 +1695,25 @@ class FormHelperTest extends TestCase
     {
         $this->Form->create($this->article);
 
-        $now = time();
+        $now = new \DateTime('now');
 
         $result = $this->Form->control('created', [
-            'type' => 'datetime',
-            'timeFormat' => 12,
-            'second' => true,
-            'value' => $now,
+            'type' => 'datetime-local',
+            'value' => $now->format('Y-m-d H:i:s'),
         ]);
+
         $expected = [
-            ['div' => ['class' => 'form-group datetime', 'role' => 'group', 'aria-labelledby' => 'created-group-label']],
+            ['div' => ['class' => 'form-group datetime-local', 'role' => 'group', 'aria-labelledby' => 'created-group-label']],
                 ['label' => ['id' => 'created-group-label']],
                     'Created',
                 '/label',
-                ['ul' => ['class' => 'list-inline mb-0']],
-                    ['li' => ['class' => 'list-inline-item year']],
-                        ['select' => ['name' => 'created[year]', 'class' => 'form-control']],
-                            $this->dateRegex['yearsRegex'],
-                            ['option' => ['value' => date('Y', $now), 'selected' => 'selected']],
-                                date('Y', $now),
-                            '/option',
-                        '*/select',
-                    '/li',
-                    ['li' => ['class' => 'list-inline-item month']],
-                        ['select' => ['name' => 'created[month]', 'class' => 'form-control']],
-                            $this->dateRegex['monthsRegex'],
-                            ['option' => ['value' => date('m', $now), 'selected' => 'selected']],
-                                date('F', $now),
-                            '/option',
-                        '*/select',
-                    '/li',
-                    ['li' => ['class' => 'list-inline-item day']],
-                        ['select' => ['name' => 'created[day]', 'class' => 'form-control']],
-                            $this->dateRegex['daysRegex'],
-                            ['option' => ['value' => date('d', $now), 'selected' => 'selected']],
-                                date('j', $now),
-                            '/option',
-                        '*/select',
-                    '/li',
-                    ['li' => ['class' => 'list-inline-item hour']],
-                        ['select' => ['name' => 'created[hour]', 'class' => 'form-control']],
-                            $this->dateRegex['hoursRegex'],
-                            ['option' => ['value' => date('h', $now), 'selected' => 'selected']],
-                                date('g', $now),
-                            '/option',
-                        '*/select',
-                    '/li',
-                    ['li' => ['class' => 'list-inline-item minute']],
-                        ['select' => ['name' => 'created[minute]', 'class' => 'form-control']],
-                            $this->dateRegex['minutesRegex'],
-                            ['option' => ['value' => date('i', $now), 'selected' => 'selected']],
-                                date('i', $now),
-                            '/option',
-                        '*/select',
-                    '/li',
-                    ['li' => ['class' => 'list-inline-item second']],
-                        ['select' => ['name' => 'created[second]', 'class' => 'form-control']],
-                            $this->dateRegex['secondsRegex'],
-                            ['option' => ['value' => date('s', $now), 'selected' => 'selected']],
-                                date('s', $now),
-                            '/option',
-                        '*/select',
-                    '/li',
-                    ['li' => ['class' => 'list-inline-item meridian']],
-                        ['select' => ['name' => 'created[meridian]', 'class' => 'form-control']],
-                            $this->dateRegex['meridianRegex'],
-                            ['option' => ['value' => date('a', $now), 'selected' => 'selected']],
-                                date('a', $now),
-                            '/option',
-                        '*/select',
-                    '/li',
-                '/ul',
+                'input' => [
+                    'type' => 'datetime-local',
+                    'name' => 'created',
+                    'id' => 'created',
+                    'class' => 'form-control',
+                    'value' => $now->format('Y-m-d H:i:s'),
+                ],
             '/div',
         ];
         $this->assertHtml($expected, $result);
@@ -1745,32 +1734,13 @@ class FormHelperTest extends TestCase
                 ['label' => ['id' => 'created-group-label']],
                     'Created',
                 '/label',
-                ['ul' => ['class' => 'list-inline mb-0']],
-                    ['li' => ['class' => 'list-inline-item year']],
-                        ['select' => ['name' => 'created[year]', 'class' => 'form-control']],
-                            $this->dateRegex['yearsRegex'],
-                            ['option' => ['value' => date('Y', $now), 'selected' => 'selected']],
-                                date('Y', $now),
-                            '/option',
-                        '*/select',
-                    '/li',
-                    ['li' => ['class' => 'list-inline-item month']],
-                        ['select' => ['name' => 'created[month]', 'class' => 'form-control']],
-                            $this->dateRegex['monthsRegex'],
-                            ['option' => ['value' => date('m', $now), 'selected' => 'selected']],
-                                date('F', $now),
-                            '/option',
-                        '*/select',
-                    '/li',
-                    ['li' => ['class' => 'list-inline-item day']],
-                        ['select' => ['name' => 'created[day]', 'class' => 'form-control']],
-                            $this->dateRegex['daysRegex'],
-                            ['option' => ['value' => date('d', $now), 'selected' => 'selected']],
-                                date('j', $now),
-                            '/option',
-                        '*/select',
-                    '/li',
-                '/ul',
+                'input' => [
+                    'type' => 'date',
+                    'name' => 'created',
+                    'id' => 'created',
+                    'class' => 'form-control',
+                    'value' => date('Y-m-d', $now),
+                ],
             '/div',
         ];
         $this->assertHtml($expected, $result);
@@ -1784,8 +1754,6 @@ class FormHelperTest extends TestCase
 
         $result = $this->Form->control('created', [
             'type' => 'time',
-            'timeFormat' => 12,
-            'second' => true,
             'value' => $now,
         ]);
         $expected = [
@@ -1793,40 +1761,13 @@ class FormHelperTest extends TestCase
                 ['label' => ['id' => 'created-group-label']],
                     'Created',
                 '/label',
-                ['ul' => ['class' => 'list-inline mb-0']],
-                    ['li' => ['class' => 'list-inline-item hour']],
-                        ['select' => ['name' => 'created[hour]', 'class' => 'form-control']],
-                            $this->dateRegex['hoursRegex'],
-                            ['option' => ['value' => date('h', $now), 'selected' => 'selected']],
-                                date('g', $now),
-                            '/option',
-                        '*/select',
-                    '/li',
-                    ['li' => ['class' => 'list-inline-item minute']],
-                        ['select' => ['name' => 'created[minute]', 'class' => 'form-control']],
-                            $this->dateRegex['minutesRegex'],
-                            ['option' => ['value' => date('i', $now), 'selected' => 'selected']],
-                                date('i', $now),
-                            '/option',
-                        '*/select',
-                    '/li',
-                    ['li' => ['class' => 'list-inline-item second']],
-                        ['select' => ['name' => 'created[second]', 'class' => 'form-control']],
-                            $this->dateRegex['secondsRegex'],
-                            ['option' => ['value' => date('s', $now), 'selected' => 'selected']],
-                                date('s', $now),
-                            '/option',
-                        '*/select',
-                    '/li',
-                    ['li' => ['class' => 'list-inline-item meridian']],
-                        ['select' => ['name' => 'created[meridian]', 'class' => 'form-control']],
-                            $this->dateRegex['meridianRegex'],
-                            ['option' => ['value' => date('a', $now), 'selected' => 'selected']],
-                                date('a', $now),
-                            '/option',
-                        '*/select',
-                    '/li',
-                '/ul',
+                'input' => [
+                    'type' => 'time',
+                    'name' => 'created',
+                    'id' => 'created',
+                    'class' => 'form-control',
+                    'value' => date('H:i:s', $now),
+                ],
             '/div',
         ];
         $this->assertHtml($expected, $result);
@@ -1839,17 +1780,17 @@ class FormHelperTest extends TestCase
         $result = $this->Form->control('created', [
             'type' => 'datetime',
         ]);
-        $this->assertContains('<div class="form-group datetime" role="group" aria-labelledby="created-group-label">', $result);
+        $this->assertStringContainsString('<div class="form-group datetime" role="group" aria-labelledby="created-group-label">', $result);
 
         $result = $this->Form->control('created', [
             'type' => 'date',
         ]);
-        $this->assertContains('<div class="form-group date" role="group" aria-labelledby="created-group-label">', $result);
+        $this->assertStringContainsString('<div class="form-group date" role="group" aria-labelledby="created-group-label">', $result);
 
         $result = $this->Form->control('created', [
             'type' => 'time',
         ]);
-        $this->assertContains('<div class="form-group time" role="group" aria-labelledby="created-group-label">', $result);
+        $this->assertStringContainsString('<div class="form-group time" role="group" aria-labelledby="created-group-label">', $result);
 
         $this->Form->setTemplates([
             'datetimeContainer' => '<div class="custom datetimeContainer {{type}}{{required}}" role="group" aria-labelledby="{{groupId}}">{{content}}</div>',
@@ -1859,66 +1800,66 @@ class FormHelperTest extends TestCase
         $result = $this->Form->control('created', [
             'type' => 'datetime',
         ]);
-        $this->assertContains('<div class="custom datetimeContainer datetime" role="group" aria-labelledby="created-group-label">', $result);
+        $this->assertStringContainsString('<div class="custom datetimeContainer datetime" role="group" aria-labelledby="created-group-label">', $result);
 
         $result = $this->Form->control('created', [
             'type' => 'date',
         ]);
-        $this->assertContains('<div class="custom dateContainer date" role="group" aria-labelledby="created-group-label">', $result);
+        $this->assertStringContainsString('<div class="custom dateContainer date" role="group" aria-labelledby="created-group-label">', $result);
 
         $result = $this->Form->control('created', [
             'type' => 'time',
         ]);
-        $this->assertContains('<div class="custom timeContainer time" role="group" aria-labelledby="created-group-label">', $result);
+        $this->assertStringContainsString('<div class="custom timeContainer time" role="group" aria-labelledby="created-group-label">', $result);
     }
 
     public function testDefaultAlignDatetimeControlCustomContainerErrorTemplateViaOptions()
     {
         $this->article['errors'] = [
             'created' => [
-                'foo' => 'bar'
-            ]
+                'foo' => 'bar',
+            ],
         ];
         $this->Form->create($this->article);
 
         $result = $this->Form->control('created', [
             'type' => 'datetime',
         ]);
-        $this->assertContains('<div class="form-group datetime is-invalid" role="group" aria-labelledby="created-group-label">', $result);
+        $this->assertStringContainsString('<div class="form-group datetime is-invalid" role="group" aria-labelledby="created-group-label">', $result);
 
         $result = $this->Form->control('created', [
             'type' => 'date',
         ]);
-        $this->assertContains('<div class="form-group date is-invalid" role="group" aria-labelledby="created-group-label">', $result);
+        $this->assertStringContainsString('<div class="form-group date is-invalid" role="group" aria-labelledby="created-group-label">', $result);
 
         $result = $this->Form->control('created', [
             'type' => 'time',
         ]);
-        $this->assertContains('<div class="form-group time is-invalid" role="group" aria-labelledby="created-group-label">', $result);
+        $this->assertStringContainsString('<div class="form-group time is-invalid" role="group" aria-labelledby="created-group-label">', $result);
 
         $result = $this->Form->control('created', [
             'type' => 'datetime',
             'templates' => [
-                'datetimeContainerError' => '<div class="custom datetimeContainerError {{type}}{{required}}" role="group" aria-labelledby="{{groupId}}">{{content}}</div>'
-            ]
+                'datetimeContainerError' => '<div class="custom datetimeContainerError {{type}}{{required}}" role="group" aria-labelledby="{{groupId}}">{{content}}</div>',
+            ],
         ]);
-        $this->assertContains('<div class="custom datetimeContainerError datetime" role="group" aria-labelledby="created-group-label">', $result);
+        $this->assertStringContainsString('<div class="custom datetimeContainerError datetime" role="group" aria-labelledby="created-group-label">', $result);
 
         $result = $this->Form->control('created', [
             'type' => 'date',
             'templates' => [
-                'dateContainerError' => '<div class="custom dateContainerError {{type}}{{required}}" role="group" aria-labelledby="{{groupId}}">{{content}}</div>'
-            ]
+                'dateContainerError' => '<div class="custom dateContainerError {{type}}{{required}}" role="group" aria-labelledby="{{groupId}}">{{content}}</div>',
+            ],
         ]);
-        $this->assertContains('<div class="custom dateContainerError date" role="group" aria-labelledby="created-group-label">', $result);
+        $this->assertStringContainsString('<div class="custom dateContainerError date" role="group" aria-labelledby="created-group-label">', $result);
 
         $result = $this->Form->control('created', [
             'type' => 'time',
             'templates' => [
-                'timeContainerError' => '<div class="custom timeContainerError {{type}}{{required}}" role="group" aria-labelledby="{{groupId}}">{{content}}</div>'
-            ]
+                'timeContainerError' => '<div class="custom timeContainerError {{type}}{{required}}" role="group" aria-labelledby="{{groupId}}">{{content}}</div>',
+            ],
         ]);
-        $this->assertContains('<div class="custom timeContainerError time" role="group" aria-labelledby="created-group-label">', $result);
+        $this->assertStringContainsString('<div class="custom timeContainerError time" role="group" aria-labelledby="created-group-label">', $result);
     }
 
     public function testHorizontalAlignDatetimeControl()
@@ -1927,83 +1868,30 @@ class FormHelperTest extends TestCase
             'align' => [
                 'sm' => [
                     'left' => 5,
-                    'middle' => 7
-                ]
-            ]
+                    'middle' => 7,
+                ],
+            ],
         ]);
 
-        $now = time();
+        $now = new \DateTime('now');
 
         $result = $this->Form->control('created', [
-            'type' => 'datetime',
-            'timeFormat' => 12,
-            'second' => true,
-            'value' => $now,
+            'type' => 'datetime-local',
+            'value' => $now->format('Y-m-d H:i:s'),
         ]);
         $expected = [
-            ['div' => ['class' => 'form-group row datetime', 'role' => 'group', 'aria-labelledby' => 'created-group-label']],
+            ['div' => ['class' => 'form-group row datetime-local', 'role' => 'group', 'aria-labelledby' => 'created-group-label']],
                 ['label' => ['id' => 'created-group-label', 'class' => 'col-form-label col-sm-5']],
                     'Created',
                 '/label',
                 ['div' => ['class' => 'col-sm-7']],
-                    ['ul' => ['class' => 'list-inline mb-0']],
-                        ['li' => ['class' => 'list-inline-item year']],
-                            ['select' => ['name' => 'created[year]', 'class' => 'form-control']],
-                                $this->dateRegex['yearsRegex'],
-                                ['option' => ['value' => date('Y', $now), 'selected' => 'selected']],
-                                    date('Y', $now),
-                                '/option',
-                            '*/select',
-                        '/li',
-                        ['li' => ['class' => 'list-inline-item month']],
-                            ['select' => ['name' => 'created[month]', 'class' => 'form-control']],
-                                $this->dateRegex['monthsRegex'],
-                                ['option' => ['value' => date('m', $now), 'selected' => 'selected']],
-                                    date('F', $now),
-                                '/option',
-                            '*/select',
-                        '/li',
-                        ['li' => ['class' => 'list-inline-item day']],
-                            ['select' => ['name' => 'created[day]', 'class' => 'form-control']],
-                                $this->dateRegex['daysRegex'],
-                                ['option' => ['value' => date('d', $now), 'selected' => 'selected']],
-                                    date('j', $now),
-                                '/option',
-                            '*/select',
-                        '/li',
-                        ['li' => ['class' => 'list-inline-item hour']],
-                            ['select' => ['name' => 'created[hour]', 'class' => 'form-control']],
-                                $this->dateRegex['hoursRegex'],
-                                ['option' => ['value' => date('h', $now), 'selected' => 'selected']],
-                                    date('g', $now),
-                                '/option',
-                            '*/select',
-                        '/li',
-                        ['li' => ['class' => 'list-inline-item minute']],
-                            ['select' => ['name' => 'created[minute]', 'class' => 'form-control']],
-                                $this->dateRegex['minutesRegex'],
-                                ['option' => ['value' => date('i', $now), 'selected' => 'selected']],
-                                    date('i', $now),
-                                '/option',
-                            '*/select',
-                        '/li',
-                        ['li' => ['class' => 'list-inline-item second']],
-                            ['select' => ['name' => 'created[second]', 'class' => 'form-control']],
-                                $this->dateRegex['secondsRegex'],
-                                ['option' => ['value' => date('s', $now), 'selected' => 'selected']],
-                                    date('s', $now),
-                                '/option',
-                            '*/select',
-                        '/li',
-                        ['li' => ['class' => 'list-inline-item meridian']],
-                            ['select' => ['name' => 'created[meridian]', 'class' => 'form-control']],
-                                $this->dateRegex['meridianRegex'],
-                                ['option' => ['value' => date('a', $now), 'selected' => 'selected']],
-                                    date('a', $now),
-                                '/option',
-                            '*/select',
-                        '/li',
-                    '/ul',
+                    'input' => [
+                        'type' => 'datetime-local',
+                        'name' => 'created',
+                        'id' => 'created',
+                        'class' => 'form-control',
+                        'value' => $now->format('Y-m-d H:i:s'),
+                    ],
                 '/div',
             '/div',
         ];
@@ -2016,9 +1904,9 @@ class FormHelperTest extends TestCase
             'align' => [
                 'sm' => [
                     'left' => 5,
-                    'middle' => 7
-                ]
-            ]
+                    'middle' => 7,
+                ],
+            ],
         ]);
 
         $now = time();
@@ -2033,32 +1921,13 @@ class FormHelperTest extends TestCase
                     'Created',
                 '/label',
                 ['div' => ['class' => 'col-sm-7']],
-                    ['ul' => ['class' => 'list-inline mb-0']],
-                        ['li' => ['class' => 'list-inline-item year']],
-                            ['select' => ['name' => 'created[year]', 'class' => 'form-control']],
-                                $this->dateRegex['yearsRegex'],
-                                ['option' => ['value' => date('Y', $now), 'selected' => 'selected']],
-                                    date('Y', $now),
-                                '/option',
-                            '*/select',
-                        '/li',
-                        ['li' => ['class' => 'list-inline-item month']],
-                            ['select' => ['name' => 'created[month]', 'class' => 'form-control']],
-                                $this->dateRegex['monthsRegex'],
-                                ['option' => ['value' => date('m', $now), 'selected' => 'selected']],
-                                    date('F', $now),
-                                '/option',
-                            '*/select',
-                        '/li',
-                        ['li' => ['class' => 'list-inline-item day']],
-                            ['select' => ['name' => 'created[day]', 'class' => 'form-control']],
-                                $this->dateRegex['daysRegex'],
-                                ['option' => ['value' => date('d', $now), 'selected' => 'selected']],
-                                    date('j', $now),
-                                '/option',
-                            '*/select',
-                        '/li',
-                    '/ul',
+                'input' => [
+                    'type' => 'date',
+                    'name' => 'created',
+                    'id' => 'created',
+                    'class' => 'form-control',
+                    'value' => date('Y-m-d', $now),
+                ],
                 '/div',
             '/div',
         ];
@@ -2071,17 +1940,15 @@ class FormHelperTest extends TestCase
             'align' => [
                 'sm' => [
                     'left' => 5,
-                    'middle' => 7
-                ]
-            ]
+                    'middle' => 7,
+                ],
+            ],
         ]);
 
         $now = time();
 
         $result = $this->Form->control('created', [
             'type' => 'time',
-            'timeFormat' => 12,
-            'second' => true,
             'value' => $now,
         ]);
         $expected = [
@@ -2090,40 +1957,13 @@ class FormHelperTest extends TestCase
                     'Created',
                 '/label',
                 ['div' => ['class' => 'col-sm-7']],
-                    ['ul' => ['class' => 'list-inline mb-0']],
-                        ['li' => ['class' => 'list-inline-item hour']],
-                            ['select' => ['name' => 'created[hour]', 'class' => 'form-control']],
-                                $this->dateRegex['hoursRegex'],
-                                ['option' => ['value' => date('h', $now), 'selected' => 'selected']],
-                                    date('g', $now),
-                                '/option',
-                            '*/select',
-                        '/li',
-                        ['li' => ['class' => 'list-inline-item minute']],
-                            ['select' => ['name' => 'created[minute]', 'class' => 'form-control']],
-                                $this->dateRegex['minutesRegex'],
-                                ['option' => ['value' => date('i', $now), 'selected' => 'selected']],
-                                    date('i', $now),
-                                '/option',
-                            '*/select',
-                        '/li',
-                        ['li' => ['class' => 'list-inline-item second']],
-                            ['select' => ['name' => 'created[second]', 'class' => 'form-control']],
-                                $this->dateRegex['secondsRegex'],
-                                ['option' => ['value' => date('s', $now), 'selected' => 'selected']],
-                                    date('s', $now),
-                                '/option',
-                            '*/select',
-                        '/li',
-                        ['li' => ['class' => 'list-inline-item meridian']],
-                            ['select' => ['name' => 'created[meridian]', 'class' => 'form-control']],
-                                $this->dateRegex['meridianRegex'],
-                                ['option' => ['value' => date('a', $now), 'selected' => 'selected']],
-                                    date('a', $now),
-                                '/option',
-                            '*/select',
-                        '/li',
-                    '/ul',
+                'input' => [
+                    'type' => 'time',
+                    'name' => 'created',
+                    'id' => 'created',
+                    'class' => 'form-control',
+                    'value' => date('H:i:s', $now),
+                ],
                 '/div',
             '/div',
         ];
@@ -2136,25 +1976,25 @@ class FormHelperTest extends TestCase
             'align' => [
                 'sm' => [
                     'left' => 5,
-                    'middle' => 7
-                ]
-            ]
+                    'middle' => 7,
+                ],
+            ],
         ]);
 
         $result = $this->Form->control('created', [
             'type' => 'datetime',
         ]);
-        $this->assertContains('<div class="form-group row datetime" role="group" aria-labelledby="created-group-label">', $result);
+        $this->assertStringContainsString('<div class="form-group row datetime" role="group" aria-labelledby="created-group-label">', $result);
 
         $result = $this->Form->control('created', [
             'type' => 'date',
         ]);
-        $this->assertContains('<div class="form-group row date" role="group" aria-labelledby="created-group-label">', $result);
+        $this->assertStringContainsString('<div class="form-group row date" role="group" aria-labelledby="created-group-label">', $result);
 
         $result = $this->Form->control('created', [
             'type' => 'time',
         ]);
-        $this->assertContains('<div class="form-group row time" role="group" aria-labelledby="created-group-label">', $result);
+        $this->assertStringContainsString('<div class="form-group row time" role="group" aria-labelledby="created-group-label">', $result);
 
         $this->Form->setTemplates([
             'datetimeContainer' => '<div class="custom datetimeContainer {{type}}{{required}}" role="group" aria-labelledby="{{groupId}}">{{content}}</div>',
@@ -2164,154 +2004,101 @@ class FormHelperTest extends TestCase
         $result = $this->Form->control('created', [
             'type' => 'datetime',
         ]);
-        $this->assertContains('<div class="custom datetimeContainer datetime" role="group" aria-labelledby="created-group-label">', $result);
+        $this->assertStringContainsString('<div class="custom datetimeContainer datetime" role="group" aria-labelledby="created-group-label">', $result);
 
         $result = $this->Form->control('created', [
             'type' => 'date',
         ]);
-        $this->assertContains('<div class="custom dateContainer date" role="group" aria-labelledby="created-group-label">', $result);
+        $this->assertStringContainsString('<div class="custom dateContainer date" role="group" aria-labelledby="created-group-label">', $result);
 
         $result = $this->Form->control('created', [
             'type' => 'time',
         ]);
-        $this->assertContains('<div class="custom timeContainer time" role="group" aria-labelledby="created-group-label">', $result);
+        $this->assertStringContainsString('<div class="custom timeContainer time" role="group" aria-labelledby="created-group-label">', $result);
     }
 
     public function testHorizontalAlignDatetimeControlCustomContainerErrorTemplateViaOptions()
     {
         $this->article['errors'] = [
             'created' => [
-                'foo' => 'bar'
-            ]
+                'foo' => 'bar',
+            ],
         ];
         $this->Form->create($this->article, [
             'align' => [
                 'sm' => [
                     'left' => 5,
-                    'middle' => 7
-                ]
-            ]
+                    'middle' => 7,
+                ],
+            ],
         ]);
 
         $result = $this->Form->control('created', [
             'type' => 'datetime',
         ]);
-        $this->assertContains('<div class="form-group row datetime is-invalid" role="group" aria-labelledby="created-group-label">', $result);
+        $this->assertStringContainsString('<div class="form-group row datetime is-invalid" role="group" aria-labelledby="created-group-label">', $result);
 
         $result = $this->Form->control('created', [
             'type' => 'date',
         ]);
-        $this->assertContains('<div class="form-group row date is-invalid" role="group" aria-labelledby="created-group-label">', $result);
+        $this->assertStringContainsString('<div class="form-group row date is-invalid" role="group" aria-labelledby="created-group-label">', $result);
 
         $result = $this->Form->control('created', [
             'type' => 'time',
         ]);
-        $this->assertContains('<div class="form-group row time is-invalid" role="group" aria-labelledby="created-group-label">', $result);
+        $this->assertStringContainsString('<div class="form-group row time is-invalid" role="group" aria-labelledby="created-group-label">', $result);
 
         $result = $this->Form->control('created', [
             'type' => 'datetime',
             'templates' => [
-                'datetimeContainerError' => '<div class="custom datetimeContainerError {{type}}{{required}}" role="group" aria-labelledby="{{groupId}}">{{content}}</div>'
-            ]
+                'datetimeContainerError' => '<div class="custom datetimeContainerError {{type}}{{required}}" role="group" aria-labelledby="{{groupId}}">{{content}}</div>',
+            ],
         ]);
-        $this->assertContains('<div class="custom datetimeContainerError datetime" role="group" aria-labelledby="created-group-label">', $result);
+        $this->assertStringContainsString('<div class="custom datetimeContainerError datetime" role="group" aria-labelledby="created-group-label">', $result);
 
         $result = $this->Form->control('created', [
             'type' => 'date',
             'templates' => [
-                'dateContainerError' => '<div class="custom dateContainerError {{type}}{{required}}" role="group" aria-labelledby="{{groupId}}">{{content}}</div>'
-            ]
+                'dateContainerError' => '<div class="custom dateContainerError {{type}}{{required}}" role="group" aria-labelledby="{{groupId}}">{{content}}</div>',
+            ],
         ]);
-        $this->assertContains('<div class="custom dateContainerError date" role="group" aria-labelledby="created-group-label">', $result);
+        $this->assertStringContainsString('<div class="custom dateContainerError date" role="group" aria-labelledby="created-group-label">', $result);
 
         $result = $this->Form->control('created', [
             'type' => 'time',
             'templates' => [
-                'timeContainerError' => '<div class="custom timeContainerError {{type}}{{required}}" role="group" aria-labelledby="{{groupId}}">{{content}}</div>'
-            ]
+                'timeContainerError' => '<div class="custom timeContainerError {{type}}{{required}}" role="group" aria-labelledby="{{groupId}}">{{content}}</div>',
+            ],
         ]);
-        $this->assertContains('<div class="custom timeContainerError time" role="group" aria-labelledby="created-group-label">', $result);
+        $this->assertStringContainsString('<div class="custom timeContainerError time" role="group" aria-labelledby="created-group-label">', $result);
     }
 
     public function testInlineAlignDatetimeControl()
     {
         $this->withErrorReporting(0, function () {
             $this->Form->create($this->article, [
-                'align' => 'inline'
+                'align' => 'inline',
             ]);
         });
 
-        $now = time();
+        $now = new \DateTime('now');
 
         $result = $this->Form->control('created', [
-            'type' => 'datetime',
-            'timeFormat' => 12,
-            'second' => true,
-            'value' => $now,
+            'type' => 'datetime-local',
+            'value' => $now->format('Y-m-d H:i:s'),
         ]);
         $expected = [
-            ['div' => ['class' => 'form-group datetime', 'role' => 'group', 'aria-labelledby' => 'created-group-label']],
+            ['div' => ['class' => 'form-group datetime-local', 'role' => 'group', 'aria-labelledby' => 'created-group-label']],
                 ['span' => ['id' => 'created-group-label', 'class' => 'sr-only']],
                     'Created',
                 '/span',
-                ['ul' => ['class' => 'list-inline mb-0']],
-                    ['li' => ['class' => 'list-inline-item year']],
-                        ['select' => ['name' => 'created[year]', 'class' => 'form-control']],
-                            $this->dateRegex['yearsRegex'],
-                            ['option' => ['value' => date('Y', $now), 'selected' => 'selected']],
-                                date('Y', $now),
-                            '/option',
-                        '*/select',
-                    '/li',
-                    ['li' => ['class' => 'list-inline-item month']],
-                        ['select' => ['name' => 'created[month]', 'class' => 'form-control']],
-                            $this->dateRegex['monthsRegex'],
-                            ['option' => ['value' => date('m', $now), 'selected' => 'selected']],
-                                date('F', $now),
-                            '/option',
-                        '*/select',
-                    '/li',
-                    ['li' => ['class' => 'list-inline-item day']],
-                        ['select' => ['name' => 'created[day]', 'class' => 'form-control']],
-                            $this->dateRegex['daysRegex'],
-                            ['option' => ['value' => date('d', $now), 'selected' => 'selected']],
-                                date('j', $now),
-                            '/option',
-                        '*/select',
-                    '/li',
-                    ['li' => ['class' => 'list-inline-item hour']],
-                        ['select' => ['name' => 'created[hour]', 'class' => 'form-control']],
-                            $this->dateRegex['hoursRegex'],
-                            ['option' => ['value' => date('h', $now), 'selected' => 'selected']],
-                                date('g', $now),
-                            '/option',
-                        '*/select',
-                    '/li',
-                    ['li' => ['class' => 'list-inline-item minute']],
-                        ['select' => ['name' => 'created[minute]', 'class' => 'form-control']],
-                            $this->dateRegex['minutesRegex'],
-                            ['option' => ['value' => date('i', $now), 'selected' => 'selected']],
-                                date('i', $now),
-                            '/option',
-                        '*/select',
-                    '/li',
-                    ['li' => ['class' => 'list-inline-item second']],
-                        ['select' => ['name' => 'created[second]', 'class' => 'form-control']],
-                            $this->dateRegex['secondsRegex'],
-                            ['option' => ['value' => date('s', $now), 'selected' => 'selected']],
-                                date('s', $now),
-                            '/option',
-                        '*/select',
-                    '/li',
-                    ['li' => ['class' => 'list-inline-item meridian']],
-                        ['select' => ['name' => 'created[meridian]', 'class' => 'form-control']],
-                            $this->dateRegex['meridianRegex'],
-                            ['option' => ['value' => date('a', $now), 'selected' => 'selected']],
-                                date('a', $now),
-                            '/option',
-                        '*/select',
-                    '/li',
-                '/ul',
+                'input' => [
+                    'type' => 'datetime-local',
+                    'name' => 'created',
+                    'id' => 'created',
+                    'class' => 'form-control',
+                    'value' => $now->format('Y-m-d H:i:s'),
+                ],
             '/div',
         ];
         $this->assertHtml($expected, $result);
@@ -2321,7 +2108,7 @@ class FormHelperTest extends TestCase
     {
         $this->withErrorReporting(0, function () {
             $this->Form->create($this->article, [
-                'align' => 'inline'
+                'align' => 'inline',
             ]);
         });
 
@@ -2336,32 +2123,13 @@ class FormHelperTest extends TestCase
                 ['span' => ['id' => 'created-group-label', 'class' => 'sr-only']],
                     'Created',
                 '/span',
-                ['ul' => ['class' => 'list-inline mb-0']],
-                    ['li' => ['class' => 'list-inline-item year']],
-                        ['select' => ['name' => 'created[year]', 'class' => 'form-control']],
-                            $this->dateRegex['yearsRegex'],
-                            ['option' => ['value' => date('Y', $now), 'selected' => 'selected']],
-                                date('Y', $now),
-                            '/option',
-                        '*/select',
-                    '/li',
-                    ['li' => ['class' => 'list-inline-item month']],
-                        ['select' => ['name' => 'created[month]', 'class' => 'form-control']],
-                            $this->dateRegex['monthsRegex'],
-                            ['option' => ['value' => date('m', $now), 'selected' => 'selected']],
-                                date('F', $now),
-                            '/option',
-                        '*/select',
-                    '/li',
-                    ['li' => ['class' => 'list-inline-item day']],
-                        ['select' => ['name' => 'created[day]', 'class' => 'form-control']],
-                            $this->dateRegex['daysRegex'],
-                            ['option' => ['value' => date('d', $now), 'selected' => 'selected']],
-                                date('j', $now),
-                            '/option',
-                        '*/select',
-                    '/li',
-                '/ul',
+                'input' => [
+                    'type' => 'date',
+                    'name' => 'created',
+                    'id' => 'created',
+                    'class' => 'form-control',
+                    'value' => date('Y-m-d', $now),
+                ],
             '/div',
         ];
         $this->assertHtml($expected, $result);
@@ -2371,7 +2139,7 @@ class FormHelperTest extends TestCase
     {
         $this->withErrorReporting(0, function () {
             $this->Form->create($this->article, [
-                'align' => 'inline'
+                'align' => 'inline',
             ]);
         });
 
@@ -2379,8 +2147,6 @@ class FormHelperTest extends TestCase
 
         $result = $this->Form->control('created', [
             'type' => 'time',
-            'timeFormat' => 12,
-            'second' => true,
             'value' => $now,
         ]);
         $expected = [
@@ -2388,40 +2154,13 @@ class FormHelperTest extends TestCase
                 ['span' => ['id' => 'created-group-label', 'class' => 'sr-only']],
                     'Created',
                 '/span',
-                ['ul' => ['class' => 'list-inline mb-0']],
-                    ['li' => ['class' => 'list-inline-item hour']],
-                        ['select' => ['name' => 'created[hour]', 'class' => 'form-control']],
-                            $this->dateRegex['hoursRegex'],
-                            ['option' => ['value' => date('h', $now), 'selected' => 'selected']],
-                                date('g', $now),
-                            '/option',
-                        '*/select',
-                    '/li',
-                    ['li' => ['class' => 'list-inline-item minute']],
-                        ['select' => ['name' => 'created[minute]', 'class' => 'form-control']],
-                            $this->dateRegex['minutesRegex'],
-                            ['option' => ['value' => date('i', $now), 'selected' => 'selected']],
-                                date('i', $now),
-                            '/option',
-                        '*/select',
-                    '/li',
-                    ['li' => ['class' => 'list-inline-item second']],
-                        ['select' => ['name' => 'created[second]', 'class' => 'form-control']],
-                            $this->dateRegex['secondsRegex'],
-                            ['option' => ['value' => date('s', $now), 'selected' => 'selected']],
-                                date('s', $now),
-                            '/option',
-                        '*/select',
-                    '/li',
-                    ['li' => ['class' => 'list-inline-item meridian']],
-                        ['select' => ['name' => 'created[meridian]', 'class' => 'form-control']],
-                            $this->dateRegex['meridianRegex'],
-                            ['option' => ['value' => date('a', $now), 'selected' => 'selected']],
-                                date('a', $now),
-                            '/option',
-                        '*/select',
-                    '/li',
-                '/ul',
+                'input' => [
+                    'type' => 'time',
+                    'name' => 'created',
+                    'id' => 'created',
+                    'class' => 'form-control',
+                    'value' => date('H:i:s', $now),
+                ],
             '/div',
         ];
         $this->assertHtml($expected, $result);
@@ -2431,24 +2170,24 @@ class FormHelperTest extends TestCase
     {
         $this->withErrorReporting(0, function () {
             $this->Form->create($this->article, [
-                'align' => 'inline'
+                'align' => 'inline',
             ]);
         });
 
         $result = $this->Form->control('created', [
             'type' => 'datetime',
         ]);
-        $this->assertContains('<div class="form-group datetime" role="group" aria-labelledby="created-group-label">', $result);
+        $this->assertStringContainsString('<div class="form-group datetime" role="group" aria-labelledby="created-group-label">', $result);
 
         $result = $this->Form->control('created', [
             'type' => 'date',
         ]);
-        $this->assertContains('<div class="form-group date" role="group" aria-labelledby="created-group-label">', $result);
+        $this->assertStringContainsString('<div class="form-group date" role="group" aria-labelledby="created-group-label">', $result);
 
         $result = $this->Form->control('created', [
             'type' => 'time',
         ]);
-        $this->assertContains('<div class="form-group time" role="group" aria-labelledby="created-group-label">', $result);
+        $this->assertStringContainsString('<div class="form-group time" role="group" aria-labelledby="created-group-label">', $result);
 
         $this->Form->setTemplates([
             'datetimeContainer' => '<div class="custom datetimeContainer {{type}}{{required}}" role="group" aria-labelledby="{{groupId}}">{{content}}</div>',
@@ -2458,70 +2197,70 @@ class FormHelperTest extends TestCase
         $result = $this->Form->control('created', [
             'type' => 'datetime',
         ]);
-        $this->assertContains('<div class="custom datetimeContainer datetime" role="group" aria-labelledby="created-group-label">', $result);
+        $this->assertStringContainsString('<div class="custom datetimeContainer datetime" role="group" aria-labelledby="created-group-label">', $result);
 
         $result = $this->Form->control('created', [
             'type' => 'date',
         ]);
-        $this->assertContains('<div class="custom dateContainer date" role="group" aria-labelledby="created-group-label">', $result);
+        $this->assertStringContainsString('<div class="custom dateContainer date" role="group" aria-labelledby="created-group-label">', $result);
 
         $result = $this->Form->control('created', [
             'type' => 'time',
         ]);
-        $this->assertContains('<div class="custom timeContainer time" role="group" aria-labelledby="created-group-label">', $result);
+        $this->assertStringContainsString('<div class="custom timeContainer time" role="group" aria-labelledby="created-group-label">', $result);
     }
 
     public function testInlineAlignDatetimeControlCustomContainerErrorTemplateViaOptions()
     {
         $this->article['errors'] = [
             'created' => [
-                'foo' => 'bar'
-            ]
+                'foo' => 'bar',
+            ],
         ];
         $this->withErrorReporting(0, function () {
             $this->Form->create($this->article, [
-                'align' => 'inline'
+                'align' => 'inline',
             ]);
         });
 
         $result = $this->Form->control('created', [
             'type' => 'datetime',
         ]);
-        $this->assertContains('<div class="form-group datetime is-invalid" role="group" aria-labelledby="created-group-label">', $result);
+        $this->assertStringContainsString('<div class="form-group datetime is-invalid" role="group" aria-labelledby="created-group-label">', $result);
 
         $result = $this->Form->control('created', [
             'type' => 'date',
         ]);
-        $this->assertContains('<div class="form-group date is-invalid" role="group" aria-labelledby="created-group-label">', $result);
+        $this->assertStringContainsString('<div class="form-group date is-invalid" role="group" aria-labelledby="created-group-label">', $result);
 
         $result = $this->Form->control('created', [
             'type' => 'time',
         ]);
-        $this->assertContains('<div class="form-group time is-invalid" role="group" aria-labelledby="created-group-label">', $result);
+        $this->assertStringContainsString('<div class="form-group time is-invalid" role="group" aria-labelledby="created-group-label">', $result);
 
         $result = $this->Form->control('created', [
             'type' => 'datetime',
             'templates' => [
-                'datetimeContainerError' => '<div class="custom datetimeContainerError {{type}}{{required}}" role="group" aria-labelledby="{{groupId}}">{{content}}</div>'
-            ]
+                'datetimeContainerError' => '<div class="custom datetimeContainerError {{type}}{{required}}" role="group" aria-labelledby="{{groupId}}">{{content}}</div>',
+            ],
         ]);
-        $this->assertContains('<div class="custom datetimeContainerError datetime" role="group" aria-labelledby="created-group-label">', $result);
+        $this->assertStringContainsString('<div class="custom datetimeContainerError datetime" role="group" aria-labelledby="created-group-label">', $result);
 
         $result = $this->Form->control('created', [
             'type' => 'date',
             'templates' => [
-                'dateContainerError' => '<div class="custom dateContainerError {{type}}{{required}}" role="group" aria-labelledby="{{groupId}}">{{content}}</div>'
-            ]
+                'dateContainerError' => '<div class="custom dateContainerError {{type}}{{required}}" role="group" aria-labelledby="{{groupId}}">{{content}}</div>',
+            ],
         ]);
-        $this->assertContains('<div class="custom dateContainerError date" role="group" aria-labelledby="created-group-label">', $result);
+        $this->assertStringContainsString('<div class="custom dateContainerError date" role="group" aria-labelledby="created-group-label">', $result);
 
         $result = $this->Form->control('created', [
             'type' => 'time',
             'templates' => [
-                'timeContainerError' => '<div class="custom timeContainerError {{type}}{{required}}" role="group" aria-labelledby="{{groupId}}">{{content}}</div>'
-            ]
+                'timeContainerError' => '<div class="custom timeContainerError {{type}}{{required}}" role="group" aria-labelledby="{{groupId}}">{{content}}</div>',
+            ],
         ]);
-        $this->assertContains('<div class="custom timeContainerError time" role="group" aria-labelledby="created-group-label">', $result);
+        $this->assertStringContainsString('<div class="custom timeContainerError time" role="group" aria-labelledby="created-group-label">', $result);
     }
 
     public function testDefaultAlignCheckboxControl()
@@ -2543,7 +2282,7 @@ class FormHelperTest extends TestCase
                     'type' => 'checkbox',
                     'name' => 'users',
                     'id' => 'users',
-                    'value' => 1
+                    'value' => 1,
                 ]],
                 ['label' => ['class' => 'form-check-label', 'for' => 'users']],
                     'Users',
@@ -2574,7 +2313,7 @@ class FormHelperTest extends TestCase
                         'type' => 'checkbox',
                         'name' => 'users',
                         'id' => 'users',
-                        'value' => 1
+                        'value' => 1,
                     ]],
                     'Users',
                 '/label',
@@ -2603,7 +2342,7 @@ class FormHelperTest extends TestCase
                     'type' => 'checkbox',
                     'name' => 'users',
                     'id' => 'users',
-                    'value' => 1
+                    'value' => 1,
                 ]],
                 ['label' => ['class' => 'form-check-label', 'for' => 'users']],
                     'Users',
@@ -2635,7 +2374,7 @@ class FormHelperTest extends TestCase
                         'type' => 'checkbox',
                         'name' => 'users',
                         'id' => 'users',
-                        'value' => 1
+                        'value' => 1,
                     ]],
                     'Users',
                 '/label',
@@ -2650,9 +2389,9 @@ class FormHelperTest extends TestCase
             'align' => [
                 'sm' => [
                     'left' => 5,
-                    'middle' => 7
-                ]
-            ]
+                    'middle' => 7,
+                ],
+            ],
         ]);
 
         $result = $this->Form->control('users', [
@@ -2672,7 +2411,7 @@ class FormHelperTest extends TestCase
                             'type' => 'checkbox',
                             'name' => 'users',
                             'id' => 'users',
-                            'value' => 1
+                            'value' => 1,
                         ]],
                         ['label' => ['class' => 'form-check-label', 'for' => 'users']],
                             'Users',
@@ -2690,9 +2429,9 @@ class FormHelperTest extends TestCase
             'align' => [
                 'sm' => [
                     'left' => 5,
-                    'middle' => 7
-                ]
-            ]
+                    'middle' => 7,
+                ],
+            ],
         ]);
 
         $result = $this->Form->control('users', [
@@ -2714,7 +2453,7 @@ class FormHelperTest extends TestCase
                                 'type' => 'checkbox',
                                 'name' => 'users',
                                 'id' => 'users',
-                                'value' => 1
+                                'value' => 1,
                             ]],
                             'Users',
                         '/label',
@@ -2731,14 +2470,14 @@ class FormHelperTest extends TestCase
             'align' => [
                 'sm' => [
                     'left' => 5,
-                    'middle' => 7
-                ]
-            ]
+                    'middle' => 7,
+                ],
+            ],
         ]);
 
         $result = $this->Form->control('users', [
             'type' => 'checkbox',
-            'inline' => true
+            'inline' => true,
         ]);
         $expected = [
             ['div' => ['class' => 'form-group row checkbox']],
@@ -2754,7 +2493,7 @@ class FormHelperTest extends TestCase
                             'type' => 'checkbox',
                             'name' => 'users',
                             'id' => 'users',
-                            'value' => 1
+                            'value' => 1,
                         ]],
                         ['label' => ['class' => 'form-check-label', 'for' => 'users']],
                             'Users',
@@ -2772,9 +2511,9 @@ class FormHelperTest extends TestCase
             'align' => [
                 'sm' => [
                     'left' => 5,
-                    'middle' => 7
-                ]
-            ]
+                    'middle' => 7,
+                ],
+            ],
         ]);
 
         $result = $this->Form->control('users', [
@@ -2797,7 +2536,7 @@ class FormHelperTest extends TestCase
                                 'type' => 'checkbox',
                                 'name' => 'users',
                                 'id' => 'users',
-                                'value' => 1
+                                'value' => 1,
                             ]],
                             'Users',
                         '/label',
@@ -2812,7 +2551,7 @@ class FormHelperTest extends TestCase
     {
         $this->withErrorReporting(0, function () {
             $this->Form->create($this->article, [
-                'align' => 'inline'
+                'align' => 'inline',
             ]);
         });
 
@@ -2831,7 +2570,7 @@ class FormHelperTest extends TestCase
                     'type' => 'checkbox',
                     'name' => 'users',
                     'id' => 'users',
-                    'value' => 1
+                    'value' => 1,
                 ]],
                 ['label' => ['class' => 'form-check-label', 'for' => 'users']],
                     'Users',
@@ -2845,7 +2584,7 @@ class FormHelperTest extends TestCase
     {
         $this->withErrorReporting(0, function () {
             $this->Form->create($this->article, [
-                'align' => 'inline'
+                'align' => 'inline',
             ]);
         });
 
@@ -2866,7 +2605,7 @@ class FormHelperTest extends TestCase
                         'type' => 'checkbox',
                         'name' => 'users',
                         'id' => 'users',
-                        'value' => 1
+                        'value' => 1,
                     ]],
                     'Users',
                 '/label',
@@ -2879,7 +2618,7 @@ class FormHelperTest extends TestCase
     {
         $this->withErrorReporting(0, function () {
             $this->Form->create($this->article, [
-                'align' => 'inline'
+                'align' => 'inline',
             ]);
         });
 
@@ -2899,7 +2638,7 @@ class FormHelperTest extends TestCase
                     'type' => 'checkbox',
                     'name' => 'users',
                     'id' => 'users',
-                    'value' => 1
+                    'value' => 1,
                 ]],
                 ['label' => ['class' => 'form-check-label', 'for' => 'users']],
                     'Users',
@@ -2913,7 +2652,7 @@ class FormHelperTest extends TestCase
     {
         $this->withErrorReporting(0, function () {
             $this->Form->create($this->article, [
-                'align' => 'inline'
+                'align' => 'inline',
             ]);
         });
 
@@ -2935,7 +2674,7 @@ class FormHelperTest extends TestCase
                         'type' => 'checkbox',
                         'name' => 'users',
                         'id' => 'users',
-                        'value' => 1
+                        'value' => 1,
                     ]],
                     'Users',
                 '/label',
@@ -2952,8 +2691,8 @@ class FormHelperTest extends TestCase
             'type' => 'radio',
             'options' => [
                 1 => 'option 1',
-                2 => 'option 2'
-            ]
+                2 => 'option 2',
+            ],
         ]);
         $expected = [
             ['div' => ['class' => 'form-group radio', 'role' => 'group', 'aria-labelledby' => 'users-group-label']],
@@ -2971,7 +2710,7 @@ class FormHelperTest extends TestCase
                         'type' => 'radio',
                         'name' => 'users',
                         'id' => 'users-1',
-                        'value' => 1
+                        'value' => 1,
                     ]],
                     ['label' => ['class' => 'form-check-label', 'for' => 'users-1']],
                         'option 1',
@@ -2983,7 +2722,7 @@ class FormHelperTest extends TestCase
                         'type' => 'radio',
                         'name' => 'users',
                         'id' => 'users-2',
-                        'value' => 2
+                        'value' => 2,
                     ]],
                     ['label' => ['class' => 'form-check-label', 'for' => 'users-2']],
                         'option 2',
@@ -3002,9 +2741,9 @@ class FormHelperTest extends TestCase
             'type' => 'radio',
             'options' => [
                 1 => 'option 1',
-                2 => 'option 2'
+                2 => 'option 2',
             ],
-            'nestedInput' => true
+            'nestedInput' => true,
         ]);
         $expected = [
             ['div' => ['class' => 'form-group radio', 'role' => 'group', 'aria-labelledby' => 'users-group-label']],
@@ -3023,7 +2762,7 @@ class FormHelperTest extends TestCase
                             'type' => 'radio',
                             'name' => 'users',
                             'id' => 'users-1',
-                            'value' => 1
+                            'value' => 1,
                         ]],
                         'option 1',
                     '/label',
@@ -3035,7 +2774,7 @@ class FormHelperTest extends TestCase
                             'type' => 'radio',
                             'name' => 'users',
                             'id' => 'users-2',
-                            'value' => 2
+                            'value' => 2,
                         ]],
                         'option 2',
                     '/label',
@@ -3053,9 +2792,9 @@ class FormHelperTest extends TestCase
             'type' => 'radio',
             'options' => [
                 1 => 'option 1',
-                2 => 'option 2'
+                2 => 'option 2',
             ],
-            'inline' => true
+            'inline' => true,
         ]);
         $expected = [
             ['div' => ['class' => 'form-group radio', 'role' => 'group', 'aria-labelledby' => 'users-group-label']],
@@ -3073,7 +2812,7 @@ class FormHelperTest extends TestCase
                         'type' => 'radio',
                         'name' => 'users',
                         'id' => 'users-1',
-                        'value' => 1
+                        'value' => 1,
                     ]],
                     ['label' => ['class' => 'form-check-label', 'for' => 'users-1']],
                         'option 1',
@@ -3085,7 +2824,7 @@ class FormHelperTest extends TestCase
                         'type' => 'radio',
                         'name' => 'users',
                         'id' => 'users-2',
-                        'value' => 2
+                        'value' => 2,
                     ]],
                     ['label' => ['class' => 'form-check-label', 'for' => 'users-2']],
                         'option 2',
@@ -3104,10 +2843,10 @@ class FormHelperTest extends TestCase
             'type' => 'radio',
             'options' => [
                 1 => 'option 1',
-                2 => 'option 2'
+                2 => 'option 2',
             ],
             'inline' => true,
-            'nestedInput' => true
+            'nestedInput' => true,
         ]);
         $expected = [
             ['div' => ['class' => 'form-group radio', 'role' => 'group', 'aria-labelledby' => 'users-group-label']],
@@ -3126,7 +2865,7 @@ class FormHelperTest extends TestCase
                             'type' => 'radio',
                             'name' => 'users',
                             'id' => 'users-1',
-                            'value' => 1
+                            'value' => 1,
                         ]],
                         'option 1',
                     '/label',
@@ -3138,7 +2877,7 @@ class FormHelperTest extends TestCase
                             'type' => 'radio',
                             'name' => 'users',
                             'id' => 'users-2',
-                            'value' => 2
+                            'value' => 2,
                         ]],
                         'option 2',
                     '/label',
@@ -3162,8 +2901,8 @@ class FormHelperTest extends TestCase
                     'value' => 12,
                     'class' => 'custominputclass',
                     'label' => [
-                        'class' => 'customlabelclass'
-                    ]
+                        'class' => 'customlabelclass',
+                    ],
                 ],
             ],
         ]);
@@ -3183,7 +2922,7 @@ class FormHelperTest extends TestCase
                         'type' => 'radio',
                         'name' => 'users',
                         'id' => 'users-1',
-                        'value' => 1
+                        'value' => 1,
                     ]],
                     ['label' => ['class' => 'form-check-label', 'for' => 'users-1']],
                         'option 1',
@@ -3195,7 +2934,7 @@ class FormHelperTest extends TestCase
                         'type' => 'radio',
                         'name' => 'users',
                         'id' => 'users-2',
-                        'value' => 2
+                        'value' => 2,
                     ]],
                     ['label' => ['class' => 'form-check-label', 'for' => 'users-2']],
                         'option 2',
@@ -3207,9 +2946,9 @@ class FormHelperTest extends TestCase
                         'type' => 'radio',
                         'name' => 'users',
                         'id' => 'users-12',
-                        'value' => 12
+                        'value' => 12,
                     ]],
-                    ['label' => ['class' => 'form-check-label', 'for' => 'users-12']],
+                    ['label' => ['class' => 'customlabelclass', 'for' => 'users-12']],
                         'option 3',
                     '/label',
                 '/div',
@@ -3232,8 +2971,8 @@ class FormHelperTest extends TestCase
                     'value' => 12,
                     'class' => 'custominputclass',
                     'label' => [
-                        'class' => 'customlabelclass'
-                    ]
+                        'class' => 'customlabelclass',
+                    ],
                 ],
             ],
             'inline' => true,
@@ -3254,7 +2993,7 @@ class FormHelperTest extends TestCase
                         'type' => 'radio',
                         'name' => 'users',
                         'id' => 'users-1',
-                        'value' => 1
+                        'value' => 1,
                     ]],
                     ['label' => ['class' => 'form-check-label', 'for' => 'users-1']],
                         'option 1',
@@ -3266,7 +3005,7 @@ class FormHelperTest extends TestCase
                         'type' => 'radio',
                         'name' => 'users',
                         'id' => 'users-2',
-                        'value' => 2
+                        'value' => 2,
                     ]],
                     ['label' => ['class' => 'form-check-label', 'for' => 'users-2']],
                         'option 2',
@@ -3278,9 +3017,9 @@ class FormHelperTest extends TestCase
                         'type' => 'radio',
                         'name' => 'users',
                         'id' => 'users-12',
-                        'value' => 12
+                        'value' => 12,
                     ]],
-                    ['label' => ['class' => 'form-check-label', 'for' => 'users-12']],
+                    ['label' => ['class' => 'customlabelclass', 'for' => 'users-12']],
                         'option 3',
                     '/label',
                 '/div',
@@ -3303,8 +3042,8 @@ class FormHelperTest extends TestCase
                     'value' => 12,
                     'class' => 'custominputclass',
                     'label' => [
-                        'class' => 'customlabelclass'
-                    ]
+                        'class' => 'customlabelclass',
+                    ],
                 ],
             ],
             'inline' => true,
@@ -3327,7 +3066,7 @@ class FormHelperTest extends TestCase
                             'type' => 'radio',
                             'name' => 'users',
                             'id' => 'users-1',
-                            'value' => 1
+                            'value' => 1,
                         ]],
                         'option 1',
                     '/label',
@@ -3339,19 +3078,19 @@ class FormHelperTest extends TestCase
                             'type' => 'radio',
                             'name' => 'users',
                             'id' => 'users-2',
-                            'value' => 2
+                            'value' => 2,
                         ]],
                         'option 2',
                     '/label',
                 '/div',
                 ['div' => ['class' => 'form-check form-check-inline']],
-                    ['label' => ['class' => 'form-check-label', 'for' => 'users-12']],
+                    ['label' => ['class' => 'customlabelclass', 'for' => 'users-12']],
                         ['input' => [
                             'class' => 'custominputclass',
                             'type' => 'radio',
                             'name' => 'users',
                             'id' => 'users-12',
-                            'value' => 12
+                            'value' => 12,
                         ]],
                         'option 3',
                     '/label',
@@ -3367,17 +3106,17 @@ class FormHelperTest extends TestCase
             'align' => [
                 'sm' => [
                     'left' => 5,
-                    'middle' => 7
-                ]
-            ]
+                    'middle' => 7,
+                ],
+            ],
         ]);
 
         $result = $this->Form->control('users', [
             'type' => 'radio',
             'options' => [
                 1 => 'option 1',
-                2 => 'option 2'
-            ]
+                2 => 'option 2',
+            ],
         ]);
         $expected = [
             ['div' => ['class' => 'form-group row radio', 'role' => 'group', 'aria-labelledby' => 'users-group-label']],
@@ -3396,7 +3135,7 @@ class FormHelperTest extends TestCase
                             'type' => 'radio',
                             'name' => 'users',
                             'id' => 'users-1',
-                            'value' => 1
+                            'value' => 1,
                         ]],
                         ['label' => ['class' => 'form-check-label', 'for' => 'users-1']],
                             'option 1',
@@ -3408,7 +3147,7 @@ class FormHelperTest extends TestCase
                             'type' => 'radio',
                             'name' => 'users',
                             'id' => 'users-2',
-                            'value' => 2
+                            'value' => 2,
                         ]],
                         ['label' => ['class' => 'form-check-label', 'for' => 'users-2']],
                             'option 2',
@@ -3426,18 +3165,18 @@ class FormHelperTest extends TestCase
             'align' => [
                 'sm' => [
                     'left' => 5,
-                    'middle' => 7
-                ]
-            ]
+                    'middle' => 7,
+                ],
+            ],
         ]);
 
         $result = $this->Form->control('users', [
             'type' => 'radio',
             'options' => [
                 1 => 'option 1',
-                2 => 'option 2'
+                2 => 'option 2',
             ],
-            'nestedInput' => true
+            'nestedInput' => true,
         ]);
         $expected = [
             ['div' => ['class' => 'form-group row radio', 'role' => 'group', 'aria-labelledby' => 'users-group-label']],
@@ -3457,7 +3196,7 @@ class FormHelperTest extends TestCase
                                 'type' => 'radio',
                                 'name' => 'users',
                                 'id' => 'users-1',
-                                'value' => 1
+                                'value' => 1,
                             ]],
                             'option 1',
                         '/label',
@@ -3469,7 +3208,7 @@ class FormHelperTest extends TestCase
                                 'type' => 'radio',
                                 'name' => 'users',
                                 'id' => 'users-2',
-                                'value' => 2
+                                'value' => 2,
                             ]],
                             'option 2',
                         '/label',
@@ -3486,18 +3225,18 @@ class FormHelperTest extends TestCase
             'align' => [
                 'sm' => [
                     'left' => 5,
-                    'middle' => 7
-                ]
-            ]
+                    'middle' => 7,
+                ],
+            ],
         ]);
 
         $result = $this->Form->control('users', [
             'type' => 'radio',
             'options' => [
                 1 => 'option 1',
-                2 => 'option 2'
+                2 => 'option 2',
             ],
-            'inline' => true
+            'inline' => true,
         ]);
         $expected = [
             ['div' => ['class' => 'form-group row radio', 'role' => 'group', 'aria-labelledby' => 'users-group-label']],
@@ -3516,7 +3255,7 @@ class FormHelperTest extends TestCase
                             'type' => 'radio',
                             'name' => 'users',
                             'id' => 'users-1',
-                            'value' => 1
+                            'value' => 1,
                         ]],
                         ['label' => ['class' => 'form-check-label', 'for' => 'users-1']],
                             'option 1',
@@ -3528,7 +3267,7 @@ class FormHelperTest extends TestCase
                             'type' => 'radio',
                             'name' => 'users',
                             'id' => 'users-2',
-                            'value' => 2
+                            'value' => 2,
                         ]],
                         ['label' => ['class' => 'form-check-label', 'for' => 'users-2']],
                             'option 2',
@@ -3546,19 +3285,19 @@ class FormHelperTest extends TestCase
             'align' => [
                 'sm' => [
                     'left' => 5,
-                    'middle' => 7
-                ]
-            ]
+                    'middle' => 7,
+                ],
+            ],
         ]);
 
         $result = $this->Form->control('users', [
             'type' => 'radio',
             'options' => [
                 1 => 'option 1',
-                2 => 'option 2'
+                2 => 'option 2',
             ],
             'inline' => true,
-            'nestedInput' => true
+            'nestedInput' => true,
         ]);
         $expected = [
             ['div' => ['class' => 'form-group row radio', 'role' => 'group', 'aria-labelledby' => 'users-group-label']],
@@ -3578,7 +3317,7 @@ class FormHelperTest extends TestCase
                                 'type' => 'radio',
                                 'name' => 'users',
                                 'id' => 'users-1',
-                                'value' => 1
+                                'value' => 1,
                             ]],
                             'option 1',
                         '/label',
@@ -3590,7 +3329,7 @@ class FormHelperTest extends TestCase
                                 'type' => 'radio',
                                 'name' => 'users',
                                 'id' => 'users-2',
-                                'value' => 2
+                                'value' => 2,
                             ]],
                             'option 2',
                         '/label',
@@ -3607,9 +3346,9 @@ class FormHelperTest extends TestCase
             'align' => [
                 'sm' => [
                     'left' => 5,
-                    'middle' => 7
-                ]
-            ]
+                    'middle' => 7,
+                ],
+            ],
         ]);
 
         $result = $this->Form->control('users', [
@@ -3622,8 +3361,8 @@ class FormHelperTest extends TestCase
                     'value' => 12,
                     'class' => 'custominputclass',
                     'label' => [
-                        'class' => 'customlabelclass'
-                    ]
+                        'class' => 'customlabelclass',
+                    ],
                 ],
             ],
         ]);
@@ -3644,7 +3383,7 @@ class FormHelperTest extends TestCase
                             'type' => 'radio',
                             'name' => 'users',
                             'id' => 'users-1',
-                            'value' => 1
+                            'value' => 1,
                         ]],
                         ['label' => ['class' => 'form-check-label', 'for' => 'users-1']],
                             'option 1',
@@ -3656,7 +3395,7 @@ class FormHelperTest extends TestCase
                             'type' => 'radio',
                             'name' => 'users',
                             'id' => 'users-2',
-                            'value' => 2
+                            'value' => 2,
                         ]],
                         ['label' => ['class' => 'form-check-label', 'for' => 'users-2']],
                             'option 2',
@@ -3668,9 +3407,9 @@ class FormHelperTest extends TestCase
                             'type' => 'radio',
                             'name' => 'users',
                             'id' => 'users-12',
-                            'value' => 12
+                            'value' => 12,
                         ]],
-                        ['label' => ['class' => 'form-check-label', 'for' => 'users-12']],
+                        ['label' => ['class' => 'customlabelclass', 'for' => 'users-12']],
                             'option 3',
                         '/label',
                     '/div',
@@ -3686,9 +3425,9 @@ class FormHelperTest extends TestCase
             'align' => [
                 'sm' => [
                     'left' => 5,
-                    'middle' => 7
-                ]
-            ]
+                    'middle' => 7,
+                ],
+            ],
         ]);
 
         $result = $this->Form->control('users', [
@@ -3701,8 +3440,8 @@ class FormHelperTest extends TestCase
                     'value' => 12,
                     'class' => 'custominputclass',
                     'label' => [
-                        'class' => 'customlabelclass'
-                    ]
+                        'class' => 'customlabelclass',
+                    ],
                 ],
             ],
             'inline' => true,
@@ -3724,7 +3463,7 @@ class FormHelperTest extends TestCase
                             'type' => 'radio',
                             'name' => 'users',
                             'id' => 'users-1',
-                            'value' => 1
+                            'value' => 1,
                         ]],
                         ['label' => ['class' => 'form-check-label', 'for' => 'users-1']],
                             'option 1',
@@ -3736,7 +3475,7 @@ class FormHelperTest extends TestCase
                             'type' => 'radio',
                             'name' => 'users',
                             'id' => 'users-2',
-                            'value' => 2
+                            'value' => 2,
                         ]],
                         ['label' => ['class' => 'form-check-label', 'for' => 'users-2']],
                             'option 2',
@@ -3748,9 +3487,9 @@ class FormHelperTest extends TestCase
                             'type' => 'radio',
                             'name' => 'users',
                             'id' => 'users-12',
-                            'value' => 12
+                            'value' => 12,
                         ]],
-                        ['label' => ['class' => 'form-check-label', 'for' => 'users-12']],
+                        ['label' => ['class' => 'customlabelclass', 'for' => 'users-12']],
                             'option 3',
                         '/label',
                     '/div',
@@ -3766,9 +3505,9 @@ class FormHelperTest extends TestCase
             'align' => [
                 'sm' => [
                     'left' => 5,
-                    'middle' => 7
-                ]
-            ]
+                    'middle' => 7,
+                ],
+            ],
         ]);
 
         $result = $this->Form->control('users', [
@@ -3781,8 +3520,8 @@ class FormHelperTest extends TestCase
                     'value' => 12,
                     'class' => 'custominputclass',
                     'label' => [
-                        'class' => 'customlabelclass'
-                    ]
+                        'class' => 'customlabelclass',
+                    ],
                 ],
             ],
             'inline' => true,
@@ -3806,7 +3545,7 @@ class FormHelperTest extends TestCase
                                 'type' => 'radio',
                                 'name' => 'users',
                                 'id' => 'users-1',
-                                'value' => 1
+                                'value' => 1,
                             ]],
                             'option 1',
                         '/label',
@@ -3818,19 +3557,19 @@ class FormHelperTest extends TestCase
                                 'type' => 'radio',
                                 'name' => 'users',
                                 'id' => 'users-2',
-                                'value' => 2
+                                'value' => 2,
                             ]],
                             'option 2',
                         '/label',
                     '/div',
                     ['div' => ['class' => 'form-check form-check-inline']],
-                        ['label' => ['class' => 'form-check-label', 'for' => 'users-12']],
+                        ['label' => ['class' => 'customlabelclass', 'for' => 'users-12']],
                             ['input' => [
                                 'class' => 'custominputclass',
                                 'type' => 'radio',
                                 'name' => 'users',
                                 'id' => 'users-12',
-                                'value' => 12
+                                'value' => 12,
                             ]],
                             'option 3',
                         '/label',
@@ -3845,7 +3584,7 @@ class FormHelperTest extends TestCase
     {
         $this->withErrorReporting(0, function () {
             $this->Form->create($this->article, [
-                'align' => 'inline'
+                'align' => 'inline',
             ]);
         });
 
@@ -3853,8 +3592,8 @@ class FormHelperTest extends TestCase
             'type' => 'radio',
             'options' => [
                 1 => 'option 1',
-                2 => 'option 2'
-            ]
+                2 => 'option 2',
+            ],
         ]);
         $expected = [
             ['div' => ['class' => 'form-group radio', 'role' => 'group', 'aria-labelledby' => 'users-group-label']],
@@ -3872,7 +3611,7 @@ class FormHelperTest extends TestCase
                         'type' => 'radio',
                         'name' => 'users',
                         'id' => 'users-1',
-                        'value' => 1
+                        'value' => 1,
                     ]],
                     ['label' => ['class' => 'form-check-label', 'for' => 'users-1']],
                         'option 1',
@@ -3884,7 +3623,7 @@ class FormHelperTest extends TestCase
                         'type' => 'radio',
                         'name' => 'users',
                         'id' => 'users-2',
-                        'value' => 2
+                        'value' => 2,
                     ]],
                     ['label' => ['class' => 'form-check-label', 'for' => 'users-2']],
                         'option 2',
@@ -3899,7 +3638,7 @@ class FormHelperTest extends TestCase
     {
         $this->withErrorReporting(0, function () {
             $this->Form->create($this->article, [
-                'align' => 'inline'
+                'align' => 'inline',
             ]);
         });
 
@@ -3913,8 +3652,8 @@ class FormHelperTest extends TestCase
                     'value' => 12,
                     'class' => 'custominputclass',
                     'label' => [
-                        'class' => 'customlabelclass'
-                    ]
+                        'class' => 'customlabelclass',
+                    ],
                 ],
             ],
         ]);
@@ -3934,7 +3673,7 @@ class FormHelperTest extends TestCase
                         'type' => 'radio',
                         'name' => 'users',
                         'id' => 'users-1',
-                        'value' => 1
+                        'value' => 1,
                     ]],
                     ['label' => ['class' => 'form-check-label', 'for' => 'users-1']],
                         'option 1',
@@ -3946,7 +3685,7 @@ class FormHelperTest extends TestCase
                         'type' => 'radio',
                         'name' => 'users',
                         'id' => 'users-2',
-                        'value' => 2
+                        'value' => 2,
                     ]],
                     ['label' => ['class' => 'form-check-label', 'for' => 'users-2']],
                         'option 2',
@@ -3958,9 +3697,9 @@ class FormHelperTest extends TestCase
                         'type' => 'radio',
                         'name' => 'users',
                         'id' => 'users-12',
-                        'value' => 12
+                        'value' => 12,
                     ]],
-                    ['label' => ['class' => 'form-check-label', 'for' => 'users-12']],
+                    ['label' => ['class' => 'customlabelclass', 'for' => 'users-12']],
                         'option 3',
                     '/label',
                 '/div',
@@ -3973,7 +3712,7 @@ class FormHelperTest extends TestCase
     {
         $this->withErrorReporting(0, function () {
             $this->Form->create($this->article, [
-                'align' => 'inline'
+                'align' => 'inline',
             ]);
         });
 
@@ -3981,9 +3720,9 @@ class FormHelperTest extends TestCase
             'type' => 'radio',
             'options' => [
                 1 => 'option 1',
-                2 => 'option 2'
+                2 => 'option 2',
             ],
-            'nestedInput' => true
+            'nestedInput' => true,
         ]);
         $expected = [
             ['div' => ['class' => 'form-group radio', 'role' => 'group', 'aria-labelledby' => 'users-group-label']],
@@ -4002,7 +3741,7 @@ class FormHelperTest extends TestCase
                             'type' => 'radio',
                             'name' => 'users',
                             'id' => 'users-1',
-                            'value' => 1
+                            'value' => 1,
                         ]],
                         'option 1',
                     '/label',
@@ -4014,7 +3753,7 @@ class FormHelperTest extends TestCase
                             'type' => 'radio',
                             'name' => 'users',
                             'id' => 'users-2',
-                            'value' => 2
+                            'value' => 2,
                         ]],
                         'option 2',
                     '/label',
@@ -4028,7 +3767,7 @@ class FormHelperTest extends TestCase
     {
         $this->withErrorReporting(0, function () {
             $this->Form->create($this->article, [
-                'align' => 'inline'
+                'align' => 'inline',
             ]);
         });
 
@@ -4042,11 +3781,11 @@ class FormHelperTest extends TestCase
                     'value' => 12,
                     'class' => 'custominputclass',
                     'label' => [
-                        'class' => 'customlabelclass'
-                    ]
+                        'class' => 'customlabelclass',
+                    ],
                 ],
             ],
-            'nestedInput' => true
+            'nestedInput' => true,
         ]);
         $expected = [
             ['div' => ['class' => 'form-group radio', 'role' => 'group', 'aria-labelledby' => 'users-group-label']],
@@ -4065,7 +3804,7 @@ class FormHelperTest extends TestCase
                             'type' => 'radio',
                             'name' => 'users',
                             'id' => 'users-1',
-                            'value' => 1
+                            'value' => 1,
                         ]],
                         'option 1',
                     '/label',
@@ -4077,19 +3816,19 @@ class FormHelperTest extends TestCase
                             'type' => 'radio',
                             'name' => 'users',
                             'id' => 'users-2',
-                            'value' => 2
+                            'value' => 2,
                         ]],
                         'option 2',
                     '/label',
                 '/div',
                 ['div' => ['class' => 'form-check form-check-inline']],
-                    ['label' => ['class' => 'form-check-label', 'for' => 'users-12']],
+                    ['label' => ['class' => 'customlabelclass', 'for' => 'users-12']],
                         ['input' => [
                             'class' => 'custominputclass',
                             'type' => 'radio',
                             'name' => 'users',
                             'id' => 'users-12',
-                            'value' => 12
+                            'value' => 12,
                         ]],
                         'option 3',
                     '/label',
@@ -4107,8 +3846,8 @@ class FormHelperTest extends TestCase
             'multiple' => 'checkbox',
             'options' => [
                 1 => 'option 1',
-                2 => 'option 2'
-            ]
+                2 => 'option 2',
+            ],
         ]);
         $expected = [
             ['div' => ['class' => 'form-group multicheckbox', 'role' => 'group', 'aria-labelledby' => 'users-group-label']],
@@ -4126,7 +3865,7 @@ class FormHelperTest extends TestCase
                         'type' => 'checkbox',
                         'name' => 'users[]',
                         'id' => 'users-1',
-                        'value' => 1
+                        'value' => 1,
                     ]],
                     ['label' => ['class' => 'form-check-label', 'for' => 'users-1']],
                         'option 1',
@@ -4138,7 +3877,7 @@ class FormHelperTest extends TestCase
                         'type' => 'checkbox',
                         'name' => 'users[]',
                         'id' => 'users-2',
-                        'value' => 2
+                        'value' => 2,
                     ]],
                     ['label' => ['class' => 'form-check-label', 'for' => 'users-2']],
                         'option 2',
@@ -4157,9 +3896,9 @@ class FormHelperTest extends TestCase
             'multiple' => 'checkbox',
             'options' => [
                 1 => 'option 1',
-                2 => 'option 2'
+                2 => 'option 2',
             ],
-            'nestedInput' => true
+            'nestedInput' => true,
         ]);
         $expected = [
             ['div' => ['class' => 'form-group multicheckbox', 'role' => 'group', 'aria-labelledby' => 'users-group-label']],
@@ -4178,7 +3917,7 @@ class FormHelperTest extends TestCase
                             'type' => 'checkbox',
                             'name' => 'users[]',
                             'id' => 'users-1',
-                            'value' => 1
+                            'value' => 1,
                         ]],
                         'option 1',
                     '/label',
@@ -4190,7 +3929,7 @@ class FormHelperTest extends TestCase
                             'type' => 'checkbox',
                             'name' => 'users[]',
                             'id' => 'users-2',
-                            'value' => 2
+                            'value' => 2,
                         ]],
                         'option 2',
                     '/label',
@@ -4208,9 +3947,9 @@ class FormHelperTest extends TestCase
             'multiple' => 'checkbox',
             'options' => [
                 1 => 'option 1',
-                2 => 'option 2'
+                2 => 'option 2',
             ],
-            'inline' => true
+            'inline' => true,
         ]);
         $expected = [
             ['div' => ['class' => 'form-group multicheckbox', 'role' => 'group', 'aria-labelledby' => 'users-group-label']],
@@ -4228,7 +3967,7 @@ class FormHelperTest extends TestCase
                         'type' => 'checkbox',
                         'name' => 'users[]',
                         'id' => 'users-1',
-                        'value' => 1
+                        'value' => 1,
                     ]],
                     ['label' => ['class' => 'form-check-label', 'for' => 'users-1']],
                         'option 1',
@@ -4240,7 +3979,7 @@ class FormHelperTest extends TestCase
                         'type' => 'checkbox',
                         'name' => 'users[]',
                         'id' => 'users-2',
-                        'value' => 2
+                        'value' => 2,
                     ]],
                     ['label' => ['class' => 'form-check-label', 'for' => 'users-2']],
                         'option 2',
@@ -4259,10 +3998,10 @@ class FormHelperTest extends TestCase
             'multiple' => 'checkbox',
             'options' => [
                 1 => 'option 1',
-                2 => 'option 2'
+                2 => 'option 2',
             ],
             'inline' => true,
-            'nestedInput' => true
+            'nestedInput' => true,
         ]);
         $expected = [
             ['div' => ['class' => 'form-group multicheckbox', 'role' => 'group', 'aria-labelledby' => 'users-group-label']],
@@ -4281,7 +4020,7 @@ class FormHelperTest extends TestCase
                             'type' => 'checkbox',
                             'name' => 'users[]',
                             'id' => 'users-1',
-                            'value' => 1
+                            'value' => 1,
                         ]],
                         'option 1',
                     '/label',
@@ -4293,7 +4032,7 @@ class FormHelperTest extends TestCase
                             'type' => 'checkbox',
                             'name' => 'users[]',
                             'id' => 'users-2',
-                            'value' => 2
+                            'value' => 2,
                         ]],
                         'option 2',
                     '/label',
@@ -4312,13 +4051,13 @@ class FormHelperTest extends TestCase
             'options' => [
                 'group 1' => [
                     1 => 'option 1',
-                    2 => 'option 2'
+                    2 => 'option 2',
                 ],
                 'group 2' => [
                     3 => 'option 3',
-                    4 => 'option 4'
+                    4 => 'option 4',
                 ],
-            ]
+            ],
         ]);
         $expected = [
             ['div' => ['class' => 'form-group multicheckbox', 'role' => 'group', 'aria-labelledby' => 'users-group-label']],
@@ -4340,7 +4079,7 @@ class FormHelperTest extends TestCase
                             'type' => 'checkbox',
                             'name' => 'users[]',
                             'id' => 'users-1',
-                            'value' => 1
+                            'value' => 1,
                         ]],
                         ['label' => ['class' => 'form-check-label', 'for' => 'users-1']],
                             'option 1',
@@ -4352,7 +4091,7 @@ class FormHelperTest extends TestCase
                             'type' => 'checkbox',
                             'name' => 'users[]',
                             'id' => 'users-2',
-                            'value' => 2
+                            'value' => 2,
                         ]],
                         ['label' => ['class' => 'form-check-label', 'for' => 'users-2']],
                             'option 2',
@@ -4369,7 +4108,7 @@ class FormHelperTest extends TestCase
                             'type' => 'checkbox',
                             'name' => 'users[]',
                             'id' => 'users-3',
-                            'value' => 3
+                            'value' => 3,
                         ]],
                         ['label' => ['class' => 'form-check-label', 'for' => 'users-3']],
                             'option 3',
@@ -4381,7 +4120,7 @@ class FormHelperTest extends TestCase
                             'type' => 'checkbox',
                             'name' => 'users[]',
                             'id' => 'users-4',
-                            'value' => 4
+                            'value' => 4,
                         ]],
                         ['label' => ['class' => 'form-check-label', 'for' => 'users-4']],
                             'option 4',
@@ -4402,14 +4141,14 @@ class FormHelperTest extends TestCase
             'options' => [
                 'group 1' => [
                     1 => 'option 1',
-                    2 => 'option 2'
+                    2 => 'option 2',
                 ],
                 'group 2' => [
                     3 => 'option 3',
-                    4 => 'option 4'
+                    4 => 'option 4',
                 ],
             ],
-            'nestedInput' => true
+            'nestedInput' => true,
         ]);
         $expected = [
             ['div' => ['class' => 'form-group multicheckbox', 'role' => 'group', 'aria-labelledby' => 'users-group-label']],
@@ -4432,7 +4171,7 @@ class FormHelperTest extends TestCase
                                 'type' => 'checkbox',
                                 'name' => 'users[]',
                                 'id' => 'users-1',
-                                'value' => 1
+                                'value' => 1,
                             ]],
                             'option 1',
                         '/label',
@@ -4444,7 +4183,7 @@ class FormHelperTest extends TestCase
                                 'type' => 'checkbox',
                                 'name' => 'users[]',
                                 'id' => 'users-2',
-                                'value' => 2
+                                'value' => 2,
                             ]],
                             'option 2',
                         '/label',
@@ -4461,7 +4200,7 @@ class FormHelperTest extends TestCase
                                 'type' => 'checkbox',
                                 'name' => 'users[]',
                                 'id' => 'users-3',
-                                'value' => 3
+                                'value' => 3,
                             ]],
                             'option 3',
                         '/label',
@@ -4473,7 +4212,7 @@ class FormHelperTest extends TestCase
                                 'type' => 'checkbox',
                                 'name' => 'users[]',
                                 'id' => 'users-4',
-                                'value' => 4
+                                'value' => 4,
                             ]],
                             'option 4',
                         '/label',
@@ -4493,14 +4232,14 @@ class FormHelperTest extends TestCase
             'options' => [
                 'group 1' => [
                     1 => 'option 1',
-                    2 => 'option 2'
+                    2 => 'option 2',
                 ],
                 'group 2' => [
                     3 => 'option 3',
-                    4 => 'option 4'
+                    4 => 'option 4',
                 ],
             ],
-            'inline' => true
+            'inline' => true,
         ]);
         $expected = [
             ['div' => ['class' => 'form-group multicheckbox', 'role' => 'group', 'aria-labelledby' => 'users-group-label']],
@@ -4522,7 +4261,7 @@ class FormHelperTest extends TestCase
                             'type' => 'checkbox',
                             'name' => 'users[]',
                             'id' => 'users-1',
-                            'value' => 1
+                            'value' => 1,
                         ]],
                         ['label' => ['class' => 'form-check-label', 'for' => 'users-1']],
                             'option 1',
@@ -4534,7 +4273,7 @@ class FormHelperTest extends TestCase
                             'type' => 'checkbox',
                             'name' => 'users[]',
                             'id' => 'users-2',
-                            'value' => 2
+                            'value' => 2,
                         ]],
                         ['label' => ['class' => 'form-check-label', 'for' => 'users-2']],
                             'option 2',
@@ -4551,7 +4290,7 @@ class FormHelperTest extends TestCase
                             'type' => 'checkbox',
                             'name' => 'users[]',
                             'id' => 'users-3',
-                            'value' => 3
+                            'value' => 3,
                         ]],
                         ['label' => ['class' => 'form-check-label', 'for' => 'users-3']],
                             'option 3',
@@ -4563,7 +4302,7 @@ class FormHelperTest extends TestCase
                             'type' => 'checkbox',
                             'name' => 'users[]',
                             'id' => 'users-4',
-                            'value' => 4
+                            'value' => 4,
                         ]],
                         ['label' => ['class' => 'form-check-label', 'for' => 'users-4']],
                             'option 4',
@@ -4584,15 +4323,15 @@ class FormHelperTest extends TestCase
             'options' => [
                 'group 1' => [
                     1 => 'option 1',
-                    2 => 'option 2'
+                    2 => 'option 2',
                 ],
                 'group 2' => [
                     3 => 'option 3',
-                    4 => 'option 4'
+                    4 => 'option 4',
                 ],
             ],
             'inline' => true,
-            'nestedInput' => true
+            'nestedInput' => true,
         ]);
         $expected = [
             ['div' => ['class' => 'form-group multicheckbox', 'role' => 'group', 'aria-labelledby' => 'users-group-label']],
@@ -4615,7 +4354,7 @@ class FormHelperTest extends TestCase
                                 'type' => 'checkbox',
                                 'name' => 'users[]',
                                 'id' => 'users-1',
-                                'value' => 1
+                                'value' => 1,
                             ]],
                             'option 1',
                         '/label',
@@ -4627,7 +4366,7 @@ class FormHelperTest extends TestCase
                                 'type' => 'checkbox',
                                 'name' => 'users[]',
                                 'id' => 'users-2',
-                                'value' => 2
+                                'value' => 2,
                             ]],
                             'option 2',
                         '/label',
@@ -4644,7 +4383,7 @@ class FormHelperTest extends TestCase
                                 'type' => 'checkbox',
                                 'name' => 'users[]',
                                 'id' => 'users-3',
-                                'value' => 3
+                                'value' => 3,
                             ]],
                             'option 3',
                         '/label',
@@ -4656,7 +4395,7 @@ class FormHelperTest extends TestCase
                                 'type' => 'checkbox',
                                 'name' => 'users[]',
                                 'id' => 'users-4',
-                                'value' => 4
+                                'value' => 4,
                             ]],
                             'option 4',
                         '/label',
@@ -4679,8 +4418,8 @@ class FormHelperTest extends TestCase
                 'group' => [
                     3 => 'option 3',
                     4 => 'option 4',
-                ]
-            ]
+                ],
+            ],
         ]);
         $expected = [
             ['div' => ['class' => 'form-group multicheckbox', 'role' => 'group', 'aria-labelledby' => 'users-group-label']],
@@ -4698,7 +4437,7 @@ class FormHelperTest extends TestCase
                         'type' => 'checkbox',
                         'name' => 'users[]',
                         'id' => 'users-1',
-                        'value' => 1
+                        'value' => 1,
                     ]],
                     ['label' => ['class' => 'form-check-label', 'for' => 'users-1']],
                         'option 1',
@@ -4710,7 +4449,7 @@ class FormHelperTest extends TestCase
                         'type' => 'checkbox',
                         'name' => 'users[]',
                         'id' => 'users-2',
-                        'value' => 2
+                        'value' => 2,
                     ]],
                     ['label' => ['class' => 'form-check-label', 'for' => 'users-2']],
                         'option 2',
@@ -4726,7 +4465,7 @@ class FormHelperTest extends TestCase
                             'type' => 'checkbox',
                             'name' => 'users[]',
                             'id' => 'users-3',
-                            'value' => 3
+                            'value' => 3,
                         ]],
                         ['label' => ['class' => 'form-check-label', 'for' => 'users-3']],
                             'option 3',
@@ -4738,7 +4477,7 @@ class FormHelperTest extends TestCase
                             'type' => 'checkbox',
                             'name' => 'users[]',
                             'id' => 'users-4',
-                            'value' => 4
+                            'value' => 4,
                         ]],
                         ['label' => ['class' => 'form-check-label', 'for' => 'users-4']],
                             'option 4',
@@ -4764,29 +4503,29 @@ class FormHelperTest extends TestCase
                     'value' => 12,
                     'class' => 'custominputclass',
                     'label' => [
-                        'class' => 'customlabelclass'
-                    ]
+                        'class' => 'customlabelclass',
+                    ],
                 ],
                 'group' => [
                     10 => 'option 4',
                     20 => [
                         'text' => 'option 4',
                         'value' => 20,
-                        'class' => 'custominputclass'
+                        'class' => 'custominputclass',
                     ],
                     30 => [
                         'text' => 'option 5 without label',
                         'value' => 30,
-                        'label' => false
+                        'label' => false,
                     ],
                     40 => [
                         'text' => 'option 6',
                         'value' => 40,
                         'label' => [
-                            'class' => 'customlabelclass'
-                        ]
+                            'class' => 'customlabelclass',
+                        ],
                     ],
-                ]
+                ],
             ],
         ]);
         $expected = [
@@ -4805,7 +4544,7 @@ class FormHelperTest extends TestCase
                         'type' => 'checkbox',
                         'name' => 'users[]',
                         'id' => 'users-1',
-                        'value' => 1
+                        'value' => 1,
                     ]],
                     ['label' => ['class' => 'form-check-label', 'for' => 'users-1']],
                         'option 1',
@@ -4817,7 +4556,7 @@ class FormHelperTest extends TestCase
                         'type' => 'checkbox',
                         'name' => 'users[]',
                         'id' => 'users-2',
-                        'value' => 2
+                        'value' => 2,
                     ]],
                     ['label' => ['class' => 'form-check-label', 'for' => 'users-2']],
                         'option 2',
@@ -4829,7 +4568,7 @@ class FormHelperTest extends TestCase
                         'type' => 'checkbox',
                         'name' => 'users[]',
                         'id' => 'users-12',
-                        'value' => 12
+                        'value' => 12,
                     ]],
                     ['label' => ['class' => 'customlabelclass', 'for' => 'users-12']],
                         'option 3',
@@ -4845,7 +4584,7 @@ class FormHelperTest extends TestCase
                             'type' => 'checkbox',
                             'name' => 'users[]',
                             'id' => 'users-10',
-                            'value' => 10
+                            'value' => 10,
                         ]],
                         ['label' => ['class' => 'form-check-label', 'for' => 'users-10']],
                             'option 4',
@@ -4857,7 +4596,7 @@ class FormHelperTest extends TestCase
                             'type' => 'checkbox',
                             'name' => 'users[]',
                             'id' => 'users-20',
-                            'value' => 20
+                            'value' => 20,
                         ]],
                         ['label' => ['class' => 'form-check-label', 'for' => 'users-20']],
                             'option 4',
@@ -4869,7 +4608,7 @@ class FormHelperTest extends TestCase
                             'type' => 'checkbox',
                             'name' => 'users[]',
                             'id' => 'users-30',
-                            'value' => 30
+                            'value' => 30,
                         ]],
                     '/div',
                     ['div' => ['class' => 'form-check']],
@@ -4878,7 +4617,7 @@ class FormHelperTest extends TestCase
                             'type' => 'checkbox',
                             'name' => 'users[]',
                             'id' => 'users-40',
-                            'value' => 40
+                            'value' => 40,
                         ]],
                         ['label' => ['class' => 'customlabelclass', 'for' => 'users-40']],
                             'option 6',
@@ -4902,9 +4641,9 @@ class FormHelperTest extends TestCase
                 'group' => [
                     3 => 'option 3',
                     4 => 'option 4',
-                ]
+                ],
             ],
-            'nestedInput' => true
+            'nestedInput' => true,
         ]);
         $expected = [
             ['div' => ['class' => 'form-group multicheckbox', 'role' => 'group', 'aria-labelledby' => 'users-group-label']],
@@ -4923,7 +4662,7 @@ class FormHelperTest extends TestCase
                             'type' => 'checkbox',
                             'name' => 'users[]',
                             'id' => 'users-1',
-                            'value' => 1
+                            'value' => 1,
                         ]],
                         'option 1',
                     '/label',
@@ -4935,7 +4674,7 @@ class FormHelperTest extends TestCase
                             'type' => 'checkbox',
                             'name' => 'users[]',
                             'id' => 'users-2',
-                            'value' => 2
+                            'value' => 2,
                         ]],
                         'option 2',
                     '/label',
@@ -4951,7 +4690,7 @@ class FormHelperTest extends TestCase
                                 'type' => 'checkbox',
                                 'name' => 'users[]',
                                 'id' => 'users-3',
-                                'value' => 3
+                                'value' => 3,
                             ]],
                             'option 3',
                         '/label',
@@ -4963,7 +4702,7 @@ class FormHelperTest extends TestCase
                                 'type' => 'checkbox',
                                 'name' => 'users[]',
                                 'id' => 'users-4',
-                                'value' => 4
+                                'value' => 4,
                             ]],
                             'option 4',
                         '/label',
@@ -4988,31 +4727,31 @@ class FormHelperTest extends TestCase
                     'value' => 12,
                     'class' => 'custominputclass',
                     'label' => [
-                        'class' => 'customlabelclass'
-                    ]
+                        'class' => 'customlabelclass',
+                    ],
                 ],
                 'group' => [
                     10 => 'option 4',
                     20 => [
                         'text' => 'option 4',
                         'value' => 20,
-                        'class' => 'custominputclass'
+                        'class' => 'custominputclass',
                     ],
                     30 => [
                         'text' => 'option 5 without label',
                         'value' => 30,
-                        'label' => false
+                        'label' => false,
                     ],
                     40 => [
                         'text' => 'option 6',
                         'value' => 40,
                         'label' => [
-                            'class' => 'customlabelclass'
-                        ]
+                            'class' => 'customlabelclass',
+                        ],
                     ],
-                ]
+                ],
             ],
-            'nestedInput' => true
+            'nestedInput' => true,
         ]);
         $expected = [
             ['div' => ['class' => 'form-group multicheckbox', 'role' => 'group', 'aria-labelledby' => 'users-group-label']],
@@ -5031,7 +4770,7 @@ class FormHelperTest extends TestCase
                             'type' => 'checkbox',
                             'name' => 'users[]',
                             'id' => 'users-1',
-                            'value' => 1
+                            'value' => 1,
                         ]],
                         'option 1',
                     '/label',
@@ -5043,7 +4782,7 @@ class FormHelperTest extends TestCase
                             'type' => 'checkbox',
                             'name' => 'users[]',
                             'id' => 'users-2',
-                            'value' => 2
+                            'value' => 2,
                         ]],
                         'option 2',
                     '/label',
@@ -5055,7 +4794,7 @@ class FormHelperTest extends TestCase
                             'type' => 'checkbox',
                             'name' => 'users[]',
                             'id' => 'users-12',
-                            'value' => 12
+                            'value' => 12,
                         ]],
                         'option 3',
                     '/label',
@@ -5071,7 +4810,7 @@ class FormHelperTest extends TestCase
                                 'type' => 'checkbox',
                                 'name' => 'users[]',
                                 'id' => 'users-10',
-                                'value' => 10
+                                'value' => 10,
                             ]],
                             'option 4',
                         '/label',
@@ -5083,7 +4822,7 @@ class FormHelperTest extends TestCase
                                 'type' => 'checkbox',
                                 'name' => 'users[]',
                                 'id' => 'users-20',
-                                'value' => 20
+                                'value' => 20,
                             ]],
                             'option 4',
                         '/label',
@@ -5094,7 +4833,7 @@ class FormHelperTest extends TestCase
                             'type' => 'checkbox',
                             'name' => 'users[]',
                             'id' => 'users-30',
-                            'value' => 30
+                            'value' => 30,
                         ]],
                     '/div',
                     ['div' => ['class' => 'form-check']],
@@ -5104,7 +4843,7 @@ class FormHelperTest extends TestCase
                                 'type' => 'checkbox',
                                 'name' => 'users[]',
                                 'id' => 'users-40',
-                                'value' => 40
+                                'value' => 40,
                             ]],
                             'option 6',
                         '/label',
@@ -5121,17 +4860,17 @@ class FormHelperTest extends TestCase
             'align' => [
                 'sm' => [
                     'left' => 5,
-                    'middle' => 7
-                ]
-            ]
+                    'middle' => 7,
+                ],
+            ],
         ]);
 
         $result = $this->Form->control('users', [
             'multiple' => 'checkbox',
             'options' => [
                 1 => 'option 1',
-                2 => 'option 2'
-            ]
+                2 => 'option 2',
+            ],
         ]);
         $expected = [
             ['div' => ['class' => 'form-group row multicheckbox', 'role' => 'group', 'aria-labelledby' => 'users-group-label']],
@@ -5150,7 +4889,7 @@ class FormHelperTest extends TestCase
                             'type' => 'checkbox',
                             'name' => 'users[]',
                             'id' => 'users-1',
-                            'value' => 1
+                            'value' => 1,
                         ]],
                         ['label' => ['class' => 'form-check-label', 'for' => 'users-1']],
                             'option 1',
@@ -5162,7 +4901,7 @@ class FormHelperTest extends TestCase
                             'type' => 'checkbox',
                             'name' => 'users[]',
                             'id' => 'users-2',
-                            'value' => 2
+                            'value' => 2,
                         ]],
                         ['label' => ['class' => 'form-check-label', 'for' => 'users-2']],
                             'option 2',
@@ -5180,18 +4919,18 @@ class FormHelperTest extends TestCase
             'align' => [
                 'sm' => [
                     'left' => 5,
-                    'middle' => 7
-                ]
-            ]
+                    'middle' => 7,
+                ],
+            ],
         ]);
 
         $result = $this->Form->control('users', [
             'multiple' => 'checkbox',
             'options' => [
                 1 => 'option 1',
-                2 => 'option 2'
+                2 => 'option 2',
             ],
-            'nestedInput' => true
+            'nestedInput' => true,
         ]);
         $expected = [
             ['div' => ['class' => 'form-group row multicheckbox', 'role' => 'group', 'aria-labelledby' => 'users-group-label']],
@@ -5211,7 +4950,7 @@ class FormHelperTest extends TestCase
                                 'type' => 'checkbox',
                                 'name' => 'users[]',
                                 'id' => 'users-1',
-                                'value' => 1
+                                'value' => 1,
                             ]],
                             'option 1',
                         '/label',
@@ -5223,7 +4962,7 @@ class FormHelperTest extends TestCase
                                 'type' => 'checkbox',
                                 'name' => 'users[]',
                                 'id' => 'users-2',
-                                'value' => 2
+                                'value' => 2,
                             ]],
                             'option 2',
                         '/label',
@@ -5240,18 +4979,18 @@ class FormHelperTest extends TestCase
             'align' => [
                 'sm' => [
                     'left' => 5,
-                    'middle' => 7
-                ]
-            ]
+                    'middle' => 7,
+                ],
+            ],
         ]);
 
         $result = $this->Form->control('users', [
             'multiple' => 'checkbox',
             'options' => [
                 1 => 'option 1',
-                2 => 'option 2'
+                2 => 'option 2',
             ],
-            'inline' => true
+            'inline' => true,
         ]);
         $expected = [
             ['div' => ['class' => 'form-group row multicheckbox', 'role' => 'group', 'aria-labelledby' => 'users-group-label']],
@@ -5270,7 +5009,7 @@ class FormHelperTest extends TestCase
                             'type' => 'checkbox',
                             'name' => 'users[]',
                             'id' => 'users-1',
-                            'value' => 1
+                            'value' => 1,
                         ]],
                         ['label' => ['class' => 'form-check-label', 'for' => 'users-1']],
                             'option 1',
@@ -5282,7 +5021,7 @@ class FormHelperTest extends TestCase
                             'type' => 'checkbox',
                             'name' => 'users[]',
                             'id' => 'users-2',
-                            'value' => 2
+                            'value' => 2,
                         ]],
                         ['label' => ['class' => 'form-check-label', 'for' => 'users-2']],
                             'option 2',
@@ -5300,19 +5039,19 @@ class FormHelperTest extends TestCase
             'align' => [
                 'sm' => [
                     'left' => 5,
-                    'middle' => 7
-                ]
-            ]
+                    'middle' => 7,
+                ],
+            ],
         ]);
 
         $result = $this->Form->control('users', [
             'multiple' => 'checkbox',
             'options' => [
                 1 => 'option 1',
-                2 => 'option 2'
+                2 => 'option 2',
             ],
             'inline' => true,
-            'nestedInput' => true
+            'nestedInput' => true,
         ]);
         $expected = [
             ['div' => ['class' => 'form-group row multicheckbox', 'role' => 'group', 'aria-labelledby' => 'users-group-label']],
@@ -5332,7 +5071,7 @@ class FormHelperTest extends TestCase
                                 'type' => 'checkbox',
                                 'name' => 'users[]',
                                 'id' => 'users-1',
-                                'value' => 1
+                                'value' => 1,
                             ]],
                             'option 1',
                         '/label',
@@ -5344,7 +5083,7 @@ class FormHelperTest extends TestCase
                                 'type' => 'checkbox',
                                 'name' => 'users[]',
                                 'id' => 'users-2',
-                                'value' => 2
+                                'value' => 2,
                             ]],
                             'option 2',
                         '/label',
@@ -5361,9 +5100,9 @@ class FormHelperTest extends TestCase
             'align' => [
                 'sm' => [
                     'left' => 5,
-                    'middle' => 7
-                ]
-            ]
+                    'middle' => 7,
+                ],
+            ],
         ]);
 
         $result = $this->Form->control('users', [
@@ -5371,13 +5110,13 @@ class FormHelperTest extends TestCase
             'options' => [
                 'group 1' => [
                     1 => 'option 1',
-                    2 => 'option 2'
+                    2 => 'option 2',
                 ],
                 'group 2' => [
                     3 => 'option 3',
-                    4 => 'option 4'
+                    4 => 'option 4',
                 ],
-            ]
+            ],
         ]);
         $expected = [
             ['div' => ['class' => 'form-group row multicheckbox', 'role' => 'group', 'aria-labelledby' => 'users-group-label']],
@@ -5400,7 +5139,7 @@ class FormHelperTest extends TestCase
                                 'type' => 'checkbox',
                                 'name' => 'users[]',
                                 'id' => 'users-1',
-                                'value' => 1
+                                'value' => 1,
                             ]],
                             ['label' => ['class' => 'form-check-label', 'for' => 'users-1']],
                                 'option 1',
@@ -5412,7 +5151,7 @@ class FormHelperTest extends TestCase
                                 'type' => 'checkbox',
                                 'name' => 'users[]',
                                 'id' => 'users-2',
-                                'value' => 2
+                                'value' => 2,
                             ]],
                             ['label' => ['class' => 'form-check-label', 'for' => 'users-2']],
                                 'option 2',
@@ -5429,7 +5168,7 @@ class FormHelperTest extends TestCase
                                 'type' => 'checkbox',
                                 'name' => 'users[]',
                                 'id' => 'users-3',
-                                'value' => 3
+                                'value' => 3,
                             ]],
                             ['label' => ['class' => 'form-check-label', 'for' => 'users-3']],
                                 'option 3',
@@ -5441,7 +5180,7 @@ class FormHelperTest extends TestCase
                                 'type' => 'checkbox',
                                 'name' => 'users[]',
                                 'id' => 'users-4',
-                                'value' => 4
+                                'value' => 4,
                             ]],
                             ['label' => ['class' => 'form-check-label', 'for' => 'users-4']],
                                 'option 4',
@@ -5460,9 +5199,9 @@ class FormHelperTest extends TestCase
             'align' => [
                 'sm' => [
                     'left' => 5,
-                    'middle' => 7
-                ]
-            ]
+                    'middle' => 7,
+                ],
+            ],
         ]);
 
         $result = $this->Form->control('users', [
@@ -5470,14 +5209,14 @@ class FormHelperTest extends TestCase
             'options' => [
                 'group 1' => [
                     1 => 'option 1',
-                    2 => 'option 2'
+                    2 => 'option 2',
                 ],
                 'group 2' => [
                     3 => 'option 3',
-                    4 => 'option 4'
+                    4 => 'option 4',
                 ],
             ],
-            'nestedInput' => true
+            'nestedInput' => true,
         ]);
         $expected = [
             ['div' => ['class' => 'form-group row multicheckbox', 'role' => 'group', 'aria-labelledby' => 'users-group-label']],
@@ -5501,7 +5240,7 @@ class FormHelperTest extends TestCase
                                     'type' => 'checkbox',
                                     'name' => 'users[]',
                                     'id' => 'users-1',
-                                    'value' => 1
+                                    'value' => 1,
                                 ]],
                                 'option 1',
                             '/label',
@@ -5513,7 +5252,7 @@ class FormHelperTest extends TestCase
                                     'type' => 'checkbox',
                                     'name' => 'users[]',
                                     'id' => 'users-2',
-                                    'value' => 2
+                                    'value' => 2,
                                 ]],
                                 'option 2',
                             '/label',
@@ -5530,7 +5269,7 @@ class FormHelperTest extends TestCase
                                     'type' => 'checkbox',
                                     'name' => 'users[]',
                                     'id' => 'users-3',
-                                    'value' => 3
+                                    'value' => 3,
                                 ]],
                                 'option 3',
                             '/label',
@@ -5542,7 +5281,7 @@ class FormHelperTest extends TestCase
                                     'type' => 'checkbox',
                                     'name' => 'users[]',
                                     'id' => 'users-4',
-                                    'value' => 4
+                                    'value' => 4,
                                 ]],
                                 'option 4',
                             '/label',
@@ -5560,9 +5299,9 @@ class FormHelperTest extends TestCase
             'align' => [
                 'sm' => [
                     'left' => 5,
-                    'middle' => 7
-                ]
-            ]
+                    'middle' => 7,
+                ],
+            ],
         ]);
 
         $result = $this->Form->control('users', [
@@ -5570,14 +5309,14 @@ class FormHelperTest extends TestCase
             'options' => [
                 'group 1' => [
                     1 => 'option 1',
-                    2 => 'option 2'
+                    2 => 'option 2',
                 ],
                 'group 2' => [
                     3 => 'option 3',
-                    4 => 'option 4'
+                    4 => 'option 4',
                 ],
             ],
-            'inline' => true
+            'inline' => true,
         ]);
         $expected = [
             ['div' => ['class' => 'form-group row multicheckbox', 'role' => 'group', 'aria-labelledby' => 'users-group-label']],
@@ -5600,7 +5339,7 @@ class FormHelperTest extends TestCase
                                 'type' => 'checkbox',
                                 'name' => 'users[]',
                                 'id' => 'users-1',
-                                'value' => 1
+                                'value' => 1,
                             ]],
                             ['label' => ['class' => 'form-check-label', 'for' => 'users-1']],
                                 'option 1',
@@ -5612,7 +5351,7 @@ class FormHelperTest extends TestCase
                                 'type' => 'checkbox',
                                 'name' => 'users[]',
                                 'id' => 'users-2',
-                                'value' => 2
+                                'value' => 2,
                             ]],
                             ['label' => ['class' => 'form-check-label', 'for' => 'users-2']],
                                 'option 2',
@@ -5629,7 +5368,7 @@ class FormHelperTest extends TestCase
                                 'type' => 'checkbox',
                                 'name' => 'users[]',
                                 'id' => 'users-3',
-                                'value' => 3
+                                'value' => 3,
                             ]],
                             ['label' => ['class' => 'form-check-label', 'for' => 'users-3']],
                                 'option 3',
@@ -5641,7 +5380,7 @@ class FormHelperTest extends TestCase
                                 'type' => 'checkbox',
                                 'name' => 'users[]',
                                 'id' => 'users-4',
-                                'value' => 4
+                                'value' => 4,
                             ]],
                             ['label' => ['class' => 'form-check-label', 'for' => 'users-4']],
                                 'option 4',
@@ -5660,9 +5399,9 @@ class FormHelperTest extends TestCase
             'align' => [
                 'sm' => [
                     'left' => 5,
-                    'middle' => 7
-                ]
-            ]
+                    'middle' => 7,
+                ],
+            ],
         ]);
 
         $result = $this->Form->control('users', [
@@ -5670,15 +5409,15 @@ class FormHelperTest extends TestCase
             'options' => [
                 'group 1' => [
                     1 => 'option 1',
-                    2 => 'option 2'
+                    2 => 'option 2',
                 ],
                 'group 2' => [
                     3 => 'option 3',
-                    4 => 'option 4'
+                    4 => 'option 4',
                 ],
             ],
             'inline' => true,
-            'nestedInput' => true
+            'nestedInput' => true,
         ]);
         $expected = [
             ['div' => ['class' => 'form-group row multicheckbox', 'role' => 'group', 'aria-labelledby' => 'users-group-label']],
@@ -5702,7 +5441,7 @@ class FormHelperTest extends TestCase
                                     'type' => 'checkbox',
                                     'name' => 'users[]',
                                     'id' => 'users-1',
-                                    'value' => 1
+                                    'value' => 1,
                                 ]],
                                 'option 1',
                             '/label',
@@ -5714,7 +5453,7 @@ class FormHelperTest extends TestCase
                                     'type' => 'checkbox',
                                     'name' => 'users[]',
                                     'id' => 'users-2',
-                                    'value' => 2
+                                    'value' => 2,
                                 ]],
                                 'option 2',
                             '/label',
@@ -5731,7 +5470,7 @@ class FormHelperTest extends TestCase
                                     'type' => 'checkbox',
                                     'name' => 'users[]',
                                     'id' => 'users-3',
-                                    'value' => 3
+                                    'value' => 3,
                                 ]],
                                 'option 3',
                             '/label',
@@ -5743,7 +5482,7 @@ class FormHelperTest extends TestCase
                                     'type' => 'checkbox',
                                     'name' => 'users[]',
                                     'id' => 'users-4',
-                                    'value' => 4
+                                    'value' => 4,
                                 ]],
                                 'option 4',
                             '/label',
@@ -5761,9 +5500,9 @@ class FormHelperTest extends TestCase
             'align' => [
                 'sm' => [
                     'left' => 5,
-                    'middle' => 7
-                ]
-            ]
+                    'middle' => 7,
+                ],
+            ],
         ]);
 
         $result = $this->Form->control('users', [
@@ -5774,8 +5513,8 @@ class FormHelperTest extends TestCase
                 'group' => [
                     3 => 'option 3',
                     4 => 'option 4',
-                ]
-            ]
+                ],
+            ],
         ]);
         $expected = [
             ['div' => ['class' => 'form-group row multicheckbox', 'role' => 'group', 'aria-labelledby' => 'users-group-label']],
@@ -5794,7 +5533,7 @@ class FormHelperTest extends TestCase
                             'type' => 'checkbox',
                             'name' => 'users[]',
                             'id' => 'users-1',
-                            'value' => 1
+                            'value' => 1,
                         ]],
                         ['label' => ['class' => 'form-check-label', 'for' => 'users-1']],
                             'option 1',
@@ -5806,7 +5545,7 @@ class FormHelperTest extends TestCase
                             'type' => 'checkbox',
                             'name' => 'users[]',
                             'id' => 'users-2',
-                            'value' => 2
+                            'value' => 2,
                         ]],
                         ['label' => ['class' => 'form-check-label', 'for' => 'users-2']],
                             'option 2',
@@ -5822,7 +5561,7 @@ class FormHelperTest extends TestCase
                                 'type' => 'checkbox',
                                 'name' => 'users[]',
                                 'id' => 'users-3',
-                                'value' => 3
+                                'value' => 3,
                             ]],
                             ['label' => ['class' => 'form-check-label', 'for' => 'users-3']],
                                 'option 3',
@@ -5834,7 +5573,7 @@ class FormHelperTest extends TestCase
                                 'type' => 'checkbox',
                                 'name' => 'users[]',
                                 'id' => 'users-4',
-                                'value' => 4
+                                'value' => 4,
                             ]],
                             ['label' => ['class' => 'form-check-label', 'for' => 'users-4']],
                                 'option 4',
@@ -5853,9 +5592,9 @@ class FormHelperTest extends TestCase
             'align' => [
                 'sm' => [
                     'left' => 5,
-                    'middle' => 7
-                ]
-            ]
+                    'middle' => 7,
+                ],
+            ],
         ]);
 
         $result = $this->Form->control('users', [
@@ -5868,29 +5607,29 @@ class FormHelperTest extends TestCase
                     'value' => 12,
                     'class' => 'custominputclass',
                     'label' => [
-                        'class' => 'customlabelclass'
-                    ]
+                        'class' => 'customlabelclass',
+                    ],
                 ],
                 'group' => [
                     10 => 'option 4',
                     20 => [
                         'text' => 'option 4',
                         'value' => 20,
-                        'class' => 'custominputclass'
+                        'class' => 'custominputclass',
                     ],
                     30 => [
                         'text' => 'option 5 without label',
                         'value' => 30,
-                        'label' => false
+                        'label' => false,
                     ],
                     40 => [
                         'text' => 'option 6',
                         'value' => 40,
                         'label' => [
-                            'class' => 'customlabelclass'
-                        ]
+                            'class' => 'customlabelclass',
+                        ],
                     ],
-                ]
+                ],
             ],
         ]);
         $expected = [
@@ -5910,7 +5649,7 @@ class FormHelperTest extends TestCase
                             'type' => 'checkbox',
                             'name' => 'users[]',
                             'id' => 'users-1',
-                            'value' => 1
+                            'value' => 1,
                         ]],
                         ['label' => ['class' => 'form-check-label', 'for' => 'users-1']],
                             'option 1',
@@ -5922,7 +5661,7 @@ class FormHelperTest extends TestCase
                             'type' => 'checkbox',
                             'name' => 'users[]',
                             'id' => 'users-2',
-                            'value' => 2
+                            'value' => 2,
                         ]],
                         ['label' => ['class' => 'form-check-label', 'for' => 'users-2']],
                             'option 2',
@@ -5934,7 +5673,7 @@ class FormHelperTest extends TestCase
                             'type' => 'checkbox',
                             'name' => 'users[]',
                             'id' => 'users-12',
-                            'value' => 12
+                            'value' => 12,
                         ]],
                         ['label' => ['class' => 'customlabelclass', 'for' => 'users-12']],
                             'option 3',
@@ -5950,7 +5689,7 @@ class FormHelperTest extends TestCase
                                 'type' => 'checkbox',
                                 'name' => 'users[]',
                                 'id' => 'users-10',
-                                'value' => 10
+                                'value' => 10,
                             ]],
                             ['label' => ['class' => 'form-check-label', 'for' => 'users-10']],
                                 'option 4',
@@ -5962,7 +5701,7 @@ class FormHelperTest extends TestCase
                                 'type' => 'checkbox',
                                 'name' => 'users[]',
                                 'id' => 'users-20',
-                                'value' => 20
+                                'value' => 20,
                             ]],
                             ['label' => ['class' => 'form-check-label', 'for' => 'users-20']],
                                 'option 4',
@@ -5974,7 +5713,7 @@ class FormHelperTest extends TestCase
                                 'type' => 'checkbox',
                                 'name' => 'users[]',
                                 'id' => 'users-30',
-                                'value' => 30
+                                'value' => 30,
                             ]],
                         '/div',
                         ['div' => ['class' => 'form-check']],
@@ -5983,7 +5722,7 @@ class FormHelperTest extends TestCase
                                 'type' => 'checkbox',
                                 'name' => 'users[]',
                                 'id' => 'users-40',
-                                'value' => 40
+                                'value' => 40,
                             ]],
                             ['label' => ['class' => 'customlabelclass', 'for' => 'users-40']],
                                 'option 6',
@@ -6002,9 +5741,9 @@ class FormHelperTest extends TestCase
             'align' => [
                 'sm' => [
                     'left' => 5,
-                    'middle' => 7
-                ]
-            ]
+                    'middle' => 7,
+                ],
+            ],
         ]);
 
         $result = $this->Form->control('users', [
@@ -6015,9 +5754,9 @@ class FormHelperTest extends TestCase
                 'group' => [
                     3 => 'option 3',
                     4 => 'option 4',
-                ]
+                ],
             ],
-            'nestedInput' => true
+            'nestedInput' => true,
         ]);
         $expected = [
             ['div' => ['class' => 'form-group row multicheckbox', 'role' => 'group', 'aria-labelledby' => 'users-group-label']],
@@ -6037,7 +5776,7 @@ class FormHelperTest extends TestCase
                                 'type' => 'checkbox',
                                 'name' => 'users[]',
                                 'id' => 'users-1',
-                                'value' => 1
+                                'value' => 1,
                             ]],
                             'option 1',
                         '/label',
@@ -6049,7 +5788,7 @@ class FormHelperTest extends TestCase
                                 'type' => 'checkbox',
                                 'name' => 'users[]',
                                 'id' => 'users-2',
-                                'value' => 2
+                                'value' => 2,
                             ]],
                             'option 2',
                         '/label',
@@ -6065,7 +5804,7 @@ class FormHelperTest extends TestCase
                                     'type' => 'checkbox',
                                     'name' => 'users[]',
                                     'id' => 'users-3',
-                                    'value' => 3
+                                    'value' => 3,
                                 ]],
                                 'option 3',
                             '/label',
@@ -6077,7 +5816,7 @@ class FormHelperTest extends TestCase
                                     'type' => 'checkbox',
                                     'name' => 'users[]',
                                     'id' => 'users-4',
-                                    'value' => 4
+                                    'value' => 4,
                                 ]],
                                 'option 4',
                             '/label',
@@ -6095,9 +5834,9 @@ class FormHelperTest extends TestCase
             'align' => [
                 'sm' => [
                     'left' => 5,
-                    'middle' => 7
-                ]
-            ]
+                    'middle' => 7,
+                ],
+            ],
         ]);
 
         $result = $this->Form->control('users', [
@@ -6110,31 +5849,31 @@ class FormHelperTest extends TestCase
                     'value' => 12,
                     'class' => 'custominputclass',
                     'label' => [
-                        'class' => 'customlabelclass'
-                    ]
+                        'class' => 'customlabelclass',
+                    ],
                 ],
                 'group' => [
                     10 => 'option 4',
                     20 => [
                         'text' => 'option 4',
                         'value' => 20,
-                        'class' => 'custominputclass'
+                        'class' => 'custominputclass',
                     ],
                     30 => [
                         'text' => 'option 5 without label',
                         'value' => 30,
-                        'label' => false
+                        'label' => false,
                     ],
                     40 => [
                         'text' => 'option 6',
                         'value' => 40,
                         'label' => [
-                            'class' => 'customlabelclass'
-                        ]
+                            'class' => 'customlabelclass',
+                        ],
                     ],
-                ]
+                ],
             ],
-            'nestedInput' => true
+            'nestedInput' => true,
         ]);
         $expected = [
             ['div' => ['class' => 'form-group row multicheckbox', 'role' => 'group', 'aria-labelledby' => 'users-group-label']],
@@ -6154,7 +5893,7 @@ class FormHelperTest extends TestCase
                                 'type' => 'checkbox',
                                 'name' => 'users[]',
                                 'id' => 'users-1',
-                                'value' => 1
+                                'value' => 1,
                             ]],
                             'option 1',
                         '/label',
@@ -6166,7 +5905,7 @@ class FormHelperTest extends TestCase
                                 'type' => 'checkbox',
                                 'name' => 'users[]',
                                 'id' => 'users-2',
-                                'value' => 2
+                                'value' => 2,
                             ]],
                             'option 2',
                         '/label',
@@ -6178,7 +5917,7 @@ class FormHelperTest extends TestCase
                                 'type' => 'checkbox',
                                 'name' => 'users[]',
                                 'id' => 'users-12',
-                                'value' => 12
+                                'value' => 12,
                             ]],
                             'option 3',
                         '/label',
@@ -6194,7 +5933,7 @@ class FormHelperTest extends TestCase
                                     'type' => 'checkbox',
                                     'name' => 'users[]',
                                     'id' => 'users-10',
-                                    'value' => 10
+                                    'value' => 10,
                                 ]],
                                 'option 4',
                             '/label',
@@ -6206,7 +5945,7 @@ class FormHelperTest extends TestCase
                                     'type' => 'checkbox',
                                     'name' => 'users[]',
                                     'id' => 'users-20',
-                                    'value' => 20
+                                    'value' => 20,
                                 ]],
                                 'option 4',
                             '/label',
@@ -6217,7 +5956,7 @@ class FormHelperTest extends TestCase
                                 'type' => 'checkbox',
                                 'name' => 'users[]',
                                 'id' => 'users-30',
-                                'value' => 30
+                                'value' => 30,
                             ]],
                         '/div',
                         ['div' => ['class' => 'form-check']],
@@ -6227,7 +5966,7 @@ class FormHelperTest extends TestCase
                                     'type' => 'checkbox',
                                     'name' => 'users[]',
                                     'id' => 'users-40',
-                                    'value' => 40
+                                    'value' => 40,
                                 ]],
                                 'option 6',
                             '/label',
@@ -6243,7 +5982,7 @@ class FormHelperTest extends TestCase
     {
         $this->withErrorReporting(0, function () {
             $this->Form->create($this->article, [
-                'align' => 'inline'
+                'align' => 'inline',
             ]);
         });
 
@@ -6251,8 +5990,8 @@ class FormHelperTest extends TestCase
             'multiple' => 'checkbox',
             'options' => [
                 1 => 'option 1',
-                2 => 'option 2'
-            ]
+                2 => 'option 2',
+            ],
         ]);
         $expected = [
             ['div' => ['class' => 'form-group multicheckbox', 'role' => 'group', 'aria-labelledby' => 'users-group-label']],
@@ -6270,7 +6009,7 @@ class FormHelperTest extends TestCase
                         'type' => 'checkbox',
                         'name' => 'users[]',
                         'id' => 'users-1',
-                        'value' => 1
+                        'value' => 1,
                     ]],
                     ['label' => ['class' => 'form-check-label', 'for' => 'users-1']],
                         'option 1',
@@ -6282,7 +6021,7 @@ class FormHelperTest extends TestCase
                         'type' => 'checkbox',
                         'name' => 'users[]',
                         'id' => 'users-2',
-                        'value' => 2
+                        'value' => 2,
                     ]],
                     ['label' => ['class' => 'form-check-label', 'for' => 'users-2']],
                         'option 2',
@@ -6297,7 +6036,7 @@ class FormHelperTest extends TestCase
     {
         $this->withErrorReporting(0, function () {
             $this->Form->create($this->article, [
-                'align' => 'inline'
+                'align' => 'inline',
             ]);
         });
 
@@ -6311,8 +6050,8 @@ class FormHelperTest extends TestCase
                     'value' => 12,
                     'class' => 'custominputclass',
                     'label' => [
-                        'class' => 'customlabelclass'
-                    ]
+                        'class' => 'customlabelclass',
+                    ],
                 ],
             ],
         ]);
@@ -6332,7 +6071,7 @@ class FormHelperTest extends TestCase
                         'type' => 'checkbox',
                         'name' => 'users[]',
                         'id' => 'users-1',
-                        'value' => 1
+                        'value' => 1,
                     ]],
                     ['label' => ['class' => 'form-check-label', 'for' => 'users-1']],
                         'option 1',
@@ -6344,7 +6083,7 @@ class FormHelperTest extends TestCase
                         'type' => 'checkbox',
                         'name' => 'users[]',
                         'id' => 'users-2',
-                        'value' => 2
+                        'value' => 2,
                     ]],
                     ['label' => ['class' => 'form-check-label', 'for' => 'users-2']],
                         'option 2',
@@ -6356,7 +6095,7 @@ class FormHelperTest extends TestCase
                         'type' => 'checkbox',
                         'name' => 'users[]',
                         'id' => 'users-12',
-                        'value' => 12
+                        'value' => 12,
                     ]],
                     ['label' => ['class' => 'customlabelclass', 'for' => 'users-12']],
                         'option 3',
@@ -6371,7 +6110,7 @@ class FormHelperTest extends TestCase
     {
         $this->withErrorReporting(0, function () {
             $this->Form->create($this->article, [
-                'align' => 'inline'
+                'align' => 'inline',
             ]);
         });
 
@@ -6379,9 +6118,9 @@ class FormHelperTest extends TestCase
             'multiple' => 'checkbox',
             'options' => [
                 1 => 'option 1',
-                2 => 'option 2'
+                2 => 'option 2',
             ],
-            'nestedInput' => true
+            'nestedInput' => true,
         ]);
         $expected = [
             ['div' => ['class' => 'form-group multicheckbox', 'role' => 'group', 'aria-labelledby' => 'users-group-label']],
@@ -6400,7 +6139,7 @@ class FormHelperTest extends TestCase
                             'type' => 'checkbox',
                             'name' => 'users[]',
                             'id' => 'users-1',
-                            'value' => 1
+                            'value' => 1,
                         ]],
                         'option 1',
                     '/label',
@@ -6412,7 +6151,7 @@ class FormHelperTest extends TestCase
                             'type' => 'checkbox',
                             'name' => 'users[]',
                             'id' => 'users-2',
-                            'value' => 2
+                            'value' => 2,
                         ]],
                         'option 2',
                     '/label',
@@ -6426,7 +6165,7 @@ class FormHelperTest extends TestCase
     {
         $this->withErrorReporting(0, function () {
             $this->Form->create($this->article, [
-                'align' => 'inline'
+                'align' => 'inline',
             ]);
         });
 
@@ -6440,11 +6179,11 @@ class FormHelperTest extends TestCase
                     'value' => 12,
                     'class' => 'custominputclass',
                     'label' => [
-                        'class' => 'customlabelclass'
-                    ]
+                        'class' => 'customlabelclass',
+                    ],
                 ],
             ],
-            'nestedInput' => true
+            'nestedInput' => true,
         ]);
         $expected = [
             ['div' => ['class' => 'form-group multicheckbox', 'role' => 'group', 'aria-labelledby' => 'users-group-label']],
@@ -6463,7 +6202,7 @@ class FormHelperTest extends TestCase
                             'type' => 'checkbox',
                             'name' => 'users[]',
                             'id' => 'users-1',
-                            'value' => 1
+                            'value' => 1,
                         ]],
                         'option 1',
                     '/label',
@@ -6475,7 +6214,7 @@ class FormHelperTest extends TestCase
                             'type' => 'checkbox',
                             'name' => 'users[]',
                             'id' => 'users-2',
-                            'value' => 2
+                            'value' => 2,
                         ]],
                         'option 2',
                     '/label',
@@ -6487,7 +6226,7 @@ class FormHelperTest extends TestCase
                             'type' => 'checkbox',
                             'name' => 'users[]',
                             'id' => 'users-12',
-                            'value' => 12
+                            'value' => 12,
                         ]],
                         'option 3',
                     '/label',
@@ -6509,7 +6248,7 @@ class FormHelperTest extends TestCase
                     'value' => 'Submit',
                     'class' => 'btn-primary btn',
                 ],
-            '/div'
+            '/div',
         ];
         $this->assertHtml($expected, $result);
     }
@@ -6520,9 +6259,9 @@ class FormHelperTest extends TestCase
             'align' => [
                 'sm' => [
                     'left' => 5,
-                    'middle' => 7
-                ]
-            ]
+                    'middle' => 7,
+                ],
+            ],
         ]);
 
         $result = $this->Form->submit('Submit');
@@ -6535,7 +6274,7 @@ class FormHelperTest extends TestCase
                         'class' => 'btn-primary btn',
                     ],
                 '/div',
-            '/div'
+            '/div',
         ];
         $this->assertHtml($expected, $result);
     }
@@ -6544,7 +6283,7 @@ class FormHelperTest extends TestCase
     {
         $this->withErrorReporting(0, function () {
             $this->Form->create($this->article, [
-                'align' => 'inline'
+                'align' => 'inline',
             ]);
         });
 
@@ -6556,7 +6295,7 @@ class FormHelperTest extends TestCase
                     'value' => 'Submit',
                     'class' => 'btn-primary btn',
                 ],
-            '/div'
+            '/div',
         ];
         $this->assertHtml($expected, $result);
     }
@@ -6586,7 +6325,7 @@ class FormHelperTest extends TestCase
                 ['label' => ['class' => 'custom-control-label', 'for' => 'users']],
                     'Users',
                 '/label',
-            '/div'
+            '/div',
         ];
         $this->assertHtml($expected, $result);
     }
@@ -6617,7 +6356,7 @@ class FormHelperTest extends TestCase
                 ['label' => ['class' => 'custom-control-label', 'for' => 'users']],
                     'Users',
                 '/label',
-            '/div'
+            '/div',
         ];
         $this->assertHtml($expected, $result);
     }
@@ -6628,9 +6367,9 @@ class FormHelperTest extends TestCase
             'align' => [
                 'sm' => [
                     'left' => 5,
-                    'middle' => 7
-                ]
-            ]
+                    'middle' => 7,
+                ],
+            ],
         ]);
 
         $result = $this->Form->control('users', [
@@ -6658,7 +6397,7 @@ class FormHelperTest extends TestCase
                         '/label',
                     '/div',
                 '/div',
-            '/div'
+            '/div',
         ];
         $this->assertHtml($expected, $result);
     }
@@ -6669,9 +6408,9 @@ class FormHelperTest extends TestCase
             'align' => [
                 'sm' => [
                     'left' => 5,
-                    'middle' => 7
-                ]
-            ]
+                    'middle' => 7,
+                ],
+            ],
         ]);
 
         $result = $this->Form->control('users', [
@@ -6700,7 +6439,7 @@ class FormHelperTest extends TestCase
                         '/label',
                     '/div',
                 '/div',
-            '/div'
+            '/div',
         ];
         $this->assertHtml($expected, $result);
     }
@@ -6709,7 +6448,7 @@ class FormHelperTest extends TestCase
     {
         $this->withErrorReporting(0, function () {
             $this->Form->create($this->article, [
-                'align' => 'inline'
+                'align' => 'inline',
             ]);
         });
 
@@ -6734,7 +6473,7 @@ class FormHelperTest extends TestCase
                 ['label' => ['class' => 'custom-control-label', 'for' => 'users']],
                     'Users',
                 '/label',
-            '/div'
+            '/div',
         ];
         $this->assertHtml($expected, $result);
     }
@@ -6743,7 +6482,7 @@ class FormHelperTest extends TestCase
     {
         $this->withErrorReporting(0, function () {
             $this->Form->create($this->article, [
-                'align' => 'inline'
+                'align' => 'inline',
             ]);
         });
 
@@ -6769,7 +6508,7 @@ class FormHelperTest extends TestCase
                 ['label' => ['class' => 'custom-control-label', 'for' => 'users']],
                     'Users',
                 '/label',
-            '/div'
+            '/div',
         ];
         $this->assertHtml($expected, $result);
     }
@@ -6782,7 +6521,7 @@ class FormHelperTest extends TestCase
             'type' => 'radio',
             'options' => [
                 1 => 'option 1',
-                2 => 'option 2'
+                2 => 'option 2',
             ],
             'custom' => true,
         ]);
@@ -6802,7 +6541,7 @@ class FormHelperTest extends TestCase
                         'type' => 'radio',
                         'name' => 'users',
                         'id' => 'users-1',
-                        'value' => 1
+                        'value' => 1,
                     ]],
                     ['label' => ['class' => 'custom-control-label', 'for' => 'users-1']],
                         'option 1',
@@ -6814,7 +6553,7 @@ class FormHelperTest extends TestCase
                         'type' => 'radio',
                         'name' => 'users',
                         'id' => 'users-2',
-                        'value' => 2
+                        'value' => 2,
                     ]],
                     ['label' => ['class' => 'custom-control-label', 'for' => 'users-2']],
                         'option 2',
@@ -6833,10 +6572,10 @@ class FormHelperTest extends TestCase
             'type' => 'radio',
             'options' => [
                 1 => 'option 1',
-                2 => 'option 2'
+                2 => 'option 2',
             ],
             'custom' => true,
-            'inline' => true
+            'inline' => true,
         ]);
         $expected = [
             ['div' => ['class' => 'form-group radio', 'role' => 'group', 'aria-labelledby' => 'users-group-label']],
@@ -6854,7 +6593,7 @@ class FormHelperTest extends TestCase
                         'type' => 'radio',
                         'name' => 'users',
                         'id' => 'users-1',
-                        'value' => 1
+                        'value' => 1,
                     ]],
                     ['label' => ['class' => 'custom-control-label', 'for' => 'users-1']],
                         'option 1',
@@ -6866,7 +6605,7 @@ class FormHelperTest extends TestCase
                         'type' => 'radio',
                         'name' => 'users',
                         'id' => 'users-2',
-                        'value' => 2
+                        'value' => 2,
                     ]],
                     ['label' => ['class' => 'custom-control-label', 'for' => 'users-2']],
                         'option 2',
@@ -6891,8 +6630,8 @@ class FormHelperTest extends TestCase
                     'value' => 12,
                     'class' => 'custominputclass',
                     'label' => [
-                        'class' => 'customlabelclass'
-                    ]
+                        'class' => 'customlabelclass',
+                    ],
                 ],
             ],
             'custom' => true,
@@ -6913,7 +6652,7 @@ class FormHelperTest extends TestCase
                         'type' => 'radio',
                         'name' => 'users',
                         'id' => 'users-1',
-                        'value' => 1
+                        'value' => 1,
                     ]],
                     ['label' => ['class' => 'custom-control-label', 'for' => 'users-1']],
                         'option 1',
@@ -6925,7 +6664,7 @@ class FormHelperTest extends TestCase
                         'type' => 'radio',
                         'name' => 'users',
                         'id' => 'users-2',
-                        'value' => 2
+                        'value' => 2,
                     ]],
                     ['label' => ['class' => 'custom-control-label', 'for' => 'users-2']],
                         'option 2',
@@ -6937,9 +6676,9 @@ class FormHelperTest extends TestCase
                         'type' => 'radio',
                         'name' => 'users',
                         'id' => 'users-12',
-                        'value' => 12
+                        'value' => 12,
                     ]],
-                    ['label' => ['class' => 'custom-control-label', 'for' => 'users-12']],
+                    ['label' => ['class' => 'customlabelclass', 'for' => 'users-12']],
                         'option 3',
                     '/label',
                 '/div',
@@ -6962,8 +6701,8 @@ class FormHelperTest extends TestCase
                     'value' => 12,
                     'class' => 'custominputclass',
                     'label' => [
-                        'class' => 'customlabelclass'
-                    ]
+                        'class' => 'customlabelclass',
+                    ],
                 ],
             ],
             'custom' => true,
@@ -6985,7 +6724,7 @@ class FormHelperTest extends TestCase
                         'type' => 'radio',
                         'name' => 'users',
                         'id' => 'users-1',
-                        'value' => 1
+                        'value' => 1,
                     ]],
                     ['label' => ['class' => 'custom-control-label', 'for' => 'users-1']],
                         'option 1',
@@ -6997,7 +6736,7 @@ class FormHelperTest extends TestCase
                         'type' => 'radio',
                         'name' => 'users',
                         'id' => 'users-2',
-                        'value' => 2
+                        'value' => 2,
                     ]],
                     ['label' => ['class' => 'custom-control-label', 'for' => 'users-2']],
                         'option 2',
@@ -7009,9 +6748,9 @@ class FormHelperTest extends TestCase
                         'type' => 'radio',
                         'name' => 'users',
                         'id' => 'users-12',
-                        'value' => 12
+                        'value' => 12,
                     ]],
-                    ['label' => ['class' => 'custom-control-label', 'for' => 'users-12']],
+                    ['label' => ['class' => 'customlabelclass', 'for' => 'users-12']],
                         'option 3',
                     '/label',
                 '/div',
@@ -7026,16 +6765,16 @@ class FormHelperTest extends TestCase
             'align' => [
                 'sm' => [
                     'left' => 5,
-                    'middle' => 7
-                ]
-            ]
+                    'middle' => 7,
+                ],
+            ],
         ]);
 
         $result = $this->Form->control('users', [
             'type' => 'radio',
             'options' => [
                 1 => 'option 1',
-                2 => 'option 2'
+                2 => 'option 2',
             ],
             'custom' => true,
         ]);
@@ -7056,7 +6795,7 @@ class FormHelperTest extends TestCase
                             'type' => 'radio',
                             'name' => 'users',
                             'id' => 'users-1',
-                            'value' => 1
+                            'value' => 1,
                         ]],
                         ['label' => ['class' => 'custom-control-label', 'for' => 'users-1']],
                             'option 1',
@@ -7068,7 +6807,7 @@ class FormHelperTest extends TestCase
                             'type' => 'radio',
                             'name' => 'users',
                             'id' => 'users-2',
-                            'value' => 2
+                            'value' => 2,
                         ]],
                         ['label' => ['class' => 'custom-control-label', 'for' => 'users-2']],
                             'option 2',
@@ -7086,19 +6825,19 @@ class FormHelperTest extends TestCase
             'align' => [
                 'sm' => [
                     'left' => 5,
-                    'middle' => 7
-                ]
-            ]
+                    'middle' => 7,
+                ],
+            ],
         ]);
 
         $result = $this->Form->control('users', [
             'type' => 'radio',
             'options' => [
                 1 => 'option 1',
-                2 => 'option 2'
+                2 => 'option 2',
             ],
             'custom' => true,
-            'inline' => true
+            'inline' => true,
         ]);
         $expected = [
             ['div' => ['class' => 'form-group row radio', 'role' => 'group', 'aria-labelledby' => 'users-group-label']],
@@ -7117,7 +6856,7 @@ class FormHelperTest extends TestCase
                             'type' => 'radio',
                             'name' => 'users',
                             'id' => 'users-1',
-                            'value' => 1
+                            'value' => 1,
                         ]],
                         ['label' => ['class' => 'custom-control-label', 'for' => 'users-1']],
                             'option 1',
@@ -7129,7 +6868,7 @@ class FormHelperTest extends TestCase
                             'type' => 'radio',
                             'name' => 'users',
                             'id' => 'users-2',
-                            'value' => 2
+                            'value' => 2,
                         ]],
                         ['label' => ['class' => 'custom-control-label', 'for' => 'users-2']],
                             'option 2',
@@ -7147,9 +6886,9 @@ class FormHelperTest extends TestCase
             'align' => [
                 'sm' => [
                     'left' => 5,
-                    'middle' => 7
-                ]
-            ]
+                    'middle' => 7,
+                ],
+            ],
         ]);
 
         $result = $this->Form->control('users', [
@@ -7162,8 +6901,8 @@ class FormHelperTest extends TestCase
                     'value' => 12,
                     'class' => 'custominputclass',
                     'label' => [
-                        'class' => 'customlabelclass'
-                    ]
+                        'class' => 'customlabelclass',
+                    ],
                 ],
             ],
             'custom' => true,
@@ -7185,7 +6924,7 @@ class FormHelperTest extends TestCase
                             'type' => 'radio',
                             'name' => 'users',
                             'id' => 'users-1',
-                            'value' => 1
+                            'value' => 1,
                         ]],
                         ['label' => ['class' => 'custom-control-label', 'for' => 'users-1']],
                             'option 1',
@@ -7197,7 +6936,7 @@ class FormHelperTest extends TestCase
                             'type' => 'radio',
                             'name' => 'users',
                             'id' => 'users-2',
-                            'value' => 2
+                            'value' => 2,
                         ]],
                         ['label' => ['class' => 'custom-control-label', 'for' => 'users-2']],
                             'option 2',
@@ -7209,9 +6948,9 @@ class FormHelperTest extends TestCase
                             'type' => 'radio',
                             'name' => 'users',
                             'id' => 'users-12',
-                            'value' => 12
+                            'value' => 12,
                         ]],
-                        ['label' => ['class' => 'custom-control-label', 'for' => 'users-12']],
+                        ['label' => ['class' => 'customlabelclass', 'for' => 'users-12']],
                             'option 3',
                         '/label',
                     '/div',
@@ -7227,9 +6966,9 @@ class FormHelperTest extends TestCase
             'align' => [
                 'sm' => [
                     'left' => 5,
-                    'middle' => 7
-                ]
-            ]
+                    'middle' => 7,
+                ],
+            ],
         ]);
 
         $result = $this->Form->control('users', [
@@ -7242,8 +6981,8 @@ class FormHelperTest extends TestCase
                     'value' => 12,
                     'class' => 'custominputclass',
                     'label' => [
-                        'class' => 'customlabelclass'
-                    ]
+                        'class' => 'customlabelclass',
+                    ],
                 ],
             ],
             'custom' => true,
@@ -7266,7 +7005,7 @@ class FormHelperTest extends TestCase
                             'type' => 'radio',
                             'name' => 'users',
                             'id' => 'users-1',
-                            'value' => 1
+                            'value' => 1,
                         ]],
                         ['label' => ['class' => 'custom-control-label', 'for' => 'users-1']],
                             'option 1',
@@ -7278,7 +7017,7 @@ class FormHelperTest extends TestCase
                             'type' => 'radio',
                             'name' => 'users',
                             'id' => 'users-2',
-                            'value' => 2
+                            'value' => 2,
                         ]],
                         ['label' => ['class' => 'custom-control-label', 'for' => 'users-2']],
                             'option 2',
@@ -7290,9 +7029,9 @@ class FormHelperTest extends TestCase
                             'type' => 'radio',
                             'name' => 'users',
                             'id' => 'users-12',
-                            'value' => 12
+                            'value' => 12,
                         ]],
-                        ['label' => ['class' => 'custom-control-label', 'for' => 'users-12']],
+                        ['label' => ['class' => 'customlabelclass', 'for' => 'users-12']],
                             'option 3',
                         '/label',
                     '/div',
@@ -7306,7 +7045,7 @@ class FormHelperTest extends TestCase
     {
         $this->withErrorReporting(0, function () {
             $this->Form->create($this->article, [
-                'align' => 'inline'
+                'align' => 'inline',
             ]);
         });
 
@@ -7314,7 +7053,7 @@ class FormHelperTest extends TestCase
             'type' => 'radio',
             'options' => [
                 1 => 'option 1',
-                2 => 'option 2'
+                2 => 'option 2',
             ],
             'custom' => true,
         ]);
@@ -7334,7 +7073,7 @@ class FormHelperTest extends TestCase
                         'type' => 'radio',
                         'name' => 'users',
                         'id' => 'users-1',
-                        'value' => 1
+                        'value' => 1,
                     ]],
                     ['label' => ['class' => 'custom-control-label', 'for' => 'users-1']],
                         'option 1',
@@ -7346,7 +7085,7 @@ class FormHelperTest extends TestCase
                         'type' => 'radio',
                         'name' => 'users',
                         'id' => 'users-2',
-                        'value' => 2
+                        'value' => 2,
                     ]],
                     ['label' => ['class' => 'custom-control-label', 'for' => 'users-2']],
                         'option 2',
@@ -7361,7 +7100,7 @@ class FormHelperTest extends TestCase
     {
         $this->withErrorReporting(0, function () {
             $this->Form->create($this->article, [
-                'align' => 'inline'
+                'align' => 'inline',
             ]);
         });
 
@@ -7375,8 +7114,8 @@ class FormHelperTest extends TestCase
                     'value' => 12,
                     'class' => 'custominputclass',
                     'label' => [
-                        'class' => 'customlabelclass'
-                    ]
+                        'class' => 'customlabelclass',
+                    ],
                 ],
             ],
             'custom' => true,
@@ -7397,7 +7136,7 @@ class FormHelperTest extends TestCase
                         'type' => 'radio',
                         'name' => 'users',
                         'id' => 'users-1',
-                        'value' => 1
+                        'value' => 1,
                     ]],
                     ['label' => ['class' => 'custom-control-label', 'for' => 'users-1']],
                         'option 1',
@@ -7409,7 +7148,7 @@ class FormHelperTest extends TestCase
                         'type' => 'radio',
                         'name' => 'users',
                         'id' => 'users-2',
-                        'value' => 2
+                        'value' => 2,
                     ]],
                     ['label' => ['class' => 'custom-control-label', 'for' => 'users-2']],
                         'option 2',
@@ -7421,9 +7160,9 @@ class FormHelperTest extends TestCase
                         'type' => 'radio',
                         'name' => 'users',
                         'id' => 'users-12',
-                        'value' => 12
+                        'value' => 12,
                     ]],
-                    ['label' => ['class' => 'custom-control-label', 'for' => 'users-12']],
+                    ['label' => ['class' => 'customlabelclass', 'for' => 'users-12']],
                         'option 3',
                     '/label',
                 '/div',
@@ -7440,7 +7179,7 @@ class FormHelperTest extends TestCase
             'multiple' => 'checkbox',
             'options' => [
                 1 => 'option 1',
-                2 => 'option 2'
+                2 => 'option 2',
             ],
             'custom' => true,
         ]);
@@ -7460,7 +7199,7 @@ class FormHelperTest extends TestCase
                         'type' => 'checkbox',
                         'name' => 'users[]',
                         'id' => 'users-1',
-                        'value' => 1
+                        'value' => 1,
                     ]],
                     ['label' => ['class' => 'custom-control-label', 'for' => 'users-1']],
                         'option 1',
@@ -7472,7 +7211,7 @@ class FormHelperTest extends TestCase
                         'type' => 'checkbox',
                         'name' => 'users[]',
                         'id' => 'users-2',
-                        'value' => 2
+                        'value' => 2,
                     ]],
                     ['label' => ['class' => 'custom-control-label', 'for' => 'users-2']],
                         'option 2',
@@ -7491,10 +7230,10 @@ class FormHelperTest extends TestCase
             'multiple' => 'checkbox',
             'options' => [
                 1 => 'option 1',
-                2 => 'option 2'
+                2 => 'option 2',
             ],
             'custom' => true,
-            'inline' => true
+            'inline' => true,
         ]);
         $expected = [
             ['div' => ['class' => 'form-group multicheckbox', 'role' => 'group', 'aria-labelledby' => 'users-group-label']],
@@ -7512,7 +7251,7 @@ class FormHelperTest extends TestCase
                         'type' => 'checkbox',
                         'name' => 'users[]',
                         'id' => 'users-1',
-                        'value' => 1
+                        'value' => 1,
                     ]],
                     ['label' => ['class' => 'custom-control-label', 'for' => 'users-1']],
                         'option 1',
@@ -7524,7 +7263,7 @@ class FormHelperTest extends TestCase
                         'type' => 'checkbox',
                         'name' => 'users[]',
                         'id' => 'users-2',
-                        'value' => 2
+                        'value' => 2,
                     ]],
                     ['label' => ['class' => 'custom-control-label', 'for' => 'users-2']],
                         'option 2',
@@ -7544,11 +7283,11 @@ class FormHelperTest extends TestCase
             'options' => [
                 'group 1' => [
                     1 => 'option 1',
-                    2 => 'option 2'
+                    2 => 'option 2',
                 ],
                 'group 2' => [
                     3 => 'option 3',
-                    4 => 'option 4'
+                    4 => 'option 4',
                 ],
             ],
             'custom' => true,
@@ -7573,7 +7312,7 @@ class FormHelperTest extends TestCase
                             'type' => 'checkbox',
                             'name' => 'users[]',
                             'id' => 'users-1',
-                            'value' => 1
+                            'value' => 1,
                         ]],
                         ['label' => ['class' => 'custom-control-label', 'for' => 'users-1']],
                             'option 1',
@@ -7585,7 +7324,7 @@ class FormHelperTest extends TestCase
                             'type' => 'checkbox',
                             'name' => 'users[]',
                             'id' => 'users-2',
-                            'value' => 2
+                            'value' => 2,
                         ]],
                         ['label' => ['class' => 'custom-control-label', 'for' => 'users-2']],
                             'option 2',
@@ -7602,7 +7341,7 @@ class FormHelperTest extends TestCase
                             'type' => 'checkbox',
                             'name' => 'users[]',
                             'id' => 'users-3',
-                            'value' => 3
+                            'value' => 3,
                         ]],
                         ['label' => ['class' => 'custom-control-label', 'for' => 'users-3']],
                             'option 3',
@@ -7614,7 +7353,7 @@ class FormHelperTest extends TestCase
                             'type' => 'checkbox',
                             'name' => 'users[]',
                             'id' => 'users-4',
-                            'value' => 4
+                            'value' => 4,
                         ]],
                         ['label' => ['class' => 'custom-control-label', 'for' => 'users-4']],
                             'option 4',
@@ -7635,15 +7374,15 @@ class FormHelperTest extends TestCase
             'options' => [
                 'group 1' => [
                     1 => 'option 1',
-                    2 => 'option 2'
+                    2 => 'option 2',
                 ],
                 'group 2' => [
                     3 => 'option 3',
-                    4 => 'option 4'
+                    4 => 'option 4',
                 ],
             ],
             'custom' => true,
-            'inline' => true
+            'inline' => true,
         ]);
         $expected = [
             ['div' => ['class' => 'form-group multicheckbox', 'role' => 'group', 'aria-labelledby' => 'users-group-label']],
@@ -7665,7 +7404,7 @@ class FormHelperTest extends TestCase
                             'type' => 'checkbox',
                             'name' => 'users[]',
                             'id' => 'users-1',
-                            'value' => 1
+                            'value' => 1,
                         ]],
                         ['label' => ['class' => 'custom-control-label', 'for' => 'users-1']],
                             'option 1',
@@ -7677,7 +7416,7 @@ class FormHelperTest extends TestCase
                             'type' => 'checkbox',
                             'name' => 'users[]',
                             'id' => 'users-2',
-                            'value' => 2
+                            'value' => 2,
                         ]],
                         ['label' => ['class' => 'custom-control-label', 'for' => 'users-2']],
                             'option 2',
@@ -7694,7 +7433,7 @@ class FormHelperTest extends TestCase
                             'type' => 'checkbox',
                             'name' => 'users[]',
                             'id' => 'users-3',
-                            'value' => 3
+                            'value' => 3,
                         ]],
                         ['label' => ['class' => 'custom-control-label', 'for' => 'users-3']],
                             'option 3',
@@ -7706,7 +7445,7 @@ class FormHelperTest extends TestCase
                             'type' => 'checkbox',
                             'name' => 'users[]',
                             'id' => 'users-4',
-                            'value' => 4
+                            'value' => 4,
                         ]],
                         ['label' => ['class' => 'custom-control-label', 'for' => 'users-4']],
                             'option 4',
@@ -7730,7 +7469,7 @@ class FormHelperTest extends TestCase
                 'group' => [
                     3 => 'option 3',
                     4 => 'option 4',
-                ]
+                ],
             ],
             'custom' => true,
         ]);
@@ -7750,7 +7489,7 @@ class FormHelperTest extends TestCase
                         'type' => 'checkbox',
                         'name' => 'users[]',
                         'id' => 'users-1',
-                        'value' => 1
+                        'value' => 1,
                     ]],
                     ['label' => ['class' => 'custom-control-label', 'for' => 'users-1']],
                         'option 1',
@@ -7762,7 +7501,7 @@ class FormHelperTest extends TestCase
                         'type' => 'checkbox',
                         'name' => 'users[]',
                         'id' => 'users-2',
-                        'value' => 2
+                        'value' => 2,
                     ]],
                     ['label' => ['class' => 'custom-control-label', 'for' => 'users-2']],
                         'option 2',
@@ -7778,7 +7517,7 @@ class FormHelperTest extends TestCase
                             'type' => 'checkbox',
                             'name' => 'users[]',
                             'id' => 'users-3',
-                            'value' => 3
+                            'value' => 3,
                         ]],
                         ['label' => ['class' => 'custom-control-label', 'for' => 'users-3']],
                             'option 3',
@@ -7790,7 +7529,7 @@ class FormHelperTest extends TestCase
                             'type' => 'checkbox',
                             'name' => 'users[]',
                             'id' => 'users-4',
-                            'value' => 4
+                            'value' => 4,
                         ]],
                         ['label' => ['class' => 'custom-control-label', 'for' => 'users-4']],
                             'option 4',
@@ -7816,24 +7555,24 @@ class FormHelperTest extends TestCase
                     'value' => 12,
                     'class' => 'custominputclass',
                     'label' => [
-                        'class' => 'customlabelclass'
-                    ]
+                        'class' => 'customlabelclass',
+                    ],
                 ],
                 'group' => [
                     10 => 'option 4',
                     20 => [
                         'text' => 'option 4',
                         'value' => 20,
-                        'class' => 'custominputclass'
+                        'class' => 'custominputclass',
                     ],
                     40 => [
                         'text' => 'option 6',
                         'value' => 40,
                         'label' => [
-                            'class' => 'customlabelclass'
-                        ]
+                            'class' => 'customlabelclass',
+                        ],
                     ],
-                ]
+                ],
             ],
             'custom' => true,
         ]);
@@ -7853,7 +7592,7 @@ class FormHelperTest extends TestCase
                         'type' => 'checkbox',
                         'name' => 'users[]',
                         'id' => 'users-1',
-                        'value' => 1
+                        'value' => 1,
                     ]],
                     ['label' => ['class' => 'custom-control-label', 'for' => 'users-1']],
                         'option 1',
@@ -7865,7 +7604,7 @@ class FormHelperTest extends TestCase
                         'type' => 'checkbox',
                         'name' => 'users[]',
                         'id' => 'users-2',
-                        'value' => 2
+                        'value' => 2,
                     ]],
                     ['label' => ['class' => 'custom-control-label', 'for' => 'users-2']],
                         'option 2',
@@ -7877,7 +7616,7 @@ class FormHelperTest extends TestCase
                         'type' => 'checkbox',
                         'name' => 'users[]',
                         'id' => 'users-12',
-                        'value' => 12
+                        'value' => 12,
                     ]],
                     ['label' => ['class' => 'customlabelclass', 'for' => 'users-12']],
                         'option 3',
@@ -7893,7 +7632,7 @@ class FormHelperTest extends TestCase
                             'type' => 'checkbox',
                             'name' => 'users[]',
                             'id' => 'users-10',
-                            'value' => 10
+                            'value' => 10,
                         ]],
                         ['label' => ['class' => 'custom-control-label', 'for' => 'users-10']],
                             'option 4',
@@ -7905,7 +7644,7 @@ class FormHelperTest extends TestCase
                             'type' => 'checkbox',
                             'name' => 'users[]',
                             'id' => 'users-20',
-                            'value' => 20
+                            'value' => 20,
                         ]],
                         ['label' => ['class' => 'custom-control-label', 'for' => 'users-20']],
                             'option 4',
@@ -7917,7 +7656,7 @@ class FormHelperTest extends TestCase
                             'type' => 'checkbox',
                             'name' => 'users[]',
                             'id' => 'users-40',
-                            'value' => 40
+                            'value' => 40,
                         ]],
                         ['label' => ['class' => 'customlabelclass', 'for' => 'users-40']],
                             'option 6',
@@ -7935,16 +7674,16 @@ class FormHelperTest extends TestCase
             'align' => [
                 'sm' => [
                     'left' => 5,
-                    'middle' => 7
-                ]
-            ]
+                    'middle' => 7,
+                ],
+            ],
         ]);
 
         $result = $this->Form->control('users', [
             'multiple' => 'checkbox',
             'options' => [
                 1 => 'option 1',
-                2 => 'option 2'
+                2 => 'option 2',
             ],
             'custom' => true,
         ]);
@@ -7965,7 +7704,7 @@ class FormHelperTest extends TestCase
                             'type' => 'checkbox',
                             'name' => 'users[]',
                             'id' => 'users-1',
-                            'value' => 1
+                            'value' => 1,
                         ]],
                         ['label' => ['class' => 'custom-control-label', 'for' => 'users-1']],
                             'option 1',
@@ -7977,7 +7716,7 @@ class FormHelperTest extends TestCase
                             'type' => 'checkbox',
                             'name' => 'users[]',
                             'id' => 'users-2',
-                            'value' => 2
+                            'value' => 2,
                         ]],
                         ['label' => ['class' => 'custom-control-label', 'for' => 'users-2']],
                             'option 2',
@@ -7995,19 +7734,19 @@ class FormHelperTest extends TestCase
             'align' => [
                 'sm' => [
                     'left' => 5,
-                    'middle' => 7
-                ]
-            ]
+                    'middle' => 7,
+                ],
+            ],
         ]);
 
         $result = $this->Form->control('users', [
             'multiple' => 'checkbox',
             'options' => [
                 1 => 'option 1',
-                2 => 'option 2'
+                2 => 'option 2',
             ],
             'custom' => true,
-            'inline' => true
+            'inline' => true,
         ]);
         $expected = [
             ['div' => ['class' => 'form-group row multicheckbox', 'role' => 'group', 'aria-labelledby' => 'users-group-label']],
@@ -8026,7 +7765,7 @@ class FormHelperTest extends TestCase
                             'type' => 'checkbox',
                             'name' => 'users[]',
                             'id' => 'users-1',
-                            'value' => 1
+                            'value' => 1,
                         ]],
                         ['label' => ['class' => 'custom-control-label', 'for' => 'users-1']],
                             'option 1',
@@ -8038,7 +7777,7 @@ class FormHelperTest extends TestCase
                             'type' => 'checkbox',
                             'name' => 'users[]',
                             'id' => 'users-2',
-                            'value' => 2
+                            'value' => 2,
                         ]],
                         ['label' => ['class' => 'custom-control-label', 'for' => 'users-2']],
                             'option 2',
@@ -8056,9 +7795,9 @@ class FormHelperTest extends TestCase
             'align' => [
                 'sm' => [
                     'left' => 5,
-                    'middle' => 7
-                ]
-            ]
+                    'middle' => 7,
+                ],
+            ],
         ]);
 
         $result = $this->Form->control('users', [
@@ -8066,11 +7805,11 @@ class FormHelperTest extends TestCase
             'options' => [
                 'group 1' => [
                     1 => 'option 1',
-                    2 => 'option 2'
+                    2 => 'option 2',
                 ],
                 'group 2' => [
                     3 => 'option 3',
-                    4 => 'option 4'
+                    4 => 'option 4',
                 ],
             ],
             'custom' => true,
@@ -8096,7 +7835,7 @@ class FormHelperTest extends TestCase
                                 'type' => 'checkbox',
                                 'name' => 'users[]',
                                 'id' => 'users-1',
-                                'value' => 1
+                                'value' => 1,
                             ]],
                             ['label' => ['class' => 'custom-control-label', 'for' => 'users-1']],
                                 'option 1',
@@ -8108,7 +7847,7 @@ class FormHelperTest extends TestCase
                                 'type' => 'checkbox',
                                 'name' => 'users[]',
                                 'id' => 'users-2',
-                                'value' => 2
+                                'value' => 2,
                             ]],
                             ['label' => ['class' => 'custom-control-label', 'for' => 'users-2']],
                                 'option 2',
@@ -8125,7 +7864,7 @@ class FormHelperTest extends TestCase
                                 'type' => 'checkbox',
                                 'name' => 'users[]',
                                 'id' => 'users-3',
-                                'value' => 3
+                                'value' => 3,
                             ]],
                             ['label' => ['class' => 'custom-control-label', 'for' => 'users-3']],
                                 'option 3',
@@ -8137,7 +7876,7 @@ class FormHelperTest extends TestCase
                                 'type' => 'checkbox',
                                 'name' => 'users[]',
                                 'id' => 'users-4',
-                                'value' => 4
+                                'value' => 4,
                             ]],
                             ['label' => ['class' => 'custom-control-label', 'for' => 'users-4']],
                                 'option 4',
@@ -8156,9 +7895,9 @@ class FormHelperTest extends TestCase
             'align' => [
                 'sm' => [
                     'left' => 5,
-                    'middle' => 7
-                ]
-            ]
+                    'middle' => 7,
+                ],
+            ],
         ]);
 
         $result = $this->Form->control('users', [
@@ -8166,15 +7905,15 @@ class FormHelperTest extends TestCase
             'options' => [
                 'group 1' => [
                     1 => 'option 1',
-                    2 => 'option 2'
+                    2 => 'option 2',
                 ],
                 'group 2' => [
                     3 => 'option 3',
-                    4 => 'option 4'
+                    4 => 'option 4',
                 ],
             ],
             'custom' => true,
-            'inline' => true
+            'inline' => true,
         ]);
         $expected = [
             ['div' => ['class' => 'form-group row multicheckbox', 'role' => 'group', 'aria-labelledby' => 'users-group-label']],
@@ -8197,7 +7936,7 @@ class FormHelperTest extends TestCase
                                 'type' => 'checkbox',
                                 'name' => 'users[]',
                                 'id' => 'users-1',
-                                'value' => 1
+                                'value' => 1,
                             ]],
                             ['label' => ['class' => 'custom-control-label', 'for' => 'users-1']],
                                 'option 1',
@@ -8209,7 +7948,7 @@ class FormHelperTest extends TestCase
                                 'type' => 'checkbox',
                                 'name' => 'users[]',
                                 'id' => 'users-2',
-                                'value' => 2
+                                'value' => 2,
                             ]],
                             ['label' => ['class' => 'custom-control-label', 'for' => 'users-2']],
                                 'option 2',
@@ -8226,7 +7965,7 @@ class FormHelperTest extends TestCase
                                 'type' => 'checkbox',
                                 'name' => 'users[]',
                                 'id' => 'users-3',
-                                'value' => 3
+                                'value' => 3,
                             ]],
                             ['label' => ['class' => 'custom-control-label', 'for' => 'users-3']],
                                 'option 3',
@@ -8238,7 +7977,7 @@ class FormHelperTest extends TestCase
                                 'type' => 'checkbox',
                                 'name' => 'users[]',
                                 'id' => 'users-4',
-                                'value' => 4
+                                'value' => 4,
                             ]],
                             ['label' => ['class' => 'custom-control-label', 'for' => 'users-4']],
                                 'option 4',
@@ -8257,9 +7996,9 @@ class FormHelperTest extends TestCase
             'align' => [
                 'sm' => [
                     'left' => 5,
-                    'middle' => 7
-                ]
-            ]
+                    'middle' => 7,
+                ],
+            ],
         ]);
 
         $result = $this->Form->control('users', [
@@ -8270,7 +8009,7 @@ class FormHelperTest extends TestCase
                 'group' => [
                     3 => 'option 3',
                     4 => 'option 4',
-                ]
+                ],
             ],
             'custom' => true,
         ]);
@@ -8291,7 +8030,7 @@ class FormHelperTest extends TestCase
                             'type' => 'checkbox',
                             'name' => 'users[]',
                             'id' => 'users-1',
-                            'value' => 1
+                            'value' => 1,
                         ]],
                         ['label' => ['class' => 'custom-control-label', 'for' => 'users-1']],
                             'option 1',
@@ -8303,7 +8042,7 @@ class FormHelperTest extends TestCase
                             'type' => 'checkbox',
                             'name' => 'users[]',
                             'id' => 'users-2',
-                            'value' => 2
+                            'value' => 2,
                         ]],
                         ['label' => ['class' => 'custom-control-label', 'for' => 'users-2']],
                             'option 2',
@@ -8319,7 +8058,7 @@ class FormHelperTest extends TestCase
                                 'type' => 'checkbox',
                                 'name' => 'users[]',
                                 'id' => 'users-3',
-                                'value' => 3
+                                'value' => 3,
                             ]],
                             ['label' => ['class' => 'custom-control-label', 'for' => 'users-3']],
                                 'option 3',
@@ -8331,7 +8070,7 @@ class FormHelperTest extends TestCase
                                 'type' => 'checkbox',
                                 'name' => 'users[]',
                                 'id' => 'users-4',
-                                'value' => 4
+                                'value' => 4,
                             ]],
                             ['label' => ['class' => 'custom-control-label', 'for' => 'users-4']],
                                 'option 4',
@@ -8350,9 +8089,9 @@ class FormHelperTest extends TestCase
             'align' => [
                 'sm' => [
                     'left' => 5,
-                    'middle' => 7
-                ]
-            ]
+                    'middle' => 7,
+                ],
+            ],
         ]);
 
         $result = $this->Form->control('users', [
@@ -8365,24 +8104,24 @@ class FormHelperTest extends TestCase
                     'value' => 12,
                     'class' => 'custominputclass',
                     'label' => [
-                        'class' => 'customlabelclass'
-                    ]
+                        'class' => 'customlabelclass',
+                    ],
                 ],
                 'group' => [
                     10 => 'option 4',
                     20 => [
                         'text' => 'option 4',
                         'value' => 20,
-                        'class' => 'custominputclass'
+                        'class' => 'custominputclass',
                     ],
                     40 => [
                         'text' => 'option 6',
                         'value' => 40,
                         'label' => [
-                            'class' => 'customlabelclass'
-                        ]
+                            'class' => 'customlabelclass',
+                        ],
                     ],
-                ]
+                ],
             ],
             'custom' => true,
         ]);
@@ -8403,7 +8142,7 @@ class FormHelperTest extends TestCase
                             'type' => 'checkbox',
                             'name' => 'users[]',
                             'id' => 'users-1',
-                            'value' => 1
+                            'value' => 1,
                         ]],
                         ['label' => ['class' => 'custom-control-label', 'for' => 'users-1']],
                             'option 1',
@@ -8415,7 +8154,7 @@ class FormHelperTest extends TestCase
                             'type' => 'checkbox',
                             'name' => 'users[]',
                             'id' => 'users-2',
-                            'value' => 2
+                            'value' => 2,
                         ]],
                         ['label' => ['class' => 'custom-control-label', 'for' => 'users-2']],
                             'option 2',
@@ -8427,7 +8166,7 @@ class FormHelperTest extends TestCase
                             'type' => 'checkbox',
                             'name' => 'users[]',
                             'id' => 'users-12',
-                            'value' => 12
+                            'value' => 12,
                         ]],
                         ['label' => ['class' => 'customlabelclass', 'for' => 'users-12']],
                             'option 3',
@@ -8443,7 +8182,7 @@ class FormHelperTest extends TestCase
                                 'type' => 'checkbox',
                                 'name' => 'users[]',
                                 'id' => 'users-10',
-                                'value' => 10
+                                'value' => 10,
                             ]],
                             ['label' => ['class' => 'custom-control-label', 'for' => 'users-10']],
                                 'option 4',
@@ -8455,7 +8194,7 @@ class FormHelperTest extends TestCase
                                 'type' => 'checkbox',
                                 'name' => 'users[]',
                                 'id' => 'users-20',
-                                'value' => 20
+                                'value' => 20,
                             ]],
                             ['label' => ['class' => 'custom-control-label', 'for' => 'users-20']],
                                 'option 4',
@@ -8467,7 +8206,7 @@ class FormHelperTest extends TestCase
                                 'type' => 'checkbox',
                                 'name' => 'users[]',
                                 'id' => 'users-40',
-                                'value' => 40
+                                'value' => 40,
                             ]],
                             ['label' => ['class' => 'customlabelclass', 'for' => 'users-40']],
                                 'option 6',
@@ -8484,7 +8223,7 @@ class FormHelperTest extends TestCase
     {
         $this->withErrorReporting(0, function () {
             $this->Form->create($this->article, [
-                'align' => 'inline'
+                'align' => 'inline',
             ]);
         });
 
@@ -8492,7 +8231,7 @@ class FormHelperTest extends TestCase
             'multiple' => 'checkbox',
             'options' => [
                 1 => 'option 1',
-                2 => 'option 2'
+                2 => 'option 2',
             ],
             'custom' => true,
         ]);
@@ -8512,7 +8251,7 @@ class FormHelperTest extends TestCase
                         'type' => 'checkbox',
                         'name' => 'users[]',
                         'id' => 'users-1',
-                        'value' => 1
+                        'value' => 1,
                     ]],
                     ['label' => ['class' => 'custom-control-label', 'for' => 'users-1']],
                         'option 1',
@@ -8524,7 +8263,7 @@ class FormHelperTest extends TestCase
                         'type' => 'checkbox',
                         'name' => 'users[]',
                         'id' => 'users-2',
-                        'value' => 2
+                        'value' => 2,
                     ]],
                     ['label' => ['class' => 'custom-control-label', 'for' => 'users-2']],
                         'option 2',
@@ -8539,7 +8278,7 @@ class FormHelperTest extends TestCase
     {
         $this->withErrorReporting(0, function () {
             $this->Form->create($this->article, [
-                'align' => 'inline'
+                'align' => 'inline',
             ]);
         });
 
@@ -8553,8 +8292,8 @@ class FormHelperTest extends TestCase
                     'value' => 12,
                     'class' => 'custominputclass',
                     'label' => [
-                        'class' => 'customlabelclass'
-                    ]
+                        'class' => 'customlabelclass',
+                    ],
                 ],
             ],
             'custom' => true,
@@ -8575,7 +8314,7 @@ class FormHelperTest extends TestCase
                         'type' => 'checkbox',
                         'name' => 'users[]',
                         'id' => 'users-1',
-                        'value' => 1
+                        'value' => 1,
                     ]],
                     ['label' => ['class' => 'custom-control-label', 'for' => 'users-1']],
                         'option 1',
@@ -8587,7 +8326,7 @@ class FormHelperTest extends TestCase
                         'type' => 'checkbox',
                         'name' => 'users[]',
                         'id' => 'users-2',
-                        'value' => 2
+                        'value' => 2,
                     ]],
                     ['label' => ['class' => 'custom-control-label', 'for' => 'users-2']],
                         'option 2',
@@ -8599,7 +8338,7 @@ class FormHelperTest extends TestCase
                         'type' => 'checkbox',
                         'name' => 'users[]',
                         'id' => 'users-12',
-                        'value' => 12
+                        'value' => 12,
                     ]],
                     ['label' => ['class' => 'customlabelclass', 'for' => 'users-12']],
                         'option 3',
@@ -8620,7 +8359,7 @@ class FormHelperTest extends TestCase
                 1 => 'option 1',
                 2 => 'option 2',
             ],
-            'custom' => true
+            'custom' => true,
         ]);
         $expected = [
             ['div' => ['class' => 'form-group select']],
@@ -8722,9 +8461,9 @@ class FormHelperTest extends TestCase
             'align' => [
                 'sm' => [
                     'left' => 5,
-                    'middle' => 7
-                ]
-            ]
+                    'middle' => 7,
+                ],
+            ],
         ]);
 
         $result = $this->Form->control('users', [
@@ -8733,7 +8472,7 @@ class FormHelperTest extends TestCase
                 1 => 'option 1',
                 2 => 'option 2',
             ],
-            'custom' => true
+            'custom' => true,
         ]);
         $expected = [
             ['div' => ['class' => 'form-group row select']],
@@ -8761,9 +8500,9 @@ class FormHelperTest extends TestCase
             'align' => [
                 'sm' => [
                     'left' => 5,
-                    'middle' => 7
-                ]
-            ]
+                    'middle' => 7,
+                ],
+            ],
         ]);
 
         $result = $this->Form->control('users', [
@@ -8808,9 +8547,9 @@ class FormHelperTest extends TestCase
             'align' => [
                 'sm' => [
                     'left' => 5,
-                    'middle' => 7
-                ]
-            ]
+                    'middle' => 7,
+                ],
+            ],
         ]);
 
         $result = $this->Form->control('users', [
@@ -8853,7 +8592,7 @@ class FormHelperTest extends TestCase
     {
         $this->withErrorReporting(0, function () {
             $this->Form->create($this->article, [
-                'align' => 'inline'
+                'align' => 'inline',
             ]);
         });
 
@@ -8863,7 +8602,7 @@ class FormHelperTest extends TestCase
                 1 => 'option 1',
                 2 => 'option 2',
             ],
-            'custom' => true
+            'custom' => true,
         ]);
         $expected = [
             ['div' => ['class' => 'form-group select']],
@@ -8887,7 +8626,7 @@ class FormHelperTest extends TestCase
     {
         $this->withErrorReporting(0, function () {
             $this->Form->create($this->article, [
-                'align' => 'inline'
+                'align' => 'inline',
             ]);
         });
 
@@ -8929,7 +8668,7 @@ class FormHelperTest extends TestCase
     {
         $this->withErrorReporting(0, function () {
             $this->Form->create($this->article, [
-                'align' => 'inline'
+                'align' => 'inline',
             ]);
         });
 
@@ -8988,7 +8727,7 @@ class FormHelperTest extends TestCase
                         'File',
                     '/label',
                  '/div',
-            '/div'
+            '/div',
         ];
         $this->assertHtml($expected, $result);
     }
@@ -9022,7 +8761,7 @@ class FormHelperTest extends TestCase
                         '/span',
                     '/div',
                 '/div',
-            '/div'
+            '/div',
         ];
         $this->assertHtml($expected, $result);
     }
@@ -9056,7 +8795,7 @@ class FormHelperTest extends TestCase
                         '/label',
                      '/div',
                 '/div',
-            '/div'
+            '/div',
         ];
         $this->assertHtml($expected, $result);
     }
@@ -9067,9 +8806,9 @@ class FormHelperTest extends TestCase
             'align' => [
                 'sm' => [
                     'left' => 5,
-                    'middle' => 7
-                ]
-            ]
+                    'middle' => 7,
+                ],
+            ],
         ]);
 
         $result = $this->Form->control('file', [
@@ -9091,7 +8830,7 @@ class FormHelperTest extends TestCase
                         '/label',
                     '/div',
                 '/div',
-            '/div'
+            '/div',
         ];
         $this->assertHtml($expected, $result);
     }
@@ -9102,9 +8841,9 @@ class FormHelperTest extends TestCase
             'align' => [
                 'sm' => [
                     'left' => 5,
-                    'middle' => 7
-                ]
-            ]
+                    'middle' => 7,
+                ],
+            ],
         ]);
 
         $result = $this->Form->control('file', [
@@ -9134,7 +8873,7 @@ class FormHelperTest extends TestCase
                         '/div',
                     '/div',
                 '/div',
-            '/div'
+            '/div',
         ];
         $this->assertHtml($expected, $result);
     }
@@ -9145,9 +8884,9 @@ class FormHelperTest extends TestCase
             'align' => [
                 'sm' => [
                     'left' => 5,
-                    'middle' => 7
-                ]
-            ]
+                    'middle' => 7,
+                ],
+            ],
         ]);
 
         $result = $this->Form->control('file', [
@@ -9177,7 +8916,7 @@ class FormHelperTest extends TestCase
                          '/div',
                     '/div',
                 '/div',
-            '/div'
+            '/div',
         ];
         $this->assertHtml($expected, $result);
     }
@@ -9186,7 +8925,7 @@ class FormHelperTest extends TestCase
     {
         $this->withErrorReporting(0, function () {
             $this->Form->create($this->article, [
-                'align' => 'inline'
+                'align' => 'inline',
             ]);
         });
 
@@ -9207,7 +8946,7 @@ class FormHelperTest extends TestCase
                         'File',
                     '/label',
                  '/div',
-            '/div'
+            '/div',
         ];
         $this->assertHtml($expected, $result);
     }
@@ -9216,7 +8955,7 @@ class FormHelperTest extends TestCase
     {
         $this->withErrorReporting(0, function () {
             $this->Form->create($this->article, [
-                'align' => 'inline'
+                'align' => 'inline',
             ]);
         });
 
@@ -9245,7 +8984,7 @@ class FormHelperTest extends TestCase
                         '/span',
                     '/div',
                 '/div',
-            '/div'
+            '/div',
         ];
         $this->assertHtml($expected, $result);
     }
@@ -9254,7 +8993,7 @@ class FormHelperTest extends TestCase
     {
         $this->withErrorReporting(0, function () {
             $this->Form->create($this->article, [
-                'align' => 'inline'
+                'align' => 'inline',
             ]);
         });
 
@@ -9283,7 +9022,7 @@ class FormHelperTest extends TestCase
                         '/label',
                      '/div',
                 '/div',
-            '/div'
+            '/div',
         ];
         $this->assertHtml($expected, $result);
     }
@@ -9317,7 +9056,7 @@ class FormHelperTest extends TestCase
                         '/span',
                     '/div',
                 '/div',
-            '/div'
+            '/div',
         ];
         $this->assertHtml($expected, $result);
     }
@@ -9351,7 +9090,7 @@ class FormHelperTest extends TestCase
                         '/span',
                     '/div',
                 '/div',
-            '/div'
+            '/div',
         ];
         $this->assertHtml($expected, $result);
     }
@@ -9363,7 +9102,7 @@ class FormHelperTest extends TestCase
         $result = $this->Form->control('file', [
             'type' => 'file',
             'label' => [
-                'text' => 'text'
+                'text' => 'text',
             ],
             'custom' => true,
             'append' => 'append',
@@ -9388,7 +9127,7 @@ class FormHelperTest extends TestCase
                         '/span',
                     '/div',
                 '/div',
-            '/div'
+            '/div',
         ];
         $this->assertHtml($expected, $result);
     }
@@ -9400,7 +9139,7 @@ class FormHelperTest extends TestCase
         $result = $this->Form->control('file', [
             'type' => 'file',
             'label' => [
-                'foo' => 'bar'
+                'foo' => 'bar',
             ],
             'custom' => true,
             'append' => 'append',
@@ -9425,7 +9164,7 @@ class FormHelperTest extends TestCase
                         '/span',
                     '/div',
                 '/div',
-            '/div'
+            '/div',
         ];
         $this->assertHtml($expected, $result);
     }
@@ -9460,7 +9199,7 @@ class FormHelperTest extends TestCase
                         '/span',
                     '/div',
                 '/div',
-            '/div'
+            '/div',
         ];
         $this->assertHtml($expected, $result);
 
@@ -9468,7 +9207,7 @@ class FormHelperTest extends TestCase
             'type' => 'file',
             'label' => [
                 'text' => '<b>text</b>',
-                'escape' => false
+                'escape' => false,
             ],
             'custom' => true,
             'append' => 'append',
@@ -9493,7 +9232,7 @@ class FormHelperTest extends TestCase
                         '/span',
                     '/div',
                 '/div',
-            '/div'
+            '/div',
         ];
         $this->assertHtml($expected, $result);
     }
