@@ -86,7 +86,7 @@ class HtmlHelperTest extends TestCase
         ];
         $this->assertHtml($expected, $result);
 
-        $result = $this->Html->label('foo', ['class' => 'primary']);
+        $result = $this->Html->label('foo', ['type' => 'primary']);
         $expected = [
             'span' => ['class' => 'badge-primary badge'],
             'foo',

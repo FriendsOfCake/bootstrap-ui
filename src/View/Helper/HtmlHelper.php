@@ -96,17 +96,22 @@ class HtmlHelper extends \Cake\View\Helper\HtmlHelper
     }
 
     /**
-     * Wrapper for Bootstrap baddge component
+     * Wrapper for Bootstrap badge component
      *
      * @param string $text Text to show in label.
      * @param array|string $options Additional HTML attributes.
-     * @deprecated label component has been removed from Bootstrap. Use badge component instead.
+     * @deprecated Label component has been removed from Bootstrap. Use badge component instead.
      * @return string HTML badge markup.
      */
     public function label(string $text, $options = []): string
     {
         if (is_string($options)) {
             $options = ['class' => $options];
+        } else {
+            if (isset($options['type'])) {
+                $options['class'] = $options['type'];
+                unset($options['type']);
+            }
         }
 
         return $this->badge($text, $options);
