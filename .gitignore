@@ -1,6 +1,7 @@
 vendor/
 composer.lock
 node_modules
+.phpunit.result.cache
 
 # Ignore assets, except some css
 webroot/css/*
