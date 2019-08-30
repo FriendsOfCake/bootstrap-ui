@@ -11,6 +11,15 @@ body {
 /*
  * Global add-ons
  */
+/* added default values for sorting classes 
+ * found in style.css display gently small icons 
+ * beside sorted column header 
+ */
+.asc:after {content: " \2193";}
+.desc:after {content: " \2191";}
+/* these ones are funkies */
+/* .asc:after { content: " \e155"; }*/
+/* .desc:after { content: " \e156";}*/
 
 .sub-header {
   padding-bottom: 10px;
