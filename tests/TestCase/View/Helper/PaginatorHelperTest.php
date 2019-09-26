@@ -92,7 +92,7 @@ class PaginatorHelperTest extends TestCase
      */
     public function testLinks()
     {
-        $request = $this->Paginator->getView()->getRequest()->withParam('paging', [
+        $request = $this->Paginator->getView()->getRequest()->withAttribute('paging', [
             'Client' => [
                 'page' => 8,
                 'current' => 3,
@@ -150,7 +150,7 @@ class PaginatorHelperTest extends TestCase
         ];
         $this->assertHtml($expected, $result);
 
-        $request = $this->Paginator->getView()->getRequest()->withParam('paging', [
+        $request = $this->Paginator->getView()->getRequest()->withAttribute('paging', [
             'Client' => [
                 'page' => 1,
                 'current' => 1,

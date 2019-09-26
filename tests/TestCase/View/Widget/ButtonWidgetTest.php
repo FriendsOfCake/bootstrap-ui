@@ -14,12 +14,12 @@ use Cake\View\StringTemplate;
 class ButtonWidgetTest extends TestCase
 {
     /**
-     * @var StringTemplate
+     * @var \Cake\View\StringTemplate
      */
     public $templates;
 
     /**
-     * @var ContextInterface
+     * @var \Cake\View\Form\ContextInterface
      */
     public $context;
 
@@ -121,6 +121,7 @@ class ButtonWidgetTest extends TestCase
         $button = new ButtonWidget($this->templates);
         $data = [
             'text' => 'Some <value>',
+            'escapeTitle' => false,
         ];
         $result = $button->render($data, $this->context);
         $expected = [
@@ -130,7 +131,7 @@ class ButtonWidgetTest extends TestCase
         ];
         $this->assertHtml($expected, $result);
 
-        $data['escape'] = true;
+        $data['escapeTitle'] = true;
         $result = $button->render($data, $this->context);
         $expected = [
             'button' => ['type' => 'submit', 'class' => 'btn btn-secondary'],
