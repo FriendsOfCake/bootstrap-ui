@@ -19,6 +19,8 @@ trait InputgroupTrait
      * - `append` Append addon to input.
      * - `prepend` Prepend addon to input.
      * - `size` Append/Prepend can have option size (sm/lg) for wrapping container
+     * - `input` If set it will be used as input tag between append and prepend addons.
+     *   By default parent::render() will be called to get input tag.
      *
      * @param array $data The data to build an input with.
      * @param \Cake\View\Form\ContextInterface $context The current form context.
@@ -31,6 +33,7 @@ trait InputgroupTrait
             'prepend' => null,
             'append' => null,
             'injectFormControl' => true,
+            'input' => null,
         ];
 
         if ($data['injectFormControl'] && $data['type'] !== 'hidden') {
@@ -41,7 +44,12 @@ trait InputgroupTrait
         $append = $data['append'];
         unset($data['append'], $data['prepend'], $data['injectFormControl']);
 
-        $input = parent::render($data, $context);
+        if (isset($data['input'])) {
+            $input = $data['input'];
+            unset($data['input']);
+        } else {
+            $input = parent::render($data, $context);
+        }
         $attrs[] = null;
 
         if ($prepend) {
