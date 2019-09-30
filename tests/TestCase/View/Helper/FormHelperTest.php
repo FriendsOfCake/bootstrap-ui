@@ -17,12 +17,12 @@ use InvalidArgumentException;
 class FormHelperTest extends TestCase
 {
     /**
-     * @var View
+     * @var \Cake\View\View
      */
     public $View;
 
     /**
-     * @var FormHelper
+     * @var \BootstrapUI\View\Helper\FormHelper
      */
     public $Form;
 
@@ -834,8 +834,6 @@ class FormHelperTest extends TestCase
      */
     public function testInlineRadioControl()
     {
-        $this->markTestSkipped('Inline forms are broken right now');
-
         $this->Form->create($this->article);
 
         $result = $this->Form->control('published', [
@@ -844,37 +842,47 @@ class FormHelperTest extends TestCase
             'options' => ['Yes', 'No'],
         ]);
         $expected = [
-            ['div' => ['class' => 'form-group radio']],
-            ['label' => true],
+            ['div' => ['class' => 'form-group radio', 'role' => 'group', 'aria-labelledby' => 'published-group-label']],
+            ['label' => ['id' => 'published-group-label', 'class' => 'd-block']],
             'Published',
             '/label',
+            [
+                'input' => [
+                    'type' => 'hidden',
+                    'name' => 'published',
+                    'value' => '',
+                ],
+            ],
             ['div' => ['class' => 'form-check form-check-inline']],
-            ['input' => [
-                'type' => 'hidden',
-                'name' => 'published',
-                'value' => '',
-            ]],
+            [
+                'input' => [
+                    'type' => 'radio',
+                    'name' => 'published',
+                    'value' => 0,
+                    'id' => 'published-0',
+                    'class' => 'form-check-input',
+                ],
+            ],
             ['label' => [
-                'class' => 'radio-inline',
+                'class' => 'form-check-label',
                 'for' => 'published-0',
-            ]],
-            ['input' => [
-                'type' => 'radio',
-                'name' => 'published',
-                'value' => 0,
-                'id' => 'published-0',
             ]],
             'Yes',
             '/label',
+            '/div',
+            ['div' => ['class' => 'form-check form-check-inline']],
+            [
+                'input' => [
+                    'type' => 'radio',
+                    'name' => 'published',
+                    'value' => 1,
+                    'id' => 'published-1',
+                    'class' => 'form-check-input',
+                ],
+            ],
             ['label' => [
-                'class' => 'radio-inline',
+                'class' => 'form-check-label',
                 'for' => 'published-1',
-            ]],
-            ['input' => [
-                'type' => 'radio',
-                'name' => 'published',
-                'value' => 1,
-                'id' => 'published-1',
             ]],
             'No',
             '/label',
@@ -989,7 +997,7 @@ class FormHelperTest extends TestCase
      */
     public function testInlineFormCreate()
     {
-        $result = $this->Form->create($this->article, ['class' => 'form-inline']);
+        $result = $this->Form->create($this->article, ['align' => 'inline']);
         $expected = [
             'form' => [
                 'method' => 'post',
@@ -1003,6 +1011,42 @@ class FormHelperTest extends TestCase
                 'type' => 'hidden',
                 'name' => '_method',
                 'value' => 'POST',
+            ],
+            '/div',
+        ];
+        $this->assertHtml($expected, $result);
+    }
+
+    /**
+     * testTooltipInline method
+     *
+     * @return void
+     */
+    public function testTooltipInline()
+    {
+        $this->Form->create($this->article, ['align' => 'inline']);
+
+        $result = $this->Form->control('title', ['tooltip' => 'Some important additional notes.']);
+        $expected = [
+            'div' => ['class' => 'form-group text required'],
+            'label' => ['class' => 'sr-only', 'for' => 'title'],
+            'Title ',
+            'span' => [
+                'data-toggle' => 'tooltip',
+                'title' => 'Some important additional notes.',
+                'class' => 'fas fa-info-circle',
+            ],
+            '/span',
+            '/label',
+            'input' => [
+                'type' => 'text',
+                'name' => 'title',
+                'id' => 'title',
+                'class' => 'form-control',
+                'required' => 'required',
+                'data-validity-message' => 'This field cannot be left empty',
+                'oninvalid' => 'this.setCustomValidity(&#039;&#039;); if (!this.value) this.setCustomValidity(this.dataset.validityMessage)',
+                'oninput' => 'this.setCustomValidity(&#039;&#039;)',
             ],
             '/div',
         ];
@@ -6301,11 +6345,9 @@ class FormHelperTest extends TestCase
 
     public function testInlineAlignSubmit()
     {
-        $this->withErrorReporting(0, function () {
-            $this->Form->create($this->article, [
-                'align' => 'inline',
-            ]);
-        });
+        $this->Form->create($this->article, [
+            'align' => 'inline',
+        ]);
 
         $result = $this->Form->submit('Submit');
         $expected = [
@@ -7063,11 +7105,9 @@ class FormHelperTest extends TestCase
 
     public function testInlineAlignCustomRadioControl()
     {
-        $this->withErrorReporting(0, function () {
-            $this->Form->create($this->article, [
-                'align' => 'inline',
-            ]);
-        });
+        $this->Form->create($this->article, [
+            'align' => 'inline',
+        ]);
 
         $result = $this->Form->control('users', [
             'type' => 'radio',
