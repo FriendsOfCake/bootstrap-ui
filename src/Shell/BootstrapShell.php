@@ -9,7 +9,7 @@ use Cake\Filesystem\File;
 
 /**
  * @property \BootstrapUI\Shell\Task\TwbsAssetsTask $TwbsAssets
- * @property \Cake\Shell\Task\AssetsTask $Assets
+ * @property \BootstrapUI\Shell\Task\AssetsTask $Assets
  */
 class BootstrapShell extends Shell
 {
@@ -18,7 +18,7 @@ class BootstrapShell extends Shell
      *
      * @var array
      */
-    public $tasks = ['BootstrapUI.TwbsAssets', 'Assets'];
+    public $tasks = ['BootstrapUI.TwbsAssets', 'BootstrapUI.Assets'];
 
     /**
      * Installs assets via npm and symlinks them wo app's webroot
