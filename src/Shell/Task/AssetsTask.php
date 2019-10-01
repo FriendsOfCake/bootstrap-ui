@@ -68,14 +68,14 @@ class AssetsTask extends Shell
         $plugins = $this->_list($name);
 
         foreach ($plugins as $plugin => $config) {
-            $this->out();
+            $this->out('');
             $this->out('For plugin: ' . $plugin);
             $this->hr();
 
             $this->_remove($config);
         }
 
-        $this->out();
+        $this->out('');
         $this->out('Done');
     }
 
@@ -147,7 +147,7 @@ class AssetsTask extends Shell
         $overwrite = (bool)$this->param('overwrite');
 
         foreach ($plugins as $plugin => $config) {
-            $this->out();
+            $this->out('');
             $this->out('For plugin: ' . $plugin);
             $this->hr();
 
@@ -189,7 +189,7 @@ class AssetsTask extends Shell
             );
         }
 
-        $this->out();
+        $this->out('');
         $this->out('Done');
     }
 
