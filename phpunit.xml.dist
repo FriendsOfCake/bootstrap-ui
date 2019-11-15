@@ -1,19 +1,18 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <phpunit
-	colors="true"
-	stopOnFailure="false"
+    colors="true"
+    stopOnFailure="false"
     bootstrap="./tests/bootstrap.php"
     >
 
     <testsuites>
-        <testsuite name="BootstrapUI Test Cases">
-            <directory>./tests/</directory>
+        <testsuite name="bootstrap">
+            <directory>tests/TestCase/</directory>
         </testsuite>
     </testsuites>
 
     <listeners>
-        <listener class="\Cake\TestSuite\Fixture\FixtureInjector"
-                  file="./vendor/cakephp/cakephp/src/TestSuite/Fixture/FixtureInjector.php">
+        <listener class="Cake\TestSuite\Fixture\FixtureInjector">
             <arguments>
                 <object class="\Cake\TestSuite\Fixture\FixtureManager"/>
             </arguments>
