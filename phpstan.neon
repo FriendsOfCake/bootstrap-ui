@@ -1,8 +1,13 @@
 parameters:
-    level: 5
+    level: 7
     autoload_files:
         - tests/bootstrap.php
     ignoreErrors:
         -
-            message: '#Offset.*#'
-            path: 'src/View/Helper/FlashHelper.php' 
+            message: "#^Offset 'element' does not exist on array\\('params' \\=\\> mixed\\)\\.$#"
+            count: 1
+            path: src/View/Helper/FlashHelper.php
+        -
+            message: "#^Parameter \\#1 \\$string of static method Cake\\\\Utility\\\\Inflector\\:\\:underscore\\(\\) expects string, string\\|null given\\.$#"
+            count: 1
+            path: src/View/Helper/FormHelper.php

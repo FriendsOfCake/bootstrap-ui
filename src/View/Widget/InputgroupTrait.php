@@ -82,11 +82,11 @@ trait InputgroupTrait
     /**
      * Get addon HTML.
      *
-     * @param string|array $addon Addon content.
+     * @param string $addon Addon content.
      * @param array $data Widget data.
      * @return string
      */
-    protected function _addon($addon, array $data): string
+    protected function _addon(string $addon, array $data): string
     {
         if ($this->_isButton($addon)) {
             $element = $addon;

@@ -678,7 +678,7 @@ class FormHelper extends Helper
      *
      * @param string $fieldName The field's name.
      * @param array $options The options for the input element.
-     * @return string The generated input element.
+     * @return string|array The generated input element.
      */
     protected function _getInput(string $fieldName, array $options)
     {
@@ -830,6 +830,10 @@ class FormHelper extends Helper
      */
     protected function _gridClass(string $position, bool $offset = false): string
     {
+        if ($this->_grid === null) {
+            return '';
+        }
+
         $class = 'col-%s-';
         if ($offset) {
             $class = 'offset-%s-';
