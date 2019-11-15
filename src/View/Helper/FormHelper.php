@@ -209,13 +209,13 @@ class FormHelper extends Helper
     /**
      * Returns an HTML FORM element.
      *
-     * @param mixed $model The context for which the form is being defined. Can
-     *   be an ORM entity, ORM resultset, or an array of meta data. You can use false or null
-     *   to make a model-less form.
+     * @param mixed $context The context for which the form is being defined.
+     *   Can be a ContextInterface instance, ORM entity, ORM resultset, or an
+     *   array of meta data. You can use `null` to make a context-less form.
      * @param array $options An array of html attributes and options.
      * @return string An formatted opening FORM tag.
      */
-    public function create($model = null, array $options = []): string
+    public function create($context = null, array $options = []): string
     {
         // @codeCoverageIgnoreStart
         if (isset($options['horizontal'])) {
@@ -235,7 +235,7 @@ class FormHelper extends Helper
             'templates' => [],
         ];
 
-        return parent::create($model, $this->_formAlignment($options));
+        return parent::create($context, $this->_formAlignment($options));
     }
 
     /**
@@ -651,8 +651,12 @@ class FormHelper extends Helper
             return $static;
         }
 
-        if ($secure === true) {
-            $this->_secure(true, $this->_secureFieldName($options['name']), (string)$options['val']);
+        if ($secure === true && $this->formProtector) {
+            $this->formProtector->addField(
+                $options['name'],
+                true,
+                (string)$options['val']
+            );
         }
 
         $options['type'] = 'hidden';

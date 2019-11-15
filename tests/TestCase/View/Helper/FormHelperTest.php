@@ -58,15 +58,21 @@ class FormHelperTest extends TestCase
         Configure::write('App.namespace', 'BootstrapUI\Test\TestCase\View\Helper');
         Configure::delete('Asset');
 
-        $request = new ServerRequest(['url' => '/articles/add']);
-        $request = $request
-                ->withRequestTarget('/articles/add')
-                ->withParam('controller', 'articles')
-                ->withParam('action', 'add')
-                ->withAttribute('webroot', '')
-                ->withAttribute('base', '');
+        $request = new ServerRequest([
+            'webroot' => '',
+            'base' => '',
+            'url' => '/articles/add',
+            'params' => [
+                'controller' => 'articles',
+                'action' => 'add',
+                'plugin' => null,
+            ],
+        ]);
         $this->View = new View($request);
         $this->Form = new FormHelper($this->View);
+
+        Router::reload();
+        Router::setRequest($request);
 
         $this->article = [
             'schema' => [
@@ -194,6 +200,8 @@ class FormHelperTest extends TestCase
      */
     public function testStaticControl()
     {
+        $this->View->setRequest($this->View->getRequest()->withAttribute('formTokenData', []));
+
         unset($this->article['required']['title']);
         $this->article['defaults']['title'] = 'foo <u>bar</u>';
         $this->Form->create($this->article);
@@ -216,7 +224,10 @@ class FormHelperTest extends TestCase
             '/div',
         ];
         $this->assertHtml($expected, $result);
-        $this->assertSame(['title' => 'foo <u>bar</u>'], $this->Form->fields);
+        $this->assertSame(
+            ['title' => 'foo <u>bar</u>'],
+            $this->Form->getFormProtector()->__debugInfo()['fields']
+        );
 
         $this->Form->fields = [];
 
@@ -939,13 +950,6 @@ class FormHelperTest extends TestCase
                 'role' => 'form',
                 'action' => '/articles/add',
             ],
-            'div' => ['style' => 'display:none;'],
-            'input' => [
-                'type' => 'hidden',
-                'name' => '_method',
-                'value' => 'POST',
-            ],
-            '/div',
         ];
         $this->assertHtml($expected, $result);
 
@@ -1006,13 +1010,6 @@ class FormHelperTest extends TestCase
                 'action' => '/articles/add',
                 'class' => 'form-inline',
             ],
-            'div' => ['style' => 'display:none;'],
-            'input' => [
-                'type' => 'hidden',
-                'name' => '_method',
-                'value' => 'POST',
-            ],
-            '/div',
         ];
         $this->assertHtml($expected, $result);
     }
@@ -1069,13 +1066,6 @@ class FormHelperTest extends TestCase
                 'action' => '/articles/add',
                 'class' => 'form-horizontal',
             ],
-            'div' => ['style' => 'display:none;'],
-            'input' => [
-                'type' => 'hidden',
-                'name' => '_method',
-                'value' => 'POST',
-            ],
-            '/div',
         ];
         $this->assertHtml($expected, $result);
 
@@ -1217,13 +1207,6 @@ class FormHelperTest extends TestCase
                 'action' => '/articles/add',
                 'class' => 'form-horizontal',
             ],
-            'div' => ['style' => 'display:none;'],
-            'input' => [
-                'type' => 'hidden',
-                'name' => '_method',
-                'value' => 'POST',
-            ],
-            '/div',
         ];
         $this->assertHtml($expected, $result);
 
@@ -1830,6 +1813,7 @@ class FormHelperTest extends TestCase
                     'name' => 'created',
                     'id' => 'created',
                     'class' => 'form-control',
+                    'step' => '1',
                     'value' => date('H:i:s', $now),
                 ],
             '/div',
@@ -2026,6 +2010,7 @@ class FormHelperTest extends TestCase
                     'name' => 'created',
                     'id' => 'created',
                     'class' => 'form-control',
+                    'step' => '1',
                     'value' => date('H:i:s', $now),
                 ],
                 '/div',
@@ -2223,6 +2208,7 @@ class FormHelperTest extends TestCase
                     'name' => 'created',
                     'id' => 'created',
                     'class' => 'form-control',
+                    'step' => '1',
                     'value' => date('H:i:s', $now),
                 ],
             '/div',
