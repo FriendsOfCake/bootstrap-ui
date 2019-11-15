@@ -50,7 +50,8 @@ trait InputgroupTrait
         } else {
             $input = parent::render($data, $context);
         }
-        $attrs[] = null;
+
+        $attrs = [];
 
         if ($prepend) {
             $prepend = $this->_checkForOptions($prepend);
@@ -120,10 +121,12 @@ trait InputgroupTrait
      * Checks, if prepend/append has options and formats them
      *
      * @param array|string $attachment prepend or append element. Can be a string or array, if contains options
-     * @return mixed
+     * @return array
      */
-    protected function _checkForOptions($attachment)
+    protected function _checkForOptions($attachment): array
     {
+        $ret = [];
+
         if (is_array($attachment)) {
             $ret['content'] = $attachment[0];
             $ret['options'] = $attachment[1];

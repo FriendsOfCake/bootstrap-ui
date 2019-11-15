@@ -659,6 +659,7 @@ class FormHelper extends Helper
         }
 
         if ($secure === true && $this->formProtector) {
+            /** @psalm-suppress InternalMethod */
             $this->formProtector->addField(
                 $options['name'],
                 true,
