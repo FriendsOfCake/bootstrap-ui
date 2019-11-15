@@ -2,8 +2,11 @@
 linters:
   phpcs:
     standard: CakePHP
-    extensions: 'php,ctp'
+    extensions: 'php'
     fixer: true
+
+branches:
+  ignore: ['cake-4-bs-4']
 
 fixers:
   enable: true
