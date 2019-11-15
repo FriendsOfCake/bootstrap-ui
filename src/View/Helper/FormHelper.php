@@ -342,7 +342,8 @@ class FormHelper extends Helper
                     $inline = false;
                 }
 
-                if ($inline ||
+                if (
+                    $inline ||
                     $this->_align === 'inline'
                 ) {
                     if (!$custom) {
@@ -372,7 +373,8 @@ class FormHelper extends Helper
                 $options['templateVars']['groupId'] = $this->_domId($fieldName . '-group-label');
                 $options['templates']['label'] = $this->templater()->get('radioLabel');
 
-                if ($inline ||
+                if (
+                    $inline ||
                     $this->_align === 'inline'
                 ) {
                     if (!$custom) {
@@ -401,7 +403,8 @@ class FormHelper extends Helper
                         $options['templates']['checkboxWrapper'] = $this->templater()->get('customCheckboxWrapper');
                     }
 
-                    if ($inline ||
+                    if (
+                        $inline ||
                         $this->_align === 'inline'
                     ) {
                         if (!$custom) {
@@ -417,7 +420,8 @@ class FormHelper extends Helper
                     }
                 }
 
-                if ($custom &&
+                if (
+                    $custom &&
                     $options['type'] !== 'multicheckbox'
                 ) {
                     $options['injectFormControl'] = false;
@@ -436,13 +440,15 @@ class FormHelper extends Helper
                     $options['templates']['label'] = $this->templater()->get('customFileLabel');
                     $options['templates']['formGroup'] = $this->templater()->get('customFileFormGroup');
 
-                    if ($options['prepend'] ||
+                    if (
+                        $options['prepend'] ||
                         $options['append']
                     ) {
                         if ($options['label'] === null) {
                             $options['label'] = [];
                         }
-                        if ($options['label'] !== false &&
+                        if (
+                            $options['label'] !== false &&
                             !isset($options['label']['text'])
                         ) {
                             $text = $fieldName;
@@ -575,7 +581,8 @@ class FormHelper extends Helper
     protected function multiInputAttributes(array $attributes): array
     {
         $classPrefix = 'form-check';
-        if (isset($attributes['custom']) &&
+        if (
+            isset($attributes['custom']) &&
             $attributes['custom']
         ) {
             $classPrefix = 'custom-control';

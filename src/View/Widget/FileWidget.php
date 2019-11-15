@@ -55,7 +55,8 @@ class FileWidget extends \Cake\View\Widget\FileWidget
         $data['injectFormControl'] = false;
 
         $inputClass = 'form-control-file';
-        if (isset($data['custom']) &&
+        if (
+            isset($data['custom']) &&
             $data['custom']
         ) {
             $inputClass = 'custom-file-input';

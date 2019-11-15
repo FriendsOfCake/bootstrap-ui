@@ -22,7 +22,8 @@ trait UIViewTrait
      */
     public function initializeUI(array $options = []): void
     {
-        if ((!isset($options['layout']) || $options['layout'] === true) &&
+        if (
+            (!isset($options['layout']) || $options['layout'] === true) &&
             $this->layout === 'default'
         ) {
             $this->layout = 'BootstrapUI.default';
