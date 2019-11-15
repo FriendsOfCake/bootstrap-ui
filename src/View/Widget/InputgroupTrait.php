@@ -50,7 +50,8 @@ trait InputgroupTrait
         } else {
             $input = parent::render($data, $context);
         }
-        $attrs[] = null;
+
+        $attrs = [];
 
         if ($prepend) {
             $prepend = $this->_checkForOptions($prepend);
@@ -82,11 +83,11 @@ trait InputgroupTrait
     /**
      * Get addon HTML.
      *
-     * @param string|array $addon Addon content.
+     * @param string $addon Addon content.
      * @param array $data Widget data.
      * @return string
      */
-    protected function _addon($addon, array $data): string
+    protected function _addon(string $addon, array $data): string
     {
         if ($this->_isButton($addon)) {
             $element = $addon;
@@ -120,10 +121,12 @@ trait InputgroupTrait
      * Checks, if prepend/append has options and formats them
      *
      * @param array|string $attachment prepend or append element. Can be a string or array, if contains options
-     * @return mixed
+     * @return array
      */
-    protected function _checkForOptions($attachment)
+    protected function _checkForOptions($attachment): array
     {
+        $ret = [];
+
         if (is_array($attachment)) {
             $ret['content'] = $attachment[0];
             $ret['options'] = $attachment[1];

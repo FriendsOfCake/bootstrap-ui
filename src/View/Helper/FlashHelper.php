@@ -63,7 +63,8 @@ class FlashHelper extends Helper
             $this->getView()->getRequest()->getSession()->delete("Flash.$key");
 
             $element = $message['element'];
-            if (strpos($element, '.') === false &&
+            if (
+                strpos($element, '.') === false &&
                 preg_match('#flash/(default|success|error|info|warning)$#', $element, $matches)
             ) {
                 $class = $matches[1];
@@ -73,7 +74,8 @@ class FlashHelper extends Helper
                     $message['params']['class'][] = 'alert-' . $class;
                 }
 
-                if (is_string($message['params']['class']) &&
+                if (
+                    is_string($message['params']['class']) &&
                     preg_match('#primary|secondary|light|dark#', $message['params']['class'], $matches)
                 ) {
                     $message['params']['class'] = $this->_config['class'];

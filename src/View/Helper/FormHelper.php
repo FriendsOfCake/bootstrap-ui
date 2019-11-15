@@ -209,13 +209,13 @@ class FormHelper extends Helper
     /**
      * Returns an HTML FORM element.
      *
-     * @param mixed $model The context for which the form is being defined. Can
-     *   be an ORM entity, ORM resultset, or an array of meta data. You can use false or null
-     *   to make a model-less form.
+     * @param mixed $context The context for which the form is being defined.
+     *   Can be a ContextInterface instance, ORM entity, ORM resultset, or an
+     *   array of meta data. You can use `null` to make a context-less form.
      * @param array $options An array of html attributes and options.
      * @return string An formatted opening FORM tag.
      */
-    public function create($model = null, array $options = []): string
+    public function create($context = null, array $options = []): string
     {
         // @codeCoverageIgnoreStart
         if (isset($options['horizontal'])) {
@@ -235,7 +235,7 @@ class FormHelper extends Helper
             'templates' => [],
         ];
 
-        return parent::create($model, $this->_formAlignment($options));
+        return parent::create($context, $this->_formAlignment($options));
     }
 
     /**
@@ -342,7 +342,8 @@ class FormHelper extends Helper
                     $inline = false;
                 }
 
-                if ($inline ||
+                if (
+                    $inline ||
                     $this->_align === 'inline'
                 ) {
                     if (!$custom) {
@@ -372,7 +373,8 @@ class FormHelper extends Helper
                 $options['templateVars']['groupId'] = $this->_domId($fieldName . '-group-label');
                 $options['templates']['label'] = $this->templater()->get('radioLabel');
 
-                if ($inline ||
+                if (
+                    $inline ||
                     $this->_align === 'inline'
                 ) {
                     if (!$custom) {
@@ -401,7 +403,8 @@ class FormHelper extends Helper
                         $options['templates']['checkboxWrapper'] = $this->templater()->get('customCheckboxWrapper');
                     }
 
-                    if ($inline ||
+                    if (
+                        $inline ||
                         $this->_align === 'inline'
                     ) {
                         if (!$custom) {
@@ -417,7 +420,8 @@ class FormHelper extends Helper
                     }
                 }
 
-                if ($custom &&
+                if (
+                    $custom &&
                     $options['type'] !== 'multicheckbox'
                 ) {
                     $options['injectFormControl'] = false;
@@ -436,13 +440,15 @@ class FormHelper extends Helper
                     $options['templates']['label'] = $this->templater()->get('customFileLabel');
                     $options['templates']['formGroup'] = $this->templater()->get('customFileFormGroup');
 
-                    if ($options['prepend'] ||
+                    if (
+                        $options['prepend'] ||
                         $options['append']
                     ) {
                         if ($options['label'] === null) {
                             $options['label'] = [];
                         }
-                        if ($options['label'] !== false &&
+                        if (
+                            $options['label'] !== false &&
                             !isset($options['label']['text'])
                         ) {
                             $text = $fieldName;
@@ -575,7 +581,8 @@ class FormHelper extends Helper
     protected function multiInputAttributes(array $attributes): array
     {
         $classPrefix = 'form-check';
-        if (isset($attributes['custom']) &&
+        if (
+            isset($attributes['custom']) &&
             $attributes['custom']
         ) {
             $classPrefix = 'custom-control';
@@ -651,8 +658,13 @@ class FormHelper extends Helper
             return $static;
         }
 
-        if ($secure === true) {
-            $this->_secure(true, $this->_secureFieldName($options['name']), (string)$options['val']);
+        if ($secure === true && $this->formProtector) {
+            /** @psalm-suppress InternalMethod */
+            $this->formProtector->addField(
+                $options['name'],
+                true,
+                (string)$options['val']
+            );
         }
 
         $options['type'] = 'hidden';
@@ -667,7 +679,7 @@ class FormHelper extends Helper
      *
      * @param string $fieldName The field's name.
      * @param array $options The options for the input element.
-     * @return string The generated input element.
+     * @return string|array The generated input element.
      */
     protected function _getInput(string $fieldName, array $options)
     {
@@ -819,6 +831,10 @@ class FormHelper extends Helper
      */
     protected function _gridClass(string $position, bool $offset = false): string
     {
+        if ($this->_grid === null) {
+            return '';
+        }
+
         $class = 'col-%s-';
         if ($offset) {
             $class = 'offset-%s-';
