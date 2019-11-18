@@ -64,8 +64,8 @@ You can either use the Bootstrap Shell to make the necessary changes or do them 
     bin/cake bootstrap modify_view
     ```
 
-    This will rewrite your `src/View/AppView` like described in [### AppView Setup].
-3. Bootstrap has it's own layout. You can install them using the `copy_layouts` command or do the changes like mentioned in [## BootstrapUI Layout] section:
+    This will rewrite your `src/View/AppView` like described in [AppView Setup](#appview-setup).
+3. Bootstrap UI has it's own layouts. You can install them using the `copy_layouts` command or do the changes like mentioned in [BootstrapUI Layout](#bootstrapui-layout) section:
 
     ```
     bin/cake bootstrap copy_layouts
@@ -78,7 +78,7 @@ You can either use the Bootstrap Shell to make the necessary changes or do them 
 #### AppView Setup
 
 For a quick setup, just make your `AppView` class extend `BootstrapUI\View\UIView`. The base class will handle
-the initializing and loading of the BootstrapUI `layout.ctp` for your app.
+the initializing and loading of the BootstrapUI `default.ctp` layout for your app.
 
 The `src\View\AppView.php` will look something like the following:
 
@@ -129,9 +129,9 @@ class AppView extends View
 
 ## BootstrapUI Layout
 
-BootstrapUI comes with its own `layout.ctp` file and examples taken from the Bootstrap framework.
+BootstrapUI comes with its own `default.ctp` layout file and examples taken from the Bootstrap framework.
 
-When no layout for the view is defined the `BootstrapUI\View\UIViewTrait` will load its own `layout.ctp` file. You can
+When no layout for the view is defined the `BootstrapUI\View\UIViewTrait` will load its own `default.ctp` layout file. You can
 override this behavior in two ways.
 
 - Assign a layout to the view with `$this->layout('layout')`.

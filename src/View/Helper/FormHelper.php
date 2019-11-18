@@ -200,13 +200,6 @@ class FormHelper extends Helper
             'templates' => [],
         ];
 
-        if ($options['align'] === 'inline') {
-            trigger_error(
-                'Support for inline forms is currently broken. Patches to fix it are welcome.',
-                E_USER_WARNING
-            );
-        }
-
         return parent::create($model, $this->_formAlignment($options));
     }
 
