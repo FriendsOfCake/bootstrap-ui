@@ -63,7 +63,7 @@ class FormHelper extends Helper
         'customSwitchInlineContainer' => '<div class="form-group custom-control custom-switch custom-control-inline {{type}}{{required}}">{{content}}</div>',
         'customSwitchInlineContainerError' => '<div class="form-group custom-control custom-switch custom-control-inline {{type}}{{required}} is-invalid">{{content}}</div>',
         'customSwitchWrapper' => '<div class="custom-control custom-switch">{{label}}</div>',
-        'customSwitchInlineWrapper' => '<div class="custom-control custom-switch custom-control-inline">{{label}}</div>',  
+        'customSwitchInlineWrapper' => '<div class="custom-control custom-switch custom-control-inline">{{label}}</div>',
         'radioContainer' => '<div class="form-group {{type}}{{required}}" role="group" aria-labelledby="{{groupId}}">{{content}}{{help}}</div>',
         'radioContainerError' => '<div class="form-group {{type}}{{required}} is-invalid" role="group" aria-labelledby="{{groupId}}">{{content}}{{error}}{{help}}</div>',
         'radioLabel' => '<label id="{{groupId}}" class="d-block">{{text}}</label>',
@@ -322,7 +322,7 @@ class FormHelper extends Helper
                 } else {
                     $options['label'] = $this->injectClasses('custom-control-label', (array)$options['label']);
                     $options = $this->injectClasses('custom-control-input', $options);
-                    
+
                     if (!$switch) {
                         if ($this->_align === 'horizontal') {
                             $options['templates']['checkboxFormGroup'] = $this->templater()->get('customCheckboxFormGroup');
@@ -332,13 +332,12 @@ class FormHelper extends Helper
                         }
                     } else {
                         if ($this->_align === 'horizontal') {
-                            $options['templates']['checkboxFormGroup'] = $this->templater()->get('customSwitchFormGroup');                          
+                            $options['templates']['checkboxFormGroup'] = $this->templater()->get('customSwitchFormGroup');
                         } else {
                             $options['templates']['checkboxContainer'] = $this->templater()->get('customSwitchContainer');
                             $options['templates']['checkboxContainerError'] = $this->templater()->get('customSwitchContainerError');
                         }
                     }
-
                 }
 
                 if ($this->_align === 'horizontal') {
@@ -405,9 +404,9 @@ class FormHelper extends Helper
                     } else {
                         $options['custom'] = true;
                         if (!$switch) {
-                            $options['templates']['checkboxWrapper'] = $this->templater()->get('customCheckboxWrapper');                            
+                            $options['templates']['checkboxWrapper'] = $this->templater()->get('customCheckboxWrapper');
                         } else {
-                            $options['templates']['checkboxWrapper'] = $this->templater()->get('customSwitchWrapper');                            
+                            $options['templates']['checkboxWrapper'] = $this->templater()->get('customSwitchWrapper');
                         }
                     }
 
