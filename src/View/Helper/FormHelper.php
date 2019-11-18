@@ -58,6 +58,12 @@ class FormHelper extends Helper
         'checkboxInlineWrapper' => '<div class="form-check form-check-inline">{{label}}</div>',
         'customCheckboxWrapper' => '<div class="custom-control custom-checkbox">{{label}}</div>',
         'customCheckboxInlineWrapper' => '<div class="custom-control custom-checkbox custom-control-inline">{{label}}</div>',
+        'customSwitchContainer' => '<div class="form-group custom-control custom-switch {{type}}{{required}}">{{content}}{{help}}</div>',
+        'customSwitchContainerError' => '<div class="form-group custom-control custom-switch {{type}}{{required}} is-invalid">{{content}}{{error}}{{help}}</div>',
+        'customSwitchInlineContainer' => '<div class="form-group custom-control custom-switch custom-control-inline {{type}}{{required}}">{{content}}</div>',
+        'customSwitchInlineContainerError' => '<div class="form-group custom-control custom-switch custom-control-inline {{type}}{{required}} is-invalid">{{content}}</div>',
+        'customSwitchWrapper' => '<div class="custom-control custom-switch">{{label}}</div>',
+        'customSwitchInlineWrapper' => '<div class="custom-control custom-switch custom-control-inline">{{label}}</div>',  
         'radioContainer' => '<div class="form-group {{type}}{{required}}" role="group" aria-labelledby="{{groupId}}">{{content}}{{help}}</div>',
         'radioContainerError' => '<div class="form-group {{type}}{{required}} is-invalid" role="group" aria-labelledby="{{groupId}}">{{content}}{{error}}{{help}}</div>',
         'radioLabel' => '<label id="{{groupId}}" class="d-block">{{text}}</label>',
@@ -110,6 +116,7 @@ class FormHelper extends Helper
             'customFileInputGroupFormGroup' => '<div class="%s">{{input}}{{error}}{{help}}</div>',
             'checkboxFormGroup' => '<div class="%s"><div class="form-check">{{input}}{{label}}</div>{{error}}{{help}}</div>',
             'customCheckboxFormGroup' => '<div class="%s"><div class="custom-control custom-checkbox">{{input}}{{label}}</div>{{error}}{{help}}</div>',
+            'customSwitchFormGroup' => '<div class="%s"><div class="custom-control custom-switch">{{input}}{{label}}</div>{{error}}{{help}}</div>',
             'datetimeContainer' => '<div class="form-group row {{type}}{{required}}" role="group" aria-labelledby="{{groupId}}">{{content}}</div>',
             'datetimeContainerError' => '<div class="form-group row {{type}}{{required}} is-invalid" role="group" aria-labelledby="{{groupId}}">{{content}}</div>',
             'datetimeLabel' => '<label id="{{groupId}}" class="col-form-label %s">{{text}}</label>',
@@ -253,6 +260,7 @@ class FormHelper extends Helper
      * - `prepend` - Prepend addon to input.
      * - `inline` - Boolean for generating inline checkbox/radio.
      * - `help` - Help text of include in the input container.
+     * - `switch` - Boolean for custom checkbox as checkbox or switch.
      *
      * @param string $fieldName This should be "Modelname.fieldname".
      * @param array $options Each type of input takes different options.
@@ -276,13 +284,15 @@ class FormHelper extends Helper
             'templates' => [],
             'templateVars' => [],
             'labelOptions' => true,
+            'switch' => false,
         ];
         $options = $this->_parseOptions($fieldName, $options);
 
         $custom = $options['custom'];
         $inline = $options['inline'];
         $nestedInput = $options['nestedInput'];
-        unset($options['custom'], $options['inline'], $options['nestedInput']);
+        $switch = $options['switch'];
+        unset($options['custom'], $options['inline'], $options['nestedInput'], $options['switch']);
 
         $newTemplates = $options['templates'];
         if ($newTemplates) {
@@ -312,13 +322,23 @@ class FormHelper extends Helper
                 } else {
                     $options['label'] = $this->injectClasses('custom-control-label', (array)$options['label']);
                     $options = $this->injectClasses('custom-control-input', $options);
-
-                    if ($this->_align === 'horizontal') {
-                        $options['templates']['checkboxFormGroup'] = $this->templater()->get('customCheckboxFormGroup');
+                    
+                    if (!$switch) {
+                        if ($this->_align === 'horizontal') {
+                            $options['templates']['checkboxFormGroup'] = $this->templater()->get('customCheckboxFormGroup');
+                        } else {
+                            $options['templates']['checkboxContainer'] = $this->templater()->get('customCheckboxContainer');
+                            $options['templates']['checkboxContainerError'] = $this->templater()->get('customCheckboxContainerError');
+                        }
                     } else {
-                        $options['templates']['checkboxContainer'] = $this->templater()->get('customCheckboxContainer');
-                        $options['templates']['checkboxContainerError'] = $this->templater()->get('customCheckboxContainerError');
+                        if ($this->_align === 'horizontal') {
+                            $options['templates']['checkboxFormGroup'] = $this->templater()->get('customSwitchFormGroup');                          
+                        } else {
+                            $options['templates']['checkboxContainer'] = $this->templater()->get('customSwitchContainer');
+                            $options['templates']['checkboxContainerError'] = $this->templater()->get('customSwitchContainerError');
+                        }
                     }
+
                 }
 
                 if ($this->_align === 'horizontal') {
@@ -332,8 +352,13 @@ class FormHelper extends Helper
                         $options['templates']['checkboxContainer'] = $this->templater()->get('checkboxInlineContainer');
                         $options['templates']['checkboxContainerError'] = $this->templater()->get('checkboxInlineContainerError');
                     } else {
-                        $options['templates']['checkboxContainer'] = $this->templater()->get('customCheckboxInlineContainer');
-                        $options['templates']['checkboxContainerError'] = $this->templater()->get('customCheckboxInlineContainerError');
+                        if (!$switch) {
+                            $options['templates']['checkboxContainer'] = $this->templater()->get('customCheckboxInlineContainer');
+                            $options['templates']['checkboxContainerError'] = $this->templater()->get('customCheckboxInlineContainerError');
+                        } else {
+                            $options['templates']['checkboxContainer'] = $this->templater()->get('customSwitchInlineContainer');
+                            $options['templates']['checkboxContainerError'] = $this->templater()->get('customSwitchInlineContainerError');
+                        }
                     }
                 }
 
@@ -379,7 +404,11 @@ class FormHelper extends Helper
                         $options = $this->injectClasses('form-check-input', $options);
                     } else {
                         $options['custom'] = true;
-                        $options['templates']['checkboxWrapper'] = $this->templater()->get('customCheckboxWrapper');
+                        if (!$switch) {
+                            $options['templates']['checkboxWrapper'] = $this->templater()->get('customCheckboxWrapper');                            
+                        } else {
+                            $options['templates']['checkboxWrapper'] = $this->templater()->get('customSwitchWrapper');                            
+                        }
                     }
 
                     if ($inline ||
@@ -388,7 +417,11 @@ class FormHelper extends Helper
                         if (!$custom) {
                             $options['templates']['checkboxWrapper'] = $this->templater()->get('checkboxInlineWrapper');
                         } else {
-                            $options['templates']['checkboxWrapper'] = $this->templater()->get('customCheckboxInlineWrapper');
+                            if (!$switch) {
+                                $options['templates']['checkboxWrapper'] = $this->templater()->get('customCheckboxInlineWrapper');
+                            } else {
+                                $options['templates']['checkboxWrapper'] = $this->templater()->get('customSwitchInlineWrapper');
+                            }
                         }
                     }
 
