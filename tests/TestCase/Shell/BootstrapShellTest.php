@@ -13,6 +13,11 @@ class BootstrapShellTest extends TestCase
 {
     public function setUp(): void
     {
+        $this->skipIf(
+            strtoupper(substr(PHP_OS, 0, 3)) !== 'WIN' && !`which npm`,
+            'npm is required to use bootstrap shell, but not installed.'
+        );
+
         parent::setUp();
 
         $io = $this->getMockBuilder('Cake\Console\ConsoleIo')
