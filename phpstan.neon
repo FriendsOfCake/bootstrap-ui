@@ -1,5 +1,6 @@
 parameters:
     level: 7
+    checkMissingIterableValueType: false
     autoload_files:
         - tests/bootstrap.php
     ignoreErrors:
@@ -8,6 +9,6 @@ parameters:
             count: 1
             path: src/View/Helper/FlashHelper.php
         -
-            message: "#^Parameter \\#1 \\$string of static method Cake\\\\Utility\\\\Inflector\\:\\:underscore\\(\\) expects string, string\\|null given\\.$#"
-            count: 1
-            path: src/View/Helper/FormHelper.php
+            message: '#Property BootstrapUI\\Shell\\Task\\TwbsAssetsTask::\$_[a-zA-Z]+ has no typehint specified#'
+            count: 4
+            path: src/Shell/Task/TwbsAssetsTask.php

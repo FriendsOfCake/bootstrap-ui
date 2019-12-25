@@ -7,6 +7,11 @@ use Cake\View\View;
 
 class PaginatorHelper extends \Cake\View\Helper\PaginatorHelper
 {
+    /**
+     * Allowed sizes.
+     *
+     * @var string[]
+     */
     protected $_allowedSizes = ['sm', 'lg'];
 
     /**
