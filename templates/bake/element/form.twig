@@ -3,7 +3,8 @@
     <fieldset>
         <legend><?= __('{{ action|humanize }} {{ singularHumanName }}') ?></legend>
         <?php
-{% for field in fields if field not in primaryKey %}
+{% for field in fields %}
+{%- if field not in primaryKey %}
     {%- if keyFields[field] %}
         {%- set fieldData = Bake.columnData(field, schema) %}
         {%- if fieldData.null %}
@@ -22,6 +23,7 @@
             echo $this->Form->control('{{ field }}');
                 {{- "\n" }}
             {%- endif %}
+        {%- endif %}
         {%- endif %}
         {%- endfor %}
 
