@@ -26,7 +26,7 @@ $this->start('tb_body_start');
                 </div>
             </nav>
             <main role="main" class="col-md-9 ml-sm-auto col-lg-10 pt-3 px-4">
-                <h1 class="page-header"><?= $this->request->controller; ?></h1>
+                <h1 class="page-header"><?= $this->request->getParam('controller'); ?></h1>
 <?php
 /**
  * Default `flash` block.
