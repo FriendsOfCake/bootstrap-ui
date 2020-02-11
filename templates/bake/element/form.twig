@@ -4,7 +4,7 @@
         <legend><?= __('{{ action|humanize }} {{ singularHumanName }}') ?></legend>
         <?php
 {% for field in fields %}
-{% if field not in primaryKey %}
+{%- if field not in primaryKey %}
     {%- if keyFields[field] %}
         {%- set fieldData = Bake.columnData(field, schema) %}
         {%- if fieldData.null %}
@@ -24,7 +24,7 @@
                 {{- "\n" }}
             {%- endif %}
         {%- endif %}
-        {% endif %}
+        {%- endif %}
         {%- endfor %}
 
         {%- if associations.BelongsToMany %}
