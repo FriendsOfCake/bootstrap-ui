@@ -1,6 +1,6 @@
 {
     "name": "friendsofcake/bootstrap-ui",
-    "description": "Bootstrap 3 support for CakePHP",
+    "description": "Bootstrap support for CakePHP",
     "type": "cakephp-plugin",
     "keywords": ["cakephp", "bootstrap"],
     "homepage": "http://github.com/friendsofcake/bootstrap-ui",
@@ -50,7 +50,5 @@
         "psalm": "psalm --show-info=false",
         "stan-setup": "cp composer.json composer.backup && composer require --dev phpstan/phpstan:^0.12 psalm/phar:^3.8 && mv composer.backup composer.json",
         "test": "phpunit"
-    },
-    "minimum-stability": "dev",
-    "prefer-stable": true
+    }
 }
