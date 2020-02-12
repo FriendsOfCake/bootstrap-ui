@@ -1,4 +1,4 @@
-<?php $this->extend('../Layout/TwitterBootstrap/dashboard'); ?>
+<?php $this->extend('/layout/TwitterBootstrap/dashboard'); ?>
 
 <?php $this->start('tb_actions'); ?>
 <li><?= $this->Form->postLink(__('Delete'), ['action' => 'delete', $article->id], ['confirm' => __('Are you sure you want to delete # {0}?', $article->id), 'class' => 'nav-link']) ?></li>

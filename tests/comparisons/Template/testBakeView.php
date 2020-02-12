@@ -1,4 +1,4 @@
-<?php $this->extend('../Layout/TwitterBootstrap/dashboard'); ?>
+<?php $this->extend('/layout/TwitterBootstrap/dashboard'); ?>
 
 <?php $this->start('tb_actions'); ?>
 <li><?= $this->Html->link(__('Edit Article'), ['action' => 'edit', $article->id], ['class' => 'nav-link']) ?></li>
