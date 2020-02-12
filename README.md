@@ -70,7 +70,7 @@ You can either use the Bootstrap Shell to make the necessary changes or do them 
     ```
     bin/cake bootstrap copy_layouts
     ```
-    This will copy three sample layouts: `cover.ctp`, `dashboard.ctp` and `signin.ctp` to your app's `src/Template/Layout/TwitterBootstrap`.
+    This will copy three sample layouts: `cover.ctp`, `dashboard.ctp` and `signin.ctp` to your app's `src/templates/layout/TwitterBootstrap`.
 
 ### Installing manually
 

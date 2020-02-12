@@ -1,4 +1,4 @@
-<?php $this->extend('../Layout/TwitterBootstrap/signin'); ?>
+<?php $this->extend('/layout/TwitterBootstrap/signin'); ?>
 
 <?= $this->Form->create($article, ['class' => 'form-signin text-center']) ?>
 <?= $this->Html->image('BootstrapUI.baked-with-cakephp.svg', ['class' => 'mb-4', 'width' => '250']) ?>
