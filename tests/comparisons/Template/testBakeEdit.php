@@ -1,3 +1,10 @@
+<?php
+/**
+ * @var \TestApp\View\AppView $this
+ * @var \Cake\Datasource\EntityInterface $article
+ * @var \TestApp\Model\Entity\Author[]|\Cake\Collection\CollectionInterface $authors
+ */
+?>
 <?php $this->extend('/layout/TwitterBootstrap/dashboard'); ?>
 
 <?php $this->start('tb_actions'); ?>

@@ -1,3 +1,9 @@
+<?php
+/**
+ * @var \TestApp\View\AppView $this
+ * @var \Cake\Datasource\EntityInterface[]|\Cake\Collection\CollectionInterface $articles
+ */
+?>
 <?php $this->extend('/layout/TwitterBootstrap/dashboard'); ?>
 
 <?php $this->start('tb_actions'); ?>
