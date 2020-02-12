@@ -5,7 +5,6 @@ use Cake\Core\Configure;
 $this->Html->css('BootstrapUI.cover', ['block' => true]);
 $this->prepend('tb_body_attrs', 'class="text-center ' . implode(' ', [$this->request->getParam('controller'), $this->request->getParam('action')]) . '" ');
 
-
 $this->start('tb_body_start'); ?>
 <body <?= $this->fetch('tb_body_attrs') ?>>
     <div class="cover-container d-flex h-100 p-3 mx-auto flex-column">
