@@ -1,3 +1,9 @@
+<?php
+/**
+ * @var \TestApp\View\AppView $this
+ * @var \Cake\Datasource\EntityInterface $article
+ */
+?>
 <?php $this->extend('/layout/TwitterBootstrap/signin'); ?>
 
 <?= $this->Form->create($article, ['class' => 'form-signin text-center']) ?>
