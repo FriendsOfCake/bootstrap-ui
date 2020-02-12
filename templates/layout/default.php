@@ -1,6 +1,6 @@
 <?php
 /**
- * @var $this \Cake\View\View
+ * @var \Cake\View\View $this
  */
 
 use Cake\Core\Configure;
