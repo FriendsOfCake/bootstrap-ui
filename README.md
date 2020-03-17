@@ -34,9 +34,16 @@ Transparently use [Bootstrap 4][twbs4] with [CakePHP 3][cakephp].
 composer require friendsofcake/bootstrap-ui
 ```
 
-Then load the plugin by adding the following to your app's config/boostrap.php:
+Then load the plugin by adding the following to your app's src/Application.php:
 ```
-\Cake\Core\Plugin::load('BootstrapUI');
+class Application extends BaseApplication 
+{
+    public function bootstrap() 
+    {
+        parent::bootstrap();
+        $this->addPlugin(\BootstrapUI\Plugin::class);
+    }
+}
 ```
 
 or using CakePHP's console:
