@@ -7,10 +7,7 @@
 
 Transparently use [Bootstrap 3][twbs3] with [CakePHP 3][cakephp].
 
-### Note
-* Use the `develop` branch for Bootstrap 4.
-* Use the `cake-4-bs-4` branch for CakePHP 4 and Bootstrap 4 support.
-
+For version info see [version map](https://github.com/FriendsOfCake/bootstrap-ui/wiki#version-map).
 
 ## Requirements
 
