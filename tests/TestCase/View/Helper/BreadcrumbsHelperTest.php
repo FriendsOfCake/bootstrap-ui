@@ -7,7 +7,7 @@ use Cake\View\View;
 class BreadcrumbsHelperTest extends TestCase
 {
     /**
-     * @var View
+     * @var \Cake\View\View
      */
     protected $View;
 

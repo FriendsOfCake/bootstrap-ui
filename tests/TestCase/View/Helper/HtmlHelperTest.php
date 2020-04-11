@@ -10,7 +10,7 @@ use Cake\View\View;
 class HtmlHelperTest extends TestCase
 {
     /**
-     * @var View
+     * @var \Cake\View\View
      */
     protected $View;
 

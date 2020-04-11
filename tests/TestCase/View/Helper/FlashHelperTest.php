@@ -16,7 +16,7 @@ use Cake\View\View;
 class FlashHelperTest extends TestCase
 {
     /**
-     * @var View
+     * @var \Cake\View\View
      */
     protected $View;
 
