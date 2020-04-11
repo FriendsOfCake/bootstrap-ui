@@ -11,7 +11,7 @@ For version info see [version map](https://github.com/FriendsOfCake/bootstrap-ui
 
 ## Requirements
 
-* CakePHP 3.x
+* CakePHP 3.7+
 * Bootstrap 3.x
 * jQuery 1.9+
 
