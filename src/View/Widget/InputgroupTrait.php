@@ -9,7 +9,7 @@ trait InputgroupTrait
     use OptionsAwareTrait;
 
     /**
-     * Render a widget with input group wrapper if requried.
+     * Render a widget with input group wrapper if required.
      *
      * Apart from the standard data keys used by a widget you can use following
      * extra keys:
