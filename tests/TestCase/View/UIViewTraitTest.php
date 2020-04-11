@@ -12,7 +12,7 @@ class UIViewTraitTest extends TestCase
     /**
      * @var UIView
      */
-    public $View;
+    protected $View;
 
     /**
      * setUp method

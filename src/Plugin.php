@@ -14,4 +14,19 @@ class Plugin extends BasePlugin
      * @var string
      */
     protected $name = 'BootstrapUI';
+
+    /**
+     * @var bool
+     */
+    protected $bootstrapEnabled = false;
+
+    /**
+     * @var bool
+     */
+    protected $routesEnabled = false;
+
+    /**
+     * @var bool
+     */
+    protected $consoleEnabled = false;
 }

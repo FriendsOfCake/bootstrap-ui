@@ -12,17 +12,17 @@ class HtmlHelperTest extends TestCase
     /**
      * @var View
      */
-    public $View;
+    protected $View;
 
     /**
      * @var HtmlHelper
      */
-    public $Html;
+    protected $Html;
 
     /**
      * @var BreadcrumbsHelper
      */
-    public $Breadcrumbs;
+    protected $Breadcrumbs;
 
     public function setUp()
     {

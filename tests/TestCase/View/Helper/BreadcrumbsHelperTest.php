@@ -9,12 +9,12 @@ class BreadcrumbsHelperTest extends TestCase
     /**
      * @var View
      */
-    public $View;
+    protected $View;
 
     /**
-     * @var HtmlHelper
+     * @var \BootstrapUI\View\Helper\BreadcrumbsHelper
      */
-    public $Breadcrumbs;
+    protected $Breadcrumbs;
 
     public function setUp()
     {

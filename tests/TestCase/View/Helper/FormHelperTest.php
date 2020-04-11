@@ -16,17 +16,17 @@ class FormHelperTest extends TestCase
     /**
      * @var View
      */
-    public $View;
+    protected $View;
 
     /**
      * @var FormHelper
      */
-    public $Form;
+    protected $Form;
 
     /**
      * @var array
      */
-    public $article;
+    protected $article;
 
     public function setUp()
     {

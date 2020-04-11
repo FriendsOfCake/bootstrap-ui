@@ -18,17 +18,17 @@ class FlashHelperTest extends TestCase
     /**
      * @var View
      */
-    public $View;
+    protected $View;
 
     /**
      * @var FlashHelper
      */
-    public $Flash;
+    protected $Flash;
 
     /**
      * @var Session
      */
-    public $session;
+    protected $session;
 
     /**
      * setUp method

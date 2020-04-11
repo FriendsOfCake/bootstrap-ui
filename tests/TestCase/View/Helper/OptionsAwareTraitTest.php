@@ -21,7 +21,7 @@ class OptionsAwareTraitTest extends TestCase
     /**
      * @var OptionsAwareTrait
      */
-    public $object;
+    protected $object;
 
     /**
      * setUp method
