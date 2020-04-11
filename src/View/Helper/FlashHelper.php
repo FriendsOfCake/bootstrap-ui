@@ -11,7 +11,6 @@ use Cake\View\View;
  */
 class FlashHelper extends Helper
 {
-
     /**
      * Default config
      *
@@ -29,7 +28,7 @@ class FlashHelper extends Helper
     /**
      * Request instance.
      *
-     * @var \Cake\Http\ServerRequest;
+     * @var \Cake\Http\ServerRequest
      */
     public $request;
 
@@ -41,11 +40,7 @@ class FlashHelper extends Helper
      */
     public function __construct(View $View, array $config = [])
     {
-        if (method_exists($View, 'getRequest')) {
-            $this->request = $View->getRequest();
-        } else {
-            $this->request = $View->request;
-        }
+        $this->request = $View->getRequest();
 
         parent::__construct($View, $config);
     }

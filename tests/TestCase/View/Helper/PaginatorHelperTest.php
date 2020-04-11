@@ -4,6 +4,7 @@ namespace BootstrapUI\Test\TestCase\View\Helper;
 use BootstrapUI\View\Helper\PaginatorHelper;
 use Cake\Http\ServerRequest as Request;
 use Cake\Routing\Router;
+use Cake\Routing\Route\DashedRoute;
 use Cake\TestSuite\TestCase;
 use Cake\View\View;
 
@@ -24,6 +25,11 @@ class PaginatorHelperTest extends TestCase
     protected $Paginator;
 
     /**
+     * @var \Cake\Http\ServerRequest
+     */
+    protected $request;
+
+    /**
      * setUp method
      *
      * @return void
@@ -33,8 +39,15 @@ class PaginatorHelperTest extends TestCase
         parent::setUp();
 
         Router::reload();
+        Router::defaultRouteClass(DashedRoute::class);
+
+        $this->request = (new Request('/clients'))
+            ->withParam('controller', 'Clients')
+            ->withParam('action', 'index');
+
         Router::connect('/:controller', ['action' => 'index']);
         Router::connect('/:controller/:action/*');
+        Router::pushRequest($this->request);
     }
 
     /**
@@ -120,10 +133,7 @@ class PaginatorHelperTest extends TestCase
 
     protected function setupHelper($options)
     {
-        $request = new Request('/clients');
-        $request = $request->withAttribute('params', [
-            'controller' => 'Clients',
-            'action' => 'index',
+        $request = $this->request->withAttribute('params', [
             'pass' => [],
             'paging' => $options,
         ]);
