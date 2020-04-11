@@ -14,8 +14,10 @@ trait InputgroupTrait
      * Apart from the standard data keys used by a widget you can use following
      * extra keys:
      *
-     * - `append` Append addon to input.
-     * - `prepend` Prepend addon to input.
+     * - `append` Append HTML addon to input.
+     * - `prepend` Prepend HTML addon to input.
+     *
+     * Note: The addon string is not escaped, so make sure to use h() if it is not HTML content.
      *
      * @param array $data The data to build an input with.
      * @param \Cake\View\Form\ContextInterface $context The current form context.
