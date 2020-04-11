@@ -2,4 +2,3 @@ parameters:
     level: 5
     ignoreErrors:
         - "#Offset 'element' does not exist on array\\('params' => mixed\\)#"
-        - '#Access to protected property Cake\\View\\View::\$request#'

@@ -93,7 +93,7 @@ class FlashHelper extends Helper
                 if (is_array($message['params']['class'])) {
                     $message['params']['class'][] = 'alert-' . $class;
                 }
-                $element = $this->_config['element'];
+                $element = $this->getConfig('element');
             }
 
             $out .= $this->_View->element($element, $message);
