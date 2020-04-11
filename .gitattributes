@@ -1,3 +1,8 @@
+* text text=auto eol=lf
+
+*.jpg binary
+*.png binary
+
 # Remove files for archives generated using `git archive`
 .editorconfig export-ignore
 .gitattributes export-ignore

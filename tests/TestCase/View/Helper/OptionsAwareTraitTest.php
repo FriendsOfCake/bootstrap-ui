@@ -10,7 +10,6 @@ use Cake\TestSuite\TestCase;
  */
 class TestOptionsAware
 {
-
     use OptionsAwareTrait;
 }
 

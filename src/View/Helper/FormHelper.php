@@ -10,7 +10,6 @@ use InvalidArgumentException;
 
 class FormHelper extends Helper
 {
-
     use OptionsAwareTrait;
 
     /**
@@ -66,7 +65,7 @@ class FormHelper extends Helper
         ],
         'inline' => [
             'label' => '<label class="sr-only"{{attrs}}>{{text}}{{tooltip}}</label>',
-            'inputContainer' => '{{content}}'
+            'inputContainer' => '{{content}}',
         ],
         'horizontal' => [
             'label' => '<label class="control-label %s"{{attrs}}>{{text}}{{tooltip}}</label>',
@@ -79,7 +78,7 @@ class FormHelper extends Helper
             'checkboxContainerError' => '<div class="form-group{{required}} has-error">{{content}}</div>',
             'radioContainer' => '<div class="form-group{{required}}">{{content}}</div>',
             'radioContainerError' => '<div class="form-group{{required}} has-error">{{content}}</div>',
-        ]
+        ],
     ];
 
     /**
@@ -109,7 +108,7 @@ class FormHelper extends Helper
             'grid' => [
                 'left' => 2,
                 'middle' => 6,
-                'right' => 4
+                'right' => 4,
             ],
             'templates' => $this->_templates + $this->_defaultConfig['templates'],
         ] + $this->_defaultConfig;
@@ -227,7 +226,7 @@ class FormHelper extends Helper
             'help' => null,
             'tooltip' => null,
             'templates' => [],
-            'templateVars' => []
+            'templateVars' => [],
         ];
         $options = $this->_parseOptions($fieldName, $options);
 
@@ -344,7 +343,7 @@ class FormHelper extends Helper
             'escape' => true,
             'required' => false,
             'secure' => true,
-            'hiddenField' => true
+            'hiddenField' => true,
         ];
 
         $secure = $options['secure'];
@@ -358,7 +357,7 @@ class FormHelper extends Helper
 
         $content = $options['escape'] ? h($options['val']) : $options['val'];
         $static = $this->formatTemplate('staticControl', [
-            'content' => $content
+            'content' => $content,
         ]);
 
         if (!$hiddenField) {

@@ -13,8 +13,8 @@ class BreadcrumbsHelper extends CoreBreadcrumbsHelper
             'wrapper' => '<ol{{attrs}}>{{content}}</ol>',
             'item' => '<li{{attrs}}><a href="{{url}}"{{innerAttrs}}>{{title}}</a></li>{{separator}}',
             'itemWithoutLink' => '<li{{attrs}}><span{{innerAttrs}}>{{title}}</span></li>{{separator}}',
-            'separator' => '<li{{attrs}}><span{{innerAttrs}}>{{separator}}</span></li>'
-        ]
+            'separator' => '<li{{attrs}}><span{{innerAttrs}}>{{separator}}</span></li>',
+        ],
     ];
 
     /**
@@ -23,7 +23,7 @@ class BreadcrumbsHelper extends CoreBreadcrumbsHelper
      * @var array
      */
     protected $_defaultAttributes = [
-        'class' => 'breadcrumb'
+        'class' => 'breadcrumb',
     ];
 
     /**

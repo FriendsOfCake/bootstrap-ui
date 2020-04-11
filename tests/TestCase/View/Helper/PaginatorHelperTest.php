@@ -68,7 +68,7 @@ class PaginatorHelperTest extends TestCase
             '<li', ['a' => ['href' => '/index?page=10']], '10', '/a', '/li',
             '<li', ['a' => ['href' => '/index?page=11']], '11', '/a', '/li',
             '<li', ['a' => ['href' => '/index?page=12']], '12', '/a', '/li',
-            '/ul'
+            '/ul',
         ];
         $this->assertHtml($expected, $result);
 
@@ -80,7 +80,7 @@ class PaginatorHelperTest extends TestCase
                 'prevPage' => false,
                 'nextPage' => 2,
                 'pageCount' => 15,
-            ]
+            ],
         ]);
         $result = $this->Paginator->numbers(['prev' => true, 'next' => true]);
         $expected = [
@@ -96,7 +96,7 @@ class PaginatorHelperTest extends TestCase
             '<li', ['a' => ['href' => '/index?page=11']], '11', '/a', '/li',
             '<li', ['a' => ['href' => '/index?page=12']], '12', '/a', '/li',
             ['li' => ['class' => 'next']], ['a' => ['rel' => 'next', 'aria-label' => 'Next', 'href' => '/index?page=9']], ['span' => ['aria-hidden' => 'true']], '&raquo;', '/span', '/a', '/li',
-            '/ul'
+            '/ul',
         ];
         $this->assertHtml($expected, $result);
 
@@ -115,7 +115,7 @@ class PaginatorHelperTest extends TestCase
             'ul' => ['class' => 'pagination pagination-lg'],
             ['li' => ['class' => 'active']], '<span', '1', 'span' => ['class' => 'sr-only'], '(current)', '/span', '/span', '/li',
             '<li', ['a' => ['href' => '/index?page=2']], '2', '/a', '/li',
-            '/ul'
+            '/ul',
         ];
         $this->assertHtml($expected, $result);
     }

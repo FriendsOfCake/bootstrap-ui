@@ -23,7 +23,7 @@ class FlashHelper extends Helper
     protected $_defaultConfig = [
         'class' => ['alert', 'alert-dismissible', 'fade', 'in'],
         'attributes' => ['role' => 'alert'],
-        'element' => 'BootstrapUI.Flash/default'
+        'element' => 'BootstrapUI.Flash/default',
     ];
 
     /**
@@ -88,7 +88,8 @@ class FlashHelper extends Helper
             $this->request->getSession()->delete("Flash.$key");
 
             $element = $message['element'];
-            if (strpos($element, '.') === false &&
+            if (
+                strpos($element, '.') === false &&
                 preg_match('#Flash/(default|success|error|info|warning)$#', $element, $matches)
             ) {
                 $class = $matches[1];

@@ -15,7 +15,7 @@ trait OptionsAwareTrait
         'warning', 'btn-warning',
         'danger', 'btn-danger',
         'info', 'btn-info',
-        'primary', 'btn-primary'
+        'primary', 'btn-primary',
     ];
 
     /**
@@ -29,7 +29,7 @@ trait OptionsAwareTrait
         'warning' => 'btn-warning',
         'danger' => 'btn-danger',
         'info' => 'btn-info',
-        'primary' => 'btn-primary'
+        'primary' => 'btn-primary',
     ];
 
     /**

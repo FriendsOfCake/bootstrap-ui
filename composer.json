@@ -8,7 +8,6 @@
     "authors": [
         {
             "name": "Jad Bitar",
-            "homepage": "http://jadb.io",
             "role": "Author"
         },
         {
@@ -21,6 +20,7 @@
     },
     "require-dev": {
         "cakephp/chronos": "^1.1",
+        "cakephp/cakephp-codesniffer": "^3.1",
         "phpunit/phpunit": "^5.7.14|^6.0"
     },
     "support": {
@@ -37,5 +37,17 @@
             "BootstrapUI\\Test\\": "tests/",
             "TestApp\\": "tests/test_app/TestApp/"
         }
+    },
+    "scripts": {
+        "cs-check": "phpcs -p --standard=vendor/cakephp/cakephp-codesniffer/CakePHP src/ tests/",
+        "cs-fix": "phpcbf --standard=vendor/cakephp/cakephp-codesniffer/CakePHP src/ tests/",
+        "stan-setup": "cp composer.json composer.backup && composer require --dev phpstan/phpstan:^0.12 psalm/phar:^3.8 && mv composer.backup composer.json",
+        "phpstan": "phpstan.phar analyse src/",
+        "psalm": "psalm.phar --show-info=false",
+        "stan": [
+            "@phpstan",
+            "@psalm"
+        ],
+        "test": "phpunit"
     }
 }
