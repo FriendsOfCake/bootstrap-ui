@@ -64,7 +64,7 @@ class RadioWidget extends \Cake\View\Widget\RadioWidget
         if ($this->_inline) {
             $label = [
                 'text' => $radio['text'],
-                'class' => 'radio-inline'
+                'class' => 'radio-inline',
             ];
         }
 

@@ -11,7 +11,6 @@ use Cake\View\View;
  */
 class FlashHelper extends Helper
 {
-
     /**
      * Default config
      *
@@ -23,13 +22,13 @@ class FlashHelper extends Helper
     protected $_defaultConfig = [
         'class' => ['alert', 'alert-dismissible', 'fade', 'in'],
         'attributes' => ['role' => 'alert'],
-        'element' => 'BootstrapUI.Flash/default'
+        'element' => 'BootstrapUI.Flash/default',
     ];
 
     /**
      * Request instance.
      *
-     * @var \Cake\Http\ServerRequest;
+     * @var \Cake\Http\ServerRequest
      */
     public $request;
 
@@ -88,7 +87,8 @@ class FlashHelper extends Helper
             $this->request->getSession()->delete("Flash.$key");
 
             $element = $message['element'];
-            if (strpos($element, '.') === false &&
+            if (
+                strpos($element, '.') === false &&
                 preg_match('#Flash/(default|success|error|info|warning)$#', $element, $matches)
             ) {
                 $class = $matches[1];
@@ -97,7 +97,7 @@ class FlashHelper extends Helper
                 if (is_array($message['params']['class'])) {
                     $message['params']['class'][] = 'alert-' . $class;
                 }
-                $element = $this->_config['element'];
+                $element = $this->getConfig('element');
             }
 
             $out .= $this->_View->element($element, $message);

@@ -2,10 +2,9 @@
 namespace BootstrapUI\Test\TestCase\View\Helper;
 
 use BootstrapUI\View\Helper\PaginatorHelper;
-use Cake\Core\Configure;
 use Cake\Http\ServerRequest as Request;
-use Cake\I18n\I18n;
 use Cake\Routing\Router;
+use Cake\Routing\Route\DashedRoute;
 use Cake\TestSuite\TestCase;
 use Cake\View\View;
 
@@ -16,14 +15,19 @@ use Cake\View\View;
 class PaginatorHelperTest extends TestCase
 {
     /**
-     * @var View
+     * @var \Cake\View\View
      */
-    public $View;
+    protected $View;
 
     /**
-     * @var PaginatorHelper
+     * @var \BootstrapUI\View\Helper\PaginatorHelper
      */
-    public $Paginator;
+    protected $Paginator;
+
+    /**
+     * @var \Cake\Http\ServerRequest
+     */
+    protected $request;
 
     /**
      * setUp method
@@ -35,8 +39,15 @@ class PaginatorHelperTest extends TestCase
         parent::setUp();
 
         Router::reload();
+        Router::defaultRouteClass(DashedRoute::class);
+
+        $this->request = (new Request('/clients'))
+            ->withParam('controller', 'Clients')
+            ->withParam('action', 'index');
+
+        Router::connect('/:controller', ['action' => 'index']);
         Router::connect('/:controller/:action/*');
-        Router::connect('/:plugin/:controller/:action/*');
+        Router::pushRequest($this->request);
     }
 
     /**
@@ -47,7 +58,7 @@ class PaginatorHelperTest extends TestCase
     public function testNumbers()
     {
         $this->setupHelper([
-            'Client' => [
+            'Clients' => [
                 'page' => 8,
                 'current' => 3,
                 'count' => 30,
@@ -59,44 +70,44 @@ class PaginatorHelperTest extends TestCase
         $result = $this->Paginator->numbers();
         $expected = [
             'ul' => ['class' => 'pagination'],
-            '<li', ['a' => ['href' => '/index?page=4']], '4', '/a', '/li',
-            '<li', ['a' => ['href' => '/index?page=5']], '5', '/a', '/li',
-            '<li', ['a' => ['href' => '/index?page=6']], '6', '/a', '/li',
-            '<li', ['a' => ['href' => '/index?page=7']], '7', '/a', '/li',
+            '<li', ['a' => ['href' => '/clients?page=4']], '4', '/a', '/li',
+            '<li', ['a' => ['href' => '/clients?page=5']], '5', '/a', '/li',
+            '<li', ['a' => ['href' => '/clients?page=6']], '6', '/a', '/li',
+            '<li', ['a' => ['href' => '/clients?page=7']], '7', '/a', '/li',
             ['li' => ['class' => 'active']], '<span', '8', 'span' => ['class' => 'sr-only'], '(current)', '/span', '/span', '/li',
-            '<li', ['a' => ['href' => '/index?page=9']], '9', '/a', '/li',
-            '<li', ['a' => ['href' => '/index?page=10']], '10', '/a', '/li',
-            '<li', ['a' => ['href' => '/index?page=11']], '11', '/a', '/li',
-            '<li', ['a' => ['href' => '/index?page=12']], '12', '/a', '/li',
-            '/ul'
+            '<li', ['a' => ['href' => '/clients?page=9']], '9', '/a', '/li',
+            '<li', ['a' => ['href' => '/clients?page=10']], '10', '/a', '/li',
+            '<li', ['a' => ['href' => '/clients?page=11']], '11', '/a', '/li',
+            '<li', ['a' => ['href' => '/clients?page=12']], '12', '/a', '/li',
+            '/ul',
         ];
         $this->assertHtml($expected, $result);
 
         $this->Paginator->request = $this->Paginator->request->withParam('paging', [
-            'Client' => [
+            'Clients' => [
                 'page' => 8,
                 'current' => 3,
                 'count' => 30,
                 'prevPage' => false,
                 'nextPage' => 2,
                 'pageCount' => 15,
-            ]
+            ],
         ]);
         $result = $this->Paginator->numbers(['prev' => true, 'next' => true]);
         $expected = [
             'ul' => ['class' => 'pagination'],
             ['li' => ['class' => 'previous disabled']], ['a' => []], ['span' => ['aria-hidden' => 'true']], '&laquo;', '/span', '/a', '/li',
-            '<li', ['a' => ['href' => '/index?page=4']], '4', '/a', '/li',
-            '<li', ['a' => ['href' => '/index?page=5']], '5', '/a', '/li',
-            '<li', ['a' => ['href' => '/index?page=6']], '6', '/a', '/li',
-            '<li', ['a' => ['href' => '/index?page=7']], '7', '/a', '/li',
+            '<li', ['a' => ['href' => '/clients?page=4']], '4', '/a', '/li',
+            '<li', ['a' => ['href' => '/clients?page=5']], '5', '/a', '/li',
+            '<li', ['a' => ['href' => '/clients?page=6']], '6', '/a', '/li',
+            '<li', ['a' => ['href' => '/clients?page=7']], '7', '/a', '/li',
             ['li' => ['class' => 'active']], '<span', '8', 'span' => ['class' => 'sr-only'], '(current)', '/span', '/span', '/li',
-            '<li', ['a' => ['href' => '/index?page=9']], '9', '/a', '/li',
-            '<li', ['a' => ['href' => '/index?page=10']], '10', '/a', '/li',
-            '<li', ['a' => ['href' => '/index?page=11']], '11', '/a', '/li',
-            '<li', ['a' => ['href' => '/index?page=12']], '12', '/a', '/li',
-            ['li' => ['class' => 'next']], ['a' => ['rel' => 'next', 'aria-label' => 'Next', 'href' => '/index?page=9']], ['span' => ['aria-hidden' => 'true']], '&raquo;', '/span', '/a', '/li',
-            '/ul'
+            '<li', ['a' => ['href' => '/clients?page=9']], '9', '/a', '/li',
+            '<li', ['a' => ['href' => '/clients?page=10']], '10', '/a', '/li',
+            '<li', ['a' => ['href' => '/clients?page=11']], '11', '/a', '/li',
+            '<li', ['a' => ['href' => '/clients?page=12']], '12', '/a', '/li',
+            ['li' => ['class' => 'next']], ['a' => ['rel' => 'next', 'aria-label' => 'Next', 'href' => '/clients?page=9']], ['span' => ['aria-hidden' => 'true']], '&raquo;', '/span', '/a', '/li',
+            '/ul',
         ];
         $this->assertHtml($expected, $result);
 
@@ -114,16 +125,15 @@ class PaginatorHelperTest extends TestCase
         $expected = [
             'ul' => ['class' => 'pagination pagination-lg'],
             ['li' => ['class' => 'active']], '<span', '1', 'span' => ['class' => 'sr-only'], '(current)', '/span', '/span', '/li',
-            '<li', ['a' => ['href' => '/index?page=2']], '2', '/a', '/li',
-            '/ul'
+            '<li', ['a' => ['href' => '/clients?page=2']], '2', '/a', '/li',
+            '/ul',
         ];
         $this->assertHtml($expected, $result);
     }
 
     protected function setupHelper($options)
     {
-        $request = new Request();
-        $request = $request->withAttribute('params', [
+        $request = $this->request->withAttribute('params', [
             'pass' => [],
             'paging' => $options,
         ]);

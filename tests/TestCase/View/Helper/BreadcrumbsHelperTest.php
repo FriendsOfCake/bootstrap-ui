@@ -7,14 +7,14 @@ use Cake\View\View;
 class BreadcrumbsHelperTest extends TestCase
 {
     /**
-     * @var View
+     * @var \Cake\View\View
      */
-    public $View;
+    protected $View;
 
     /**
-     * @var HtmlHelper
+     * @var \BootstrapUI\View\Helper\BreadcrumbsHelper
      */
-    public $Breadcrumbs;
+    protected $Breadcrumbs;
 
     public function setUp()
     {

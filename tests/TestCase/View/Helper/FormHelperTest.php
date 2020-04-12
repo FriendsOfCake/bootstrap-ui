@@ -14,19 +14,19 @@ use Cake\View\View;
 class FormHelperTest extends TestCase
 {
     /**
-     * @var View
+     * @var \Cake\View\View
      */
-    public $View;
+    protected $View;
 
     /**
      * @var FormHelper
      */
-    public $Form;
+    protected $Form;
 
     /**
      * @var array
      */
-    public $article;
+    protected $article;
 
     public function setUp()
     {
@@ -54,12 +54,12 @@ class FormHelperTest extends TestCase
                 'title' => ['type' => 'string', 'null' => true],
                 'body' => 'text',
                 'published' => ['type' => 'boolean', 'length' => 1, 'default' => 0],
-                '_constraints' => ['primary' => ['type' => 'primary', 'columns' => ['id']]]
+                '_constraints' => ['primary' => ['type' => 'primary', 'columns' => ['id']]],
             ],
             'required' => [
                 'author_id' => true,
                 'title' => true,
-            ]
+            ],
         ];
 
         Security::getSalt('foo!');
@@ -91,7 +91,7 @@ class FormHelperTest extends TestCase
                 'id' => 'title',
                 'class' => 'form-control',
             ],
-            '/div'
+            '/div',
         ];
         $this->assertHtml($expected, $result);
     }
@@ -113,7 +113,7 @@ class FormHelperTest extends TestCase
                 'id' => 'title',
                 'class' => 'form-control',
             ],
-            '/div'
+            '/div',
         ];
         $this->assertHtml($expected, $result);
     }
@@ -124,7 +124,7 @@ class FormHelperTest extends TestCase
 
         $result = $this->Form->control('foreign_key', [
             'type' => 'select',
-            'class' => 'my-class'
+            'class' => 'my-class',
         ]);
         $expected = [
             'div' => ['class' => 'form-group select'],
@@ -137,7 +137,7 @@ class FormHelperTest extends TestCase
                 'class' => 'my-class form-control',
             ],
             '/select',
-            '/div'
+            '/div',
         ];
         $this->assertHtml($expected, $result);
     }
@@ -163,7 +163,7 @@ class FormHelperTest extends TestCase
                 'id' => 'title',
                 'value' => 'foo &lt;u&gt;bar&lt;/u&gt;',
             ],
-            '/div'
+            '/div',
         ];
         $this->assertHtml($expected, $result);
         $this->assertSame(['title' => 'foo <u>bar</u>'], $this->Form->fields);
@@ -182,7 +182,7 @@ class FormHelperTest extends TestCase
             'bar',
             '/u',
             '/p',
-            '/div'
+            '/div',
         ];
         $this->assertHtml($expected, $result);
         $this->assertEmpty($this->Form->fields);
@@ -202,7 +202,7 @@ class FormHelperTest extends TestCase
                 'id' => 'title',
                 'class' => 'form-control',
             ],
-            '/div'
+            '/div',
         ];
         $this->assertHtml($expected, $result);
     }
@@ -224,7 +224,7 @@ class FormHelperTest extends TestCase
                 'id' => 'title',
                 'class' => 'form-control',
             ],
-            '/div'
+            '/div',
         ];
         $this->assertHtml($expected, $result);
     }
@@ -246,7 +246,7 @@ class FormHelperTest extends TestCase
                 'id' => 'title',
                 'class' => 'form-control',
             ],
-            '/div'
+            '/div',
         ];
         $this->assertHtml($expected, $result);
     }
@@ -268,7 +268,7 @@ class FormHelperTest extends TestCase
                 'id' => 'password',
                 'class' => 'form-control',
             ],
-            '/div'
+            '/div',
         ];
         $this->assertHtml($expected, $result);
     }
@@ -288,9 +288,9 @@ class FormHelperTest extends TestCase
                 'name' => 'title',
                 'id' => 'title',
                 'class' => 'form-control',
-                'required' => 'required'
+                'required' => 'required',
             ],
-            '/div'
+            '/div',
         ];
         $this->assertHtml($expected, $result);
     }
@@ -299,7 +299,7 @@ class FormHelperTest extends TestCase
     {
         $this->article['errors'] = [
             'title' => ['error message'],
-            'published' => ['error']
+            'published' => ['error'],
         ];
         $this->Form->create($this->article);
 
@@ -314,12 +314,12 @@ class FormHelperTest extends TestCase
                 'name' => 'title',
                 'id' => 'title',
                 'class' => 'form-control ',
-                'required' => 'required'
+                'required' => 'required',
             ],
             ['div' => ['class' => 'help-block']],
             'error message',
             '/div',
-            '/div'
+            '/div',
         ];
 
         $this->Form->end();
@@ -338,13 +338,13 @@ class FormHelperTest extends TestCase
                 'name' => 'title',
                 'id' => 'title',
                 'class' => 'form-control',
-                'required' => 'required'
+                'required' => 'required',
             ],
             ['div' => ['class' => 'help-block']],
             'error message',
             '/div',
             '/div',
-            '/div'
+            '/div',
         ];
 
         $this->assertHtml($expected, $result);
@@ -373,7 +373,7 @@ class FormHelperTest extends TestCase
             'error',
             '/div',
             '/div',
-            '/div'
+            '/div',
         ];
         $this->assertHtml($expected, $result);
     }
@@ -397,10 +397,10 @@ class FormHelperTest extends TestCase
                 'name' => 'title',
                 'id' => 'title',
                 'class' => 'form-control',
-                'required' => 'required'
+                'required' => 'required',
             ],
             '/div',
-            '/div'
+            '/div',
         ];
         $this->assertHtml($expected, $result);
 
@@ -418,10 +418,10 @@ class FormHelperTest extends TestCase
                 'type' => 'text',
                 'name' => 'url',
                 'id' => 'url',
-                'class' => 'form-control'
+                'class' => 'form-control',
             ],
             '/div',
-            '/div'
+            '/div',
         ];
         $this->assertHtml($expected, $result);
     }
@@ -442,13 +442,13 @@ class FormHelperTest extends TestCase
                 'name' => 'title',
                 'id' => 'title',
                 'class' => 'form-control',
-                'required' => 'required'
+                'required' => 'required',
             ],
             'span' => ['class' => 'input-group-addon'],
             '@',
             '/span',
             '/div',
-            '/div'
+            '/div',
         ];
         $this->assertHtml($expected, $result);
     }
@@ -468,14 +468,14 @@ class FormHelperTest extends TestCase
                 'name' => 'author_id',
                 'id' => 'author-id',
                 'required' => 'required',
-                'class' => 'form-control'
+                'class' => 'form-control',
             ],
             '/select',
             'span' => ['class' => 'input-group-addon'],
             '@',
             '/span',
             '/div',
-            '/div'
+            '/div',
         ];
         $this->assertHtml($expected, $result);
     }
@@ -486,7 +486,7 @@ class FormHelperTest extends TestCase
 
         $result = $this->Form->control('body', [
             'type' => 'textarea',
-            'append' => $this->Form->button('GO')
+            'append' => $this->Form->button('GO'),
         ]);
         $expected = [
             'div' => ['class' => 'form-group textarea'],
@@ -498,7 +498,7 @@ class FormHelperTest extends TestCase
                 'name' => 'body',
                 'id' => 'body',
                 'class' => 'form-control',
-                'rows' => '5'
+                'rows' => '5',
             ],
             '/textarea',
             'span' => ['class' => 'input-group-btn'],
@@ -507,7 +507,7 @@ class FormHelperTest extends TestCase
             '/button',
             '/span',
             '/div',
-            '/div'
+            '/div',
         ];
         $this->assertHtml($expected, $result);
     }
@@ -533,10 +533,10 @@ class FormHelperTest extends TestCase
                 'name' => 'title',
                 'id' => 'title',
                 'class' => 'form-control',
-                'required' => 'required'
+                'required' => 'required',
             ],
             '/div',
-            '/div'
+            '/div',
         ];
         $this->assertHtml($expected, $result);
     }
@@ -557,7 +557,7 @@ class FormHelperTest extends TestCase
                 'name' => 'title',
                 'id' => 'title',
                 'class' => 'form-control',
-                'required' => 'required'
+                'required' => 'required',
             ],
             'span' => ['class' => 'input-group-btn'],
             'button' => ['type' => 'submit', 'class' => 'btn btn-default'],
@@ -565,7 +565,7 @@ class FormHelperTest extends TestCase
             '/button',
             '/span',
             '/div',
-            '/div'
+            '/div',
         ];
         $this->assertHtml($expected, $result);
     }
@@ -576,7 +576,7 @@ class FormHelperTest extends TestCase
 
         $result = $this->Form->control('published', [
             'type' => 'radio',
-            'options' => ['Yes', 'No']
+            'options' => ['Yes', 'No'],
         ]);
         $expected = [
             ['div' => ['class' => 'form-group radio']],
@@ -610,7 +610,7 @@ class FormHelperTest extends TestCase
             'No',
             '/label',
             '/div',
-            '/div'
+            '/div',
         ];
         $this->assertHtml($expected, $result);
     }
@@ -622,7 +622,7 @@ class FormHelperTest extends TestCase
         $result = $this->Form->control('published', [
             'inline' => true,
             'type' => 'radio',
-            'options' => ['Yes', 'No']
+            'options' => ['Yes', 'No'],
         ]);
         $expected = [
             ['div' => ['class' => 'form-group radio']],
@@ -633,34 +633,34 @@ class FormHelperTest extends TestCase
             ['input' => [
                 'type' => 'hidden',
                 'name' => 'published',
-                'value' => ''
+                'value' => '',
             ]],
             ['label' => [
                 'class' => 'radio-inline',
-                'for' => 'published-0'
+                'for' => 'published-0',
             ]],
             ['input' => [
                 'type' => 'radio',
                 'name' => 'published',
                 'value' => 0,
-                'id' => 'published-0'
+                'id' => 'published-0',
             ]],
             'Yes',
             '/label',
             ['label' => [
                 'class' => 'radio-inline',
-                'for' => 'published-1'
+                'for' => 'published-1',
             ]],
             ['input' => [
                 'type' => 'radio',
                 'name' => 'published',
                 'value' => 1,
-                'id' => 'published-1'
+                'id' => 'published-1',
             ]],
             'No',
             '/label',
             '/div',
-            '/div'
+            '/div',
         ];
         $this->assertHtml($expected, $result);
     }
@@ -671,14 +671,14 @@ class FormHelperTest extends TestCase
             'align' => [
                 'sm' => [
                     'left' => 5,
-                    'middle' => 7
-                ]
-            ]
+                    'middle' => 7,
+                ],
+            ],
         ]);
 
         $result = $this->Form->control('published', [
             'type' => 'radio',
-            'options' => ['Yes', 'No']
+            'options' => ['Yes', 'No'],
         ]);
         $expected = [
             ['div' => ['class' => 'form-group']],
@@ -714,7 +714,7 @@ class FormHelperTest extends TestCase
             '/label',
             '/div',
             '/div',
-            '/div'
+            '/div',
         ];
         $this->assertHtml($expected, $result);
     }
@@ -725,15 +725,15 @@ class FormHelperTest extends TestCase
             'align' => [
                 'sm' => [
                     'left' => 5,
-                    'middle' => 7
-                ]
-            ]
+                    'middle' => 7,
+                ],
+            ],
         ]);
 
         $result = $this->Form->control('published', [
             'inline' => true,
             'type' => 'radio',
-            'options' => ['Yes', 'No']
+            'options' => ['Yes', 'No'],
         ]);
         $expected = [
             ['div' => ['class' => 'form-group']],
@@ -748,7 +748,7 @@ class FormHelperTest extends TestCase
             ],
             ['label' => [
                 'class' => 'radio-inline',
-                'for' => 'published-0'
+                'for' => 'published-0',
             ]],
             ['input' => [
                 'type' => 'radio',
@@ -760,7 +760,7 @@ class FormHelperTest extends TestCase
             '/label',
             ['label' => [
                 'class' => 'radio-inline',
-                'for' => 'published-1'
+                'for' => 'published-1',
             ]],
             ['input' => [
                 'type' => 'radio',
@@ -771,7 +771,7 @@ class FormHelperTest extends TestCase
             'No',
             '/label',
             '/div',
-            '/div'
+            '/div',
         ];
         $this->assertHtml($expected, $result);
     }
@@ -792,7 +792,7 @@ class FormHelperTest extends TestCase
         $result = $this->Form->control('published', [
             'type' => 'radio',
             'options' => ['Yes', 'No'],
-            'templates' => $templates
+            'templates' => $templates,
         ]);
         $expected = [
             ['div' => ['class' => 'form-group radio']],
@@ -826,7 +826,7 @@ class FormHelperTest extends TestCase
             'No',
             '/label',
             '/div',
-            '/div'
+            '/div',
         ];
 
         $this->assertHtml($expected, $result);
@@ -849,11 +849,11 @@ class FormHelperTest extends TestCase
                 'type' => 'checkbox',
                 'name' => 'published',
                 'id' => 'published',
-                'value' => 1
+                'value' => 1,
             ]],
             'Published',
             '/label',
-            '/div'
+            '/div',
         ];
         $this->assertHtml($expected, $result);
     }
@@ -874,10 +874,10 @@ class FormHelperTest extends TestCase
                 'type' => 'checkbox',
                 'name' => 'published',
                 'id' => 'published',
-                'value' => 1
+                'value' => 1,
             ]],
             'Published',
-            '/label'
+            '/label',
         ];
         $this->assertHtml($expected, $result);
     }
@@ -896,9 +896,9 @@ class FormHelperTest extends TestCase
             'input' => [
                 'type' => 'hidden',
                 'name' => '_method',
-                'value' => 'POST'
+                'value' => 'POST',
             ],
-            '/div'
+            '/div',
         ];
         $this->assertHtml($expected, $result);
     }
@@ -920,7 +920,7 @@ class FormHelperTest extends TestCase
                 'id' => 'title',
                 'class' => 'form-control',
             ],
-            '/div'
+            '/div',
         ];
         $this->assertHtml($expected, $result);
     }
@@ -940,9 +940,9 @@ class FormHelperTest extends TestCase
             'input' => [
                 'type' => 'hidden',
                 'name' => '_method',
-                'value' => 'POST'
+                'value' => 'POST',
             ],
-            '/div'
+            '/div',
         ];
         $this->assertHtml($expected, $result);
     }
@@ -962,9 +962,9 @@ class FormHelperTest extends TestCase
             'input' => [
                 'type' => 'hidden',
                 'name' => '_method',
-                'value' => 'POST'
+                'value' => 'POST',
             ],
-            '/div'
+            '/div',
         ];
         $this->assertHtml($expected, $result);
 
@@ -973,7 +973,7 @@ class FormHelperTest extends TestCase
             'div' => ['class' => 'form-group text required'],
             'label' => [
                 'class' => 'control-label col-md-2',
-                'for' => 'title'
+                'for' => 'title',
             ],
             'Title',
             '/label',
@@ -986,7 +986,7 @@ class FormHelperTest extends TestCase
                 'required' => 'required',
             ],
             '/div',
-            '/div'
+            '/div',
         ];
         $this->assertHtml($expected, $result);
 
@@ -1011,7 +1011,7 @@ class FormHelperTest extends TestCase
             '/label',
             '/div',
             '/div',
-            '/div'
+            '/div',
         ];
         $this->assertHtml($expected, $result);
     }
@@ -1022,8 +1022,8 @@ class FormHelperTest extends TestCase
             'align' => [
                 'left' => 3,
                 'middle' => 5,
-                'right' => 4
-            ]
+                'right' => 4,
+            ],
         ]);
 
         $result = $this->Form->control('title');
@@ -1031,7 +1031,7 @@ class FormHelperTest extends TestCase
             'div' => ['class' => 'form-group text required'],
             'label' => [
                 'class' => 'control-label col-md-3',
-                'for' => 'title'
+                'for' => 'title',
             ],
             'Title',
             '/label',
@@ -1044,7 +1044,7 @@ class FormHelperTest extends TestCase
                 'required' => 'required',
             ],
             '/div',
-            '/div'
+            '/div',
         ];
         $this->assertHtml($expected, $result);
     }
@@ -1055,9 +1055,9 @@ class FormHelperTest extends TestCase
             'align' => 'horizontal',
             'templateSet' => [
                 'horizontal' => [
-                    'checkboxFormGroup' => '<div class="%s"><div class="my-checkbox">{{label}}</div>{{error}}{{help}}</div>'
-                ]
-            ]
+                    'checkboxFormGroup' => '<div class="%s"><div class="my-checkbox">{{label}}</div>{{error}}{{help}}</div>',
+                ],
+            ],
         ]);
         $result = $this->Form->create($this->article);
         $expected = [
@@ -1072,9 +1072,9 @@ class FormHelperTest extends TestCase
             'input' => [
                 'type' => 'hidden',
                 'name' => '_method',
-                'value' => 'POST'
+                'value' => 'POST',
             ],
-            '/div'
+            '/div',
         ];
         $this->assertHtml($expected, $result);
 
@@ -1083,7 +1083,7 @@ class FormHelperTest extends TestCase
             'div' => ['class' => 'form-group text required'],
             'label' => [
                 'class' => 'control-label col-md-2',
-                'for' => 'title'
+                'for' => 'title',
             ],
             'Title',
             '/label',
@@ -1096,7 +1096,7 @@ class FormHelperTest extends TestCase
                 'required' => 'required',
             ],
             '/div',
-            '/div'
+            '/div',
         ];
         $this->assertHtml($expected, $result);
 
@@ -1121,7 +1121,7 @@ class FormHelperTest extends TestCase
             '/label',
             '/div',
             '/div',
-            '/div'
+            '/div',
         ];
         $this->assertHtml($expected, $result);
     }
@@ -1132,7 +1132,7 @@ class FormHelperTest extends TestCase
         $expected = [
             'button' => ['class' => 'btn btn-default', 'type' => 'submit'],
             'Submit',
-            '/button'
+            '/button',
         ];
         $this->assertHtml($expected, $result);
     }
@@ -1146,7 +1146,7 @@ class FormHelperTest extends TestCase
                 'type' => 'submit',
                 'value' => 'Submit',
                 'class' => 'btn btn-default',
-            ]
+            ],
         ];
         $this->assertHtml($expected, $result);
     }
@@ -1160,7 +1160,7 @@ class FormHelperTest extends TestCase
                 'type' => 'submit',
                 'value' => 'Submit',
                 'class' => 'btn btn-block btn-default',
-            ]
+            ],
         ];
         $this->assertHtml($expected, $result);
 
@@ -1171,7 +1171,7 @@ class FormHelperTest extends TestCase
                 'type' => 'submit',
                 'value' => 'Submit',
                 'class' => 'btn btn-block btn-default',
-            ]
+            ],
         ];
         $this->assertHtml($expected, $result);
     }
@@ -1188,7 +1188,7 @@ class FormHelperTest extends TestCase
                 'type' => 'submit',
                 'value' => 'Submit',
                 'class' => 'btn btn-default',
-            ]
+            ],
         ];
 
         $this->assertHtml($expected, $result);
@@ -1200,7 +1200,7 @@ class FormHelperTest extends TestCase
         $expected = [
             'button' => ['class' => 'btn-success btn', 'type' => 'submit'],
             'Submit',
-            '/button'
+            '/button',
         ];
         $this->assertHtml($expected, $result);
     }
@@ -1211,7 +1211,7 @@ class FormHelperTest extends TestCase
         $expected = [
             'button' => ['class' => 'btn-primary btn', 'type' => 'submit'],
             'Submit',
-            '/button'
+            '/button',
         ];
         $this->assertHtml($expected, $result);
     }
@@ -1220,7 +1220,7 @@ class FormHelperTest extends TestCase
     {
         $options = [
             'Value 1' => 'Label 1',
-            'Value 2' => 'Label 2'
+            'Value 2' => 'Label 2',
         ];
         $result = $this->Form->select('field', $options, ['multiple' => 'checkbox']);
 
@@ -1238,7 +1238,7 @@ class FormHelperTest extends TestCase
                     'name' => 'field[]',
                     'id' => 'field-value-1',
                     'value' => 'Value 1',
-                ]
+                ],
             ],
             'Label 1',
             '/label',
@@ -1251,7 +1251,7 @@ class FormHelperTest extends TestCase
                     'name' => 'field[]',
                     'id' => 'field-value-2',
                     'value' => 'Value 2',
-                ]
+                ],
             ],
             'Label 2',
             '/label',
@@ -1268,8 +1268,8 @@ class FormHelperTest extends TestCase
             'multiple' => 'checkbox',
             'options' => [
                 1 => 'User 1',
-                2 => 'User 2'
-            ]
+                2 => 'User 2',
+            ],
         ]);
         $expected = [
             ['div' => ['class' => 'form-group multicheckbox']],
@@ -1289,7 +1289,7 @@ class FormHelperTest extends TestCase
                     'name' => 'users[]',
                     'id' => 'users-1',
                     'value' => 1,
-                ]
+                ],
             ],
             'User 1',
             '/label',
@@ -1302,12 +1302,12 @@ class FormHelperTest extends TestCase
                     'name' => 'users[]',
                     'id' => 'users-2',
                     'value' => 2,
-                ]
+                ],
             ],
             'User 2',
             '/label',
             '/div',
-            '/div'
+            '/div',
         ];
         $this->assertHtml($expected, $result);
     }
@@ -1327,12 +1327,12 @@ class FormHelperTest extends TestCase
                 'name' => 'title',
                 'id' => 'title',
                 'class' => 'form-control',
-                'required' => 'required'
+                'required' => 'required',
             ],
             ['div' => ['class' => 'help-block']],
             'help text',
             '/div',
-            '/div'
+            '/div',
         ];
         $this->assertHtml($expected, $result);
 
@@ -1349,19 +1349,19 @@ class FormHelperTest extends TestCase
                 'type' => 'checkbox',
                 'name' => 'published',
                 'id' => 'published',
-                'value' => 1
+                'value' => 1,
             ]],
             'Published',
             '/label',
             ['div' => ['class' => 'help-block']],
             'help text',
             '/div',
-            '/div'
+            '/div',
         ];
         $this->assertHtml($expected, $result);
 
         $this->article['errors'] = [
-            'title' => ['error message']
+            'title' => ['error message'],
         ];
         $this->Form->create($this->article);
 
@@ -1376,7 +1376,7 @@ class FormHelperTest extends TestCase
                 'name' => 'title',
                 'id' => 'title',
                 'class' => 'form-control',
-                'required' => 'required'
+                'required' => 'required',
             ],
             ['div' => ['class' => 'help-block']],
             'error message',
@@ -1384,13 +1384,13 @@ class FormHelperTest extends TestCase
             ['div' => ['class' => 'help-block']],
             'help text',
             '/div',
-            '/div'
+            '/div',
         ];
         $this->assertHtml($expected, $result);
 
         $result = $this->Form->control('title', [
             'help' => 'help text',
-            'templates' => ['help' => '<div class="custom-help-block">{{content}}</div>']
+            'templates' => ['help' => '<div class="custom-help-block">{{content}}</div>'],
         ]);
         $expected = [
             'div' => ['class' => 'form-group text required has-error'],
@@ -1402,7 +1402,7 @@ class FormHelperTest extends TestCase
                 'name' => 'title',
                 'id' => 'title',
                 'class' => 'form-control',
-                'required' => 'required'
+                'required' => 'required',
             ],
             ['div' => ['class' => 'help-block']],
             'error message',
@@ -1410,7 +1410,7 @@ class FormHelperTest extends TestCase
             ['div' => ['class' => 'custom-help-block']],
             'help text',
             '/div',
-            '/div'
+            '/div',
         ];
         $this->assertHtml($expected, $result);
     }
@@ -1431,13 +1431,13 @@ class FormHelperTest extends TestCase
                 'name' => 'title',
                 'id' => 'title',
                 'class' => 'form-control',
-                'required' => 'required'
+                'required' => 'required',
             ],
             ['div' => ['class' => 'help-block']],
             'help text',
             '/div',
             '/div',
-            '/div'
+            '/div',
         ];
         $this->assertHtml($expected, $result);
 
@@ -1465,12 +1465,12 @@ class FormHelperTest extends TestCase
             'help text',
             '/div',
             '/div',
-            '/div'
+            '/div',
         ];
         $this->assertHtml($expected, $result);
 
         $this->article['errors'] = [
-            'title' => ['error message']
+            'title' => ['error message'],
         ];
         $this->Form->create($this->article, ['align' => 'horizontal']);
 
@@ -1486,7 +1486,7 @@ class FormHelperTest extends TestCase
                 'name' => 'title',
                 'id' => 'title',
                 'class' => 'form-control',
-                'required' => 'required'
+                'required' => 'required',
             ],
             ['div' => ['class' => 'help-block']],
             'error message',
@@ -1495,7 +1495,7 @@ class FormHelperTest extends TestCase
             'help text',
             '/div',
             '/div',
-            '/div'
+            '/div',
         ];
         $this->assertHtml($expected, $result);
     }
@@ -1520,9 +1520,9 @@ class FormHelperTest extends TestCase
                 'name' => 'title',
                 'id' => 'title',
                 'class' => 'form-control',
-                'required' => 'required'
+                'required' => 'required',
             ],
-            '/div'
+            '/div',
         ];
         $this->assertHtml($expected, $result);
     }
@@ -1548,10 +1548,10 @@ class FormHelperTest extends TestCase
                 'name' => 'title',
                 'id' => 'title',
                 'class' => 'form-control',
-                'required' => 'required'
+                'required' => 'required',
             ],
             '/div',
-            '/div'
+            '/div',
         ];
         $this->assertHtml($expected, $result);
     }

@@ -12,7 +12,7 @@ class UIViewTraitTest extends TestCase
     /**
      * @var UIView
      */
-    public $View;
+    protected $View;
 
     /**
      * setUp method
@@ -50,23 +50,23 @@ class UIViewTraitTest extends TestCase
         $this->assertEquals('BootstrapUI.default', $this->View->getLayout());
 
         $this->View->initializeUI([
-            'layout' => true
+            'layout' => true,
         ]);
         $this->assertEquals('BootstrapUI.default', $this->View->getLayout());
 
         $this->View->initializeUI([
-            'layout' => 'myLayout'
+            'layout' => 'myLayout',
         ]);
         $this->assertEquals('myLayout', $this->View->getLayout());
 
         $this->View->setLayout('other_layout');
         $this->View->initializeUI([
-            'layout' => false
+            'layout' => false,
         ]);
         $this->assertEquals('other_layout', $this->View->getLayout());
 
         $this->View->initializeUI([
-            'layout' => ''
+            'layout' => '',
         ]);
         $this->assertSame('', $this->View->getLayout());
     }

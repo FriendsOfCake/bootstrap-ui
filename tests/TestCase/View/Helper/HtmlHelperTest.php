@@ -10,19 +10,19 @@ use Cake\View\View;
 class HtmlHelperTest extends TestCase
 {
     /**
-     * @var View
+     * @var \Cake\View\View
      */
-    public $View;
+    protected $View;
 
     /**
      * @var HtmlHelper
      */
-    public $Html;
+    protected $Html;
 
     /**
      * @var BreadcrumbsHelper
      */
-    public $Breadcrumbs;
+    protected $Breadcrumbs;
 
     public function setUp()
     {
@@ -45,7 +45,7 @@ class HtmlHelperTest extends TestCase
         $expected = [
             'span' => ['class' => 'badge'],
             'foo',
-            '/span'
+            '/span',
         ];
         $this->assertHtml($expected, $result);
     }
@@ -55,21 +55,21 @@ class HtmlHelperTest extends TestCase
         $result = $this->Html->icon('foo');
         $expected = [
             'i' => ['class' => 'glyphicon glyphicon-foo'],
-            '/i'
+            '/i',
         ];
         $this->assertHtml($expected, $result);
 
         $result = $this->Html->icon('foo', ['iconSet' => 'fa']);
         $expected = [
             'i' => ['class' => 'fa fa-foo'],
-            '/i'
+            '/i',
         ];
         $this->assertHtml($expected, $result);
 
         $result = $this->Html->icon('foo', ['tag' => 'span']);
         $expected = [
             'span' => ['class' => 'glyphicon glyphicon-foo'],
-            '/span'
+            '/span',
         ];
         $this->assertHtml($expected, $result);
     }
@@ -80,7 +80,7 @@ class HtmlHelperTest extends TestCase
         $expected = [
             'span' => ['class' => 'label label-default'],
             'foo',
-            '/span'
+            '/span',
         ];
         $this->assertHtml($expected, $result);
 
@@ -88,7 +88,7 @@ class HtmlHelperTest extends TestCase
         $expected = [
             'span' => ['class' => 'label label-warning'],
             'foo',
-            '/span'
+            '/span',
         ];
         $this->assertHtml($expected, $result);
 
@@ -96,7 +96,7 @@ class HtmlHelperTest extends TestCase
         $expected = [
             'span' => ['class' => 'label label-custom'],
             'foo',
-            '/span'
+            '/span',
         ];
         $this->assertHtml($expected, $result);
     }
