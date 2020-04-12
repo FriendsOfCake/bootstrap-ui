@@ -15,7 +15,6 @@ class ElementTest extends TestCase
      * Test get elements
      *
      * @return void
-     *
      * @covers \BootstrapUI\View\Helper\Types\Element::values
      */
     public function testGetElements()

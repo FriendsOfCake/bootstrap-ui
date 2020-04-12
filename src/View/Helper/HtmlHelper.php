@@ -71,7 +71,6 @@ class HtmlHelper extends \Cake\View\Helper\HtmlHelper
      *
      * You can use `iconDefaults` option for the helper to set default values
      * for above options.
-     *
      * @return string HTML icon markup.
      */
     public function icon(string $name, array $options = []): string

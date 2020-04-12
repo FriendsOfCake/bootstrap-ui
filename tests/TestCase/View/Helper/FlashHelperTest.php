@@ -11,7 +11,6 @@ use Cake\View\View;
 
 /**
  * FlashHelperTest class
- *
  */
 class FlashHelperTest extends TestCase
 {

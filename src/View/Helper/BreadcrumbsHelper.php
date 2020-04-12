@@ -10,7 +10,7 @@ class BreadcrumbsHelper extends CoreBreadcrumbsHelper
     use OptionsAwareTrait;
 
     /**
-     * @inheritdoc
+     * @inheritDoc
      */
     protected $_defaultConfig = [
         'ariaCurrent' => 'last',
@@ -35,7 +35,7 @@ class BreadcrumbsHelper extends CoreBreadcrumbsHelper
     ];
 
     /**
-     * {@inheritDoc}
+     * @inheritDoc
      */
     public function render(array $attributes = [], array $separator = []): string
     {
@@ -48,7 +48,6 @@ class BreadcrumbsHelper extends CoreBreadcrumbsHelper
 
     /**
      * @inheritDoc
-     * @return $this
      */
     public function add($title, $url = null, array $options = [])
     {
@@ -59,7 +58,6 @@ class BreadcrumbsHelper extends CoreBreadcrumbsHelper
 
     /**
      * @inheritDoc
-     * @return $this
      */
     public function prepend($title, $url = null, array $options = [])
     {
@@ -70,7 +68,6 @@ class BreadcrumbsHelper extends CoreBreadcrumbsHelper
 
     /**
      * @inheritDoc
-     * @return $this
      */
     public function insertAt(int $index, string $title, $url = null, array $options = [])
     {

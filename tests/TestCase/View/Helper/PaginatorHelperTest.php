@@ -13,7 +13,6 @@ use Cake\View\View;
 
 /**
  * PaginatorHelperTest class
- *
  */
 class PaginatorHelperTest extends TestCase
 {

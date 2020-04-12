@@ -9,7 +9,6 @@ use Cake\View\StringTemplate;
 
 /**
  * ButtonWidgetTest class
- *
  */
 class ButtonWidgetTest extends TestCase
 {
