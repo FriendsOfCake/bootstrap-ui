@@ -20,7 +20,11 @@ class PaginatorHelper extends \Cake\View\Helper\PaginatorHelper
      */
     public function __construct(View $View, array $config = [])
     {
-        $this->request = $View->getRequest();
+        if (method_exists($View, 'getRequest')) {
+            $this->request = $View->getRequest();
+        } else {
+            $this->request = $View->request;
+        }
 
         $this->_defaultConfig['templates'] = [
             'nextActive' => '<li class="next"><a rel="next" aria-label="Next" href="{{url}}">' .

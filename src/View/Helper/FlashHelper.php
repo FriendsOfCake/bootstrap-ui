@@ -40,7 +40,11 @@ class FlashHelper extends Helper
      */
     public function __construct(View $View, array $config = [])
     {
-        $this->request = $View->getRequest();
+        if (method_exists($View, 'getRequest')) {
+            $this->request = $View->getRequest();
+        } else {
+            $this->request = $View->request;
+        }
 
         parent::__construct($View, $config);
     }
