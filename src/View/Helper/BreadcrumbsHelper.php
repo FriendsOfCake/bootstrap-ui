@@ -49,6 +49,21 @@ class BreadcrumbsHelper extends CoreBreadcrumbsHelper
      */
     public function add($title, $url = null, array $options = [])
     {
+        if (is_array($title)) {
+            $crumbs = [];
+            foreach ($title as $crumb) {
+                $options = [];
+                if (isset($crumb['options'])) {
+                    $options = $crumb['options'];
+                }
+
+                $crumb['options'] = $this->injectClasses($this->_defaultAttributes['class']['item'], $options);
+                $crumbs[] = $crumb + ['title' => '', 'url' => null, 'options' => []];
+            }
+
+            return parent::add($crumbs);
+        }
+
         $options = $this->injectClasses($this->_defaultAttributes['class']['item'], $options);
 
         return parent::add($title, $url, $options);
