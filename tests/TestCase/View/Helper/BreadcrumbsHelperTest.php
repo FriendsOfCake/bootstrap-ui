@@ -89,6 +89,39 @@ class BreadcrumbsHelperTest extends TestCase
         $this->assertHtml($expected, $result);
     }
 
+    public function testCrumbListAddMultiple()
+    {
+        $result = $this->Breadcrumbs->add([
+            ['title' => 'Home', 'url' => '/', 'options' => ['class' => 'xyz']],
+            ['title' => 'page'],
+            ['title' => 'subpage', 'url' => null],
+        ])->render();
+
+        $expected = [
+            'nav' => ['aria-label' => 'breadcrumb'],
+                'ol' => ['class' => 'breadcrumb'],
+                    ['li' => ['class' => 'xyz breadcrumb-item']],
+                        ['a' => ['href' => '/']],
+                        'Home',
+                        '/a',
+                    '/li',
+                    ['li' => ['class' => 'breadcrumb-item']],
+                        ['span' => true],
+                        'page',
+                        '/span',
+                    '/li',
+                    ['li' => ['class' => 'breadcrumb-item active', 'aria-current' => 'page']],
+                        ['span' => true],
+                        'subpage',
+                        '/span',
+                    '/li',
+                '/ol',
+            '/nav',
+        ];
+
+        $this->assertHtml($expected, $result);
+    }
+
     public function testAttributes()
     {
         $attributes = [
