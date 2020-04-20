@@ -27,7 +27,7 @@ class BakeTest extends ConsoleIntegrationTestCase
 
         $this->loadPlugins([
             'Bake',
-            'WyriHaximus/TwigView' => [
+            'Cake/TwigView' => [
                 'bootstrap' => true,
             ],
         ]);
