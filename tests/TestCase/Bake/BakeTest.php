@@ -54,7 +54,6 @@ class BakeTest extends ConsoleIntegrationTestCase
         $this->assertFileExists($this->generatedFile);
 
         $result = file_get_contents($this->generatedFile);
-        debug($result);
         $this->assertSameAsFile(__FUNCTION__ . '.php', $result);
     }
 
