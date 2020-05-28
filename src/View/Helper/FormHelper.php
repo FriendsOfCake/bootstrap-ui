@@ -42,7 +42,7 @@ class FormHelper extends Helper
                 'aria-labelledby="{{groupId}}">{{content}}{{help}}</div>',
         'datetimeContainerError' => '<div class="form-group {{type}}{{required}} is-invalid" ' .
                 'role="group" aria-labelledby="{{groupId}}">{{content}}{{error}}{{help}}</div>',
-        'datetimeLabel' => '<label id="{{groupId}}">{{text}}</label>',
+        'datetimeLabel' => '<label id="{{groupId}}">{{text}}{{tooltip}}</label>',
         'inputContainer' => '<div class="form-group {{type}}{{required}}">{{content}}{{help}}</div>',
         'inputContainerError' => '<div class="form-group {{type}}{{required}} is-invalid">' .
                 '{{content}}{{error}}{{help}}</div>',
@@ -71,7 +71,7 @@ class FormHelper extends Helper
                 'aria-labelledby="{{groupId}}">{{content}}{{help}}</div>',
         'radioContainerError' => '<div class="form-group {{type}}{{required}} is-invalid" role="group" ' .
                 'aria-labelledby="{{groupId}}">{{content}}{{error}}{{help}}</div>',
-        'radioLabel' => '<label id="{{groupId}}" class="d-block">{{text}}</label>',
+        'radioLabel' => '<label id="{{groupId}}" class="d-block">{{text}}{{tooltip}}</label>',
         'radioWrapper' => '<div class="form-check">{{hidden}}{{label}}</div>',
         'radioInlineWrapper' => '<div class="form-check form-check-inline">{{label}}</div>',
         'customRadioWrapper' => '<div class="custom-control custom-radio">{{hidden}}{{label}}</div>',
@@ -85,7 +85,7 @@ class FormHelper extends Helper
                 'aria-labelledby="{{groupId}}">{{content}}{{help}}</div>',
         'multicheckboxContainerError' => '<div class="form-group {{type}}{{required}} is-invalid" role="group" ' .
                 'aria-labelledby="{{groupId}}">{{content}}{{error}}{{help}}</div>',
-        'multicheckboxLabel' => '<label id="{{groupId}}" class="d-block">{{text}}</label>',
+        'multicheckboxLabel' => '<label id="{{groupId}}" class="d-block">{{text}}{{tooltip}}</label>',
         'multicheckboxWrapper' => '<fieldset class="form-group">{{content}}</fieldset>',
         'multicheckboxTitle' => '<legend class="col-form-label pt-0">{{text}}</legend>',
         'customFileLabel' => '<label class="custom-file-label"{{attrs}}>{{text}}{{tooltip}}</label>',
@@ -111,17 +111,17 @@ class FormHelper extends Helper
                     'aria-labelledby="{{groupId}}">{{content}}</div>',
             'datetimeContainerError' => '<div class="form-group {{type}}{{required}} is-invalid" ' .
                     'role="group" aria-labelledby="{{groupId}}">{{content}}</div>',
-            'datetimeLabel' => '<span id="{{groupId}}" class="sr-only">{{text}}</span>',
+            'datetimeLabel' => '<span id="{{groupId}}" class="sr-only">{{text}}{{tooltip}}</span>',
             'radioContainer' => '<div class="form-group {{type}}{{required}}" role="group" ' .
                     'aria-labelledby="{{groupId}}">{{content}}</div>',
             'radioContainerError' => '<div class="form-group {{type}}{{required}} is-invalid" ' .
                     'role="group" aria-labelledby="{{groupId}}">{{content}}</div>',
-            'radioLabel' => '<span id="{{groupId}}" class="sr-only">{{text}}</span>',
+            'radioLabel' => '<span id="{{groupId}}" class="sr-only">{{text}}{{tooltip}}</span>',
             'multicheckboxContainer' => '<div class="form-group {{type}}{{required}}" role="group" ' .
                     'aria-labelledby="{{groupId}}">{{content}}</div>',
             'multicheckboxContainerError' => '<div class="form-group {{type}}{{required}} is-invalid" ' .
                     'role="group" aria-labelledby="{{groupId}}">{{content}}</div>',
-            'multicheckboxLabel' => '<span id="{{groupId}}" class="sr-only">{{text}}</span>',
+            'multicheckboxLabel' => '<span id="{{groupId}}" class="sr-only">{{text}}{{tooltip}}</span>',
         ],
         'horizontal' => [
             'label' => '<label class="col-form-label %s"{{attrs}}>{{text}}{{tooltip}}</label>',
@@ -138,7 +138,7 @@ class FormHelper extends Helper
                     'aria-labelledby="{{groupId}}">{{content}}</div>',
             'datetimeContainerError' => '<div class="form-group row {{type}}{{required}} is-invalid" ' .
                     'role="group" aria-labelledby="{{groupId}}">{{content}}</div>',
-            'datetimeLabel' => '<label id="{{groupId}}" class="col-form-label %s">{{text}}</label>',
+            'datetimeLabel' => '<label id="{{groupId}}" class="col-form-label %s">{{text}}{{tooltip}}</label>',
             'checkboxInlineFormGroup' => '<div class="%s"><div class="form-check form-check-inline">' .
                     '{{input}}{{label}}</div></div>',
             'submitContainer' => '<div class="form-group row"><div class="%s">{{content}}</div></div>',
@@ -152,12 +152,12 @@ class FormHelper extends Helper
                     'aria-labelledby="{{groupId}}">{{content}}</div>',
             'radioContainerError' => '<div class="form-group row {{type}}{{required}} is-invalid" ' .
                     'role="group" aria-labelledby="{{groupId}}">{{content}}</div>',
-            'radioLabel' => '<label id="{{groupId}}" class="col-form-label d-block pt-0 %s">{{text}}</label>',
+            'radioLabel' => '<label id="{{groupId}}" class="col-form-label d-block pt-0 %s">{{text}}{{tooltip}}</label>',
             'multicheckboxContainer' => '<div class="form-group row {{type}}{{required}}" role="group" ' .
                     'aria-labelledby="{{groupId}}">{{content}}</div>',
             'multicheckboxContainerError' => '<div class="form-group row {{type}}{{required}} is-invalid" ' .
                     'role="group" aria-labelledby="{{groupId}}">{{content}}</div>',
-            'multicheckboxLabel' => '<label id="{{groupId}}" class="col-form-label d-block pt-0 %s">{{text}}</label>',
+            'multicheckboxLabel' => '<label id="{{groupId}}" class="col-form-label d-block pt-0 %s">{{text}}{{tooltip}}</label>',
         ],
     ];
 
@@ -445,6 +445,7 @@ class FormHelper extends Helper
                     }
                 } else {
                     $options['custom'] = true;
+                    $options['tooltip'] = null;
 
                     $options['templates']['label'] = $this->templater()->get('customFileLabel');
                     $options['templates']['formGroup'] = $this->templater()->get('customFileFormGroup');
