@@ -152,12 +152,14 @@ class FormHelper extends Helper
                     'aria-labelledby="{{groupId}}">{{content}}</div>',
             'radioContainerError' => '<div class="form-group row {{type}}{{required}} is-invalid" ' .
                     'role="group" aria-labelledby="{{groupId}}">{{content}}</div>',
-            'radioLabel' => '<label id="{{groupId}}" class="col-form-label d-block pt-0 %s">{{text}}{{tooltip}}</label>',
+            'radioLabel' =>
+                '<label id="{{groupId}}" class="col-form-label d-block pt-0 %s">{{text}}{{tooltip}}</label>',
             'multicheckboxContainer' => '<div class="form-group row {{type}}{{required}}" role="group" ' .
                     'aria-labelledby="{{groupId}}">{{content}}</div>',
             'multicheckboxContainerError' => '<div class="form-group row {{type}}{{required}} is-invalid" ' .
                     'role="group" aria-labelledby="{{groupId}}">{{content}}</div>',
-            'multicheckboxLabel' => '<label id="{{groupId}}" class="col-form-label d-block pt-0 %s">{{text}}{{tooltip}}</label>',
+            'multicheckboxLabel' =>
+                '<label id="{{groupId}}" class="col-form-label d-block pt-0 %s">{{text}}{{tooltip}}</label>',
         ],
     ];
 

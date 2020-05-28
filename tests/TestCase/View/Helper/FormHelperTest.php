@@ -10132,7 +10132,6 @@ class FormHelperTest extends TestCase
         $this->assertHtml($expected, $result);
     }
 
-
     public function testDefaultAlignCustomFileControlInputGroupAppend()
     {
         $this->Form->create($this->article);
