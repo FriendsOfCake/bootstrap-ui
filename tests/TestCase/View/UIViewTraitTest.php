@@ -78,6 +78,6 @@ class UIViewTraitTest extends TestCase
 
         $this->assertEquals('display', $cell->viewBuilder()->getTemplate());
         // 2016-03-28: used trim() to remove LF. assert was failing on Windows.
-        $this->assertEquals("articles cell display", trim((string)$cell));
+        $this->assertEquals('articles cell display', trim((string)$cell));
     }
 }

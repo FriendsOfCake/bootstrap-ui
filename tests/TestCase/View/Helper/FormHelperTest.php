@@ -1766,6 +1766,41 @@ class FormHelperTest extends TestCase
         $this->assertHtml($expected, $result);
     }
 
+    public function testDefaultAlignDatetimeControlWithTooltip()
+    {
+        $this->Form->create($this->article);
+
+        $now = time();
+
+        $result = $this->Form->control('created', [
+            'type' => 'time',
+            'value' => $now,
+            'tooltip' => 'Tooltip text',
+        ]);
+        $expected = [
+            ['div' => ['class' => 'form-group time', 'role' => 'group', 'aria-labelledby' => 'created-group-label']],
+                ['label' => ['id' => 'created-group-label']],
+                    'Created ',
+                    'span' => [
+                        'data-toggle' => 'tooltip',
+                        'title' => 'Tooltip text',
+                        'class' => 'fas fa-info-circle',
+                    ],
+                    '/span',
+                '/label',
+                'input' => [
+                    'type' => 'time',
+                    'name' => 'created',
+                    'id' => 'created',
+                    'class' => 'form-control',
+                    'step' => '1',
+                    'value' => date('H:i:s', $now),
+                ],
+            '/div',
+        ];
+        $this->assertHtml($expected, $result);
+    }
+
     public function testDefaultAlignDatetimeControlDate()
     {
         $this->Form->create($this->article);
@@ -1940,6 +1975,50 @@ class FormHelperTest extends TestCase
                         'class' => 'form-control',
                         'value' => $now->format('Y-m-d H:i:s'),
                     ],
+                '/div',
+            '/div',
+        ];
+        $this->assertHtml($expected, $result);
+    }
+
+    public function testHorizontalAlignDatetimeControlWithTooltip()
+    {
+        $this->Form->create($this->article, [
+            'align' => [
+                'sm' => [
+                    'left' => 5,
+                    'middle' => 7,
+                ],
+            ],
+        ]);
+
+        $now = time();
+
+        $result = $this->Form->control('created', [
+            'type' => 'time',
+            'value' => $now,
+            'tooltip' => 'Tooltip text',
+        ]);
+        $expected = [
+            ['div' => ['class' => 'form-group row time', 'role' => 'group', 'aria-labelledby' => 'created-group-label']],
+                ['label' => ['id' => 'created-group-label', 'class' => 'col-form-label col-sm-5']],
+                    'Created ',
+                    'span' => [
+                        'data-toggle' => 'tooltip',
+                        'title' => 'Tooltip text',
+                        'class' => 'fas fa-info-circle',
+                    ],
+                    '/span',
+                '/label',
+                ['div' => ['class' => 'col-sm-7']],
+                'input' => [
+                    'type' => 'time',
+                    'name' => 'created',
+                    'id' => 'created',
+                    'class' => 'form-control',
+                    'step' => '1',
+                    'value' => date('H:i:s', $now),
+                ],
                 '/div',
             '/div',
         ];
@@ -2153,6 +2232,44 @@ class FormHelperTest extends TestCase
         $this->assertHtml($expected, $result);
     }
 
+    public function testInlineAlignDatetimeControlWithTooltip()
+    {
+        $this->withErrorReporting(0, function () {
+            $this->Form->create($this->article, [
+                'align' => 'inline',
+            ]);
+        });
+
+        $now = new \DateTime('now');
+
+        $result = $this->Form->control('created', [
+            'type' => 'datetime-local',
+            'value' => $now->format('Y-m-d H:i:s'),
+            'tooltip' => 'Tooltip text',
+        ]);
+        $expected = [
+            ['div' => ['class' => 'form-group datetime-local', 'role' => 'group', 'aria-labelledby' => 'created-group-label']],
+                ['span' => ['id' => 'created-group-label', 'class' => 'sr-only']],
+                    'Created ',
+                    'span' => [
+                        'data-toggle' => 'tooltip',
+                        'title' => 'Tooltip text',
+                        'class' => 'fas fa-info-circle',
+                    ],
+                    '/span',
+                '/span',
+                'input' => [
+                    'type' => 'datetime-local',
+                    'name' => 'created',
+                    'id' => 'created',
+                    'class' => 'form-control',
+                    'value' => $now->format('Y-m-d H:i:s'),
+                ],
+            '/div',
+        ];
+        $this->assertHtml($expected, $result);
+    }
+
     public function testInlineAlignDatetimeControlDate()
     {
         $this->withErrorReporting(0, function () {
@@ -2342,6 +2459,42 @@ class FormHelperTest extends TestCase
         $this->assertHtml($expected, $result);
     }
 
+    public function testDefaultAlignCheckboxControlWithTooltip()
+    {
+        $this->Form->create($this->article);
+
+        $result = $this->Form->control('users', [
+            'type' => 'checkbox',
+            'tooltip' => 'Tooltip text',
+        ]);
+        $expected = [
+            ['div' => ['class' => 'form-group form-check checkbox']],
+                ['input' => [
+                    'type' => 'hidden',
+                    'name' => 'users',
+                    'value' => 0,
+                ]],
+                ['input' => [
+                    'class' => 'form-check-input',
+                    'type' => 'checkbox',
+                    'name' => 'users',
+                    'id' => 'users',
+                    'value' => 1,
+                ]],
+                ['label' => ['class' => 'form-check-label', 'for' => 'users']],
+                    'Users ',
+                    'span' => [
+                        'data-toggle' => 'tooltip',
+                        'title' => 'Tooltip text',
+                        'class' => 'fas fa-info-circle',
+                    ],
+                    '/span',
+                '/label',
+            '/div',
+        ];
+        $this->assertHtml($expected, $result);
+    }
+
     public function testDefaultAlignCheckboxControlNestedInput()
     {
         $this->Form->create($this->article);
@@ -2366,6 +2519,43 @@ class FormHelperTest extends TestCase
                         'value' => 1,
                     ]],
                     'Users',
+                '/label',
+            '/div',
+        ];
+        $this->assertHtml($expected, $result);
+    }
+
+    public function testDefaultAlignCheckboxControlNestedInputWithTooltip()
+    {
+        $this->Form->create($this->article);
+
+        $result = $this->Form->control('users', [
+            'type' => 'checkbox',
+            'nestedInput' => true,
+            'tooltip' => 'Tooltip text',
+        ]);
+        $expected = [
+            ['div' => ['class' => 'form-group form-check checkbox']],
+                ['input' => [
+                    'type' => 'hidden',
+                    'name' => 'users',
+                    'value' => 0,
+                ]],
+                ['label' => ['class' => 'form-check-label', 'for' => 'users']],
+                    ['input' => [
+                        'class' => 'form-check-input',
+                        'type' => 'checkbox',
+                        'name' => 'users',
+                        'id' => 'users',
+                        'value' => 1,
+                    ]],
+                    'Users ',
+                    'span' => [
+                        'data-toggle' => 'tooltip',
+                        'title' => 'Tooltip text',
+                        'class' => 'fas fa-info-circle',
+                    ],
+                    '/span',
                 '/label',
             '/div',
         ];
@@ -2402,6 +2592,43 @@ class FormHelperTest extends TestCase
         $this->assertHtml($expected, $result);
     }
 
+    public function testDefaultAlignCheckboxControlInlineWithTooltip()
+    {
+        $this->Form->create($this->article);
+
+        $result = $this->Form->control('users', [
+            'type' => 'checkbox',
+            'inline' => true,
+            'tooltip' => 'Tooltip text',
+        ]);
+        $expected = [
+            ['div' => ['class' => 'form-check form-check-inline checkbox']],
+                ['input' => [
+                    'type' => 'hidden',
+                    'name' => 'users',
+                    'value' => 0,
+                ]],
+                ['input' => [
+                    'class' => 'form-check-input',
+                    'type' => 'checkbox',
+                    'name' => 'users',
+                    'id' => 'users',
+                    'value' => 1,
+                ]],
+                ['label' => ['class' => 'form-check-label', 'for' => 'users']],
+                    'Users ',
+                    'span' => [
+                        'data-toggle' => 'tooltip',
+                        'title' => 'Tooltip text',
+                        'class' => 'fas fa-info-circle',
+                    ],
+                    '/span',
+                '/label',
+            '/div',
+        ];
+        $this->assertHtml($expected, $result);
+    }
+
     public function testDefaultAlignCheckboxControlInlineNestedInput()
     {
         $this->Form->create($this->article);
@@ -2427,6 +2654,44 @@ class FormHelperTest extends TestCase
                         'value' => 1,
                     ]],
                     'Users',
+                '/label',
+            '/div',
+        ];
+        $this->assertHtml($expected, $result);
+    }
+
+    public function testDefaultAlignCheckboxControlInlineNestedInputWithTooltip()
+    {
+        $this->Form->create($this->article);
+
+        $result = $this->Form->control('users', [
+            'type' => 'checkbox',
+            'inline' => true,
+            'nestedInput' => true,
+            'tooltip' => 'Tooltip text',
+        ]);
+        $expected = [
+            ['div' => ['class' => 'form-check form-check-inline checkbox']],
+                ['input' => [
+                    'type' => 'hidden',
+                    'name' => 'users',
+                    'value' => 0,
+                ]],
+                ['label' => ['class' => 'form-check-label', 'for' => 'users']],
+                    ['input' => [
+                        'class' => 'form-check-input',
+                        'type' => 'checkbox',
+                        'name' => 'users',
+                        'id' => 'users',
+                        'value' => 1,
+                    ]],
+                    'Users ',
+                    'span' => [
+                        'data-toggle' => 'tooltip',
+                        'title' => 'Tooltip text',
+                        'class' => 'fas fa-info-circle',
+                    ],
+                    '/span',
                 '/label',
             '/div',
         ];
@@ -2465,6 +2730,53 @@ class FormHelperTest extends TestCase
                         ]],
                         ['label' => ['class' => 'form-check-label', 'for' => 'users']],
                             'Users',
+                        '/label',
+                    '/div',
+                '/div',
+            '/div',
+        ];
+        $this->assertHtml($expected, $result);
+    }
+
+    public function testHorizontalAlignCheckboxControlWithTooltip()
+    {
+        $this->Form->create($this->article, [
+            'align' => [
+                'sm' => [
+                    'left' => 5,
+                    'middle' => 7,
+                ],
+            ],
+        ]);
+
+        $result = $this->Form->control('users', [
+            'type' => 'checkbox',
+            'tooltip' => 'Tooltip text',
+        ]);
+        $expected = [
+            ['div' => ['class' => 'form-group row checkbox']],
+                ['div' => ['class' => 'offset-sm-5 col-sm-7']],
+                    ['div' => ['class' => 'form-check']],
+                        ['input' => [
+                            'type' => 'hidden',
+                            'name' => 'users',
+                            'value' => 0,
+                        ]],
+                        ['input' => [
+                            'class' => 'form-check-input',
+                            'type' => 'checkbox',
+                            'name' => 'users',
+                            'id' => 'users',
+                            'value' => 1,
+                        ]],
+                        ['label' => ['class' => 'form-check-label', 'for' => 'users']],
+                            'Users ',
+                            'span' => [
+                                'data-toggle' => 'tooltip',
+                                'title' => 'Tooltip text',
+                                'class' => 'fas fa-info-circle',
+                            ],
+                            '/span',
                         '/label',
                     '/div',
                 '/div',
@@ -2514,6 +2826,54 @@ class FormHelperTest extends TestCase
         $this->assertHtml($expected, $result);
     }
 
+    public function testHorizontalAlignCheckboxControlNestedInputWithTooltip()
+    {
+        $this->Form->create($this->article, [
+            'align' => [
+                'sm' => [
+                    'left' => 5,
+                    'middle' => 7,
+                ],
+            ],
+        ]);
+
+        $result = $this->Form->control('users', [
+            'type' => 'checkbox',
+            'nestedInput' => true,
+            'tooltip' => 'Tooltip text',
+        ]);
+        $expected = [
+            ['div' => ['class' => 'form-group row checkbox']],
+                ['div' => ['class' => 'offset-sm-5 col-sm-7']],
+                    ['div' => ['class' => 'form-check']],
+                        ['input' => [
+                            'type' => 'hidden',
+                            'name' => 'users',
+                            'value' => 0,
+                        ]],
+                        ['label' => ['class' => 'form-check-label', 'for' => 'users']],
+                            ['input' => [
+                                'class' => 'form-check-input',
+                                'type' => 'checkbox',
+                                'name' => 'users',
+                                'id' => 'users',
+                                'value' => 1,
+                            ]],
+                            'Users ',
+                            'span' => [
+                                'data-toggle' => 'tooltip',
+                                'title' => 'Tooltip text',
+                                'class' => 'fas fa-info-circle',
+                            ],
+                            '/span',
+                        '/label',
+                    '/div',
+                '/div',
+            '/div',
+        ];
+        $this->assertHtml($expected, $result);
+    }
+
     public function testHorizontalAlignCheckboxControlInline()
     {
         $this->Form->create($this->article, [
@@ -2547,6 +2907,54 @@ class FormHelperTest extends TestCase
                         ]],
                         ['label' => ['class' => 'form-check-label', 'for' => 'users']],
                             'Users',
+                        '/label',
+                    '/div',
+                '/div',
+            '/div',
+        ];
+        $this->assertHtml($expected, $result);
+    }
+
+    public function testHorizontalAlignCheckboxControlInlineWithTooltip()
+    {
+        $this->Form->create($this->article, [
+            'align' => [
+                'sm' => [
+                    'left' => 5,
+                    'middle' => 7,
+                ],
+            ],
+        ]);
+
+        $result = $this->Form->control('users', [
+            'type' => 'checkbox',
+            'inline' => true,
+            'tooltip' => 'Tooltip text',
+        ]);
+        $expected = [
+            ['div' => ['class' => 'form-group row checkbox']],
+                ['div' => ['class' => 'offset-sm-5 col-sm-7']],
+                    ['div' => ['class' => 'form-check']],
+                        ['input' => [
+                            'type' => 'hidden',
+                            'name' => 'users',
+                            'value' => 0,
+                        ]],
+                        ['input' => [
+                            'class' => 'form-check-input',
+                            'type' => 'checkbox',
+                            'name' => 'users',
+                            'id' => 'users',
+                            'value' => 1,
+                        ]],
+                        ['label' => ['class' => 'form-check-label', 'for' => 'users']],
+                            'Users ',
+                            'span' => [
+                                'data-toggle' => 'tooltip',
+                                'title' => 'Tooltip text',
+                                'class' => 'fas fa-info-circle',
+                            ],
+                            '/span',
                         '/label',
                     '/div',
                 '/div',
@@ -2597,6 +3005,55 @@ class FormHelperTest extends TestCase
         $this->assertHtml($expected, $result);
     }
 
+    public function testHorizontalAlignCheckboxControlInlineNestedInputWithTooltip()
+    {
+        $this->Form->create($this->article, [
+            'align' => [
+                'sm' => [
+                    'left' => 5,
+                    'middle' => 7,
+                ],
+            ],
+        ]);
+
+        $result = $this->Form->control('users', [
+            'type' => 'checkbox',
+            'inline' => true,
+            'nestedInput' => true,
+            'tooltip' => 'Tooltip text',
+        ]);
+        $expected = [
+            ['div' => ['class' => 'form-group row checkbox']],
+                ['div' => ['class' => 'offset-sm-5 col-sm-7']],
+                    ['div' => ['class' => 'form-check']],
+                        ['input' => [
+                            'type' => 'hidden',
+                            'name' => 'users',
+                            'value' => 0,
+                        ]],
+                        ['label' => ['class' => 'form-check-label', 'for' => 'users']],
+                            ['input' => [
+                                'class' => 'form-check-input',
+                                'type' => 'checkbox',
+                                'name' => 'users',
+                                'id' => 'users',
+                                'value' => 1,
+                            ]],
+                            'Users ',
+                            'span' => [
+                                'data-toggle' => 'tooltip',
+                                'title' => 'Tooltip text',
+                                'class' => 'fas fa-info-circle',
+                            ],
+                            '/span',
+                        '/label',
+                    '/div',
+                '/div',
+            '/div',
+        ];
+        $this->assertHtml($expected, $result);
+    }
+
     public function testInlineAlignCheckboxControl()
     {
         $this->withErrorReporting(0, function () {
@@ -2624,6 +3081,46 @@ class FormHelperTest extends TestCase
                 ]],
                 ['label' => ['class' => 'form-check-label', 'for' => 'users']],
                     'Users',
+                '/label',
+            '/div',
+        ];
+        $this->assertHtml($expected, $result);
+    }
+
+    public function testInlineAlignCheckboxControlWithTooltip()
+    {
+        $this->withErrorReporting(0, function () {
+            $this->Form->create($this->article, [
+                'align' => 'inline',
+            ]);
+        });
+
+        $result = $this->Form->control('users', [
+            'type' => 'checkbox',
+            'tooltip' => 'Tooltip text',
+        ]);
+        $expected = [
+            ['div' => ['class' => 'form-check form-check-inline checkbox']],
+                ['input' => [
+                    'type' => 'hidden',
+                    'name' => 'users',
+                    'value' => 0,
+                ]],
+                ['input' => [
+                    'class' => 'form-check-input',
+                    'type' => 'checkbox',
+                    'name' => 'users',
+                    'id' => 'users',
+                    'value' => 1,
+                ]],
+                ['label' => ['class' => 'form-check-label', 'for' => 'users']],
+                    'Users ',
+                    'span' => [
+                        'data-toggle' => 'tooltip',
+                        'title' => 'Tooltip text',
+                        'class' => 'fas fa-info-circle',
+                    ],
+                    '/span',
                 '/label',
             '/div',
         ];
@@ -2664,6 +3161,47 @@ class FormHelperTest extends TestCase
         $this->assertHtml($expected, $result);
     }
 
+    public function testInlineAlignCheckboxControlNestedInputWithTooltip()
+    {
+        $this->withErrorReporting(0, function () {
+            $this->Form->create($this->article, [
+                'align' => 'inline',
+            ]);
+        });
+
+        $result = $this->Form->control('users', [
+            'type' => 'checkbox',
+            'nestedInput' => true,
+            'tooltip' => 'Tooltip text',
+        ]);
+        $expected = [
+            ['div' => ['class' => 'form-check form-check-inline checkbox']],
+                ['input' => [
+                    'type' => 'hidden',
+                    'name' => 'users',
+                    'value' => 0,
+                ]],
+                ['label' => ['class' => 'form-check-label', 'for' => 'users']],
+                    ['input' => [
+                        'class' => 'form-check-input',
+                        'type' => 'checkbox',
+                        'name' => 'users',
+                        'id' => 'users',
+                        'value' => 1,
+                    ]],
+                    'Users ',
+                    'span' => [
+                        'data-toggle' => 'tooltip',
+                        'title' => 'Tooltip text',
+                        'class' => 'fas fa-info-circle',
+                    ],
+                    '/span',
+                '/label',
+            '/div',
+        ];
+        $this->assertHtml($expected, $result);
+    }
+
     public function testInlineAlignCheckboxControlInline()
     {
         $this->withErrorReporting(0, function () {
@@ -2692,6 +3230,47 @@ class FormHelperTest extends TestCase
                 ]],
                 ['label' => ['class' => 'form-check-label', 'for' => 'users']],
                     'Users',
+                '/label',
+            '/div',
+        ];
+        $this->assertHtml($expected, $result);
+    }
+
+    public function testInlineAlignCheckboxControlInlineWithTooltip()
+    {
+        $this->withErrorReporting(0, function () {
+            $this->Form->create($this->article, [
+                'align' => 'inline',
+            ]);
+        });
+
+        $result = $this->Form->control('users', [
+            'type' => 'checkbox',
+            'inline' => true,
+            'tooltip' => 'Tooltip text',
+        ]);
+        $expected = [
+            ['div' => ['class' => 'form-check form-check-inline checkbox']],
+                ['input' => [
+                    'type' => 'hidden',
+                    'name' => 'users',
+                    'value' => 0,
+                ]],
+                ['input' => [
+                    'class' => 'form-check-input',
+                    'type' => 'checkbox',
+                    'name' => 'users',
+                    'id' => 'users',
+                    'value' => 1,
+                ]],
+                ['label' => ['class' => 'form-check-label', 'for' => 'users']],
+                    'Users ',
+                    'span' => [
+                        'data-toggle' => 'tooltip',
+                        'title' => 'Tooltip text',
+                        'class' => 'fas fa-info-circle',
+                    ],
+                    '/span',
                 '/label',
             '/div',
         ];
@@ -2727,6 +3306,48 @@ class FormHelperTest extends TestCase
                         'value' => 1,
                     ]],
                     'Users',
+                '/label',
+            '/div',
+        ];
+        $this->assertHtml($expected, $result);
+    }
+
+    public function testInlineAlignCheckboxControlInlineNestedInputWithTooltip()
+    {
+        $this->withErrorReporting(0, function () {
+            $this->Form->create($this->article, [
+                'align' => 'inline',
+            ]);
+        });
+
+        $result = $this->Form->control('users', [
+            'type' => 'checkbox',
+            'inline' => true,
+            'nestedInput' => true,
+            'tooltip' => 'Tooltip text',
+        ]);
+        $expected = [
+            ['div' => ['class' => 'form-check form-check-inline checkbox']],
+                ['input' => [
+                    'type' => 'hidden',
+                    'name' => 'users',
+                    'value' => 0,
+                ]],
+                ['label' => ['class' => 'form-check-label', 'for' => 'users']],
+                    ['input' => [
+                        'class' => 'form-check-input',
+                        'type' => 'checkbox',
+                        'name' => 'users',
+                        'id' => 'users',
+                        'value' => 1,
+                    ]],
+                    'Users ',
+                    'span' => [
+                        'data-toggle' => 'tooltip',
+                        'title' => 'Tooltip text',
+                        'class' => 'fas fa-info-circle',
+                    ],
+                    '/span',
                 '/label',
             '/div',
         ];
@@ -2778,6 +3399,35 @@ class FormHelperTest extends TestCase
                         'option 2',
                     '/label',
                 '/div',
+            '/div',
+        ];
+        $this->assertHtml($expected, $result);
+    }
+
+    public function testDefaultAlignRadioControlWithTooltip()
+    {
+        $this->Form->create($this->article);
+
+        $result = $this->Form->control('users', [
+            'type' => 'radio',
+            'tooltip' => 'Tooltip text',
+        ]);
+        $expected = [
+            ['div' => ['class' => 'form-group radio', 'role' => 'group', 'aria-labelledby' => 'users-group-label']],
+                ['label' => ['id' => 'users-group-label', 'class' => 'd-block']],
+                    'Users' ,
+                    'span' => [
+                        'data-toggle' => 'tooltip',
+                        'title' => 'Tooltip text',
+                        'class' => 'fas fa-info-circle',
+                    ],
+                    '/span',
+                '/label',
+                ['input' => [
+                    'type' => 'hidden',
+                    'name' => 'users',
+                    'value' => '',
+                ]],
             '/div',
         ];
         $this->assertHtml($expected, $result);
@@ -3203,6 +3853,44 @@ class FormHelperTest extends TestCase
                             'option 2',
                         '/label',
                     '/div',
+                '/div',
+            '/div',
+        ];
+        $this->assertHtml($expected, $result);
+    }
+
+    public function testHorizontalAlignRadioControlWithTooltip()
+    {
+        $this->Form->create($this->article, [
+            'align' => [
+                'sm' => [
+                    'left' => 5,
+                    'middle' => 7,
+                ],
+            ],
+        ]);
+
+        $result = $this->Form->control('users', [
+            'type' => 'radio',
+            'tooltip' => 'Tooltip text',
+        ]);
+        $expected = [
+            ['div' => ['class' => 'form-group row radio', 'role' => 'group', 'aria-labelledby' => 'users-group-label']],
+                ['label' => ['id' => 'users-group-label', 'class' => 'col-form-label d-block pt-0 col-sm-5']],
+                    'Users ' ,
+                    'span' => [
+                        'data-toggle' => 'tooltip',
+                        'title' => 'Tooltip text',
+                        'class' => 'fas fa-info-circle',
+                    ],
+                    '/span',
+                '/label',
+                ['div' => ['class' => 'col-sm-7']],
+                    ['input' => [
+                        'type' => 'hidden',
+                        'name' => 'users',
+                        'value' => '',
+                    ]],
                 '/div',
             '/div',
         ];
@@ -3684,6 +4372,36 @@ class FormHelperTest extends TestCase
         $this->assertHtml($expected, $result);
     }
 
+    public function testInlineAlignRadioControlWithTooltip()
+    {
+        $this->Form->create($this->article);
+
+        $result = $this->Form->control('published', [
+            'inline' => true,
+            'type' => 'radio',
+            'tooltip' => 'Tooltip text',
+        ]);
+        $expected = [
+            ['div' => ['class' => 'form-group radio', 'role' => 'group', 'aria-labelledby' => 'published-group-label']],
+                ['label' => ['id' => 'published-group-label', 'class' => 'd-block']],
+                    'Published ',
+                    'span' => [
+                        'data-toggle' => 'tooltip',
+                        'title' => 'Tooltip text',
+                        'class' => 'fas fa-info-circle',
+                    ],
+                    '/span',
+                '/label',
+                'input' => [
+                    'type' => 'hidden',
+                    'name' => 'published',
+                    'value' => '',
+                ],
+            '/div',
+        ];
+        $this->assertHtml($expected, $result);
+    }
+
     public function testInlineAlignRadioControlWithPerOptionConfiguration()
     {
         $this->withErrorReporting(0, function () {
@@ -3933,6 +4651,36 @@ class FormHelperTest extends TestCase
                         'option 2',
                     '/label',
                 '/div',
+            '/div',
+        ];
+        $this->assertHtml($expected, $result);
+    }
+
+    public function testDefaultAlignMultipleCheckboxControlWithTooltip()
+    {
+        $this->Form->create($this->article);
+
+        $result = $this->Form->control('users', [
+            'multiple' => 'checkbox',
+            'options' => [],
+            'tooltip' => 'Tooltip text',
+        ]);
+        $expected = [
+            ['div' => ['class' => 'form-group multicheckbox', 'role' => 'group', 'aria-labelledby' => 'users-group-label']],
+                ['label' => ['id' => 'users-group-label', 'class' => 'd-block']],
+                    'Users ',
+                    'span' => [
+                        'data-toggle' => 'tooltip',
+                        'title' => 'Tooltip text',
+                        'class' => 'fas fa-info-circle',
+                    ],
+                    '/span',
+                '/label',
+                ['input' => [
+                    'type' => 'hidden',
+                    'name' => 'users',
+                    'value' => '',
+                ]],
             '/div',
         ];
         $this->assertHtml($expected, $result);
@@ -4957,6 +5705,45 @@ class FormHelperTest extends TestCase
                             'option 2',
                         '/label',
                     '/div',
+                '/div',
+            '/div',
+        ];
+        $this->assertHtml($expected, $result);
+    }
+
+    public function testHorizontalAlignMultipleCheckboxControlWithTooltip()
+    {
+        $this->Form->create($this->article, [
+            'align' => [
+                'sm' => [
+                    'left' => 5,
+                    'middle' => 7,
+                ],
+            ],
+        ]);
+
+        $result = $this->Form->control('users', [
+            'multiple' => 'checkbox',
+            'options' => [],
+            'tooltip' => 'Tooltip text',
+        ]);
+        $expected = [
+            ['div' => ['class' => 'form-group row multicheckbox', 'role' => 'group', 'aria-labelledby' => 'users-group-label']],
+                ['label' => ['id' => 'users-group-label', 'class' => 'col-form-label d-block pt-0 col-sm-5']],
+                    'Users ',
+                    'span' => [
+                        'data-toggle' => 'tooltip',
+                        'title' => 'Tooltip text',
+                        'class' => 'fas fa-info-circle',
+                    ],
+                    '/span',
+                '/label',
+                ['div' => ['class' => 'col-sm-7']],
+                    ['input' => [
+                        'type' => 'hidden',
+                        'name' => 'users',
+                        'value' => '',
+                    ]],
                 '/div',
             '/div',
         ];
@@ -6082,6 +6869,40 @@ class FormHelperTest extends TestCase
         $this->assertHtml($expected, $result);
     }
 
+    public function testInlineAlignMultipleCheckboxControlWithTooltip()
+    {
+        $this->withErrorReporting(0, function () {
+            $this->Form->create($this->article, [
+                'align' => 'inline',
+            ]);
+        });
+
+        $result = $this->Form->control('users', [
+            'multiple' => 'checkbox',
+            'options' => [],
+            'tooltip' => 'Tooltip text',
+        ]);
+        $expected = [
+            ['div' => ['class' => 'form-group multicheckbox', 'role' => 'group', 'aria-labelledby' => 'users-group-label']],
+                ['span' => ['id' => 'users-group-label', 'class' => 'sr-only']],
+                    'Users ',
+                    'span' => [
+                        'data-toggle' => 'tooltip',
+                        'title' => 'Tooltip text',
+                        'class' => 'fas fa-info-circle',
+                    ],
+                    '/span',
+                '/span',
+                ['input' => [
+                    'type' => 'hidden',
+                    'name' => 'users',
+                    'value' => '',
+                ]],
+            '/div',
+        ];
+        $this->assertHtml($expected, $result);
+    }
+
     public function testInlineAlignMultipleCheckboxControlWithPerOptionConfiguration()
     {
         $this->withErrorReporting(0, function () {
@@ -6281,6 +7102,408 @@ class FormHelperTest extends TestCase
                         'option 3',
                     '/label',
                 '/div',
+            '/div',
+        ];
+        $this->assertHtml($expected, $result);
+    }
+
+    public function testDefaultAlignFileControl()
+    {
+        $this->Form->create($this->article);
+
+        $result = $this->Form->control('file', [
+            'type' => 'file',
+        ]);
+        $expected = [
+            ['div' => ['class' => 'form-group file']],
+                ['label' => ['for' => 'file']],
+                    'File',
+                '/label',
+                ['input' => [
+                    'type' => 'file',
+                    'name' => 'file',
+                    'id' => 'file',
+                    'class' => 'form-control-file',
+                ]],
+            '/div',
+        ];
+        $this->assertHtml($expected, $result);
+    }
+
+    public function testDefaultAlignFileControlWithTooltip()
+    {
+        $this->Form->create($this->article);
+
+        $result = $this->Form->control('file', [
+            'type' => 'file',
+            'tooltip' => 'Tooltip text',
+        ]);
+        $expected = [
+            ['div' => ['class' => 'form-group file']],
+                ['label' => ['for' => 'file']],
+                    'File ',
+                    'span' => [
+                        'data-toggle' => 'tooltip',
+                        'title' => 'Tooltip text',
+                        'class' => 'fas fa-info-circle',
+                    ],
+                    '/span',
+                '/label',
+                ['input' => [
+                    'type' => 'file',
+                    'name' => 'file',
+                    'id' => 'file',
+                    'class' => 'form-control-file',
+                ]],
+            '/div',
+        ];
+        $this->assertHtml($expected, $result);
+    }
+
+    public function testHorizontalAlignFileControl()
+    {
+        $this->Form->create($this->article, [
+            'align' => [
+                'sm' => [
+                    'left' => 5,
+                    'middle' => 7,
+                ],
+            ],
+        ]);
+
+        $result = $this->Form->control('file', [
+            'type' => 'file',
+        ]);
+        $expected = [
+            ['div' => ['class' => 'form-group row file']],
+                ['label' => ['class' => 'col-form-label pt-1 col-sm-5', 'for' => 'file']],
+                    'File',
+                '/label',
+                ['div' => ['class' => 'col-sm-7']],
+                    ['input' => [
+                        'type' => 'file',
+                        'name' => 'file',
+                        'id' => 'file',
+                        'class' => 'form-control-file',
+                    ]],
+                '/div',
+            '/div',
+        ];
+        $this->assertHtml($expected, $result);
+    }
+
+    public function testHorizontalAlignFileControlWithTooltip()
+    {
+        $this->Form->create($this->article, [
+            'align' => [
+                'sm' => [
+                    'left' => 5,
+                    'middle' => 7,
+                ],
+            ],
+        ]);
+
+        $result = $this->Form->control('file', [
+            'type' => 'file',
+            'tooltip' => 'Tooltip text',
+        ]);
+        $expected = [
+            ['div' => ['class' => 'form-group row file']],
+                ['label' => ['class' => 'col-form-label pt-1 col-sm-5', 'for' => 'file']],
+                    'File ',
+                    'span' => [
+                        'data-toggle' => 'tooltip',
+                        'title' => 'Tooltip text',
+                        'class' => 'fas fa-info-circle',
+                    ],
+                    '/span',
+                '/label',
+                ['div' => ['class' => 'col-sm-7']],
+                    ['input' => [
+                        'type' => 'file',
+                        'name' => 'file',
+                        'id' => 'file',
+                        'class' => 'form-control-file',
+                    ]],
+                '/div',
+            '/div',
+        ];
+        $this->assertHtml($expected, $result);
+    }
+
+    public function testInlineAlignFileControl()
+    {
+        $this->withErrorReporting(0, function () {
+            $this->Form->create($this->article, [
+                'align' => 'inline',
+            ]);
+        });
+
+        $result = $this->Form->control('file', [
+            'type' => 'file',
+        ]);
+        $expected = [
+            ['div' => ['class' => 'form-group file']],
+                ['label' => ['class' => 'sr-only', 'for' => 'file']],
+                    'File',
+                '/label',
+                ['input' => [
+                    'type' => 'file',
+                    'name' => 'file',
+                    'id' => 'file',
+                    'class' => 'form-control-file',
+                ]],
+            '/div',
+        ];
+        $this->assertHtml($expected, $result);
+    }
+
+    public function testInlineAlignFileControlWithTooltip()
+    {
+        $this->withErrorReporting(0, function () {
+            $this->Form->create($this->article, [
+                'align' => 'inline',
+            ]);
+        });
+
+        $result = $this->Form->control('file', [
+            'type' => 'file',
+            'tooltip' => 'Tooltip text',
+        ]);
+        $expected = [
+            ['div' => ['class' => 'form-group file']],
+                ['label' => ['class' => 'sr-only', 'for' => 'file']],
+                    'File ',
+                    'span' => [
+                        'data-toggle' => 'tooltip',
+                        'title' => 'Tooltip text',
+                        'class' => 'fas fa-info-circle',
+                    ],
+                    '/span',
+                '/label',
+                ['input' => [
+                    'type' => 'file',
+                    'name' => 'file',
+                    'id' => 'file',
+                    'class' => 'form-control-file',
+                ]],
+            '/div',
+        ];
+        $this->assertHtml($expected, $result);
+    }
+
+    public function testDefaultAlignRangeControl()
+    {
+        $this->Form->create($this->article);
+
+        $result = $this->Form->control('height', [
+            'type' => 'range',
+            'min' => 0,
+            'max' => 10,
+            'step' => 1,
+        ]);
+        $expected = [
+            'div' => ['class' => 'form-group range'],
+                ['label' => ['for' => 'height']],
+                    'Height',
+                '/label',
+                'input' => [
+                    'type' => 'range',
+                    'name' => 'height',
+                    'min' => 0,
+                    'max' => 10,
+                    'step' => 1,
+                    'id' => 'height',
+                    'class' => 'form-control',
+                ],
+            '/div',
+        ];
+        $this->assertHtml($expected, $result);
+    }
+
+    public function testDefaultAlignRangeControlWithTooltip()
+    {
+        $this->Form->create($this->article);
+
+        $result = $this->Form->control('height', [
+            'type' => 'range',
+            'min' => 0,
+            'max' => 10,
+            'step' => 1,
+            'tooltip' => 'Tooltip text',
+        ]);
+        $expected = [
+            'div' => ['class' => 'form-group range'],
+                ['label' => ['for' => 'height']],
+                    'Height ',
+                    'span' => [
+                        'data-toggle' => 'tooltip',
+                        'title' => 'Tooltip text',
+                        'class' => 'fas fa-info-circle',
+                    ],
+                    '/span',
+                '/label',
+                'input' => [
+                    'type' => 'range',
+                    'name' => 'height',
+                    'min' => 0,
+                    'max' => 10,
+                    'step' => 1,
+                    'id' => 'height',
+                    'class' => 'form-control',
+                ],
+            '/div',
+        ];
+        $this->assertHtml($expected, $result);
+    }
+
+    public function testHorizontalAlignRangeControl()
+    {
+        $this->Form->create($this->article, [
+            'align' => [
+                'sm' => [
+                    'left' => 5,
+                    'middle' => 7,
+                ],
+            ],
+        ]);
+
+        $result = $this->Form->control('height', [
+            'type' => 'range',
+            'min' => 0,
+            'max' => 10,
+            'step' => 1,
+        ]);
+        $expected = [
+            'div' => ['class' => 'form-group row range'],
+                ['label' => ['class' => 'col-form-label col-sm-5', 'for' => 'height']],
+                    'Height',
+                '/label',
+                ['div' => ['class' => 'col-sm-7']],
+                    'input' => [
+                        'type' => 'range',
+                        'name' => 'height',
+                        'min' => 0,
+                        'max' => 10,
+                        'step' => 1,
+                        'id' => 'height',
+                        'class' => 'form-control',
+                    ],
+                '/div',
+            '/div',
+        ];
+        $this->assertHtml($expected, $result);
+    }
+
+    public function testHorizontalAlignRangeControlWithTooltip()
+    {
+        $this->Form->create($this->article, [
+            'align' => [
+                'sm' => [
+                    'left' => 5,
+                    'middle' => 7,
+                ],
+            ],
+        ]);
+
+        $result = $this->Form->control('height', [
+            'type' => 'range',
+            'min' => 0,
+            'max' => 10,
+            'step' => 1,
+            'tooltip' => 'Tooltip text',
+        ]);
+        $expected = [
+            'div' => ['class' => 'form-group row range'],
+                ['label' => ['class' => 'col-form-label col-sm-5', 'for' => 'height']],
+                    'Height',
+                    'span' => [
+                        'data-toggle' => 'tooltip',
+                        'title' => 'Tooltip text',
+                        'class' => 'fas fa-info-circle',
+                    ],
+                    '/span',
+                '/label',
+                ['div' => ['class' => 'col-sm-7']],
+                    'input' => [
+                        'type' => 'range',
+                        'name' => 'height',
+                        'min' => 0,
+                        'max' => 10,
+                        'step' => 1,
+                        'id' => 'height',
+                        'class' => 'form-control',
+                    ],
+                '/div',
+            '/div',
+        ];
+        $this->assertHtml($expected, $result);
+    }
+
+    public function testInlineAlignRangeControl()
+    {
+        $this->Form->create($this->article, [
+            'align' => 'inline',
+        ]);
+
+        $result = $this->Form->control('height', [
+            'type' => 'range',
+            'min' => 0,
+            'max' => 10,
+            'step' => 1,
+        ]);
+        $expected = [
+            'div' => ['class' => 'form-group range'],
+                ['label' => ['class' => 'sr-only', 'for' => 'height']],
+                    'Height',
+                '/label',
+                'input' => [
+                    'type' => 'range',
+                    'name' => 'height',
+                    'min' => 0,
+                    'max' => 10,
+                    'step' => 1,
+                    'id' => 'height',
+                    'class' => 'form-control',
+                ],
+            '/div',
+        ];
+        $this->assertHtml($expected, $result);
+    }
+
+    public function testInlineAlignRangeControlWithTooltip()
+    {
+        $this->Form->create($this->article, [
+            'align' => 'inline',
+        ]);
+
+        $result = $this->Form->control('height', [
+            'type' => 'range',
+            'min' => 0,
+            'max' => 10,
+            'step' => 1,
+            'tooltip' => 'Tooltip text',
+        ]);
+        $expected = [
+            'div' => ['class' => 'form-group range'],
+                ['label' => ['class' => 'sr-only', 'for' => 'height']],
+                    'Height ',
+                    'span' => [
+                        'data-toggle' => 'tooltip',
+                        'title' => 'Tooltip text',
+                        'class' => 'fas fa-info-circle',
+                    ],
+                    '/span',
+                '/label',
+                'input' => [
+                    'type' => 'range',
+                    'name' => 'height',
+                    'min' => 0,
+                    'max' => 10,
+                    'step' => 1,
+                    'id' => 'height',
+                    'class' => 'form-control',
+                ],
             '/div',
         ];
         $this->assertHtml($expected, $result);
@@ -8395,6 +9618,107 @@ class FormHelperTest extends TestCase
         $this->assertHtml($expected, $result);
     }
 
+    public function testDefaultAlignCustomRangeControl()
+    {
+        $this->Form->create($this->article);
+
+        $result = $this->Form->control('height', [
+            'type' => 'range',
+            'min' => 0,
+            'max' => 10,
+            'step' => 1,
+            'custom' => true,
+        ]);
+        $expected = [
+            'div' => ['class' => 'form-group range'],
+                ['label' => ['for' => 'height']],
+                    'Height',
+                '/label',
+                'input' => [
+                    'type' => 'range',
+                    'name' => 'height',
+                    'min' => 0,
+                    'max' => 10,
+                    'step' => 1,
+                    'id' => 'height',
+                    'class' => 'custom-range',
+                ],
+            '/div',
+        ];
+        $this->assertHtml($expected, $result);
+    }
+
+    public function testHorizontalAlignCustomRangeControl()
+    {
+        $this->Form->create($this->article, [
+            'align' => [
+                'sm' => [
+                    'left' => 5,
+                    'middle' => 7,
+                ],
+            ],
+        ]);
+
+        $result = $this->Form->control('height', [
+            'type' => 'range',
+            'min' => 0,
+            'max' => 10,
+            'step' => 1,
+            'custom' => true,
+        ]);
+        $expected = [
+            'div' => ['class' => 'form-group row range'],
+                ['label' => ['class' => 'col-form-label col-sm-5', 'for' => 'height']],
+                    'Height',
+                '/label',
+                ['div' => ['class' => 'col-sm-7']],
+                    'input' => [
+                        'type' => 'range',
+                        'name' => 'height',
+                        'min' => 0,
+                        'max' => 10,
+                        'step' => 1,
+                        'id' => 'height',
+                        'class' => 'custom-range',
+                    ],
+                '/div',
+            '/div',
+        ];
+        $this->assertHtml($expected, $result);
+    }
+
+    public function testInlineAlignCustomRangeControl()
+    {
+        $this->Form->create($this->article, [
+            'align' => 'inline',
+        ]);
+
+        $result = $this->Form->control('height', [
+            'type' => 'range',
+            'min' => 0,
+            'max' => 10,
+            'step' => 1,
+            'custom' => true,
+        ]);
+        $expected = [
+            'div' => ['class' => 'form-group range'],
+                ['label' => ['class' => 'sr-only', 'for' => 'height']],
+                    'Height',
+                '/label',
+                'input' => [
+                    'type' => 'range',
+                    'name' => 'height',
+                    'min' => 0,
+                    'max' => 10,
+                    'step' => 1,
+                    'id' => 'height',
+                    'class' => 'custom-range',
+                ],
+            '/div',
+        ];
+        $this->assertHtml($expected, $result);
+    }
+
     public function testDefaultAlignCustomSelectControl()
     {
         $this->Form->create($this->article);
@@ -8759,6 +10083,36 @@ class FormHelperTest extends TestCase
         $result = $this->Form->control('file', [
             'type' => 'file',
             'custom' => true,
+        ]);
+        $expected = [
+            ['div' => ['class' => 'form-group file']],
+                ['div' => ['class' => 'custom-file']],
+                    ['input' => [
+                        'type' => 'file',
+                        'name' => 'file',
+                        'id' => 'file',
+                        'class' => 'custom-file-input',
+                    ]],
+                    ['label' => ['class' => 'custom-file-label', 'for' => 'file']],
+                        'File',
+                    '/label',
+                 '/div',
+            '/div',
+        ];
+        $this->assertHtml($expected, $result);
+    }
+
+    /**
+     * Custom file controls should not render tooltips, as the label renders as an "input box".
+     */
+    public function testDefaultAlignCustomFileControlWithTooltip()
+    {
+        $this->Form->create($this->article);
+
+        $result = $this->Form->control('file', [
+            'type' => 'file',
+            'custom' => true,
+            'tooltip' => 'Tooltip text',
         ]);
         $expected = [
             ['div' => ['class' => 'form-group file']],
