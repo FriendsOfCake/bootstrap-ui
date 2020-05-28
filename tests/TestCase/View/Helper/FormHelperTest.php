@@ -1766,6 +1766,41 @@ class FormHelperTest extends TestCase
         $this->assertHtml($expected, $result);
     }
 
+    public function testDefaultAlignDatetimeControlWithTooltip()
+    {
+        $this->Form->create($this->article);
+
+        $now = time();
+
+        $result = $this->Form->control('created', [
+            'type' => 'time',
+            'value' => $now,
+            'tooltip' => 'Tooltip text',
+        ]);
+        $expected = [
+            ['div' => ['class' => 'form-group time', 'role' => 'group', 'aria-labelledby' => 'created-group-label']],
+                ['label' => ['id' => 'created-group-label']],
+                    'Created ',
+                    'span' => [
+                        'data-toggle' => 'tooltip',
+                        'title' => 'Tooltip text',
+                        'class' => 'fas fa-info-circle',
+                    ],
+                    '/span',
+                '/label',
+                'input' => [
+                    'type' => 'time',
+                    'name' => 'created',
+                    'id' => 'created',
+                    'class' => 'form-control',
+                    'step' => '1',
+                    'value' => date('H:i:s', $now),
+                ],
+            '/div',
+        ];
+        $this->assertHtml($expected, $result);
+    }
+
     public function testDefaultAlignDatetimeControlDate()
     {
         $this->Form->create($this->article);
@@ -1940,6 +1975,50 @@ class FormHelperTest extends TestCase
                         'class' => 'form-control',
                         'value' => $now->format('Y-m-d H:i:s'),
                     ],
+                '/div',
+            '/div',
+        ];
+        $this->assertHtml($expected, $result);
+    }
+
+    public function testHorizontalAlignDatetimeControlWithTooltip()
+    {
+        $this->Form->create($this->article, [
+            'align' => [
+                'sm' => [
+                    'left' => 5,
+                    'middle' => 7,
+                ],
+            ],
+        ]);
+
+        $now = time();
+
+        $result = $this->Form->control('created', [
+            'type' => 'time',
+            'value' => $now,
+            'tooltip' => 'Tooltip text',
+        ]);
+        $expected = [
+            ['div' => ['class' => 'form-group row time', 'role' => 'group', 'aria-labelledby' => 'created-group-label']],
+                ['label' => ['id' => 'created-group-label', 'class' => 'col-form-label col-sm-5']],
+                    'Created ',
+                    'span' => [
+                        'data-toggle' => 'tooltip',
+                        'title' => 'Tooltip text',
+                        'class' => 'fas fa-info-circle',
+                    ],
+                    '/span',
+                '/label',
+                ['div' => ['class' => 'col-sm-7']],
+                'input' => [
+                    'type' => 'time',
+                    'name' => 'created',
+                    'id' => 'created',
+                    'class' => 'form-control',
+                    'step' => '1',
+                    'value' => date('H:i:s', $now),
+                ],
                 '/div',
             '/div',
         ];
@@ -2140,6 +2219,44 @@ class FormHelperTest extends TestCase
             ['div' => ['class' => 'form-group datetime-local', 'role' => 'group', 'aria-labelledby' => 'created-group-label']],
                 ['span' => ['id' => 'created-group-label', 'class' => 'sr-only']],
                     'Created',
+                '/span',
+                'input' => [
+                    'type' => 'datetime-local',
+                    'name' => 'created',
+                    'id' => 'created',
+                    'class' => 'form-control',
+                    'value' => $now->format('Y-m-d H:i:s'),
+                ],
+            '/div',
+        ];
+        $this->assertHtml($expected, $result);
+    }
+
+    public function testInlineAlignDatetimeControlWithTooltip()
+    {
+        $this->withErrorReporting(0, function () {
+            $this->Form->create($this->article, [
+                'align' => 'inline',
+            ]);
+        });
+
+        $now = new \DateTime('now');
+
+        $result = $this->Form->control('created', [
+            'type' => 'datetime-local',
+            'value' => $now->format('Y-m-d H:i:s'),
+            'tooltip' => 'Tooltip text',
+        ]);
+        $expected = [
+            ['div' => ['class' => 'form-group datetime-local', 'role' => 'group', 'aria-labelledby' => 'created-group-label']],
+                ['span' => ['id' => 'created-group-label', 'class' => 'sr-only']],
+                    'Created ',
+                    'span' => [
+                        'data-toggle' => 'tooltip',
+                        'title' => 'Tooltip text',
+                        'class' => 'fas fa-info-circle',
+                    ],
+                    '/span',
                 '/span',
                 'input' => [
                     'type' => 'datetime-local',
@@ -2783,6 +2900,35 @@ class FormHelperTest extends TestCase
         $this->assertHtml($expected, $result);
     }
 
+    public function testDefaultAlignRadioControlWithTooltip()
+    {
+        $this->Form->create($this->article);
+
+        $result = $this->Form->control('users', [
+            'type' => 'radio',
+            'tooltip' => 'Tooltip text',
+        ]);
+        $expected = [
+            ['div' => ['class' => 'form-group radio', 'role' => 'group', 'aria-labelledby' => 'users-group-label']],
+                ['label' => ['id' => 'users-group-label', 'class' => 'd-block']],
+                    'Users' ,
+                    'span' => [
+                        'data-toggle' => 'tooltip',
+                        'title' => 'Tooltip text',
+                        'class' => 'fas fa-info-circle',
+                    ],
+                    '/span',
+                '/label',
+                ['input' => [
+                    'type' => 'hidden',
+                    'name' => 'users',
+                    'value' => '',
+                ]],
+            '/div',
+        ];
+        $this->assertHtml($expected, $result);
+    }
+
     public function testDefaultAlignRadioControlNestedInput()
     {
         $this->Form->create($this->article);
@@ -3203,6 +3349,44 @@ class FormHelperTest extends TestCase
                             'option 2',
                         '/label',
                     '/div',
+                '/div',
+            '/div',
+        ];
+        $this->assertHtml($expected, $result);
+    }
+
+    public function testHorizontalAlignRadioControlWithTooltip()
+    {
+        $this->Form->create($this->article, [
+            'align' => [
+                'sm' => [
+                    'left' => 5,
+                    'middle' => 7,
+                ],
+            ],
+        ]);
+
+        $result = $this->Form->control('users', [
+            'type' => 'radio',
+            'tooltip' => 'Tooltip text',
+        ]);
+        $expected = [
+            ['div' => ['class' => 'form-group row radio', 'role' => 'group', 'aria-labelledby' => 'users-group-label']],
+                ['label' => ['id' => 'users-group-label', 'class' => 'col-form-label d-block pt-0 col-sm-5']],
+                    'Users ' ,
+                    'span' => [
+                        'data-toggle' => 'tooltip',
+                        'title' => 'Tooltip text',
+                        'class' => 'fas fa-info-circle',
+                    ],
+                    '/span',
+                '/label',
+                ['div' => ['class' => 'col-sm-7']],
+                    ['input' => [
+                        'type' => 'hidden',
+                        'name' => 'users',
+                        'value' => '',
+                    ]],
                 '/div',
             '/div',
         ];
@@ -3679,6 +3863,36 @@ class FormHelperTest extends TestCase
                         'option 2',
                     '/label',
                 '/div',
+            '/div',
+        ];
+        $this->assertHtml($expected, $result);
+    }
+
+    public function testInlineAlignRadioControlWithTooltip()
+    {
+        $this->Form->create($this->article);
+
+        $result = $this->Form->control('published', [
+            'inline' => true,
+            'type' => 'radio',
+            'tooltip' => 'Tooltip text',
+        ]);
+        $expected = [
+            ['div' => ['class' => 'form-group radio', 'role' => 'group', 'aria-labelledby' => 'published-group-label']],
+                ['label' => ['id' => 'published-group-label', 'class' => 'd-block']],
+                    'Published ',
+                    'span' => [
+                        'data-toggle' => 'tooltip',
+                        'title' => 'Tooltip text',
+                        'class' => 'fas fa-info-circle',
+                    ],
+                    '/span',
+                '/label',
+                'input' => [
+                    'type' => 'hidden',
+                    'name' => 'published',
+                    'value' => '',
+                ],
             '/div',
         ];
         $this->assertHtml($expected, $result);

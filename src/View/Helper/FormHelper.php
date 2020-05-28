@@ -315,7 +315,10 @@ class FormHelper extends Helper
             case 'time':
                 $options['hasError'] = $this->_getContext()->hasError($fieldName);
 
-                $options['templateVars']['groupId'] = $this->_domId($fieldName . '-group-label');
+                $options['label']['templateVars']['groupId'] =
+                $options['templateVars']['groupId'] =
+                    $this->_domId($fieldName . '-group-label');
+
                 $options['templates']['label'] = $this->templater()->get('datetimeLabel');
                 $options['templates']['inputContainer'] = $this->templater()->get('datetimeContainer');
                 $options['templates']['inputContainerError'] = $this->templater()->get('datetimeContainerError');
@@ -370,7 +373,10 @@ class FormHelper extends Helper
                     $options['templates']['radioWrapper'] = $this->templater()->get('customRadioWrapper');
                 }
 
-                $options['templateVars']['groupId'] = $this->_domId($fieldName . '-group-label');
+                $options['label']['templateVars']['groupId'] =
+                $options['templateVars']['groupId'] =
+                    $this->_domId($fieldName . '-group-label');
+
                 $options['templates']['label'] = $this->templater()->get('radioLabel');
 
                 if (
@@ -393,7 +399,10 @@ class FormHelper extends Helper
                 if (isset($options['multiple']) && $options['multiple'] === 'checkbox') {
                     $options['type'] = 'multicheckbox';
 
-                    $options['templateVars']['groupId'] = $this->_domId($fieldName . '-group-label');
+                    $options['label']['templateVars']['groupId'] =
+                    $options['templateVars']['groupId'] =
+                        $this->_domId($fieldName . '-group-label');
+
                     $options['templates']['label'] = $this->templater()->get('multicheckboxLabel');
 
                     if (!$custom) {
