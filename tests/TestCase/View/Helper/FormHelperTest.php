@@ -7107,6 +7107,408 @@ class FormHelperTest extends TestCase
         $this->assertHtml($expected, $result);
     }
 
+    public function testDefaultAlignFileControl()
+    {
+        $this->Form->create($this->article);
+
+        $result = $this->Form->control('file', [
+            'type' => 'file',
+        ]);
+        $expected = [
+            ['div' => ['class' => 'form-group file']],
+                ['label' => ['for' => 'file']],
+                    'File',
+                '/label',
+                ['input' => [
+                    'type' => 'file',
+                    'name' => 'file',
+                    'id' => 'file',
+                    'class' => 'form-control-file',
+                ]],
+            '/div',
+        ];
+        $this->assertHtml($expected, $result);
+    }
+
+    public function testDefaultAlignFileControlWithTooltip()
+    {
+        $this->Form->create($this->article);
+
+        $result = $this->Form->control('file', [
+            'type' => 'file',
+            'tooltip' => 'Tooltip text',
+        ]);
+        $expected = [
+            ['div' => ['class' => 'form-group file']],
+                ['label' => ['for' => 'file']],
+                    'File ',
+                    'span' => [
+                        'data-toggle' => 'tooltip',
+                        'title' => 'Tooltip text',
+                        'class' => 'fas fa-info-circle',
+                    ],
+                    '/span',
+                '/label',
+                ['input' => [
+                    'type' => 'file',
+                    'name' => 'file',
+                    'id' => 'file',
+                    'class' => 'form-control-file',
+                ]],
+            '/div',
+        ];
+        $this->assertHtml($expected, $result);
+    }
+
+    public function testHorizontalAlignFileControl()
+    {
+        $this->Form->create($this->article, [
+            'align' => [
+                'sm' => [
+                    'left' => 5,
+                    'middle' => 7,
+                ],
+            ],
+        ]);
+
+        $result = $this->Form->control('file', [
+            'type' => 'file',
+        ]);
+        $expected = [
+            ['div' => ['class' => 'form-group row file']],
+                ['label' => ['class' => 'col-form-label pt-1 col-sm-5', 'for' => 'file']],
+                    'File',
+                '/label',
+                ['div' => ['class' => 'col-sm-7']],
+                    ['input' => [
+                        'type' => 'file',
+                        'name' => 'file',
+                        'id' => 'file',
+                        'class' => 'form-control-file',
+                    ]],
+                '/div',
+            '/div',
+        ];
+        $this->assertHtml($expected, $result);
+    }
+
+    public function testHorizontalAlignFileControlWithTooltip()
+    {
+        $this->Form->create($this->article, [
+            'align' => [
+                'sm' => [
+                    'left' => 5,
+                    'middle' => 7,
+                ],
+            ],
+        ]);
+
+        $result = $this->Form->control('file', [
+            'type' => 'file',
+            'tooltip' => 'Tooltip text',
+        ]);
+        $expected = [
+            ['div' => ['class' => 'form-group row file']],
+                ['label' => ['class' => 'col-form-label pt-1 col-sm-5', 'for' => 'file']],
+                    'File ',
+                    'span' => [
+                        'data-toggle' => 'tooltip',
+                        'title' => 'Tooltip text',
+                        'class' => 'fas fa-info-circle',
+                    ],
+                    '/span',
+                '/label',
+                ['div' => ['class' => 'col-sm-7']],
+                    ['input' => [
+                        'type' => 'file',
+                        'name' => 'file',
+                        'id' => 'file',
+                        'class' => 'form-control-file',
+                    ]],
+                '/div',
+            '/div',
+        ];
+        $this->assertHtml($expected, $result);
+    }
+
+    public function testInlineAlignFileControl()
+    {
+        $this->withErrorReporting(0, function () {
+            $this->Form->create($this->article, [
+                'align' => 'inline',
+            ]);
+        });
+
+        $result = $this->Form->control('file', [
+            'type' => 'file',
+        ]);
+        $expected = [
+            ['div' => ['class' => 'form-group file']],
+                ['label' => ['class' => 'sr-only', 'for' => 'file']],
+                    'File',
+                '/label',
+                ['input' => [
+                    'type' => 'file',
+                    'name' => 'file',
+                    'id' => 'file',
+                    'class' => 'form-control-file',
+                ]],
+            '/div',
+        ];
+        $this->assertHtml($expected, $result);
+    }
+
+    public function testInlineAlignFileControlWithTooltip()
+    {
+        $this->withErrorReporting(0, function () {
+            $this->Form->create($this->article, [
+                'align' => 'inline',
+            ]);
+        });
+
+        $result = $this->Form->control('file', [
+            'type' => 'file',
+            'tooltip' => 'Tooltip text',
+        ]);
+        $expected = [
+            ['div' => ['class' => 'form-group file']],
+                ['label' => ['class' => 'sr-only', 'for' => 'file']],
+                    'File ',
+                    'span' => [
+                        'data-toggle' => 'tooltip',
+                        'title' => 'Tooltip text',
+                        'class' => 'fas fa-info-circle',
+                    ],
+                    '/span',
+                '/label',
+                ['input' => [
+                    'type' => 'file',
+                    'name' => 'file',
+                    'id' => 'file',
+                    'class' => 'form-control-file',
+                ]],
+            '/div',
+        ];
+        $this->assertHtml($expected, $result);
+    }
+
+    public function testDefaultAlignRangeControl()
+    {
+        $this->Form->create($this->article);
+
+        $result = $this->Form->control('height', [
+            'type' => 'range',
+            'min' => 0,
+            'max' => 10,
+            'step' => 1,
+        ]);
+        $expected = [
+            'div' => ['class' => 'form-group range'],
+                ['label' => ['for' => 'height']],
+                    'Height',
+                '/label',
+                'input' => [
+                    'type' => 'range',
+                    'name' => 'height',
+                    'min' => 0,
+                    'max' => 10,
+                    'step' => 1,
+                    'id' => 'height',
+                    'class' => 'form-control',
+                ],
+            '/div',
+        ];
+        $this->assertHtml($expected, $result);
+    }
+
+    public function testDefaultAlignRangeControlWithTooltip()
+    {
+        $this->Form->create($this->article);
+
+        $result = $this->Form->control('height', [
+            'type' => 'range',
+            'min' => 0,
+            'max' => 10,
+            'step' => 1,
+            'tooltip' => 'Tooltip text',
+        ]);
+        $expected = [
+            'div' => ['class' => 'form-group range'],
+                ['label' => ['for' => 'height']],
+                    'Height ',
+                    'span' => [
+                        'data-toggle' => 'tooltip',
+                        'title' => 'Tooltip text',
+                        'class' => 'fas fa-info-circle',
+                    ],
+                    '/span',
+                '/label',
+                'input' => [
+                    'type' => 'range',
+                    'name' => 'height',
+                    'min' => 0,
+                    'max' => 10,
+                    'step' => 1,
+                    'id' => 'height',
+                    'class' => 'form-control',
+                ],
+            '/div',
+        ];
+        $this->assertHtml($expected, $result);
+    }
+
+    public function testHorizontalAlignRangeControl()
+    {
+        $this->Form->create($this->article, [
+            'align' => [
+                'sm' => [
+                    'left' => 5,
+                    'middle' => 7,
+                ],
+            ],
+        ]);
+
+        $result = $this->Form->control('height', [
+            'type' => 'range',
+            'min' => 0,
+            'max' => 10,
+            'step' => 1,
+        ]);
+        $expected = [
+            'div' => ['class' => 'form-group row range'],
+                ['label' => ['class' => 'col-form-label col-sm-5', 'for' => 'height']],
+                    'Height',
+                '/label',
+                ['div' => ['class' => 'col-sm-7']],
+                    'input' => [
+                        'type' => 'range',
+                        'name' => 'height',
+                        'min' => 0,
+                        'max' => 10,
+                        'step' => 1,
+                        'id' => 'height',
+                        'class' => 'form-control',
+                    ],
+                '/div',
+            '/div',
+        ];
+        $this->assertHtml($expected, $result);
+    }
+
+    public function testHorizontalAlignRangeControlWithTooltip()
+    {
+        $this->Form->create($this->article, [
+            'align' => [
+                'sm' => [
+                    'left' => 5,
+                    'middle' => 7,
+                ],
+            ],
+        ]);
+
+        $result = $this->Form->control('height', [
+            'type' => 'range',
+            'min' => 0,
+            'max' => 10,
+            'step' => 1,
+            'tooltip' => 'Tooltip text',
+        ]);
+        $expected = [
+            'div' => ['class' => 'form-group row range'],
+                ['label' => ['class' => 'col-form-label col-sm-5', 'for' => 'height']],
+                    'Height',
+                    'span' => [
+                        'data-toggle' => 'tooltip',
+                        'title' => 'Tooltip text',
+                        'class' => 'fas fa-info-circle',
+                    ],
+                    '/span',
+                '/label',
+                ['div' => ['class' => 'col-sm-7']],
+                    'input' => [
+                        'type' => 'range',
+                        'name' => 'height',
+                        'min' => 0,
+                        'max' => 10,
+                        'step' => 1,
+                        'id' => 'height',
+                        'class' => 'form-control',
+                    ],
+                '/div',
+            '/div',
+        ];
+        $this->assertHtml($expected, $result);
+    }
+
+    public function testInlineAlignRangeControl()
+    {
+        $this->Form->create($this->article, [
+            'align' => 'inline',
+        ]);
+
+        $result = $this->Form->control('height', [
+            'type' => 'range',
+            'min' => 0,
+            'max' => 10,
+            'step' => 1,
+        ]);
+        $expected = [
+            'div' => ['class' => 'form-group range'],
+                ['label' => ['class' => 'sr-only', 'for' => 'height']],
+                    'Height',
+                '/label',
+                'input' => [
+                    'type' => 'range',
+                    'name' => 'height',
+                    'min' => 0,
+                    'max' => 10,
+                    'step' => 1,
+                    'id' => 'height',
+                    'class' => 'form-control',
+                ],
+            '/div',
+        ];
+        $this->assertHtml($expected, $result);
+    }
+
+    public function testInlineAlignRangeControlWithTooltip()
+    {
+        $this->Form->create($this->article, [
+            'align' => 'inline',
+        ]);
+
+        $result = $this->Form->control('height', [
+            'type' => 'range',
+            'min' => 0,
+            'max' => 10,
+            'step' => 1,
+            'tooltip' => 'Tooltip text',
+        ]);
+        $expected = [
+            'div' => ['class' => 'form-group range'],
+                ['label' => ['class' => 'sr-only', 'for' => 'height']],
+                    'Height ',
+                    'span' => [
+                        'data-toggle' => 'tooltip',
+                        'title' => 'Tooltip text',
+                        'class' => 'fas fa-info-circle',
+                    ],
+                    '/span',
+                '/label',
+                'input' => [
+                    'type' => 'range',
+                    'name' => 'height',
+                    'min' => 0,
+                    'max' => 10,
+                    'step' => 1,
+                    'id' => 'height',
+                    'class' => 'form-control',
+                ],
+            '/div',
+        ];
+        $this->assertHtml($expected, $result);
+    }
+
     public function testDefaultAlignSubmit()
     {
         $this->Form->create($this->article);
@@ -9216,6 +9618,107 @@ class FormHelperTest extends TestCase
         $this->assertHtml($expected, $result);
     }
 
+    public function testDefaultAlignCustomRangeControl()
+    {
+        $this->Form->create($this->article);
+
+        $result = $this->Form->control('height', [
+            'type' => 'range',
+            'min' => 0,
+            'max' => 10,
+            'step' => 1,
+            'custom' => true,
+        ]);
+        $expected = [
+            'div' => ['class' => 'form-group range'],
+                ['label' => ['for' => 'height']],
+                    'Height',
+                '/label',
+                'input' => [
+                    'type' => 'range',
+                    'name' => 'height',
+                    'min' => 0,
+                    'max' => 10,
+                    'step' => 1,
+                    'id' => 'height',
+                    'class' => 'custom-range',
+                ],
+            '/div',
+        ];
+        $this->assertHtml($expected, $result);
+    }
+
+    public function testHorizontalAlignCustomRangeControl()
+    {
+        $this->Form->create($this->article, [
+            'align' => [
+                'sm' => [
+                    'left' => 5,
+                    'middle' => 7,
+                ],
+            ],
+        ]);
+
+        $result = $this->Form->control('height', [
+            'type' => 'range',
+            'min' => 0,
+            'max' => 10,
+            'step' => 1,
+            'custom' => true,
+        ]);
+        $expected = [
+            'div' => ['class' => 'form-group row range'],
+                ['label' => ['class' => 'col-form-label col-sm-5', 'for' => 'height']],
+                    'Height',
+                '/label',
+                ['div' => ['class' => 'col-sm-7']],
+                    'input' => [
+                        'type' => 'range',
+                        'name' => 'height',
+                        'min' => 0,
+                        'max' => 10,
+                        'step' => 1,
+                        'id' => 'height',
+                        'class' => 'custom-range',
+                    ],
+                '/div',
+            '/div',
+        ];
+        $this->assertHtml($expected, $result);
+    }
+
+    public function testInlineAlignCustomRangeControl()
+    {
+        $this->Form->create($this->article, [
+            'align' => 'inline',
+        ]);
+
+        $result = $this->Form->control('height', [
+            'type' => 'range',
+            'min' => 0,
+            'max' => 10,
+            'step' => 1,
+            'custom' => true,
+        ]);
+        $expected = [
+            'div' => ['class' => 'form-group range'],
+                ['label' => ['class' => 'sr-only', 'for' => 'height']],
+                    'Height',
+                '/label',
+                'input' => [
+                    'type' => 'range',
+                    'name' => 'height',
+                    'min' => 0,
+                    'max' => 10,
+                    'step' => 1,
+                    'id' => 'height',
+                    'class' => 'custom-range',
+                ],
+            '/div',
+        ];
+        $this->assertHtml($expected, $result);
+    }
+
     public function testDefaultAlignCustomSelectControl()
     {
         $this->Form->create($this->article);
@@ -9598,6 +10101,37 @@ class FormHelperTest extends TestCase
         ];
         $this->assertHtml($expected, $result);
     }
+
+    /**
+     * Custom file controls should not render tooltips, as the label renders as an "input box".
+     */
+    public function testDefaultAlignCustomFileControlWithTooltip()
+    {
+        $this->Form->create($this->article);
+
+        $result = $this->Form->control('file', [
+            'type' => 'file',
+            'custom' => true,
+            'tooltip' => 'Tooltip text',
+        ]);
+        $expected = [
+            ['div' => ['class' => 'form-group file']],
+                ['div' => ['class' => 'custom-file']],
+                    ['input' => [
+                        'type' => 'file',
+                        'name' => 'file',
+                        'id' => 'file',
+                        'class' => 'custom-file-input',
+                    ]],
+                    ['label' => ['class' => 'custom-file-label', 'for' => 'file']],
+                        'File',
+                    '/label',
+                 '/div',
+            '/div',
+        ];
+        $this->assertHtml($expected, $result);
+    }
+
 
     public function testDefaultAlignCustomFileControlInputGroupAppend()
     {
