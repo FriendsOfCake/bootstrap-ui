@@ -33,6 +33,7 @@ trait InputgroupTrait
             'prepend' => null,
             'append' => null,
             'injectFormControl' => true,
+            'injectErrorClass' => null,
             'input' => null,
         ];
 
@@ -42,7 +43,8 @@ trait InputgroupTrait
 
         $prepend = $data['prepend'];
         $append = $data['append'];
-        unset($data['append'], $data['prepend'], $data['injectFormControl']);
+        $errorClass = $data['injectErrorClass'];
+        unset($data['append'], $data['prepend'], $data['injectFormControl'], $data['injectErrorClass']);
 
         if (isset($data['input'])) {
             $input = $data['input'];
@@ -68,6 +70,13 @@ trait InputgroupTrait
         }
 
         if ($prepend || $append) {
+            if (
+                $errorClass &&
+                $context->hasError($data['fieldName'])
+            ) {
+                $attrs['class'][] = $errorClass;
+            }
+
             $input = $this->_templates->format('inputGroupContainer', [
                 'attrs' => $this->_templates->formatAttributes($attrs),
                 'append' => $append,
