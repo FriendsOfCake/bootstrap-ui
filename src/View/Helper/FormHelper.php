@@ -315,8 +315,6 @@ class FormHelper extends Helper
             case 'datetime':
             case 'date':
             case 'time':
-                $options['hasError'] = $this->_getContext()->hasError($fieldName);
-
                 $options['label']['templateVars']['groupId'] =
                 $options['templateVars']['groupId'] =
                     $this->_domId($fieldName . '-group-label');
