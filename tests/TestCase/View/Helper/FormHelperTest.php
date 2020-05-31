@@ -514,8 +514,8 @@ class FormHelperTest extends TestCase
             ['label' => ['class' => 'form-check-label', 'for' => 'published']],
             'Published',
             '/label',
-            '/div',
             ['div' => ['class' => 'invalid-feedback']], 'error message', '/div',
+            '/div',
             '/div',
             '/div',
         ];
@@ -1586,10 +1586,10 @@ class FormHelperTest extends TestCase
             'label' => ['for' => 'published', 'class' => 'form-check-label'],
             'Published',
             '/label',
-            '/div',
             ['small' => ['class' => 'form-text text-muted']],
             'help text',
             '/small',
+            '/div',
             '/div',
             '/div',
         ];
@@ -1796,6 +1796,44 @@ class FormHelperTest extends TestCase
                     'step' => '1',
                     'value' => date('H:i:s', $now),
                 ],
+            '/div',
+        ];
+        $this->assertHtml($expected, $result);
+    }
+
+    public function testDefaultAlignDatetimeControlWithError()
+    {
+        $this->article['errors'] = [
+            'created' => ['error message'],
+        ];
+        $this->Form->create($this->article);
+
+        $now = new \DateTime('now');
+
+        $result = $this->Form->control('created', [
+            'type' => 'datetime-local',
+            'value' => $now->format('Y-m-d H:i:s'),
+        ]);
+
+        $expected = [
+            ['div' => [
+                'class' => 'form-group datetime-local is-invalid',
+                'role' => 'group',
+                'aria-labelledby' => 'created-group-label',
+            ]],
+                ['label' => ['id' => 'created-group-label']],
+                    'Created',
+                '/label',
+                'input' => [
+                    'type' => 'datetime-local',
+                    'name' => 'created',
+                    'id' => 'created',
+                    'class' => 'is-invalid form-control',
+                    'value' => $now->format('Y-m-d H:i:s'),
+                ],
+                ['div' => ['class' => 'invalid-feedback']],
+                    'error message',
+                '/div',
             '/div',
         ];
         $this->assertHtml($expected, $result);
@@ -2019,6 +2057,52 @@ class FormHelperTest extends TestCase
                     'step' => '1',
                     'value' => date('H:i:s', $now),
                 ],
+                '/div',
+            '/div',
+        ];
+        $this->assertHtml($expected, $result);
+    }
+
+    public function testHorizontalAlignDatetimeControlWithError()
+    {
+        $this->article['errors'] = [
+            'created' => ['error message'],
+        ];
+        $this->Form->create($this->article, [
+            'align' => [
+                'sm' => [
+                    'left' => 5,
+                    'middle' => 7,
+                ],
+            ],
+        ]);
+
+        $now = new \DateTime('now');
+
+        $result = $this->Form->control('created', [
+            'type' => 'datetime-local',
+            'value' => $now->format('Y-m-d H:i:s'),
+        ]);
+        $expected = [
+            ['div' => [
+                'class' => 'form-group row datetime-local is-invalid',
+                'role' => 'group',
+                'aria-labelledby' => 'created-group-label',
+            ]],
+                ['label' => ['id' => 'created-group-label', 'class' => 'col-form-label col-sm-5']],
+                    'Created',
+                '/label',
+                ['div' => ['class' => 'col-sm-7']],
+                    'input' => [
+                        'type' => 'datetime-local',
+                        'name' => 'created',
+                        'id' => 'created',
+                        'class' => 'is-invalid form-control',
+                        'value' => $now->format('Y-m-d H:i:s'),
+                    ],
+                    ['div' => ['class' => 'invalid-feedback']],
+                        'error message',
+                    '/div',
                 '/div',
             '/div',
         ];
@@ -2270,6 +2354,47 @@ class FormHelperTest extends TestCase
         $this->assertHtml($expected, $result);
     }
 
+    /**
+     * Inline datetime controls currently do not render error messages.
+     */
+    public function testInlineAlignDatetimeControlWithError()
+    {
+        $this->withErrorReporting(0, function () {
+            $this->article['errors'] = [
+                'created' => ['error message'],
+            ];
+            $this->Form->create($this->article, [
+                'align' => 'inline',
+            ]);
+        });
+
+        $now = new \DateTime('now');
+
+        $result = $this->Form->control('created', [
+            'type' => 'datetime-local',
+            'value' => $now->format('Y-m-d H:i:s'),
+        ]);
+        $expected = [
+            ['div' => [
+                'class' => 'form-group datetime-local is-invalid',
+                'role' => 'group',
+                'aria-labelledby' => 'created-group-label',
+            ]],
+                ['span' => ['id' => 'created-group-label', 'class' => 'sr-only']],
+                    'Created',
+                '/span',
+                'input' => [
+                    'type' => 'datetime-local',
+                    'name' => 'created',
+                    'id' => 'created',
+                    'class' => 'is-invalid form-control',
+                    'value' => $now->format('Y-m-d H:i:s'),
+                ],
+            '/div',
+        ];
+        $this->assertHtml($expected, $result);
+    }
+
     public function testInlineAlignDatetimeControlDate()
     {
         $this->withErrorReporting(0, function () {
@@ -2495,6 +2620,42 @@ class FormHelperTest extends TestCase
         $this->assertHtml($expected, $result);
     }
 
+    public function testDefaultAlignCheckboxControlWithError()
+    {
+        $this->article['errors'] = [
+            'users' => ['error message'],
+        ];
+        $this->Form->create($this->article);
+
+        $result = $this->Form->control('users', [
+            'type' => 'checkbox',
+        ]);
+        $expected = [
+            ['div' => ['class' => 'form-group form-check checkbox is-invalid']],
+                ['input' => [
+                    'class' => 'is-invalid',
+                    'type' => 'hidden',
+                    'name' => 'users',
+                    'value' => 0,
+                ]],
+                ['input' => [
+                    'class' => 'form-check-input is-invalid',
+                    'type' => 'checkbox',
+                    'name' => 'users',
+                    'id' => 'users',
+                    'value' => 1,
+                ]],
+                ['label' => ['class' => 'form-check-label', 'for' => 'users']],
+                    'Users',
+                '/label',
+                ['div' => ['class' => 'invalid-feedback']],
+                    'error message',
+                '/div',
+            '/div',
+        ];
+        $this->assertHtml($expected, $result);
+    }
+
     public function testDefaultAlignCheckboxControlNestedInput()
     {
         $this->Form->create($this->article);
@@ -2562,6 +2723,43 @@ class FormHelperTest extends TestCase
         $this->assertHtml($expected, $result);
     }
 
+    public function testDefaultAlignCheckboxControlNestedInputWithError()
+    {
+        $this->article['errors'] = [
+            'users' => ['error message'],
+        ];
+        $this->Form->create($this->article);
+
+        $result = $this->Form->control('users', [
+            'type' => 'checkbox',
+            'nestedInput' => true,
+        ]);
+        $expected = [
+            ['div' => ['class' => 'form-group form-check checkbox is-invalid']],
+                ['input' => [
+                    'class' => 'is-invalid',
+                    'type' => 'hidden',
+                    'name' => 'users',
+                    'value' => 0,
+                ]],
+                ['label' => ['class' => 'form-check-label', 'for' => 'users']],
+                    ['input' => [
+                        'class' => 'form-check-input is-invalid',
+                        'type' => 'checkbox',
+                        'name' => 'users',
+                        'id' => 'users',
+                        'value' => 1,
+                    ]],
+                    'Users',
+                '/label',
+                ['div' => ['class' => 'invalid-feedback']],
+                    'error message',
+                '/div',
+            '/div',
+        ];
+        $this->assertHtml($expected, $result);
+    }
+
     public function testDefaultAlignCheckboxControlInline()
     {
         $this->Form->create($this->article);
@@ -2623,6 +2821,43 @@ class FormHelperTest extends TestCase
                         'class' => 'fas fa-info-circle',
                     ],
                     '/span',
+                '/label',
+            '/div',
+        ];
+        $this->assertHtml($expected, $result);
+    }
+
+    /**
+     * Inline checkbox controls currently do not render error messages.
+     */
+    public function testDefaultAlignCheckboxControlInlineWithError()
+    {
+        $this->article['errors'] = [
+            'users' => ['error message'],
+        ];
+        $this->Form->create($this->article);
+
+        $result = $this->Form->control('users', [
+            'type' => 'checkbox',
+            'inline' => true,
+        ]);
+        $expected = [
+            ['div' => ['class' => 'form-check form-check-inline checkbox is-invalid']],
+                ['input' => [
+                    'class' => 'is-invalid',
+                    'type' => 'hidden',
+                    'name' => 'users',
+                    'value' => 0,
+                ]],
+                ['input' => [
+                    'class' => 'form-check-input is-invalid',
+                    'type' => 'checkbox',
+                    'name' => 'users',
+                    'id' => 'users',
+                    'value' => 1,
+                ]],
+                ['label' => ['class' => 'form-check-label', 'for' => 'users']],
+                    'Users',
                 '/label',
             '/div',
         ];
@@ -2785,6 +3020,53 @@ class FormHelperTest extends TestCase
         $this->assertHtml($expected, $result);
     }
 
+    public function testHorizontalAlignCheckboxControlWithError()
+    {
+        $this->article['errors'] = [
+            'users' => ['error message'],
+        ];
+        $this->Form->create($this->article, [
+            'align' => [
+                'sm' => [
+                    'left' => 5,
+                    'middle' => 7,
+                ],
+            ],
+        ]);
+
+        $result = $this->Form->control('users', [
+            'type' => 'checkbox',
+        ]);
+        $expected = [
+            ['div' => ['class' => 'form-group row checkbox is-invalid']],
+                ['div' => ['class' => 'offset-sm-5 col-sm-7']],
+                    ['div' => ['class' => 'form-check']],
+                        ['input' => [
+                            'class' => 'is-invalid',
+                            'type' => 'hidden',
+                            'name' => 'users',
+                            'value' => 0,
+                        ]],
+                        ['input' => [
+                            'class' => 'form-check-input is-invalid',
+                            'type' => 'checkbox',
+                            'name' => 'users',
+                            'id' => 'users',
+                            'value' => 1,
+                        ]],
+                        ['label' => ['class' => 'form-check-label', 'for' => 'users']],
+                            'Users',
+                        '/label',
+                        ['div' => ['class' => 'invalid-feedback']],
+                            'error message',
+                        '/div',
+                    '/div',
+                '/div',
+            '/div',
+        ];
+        $this->assertHtml($expected, $result);
+    }
+
     public function testHorizontalAlignCheckboxControlNestedInput()
     {
         $this->Form->create($this->article, [
@@ -2874,6 +3156,54 @@ class FormHelperTest extends TestCase
         $this->assertHtml($expected, $result);
     }
 
+    public function testHorizontalAlignCheckboxControlNestedInputWithError()
+    {
+        $this->article['errors'] = [
+            'users' => ['error message'],
+        ];
+        $this->Form->create($this->article, [
+            'align' => [
+                'sm' => [
+                    'left' => 5,
+                    'middle' => 7,
+                ],
+            ],
+        ]);
+
+        $result = $this->Form->control('users', [
+            'type' => 'checkbox',
+            'nestedInput' => true,
+        ]);
+        $expected = [
+            ['div' => ['class' => 'form-group row checkbox is-invalid']],
+                ['div' => ['class' => 'offset-sm-5 col-sm-7']],
+                    ['div' => ['class' => 'form-check']],
+                        ['input' => [
+                            'class' => 'is-invalid',
+                            'type' => 'hidden',
+                            'name' => 'users',
+                            'value' => 0,
+                        ]],
+                        ['label' => ['class' => 'form-check-label', 'for' => 'users']],
+                            ['input' => [
+                                'class' => 'form-check-input is-invalid',
+                                'type' => 'checkbox',
+                                'name' => 'users',
+                                'id' => 'users',
+                                'value' => 1,
+                            ]],
+                            'Users',
+                        '/label',
+                        ['div' => ['class' => 'invalid-feedback']],
+                            'error message',
+                        '/div',
+                    '/div',
+                '/div',
+            '/div',
+        ];
+        $this->assertHtml($expected, $result);
+    }
+
     public function testHorizontalAlignCheckboxControlInline()
     {
         $this->Form->create($this->article, [
@@ -2956,6 +3286,54 @@ class FormHelperTest extends TestCase
                             ],
                             '/span',
                         '/label',
+                    '/div',
+                '/div',
+            '/div',
+        ];
+        $this->assertHtml($expected, $result);
+    }
+
+    public function testHorizontalAlignCheckboxControlInlineWithError()
+    {
+        $this->article['errors'] = [
+            'users' => ['error message'],
+        ];
+        $this->Form->create($this->article, [
+            'align' => [
+                'sm' => [
+                    'left' => 5,
+                    'middle' => 7,
+                ],
+            ],
+        ]);
+
+        $result = $this->Form->control('users', [
+            'type' => 'checkbox',
+            'inline' => true,
+        ]);
+        $expected = [
+            ['div' => ['class' => 'form-group row checkbox is-invalid']],
+                ['div' => ['class' => 'offset-sm-5 col-sm-7']],
+                    ['div' => ['class' => 'form-check']],
+                        ['input' => [
+                            'class' => 'is-invalid',
+                            'type' => 'hidden',
+                            'name' => 'users',
+                            'value' => 0,
+                        ]],
+                        ['input' => [
+                            'class' => 'form-check-input is-invalid',
+                            'type' => 'checkbox',
+                            'name' => 'users',
+                            'id' => 'users',
+                            'value' => 1,
+                        ]],
+                        ['label' => ['class' => 'form-check-label', 'for' => 'users']],
+                            'Users',
+                        '/label',
+                        ['div' => ['class' => 'invalid-feedback']],
+                            'error message',
+                        '/div',
                     '/div',
                 '/div',
             '/div',
@@ -3121,6 +3499,46 @@ class FormHelperTest extends TestCase
                         'class' => 'fas fa-info-circle',
                     ],
                     '/span',
+                '/label',
+            '/div',
+        ];
+        $this->assertHtml($expected, $result);
+    }
+
+    /**
+     * Inline checkbox controls currently do not render error messages.
+     */
+    public function testInlineAlignCheckboxControlWithError()
+    {
+        $this->withErrorReporting(0, function () {
+            $this->article['errors'] = [
+                'users' => ['error message'],
+            ];
+            $this->Form->create($this->article, [
+                'align' => 'inline',
+            ]);
+        });
+
+        $result = $this->Form->control('users', [
+            'type' => 'checkbox',
+        ]);
+        $expected = [
+            ['div' => ['class' => 'form-check form-check-inline checkbox is-invalid']],
+                ['input' => [
+                    'class' => 'is-invalid',
+                    'type' => 'hidden',
+                    'name' => 'users',
+                    'value' => 0,
+                ]],
+                ['input' => [
+                    'class' => 'form-check-input is-invalid',
+                    'type' => 'checkbox',
+                    'name' => 'users',
+                    'id' => 'users',
+                    'value' => 1,
+                ]],
+                ['label' => ['class' => 'form-check-label', 'for' => 'users']],
+                    'Users',
                 '/label',
             '/div',
         ];
@@ -3433,6 +3851,67 @@ class FormHelperTest extends TestCase
         $this->assertHtml($expected, $result);
     }
 
+    public function testDefaultAlignRadioControlWithError()
+    {
+        $this->article['errors'] = [
+            'users' => ['error message'],
+        ];
+        $this->Form->create($this->article);
+
+        $result = $this->Form->control('users', [
+            'type' => 'radio',
+            'options' => [
+                1 => 'option 1',
+                2 => 'option 2',
+            ],
+        ]);
+        $expected = [
+            ['div' => [
+                'class' => 'form-group radio is-invalid',
+                'role' => 'group',
+                'aria-labelledby' => 'users-group-label',
+            ]],
+                ['label' => ['id' => 'users-group-label', 'class' => 'd-block']],
+                    'Users',
+                '/label',
+                ['input' => [
+                    'class' => 'is-invalid',
+                    'type' => 'hidden',
+                    'name' => 'users',
+                    'value' => '',
+                ]],
+                ['div' => ['class' => 'form-check']],
+                    ['input' => [
+                        'class' => 'form-check-input is-invalid',
+                        'type' => 'radio',
+                        'name' => 'users',
+                        'id' => 'users-1',
+                        'value' => 1,
+                    ]],
+                    ['label' => ['class' => 'form-check-label', 'for' => 'users-1']],
+                        'option 1',
+                    '/label',
+                '/div',
+                ['div' => ['class' => 'form-check']],
+                    ['input' => [
+                        'class' => 'form-check-input is-invalid',
+                        'type' => 'radio',
+                        'name' => 'users',
+                        'id' => 'users-2',
+                        'value' => 2,
+                    ]],
+                    ['label' => ['class' => 'form-check-label', 'for' => 'users-2']],
+                        'option 2',
+                    '/label',
+                '/div',
+                ['div' => ['class' => 'invalid-feedback']],
+                    'error message',
+                '/div',
+            '/div',
+        ];
+        $this->assertHtml($expected, $result);
+    }
+
     public function testDefaultAlignRadioControlNestedInput()
     {
         $this->Form->create($this->article);
@@ -3535,6 +4014,68 @@ class FormHelperTest extends TestCase
         $this->assertHtml($expected, $result);
     }
 
+    public function testDefaultAlignRadioControlInlineWithError()
+    {
+        $this->article['errors'] = [
+            'users' => ['error message'],
+        ];
+        $this->Form->create($this->article);
+
+        $result = $this->Form->control('users', [
+            'type' => 'radio',
+            'options' => [
+                1 => 'option 1',
+                2 => 'option 2',
+            ],
+            'inline' => true,
+        ]);
+        $expected = [
+            ['div' => [
+                'class' => 'form-group radio is-invalid',
+                'role' => 'group',
+                'aria-labelledby' => 'users-group-label',
+            ]],
+                ['label' => ['id' => 'users-group-label', 'class' => 'd-block']],
+                    'Users',
+                '/label',
+                ['input' => [
+                    'class' => 'is-invalid',
+                    'type' => 'hidden',
+                    'name' => 'users',
+                    'value' => '',
+                ]],
+                ['div' => ['class' => 'form-check form-check-inline']],
+                    ['input' => [
+                        'class' => 'form-check-input is-invalid',
+                        'type' => 'radio',
+                        'name' => 'users',
+                        'id' => 'users-1',
+                        'value' => 1,
+                    ]],
+                    ['label' => ['class' => 'form-check-label', 'for' => 'users-1']],
+                        'option 1',
+                    '/label',
+                '/div',
+                ['div' => ['class' => 'form-check form-check-inline']],
+                    ['input' => [
+                        'class' => 'form-check-input is-invalid',
+                        'type' => 'radio',
+                        'name' => 'users',
+                        'id' => 'users-2',
+                        'value' => 2,
+                    ]],
+                    ['label' => ['class' => 'form-check-label', 'for' => 'users-2']],
+                        'option 2',
+                    '/label',
+                '/div',
+                ['div' => ['class' => 'invalid-feedback']],
+                    'error message',
+                '/div',
+            '/div',
+        ];
+        $this->assertHtml($expected, $result);
+    }
+
     public function testDefaultAlignRadioControlInlineNestedInput()
     {
         $this->Form->create($this->article);
@@ -3581,6 +4122,69 @@ class FormHelperTest extends TestCase
                         ]],
                         'option 2',
                     '/label',
+                '/div',
+            '/div',
+        ];
+        $this->assertHtml($expected, $result);
+    }
+
+    public function testDefaultAlignRadioControlInlineNestedInputWithError()
+    {
+        $this->article['errors'] = [
+            'users' => ['error message'],
+        ];
+        $this->Form->create($this->article);
+
+        $result = $this->Form->control('users', [
+            'type' => 'radio',
+            'options' => [
+                1 => 'option 1',
+                2 => 'option 2',
+            ],
+            'inline' => true,
+            'nestedInput' => true,
+        ]);
+        $expected = [
+            ['div' => [
+                'class' => 'form-group radio is-invalid',
+                'role' => 'group',
+                'aria-labelledby' => 'users-group-label',
+            ]],
+                ['label' => ['id' => 'users-group-label', 'class' => 'd-block']],
+                    'Users',
+                '/label',
+                ['input' => [
+                    'class' => 'is-invalid',
+                    'type' => 'hidden',
+                    'name' => 'users',
+                    'value' => '',
+                ]],
+                ['div' => ['class' => 'form-check form-check-inline']],
+                    ['label' => ['class' => 'form-check-label', 'for' => 'users-1']],
+                        ['input' => [
+                            'class' => 'form-check-input is-invalid',
+                            'type' => 'radio',
+                            'name' => 'users',
+                            'id' => 'users-1',
+                            'value' => 1,
+                        ]],
+                        'option 1',
+                    '/label',
+                '/div',
+                ['div' => ['class' => 'form-check form-check-inline']],
+                    ['label' => ['class' => 'form-check-label', 'for' => 'users-2']],
+                        ['input' => [
+                            'class' => 'form-check-input is-invalid',
+                            'type' => 'radio',
+                            'name' => 'users',
+                            'id' => 'users-2',
+                            'value' => 2,
+                        ]],
+                        'option 2',
+                    '/label',
+                '/div',
+                ['div' => ['class' => 'invalid-feedback']],
+                    'error message',
                 '/div',
             '/div',
         ];
@@ -3897,6 +4501,76 @@ class FormHelperTest extends TestCase
         $this->assertHtml($expected, $result);
     }
 
+    public function testHorizontalAlignRadioControlWithError()
+    {
+        $this->article['errors'] = [
+            'users' => ['error message'],
+        ];
+        $this->Form->create($this->article, [
+            'align' => [
+                'sm' => [
+                    'left' => 5,
+                    'middle' => 7,
+                ],
+            ],
+        ]);
+
+        $result = $this->Form->control('users', [
+            'type' => 'radio',
+            'options' => [
+                1 => 'option 1',
+                2 => 'option 2',
+            ],
+        ]);
+        $expected = [
+            ['div' => [
+                'class' => 'form-group row radio is-invalid',
+                'role' => 'group',
+                'aria-labelledby' => 'users-group-label',
+            ]],
+                ['label' => ['id' => 'users-group-label', 'class' => 'col-form-label d-block pt-0 col-sm-5']],
+                    'Users',
+                '/label',
+                ['div' => ['class' => 'col-sm-7']],
+                    ['input' => [
+                        'class' => 'is-invalid',
+                        'type' => 'hidden',
+                        'name' => 'users',
+                        'value' => '',
+                    ]],
+                    ['div' => ['class' => 'form-check']],
+                        ['input' => [
+                            'class' => 'form-check-input is-invalid',
+                            'type' => 'radio',
+                            'name' => 'users',
+                            'id' => 'users-1',
+                            'value' => 1,
+                        ]],
+                        ['label' => ['class' => 'form-check-label', 'for' => 'users-1']],
+                            'option 1',
+                        '/label',
+                    '/div',
+                    ['div' => ['class' => 'form-check']],
+                        ['input' => [
+                            'class' => 'form-check-input is-invalid',
+                            'type' => 'radio',
+                            'name' => 'users',
+                            'id' => 'users-2',
+                            'value' => 2,
+                        ]],
+                        ['label' => ['class' => 'form-check-label', 'for' => 'users-2']],
+                            'option 2',
+                        '/label',
+                    '/div',
+                    ['div' => ['class' => 'invalid-feedback']],
+                        'error message',
+                    '/div',
+                '/div',
+            '/div',
+        ];
+        $this->assertHtml($expected, $result);
+    }
+
     public function testHorizontalAlignRadioControlNestedInput()
     {
         $this->Form->create($this->article, [
@@ -3950,6 +4624,77 @@ class FormHelperTest extends TestCase
                             ]],
                             'option 2',
                         '/label',
+                    '/div',
+                '/div',
+            '/div',
+        ];
+        $this->assertHtml($expected, $result);
+    }
+
+    public function testHorizontalAlignRadioControlNestedInputWithError()
+    {
+        $this->article['errors'] = [
+            'users' => ['error message'],
+        ];
+        $this->Form->create($this->article, [
+            'align' => [
+                'sm' => [
+                    'left' => 5,
+                    'middle' => 7,
+                ],
+            ],
+        ]);
+
+        $result = $this->Form->control('users', [
+            'type' => 'radio',
+            'options' => [
+                1 => 'option 1',
+                2 => 'option 2',
+            ],
+            'nestedInput' => true,
+        ]);
+        $expected = [
+            ['div' => [
+                'class' => 'form-group row radio is-invalid',
+                'role' => 'group',
+                'aria-labelledby' => 'users-group-label',
+            ]],
+                 ['label' => ['id' => 'users-group-label', 'class' => 'col-form-label d-block pt-0 col-sm-5']],
+                    'Users',
+                '/label',
+                ['div' => ['class' => 'col-sm-7']],
+                    ['input' => [
+                        'class' => 'is-invalid',
+                        'type' => 'hidden',
+                        'name' => 'users',
+                        'value' => '',
+                    ]],
+                    ['div' => ['class' => 'form-check']],
+                        ['label' => ['class' => 'form-check-label', 'for' => 'users-1']],
+                            ['input' => [
+                                'class' => 'form-check-input is-invalid',
+                                'type' => 'radio',
+                                'name' => 'users',
+                                'id' => 'users-1',
+                                'value' => 1,
+                            ]],
+                            'option 1',
+                        '/label',
+                    '/div',
+                    ['div' => ['class' => 'form-check']],
+                        ['label' => ['class' => 'form-check-label', 'for' => 'users-2']],
+                            ['input' => [
+                                'class' => 'form-check-input is-invalid',
+                                'type' => 'radio',
+                                'name' => 'users',
+                                'id' => 'users-2',
+                                'value' => 2,
+                            ]],
+                            'option 2',
+                        '/label',
+                    '/div',
+                    ['div' => ['class' => 'invalid-feedback']],
+                        'error message',
                     '/div',
                 '/div',
             '/div',
@@ -4017,6 +4762,77 @@ class FormHelperTest extends TestCase
         $this->assertHtml($expected, $result);
     }
 
+    public function testHorizontalAlignRadioControlInlineWithError()
+    {
+        $this->article['errors'] = [
+            'users' => ['error message'],
+        ];
+        $this->Form->create($this->article, [
+            'align' => [
+                'sm' => [
+                    'left' => 5,
+                    'middle' => 7,
+                ],
+            ],
+        ]);
+
+        $result = $this->Form->control('users', [
+            'type' => 'radio',
+            'options' => [
+                1 => 'option 1',
+                2 => 'option 2',
+            ],
+            'inline' => true,
+        ]);
+        $expected = [
+            ['div' => [
+                'class' => 'form-group row radio is-invalid',
+                'role' => 'group',
+                'aria-labelledby' => 'users-group-label',
+            ]],
+                ['label' => ['id' => 'users-group-label', 'class' => 'col-form-label d-block pt-0 col-sm-5']],
+                    'Users',
+                '/label',
+                ['div' => ['class' => 'col-sm-7']],
+                    ['input' => [
+                        'class' => 'is-invalid',
+                        'type' => 'hidden',
+                        'name' => 'users',
+                        'value' => '',
+                    ]],
+                    ['div' => ['class' => 'form-check form-check-inline']],
+                        ['input' => [
+                            'class' => 'form-check-input is-invalid',
+                            'type' => 'radio',
+                            'name' => 'users',
+                            'id' => 'users-1',
+                            'value' => 1,
+                        ]],
+                        ['label' => ['class' => 'form-check-label', 'for' => 'users-1']],
+                            'option 1',
+                        '/label',
+                    '/div',
+                    ['div' => ['class' => 'form-check form-check-inline']],
+                        ['input' => [
+                            'class' => 'form-check-input is-invalid',
+                            'type' => 'radio',
+                            'name' => 'users',
+                            'id' => 'users-2',
+                            'value' => 2,
+                        ]],
+                        ['label' => ['class' => 'form-check-label', 'for' => 'users-2']],
+                            'option 2',
+                        '/label',
+                    '/div',
+                    ['div' => ['class' => 'invalid-feedback']],
+                        'error message',
+                    '/div',
+                '/div',
+            '/div',
+        ];
+        $this->assertHtml($expected, $result);
+    }
+
     public function testHorizontalAlignRadioControlInlineNestedInput()
     {
         $this->Form->create($this->article, [
@@ -4071,6 +4887,78 @@ class FormHelperTest extends TestCase
                             ]],
                             'option 2',
                         '/label',
+                    '/div',
+                '/div',
+            '/div',
+        ];
+        $this->assertHtml($expected, $result);
+    }
+
+    public function testHorizontalAlignRadioControlInlineNestedInputWithError()
+    {
+        $this->article['errors'] = [
+            'users' => ['error message'],
+        ];
+        $this->Form->create($this->article, [
+            'align' => [
+                'sm' => [
+                    'left' => 5,
+                    'middle' => 7,
+                ],
+            ],
+        ]);
+
+        $result = $this->Form->control('users', [
+            'type' => 'radio',
+            'options' => [
+                1 => 'option 1',
+                2 => 'option 2',
+            ],
+            'inline' => true,
+            'nestedInput' => true,
+        ]);
+        $expected = [
+            ['div' => [
+                'class' => 'form-group row radio is-invalid',
+                'role' => 'group',
+                'aria-labelledby' => 'users-group-label',
+            ]],
+                ['label' => ['id' => 'users-group-label', 'class' => 'col-form-label d-block pt-0 col-sm-5']],
+                    'Users',
+                '/label',
+                ['div' => ['class' => 'col-sm-7']],
+                    ['input' => [
+                        'class' => 'is-invalid',
+                        'type' => 'hidden',
+                        'name' => 'users',
+                        'value' => '',
+                    ]],
+                    ['div' => ['class' => 'form-check form-check-inline']],
+                        ['label' => ['class' => 'form-check-label', 'for' => 'users-1']],
+                            ['input' => [
+                                'class' => 'form-check-input is-invalid',
+                                'type' => 'radio',
+                                'name' => 'users',
+                                'id' => 'users-1',
+                                'value' => 1,
+                            ]],
+                            'option 1',
+                        '/label',
+                    '/div',
+                    ['div' => ['class' => 'form-check form-check-inline']],
+                        ['label' => ['class' => 'form-check-label', 'for' => 'users-2']],
+                            ['input' => [
+                                'class' => 'form-check-input is-invalid',
+                                'type' => 'radio',
+                                'name' => 'users',
+                                'id' => 'users-2',
+                                'value' => 2,
+                            ]],
+                            'option 2',
+                        '/label',
+                    '/div',
+                    ['div' => ['class' => 'invalid-feedback']],
+                        'error message',
                     '/div',
                 '/div',
             '/div',
@@ -4402,6 +5290,67 @@ class FormHelperTest extends TestCase
         $this->assertHtml($expected, $result);
     }
 
+    /**
+     * Inline radio controls currently do not render error messages.
+     */
+    public function testInlineAlignRadioControlWithError()
+    {
+        $this->withErrorReporting(0, function () {
+            $this->article['errors'] = [
+                'users' => ['error message'],
+            ];
+            $this->Form->create($this->article, [
+                'align' => 'inline',
+            ]);
+        });
+
+        $result = $this->Form->control('users', [
+            'type' => 'radio',
+            'options' => [
+                1 => 'option 1',
+                2 => 'option 2',
+            ],
+        ]);
+        $expected = [
+            ['div' => ['class' => 'form-group radio is-invalid', 'role' => 'group', 'aria-labelledby' => 'users-group-label']],
+                ['span' => ['id' => 'users-group-label', 'class' => 'sr-only']],
+                    'Users',
+                '/span',
+                ['input' => [
+                    'class' => 'is-invalid',
+                    'type' => 'hidden',
+                    'name' => 'users',
+                    'value' => '',
+                ]],
+                ['div' => ['class' => 'form-check form-check-inline']],
+                    ['input' => [
+                        'class' => 'form-check-input is-invalid',
+                        'type' => 'radio',
+                        'name' => 'users',
+                        'id' => 'users-1',
+                        'value' => 1,
+                    ]],
+                    ['label' => ['class' => 'form-check-label', 'for' => 'users-1']],
+                        'option 1',
+                    '/label',
+                '/div',
+                ['div' => ['class' => 'form-check form-check-inline']],
+                    ['input' => [
+                        'class' => 'form-check-input is-invalid',
+                        'type' => 'radio',
+                        'name' => 'users',
+                        'id' => 'users-2',
+                        'value' => 2,
+                    ]],
+                    ['label' => ['class' => 'form-check-label', 'for' => 'users-2']],
+                        'option 2',
+                    '/label',
+                '/div',
+            '/div',
+        ];
+        $this->assertHtml($expected, $result);
+    }
+
     public function testInlineAlignRadioControlWithPerOptionConfiguration()
     {
         $this->withErrorReporting(0, function () {
@@ -4686,6 +5635,67 @@ class FormHelperTest extends TestCase
         $this->assertHtml($expected, $result);
     }
 
+    public function testDefaultAlignMultipleCheckboxControlWithError()
+    {
+        $this->article['errors'] = [
+            'users' => ['error message'],
+        ];
+        $this->Form->create($this->article);
+
+        $result = $this->Form->control('users', [
+            'multiple' => 'checkbox',
+            'options' => [
+                1 => 'option 1',
+                2 => 'option 2',
+            ],
+        ]);
+        $expected = [
+            ['div' => [
+                'class' => 'form-group multicheckbox is-invalid',
+                'role' => 'group',
+                'aria-labelledby' => 'users-group-label',
+            ]],
+                ['label' => ['id' => 'users-group-label', 'class' => 'd-block']],
+                    'Users',
+                '/label',
+                ['input' => [
+                    'class' => 'is-invalid',
+                    'type' => 'hidden',
+                    'name' => 'users',
+                    'value' => '',
+                ]],
+                ['div' => ['class' => 'form-check']],
+                    ['input' => [
+                        'class' => 'form-check-input is-invalid',
+                        'type' => 'checkbox',
+                        'name' => 'users[]',
+                        'id' => 'users-1',
+                        'value' => 1,
+                    ]],
+                    ['label' => ['class' => 'form-check-label', 'for' => 'users-1']],
+                        'option 1',
+                    '/label',
+                '/div',
+                ['div' => ['class' => 'form-check']],
+                    ['input' => [
+                        'class' => 'form-check-input is-invalid',
+                        'type' => 'checkbox',
+                        'name' => 'users[]',
+                        'id' => 'users-2',
+                        'value' => 2,
+                    ]],
+                    ['label' => ['class' => 'form-check-label', 'for' => 'users-2']],
+                        'option 2',
+                    '/label',
+                '/div',
+                ['div' => ['class' => 'invalid-feedback']],
+                    'error message',
+                '/div',
+            '/div',
+        ];
+        $this->assertHtml($expected, $result);
+    }
+
     public function testDefaultAlignMultipleCheckboxControlNestedInput()
     {
         $this->Form->create($this->article);
@@ -4737,6 +5747,68 @@ class FormHelperTest extends TestCase
         $this->assertHtml($expected, $result);
     }
 
+    public function testDefaultAlignMultipleCheckboxControlNestedInputWithError()
+    {
+        $this->article['errors'] = [
+            'users' => ['error message'],
+        ];
+        $this->Form->create($this->article);
+
+        $result = $this->Form->control('users', [
+            'multiple' => 'checkbox',
+            'options' => [
+                1 => 'option 1',
+                2 => 'option 2',
+            ],
+            'nestedInput' => true,
+        ]);
+        $expected = [
+            ['div' => [
+                'class' => 'form-group multicheckbox is-invalid',
+                'role' => 'group',
+                'aria-labelledby' => 'users-group-label',
+            ]],
+                ['label' => ['id' => 'users-group-label', 'class' => 'd-block']],
+                    'Users',
+                '/label',
+                ['input' => [
+                    'class' => 'is-invalid',
+                    'type' => 'hidden',
+                    'name' => 'users',
+                    'value' => '',
+                ]],
+                ['div' => ['class' => 'form-check']],
+                    ['label' => ['class' => 'form-check-label', 'for' => 'users-1']],
+                        ['input' => [
+                            'class' => 'form-check-input is-invalid',
+                            'type' => 'checkbox',
+                            'name' => 'users[]',
+                            'id' => 'users-1',
+                            'value' => 1,
+                        ]],
+                        'option 1',
+                    '/label',
+                '/div',
+                ['div' => ['class' => 'form-check']],
+                    ['label' => ['class' => 'form-check-label', 'for' => 'users-2']],
+                        ['input' => [
+                            'class' => 'form-check-input is-invalid',
+                            'type' => 'checkbox',
+                            'name' => 'users[]',
+                            'id' => 'users-2',
+                            'value' => 2,
+                        ]],
+                        'option 2',
+                    '/label',
+                '/div',
+                ['div' => ['class' => 'invalid-feedback']],
+                    'error message',
+                '/div',
+            '/div',
+        ];
+        $this->assertHtml($expected, $result);
+    }
+
     public function testDefaultAlignMultipleCheckboxControlInline()
     {
         $this->Form->create($this->article);
@@ -4782,6 +5854,68 @@ class FormHelperTest extends TestCase
                     ['label' => ['class' => 'form-check-label', 'for' => 'users-2']],
                         'option 2',
                     '/label',
+                '/div',
+            '/div',
+        ];
+        $this->assertHtml($expected, $result);
+    }
+
+    public function testDefaultAlignMultipleCheckboxControlInlineWithError()
+    {
+        $this->article['errors'] = [
+            'users' => ['error message'],
+        ];
+        $this->Form->create($this->article);
+
+        $result = $this->Form->control('users', [
+            'multiple' => 'checkbox',
+            'options' => [
+                1 => 'option 1',
+                2 => 'option 2',
+            ],
+            'inline' => true,
+        ]);
+        $expected = [
+            ['div' => [
+                'class' => 'form-group multicheckbox is-invalid',
+                'role' => 'group',
+                'aria-labelledby' => 'users-group-label',
+            ]],
+                ['label' => ['id' => 'users-group-label', 'class' => 'd-block']],
+                    'Users',
+                '/label',
+                ['input' => [
+                    'class' => 'is-invalid',
+                    'type' => 'hidden',
+                    'name' => 'users',
+                    'value' => '',
+                ]],
+                ['div' => ['class' => 'form-check form-check-inline']],
+                    ['input' => [
+                        'class' => 'form-check-input is-invalid',
+                        'type' => 'checkbox',
+                        'name' => 'users[]',
+                        'id' => 'users-1',
+                        'value' => 1,
+                    ]],
+                    ['label' => ['class' => 'form-check-label', 'for' => 'users-1']],
+                        'option 1',
+                    '/label',
+                '/div',
+                ['div' => ['class' => 'form-check form-check-inline']],
+                    ['input' => [
+                        'class' => 'form-check-input is-invalid',
+                        'type' => 'checkbox',
+                        'name' => 'users[]',
+                        'id' => 'users-2',
+                        'value' => 2,
+                    ]],
+                    ['label' => ['class' => 'form-check-label', 'for' => 'users-2']],
+                        'option 2',
+                    '/label',
+                '/div',
+                ['div' => ['class' => 'invalid-feedback']],
+                    'error message',
                 '/div',
             '/div',
         ];
@@ -4925,6 +6059,107 @@ class FormHelperTest extends TestCase
                         '/label',
                     '/div',
                  '/fieldset',
+            '/div',
+        ];
+        $this->assertHtml($expected, $result);
+    }
+
+    public function testDefaultAlignMultipleCheckboxControlOptionGroupsWithError()
+    {
+        $this->article['errors'] = [
+            'users' => ['error message'],
+        ];
+        $this->Form->create($this->article);
+
+        $result = $this->Form->control('users', [
+            'multiple' => 'checkbox',
+            'options' => [
+                'group 1' => [
+                    1 => 'option 1',
+                    2 => 'option 2',
+                ],
+                'group 2' => [
+                    3 => 'option 3',
+                    4 => 'option 4',
+                ],
+            ],
+        ]);
+        $expected = [
+            ['div' => [
+                'class' => 'form-group multicheckbox is-invalid',
+                'role' => 'group',
+                'aria-labelledby' => 'users-group-label',
+            ]],
+                ['label' => ['id' => 'users-group-label', 'class' => 'd-block']],
+                    'Users',
+                '/label',
+                ['input' => [
+                    'class' => 'is-invalid',
+                    'type' => 'hidden',
+                    'name' => 'users',
+                    'value' => '',
+                ]],
+                ['fieldset' => ['class' => 'form-group']],
+                    ['legend' => ['class' => 'col-form-label pt-0']],
+                        'group 1',
+                    '/legend',
+                    ['div' => ['class' => 'form-check']],
+                        ['input' => [
+                            'class' => 'form-check-input is-invalid',
+                            'type' => 'checkbox',
+                            'name' => 'users[]',
+                            'id' => 'users-1',
+                            'value' => 1,
+                        ]],
+                        ['label' => ['class' => 'form-check-label', 'for' => 'users-1']],
+                            'option 1',
+                        '/label',
+                    '/div',
+                    ['div' => ['class' => 'form-check']],
+                        ['input' => [
+                            'class' => 'form-check-input is-invalid',
+                            'type' => 'checkbox',
+                            'name' => 'users[]',
+                            'id' => 'users-2',
+                            'value' => 2,
+                        ]],
+                        ['label' => ['class' => 'form-check-label', 'for' => 'users-2']],
+                            'option 2',
+                        '/label',
+                    '/div',
+                 '/fieldset',
+                ['fieldset' => ['class' => 'form-group']],
+                    ['legend' => ['class' => 'col-form-label pt-0']],
+                        'group 2',
+                    '/legend',
+                    ['div' => ['class' => 'form-check']],
+                        ['input' => [
+                            'class' => 'form-check-input is-invalid',
+                            'type' => 'checkbox',
+                            'name' => 'users[]',
+                            'id' => 'users-3',
+                            'value' => 3,
+                        ]],
+                        ['label' => ['class' => 'form-check-label', 'for' => 'users-3']],
+                            'option 3',
+                        '/label',
+                    '/div',
+                    ['div' => ['class' => 'form-check']],
+                        ['input' => [
+                            'class' => 'form-check-input is-invalid',
+                            'type' => 'checkbox',
+                            'name' => 'users[]',
+                            'id' => 'users-4',
+                            'value' => 4,
+                        ]],
+                        ['label' => ['class' => 'form-check-label', 'for' => 'users-4']],
+                            'option 4',
+                        '/label',
+                    '/div',
+                 '/fieldset',
+                ['div' => ['class' => 'invalid-feedback']],
+                    'error message',
+                '/div',
             '/div',
         ];
         $this->assertHtml($expected, $result);
@@ -5750,6 +6985,76 @@ class FormHelperTest extends TestCase
         $this->assertHtml($expected, $result);
     }
 
+    public function testHorizontalAlignMultipleCheckboxControlWithError()
+    {
+        $this->article['errors'] = [
+            'users' => ['error message'],
+        ];
+        $this->Form->create($this->article, [
+            'align' => [
+                'sm' => [
+                    'left' => 5,
+                    'middle' => 7,
+                ],
+            ],
+        ]);
+
+        $result = $this->Form->control('users', [
+            'multiple' => 'checkbox',
+            'options' => [
+                1 => 'option 1',
+                2 => 'option 2',
+            ],
+        ]);
+        $expected = [
+            ['div' => [
+                'class' => 'form-group row multicheckbox is-invalid',
+                'role' => 'group',
+                'aria-labelledby' => 'users-group-label',
+            ]],
+                ['label' => ['id' => 'users-group-label', 'class' => 'col-form-label d-block pt-0 col-sm-5']],
+                    'Users',
+                '/label',
+                ['div' => ['class' => 'col-sm-7']],
+                    ['input' => [
+                        'class' => 'is-invalid',
+                        'type' => 'hidden',
+                        'name' => 'users',
+                        'value' => '',
+                    ]],
+                    ['div' => ['class' => 'form-check']],
+                        ['input' => [
+                            'class' => 'form-check-input is-invalid',
+                            'type' => 'checkbox',
+                            'name' => 'users[]',
+                            'id' => 'users-1',
+                            'value' => 1,
+                        ]],
+                        ['label' => ['class' => 'form-check-label', 'for' => 'users-1']],
+                            'option 1',
+                        '/label',
+                    '/div',
+                    ['div' => ['class' => 'form-check']],
+                        ['input' => [
+                            'class' => 'form-check-input is-invalid',
+                            'type' => 'checkbox',
+                            'name' => 'users[]',
+                            'id' => 'users-2',
+                            'value' => 2,
+                        ]],
+                        ['label' => ['class' => 'form-check-label', 'for' => 'users-2']],
+                            'option 2',
+                        '/label',
+                    '/div',
+                    ['div' => ['class' => 'invalid-feedback']],
+                        'error message',
+                    '/div',
+                '/div',
+            '/div',
+        ];
+        $this->assertHtml($expected, $result);
+    }
+
     public function testHorizontalAlignMultipleCheckboxControlNestedInput()
     {
         $this->Form->create($this->article, [
@@ -5810,6 +7115,77 @@ class FormHelperTest extends TestCase
         $this->assertHtml($expected, $result);
     }
 
+    public function testHorizontalAlignMultipleCheckboxControlNestedInputWithError()
+    {
+        $this->article['errors'] = [
+            'users' => ['error message'],
+        ];
+        $this->Form->create($this->article, [
+            'align' => [
+                'sm' => [
+                    'left' => 5,
+                    'middle' => 7,
+                ],
+            ],
+        ]);
+
+        $result = $this->Form->control('users', [
+            'multiple' => 'checkbox',
+            'options' => [
+                1 => 'option 1',
+                2 => 'option 2',
+            ],
+            'nestedInput' => true,
+        ]);
+        $expected = [
+            ['div' => [
+                'class' => 'form-group row multicheckbox is-invalid',
+                'role' => 'group',
+                'aria-labelledby' => 'users-group-label',
+            ]],
+                ['label' => ['id' => 'users-group-label', 'class' => 'col-form-label d-block pt-0 col-sm-5']],
+                    'Users',
+                '/label',
+                ['div' => ['class' => 'col-sm-7']],
+                    ['input' => [
+                        'class' => 'is-invalid',
+                        'type' => 'hidden',
+                        'name' => 'users',
+                        'value' => '',
+                    ]],
+                    ['div' => ['class' => 'form-check']],
+                        ['label' => ['class' => 'form-check-label', 'for' => 'users-1']],
+                            ['input' => [
+                                'class' => 'form-check-input is-invalid',
+                                'type' => 'checkbox',
+                                'name' => 'users[]',
+                                'id' => 'users-1',
+                                'value' => 1,
+                            ]],
+                            'option 1',
+                        '/label',
+                    '/div',
+                    ['div' => ['class' => 'form-check']],
+                        ['label' => ['class' => 'form-check-label', 'for' => 'users-2']],
+                            ['input' => [
+                                'class' => 'form-check-input is-invalid',
+                                'type' => 'checkbox',
+                                'name' => 'users[]',
+                                'id' => 'users-2',
+                                'value' => 2,
+                            ]],
+                            'option 2',
+                        '/label',
+                    '/div',
+                    ['div' => ['class' => 'invalid-feedback']],
+                        'error message',
+                    '/div',
+                '/div',
+            '/div',
+        ];
+        $this->assertHtml($expected, $result);
+    }
+
     public function testHorizontalAlignMultipleCheckboxControlInline()
     {
         $this->Form->create($this->article, [
@@ -5863,6 +7239,77 @@ class FormHelperTest extends TestCase
                         ['label' => ['class' => 'form-check-label', 'for' => 'users-2']],
                             'option 2',
                         '/label',
+                    '/div',
+                '/div',
+            '/div',
+        ];
+        $this->assertHtml($expected, $result);
+    }
+
+    public function testHorizontalAlignMultipleCheckboxControlInlineWithError()
+    {
+        $this->article['errors'] = [
+            'users' => ['error message'],
+        ];
+        $this->Form->create($this->article, [
+            'align' => [
+                'sm' => [
+                    'left' => 5,
+                    'middle' => 7,
+                ],
+            ],
+        ]);
+
+        $result = $this->Form->control('users', [
+            'multiple' => 'checkbox',
+            'options' => [
+                1 => 'option 1',
+                2 => 'option 2',
+            ],
+            'inline' => true,
+        ]);
+        $expected = [
+            ['div' => [
+                'class' => 'form-group row multicheckbox is-invalid',
+                'role' => 'group',
+                'aria-labelledby' => 'users-group-label',
+            ]],
+                ['label' => ['id' => 'users-group-label', 'class' => 'col-form-label d-block pt-0 col-sm-5']],
+                    'Users',
+                '/label',
+                ['div' => ['class' => 'col-sm-7']],
+                    ['input' => [
+                        'class' => 'is-invalid',
+                        'type' => 'hidden',
+                        'name' => 'users',
+                        'value' => '',
+                    ]],
+                    ['div' => ['class' => 'form-check form-check-inline']],
+                        ['input' => [
+                            'class' => 'form-check-input is-invalid',
+                            'type' => 'checkbox',
+                            'name' => 'users[]',
+                            'id' => 'users-1',
+                            'value' => 1,
+                        ]],
+                        ['label' => ['class' => 'form-check-label', 'for' => 'users-1']],
+                            'option 1',
+                        '/label',
+                    '/div',
+                    ['div' => ['class' => 'form-check form-check-inline']],
+                        ['input' => [
+                            'class' => 'form-check-input is-invalid',
+                            'type' => 'checkbox',
+                            'name' => 'users[]',
+                            'id' => 'users-2',
+                            'value' => 2,
+                        ]],
+                        ['label' => ['class' => 'form-check-label', 'for' => 'users-2']],
+                            'option 2',
+                        '/label',
+                    '/div',
+                    ['div' => ['class' => 'invalid-feedback']],
+                        'error message',
                     '/div',
                 '/div',
             '/div',
@@ -6024,6 +7471,116 @@ class FormHelperTest extends TestCase
                             '/label',
                         '/div',
                      '/fieldset',
+                '/div',
+            '/div',
+        ];
+        $this->assertHtml($expected, $result);
+    }
+
+    public function testHorizontalAlignMultipleCheckboxControlOptionGroupsWithError()
+    {
+        $this->article['errors'] = [
+            'users' => ['error message'],
+        ];
+        $this->Form->create($this->article, [
+            'align' => [
+                'sm' => [
+                    'left' => 5,
+                    'middle' => 7,
+                ],
+            ],
+        ]);
+
+        $result = $this->Form->control('users', [
+            'multiple' => 'checkbox',
+            'options' => [
+                'group 1' => [
+                    1 => 'option 1',
+                    2 => 'option 2',
+                ],
+                'group 2' => [
+                    3 => 'option 3',
+                    4 => 'option 4',
+                ],
+            ],
+        ]);
+        $expected = [
+            ['div' => [
+                'class' => 'form-group row multicheckbox is-invalid',
+                'role' => 'group',
+                'aria-labelledby' => 'users-group-label',
+            ]],
+                ['label' => ['id' => 'users-group-label', 'class' => 'col-form-label d-block pt-0 col-sm-5']],
+                    'Users',
+                '/label',
+                ['div' => ['class' => 'col-sm-7']],
+                    ['input' => [
+                        'class' => 'is-invalid',
+                        'type' => 'hidden',
+                        'name' => 'users',
+                        'value' => '',
+                    ]],
+                    ['fieldset' => ['class' => 'form-group']],
+                        ['legend' => ['class' => 'col-form-label pt-0']],
+                            'group 1',
+                        '/legend',
+                        ['div' => ['class' => 'form-check']],
+                            ['input' => [
+                                'class' => 'form-check-input is-invalid',
+                                'type' => 'checkbox',
+                                'name' => 'users[]',
+                                'id' => 'users-1',
+                                'value' => 1,
+                            ]],
+                            ['label' => ['class' => 'form-check-label', 'for' => 'users-1']],
+                                'option 1',
+                            '/label',
+                        '/div',
+                        ['div' => ['class' => 'form-check']],
+                            ['input' => [
+                                'class' => 'form-check-input is-invalid',
+                                'type' => 'checkbox',
+                                'name' => 'users[]',
+                                'id' => 'users-2',
+                                'value' => 2,
+                            ]],
+                            ['label' => ['class' => 'form-check-label', 'for' => 'users-2']],
+                                'option 2',
+                            '/label',
+                        '/div',
+                     '/fieldset',
+                    ['fieldset' => ['class' => 'form-group']],
+                        ['legend' => ['class' => 'col-form-label pt-0']],
+                            'group 2',
+                        '/legend',
+                        ['div' => ['class' => 'form-check']],
+                            ['input' => [
+                                'class' => 'form-check-input is-invalid',
+                                'type' => 'checkbox',
+                                'name' => 'users[]',
+                                'id' => 'users-3',
+                                'value' => 3,
+                            ]],
+                            ['label' => ['class' => 'form-check-label', 'for' => 'users-3']],
+                                'option 3',
+                            '/label',
+                        '/div',
+                        ['div' => ['class' => 'form-check']],
+                            ['input' => [
+                                'class' => 'form-check-input is-invalid',
+                                'type' => 'checkbox',
+                                'name' => 'users[]',
+                                'id' => 'users-4',
+                                'value' => 4,
+                            ]],
+                            ['label' => ['class' => 'form-check-label', 'for' => 'users-4']],
+                                'option 4',
+                            '/label',
+                        '/div',
+                     '/fieldset',
+                    ['div' => ['class' => 'invalid-feedback']],
+                        'error message',
+                    '/div',
                 '/div',
             '/div',
         ];
@@ -6903,6 +8460,71 @@ class FormHelperTest extends TestCase
         $this->assertHtml($expected, $result);
     }
 
+    /**
+     * Inline multi checkbox controls currently do not render error messages.
+     */
+    public function testInlineAlignMultipleCheckboxControlWithError()
+    {
+        $this->withErrorReporting(0, function () {
+            $this->article['errors'] = [
+                'users' => ['error message'],
+            ];
+            $this->Form->create($this->article, [
+                'align' => 'inline',
+            ]);
+        });
+
+        $result = $this->Form->control('users', [
+            'multiple' => 'checkbox',
+            'options' => [
+                1 => 'option 1',
+                2 => 'option 2',
+            ],
+        ]);
+        $expected = [
+            ['div' => [
+                'class' => 'form-group multicheckbox is-invalid',
+                'role' => 'group',
+                'aria-labelledby' => 'users-group-label',
+            ]],
+                ['span' => ['id' => 'users-group-label', 'class' => 'sr-only']],
+                    'Users',
+                '/span',
+                ['input' => [
+                    'class' => 'is-invalid',
+                    'type' => 'hidden',
+                    'name' => 'users',
+                    'value' => '',
+                ]],
+                ['div' => ['class' => 'form-check form-check-inline']],
+                    ['input' => [
+                        'class' => 'form-check-input is-invalid',
+                        'type' => 'checkbox',
+                        'name' => 'users[]',
+                        'id' => 'users-1',
+                        'value' => 1,
+                    ]],
+                    ['label' => ['class' => 'form-check-label', 'for' => 'users-1']],
+                        'option 1',
+                    '/label',
+                '/div',
+                ['div' => ['class' => 'form-check form-check-inline']],
+                    ['input' => [
+                        'class' => 'form-check-input is-invalid',
+                        'type' => 'checkbox',
+                        'name' => 'users[]',
+                        'id' => 'users-2',
+                        'value' => 2,
+                    ]],
+                    ['label' => ['class' => 'form-check-label', 'for' => 'users-2']],
+                        'option 2',
+                    '/label',
+                '/div',
+            '/div',
+        ];
+        $this->assertHtml($expected, $result);
+    }
+
     public function testInlineAlignMultipleCheckboxControlWithPerOptionConfiguration()
     {
         $this->withErrorReporting(0, function () {
@@ -7160,6 +8782,35 @@ class FormHelperTest extends TestCase
         $this->assertHtml($expected, $result);
     }
 
+    public function testDefaultAlignFileControlWithError()
+    {
+        $this->article['errors'] = [
+            'file' => ['error message'],
+        ];
+        $this->Form->create($this->article);
+
+        $result = $this->Form->control('file', [
+            'type' => 'file',
+        ]);
+        $expected = [
+            ['div' => ['class' => 'form-group file is-invalid']],
+                ['label' => ['for' => 'file']],
+                    'File',
+                '/label',
+                ['input' => [
+                    'type' => 'file',
+                    'name' => 'file',
+                    'id' => 'file',
+                    'class' => 'is-invalid form-control-file',
+                ]],
+                ['div' => ['class' => 'invalid-feedback']],
+                    'error message',
+                '/div',
+            '/div',
+        ];
+        $this->assertHtml($expected, $result);
+    }
+
     public function testHorizontalAlignFileControl()
     {
         $this->Form->create($this->article, [
@@ -7231,6 +8882,44 @@ class FormHelperTest extends TestCase
         $this->assertHtml($expected, $result);
     }
 
+    public function testHorizontalAlignFileControlWithError()
+    {
+        $this->article['errors'] = [
+            'file' => ['error message'],
+        ];
+        $this->Form->create($this->article, [
+            'align' => [
+                'sm' => [
+                    'left' => 5,
+                    'middle' => 7,
+                ],
+            ],
+        ]);
+
+        $result = $this->Form->control('file', [
+            'type' => 'file',
+        ]);
+        $expected = [
+            ['div' => ['class' => 'form-group row file is-invalid']],
+                ['label' => ['class' => 'col-form-label pt-1 col-sm-5', 'for' => 'file']],
+                    'File',
+                '/label',
+                ['div' => ['class' => 'col-sm-7']],
+                    ['input' => [
+                        'type' => 'file',
+                        'name' => 'file',
+                        'id' => 'file',
+                        'class' => 'is-invalid form-control-file',
+                    ]],
+                    ['div' => ['class' => 'invalid-feedback']],
+                        'error message',
+                    '/div',
+                '/div',
+            '/div',
+        ];
+        $this->assertHtml($expected, $result);
+    }
+
     public function testInlineAlignFileControl()
     {
         $this->withErrorReporting(0, function () {
@@ -7287,6 +8976,39 @@ class FormHelperTest extends TestCase
                     'id' => 'file',
                     'class' => 'form-control-file',
                 ]],
+            '/div',
+        ];
+        $this->assertHtml($expected, $result);
+    }
+
+    public function testInlineAlignFileControlWithError()
+    {
+        $this->withErrorReporting(0, function () {
+            $this->article['errors'] = [
+                'file' => ['error message'],
+            ];
+            $this->Form->create($this->article, [
+                'align' => 'inline',
+            ]);
+        });
+
+        $result = $this->Form->control('file', [
+            'type' => 'file',
+        ]);
+        $expected = [
+            ['div' => ['class' => 'form-group file is-invalid']],
+                ['label' => ['class' => 'sr-only', 'for' => 'file']],
+                    'File',
+                '/label',
+                ['input' => [
+                    'type' => 'file',
+                    'name' => 'file',
+                    'id' => 'file',
+                    'class' => 'is-invalid form-control-file',
+                ]],
+                ['div' => ['class' => 'invalid-feedback']],
+                    'error message',
+                '/div',
             '/div',
         ];
         $this->assertHtml($expected, $result);
@@ -7352,6 +9074,41 @@ class FormHelperTest extends TestCase
                     'id' => 'height',
                     'class' => 'form-control',
                 ],
+            '/div',
+        ];
+        $this->assertHtml($expected, $result);
+    }
+
+    public function testDefaultAlignRangeControlWithError()
+    {
+        $this->article['errors'] = [
+            'height' => ['error message'],
+        ];
+        $this->Form->create($this->article);
+
+        $result = $this->Form->control('height', [
+            'type' => 'range',
+            'min' => 0,
+            'max' => 10,
+            'step' => 1,
+        ]);
+        $expected = [
+            'div' => ['class' => 'form-group range is-invalid'],
+                ['label' => ['for' => 'height']],
+                    'Height',
+                '/label',
+                'input' => [
+                    'type' => 'range',
+                    'name' => 'height',
+                    'min' => 0,
+                    'max' => 10,
+                    'step' => 1,
+                    'id' => 'height',
+                    'class' => 'is-invalid form-control',
+                ],
+                ['div' => ['class' => 'invalid-feedback']],
+                    'error message',
+                '/div',
             '/div',
         ];
         $this->assertHtml($expected, $result);
@@ -7440,6 +9197,50 @@ class FormHelperTest extends TestCase
         $this->assertHtml($expected, $result);
     }
 
+    public function testHorizontalAlignRangeControlWithError()
+    {
+        $this->article['errors'] = [
+            'height' => ['error message'],
+        ];
+        $this->Form->create($this->article, [
+            'align' => [
+                'sm' => [
+                    'left' => 5,
+                    'middle' => 7,
+                ],
+            ],
+        ]);
+
+        $result = $this->Form->control('height', [
+            'type' => 'range',
+            'min' => 0,
+            'max' => 10,
+            'step' => 1,
+        ]);
+        $expected = [
+            'div' => ['class' => 'form-group row range is-invalid'],
+                ['label' => ['class' => 'col-form-label col-sm-5', 'for' => 'height']],
+                    'Height',
+                '/label',
+                ['div' => ['class' => 'col-sm-7']],
+                    'input' => [
+                        'type' => 'range',
+                        'name' => 'height',
+                        'min' => 0,
+                        'max' => 10,
+                        'step' => 1,
+                        'id' => 'height',
+                        'class' => 'is-invalid form-control',
+                    ],
+                    ['div' => ['class' => 'invalid-feedback']],
+                        'error message',
+                    '/div',
+                '/div',
+            '/div',
+        ];
+        $this->assertHtml($expected, $result);
+    }
+
     public function testInlineAlignRangeControl()
     {
         $this->Form->create($this->article, [
@@ -7504,6 +9305,43 @@ class FormHelperTest extends TestCase
                     'id' => 'height',
                     'class' => 'form-control',
                 ],
+            '/div',
+        ];
+        $this->assertHtml($expected, $result);
+    }
+
+    public function testInlineAlignRangeControlWithError()
+    {
+        $this->article['errors'] = [
+            'height' => ['error message'],
+        ];
+        $this->Form->create($this->article, [
+            'align' => 'inline',
+        ]);
+
+        $result = $this->Form->control('height', [
+            'type' => 'range',
+            'min' => 0,
+            'max' => 10,
+            'step' => 1,
+        ]);
+        $expected = [
+            'div' => ['class' => 'form-group range is-invalid'],
+                ['label' => ['class' => 'sr-only', 'for' => 'height']],
+                    'Height',
+                '/label',
+                'input' => [
+                    'type' => 'range',
+                    'name' => 'height',
+                    'min' => 0,
+                    'max' => 10,
+                    'step' => 1,
+                    'id' => 'height',
+                    'class' => 'is-invalid form-control',
+                ],
+                    ['div' => ['class' => 'invalid-feedback']],
+                        'error message',
+                    '/div',
             '/div',
         ];
         $this->assertHtml($expected, $result);
@@ -9648,6 +11486,42 @@ class FormHelperTest extends TestCase
         $this->assertHtml($expected, $result);
     }
 
+    public function testDefaultAlignCustomRangeControlWithError()
+    {
+        $this->article['errors'] = [
+            'height' => ['error message'],
+        ];
+        $this->Form->create($this->article);
+
+        $result = $this->Form->control('height', [
+            'type' => 'range',
+            'min' => 0,
+            'max' => 10,
+            'step' => 1,
+            'custom' => true,
+        ]);
+        $expected = [
+            'div' => ['class' => 'form-group range is-invalid'],
+                ['label' => ['for' => 'height']],
+                    'Height',
+                '/label',
+                'input' => [
+                    'type' => 'range',
+                    'name' => 'height',
+                    'min' => 0,
+                    'max' => 10,
+                    'step' => 1,
+                    'id' => 'height',
+                    'class' => 'custom-range is-invalid',
+                ],
+                ['div' => ['class' => 'invalid-feedback']],
+                    'error message',
+                '/div',
+            '/div',
+        ];
+        $this->assertHtml($expected, $result);
+    }
+
     public function testHorizontalAlignCustomRangeControl()
     {
         $this->Form->create($this->article, [
@@ -9687,6 +11561,51 @@ class FormHelperTest extends TestCase
         $this->assertHtml($expected, $result);
     }
 
+    public function testHorizontalAlignCustomRangeControlWithError()
+    {
+        $this->article['errors'] = [
+            'height' => ['error message'],
+        ];
+        $this->Form->create($this->article, [
+            'align' => [
+                'sm' => [
+                    'left' => 5,
+                    'middle' => 7,
+                ],
+            ],
+        ]);
+
+        $result = $this->Form->control('height', [
+            'type' => 'range',
+            'min' => 0,
+            'max' => 10,
+            'step' => 1,
+            'custom' => true,
+        ]);
+        $expected = [
+            'div' => ['class' => 'form-group row range is-invalid'],
+                ['label' => ['class' => 'col-form-label col-sm-5', 'for' => 'height']],
+                    'Height',
+                '/label',
+                ['div' => ['class' => 'col-sm-7']],
+                    'input' => [
+                        'type' => 'range',
+                        'name' => 'height',
+                        'min' => 0,
+                        'max' => 10,
+                        'step' => 1,
+                        'id' => 'height',
+                        'class' => 'custom-range is-invalid',
+                    ],
+                    ['div' => ['class' => 'invalid-feedback']],
+                        'error message',
+                    '/div',
+                '/div',
+            '/div',
+        ];
+        $this->assertHtml($expected, $result);
+    }
+
     public function testInlineAlignCustomRangeControl()
     {
         $this->Form->create($this->article, [
@@ -9714,6 +11633,44 @@ class FormHelperTest extends TestCase
                     'id' => 'height',
                     'class' => 'custom-range',
                 ],
+            '/div',
+        ];
+        $this->assertHtml($expected, $result);
+    }
+
+    public function testInlineAlignCustomRangeControlWithError()
+    {
+        $this->article['errors'] = [
+            'height' => ['error message'],
+        ];
+        $this->Form->create($this->article, [
+            'align' => 'inline',
+        ]);
+
+        $result = $this->Form->control('height', [
+            'type' => 'range',
+            'min' => 0,
+            'max' => 10,
+            'step' => 1,
+            'custom' => true,
+        ]);
+        $expected = [
+            'div' => ['class' => 'form-group range is-invalid'],
+                ['label' => ['class' => 'sr-only', 'for' => 'height']],
+                    'Height',
+                '/label',
+                'input' => [
+                    'type' => 'range',
+                    'name' => 'height',
+                    'min' => 0,
+                    'max' => 10,
+                    'step' => 1,
+                    'id' => 'height',
+                    'class' => 'custom-range is-invalid',
+                ],
+                ['div' => ['class' => 'invalid-feedback']],
+                    'error message',
+                '/div',
             '/div',
         ];
         $this->assertHtml($expected, $result);
@@ -10086,7 +12043,7 @@ class FormHelperTest extends TestCase
         ]);
         $expected = [
             ['div' => ['class' => 'form-group file']],
-                ['div' => ['class' => 'custom-file']],
+                ['div' => ['class' => 'custom-file ']],
                     ['input' => [
                         'type' => 'file',
                         'name' => 'file',
@@ -10116,7 +12073,7 @@ class FormHelperTest extends TestCase
         ]);
         $expected = [
             ['div' => ['class' => 'form-group file']],
-                ['div' => ['class' => 'custom-file']],
+                ['div' => ['class' => 'custom-file ']],
                     ['input' => [
                         'type' => 'file',
                         'name' => 'file',
@@ -10127,6 +12084,38 @@ class FormHelperTest extends TestCase
                         'File',
                     '/label',
                  '/div',
+            '/div',
+        ];
+        $this->assertHtml($expected, $result);
+    }
+
+    public function testDefaultAlignCustomFileControlWithError()
+    {
+        $this->article['errors'] = [
+            'file' => ['error message'],
+        ];
+        $this->Form->create($this->article);
+
+        $result = $this->Form->control('file', [
+            'type' => 'file',
+            'custom' => true,
+        ]);
+        $expected = [
+            ['div' => ['class' => 'form-group file is-invalid']],
+                ['div' => ['class' => 'custom-file is-invalid']],
+                    ['input' => [
+                        'type' => 'file',
+                        'name' => 'file',
+                        'id' => 'file',
+                        'class' => 'is-invalid custom-file-input',
+                    ]],
+                    ['label' => ['class' => 'custom-file-label', 'for' => 'file']],
+                        'File',
+                    '/label',
+                '/div',
+                ['div' => ['class' => 'invalid-feedback']],
+                    'error message',
+                '/div',
             '/div',
         ];
         $this->assertHtml($expected, $result);
@@ -10144,7 +12133,7 @@ class FormHelperTest extends TestCase
         $expected = [
             ['div' => ['class' => 'form-group file']],
                 ['div' => ['class' => 'input-group']],
-                    ['div' => ['class' => 'custom-file']],
+                    ['div' => ['class' => 'custom-file ']],
                         ['input' => [
                             'type' => 'file',
                             'name' => 'file',
@@ -10183,7 +12172,7 @@ class FormHelperTest extends TestCase
                             'prepend',
                         '/span',
                     '/div',
-                    ['div' => ['class' => 'custom-file']],
+                    ['div' => ['class' => 'custom-file ']],
                         ['input' => [
                             'type' => 'file',
                             'name' => 'file',
@@ -10194,6 +12183,46 @@ class FormHelperTest extends TestCase
                             'File',
                         '/label',
                      '/div',
+                '/div',
+            '/div',
+        ];
+        $this->assertHtml($expected, $result);
+    }
+
+    public function testDefaultAlignCustomFileControlInputGroupWithError()
+    {
+        $this->article['errors'] = [
+            'file' => ['error message'],
+        ];
+        $this->Form->create($this->article);
+
+        $result = $this->Form->control('file', [
+            'type' => 'file',
+            'custom' => true,
+            'append' => 'append',
+        ]);
+        $expected = [
+            ['div' => ['class' => 'form-group file is-invalid']],
+                ['div' => ['class' => 'input-group is-invalid']],
+                    ['div' => ['class' => 'custom-file is-invalid']],
+                        ['input' => [
+                            'type' => 'file',
+                            'name' => 'file',
+                            'id' => 'file',
+                            'class' => 'is-invalid custom-file-input',
+                        ]],
+                        ['label' => ['class' => 'custom-file-label', 'for' => 'file']],
+                            'File',
+                        '/label',
+                     '/div',
+                    ['div' => ['class' => 'input-group-append']],
+                        ['span' => ['class' => 'input-group-text']],
+                            'append',
+                        '/span',
+                    '/div',
+                '/div',
+                ['div' => ['class' => 'invalid-feedback']],
+                    'error message',
                 '/div',
             '/div',
         ];
@@ -10218,7 +12247,7 @@ class FormHelperTest extends TestCase
         $expected = [
             ['div' => ['class' => 'form-group row file']],
                 ['div' => ['class' => 'offset-sm-5 col-sm-7']],
-                    ['div' => ['class' => 'custom-file']],
+                    ['div' => ['class' => 'custom-file ']],
                         ['input' => [
                             'type' => 'file',
                             'name' => 'file',
@@ -10228,6 +12257,47 @@ class FormHelperTest extends TestCase
                         ['label' => ['class' => 'custom-file-label', 'for' => 'file']],
                             'File',
                         '/label',
+                    '/div',
+                '/div',
+            '/div',
+        ];
+        $this->assertHtml($expected, $result);
+    }
+
+    public function testHorizontalAlignCustomFileControlWithError()
+    {
+        $this->article['errors'] = [
+            'file' => ['error message'],
+        ];
+        $this->Form->create($this->article, [
+            'align' => [
+                'sm' => [
+                    'left' => 5,
+                    'middle' => 7,
+                ],
+            ],
+        ]);
+
+        $result = $this->Form->control('file', [
+            'type' => 'file',
+            'custom' => true,
+        ]);
+        $expected = [
+            ['div' => ['class' => 'form-group row file is-invalid']],
+                ['div' => ['class' => 'offset-sm-5 col-sm-7']],
+                    ['div' => ['class' => 'custom-file is-invalid']],
+                        ['input' => [
+                            'type' => 'file',
+                            'name' => 'file',
+                            'id' => 'file',
+                            'class' => 'is-invalid custom-file-input',
+                        ]],
+                        ['label' => ['class' => 'custom-file-label', 'for' => 'file']],
+                            'File',
+                        '/label',
+                    '/div',
+                    ['div' => ['class' => 'invalid-feedback']],
+                        'error message',
                     '/div',
                 '/div',
             '/div',
@@ -10255,7 +12325,7 @@ class FormHelperTest extends TestCase
             ['div' => ['class' => 'form-group row file']],
                 ['div' => ['class' => 'offset-sm-5 col-sm-7']],
                     ['div' => ['class' => 'input-group']],
-                        ['div' => ['class' => 'custom-file']],
+                        ['div' => ['class' => 'custom-file ']],
                             ['input' => [
                                 'type' => 'file',
                                 'name' => 'file',
@@ -10303,7 +12373,7 @@ class FormHelperTest extends TestCase
                                 'prepend',
                             '/span',
                         '/div',
-                        ['div' => ['class' => 'custom-file']],
+                        ['div' => ['class' => 'custom-file ']],
                             ['input' => [
                                 'type' => 'file',
                                 'name' => 'file',
@@ -10314,6 +12384,55 @@ class FormHelperTest extends TestCase
                                 'File',
                             '/label',
                          '/div',
+                    '/div',
+                '/div',
+            '/div',
+        ];
+        $this->assertHtml($expected, $result);
+    }
+
+    public function testHorizontalAlignCustomFileControlInputGroupWithError()
+    {
+        $this->article['errors'] = [
+            'file' => ['error message'],
+        ];
+        $this->Form->create($this->article, [
+            'align' => [
+                'sm' => [
+                    'left' => 5,
+                    'middle' => 7,
+                ],
+            ],
+        ]);
+
+        $result = $this->Form->control('file', [
+            'type' => 'file',
+            'custom' => true,
+            'append' => 'append',
+        ]);
+        $expected = [
+            ['div' => ['class' => 'form-group row file is-invalid']],
+                ['div' => ['class' => 'offset-sm-5 col-sm-7']],
+                    ['div' => ['class' => 'input-group is-invalid']],
+                        ['div' => ['class' => 'custom-file is-invalid']],
+                            ['input' => [
+                                'type' => 'file',
+                                'name' => 'file',
+                                'id' => 'file',
+                                'class' => 'is-invalid custom-file-input',
+                            ]],
+                            ['label' => ['class' => 'custom-file-label', 'for' => 'file']],
+                                'File',
+                            '/label',
+                         '/div',
+                        ['div' => ['class' => 'input-group-append']],
+                            ['span' => ['class' => 'input-group-text']],
+                                'append',
+                            '/span',
+                        '/div',
+                    '/div',
+                    ['div' => ['class' => 'invalid-feedback']],
+                        'error message',
                     '/div',
                 '/div',
             '/div',
@@ -10335,7 +12454,7 @@ class FormHelperTest extends TestCase
         ]);
         $expected = [
             ['div' => ['class' => 'form-group file']],
-                ['div' => ['class' => 'custom-file']],
+                ['div' => ['class' => 'custom-file ']],
                     ['input' => [
                         'type' => 'file',
                         'name' => 'file',
@@ -10346,6 +12465,42 @@ class FormHelperTest extends TestCase
                         'File',
                     '/label',
                  '/div',
+            '/div',
+        ];
+        $this->assertHtml($expected, $result);
+    }
+
+    public function testInlineAlignCustomFileControlWithError()
+    {
+        $this->withErrorReporting(0, function () {
+            $this->article['errors'] = [
+                'file' => ['error message'],
+            ];
+            $this->Form->create($this->article, [
+                'align' => 'inline',
+            ]);
+        });
+
+        $result = $this->Form->control('file', [
+            'type' => 'file',
+            'custom' => true,
+        ]);
+        $expected = [
+            ['div' => ['class' => 'form-group file is-invalid']],
+                ['div' => ['class' => 'custom-file is-invalid']],
+                    ['input' => [
+                        'type' => 'file',
+                        'name' => 'file',
+                        'id' => 'file',
+                        'class' => 'is-invalid custom-file-input',
+                    ]],
+                    ['label' => ['class' => 'custom-file-label', 'for' => 'file']],
+                        'File',
+                    '/label',
+                '/div',
+                ['div' => ['class' => 'invalid-feedback']],
+                    'error message',
+                '/div',
             '/div',
         ];
         $this->assertHtml($expected, $result);
@@ -10367,7 +12522,7 @@ class FormHelperTest extends TestCase
         $expected = [
             ['div' => ['class' => 'form-group file']],
                 ['div' => ['class' => 'input-group']],
-                    ['div' => ['class' => 'custom-file']],
+                    ['div' => ['class' => 'custom-file ']],
                         ['input' => [
                             'type' => 'file',
                             'name' => 'file',
@@ -10410,7 +12565,7 @@ class FormHelperTest extends TestCase
                             'prepend',
                         '/span',
                     '/div',
-                    ['div' => ['class' => 'custom-file']],
+                    ['div' => ['class' => 'custom-file ']],
                         ['input' => [
                             'type' => 'file',
                             'name' => 'file',
@@ -10421,6 +12576,50 @@ class FormHelperTest extends TestCase
                             'File',
                         '/label',
                      '/div',
+                '/div',
+            '/div',
+        ];
+        $this->assertHtml($expected, $result);
+    }
+
+    public function testInlineAlignCustomFileControlInputGroupWithError()
+    {
+        $this->withErrorReporting(0, function () {
+            $this->article['errors'] = [
+                'file' => ['error message'],
+            ];
+            $this->Form->create($this->article, [
+                'align' => 'inline',
+            ]);
+        });
+
+        $result = $this->Form->control('file', [
+            'type' => 'file',
+            'custom' => true,
+            'append' => 'append',
+        ]);
+        $expected = [
+            ['div' => ['class' => 'form-group file is-invalid']],
+                ['div' => ['class' => 'input-group is-invalid']],
+                    ['div' => ['class' => 'custom-file is-invalid']],
+                        ['input' => [
+                            'type' => 'file',
+                            'name' => 'file',
+                            'id' => 'file',
+                            'class' => 'is-invalid custom-file-input',
+                        ]],
+                        ['label' => ['class' => 'custom-file-label', 'for' => 'file']],
+                            'File',
+                        '/label',
+                     '/div',
+                    ['div' => ['class' => 'input-group-append']],
+                        ['span' => ['class' => 'input-group-text']],
+                            'append',
+                        '/span',
+                    '/div',
+                '/div',
+                ['div' => ['class' => 'invalid-feedback']],
+                    'error message',
                 '/div',
             '/div',
         ];
@@ -10439,7 +12638,7 @@ class FormHelperTest extends TestCase
         $expected = [
             ['div' => ['class' => 'form-group file']],
                 ['div' => ['class' => 'input-group']],
-                    ['div' => ['class' => 'custom-file']],
+                    ['div' => ['class' => 'custom-file ']],
                         ['input' => [
                             'type' => 'file',
                             'name' => 'file',
@@ -10473,7 +12672,7 @@ class FormHelperTest extends TestCase
         $expected = [
             ['div' => ['class' => 'form-group file']],
                 ['div' => ['class' => 'input-group']],
-                    ['div' => ['class' => 'custom-file']],
+                    ['div' => ['class' => 'custom-file ']],
                         ['input' => [
                             'type' => 'file',
                             'name' => 'associated[0][file]',
@@ -10510,7 +12709,7 @@ class FormHelperTest extends TestCase
         $expected = [
             ['div' => ['class' => 'form-group file']],
                 ['div' => ['class' => 'input-group']],
-                    ['div' => ['class' => 'custom-file']],
+                    ['div' => ['class' => 'custom-file ']],
                         ['input' => [
                             'type' => 'file',
                             'name' => 'file',
@@ -10547,7 +12746,7 @@ class FormHelperTest extends TestCase
         $expected = [
             ['div' => ['class' => 'form-group file']],
                 ['div' => ['class' => 'input-group']],
-                    ['div' => ['class' => 'custom-file']],
+                    ['div' => ['class' => 'custom-file ']],
                         ['input' => [
                             'type' => 'file',
                             'name' => 'file',
@@ -10582,7 +12781,7 @@ class FormHelperTest extends TestCase
         $expected = [
             ['div' => ['class' => 'form-group file']],
                 ['div' => ['class' => 'input-group']],
-                    ['div' => ['class' => 'custom-file']],
+                    ['div' => ['class' => 'custom-file ']],
                         ['input' => [
                             'type' => 'file',
                             'name' => 'file',
@@ -10615,7 +12814,7 @@ class FormHelperTest extends TestCase
         $expected = [
             ['div' => ['class' => 'form-group file']],
                 ['div' => ['class' => 'input-group']],
-                    ['div' => ['class' => 'custom-file']],
+                    ['div' => ['class' => 'custom-file ']],
                         ['input' => [
                             'type' => 'file',
                             'name' => 'file',

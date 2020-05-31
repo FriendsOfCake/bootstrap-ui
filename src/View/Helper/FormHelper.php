@@ -89,10 +89,10 @@ class FormHelper extends Helper
         'multicheckboxWrapper' => '<fieldset class="form-group">{{content}}</fieldset>',
         'multicheckboxTitle' => '<legend class="col-form-label pt-0">{{text}}</legend>',
         'customFileLabel' => '<label class="custom-file-label"{{attrs}}>{{text}}{{tooltip}}</label>',
-        'customFileFormGroup' => '<div class="custom-file">{{input}}{{label}}</div>',
+        'customFileFormGroup' => '<div class="custom-file {{invalid}}">{{input}}{{label}}</div>',
         'customFileInputGroupFormGroup' => '{{input}}',
-        'customFileInputGroupContainer' => '<div{{attrs}}>{{prepend}}<div class="custom-file">{{content}}{{label}}' .
-            '</div>{{append}}</div>',
+        'customFileInputGroupContainer' =>
+            '<div{{attrs}}>{{prepend}}<div class="custom-file {{invalid}}">{{content}}{{label}}</div>{{append}}</div>',
         'nestingLabel' => '{{hidden}}{{input}}<label{{attrs}}>{{text}}{{tooltip}}</label>',
         'nestingLabelNestedInput' => '{{hidden}}<label{{attrs}}>{{input}}{{text}}{{tooltip}}</label>',
     ];
@@ -127,13 +127,13 @@ class FormHelper extends Helper
             'label' => '<label class="col-form-label %s"{{attrs}}>{{text}}{{tooltip}}</label>',
             'fileLabel' => '<label class="col-form-label pt-1 %s"{{attrs}}>{{text}}{{tooltip}}</label>',
             'formGroup' => '{{label}}<div class="%s">{{input}}{{error}}{{help}}</div>',
-            'customFileFormGroup' => '<div class="%s"><div class="custom-file">{{input}}{{label}}</div>' .
-                    '{{error}}{{help}}</div>',
+            'customFileFormGroup' =>
+                '<div class="%s"><div class="custom-file {{invalid}}">{{input}}{{label}}</div>{{error}}{{help}}</div>',
             'customFileInputGroupFormGroup' => '<div class="%s">{{input}}{{error}}{{help}}</div>',
-            'checkboxFormGroup' => '<div class="%s"><div class="form-check">{{input}}{{label}}</div>' .
-                    '{{error}}{{help}}</div>',
+            'checkboxFormGroup' =>
+                '<div class="%s"><div class="form-check">{{input}}{{label}}{{error}}{{help}}</div></div>',
             'customCheckboxFormGroup' => '<div class="%s"><div class="custom-control custom-checkbox">' .
-                    '{{input}}{{label}}</div>{{error}}{{help}}</div>',
+                    '{{input}}{{label}}{{error}}{{help}}</div></div>',
             'datetimeContainer' => '<div class="form-group row {{type}}{{required}}" role="group" ' .
                     'aria-labelledby="{{groupId}}">{{content}}</div>',
             'datetimeContainerError' => '<div class="form-group row {{type}}{{required}} is-invalid" ' .
@@ -315,8 +315,6 @@ class FormHelper extends Helper
             case 'datetime':
             case 'date':
             case 'time':
-                $options['hasError'] = $this->_getContext()->hasError($fieldName);
-
                 $options['label']['templateVars']['groupId'] =
                 $options['templateVars']['groupId'] =
                     $this->_domId($fieldName . '-group-label');
@@ -452,6 +450,10 @@ class FormHelper extends Helper
                     $options['templates']['label'] = $this->templater()->get('customFileLabel');
                     $options['templates']['formGroup'] = $this->templater()->get('customFileFormGroup');
 
+                    if ($this->_getContext()->hasError($fieldName)) {
+                        $options['templateVars']['invalid'] = $this->_config['errorClass'];
+                    }
+
                     if (
                         $options['prepend'] ||
                         $options['append']
@@ -512,6 +514,13 @@ class FormHelper extends Helper
             );
             $options['label']['templateVars']['tooltip'] = ' ' . $tooltip;
             unset($options['tooltip']);
+        }
+
+        if (
+            isset($options['append']) ||
+            isset($options['prepend'])
+        ) {
+            $options['injectErrorClass'] = $this->_config['errorClass'];
         }
 
         $result = parent::control($fieldName, $options);
