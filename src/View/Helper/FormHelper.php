@@ -171,6 +171,7 @@ class FormHelper extends Helper
         ],
         'inline' => [
             'label' => '<label class="sr-only"{{attrs}}>{{text}}{{tooltip}}</label>',
+            'help' => '<small{{attrs}} class="sr-only form-text text-muted">{{content}}</small>',
             'checkboxInlineContainerError' =>
                 '<div class="form-check form-check-inline {{formGroupPosition}}{{type}}{{required}} ' .
                     'is-invalid">{{content}}{{error}}</div>',
