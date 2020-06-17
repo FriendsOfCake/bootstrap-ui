@@ -350,7 +350,11 @@ class FormHelper extends Helper
      * - `append` - Append addon to input.
      * - `prepend` - Prepend addon to input.
      * - `inline` - Boolean for generating inline checkbox/radio.
-     * - `help` - Help text of include in the input container.
+     * - `help` - Help text to include in the input container.
+     * - `tooltip` - Tooltip text to include in the control's label.
+     * - `errorStyle` - The error style to use, `default`, or `tooltip` (will cause `formGroupPosition` to be set to
+     *  `relative` unless explicitly configured otherwise).
+     * - `formGroupPosition` - CSS positioning of form groups, `absolute`, `fixed`, `relative`, `static`, or `sticky`.
      *
      * @param string $fieldName This should be "Modelname.fieldname".
      * @param array $options Each type of input takes different options.
