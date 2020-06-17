@@ -379,8 +379,8 @@ class FormHelper extends Helper
         ];
         $options = $this->_parseOptions($fieldName, $options);
 
-        $formGroupPosition = $options['formGroupPosition'];
-        $errorStyle = $options['errorStyle'];
+        $formGroupPosition = $options['formGroupPosition'] ?: $this->getConfig('formGroupPosition');
+        $errorStyle = $options['errorStyle'] ?: $this->getConfig('errorStyle');
         $custom = $options['custom'];
         $inline = $options['inline'];
         $nestedInput = $options['nestedInput'];

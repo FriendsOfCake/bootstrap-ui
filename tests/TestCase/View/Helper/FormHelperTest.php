@@ -1738,6 +1738,140 @@ class FormHelperTest extends TestCase
         $this->Form->create($this->article, ['align' => 'foo']);
     }
 
+    public function testErrorStyleFromHelperConfig()
+    {
+        $this->article['errors'] = [
+            'title' => ['error message'],
+        ];
+        $this->article['required']['title'] = false;
+
+        $this->Form->setConfig('errorStyle', FormHelper::ERROR_STYLE_TOOLTIP);
+        $this->Form->create($this->article);
+
+        $result = $this->Form->control('title');
+
+        $expected = [
+            ['div' => ['class' => 'form-group position-relative text is-invalid']],
+                ['label' => ['for' => 'title']],
+                    'Title',
+                '/label',
+                'input' => [
+                    'type' => 'text',
+                    'name' => 'title',
+                    'id' => 'title',
+                    'class' => 'is-invalid form-control',
+                ],
+                ['div' => ['class' => 'invalid-tooltip']],
+                    'error message',
+                '/div',
+            '/div',
+        ];
+        $this->assertHtml($expected, $result);
+    }
+
+    public function testOverrideErrorStyleFromHelperConfigViaControlConfig()
+    {
+        $this->article['errors'] = [
+            'title' => ['error message'],
+        ];
+        $this->article['required']['title'] = false;
+
+        $this->Form->setConfig('errorStyle', FormHelper::ERROR_STYLE_TOOLTIP);
+        $this->Form->create($this->article);
+
+        $result = $this->Form->control('title', [
+            'errorStyle' => FormHelper::ERROR_STYLE_DEFAULT,
+        ]);
+
+        $expected = [
+            ['div' => ['class' => 'form-group text is-invalid']],
+                ['label' => ['for' => 'title']],
+                    'Title',
+                '/label',
+                'input' => [
+                    'type' => 'text',
+                    'name' => 'title',
+                    'id' => 'title',
+                    'class' => 'is-invalid form-control',
+                ],
+                ['div' => ['class' => 'invalid-feedback']],
+                    'error message',
+                '/div',
+            '/div',
+        ];
+        $this->assertHtml($expected, $result);
+    }
+
+    public function testFormGroupPositionFromHelperConfig()
+    {
+        $this->article['errors'] = [
+            'title' => ['error message'],
+        ];
+        $this->article['required']['title'] = false;
+
+        $this->Form->setConfig([
+            'errorStyle' => FormHelper::ERROR_STYLE_TOOLTIP,
+            'formGroupPosition' => FormHelper::POSITION_ABSOLUTE,
+        ]);
+        $this->Form->create($this->article);
+
+        $result = $this->Form->control('title');
+
+        $expected = [
+            ['div' => ['class' => 'form-group position-absolute text is-invalid']],
+                ['label' => ['for' => 'title']],
+                    'Title',
+                '/label',
+                'input' => [
+                    'type' => 'text',
+                    'name' => 'title',
+                    'id' => 'title',
+                    'class' => 'is-invalid form-control',
+                ],
+                ['div' => ['class' => 'invalid-tooltip']],
+                    'error message',
+                '/div',
+            '/div',
+        ];
+        $this->assertHtml($expected, $result);
+    }
+
+    public function testOverrideFormGroupPositionFromHelperConfigViaControlConfig()
+    {
+        $this->article['errors'] = [
+            'title' => ['error message'],
+        ];
+        $this->article['required']['title'] = false;
+
+        $this->Form->setConfig([
+            'errorStyle' => FormHelper::ERROR_STYLE_TOOLTIP,
+            'formGroupPosition' => FormHelper::POSITION_ABSOLUTE,
+        ]);
+        $this->Form->create($this->article);
+
+        $result = $this->Form->control('title', [
+            'formGroupPosition' => FormHelper::POSITION_STATIC,
+        ]);
+
+        $expected = [
+            ['div' => ['class' => 'form-group position-static text is-invalid']],
+                ['label' => ['for' => 'title']],
+                    'Title',
+                '/label',
+                'input' => [
+                    'type' => 'text',
+                    'name' => 'title',
+                    'id' => 'title',
+                    'class' => 'is-invalid form-control',
+                ],
+                ['div' => ['class' => 'invalid-tooltip']],
+                    'error message',
+                '/div',
+            '/div',
+        ];
+        $this->assertHtml($expected, $result);
+    }
+
     public function testDefaultAlignControlWithTooltipErrorStyle()
     {
         $this->article['errors'] = [
