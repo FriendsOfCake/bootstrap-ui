@@ -1,8 +1,10 @@
 parameters:
     level: 7
     checkMissingIterableValueType: false
-    autoload_files:
+    bootstrapFiles:
         - tests/bootstrap.php
+    paths:
+        - src
     ignoreErrors:
         -
             message: "#^Offset 'element' does not exist on array\\('params' \\=\\> mixed\\)\\.$#"
