@@ -71,6 +71,34 @@ class FormHelper extends Helper
     public const POSITION_STICKY = 'sticky';
 
     /**
+     * Form alignment types.
+     *
+     * @var array
+     */
+    public const ALIGN_TYPES = ['default', 'horizontal', 'inline'];
+
+    /**
+     * Default alignment.
+     *
+     * @var string
+     */
+    public const ALIGN_DEFAULT = 'default';
+
+    /**
+     * Horizontal alignment.
+     *
+     * @var string
+     */
+    public const ALIGN_HORIZONTAL = 'horizontal';
+
+    /**
+     * Inlline alignment.
+     *
+     * @var string
+     */
+    public const ALIGN_INLINE = 'inline';
+
+    /**
      * Set on `Form::create()` to tell if the type of alignment used (i.e. horizontal).
      *
      * @var string|null
@@ -472,7 +500,7 @@ class FormHelper extends Helper
             $options['label'] = $this->injectClasses('custom-control-label', (array)$options['label']);
             $options = $this->injectClasses('custom-control-input', $options);
 
-            if ($this->_align === 'horizontal') {
+            if ($this->_align === static::ALIGN_HORIZONTAL) {
                 $options['templates']['checkboxFormGroup'] = $this->templater()->get('customCheckboxFormGroup');
             } else {
                 $options['templates']['checkboxContainer'] = $this->templater()->get('customCheckboxContainer');
@@ -481,13 +509,13 @@ class FormHelper extends Helper
             }
         }
 
-        if ($this->_align === 'horizontal') {
+        if ($this->_align === static::ALIGN_HORIZONTAL) {
             $options['inline'] = false;
         }
 
         if (
             $options['inline'] ||
-            $this->_align === 'inline'
+            $this->_align === static::ALIGN_INLINE
         ) {
             if (!$options['custom']) {
                 $checkboxContainer = $this->templater()->get('checkboxInlineContainer');
@@ -530,7 +558,7 @@ class FormHelper extends Helper
 
         if (
             $options['inline'] ||
-            $this->_align === 'inline'
+            $this->_align === static::ALIGN_INLINE
         ) {
             if (!$options['custom']) {
                 $options['templates']['radioWrapper'] = $this->templater()->get('radioInlineWrapper');
@@ -572,7 +600,7 @@ class FormHelper extends Helper
 
             if (
                 $options['inline'] ||
-                $this->_align === 'inline'
+                $this->_align === static::ALIGN_INLINE
             ) {
                 if (!$options['custom']) {
                     $wrapper = $this->templater()->get('checkboxInlineWrapper');
@@ -608,7 +636,7 @@ class FormHelper extends Helper
     protected function _fileOptions(string $fieldName, array $options): array
     {
         if (!$options['custom']) {
-            if ($this->_align === 'horizontal') {
+            if ($this->_align === static::ALIGN_HORIZONTAL) {
                 $options['templates']['label'] = $this->templater()->get('fileLabel');
             }
         } else {
@@ -665,7 +693,7 @@ class FormHelper extends Helper
         $errorStyle = $options['errorStyle'] ?: $this->getConfig('errorStyle');
 
         if (
-            $this->_align === 'inline' &&
+            $this->_align === static::ALIGN_INLINE &&
             $errorStyle === null
         ) {
             $errorStyle = static::ERROR_STYLE_TOOLTIP;
@@ -993,13 +1021,15 @@ class FormHelper extends Helper
 
         if (is_array($options['align'])) {
             $this->_grid = $options['align'];
-            $options['align'] = 'horizontal';
-        } elseif ($options['align'] === 'horizontal') {
+            $options['align'] = static::ALIGN_HORIZONTAL;
+        } elseif ($options['align'] === static::ALIGN_HORIZONTAL) {
             $this->_grid = $this->getConfig('grid');
         }
 
-        if (!in_array($options['align'], ['default', 'horizontal', 'inline'])) {
-            throw new InvalidArgumentException('Invalid `align` option value.');
+        if (!in_array($options['align'], static::ALIGN_TYPES)) {
+            throw new InvalidArgumentException(
+                'Invalid valid for `align` option. Valid values are: ' . implode(', ', static::ALIGN_TYPES)
+            );
         }
 
         $this->_align = $options['align'];
@@ -1090,7 +1120,7 @@ class FormHelper extends Helper
      */
     protected function _detectFormAlignment(array $options): string
     {
-        foreach (['horizontal', 'inline'] as $align) {
+        foreach ([static::ALIGN_HORIZONTAL, static::ALIGN_INLINE] as $align) {
             if ($this->checkClasses('form-' . $align, (array)$options['class'])) {
                 return $align;
             }
