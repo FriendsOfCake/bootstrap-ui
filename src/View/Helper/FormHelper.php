@@ -587,14 +587,8 @@ class FormHelper extends Helper
             $errorStyle = static::ERROR_STYLE_TOOLTIP;
         }
 
-        switch ($errorStyle) {
-            case static::ERROR_STYLE_NONE:
-                $options['templates']['error'] = '';
-                break;
-
-            case static::ERROR_STYLE_TOOLTIP:
-                $options['templates']['error'] = $this->templater()->get('errorTooltip');
-                break;
+        if ($errorStyle === static::ERROR_STYLE_TOOLTIP) {
+            $options['templates']['error'] = $this->templater()->get('errorTooltip');
         }
 
         if (

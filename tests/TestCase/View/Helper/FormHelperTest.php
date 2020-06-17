@@ -1738,6 +1738,113 @@ class FormHelperTest extends TestCase
         $this->Form->create($this->article, ['align' => 'foo']);
     }
 
+    public function testDefaultAlignControlWithTooltipErrorStyle()
+    {
+        $this->article['errors'] = [
+            'title' => ['error message'],
+        ];
+        $this->article['required']['title'] = false;
+
+        $this->Form->create($this->article);
+
+        $result = $this->Form->control('title', [
+            'errorStyle' => FormHelper::ERROR_STYLE_TOOLTIP,
+        ]);
+
+        $expected = [
+            ['div' => ['class' => 'form-group position-relative text is-invalid']],
+                ['label' => ['for' => 'title']],
+                    'Title',
+                '/label',
+                'input' => [
+                    'type' => 'text',
+                    'name' => 'title',
+                    'id' => 'title',
+                    'class' => 'is-invalid form-control',
+                ],
+                ['div' => ['class' => 'invalid-tooltip']],
+                    'error message',
+                '/div',
+            '/div',
+        ];
+        $this->assertHtml($expected, $result);
+    }
+
+    public function testInlineAlignControlWithDefaultErrorStyle()
+    {
+        $this->article['errors'] = [
+            'title' => ['error message'],
+        ];
+        $this->article['required']['title'] = false;
+
+        $this->Form->create($this->article, [
+            'align' => 'inline',
+        ]);
+
+        $result = $this->Form->control('title', [
+            'errorStyle' => FormHelper::ERROR_STYLE_DEFAULT,
+        ]);
+
+        $expected = [
+            ['div' => ['class' => 'form-group text is-invalid']],
+                ['label' => ['class' => 'sr-only', 'for' => 'title']],
+                    'Title',
+                '/label',
+                'input' => [
+                    'type' => 'text',
+                    'name' => 'title',
+                    'id' => 'title',
+                    'class' => 'is-invalid form-control',
+                ],
+                ['div' => ['class' => 'invalid-feedback']],
+                    'error message',
+                '/div',
+            '/div',
+        ];
+        $this->assertHtml($expected, $result);
+    }
+
+    public function testHorizontalAlignControlWithTooltipErrorStyle()
+    {
+        $this->article['errors'] = [
+            'title' => ['error message'],
+        ];
+        $this->article['required']['title'] = false;
+
+        $this->Form->create($this->article, [
+            'align' => [
+                'sm' => [
+                    'left' => 5,
+                    'middle' => 7,
+                ],
+            ],
+        ]);
+
+        $result = $this->Form->control('title', [
+            'errorStyle' => FormHelper::ERROR_STYLE_TOOLTIP,
+        ]);
+
+        $expected = [
+            ['div' => ['class' => 'form-group row position-relative text is-invalid']],
+                ['label' => ['class' => 'col-form-label col-sm-5', 'for' => 'title']],
+                    'Title',
+                '/label',
+                ['div' => ['class' => 'col-sm-7']],
+                    ['input' => [
+                        'type' => 'text',
+                        'name' => 'title',
+                        'id' => 'title',
+                        'class' => 'is-invalid form-control',
+                    ]],
+                    ['div' => ['class' => 'invalid-tooltip']],
+                        'error message',
+                    '/div',
+                '/div',
+            '/div',
+        ];
+        $this->assertHtml($expected, $result);
+    }
+
     public function testDefaultAlignDatetimeControl()
     {
         $this->Form->create($this->article);
