@@ -349,6 +349,7 @@ class FormHelper extends Helper
      * Adds extra option besides the ones supported by parent class method:
      * - `append` - Append addon to input.
      * - `prepend` - Prepend addon to input.
+     * - `custom` - Boolean whether to generate custom style checkbox/radio/select/file/range controls.
      * - `inline` - Boolean for generating inline checkbox/radio.
      * - `help` - Help text to include in the input container.
      * - `tooltip` - Tooltip text to include in the control's label.

@@ -281,6 +281,230 @@ will render this HTML:
 </form>
 ```
 
+### Inline Form
+
+```php
+echo $this->Form->create($article, [
+    'align' => 'inline',
+]);
+echo $this->Form->control('title', ['placeholder' => 'Title']);
+echo $this->Form->control('published', ['type' => 'checkbox']);
+```
+
+will render this HTML:
+
+```html
+<form method="post" accept-charset="utf-8" class="form-inline" role="form" action="/articles/add">
+    <div class="form-group text">
+        <label class="sr-only" for="title">Title</label>
+        <input type="text" name="title" placeholder="Title" id="title" class="form-control"/>
+    </div>
+    <div class="form-check form-check-inline checkbox">
+        <input type="hidden" name="published" value="0"/>
+        <input type="checkbox" name="published" value="1" id="published" class="form-check-input">
+        <label class="form-check-label" for="published">Published</label>
+    </div>
+    ...
+</form>
+```
+
+### Supported controls
+
+BootstrapUI supports and generates Bootstrap compatible markup for all of CakePHP's default controls. Additionally it
+explicitly supports Bootstrap specific markup for the following controls:
+
+- `range`
+
+### Custom style controls
+
+BootstrapUI supports Bootstrap's
+[custom form control styles](https://getbootstrap.com/docs/4.5/components/forms/#custom-forms) for `checkbox`, `radio`,
+`select`, `file`, and `range` controls. To enable custom styles, set the `custom` option to `true`.
+
+```php
+echo $this->Form->control('image', [
+    'type' => 'file',
+    'custom' => true,
+]);
+```
+
+This would generate the following HTML:
+
+```html
+<div class="form-group file">
+    <div class="custom-file">
+        <input type="file" name="image" id="image" class="custom-file-input"/>
+        <label class="custom-file-label" for="image">Image</label>
+    </div>
+</div>
+```
+
+### Appending/Prepending content
+
+Appending/Prepending content to input groups is supported via the `append` and `prepend` options respectively.
+
+```php
+echo $this->Form->control('email', [
+    'prepend' => '@',
+]);
+```
+
+This would generate the following HTML:
+
+```html
+<div class="form-group email">
+    <label for="email">Email</label>
+    <div class="input-group">
+        <div class="input-group-prepend">
+            <span class="input-group-text">@</span>
+        </div>
+        <input type="email" name="email" id="email" class="form-control"/>
+    </div>
+</div>
+```
+
+### Inline checkboxes and radio buttons
+
+[Inline checkboxes and radio buttons](https://getbootstrap.com/docs/4.5/components/forms/#inline) (not to be confused
+with inline aligned forms), can be created by setting the `inline` option to `true`.
+
+Inlined checkboxes and radio buttons will be rendered on the same horizontal row, regardless of the configured form
+alignment.
+
+```php
+echo $this->Form->control('option_1', [
+    'type' => 'checkbox',
+    'inline' => true,
+]);
+echo $this->Form->control('option_2', [
+    'type' => 'checkbox',
+    'inline' => true,
+]);
+```
+
+This would generate the following HTML:
+
+```html
+<div class="form-check form-check-inline checkbox">
+    <input type="hidden" name="option-1" value="0"/>
+    <input type="checkbox" name="option-1" value="1" id="option-1" class="form-check-input">
+    <label class="form-check-label" for="option-1">Option 1</label>
+</div>
+<div class="form-check form-check-inline checkbox">
+    <input type="hidden" name="option-2" value="0"/>
+    <input type="checkbox" name="option-2" value="2" id="option-2" class="form-check-input">
+    <label class="form-check-label" for="option-2">Option 2</label>
+</div>
+```
+
+### Help text
+
+Bootstrap's [form help text](https://getbootstrap.com/docs/4.5/components/forms/#help-text) is supported via the
+`help` option.
+
+The help text is by default being rendered in between of the control and the validation feedback.
+
+```php
+echo $this->Form->control('title', [
+    'help' => 'Help text',
+]);
+```
+
+This would generate the following HTML:
+
+```html
+<div class="form-group text">
+    <label for="title">Title</label>
+    <input type="text" name="title" id="title" class="form-control"/>
+    <small class="form-text text-muted">Help text</small>
+</div>
+```
+
+### Tooltips
+
+[Bootstrap tooltips](https://getbootstrap.com/docs/4.5/components/tooltips/) can be added to labels via the `tooltip`
+option. The tooltip toggles are by default being rendered as a [Font Awesome](https://fontawesome.com/) icon, so
+additionally to including everything required by Bootstrap to support tooltips, you need to make sure to include Font
+Awesome too.
+
+```php
+echo $this->Form->control('title', [
+    'tooltip' => 'Tooltip text',
+]);
+```
+
+This would generate the following HTML:
+
+```html
+<div class="form-group text">
+    <label for="title">Title <span data-toggle="tooltip" title="Tooltip text" class="fas fa-info-circle"></span></label>
+    <input type="text" name="title" id="title" class="form-control"/>
+</div>
+```
+
+If you want to use a different toggle, being it a different Font Awesome icon, or maybe a completely different icon
+font/library, then you can do this by
+[overriding the `tooltip` template](https://book.cakephp.org/4/en/views/helpers/form.html#customizing-the-templates-formhelper-uses)
+accordingly, being it globally, per form, or per control:
+
+```php
+echo $this->Form->control('title', [
+    'tooltip' => 'Tooltip text',
+    'templates' => [
+        'tooltip' => '<span data-toggle="tooltip" title="{{content}}" class="material-icons">info</span>',
+    ],
+]);
+```
+
+### Error feedback style
+
+BootstrapUI supports two styles of error feedback, the
+[regular Bootstrap text feedback](https://getbootstrap.com/docs/4.5/components/forms/#validation), and
+[Bootstrap tooltip feedback](https://getbootstrap.com/docs/4.5/components/forms/#tooltips) (not to be confused with
+label tooltips that are configured via the `tooltip` option!).
+
+The style can be configured via the `errorStyle` option, either globally, per form, or per control. The supported styles
+are:
+
+- `\BootstrapUI\View\Helper\FormHelper::ERROR_STYLE_DEFAULT` Render error feedback as regular Bootstrap text feedback.
+- `\BootstrapUI\View\Helper\FormHelper::ERROR_STYLE_TOOLTIP` Render error feedback as Bootstrap tooltip feedback (inline
+ forms are using this style by default).
+
+Note that using the tooltip error style requires the form group elements to be non-static positioned! The form helper
+will automatically add Bootstraps [position utility class](https://getbootstrap.com/docs/4.5/utilities/position/)
+`position-relative` to the form group elements when the tooltip error style is enabled.
+
+If you need different positioning, use either CSS to override the `position` rule on the `.form-group` elements, or use
+the `formGroupPosition` option to set your desired position, either globally, per form, or per control. The option
+supports the following values:
+
+- `\BootstrapUI\View\Helper\FormHelper::POSITION_ABSOLUTE`
+- `\BootstrapUI\View\Helper\FormHelper::POSITION_FIXED`
+- `\BootstrapUI\View\Helper\FormHelper::POSITION_RELATIVE`
+- `\BootstrapUI\View\Helper\FormHelper::POSITION_STATIC`
+- `\BootstrapUI\View\Helper\FormHelper::POSITION_STICKY`
+
+```php
+$this->Form->setConfig([
+    'errorStyle' => \BootstrapUI\View\Helper\FormHelper::ERROR_STYLE_TOOLTIP,
+    'formGroupPosition' => \BootstrapUI\View\Helper\FormHelper::POSITION_ABSOLUTE,
+]);
+
+// ...
+
+echo $this->Form->control('title');
+```
+
+With an error on the `title` field, this would generate the following HTML:
+
+```html
+<div class="form-group position-absolute text is-invalid">
+    <label for="title">Title</label>
+    <input type="text" name="title" id="title" class="is-invalid form-control"/>
+    <div class="invalid-tooltip">Error message</div>
+</div>
+```
+
 ### Configuration
 
 You can configure each of the helpers by passing in extra parameters through the AppView.php.
