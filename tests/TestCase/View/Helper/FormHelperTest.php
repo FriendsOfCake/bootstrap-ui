@@ -1738,6 +1738,247 @@ class FormHelperTest extends TestCase
         $this->Form->create($this->article, ['align' => 'foo']);
     }
 
+    public function testErrorStyleFromHelperConfig()
+    {
+        $this->article['errors'] = [
+            'title' => ['error message'],
+        ];
+        $this->article['required']['title'] = false;
+
+        $this->Form->setConfig('errorStyle', FormHelper::ERROR_STYLE_TOOLTIP);
+        $this->Form->create($this->article);
+
+        $result = $this->Form->control('title');
+
+        $expected = [
+            ['div' => ['class' => 'form-group position-relative text is-invalid']],
+                ['label' => ['for' => 'title']],
+                    'Title',
+                '/label',
+                'input' => [
+                    'type' => 'text',
+                    'name' => 'title',
+                    'id' => 'title',
+                    'class' => 'is-invalid form-control',
+                ],
+                ['div' => ['class' => 'invalid-tooltip']],
+                    'error message',
+                '/div',
+            '/div',
+        ];
+        $this->assertHtml($expected, $result);
+    }
+
+    public function testOverrideErrorStyleFromHelperConfigViaControlConfig()
+    {
+        $this->article['errors'] = [
+            'title' => ['error message'],
+        ];
+        $this->article['required']['title'] = false;
+
+        $this->Form->setConfig('errorStyle', FormHelper::ERROR_STYLE_TOOLTIP);
+        $this->Form->create($this->article);
+
+        $result = $this->Form->control('title', [
+            'errorStyle' => FormHelper::ERROR_STYLE_DEFAULT,
+        ]);
+
+        $expected = [
+            ['div' => ['class' => 'form-group text is-invalid']],
+                ['label' => ['for' => 'title']],
+                    'Title',
+                '/label',
+                'input' => [
+                    'type' => 'text',
+                    'name' => 'title',
+                    'id' => 'title',
+                    'class' => 'is-invalid form-control',
+                ],
+                ['div' => ['class' => 'invalid-feedback']],
+                    'error message',
+                '/div',
+            '/div',
+        ];
+        $this->assertHtml($expected, $result);
+    }
+
+    public function testFormGroupPositionFromHelperConfig()
+    {
+        $this->article['errors'] = [
+            'title' => ['error message'],
+        ];
+        $this->article['required']['title'] = false;
+
+        $this->Form->setConfig([
+            'errorStyle' => FormHelper::ERROR_STYLE_TOOLTIP,
+            'formGroupPosition' => FormHelper::POSITION_ABSOLUTE,
+        ]);
+        $this->Form->create($this->article);
+
+        $result = $this->Form->control('title');
+
+        $expected = [
+            ['div' => ['class' => 'form-group position-absolute text is-invalid']],
+                ['label' => ['for' => 'title']],
+                    'Title',
+                '/label',
+                'input' => [
+                    'type' => 'text',
+                    'name' => 'title',
+                    'id' => 'title',
+                    'class' => 'is-invalid form-control',
+                ],
+                ['div' => ['class' => 'invalid-tooltip']],
+                    'error message',
+                '/div',
+            '/div',
+        ];
+        $this->assertHtml($expected, $result);
+    }
+
+    public function testOverrideFormGroupPositionFromHelperConfigViaControlConfig()
+    {
+        $this->article['errors'] = [
+            'title' => ['error message'],
+        ];
+        $this->article['required']['title'] = false;
+
+        $this->Form->setConfig([
+            'errorStyle' => FormHelper::ERROR_STYLE_TOOLTIP,
+            'formGroupPosition' => FormHelper::POSITION_ABSOLUTE,
+        ]);
+        $this->Form->create($this->article);
+
+        $result = $this->Form->control('title', [
+            'formGroupPosition' => FormHelper::POSITION_STATIC,
+        ]);
+
+        $expected = [
+            ['div' => ['class' => 'form-group position-static text is-invalid']],
+                ['label' => ['for' => 'title']],
+                    'Title',
+                '/label',
+                'input' => [
+                    'type' => 'text',
+                    'name' => 'title',
+                    'id' => 'title',
+                    'class' => 'is-invalid form-control',
+                ],
+                ['div' => ['class' => 'invalid-tooltip']],
+                    'error message',
+                '/div',
+            '/div',
+        ];
+        $this->assertHtml($expected, $result);
+    }
+
+    public function testDefaultAlignControlWithTooltipErrorStyle()
+    {
+        $this->article['errors'] = [
+            'title' => ['error message'],
+        ];
+        $this->article['required']['title'] = false;
+
+        $this->Form->create($this->article);
+
+        $result = $this->Form->control('title', [
+            'errorStyle' => FormHelper::ERROR_STYLE_TOOLTIP,
+        ]);
+
+        $expected = [
+            ['div' => ['class' => 'form-group position-relative text is-invalid']],
+                ['label' => ['for' => 'title']],
+                    'Title',
+                '/label',
+                'input' => [
+                    'type' => 'text',
+                    'name' => 'title',
+                    'id' => 'title',
+                    'class' => 'is-invalid form-control',
+                ],
+                ['div' => ['class' => 'invalid-tooltip']],
+                    'error message',
+                '/div',
+            '/div',
+        ];
+        $this->assertHtml($expected, $result);
+    }
+
+    public function testInlineAlignControlWithDefaultErrorStyle()
+    {
+        $this->article['errors'] = [
+            'title' => ['error message'],
+        ];
+        $this->article['required']['title'] = false;
+
+        $this->Form->create($this->article, [
+            'align' => 'inline',
+        ]);
+
+        $result = $this->Form->control('title', [
+            'errorStyle' => FormHelper::ERROR_STYLE_DEFAULT,
+        ]);
+
+        $expected = [
+            ['div' => ['class' => 'form-group text is-invalid']],
+                ['label' => ['class' => 'sr-only', 'for' => 'title']],
+                    'Title',
+                '/label',
+                'input' => [
+                    'type' => 'text',
+                    'name' => 'title',
+                    'id' => 'title',
+                    'class' => 'is-invalid form-control',
+                ],
+                ['div' => ['class' => 'invalid-feedback']],
+                    'error message',
+                '/div',
+            '/div',
+        ];
+        $this->assertHtml($expected, $result);
+    }
+
+    public function testHorizontalAlignControlWithTooltipErrorStyle()
+    {
+        $this->article['errors'] = [
+            'title' => ['error message'],
+        ];
+        $this->article['required']['title'] = false;
+
+        $this->Form->create($this->article, [
+            'align' => [
+                'sm' => [
+                    'left' => 5,
+                    'middle' => 7,
+                ],
+            ],
+        ]);
+
+        $result = $this->Form->control('title', [
+            'errorStyle' => FormHelper::ERROR_STYLE_TOOLTIP,
+        ]);
+
+        $expected = [
+            ['div' => ['class' => 'form-group row position-relative text is-invalid']],
+                ['label' => ['class' => 'col-form-label col-sm-5', 'for' => 'title']],
+                    'Title',
+                '/label',
+                ['div' => ['class' => 'col-sm-7']],
+                    ['input' => [
+                        'type' => 'text',
+                        'name' => 'title',
+                        'id' => 'title',
+                        'class' => 'is-invalid form-control',
+                    ]],
+                    ['div' => ['class' => 'invalid-tooltip']],
+                        'error message',
+                    '/div',
+                '/div',
+            '/div',
+        ];
+        $this->assertHtml($expected, $result);
+    }
+
     public function testDefaultAlignDatetimeControl()
     {
         $this->Form->create($this->article);
@@ -2300,7 +2541,7 @@ class FormHelperTest extends TestCase
             'value' => $now->format('Y-m-d H:i:s'),
         ]);
         $expected = [
-            ['div' => ['class' => 'form-group datetime-local', 'role' => 'group', 'aria-labelledby' => 'created-group-label']],
+            ['div' => ['class' => 'form-group position-relative datetime-local', 'role' => 'group', 'aria-labelledby' => 'created-group-label']],
                 ['span' => ['id' => 'created-group-label', 'class' => 'sr-only']],
                     'Created',
                 '/span',
@@ -2332,7 +2573,7 @@ class FormHelperTest extends TestCase
             'tooltip' => 'Tooltip text',
         ]);
         $expected = [
-            ['div' => ['class' => 'form-group datetime-local', 'role' => 'group', 'aria-labelledby' => 'created-group-label']],
+            ['div' => ['class' => 'form-group position-relative datetime-local', 'role' => 'group', 'aria-labelledby' => 'created-group-label']],
                 ['span' => ['id' => 'created-group-label', 'class' => 'sr-only']],
                     'Created ',
                     'span' => [
@@ -2376,7 +2617,7 @@ class FormHelperTest extends TestCase
         ]);
         $expected = [
             ['div' => [
-                'class' => 'form-group datetime-local is-invalid',
+                'class' => 'form-group position-relative datetime-local is-invalid',
                 'role' => 'group',
                 'aria-labelledby' => 'created-group-label',
             ]],
@@ -2390,6 +2631,9 @@ class FormHelperTest extends TestCase
                     'class' => 'is-invalid form-control',
                     'value' => $now->format('Y-m-d H:i:s'),
                 ],
+                ['div' => ['class' => 'invalid-tooltip']],
+                    'error message',
+                '/div',
             '/div',
         ];
         $this->assertHtml($expected, $result);
@@ -2410,7 +2654,7 @@ class FormHelperTest extends TestCase
             'value' => $now,
         ]);
         $expected = [
-            ['div' => ['class' => 'form-group date', 'role' => 'group', 'aria-labelledby' => 'created-group-label']],
+            ['div' => ['class' => 'form-group position-relative date', 'role' => 'group', 'aria-labelledby' => 'created-group-label']],
                 ['span' => ['id' => 'created-group-label', 'class' => 'sr-only']],
                     'Created',
                 '/span',
@@ -2441,7 +2685,7 @@ class FormHelperTest extends TestCase
             'value' => $now,
         ]);
         $expected = [
-            ['div' => ['class' => 'form-group time', 'role' => 'group', 'aria-labelledby' => 'created-group-label']],
+            ['div' => ['class' => 'form-group position-relative time', 'role' => 'group', 'aria-labelledby' => 'created-group-label']],
                 ['span' => ['id' => 'created-group-label', 'class' => 'sr-only']],
                     'Created',
                 '/span',
@@ -2469,17 +2713,17 @@ class FormHelperTest extends TestCase
         $result = $this->Form->control('created', [
             'type' => 'datetime',
         ]);
-        $this->assertStringContainsString('<div class="form-group datetime" role="group" aria-labelledby="created-group-label">', $result);
+        $this->assertStringContainsString('<div class="form-group position-relative datetime" role="group" aria-labelledby="created-group-label">', $result);
 
         $result = $this->Form->control('created', [
             'type' => 'date',
         ]);
-        $this->assertStringContainsString('<div class="form-group date" role="group" aria-labelledby="created-group-label">', $result);
+        $this->assertStringContainsString('<div class="form-group position-relative date" role="group" aria-labelledby="created-group-label">', $result);
 
         $result = $this->Form->control('created', [
             'type' => 'time',
         ]);
-        $this->assertStringContainsString('<div class="form-group time" role="group" aria-labelledby="created-group-label">', $result);
+        $this->assertStringContainsString('<div class="form-group position-relative time" role="group" aria-labelledby="created-group-label">', $result);
 
         $this->Form->setTemplates([
             'datetimeContainer' => '<div class="custom datetimeContainer {{type}}{{required}}" role="group" aria-labelledby="{{groupId}}">{{content}}</div>',
@@ -2518,17 +2762,17 @@ class FormHelperTest extends TestCase
         $result = $this->Form->control('created', [
             'type' => 'datetime',
         ]);
-        $this->assertStringContainsString('<div class="form-group datetime is-invalid" role="group" aria-labelledby="created-group-label">', $result);
+        $this->assertStringContainsString('<div class="form-group position-relative datetime is-invalid" role="group" aria-labelledby="created-group-label">', $result);
 
         $result = $this->Form->control('created', [
             'type' => 'date',
         ]);
-        $this->assertStringContainsString('<div class="form-group date is-invalid" role="group" aria-labelledby="created-group-label">', $result);
+        $this->assertStringContainsString('<div class="form-group position-relative date is-invalid" role="group" aria-labelledby="created-group-label">', $result);
 
         $result = $this->Form->control('created', [
             'type' => 'time',
         ]);
-        $this->assertStringContainsString('<div class="form-group time is-invalid" role="group" aria-labelledby="created-group-label">', $result);
+        $this->assertStringContainsString('<div class="form-group position-relative time is-invalid" role="group" aria-labelledby="created-group-label">', $result);
 
         $result = $this->Form->control('created', [
             'type' => 'datetime',
@@ -3523,7 +3767,7 @@ class FormHelperTest extends TestCase
             'type' => 'checkbox',
         ]);
         $expected = [
-            ['div' => ['class' => 'form-check form-check-inline checkbox is-invalid']],
+            ['div' => ['class' => 'form-check form-check-inline position-relative checkbox is-invalid']],
                 ['input' => [
                     'class' => 'is-invalid',
                     'type' => 'hidden',
@@ -3540,6 +3784,9 @@ class FormHelperTest extends TestCase
                 ['label' => ['class' => 'form-check-label', 'for' => 'users']],
                     'Users',
                 '/label',
+                ['div' => ['class' => 'invalid-tooltip']],
+                    'error message',
+                '/div',
             '/div',
         ];
         $this->assertHtml($expected, $result);
@@ -5222,7 +5469,7 @@ class FormHelperTest extends TestCase
             ],
         ]);
         $expected = [
-            ['div' => ['class' => 'form-group radio', 'role' => 'group', 'aria-labelledby' => 'users-group-label']],
+            ['div' => ['class' => 'form-group position-relative radio', 'role' => 'group', 'aria-labelledby' => 'users-group-label']],
                 ['span' => ['id' => 'users-group-label', 'class' => 'sr-only']],
                     'Users',
                 '/span',
@@ -5312,7 +5559,7 @@ class FormHelperTest extends TestCase
             ],
         ]);
         $expected = [
-            ['div' => ['class' => 'form-group radio is-invalid', 'role' => 'group', 'aria-labelledby' => 'users-group-label']],
+            ['div' => ['class' => 'form-group position-relative radio is-invalid', 'role' => 'group', 'aria-labelledby' => 'users-group-label']],
                 ['span' => ['id' => 'users-group-label', 'class' => 'sr-only']],
                     'Users',
                 '/span',
@@ -5346,6 +5593,9 @@ class FormHelperTest extends TestCase
                         'option 2',
                     '/label',
                 '/div',
+                ['div' => ['class' => 'invalid-tooltip']],
+                    'error message',
+                '/div',
             '/div',
         ];
         $this->assertHtml($expected, $result);
@@ -5375,7 +5625,7 @@ class FormHelperTest extends TestCase
             ],
         ]);
         $expected = [
-            ['div' => ['class' => 'form-group radio', 'role' => 'group', 'aria-labelledby' => 'users-group-label']],
+            ['div' => ['class' => 'form-group position-relative radio', 'role' => 'group', 'aria-labelledby' => 'users-group-label']],
                 ['span' => ['id' => 'users-group-label', 'class' => 'sr-only']],
                     'Users',
                 '/span',
@@ -5442,7 +5692,7 @@ class FormHelperTest extends TestCase
             'nestedInput' => true,
         ]);
         $expected = [
-            ['div' => ['class' => 'form-group radio', 'role' => 'group', 'aria-labelledby' => 'users-group-label']],
+            ['div' => ['class' => 'form-group position-relative radio', 'role' => 'group', 'aria-labelledby' => 'users-group-label']],
                 ['span' => ['id' => 'users-group-label', 'class' => 'sr-only']],
                     'Users',
                 '/span',
@@ -5505,7 +5755,7 @@ class FormHelperTest extends TestCase
             'nestedInput' => true,
         ]);
         $expected = [
-            ['div' => ['class' => 'form-group radio', 'role' => 'group', 'aria-labelledby' => 'users-group-label']],
+            ['div' => ['class' => 'form-group position-relative radio', 'role' => 'group', 'aria-labelledby' => 'users-group-label']],
                 ['span' => ['id' => 'users-group-label', 'class' => 'sr-only']],
                     'Users',
                 '/span',
@@ -8388,7 +8638,7 @@ class FormHelperTest extends TestCase
             ],
         ]);
         $expected = [
-            ['div' => ['class' => 'form-group multicheckbox', 'role' => 'group', 'aria-labelledby' => 'users-group-label']],
+            ['div' => ['class' => 'form-group position-relative multicheckbox', 'role' => 'group', 'aria-labelledby' => 'users-group-label']],
                 ['span' => ['id' => 'users-group-label', 'class' => 'sr-only']],
                     'Users',
                 '/span',
@@ -8440,7 +8690,7 @@ class FormHelperTest extends TestCase
             'tooltip' => 'Tooltip text',
         ]);
         $expected = [
-            ['div' => ['class' => 'form-group multicheckbox', 'role' => 'group', 'aria-labelledby' => 'users-group-label']],
+            ['div' => ['class' => 'form-group position-relative multicheckbox', 'role' => 'group', 'aria-labelledby' => 'users-group-label']],
                 ['span' => ['id' => 'users-group-label', 'class' => 'sr-only']],
                     'Users ',
                     'span' => [
@@ -8483,7 +8733,7 @@ class FormHelperTest extends TestCase
         ]);
         $expected = [
             ['div' => [
-                'class' => 'form-group multicheckbox is-invalid',
+                'class' => 'form-group position-relative multicheckbox is-invalid',
                 'role' => 'group',
                 'aria-labelledby' => 'users-group-label',
             ]],
@@ -8520,6 +8770,9 @@ class FormHelperTest extends TestCase
                         'option 2',
                     '/label',
                 '/div',
+                ['div' => ['class' => 'invalid-tooltip']],
+                    'error message',
+                '/div',
             '/div',
         ];
         $this->assertHtml($expected, $result);
@@ -8549,7 +8802,7 @@ class FormHelperTest extends TestCase
             ],
         ]);
         $expected = [
-            ['div' => ['class' => 'form-group multicheckbox', 'role' => 'group', 'aria-labelledby' => 'users-group-label']],
+            ['div' => ['class' => 'form-group position-relative multicheckbox', 'role' => 'group', 'aria-labelledby' => 'users-group-label']],
                 ['span' => ['id' => 'users-group-label', 'class' => 'sr-only']],
                     'Users',
                 '/span',
@@ -8616,7 +8869,7 @@ class FormHelperTest extends TestCase
             'nestedInput' => true,
         ]);
         $expected = [
-            ['div' => ['class' => 'form-group multicheckbox', 'role' => 'group', 'aria-labelledby' => 'users-group-label']],
+            ['div' => ['class' => 'form-group position-relative multicheckbox', 'role' => 'group', 'aria-labelledby' => 'users-group-label']],
                 ['span' => ['id' => 'users-group-label', 'class' => 'sr-only']],
                     'Users',
                 '/span',
@@ -8679,7 +8932,7 @@ class FormHelperTest extends TestCase
             'nestedInput' => true,
         ]);
         $expected = [
-            ['div' => ['class' => 'form-group multicheckbox', 'role' => 'group', 'aria-labelledby' => 'users-group-label']],
+            ['div' => ['class' => 'form-group position-relative multicheckbox', 'role' => 'group', 'aria-labelledby' => 'users-group-label']],
                 ['span' => ['id' => 'users-group-label', 'class' => 'sr-only']],
                     'Users',
                 '/span',
@@ -8996,7 +9249,7 @@ class FormHelperTest extends TestCase
             'type' => 'file',
         ]);
         $expected = [
-            ['div' => ['class' => 'form-group file is-invalid']],
+            ['div' => ['class' => 'form-group position-relative file is-invalid']],
                 ['label' => ['class' => 'sr-only', 'for' => 'file']],
                     'File',
                 '/label',
@@ -9006,7 +9259,7 @@ class FormHelperTest extends TestCase
                     'id' => 'file',
                     'class' => 'is-invalid form-control-file',
                 ]],
-                ['div' => ['class' => 'invalid-feedback']],
+                ['div' => ['class' => 'invalid-tooltip']],
                     'error message',
                 '/div',
             '/div',
@@ -9326,7 +9579,7 @@ class FormHelperTest extends TestCase
             'step' => 1,
         ]);
         $expected = [
-            'div' => ['class' => 'form-group range is-invalid'],
+            'div' => ['class' => 'form-group position-relative range is-invalid'],
                 ['label' => ['class' => 'sr-only', 'for' => 'height']],
                     'Height',
                 '/label',
@@ -9339,9 +9592,9 @@ class FormHelperTest extends TestCase
                     'id' => 'height',
                     'class' => 'is-invalid form-control',
                 ],
-                    ['div' => ['class' => 'invalid-feedback']],
-                        'error message',
-                    '/div',
+                ['div' => ['class' => 'invalid-tooltip']],
+                    'error message',
+                '/div',
             '/div',
         ];
         $this->assertHtml($expected, $result);
@@ -10165,7 +10418,7 @@ class FormHelperTest extends TestCase
             'custom' => true,
         ]);
         $expected = [
-            ['div' => ['class' => 'form-group radio', 'role' => 'group', 'aria-labelledby' => 'users-group-label']],
+            ['div' => ['class' => 'form-group position-relative radio', 'role' => 'group', 'aria-labelledby' => 'users-group-label']],
                 ['span' => ['id' => 'users-group-label', 'class' => 'sr-only']],
                     'Users',
                 '/span',
@@ -10228,7 +10481,7 @@ class FormHelperTest extends TestCase
             'custom' => true,
         ]);
         $expected = [
-            ['div' => ['class' => 'form-group radio', 'role' => 'group', 'aria-labelledby' => 'users-group-label']],
+            ['div' => ['class' => 'form-group position-relative radio', 'role' => 'group', 'aria-labelledby' => 'users-group-label']],
                 ['span' => ['id' => 'users-group-label', 'class' => 'sr-only']],
                     'Users',
                 '/span',
@@ -11343,7 +11596,7 @@ class FormHelperTest extends TestCase
             'custom' => true,
         ]);
         $expected = [
-            ['div' => ['class' => 'form-group multicheckbox', 'role' => 'group', 'aria-labelledby' => 'users-group-label']],
+            ['div' => ['class' => 'form-group position-relative multicheckbox', 'role' => 'group', 'aria-labelledby' => 'users-group-label']],
                 ['span' => ['id' => 'users-group-label', 'class' => 'sr-only']],
                     'Users',
                 '/span',
@@ -11406,7 +11659,7 @@ class FormHelperTest extends TestCase
             'custom' => true,
         ]);
         $expected = [
-            ['div' => ['class' => 'form-group multicheckbox', 'role' => 'group', 'aria-labelledby' => 'users-group-label']],
+            ['div' => ['class' => 'form-group position-relative multicheckbox', 'role' => 'group', 'aria-labelledby' => 'users-group-label']],
                 ['span' => ['id' => 'users-group-label', 'class' => 'sr-only']],
                     'Users',
                 '/span',
@@ -11655,7 +11908,7 @@ class FormHelperTest extends TestCase
             'custom' => true,
         ]);
         $expected = [
-            'div' => ['class' => 'form-group range is-invalid'],
+            'div' => ['class' => 'form-group position-relative range is-invalid'],
                 ['label' => ['class' => 'sr-only', 'for' => 'height']],
                     'Height',
                 '/label',
@@ -11668,7 +11921,7 @@ class FormHelperTest extends TestCase
                     'id' => 'height',
                     'class' => 'custom-range is-invalid',
                 ],
-                ['div' => ['class' => 'invalid-feedback']],
+                ['div' => ['class' => 'invalid-tooltip']],
                     'error message',
                 '/div',
             '/div',
@@ -12486,7 +12739,7 @@ class FormHelperTest extends TestCase
             'custom' => true,
         ]);
         $expected = [
-            ['div' => ['class' => 'form-group file is-invalid']],
+            ['div' => ['class' => 'form-group position-relative file is-invalid']],
                 ['div' => ['class' => 'custom-file is-invalid']],
                     ['input' => [
                         'type' => 'file',
@@ -12498,7 +12751,7 @@ class FormHelperTest extends TestCase
                         'File',
                     '/label',
                 '/div',
-                ['div' => ['class' => 'invalid-feedback']],
+                ['div' => ['class' => 'invalid-tooltip']],
                     'error message',
                 '/div',
             '/div',
@@ -12599,7 +12852,7 @@ class FormHelperTest extends TestCase
             'append' => 'append',
         ]);
         $expected = [
-            ['div' => ['class' => 'form-group file is-invalid']],
+            ['div' => ['class' => 'form-group position-relative file is-invalid']],
                 ['div' => ['class' => 'input-group is-invalid']],
                     ['div' => ['class' => 'custom-file is-invalid']],
                         ['input' => [
@@ -12618,7 +12871,7 @@ class FormHelperTest extends TestCase
                         '/span',
                     '/div',
                 '/div',
-                ['div' => ['class' => 'invalid-feedback']],
+                ['div' => ['class' => 'invalid-tooltip']],
                     'error message',
                 '/div',
             '/div',
