@@ -299,17 +299,6 @@ class FormHelper extends Helper
      */
     public function create($context = null, array $options = []): string
     {
-        // @codeCoverageIgnoreStart
-        if (isset($options['horizontal'])) {
-            if ($options['horizontal'] === true) {
-                $options['horizontal'] = 'horizontal';
-            }
-            $options['align'] = $options['horizontal'];
-            unset($options['horizontal']);
-            trigger_error('The `horizontal` option is deprecated. Use `align` instead.');
-        }
-        // @codeCoverageIgnoreEnd
-
         $options += [
             'class' => null,
             'role' => 'form',
