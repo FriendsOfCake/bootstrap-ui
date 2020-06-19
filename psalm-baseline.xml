@@ -1,45 +1,32 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<files psalm-version="3.6.5@b1aae0d1a5a11908e0e5f9eb6795ab7bb3f43577">
-  <file src="src/Shell/BootstrapShell.php">
-    <DeprecatedClass occurrences="3">
-      <code>Shell</code>
-      <code>new File($path)</code>
-      <code>parent::getOptionParser()</code>
+<files psalm-version="3.11.6@7fc1f50f54bd6b174b1c43a37c1b0b151915d55c">
+  <file src="src/Command/CopyLayoutsCommand.php">
+    <DeprecatedClass occurrences="1">
+      <code>new Folder(Plugin::path('BootstrapUI') . 'templates' . DS . 'layout' . DS . 'examples')</code>
     </DeprecatedClass>
   </file>
-  <file src="src/Shell/Task/AssetsTask.php">
-    <DeprecatedClass occurrences="2">
-      <code>Shell</code>
-      <code>parent::getOptionParser()</code>
-    </DeprecatedClass>
-    <InternalClass occurrences="2">
-      <code>new Filesystem()</code>
-      <code>new Filesystem()</code>
-    </InternalClass>
-    <InternalMethod occurrences="2">
-      <code>deleteDir</code>
-      <code>copyDir</code>
-    </InternalMethod>
-  </file>
-  <file src="src/Shell/Task/TwbsAssetsTask.php">
-    <DeprecatedClass occurrences="14">
-      <code>Shell</code>
-      <code>parent::__construct()</code>
+  <file src="src/Command/InstallCommand.php">
+    <DeprecatedClass occurrences="12">
+      <code>new Folder('node_modules')</code>
       <code>new Folder(Plugin::path('BootstrapUI') . 'webroot', true)</code>
       <code>new Folder(Plugin::path('BootstrapUI') . 'node_modules', true)</code>
-      <code>new Folder($this-&gt;_assetDir-&gt;path . DS . 'css', true)</code>
-      <code>new Folder($this-&gt;_assetDir-&gt;path . DS . 'js', true)</code>
-      <code>new Folder('node_modules')</code>
-      <code>new Folder($this-&gt;_nodeDir-&gt;path . DS . 'bootstrap/dist')</code>
-      <code>new Folder($this-&gt;_nodeDir-&gt;path . DS . 'jquery/dist')</code>
-      <code>new Folder($this-&gt;_nodeDir-&gt;path . DS . 'popper.js/dist/umd')</code>
+      <code>new Folder($nodeDir-&gt;path . DS . 'bootstrap/dist')</code>
+      <code>new Folder($nodeDir-&gt;path . DS . 'jquery/dist')</code>
+      <code>new Folder($nodeDir-&gt;path . DS . 'popper.js/dist/umd')</code>
       <code>new File($file)</code>
-      <code>new Folder(Plugin::path('BootstrapUI') . 'templates' . DS . 'layout' . DS . 'examples')</code>
+      <code>new Folder(Plugin::path('BootstrapUI') . 'webroot', true)</code>
+      <code>new Folder($assetDir-&gt;path . DS . 'css', true)</code>
+      <code>new Folder($assetDir-&gt;path . DS . 'js', true)</code>
       <code>\Cake\Filesystem\Folder</code>
       <code>new File($file)</code>
     </DeprecatedClass>
     <ForbiddenCode occurrences="1">
-      <code>`which npm`</code>
+      <code>`$command`</code>
     </ForbiddenCode>
+  </file>
+  <file src="src/Command/ModifyViewCommand.php">
+    <DeprecatedClass occurrences="1">
+      <code>new File($file)</code>
+    </DeprecatedClass>
   </file>
 </files>

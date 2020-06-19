@@ -10,7 +10,3 @@ parameters:
             message: "#^Offset 'element' does not exist on array\\('params' \\=\\> mixed\\)\\.$#"
             count: 1
             path: src/View/Helper/FlashHelper.php
-        -
-            message: '#Property BootstrapUI\\Shell\\Task\\TwbsAssetsTask::\$_[a-zA-Z]+ has no typehint specified#'
-            count: 4
-            path: src/Shell/Task/TwbsAssetsTask.php
