@@ -71,6 +71,34 @@ class FormHelper extends Helper
     public const POSITION_STICKY = 'sticky';
 
     /**
+     * Form alignment types.
+     *
+     * @var array
+     */
+    public const ALIGN_TYPES = ['default', 'horizontal', 'inline'];
+
+    /**
+     * Default alignment.
+     *
+     * @var string
+     */
+    public const ALIGN_DEFAULT = 'default';
+
+    /**
+     * Horizontal alignment.
+     *
+     * @var string
+     */
+    public const ALIGN_HORIZONTAL = 'horizontal';
+
+    /**
+     * Inlline alignment.
+     *
+     * @var string
+     */
+    public const ALIGN_INLINE = 'inline';
+
+    /**
      * Set on `Form::create()` to tell if the type of alignment used (i.e. horizontal).
      *
      * @var string|null
@@ -299,17 +327,6 @@ class FormHelper extends Helper
      */
     public function create($context = null, array $options = []): string
     {
-        // @codeCoverageIgnoreStart
-        if (isset($options['horizontal'])) {
-            if ($options['horizontal'] === true) {
-                $options['horizontal'] = 'horizontal';
-            }
-            $options['align'] = $options['horizontal'];
-            unset($options['horizontal']);
-            trigger_error('The `horizontal` option is deprecated. Use `align` instead.');
-        }
-        // @codeCoverageIgnoreEnd
-
         $options += [
             'class' => null,
             'role' => 'form',
@@ -384,19 +401,6 @@ class FormHelper extends Helper
         ];
         $options = $this->_parseOptions($fieldName, $options);
 
-        $formGroupPosition = $options['formGroupPosition'] ?: $this->getConfig('formGroupPosition');
-        $errorStyle = $options['errorStyle'] ?: $this->getConfig('errorStyle');
-        $custom = $options['custom'];
-        $inline = $options['inline'];
-        $nestedInput = $options['nestedInput'];
-        unset(
-            $options['formGroupPosition'],
-            $options['errorStyle'],
-            $options['custom'],
-            $options['inline'],
-            $options['nestedInput']
-        );
-
         $newTemplates = $options['templates'];
         if ($newTemplates) {
             $this->templater()->push();
@@ -410,183 +414,286 @@ class FormHelper extends Helper
             case 'datetime':
             case 'date':
             case 'time':
-                $options['label']['templateVars']['groupId'] =
-                $options['templateVars']['groupId'] =
-                    $this->_domId($fieldName . '-group-label');
-
-                $options['templates']['label'] = $this->templater()->get('datetimeLabel');
-                $options['templates']['inputContainer'] = $this->templater()->get('datetimeContainer');
-                $options['templates']['inputContainerError'] = $this->templater()->get('datetimeContainerError');
+                $options = $this->_dateTimeOptions($fieldName, $options);
                 break;
 
             case 'checkbox':
-                if (!$custom) {
-                    $options['label'] = $this->injectClasses('form-check-label', (array)$options['label']);
-                    $options = $this->injectClasses('form-check-input', $options);
-                } else {
-                    $options['label'] = $this->injectClasses('custom-control-label', (array)$options['label']);
-                    $options = $this->injectClasses('custom-control-input', $options);
-
-                    if ($this->_align === 'horizontal') {
-                        $options['templates']['checkboxFormGroup'] = $this->templater()->get('customCheckboxFormGroup');
-                    } else {
-                        $options['templates']['checkboxContainer'] = $this->templater()->get('customCheckboxContainer');
-                        $containerError = $this->templater()->get('customCheckboxContainerError');
-                        $options['templates']['checkboxContainerError'] = $containerError;
-                    }
-                }
-
-                if ($this->_align === 'horizontal') {
-                    $inline = false;
-                }
-
-                if (
-                    $inline ||
-                    $this->_align === 'inline'
-                ) {
-                    if (!$custom) {
-                        $checkboxContainer = $this->templater()->get('checkboxInlineContainer');
-                        $checkboxContainerError = $this->templater()->get('checkboxInlineContainerError');
-                    } else {
-                        $checkboxContainer = $this->templater()->get('customCheckboxInlineContainer');
-                        $checkboxContainerError = $this->templater()->get('customCheckboxInlineContainerError');
-                    }
-                    $options['templates']['checkboxContainer'] = $checkboxContainer;
-                    $options['templates']['checkboxContainerError'] = $checkboxContainerError;
-                }
-
-                if ($nestedInput) {
-                    $options['templates']['nestingLabel'] = $this->templater()->get('nestingLabelNestedInput');
-                }
-                break;
-
             case 'radio':
-                if (!$custom) {
-                    $options = $this->injectClasses('form-check-input', $options);
-                } else {
-                    $options['custom'] = true;
-                    $options['templates']['radioWrapper'] = $this->templater()->get('customRadioWrapper');
-                }
-
-                $options['label']['templateVars']['groupId'] =
-                $options['templateVars']['groupId'] =
-                    $this->_domId($fieldName . '-group-label');
-
-                $options['templates']['label'] = $this->templater()->get('radioLabel');
-
-                if (
-                    $inline ||
-                    $this->_align === 'inline'
-                ) {
-                    if (!$custom) {
-                        $options['templates']['radioWrapper'] = $this->templater()->get('radioInlineWrapper');
-                    } else {
-                        $options['templates']['radioWrapper'] = $this->templater()->get('customRadioInlineWrapper');
-                    }
-                }
-
-                if ($nestedInput) {
-                    $options['templates']['nestingLabel'] = $this->templater()->get('nestingLabelNestedInput');
-                }
-                break;
-
             case 'select':
-                if (isset($options['multiple']) && $options['multiple'] === 'checkbox') {
-                    $options['type'] = 'multicheckbox';
-
-                    $options['label']['templateVars']['groupId'] =
-                    $options['templateVars']['groupId'] =
-                        $this->_domId($fieldName . '-group-label');
-
-                    $options['templates']['label'] = $this->templater()->get('multicheckboxLabel');
-
-                    if (!$custom) {
-                        $options = $this->injectClasses('form-check-input', $options);
-                    } else {
-                        $options['custom'] = true;
-                        $options['templates']['checkboxWrapper'] = $this->templater()->get('customCheckboxWrapper');
-                    }
-
-                    if (
-                        $inline ||
-                        $this->_align === 'inline'
-                    ) {
-                        if (!$custom) {
-                            $wrapper = $this->templater()->get('checkboxInlineWrapper');
-                        } else {
-                            $wrapper = $this->templater()->get('customCheckboxInlineWrapper');
-                        }
-                        $options['templates']['checkboxWrapper'] = $wrapper;
-                    }
-
-                    if ($nestedInput) {
-                        $options['templates']['nestingLabel'] = $this->templater()->get('nestingLabelNestedInput');
-                    }
-                }
-
-                if (
-                    $custom &&
-                    $options['type'] !== 'multicheckbox'
-                ) {
-                    $options['injectFormControl'] = false;
-                    $options = $this->injectClasses('custom-select', $options);
-                }
-                break;
-
             case 'file':
-                if (!$custom) {
-                    if ($this->_align === 'horizontal') {
-                        $options['templates']['label'] = $this->templater()->get('fileLabel');
-                    }
-                } else {
-                    $options['custom'] = true;
-                    $options['tooltip'] = null;
-
-                    $options['templates']['label'] = $this->templater()->get('customFileLabel');
-                    $options['templates']['formGroup'] = $this->templater()->get('customFileFormGroup');
-
-                    if ($this->_getContext()->hasError($fieldName)) {
-                        $options['templateVars']['invalid'] = $this->_config['errorClass'];
-                    }
-
-                    if (
-                        $options['prepend'] ||
-                        $options['append']
-                    ) {
-                        if ($options['label'] === null) {
-                            $options['label'] = [];
-                        }
-                        if (
-                            $options['label'] !== false &&
-                            !isset($options['label']['text'])
-                        ) {
-                            $text = $fieldName;
-                            if (strpos($text, '.') !== false) {
-                                $fieldElements = explode('.', $text);
-                                $text = array_pop($fieldElements);
-                            }
-                            $options['label']['text'] = __(Inflector::humanize(Inflector::underscore($text)));
-                        }
-                        $options['inputGroupLabel'] = $options['label'];
-                        $options['label'] = false;
-
-                        $options['templates']['formGroup'] = $this->templater()->get('customFileInputGroupFormGroup');
-                        $container = $this->templater()->get('customFileInputGroupContainer');
-                        $options['templates']['inputGroupContainer'] = $container;
-                    }
-                }
+                $function = '_' . $options['type'] . 'Options';
+                $options = $this->{$function}($fieldName, $options);
                 break;
 
             case 'range':
-                if ($custom) {
+                if ($options['custom']) {
                     $options['injectFormControl'] = false;
                     $options = $this->injectClasses('custom-range', $options);
                 }
                 break;
         }
 
+        $options = $this->_errorStyleOptions($fieldName, $options);
+        $options = $this->_helpOptions($fieldName, $options);
+        $options = $this->_tooltipOptions($fieldName, $options);
+
         if (
-            $this->_align === 'inline' &&
+            isset($options['append']) ||
+            isset($options['prepend'])
+        ) {
+            $options['injectErrorClass'] = $this->_config['errorClass'];
+        }
+
+        unset(
+            $options['formGroupPosition'],
+            $options['errorStyle'],
+            $options['inline'],
+            $options['nestedInput']
+        );
+
+        if (!in_array($options['type'], ['file', 'multicheckbox', 'radio'], true)) {
+            unset($options['custom']);
+        }
+
+        $result = parent::control($fieldName, $options);
+
+        if ($newTemplates) {
+            $this->templater()->pop();
+        }
+
+        return $result;
+    }
+
+    /**
+     * Modify options for date time controls.
+     *
+     * @param string $fieldName Field name.
+     * @param array $options Options. See `$options` argument of `control()` method.
+     * @return array
+     */
+    protected function _dateTimeOptions(string $fieldName, array $options): array
+    {
+        $options['label']['templateVars']['groupId'] =
+        $options['templateVars']['groupId'] =
+            $this->_domId($fieldName . '-group-label');
+
+        $options['templates']['label'] = $this->templater()->get('datetimeLabel');
+        $options['templates']['inputContainer'] = $this->templater()->get('datetimeContainer');
+        $options['templates']['inputContainerError'] = $this->templater()->get('datetimeContainerError');
+
+        return $options;
+    }
+
+    /**
+     * Modify options for checkbox controls.
+     *
+     * @param string $fieldName Field name.
+     * @param array $options Options. See `$options` argument of `control()` method.
+     * @return array
+     */
+    protected function _checkboxOptions(string $fieldName, array $options): array
+    {
+        if (!$options['custom']) {
+            $options['label'] = $this->injectClasses('form-check-label', (array)$options['label']);
+            $options = $this->injectClasses('form-check-input', $options);
+        } else {
+            $options['label'] = $this->injectClasses('custom-control-label', (array)$options['label']);
+            $options = $this->injectClasses('custom-control-input', $options);
+
+            if ($this->_align === static::ALIGN_HORIZONTAL) {
+                $options['templates']['checkboxFormGroup'] = $this->templater()->get('customCheckboxFormGroup');
+            } else {
+                $options['templates']['checkboxContainer'] = $this->templater()->get('customCheckboxContainer');
+                $containerError = $this->templater()->get('customCheckboxContainerError');
+                $options['templates']['checkboxContainerError'] = $containerError;
+            }
+        }
+
+        if ($this->_align === static::ALIGN_HORIZONTAL) {
+            $options['inline'] = false;
+        }
+
+        if (
+            $options['inline'] ||
+            $this->_align === static::ALIGN_INLINE
+        ) {
+            if (!$options['custom']) {
+                $checkboxContainer = $this->templater()->get('checkboxInlineContainer');
+                $checkboxContainerError = $this->templater()->get('checkboxInlineContainerError');
+            } else {
+                $checkboxContainer = $this->templater()->get('customCheckboxInlineContainer');
+                $checkboxContainerError = $this->templater()->get('customCheckboxInlineContainerError');
+            }
+            $options['templates']['checkboxContainer'] = $checkboxContainer;
+            $options['templates']['checkboxContainerError'] = $checkboxContainerError;
+        }
+
+        if ($options['nestedInput']) {
+            $options['templates']['nestingLabel'] = $this->templater()->get('nestingLabelNestedInput');
+        }
+
+        return $options;
+    }
+
+    /**
+     * Modify options for radio controls.
+     *
+     * @param string $fieldName Field name.
+     * @param array $options Options. See `$options` argument of `control()` method.
+     * @return array
+     */
+    protected function _radioOptions(string $fieldName, array $options): array
+    {
+        if (!$options['custom']) {
+            $options = $this->injectClasses('form-check-input', $options);
+        } else {
+            $options['templates']['radioWrapper'] = $this->templater()->get('customRadioWrapper');
+        }
+
+        $options['label']['templateVars']['groupId'] =
+        $options['templateVars']['groupId'] =
+            $this->_domId($fieldName . '-group-label');
+
+        $options['templates']['label'] = $this->templater()->get('radioLabel');
+
+        if (
+            $options['inline'] ||
+            $this->_align === static::ALIGN_INLINE
+        ) {
+            if (!$options['custom']) {
+                $options['templates']['radioWrapper'] = $this->templater()->get('radioInlineWrapper');
+            } else {
+                $options['templates']['radioWrapper'] = $this->templater()->get('customRadioInlineWrapper');
+            }
+        }
+
+        if ($options['nestedInput']) {
+            $options['templates']['nestingLabel'] = $this->templater()->get('nestingLabelNestedInput');
+        }
+
+        return $options;
+    }
+
+    /**
+     * Modify options for select controls.
+     *
+     * @param string $fieldName Field name.
+     * @param array $options Options. See `$options` argument of `control()` method.
+     * @return array
+     */
+    protected function _selectOptions(string $fieldName, array $options): array
+    {
+        if (isset($options['multiple']) && $options['multiple'] === 'checkbox') {
+            $options['type'] = 'multicheckbox';
+
+            $options['label']['templateVars']['groupId'] =
+            $options['templateVars']['groupId'] =
+                $this->_domId($fieldName . '-group-label');
+
+            $options['templates']['label'] = $this->templater()->get('multicheckboxLabel');
+
+            if (!$options['custom']) {
+                $options = $this->injectClasses('form-check-input', $options);
+            } else {
+                $options['templates']['checkboxWrapper'] = $this->templater()->get('customCheckboxWrapper');
+            }
+
+            if (
+                $options['inline'] ||
+                $this->_align === static::ALIGN_INLINE
+            ) {
+                if (!$options['custom']) {
+                    $wrapper = $this->templater()->get('checkboxInlineWrapper');
+                } else {
+                    $wrapper = $this->templater()->get('customCheckboxInlineWrapper');
+                }
+                $options['templates']['checkboxWrapper'] = $wrapper;
+            }
+
+            if ($options['nestedInput']) {
+                $options['templates']['nestingLabel'] = $this->templater()->get('nestingLabelNestedInput');
+            }
+        }
+
+        if (
+            $options['custom'] &&
+            $options['type'] !== 'multicheckbox'
+        ) {
+            $options['injectFormControl'] = false;
+            $options = $this->injectClasses('custom-select', $options);
+        }
+
+        return $options;
+    }
+
+    /**
+     * Modify options for file controls.
+     *
+     * @param string $fieldName Field name.
+     * @param array $options Options. See `$options` argument of `control()` method.
+     * @return array
+     */
+    protected function _fileOptions(string $fieldName, array $options): array
+    {
+        if (!$options['custom']) {
+            if ($this->_align === static::ALIGN_HORIZONTAL) {
+                $options['templates']['label'] = $this->templater()->get('fileLabel');
+            }
+        } else {
+            $options['custom'] = true;
+            $options['tooltip'] = null;
+
+            $options['templates']['label'] = $this->templater()->get('customFileLabel');
+            $options['templates']['formGroup'] = $this->templater()->get('customFileFormGroup');
+
+            if ($this->_getContext()->hasError($fieldName)) {
+                $options['templateVars']['invalid'] = $this->_config['errorClass'];
+            }
+
+            if (
+                $options['prepend'] ||
+                $options['append']
+            ) {
+                if ($options['label'] === null) {
+                    $options['label'] = [];
+                }
+                if (
+                    $options['label'] !== false &&
+                    !isset($options['label']['text'])
+                ) {
+                    $text = $fieldName;
+                    if (strpos($text, '.') !== false) {
+                        $fieldElements = explode('.', $text);
+                        $text = array_pop($fieldElements);
+                    }
+                    $options['label']['text'] = __(Inflector::humanize(Inflector::underscore($text)));
+                }
+                $options['inputGroupLabel'] = $options['label'];
+                $options['label'] = false;
+
+                $options['templates']['formGroup'] = $this->templater()->get('customFileInputGroupFormGroup');
+                $container = $this->templater()->get('customFileInputGroupContainer');
+                $options['templates']['inputGroupContainer'] = $container;
+            }
+        }
+
+        return $options;
+    }
+
+    /**
+     * Modify templates based on error style.
+     *
+     * @param string $fieldName Field name.
+     * @param array $options Options. See `$options` argument of `control()` method.
+     * @return array
+     */
+    protected function _errorStyleOptions(string $fieldName, array $options): array
+    {
+        $formGroupPosition = $options['formGroupPosition'] ?: $this->getConfig('formGroupPosition');
+        $errorStyle = $options['errorStyle'] ?: $this->getConfig('errorStyle');
+
+        if (
+            $this->_align === static::ALIGN_INLINE &&
             $errorStyle === null
         ) {
             $errorStyle = static::ERROR_STYLE_TOOLTIP;
@@ -607,6 +714,18 @@ class FormHelper extends Helper
             $options['templateVars']['formGroupPosition'] = 'position-' . $formGroupPosition . ' ';
         }
 
+        return $options;
+    }
+
+    /**
+     * Modify options for control's help.
+     *
+     * @param string $fieldName Field name.
+     * @param array $options Options. See `$options` argument of `control()` method.
+     * @return array
+     */
+    protected function _helpOptions(string $fieldName, array $options): array
+    {
         if ($options['help']) {
             if (is_string($options['help'])) {
                 $options['help'] = $this->templater()->format(
@@ -624,6 +743,18 @@ class FormHelper extends Helper
             }
         }
 
+        return $options;
+    }
+
+    /**
+     * Modify options for control's tooltip.
+     *
+     * @param string $fieldName Field name.
+     * @param array $options Options. See `$options` argument of `control()` method.
+     * @return array
+     */
+    protected function _tooltipOptions(string $fieldName, array $options): array
+    {
         if ($options['tooltip']) {
             $tooltip = $this->templater()->format(
                 'tooltip',
@@ -633,20 +764,7 @@ class FormHelper extends Helper
             unset($options['tooltip']);
         }
 
-        if (
-            isset($options['append']) ||
-            isset($options['prepend'])
-        ) {
-            $options['injectErrorClass'] = $this->_config['errorClass'];
-        }
-
-        $result = parent::control($fieldName, $options);
-
-        if ($newTemplates) {
-            $this->templater()->pop();
-        }
-
-        return $result;
+        return $options;
     }
 
     /**
@@ -903,13 +1021,15 @@ class FormHelper extends Helper
 
         if (is_array($options['align'])) {
             $this->_grid = $options['align'];
-            $options['align'] = 'horizontal';
-        } elseif ($options['align'] === 'horizontal') {
+            $options['align'] = static::ALIGN_HORIZONTAL;
+        } elseif ($options['align'] === static::ALIGN_HORIZONTAL) {
             $this->_grid = $this->getConfig('grid');
         }
 
-        if (!in_array($options['align'], ['default', 'horizontal', 'inline'])) {
-            throw new InvalidArgumentException('Invalid `align` option value.');
+        if (!in_array($options['align'], static::ALIGN_TYPES)) {
+            throw new InvalidArgumentException(
+                'Invalid valid for `align` option. Valid values are: ' . implode(', ', static::ALIGN_TYPES)
+            );
         }
 
         $this->_align = $options['align'];
@@ -1000,7 +1120,7 @@ class FormHelper extends Helper
      */
     protected function _detectFormAlignment(array $options): string
     {
-        foreach (['horizontal', 'inline'] as $align) {
+        foreach ([static::ALIGN_HORIZONTAL, static::ALIGN_INLINE] as $align) {
             if ($this->checkClasses('form-' . $align, (array)$options['class'])) {
                 return $align;
             }
