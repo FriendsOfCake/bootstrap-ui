@@ -1,8 +1,8 @@
 {
     "name": "friendsofcake/bootstrap-ui",
-    "description": "Twitter Bootstrap support for CakePHP",
+    "description": "Bootstrap front-end framework support for CakePHP",
     "type": "cakephp-plugin",
-    "keywords": ["cakephp", "twitter", "bootstrap"],
+    "keywords": ["cakephp", "bootstrap", "front-end"],
     "homepage": "https://github.com/friendsofcake/bootstrap-ui",
     "license": "MIT",
     "authors": [
