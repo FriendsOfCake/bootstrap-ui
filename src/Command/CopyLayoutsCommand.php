@@ -22,14 +22,12 @@ class CopyLayoutsCommand extends Command
     {
         $io->info('Copying sample layouts...');
 
-        $layoutDir = new Folder(Plugin::path('BootstrapUI') . 'templates' . DS . 'layout' . DS . 'examples');
-
         $target = $args->getArgument('target');
         if ($target === null) {
             $target = $this->_getDefaultTargetPath();
         }
 
-        if (!$layoutDir->copy($target)) {
+        if (!$this->_copyLayouts($target)) {
             $io->error("Sample layouts could not be copied to `$target`.");
             $this->abort();
         }
@@ -37,6 +35,19 @@ class CopyLayoutsCommand extends Command
         $io->success("Sample layouts copied successfully to `$target`.");
 
         return static::CODE_SUCCESS;
+    }
+
+    /**
+     * Copies the layouts to the given path.
+     *
+     * @param string $targetPath The path where to copy the files to.
+     * @return bool
+     */
+    protected function _copyLayouts(string $targetPath): bool
+    {
+        $layoutFolder = new Folder(Plugin::path('BootstrapUI') . 'templates' . DS . 'layout' . DS . 'examples');
+
+        return $layoutFolder->copy($targetPath);
     }
 
     /**

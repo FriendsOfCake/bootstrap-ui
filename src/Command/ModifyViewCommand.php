@@ -25,7 +25,26 @@ class ModifyViewCommand extends Command
         if ($file === null) {
             $file = $this->_getDefaultFilePath();
         }
-        $view = new File($file);
+
+        if (!$this->_modifyView($file)) {
+            $io->error("Could not modify `$file`.");
+            $this->abort();
+        }
+
+        $io->success("Modified `$file`.");
+
+        return static::CODE_SUCCESS;
+    }
+
+    /**
+     * Modifies the view file at the given path.
+     *
+     * @param string $filePath The path of the file to modify.
+     * @return bool
+     */
+    protected function _modifyView(string $filePath): bool
+    {
+        $view = new File($filePath);
 
         $result = $view->replaceText(
             'use Cake\\View\\View',
@@ -40,14 +59,7 @@ class ModifyViewCommand extends Command
             "    public function initialize(): void\n    {\n        parent::initialize();\n"
         );
 
-        if (!$result) {
-            $io->error("Could not modify `$file`.");
-            $this->abort();
-        }
-
-        $io->success("Modified `$file`.");
-
-        return static::CODE_SUCCESS;
+        return $result;
     }
 
     /**

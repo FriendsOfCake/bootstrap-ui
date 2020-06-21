@@ -3,8 +3,14 @@ declare(strict_types=1);
 
 namespace BootstrapUI\Test\TestCase\Command;
 
+use BootstrapUI\Command\ModifyViewCommand;
+use Cake\Command\Command;
+use Cake\Console\Arguments;
+use Cake\Console\ConsoleIo;
+use Cake\Console\Exception\StopException;
 use Cake\Core\Plugin;
 use Cake\TestSuite\ConsoleIntegrationTestTrait;
+use Cake\TestSuite\Stub\ConsoleOutput;
 use Cake\TestSuite\TestCase;
 
 class ModifyViewCommandTest extends TestCase
@@ -103,6 +109,44 @@ class ModifyViewCommandTest extends TestCase
         $this->assertFileEquals(
             $comparisonsPath . 'AppView.bootstrap.php',
             $filePath
+        );
+    }
+
+    public function testFileCannotBeModified()
+    {
+        /** @var \BootstrapUI\Command\ModifyViewCommand|\PHPUnit\Framework\MockObject\MockObject $command */
+        $command = $this
+            ->getMockBuilder(ModifyViewCommand::class)
+            ->onlyMethods(['_modifyView'])
+            ->getMock();
+
+        $command
+            ->expects($this->once())
+            ->method('_modifyView')
+            ->willReturn(false);
+
+        $args = new Arguments([], [], []);
+
+        $out = new ConsoleOutput();
+        $err = new ConsoleOutput();
+        $io = new ConsoleIo($out, $err);
+
+        try {
+            $result = $command->execute($args, $io);
+        } catch (StopException $exception) {
+            $result = $exception->getCode();
+        }
+
+        $filePath = APP . 'View' . DS . 'AppView.php';
+
+        $this->assertEquals(Command::CODE_ERROR, $result);
+        $this->assertEquals(
+            ['<info>Modifying view...</info>'],
+            $out->messages()
+        );
+        $this->assertEquals(
+            ["<error>Could not modify `$filePath`.</error>"],
+            $err->messages()
         );
     }
 

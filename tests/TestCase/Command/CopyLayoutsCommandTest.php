@@ -3,9 +3,15 @@ declare(strict_types=1);
 
 namespace BootstrapUI\Test\TestCase\Command;
 
+use BootstrapUI\Command\CopyLayoutsCommand;
+use Cake\Command\Command;
+use Cake\Console\Arguments;
+use Cake\Console\ConsoleIo;
+use Cake\Console\Exception\StopException;
 use Cake\Core\Plugin;
 use Cake\Filesystem\Folder;
 use Cake\TestSuite\ConsoleIntegrationTestTrait;
+use Cake\TestSuite\Stub\ConsoleOutput;
 use Cake\TestSuite\TestCase;
 
 class CopyLayoutsCommandTest extends TestCase
@@ -104,6 +110,44 @@ class CopyLayoutsCommandTest extends TestCase
             $this->_out->messages()
         );
         $this->assertErrorEmpty();
+    }
+
+    public function testFilesCannotBeCopied()
+    {
+        /** @var \BootstrapUI\Command\CopyLayoutsCommand|\PHPUnit\Framework\MockObject\MockObject $command */
+        $command = $this
+            ->getMockBuilder(CopyLayoutsCommand::class)
+            ->onlyMethods(['_copyLayouts'])
+            ->getMock();
+
+        $command
+            ->expects($this->once())
+            ->method('_copyLayouts')
+            ->willReturn(false);
+
+        $args = new Arguments([], [], []);
+
+        $out = new ConsoleOutput();
+        $err = new ConsoleOutput();
+        $io = new ConsoleIo($out, $err);
+
+        try {
+            $result = $command->execute($args, $io);
+        } catch (StopException $exception) {
+            $result = $exception->getCode();
+        }
+
+        $targetPath = dirname(APP) . DS . 'templates' . DS . 'layout' . DS . 'TwitterBootstrap' . DS;
+
+        $this->assertEquals(Command::CODE_ERROR, $result);
+        $this->assertEquals(
+            ['<info>Copying sample layouts...</info>'],
+            $out->messages()
+        );
+        $this->assertEquals(
+            ["<error>Sample layouts could not be copied to `$targetPath`.</error>"],
+            $err->messages()
+        );
     }
 
     public function testHelp()

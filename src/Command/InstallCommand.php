@@ -23,10 +23,10 @@ class InstallCommand extends Command
      */
     public function execute(Arguments $args, ConsoleIo $io)
     {
-        $this->_installPackages($io);
-        $this->_extractAssets($io);
-        $this->_removePluginAssets($io);
-        $this->_linkPluginAssets($io);
+        $this->installPackages($io);
+        $this->refreshAssetBuffer($io);
+        $this->removePluginAssets($io);
+        $this->linkPluginAssets($io);
 
         return static::CODE_SUCCESS;
     }
@@ -37,40 +37,28 @@ class InstallCommand extends Command
      * @param \Cake\Console\ConsoleIo $io The console io.
      * @return void
      */
-    protected function _installPackages(ConsoleIo $io): void
+    public function installPackages(ConsoleIo $io): void
     {
-        $io->info('Checking npm...');
-        if (strtoupper(substr(PHP_OS, 0, 3)) === 'WIN') {
-            $command = 'where npm';
-        } else {
-            $command = 'which npm';
-        }
-        if (!`$command`) {
+        if (!$this->_isNPMAvailable()) {
             $io->error('NPM (https://www.npmjs.com/) is required, but not installed. Aborting.');
             $this->abort();
         }
 
-        $pluginPath = Plugin::path('BootstrapUI');
-        if (!chdir($pluginPath)) {
-            $io->error("Could not change into plugin directory `$pluginPath`.");
+        $io->info('Clearing `node_modules` folder (this can take a while)...');
+        if (!$this->_deleteNodeModules()) {
+            $io->error('Could not clear `node_modules` folder.');
             $this->abort();
         }
-
-        $io->info('Clearing `node_modules` folder (this can take a while)...');
-        $nodeModules = new Folder('node_modules');
-        if ($nodeModules->delete()) {
-            $io->success('Cleared `node_modules` folder.');
-        }
+        $io->success('Cleared `node_modules` folder.');
 
         $io->info('Installing packages...');
-        exec('npm install --verbose', $output, $return);
+        $this->_runNPMInstall($output, $return, $io);
         $io->out($output);
 
         if ($return !== 0) {
             $io->error('Package installation failed.');
-            $this->abort();
+            $this->abort($return);
         }
-
         $io->success('Packages installed successfully.');
     }
 
@@ -80,17 +68,211 @@ class InstallCommand extends Command
      * @param \Cake\Console\ConsoleIo $io The console io.
      * @return void
      */
-    protected function _extractAssets(ConsoleIo $io): void
+    public function refreshAssetBuffer(ConsoleIo $io): void
     {
-        $assetDir = new Folder(Plugin::path('BootstrapUI') . 'webroot', true);
-        $nodeDir = new Folder(Plugin::path('BootstrapUI') . 'node_modules', true);
-
-        $io->info('Clearing plugin webroot and extracting assets from installed packages...');
-        if (!$this->_clear($assetDir, '^(?!cover)(?!dashboard)(?!signin)(?!baked-with-cakephp\.svg).*$', $io)) {
-            $io->warning('Could not clear all files.');
+        $io->info('Refreshing package asset buffer...');
+        if (!$this->_deleteBufferedPackageAssets($io)) {
+            $io->error('Could not clear all buffered files.');
+            $this->abort();
         } else {
-            $io->success('All files cleared.');
+            $io->success('All buffered files cleared.');
         }
+
+        if (!$this->_bufferPackageAssets($io)) {
+            $io->error('Could not buffer all files.');
+            $this->abort();
+        } else {
+            $io->success('All files buffered.');
+        }
+    }
+
+    /**
+     * Removes possibly already linked plugin assets from the application's webroot.
+     *
+     * @param \Cake\Console\ConsoleIo $io The console io.
+     * @return void
+     */
+    public function removePluginAssets(ConsoleIo $io): void
+    {
+        $io->info('Removing possibly existing plugin assets...');
+
+        $result = $this->executeCommand(PluginAssetsRemoveCommand::class, ['name' => 'BootstrapUI'], $io);
+        if (
+            $result !== static::CODE_SUCCESS &&
+            $result !== null
+        ) {
+            $io->error('Removing plugin assets failed.');
+            $this->abort($result);
+        }
+    }
+
+    /**
+     * Links the plugin assets into the application's webroot.
+     *
+     * @param \Cake\Console\ConsoleIo $io The console io.
+     * @return void
+     */
+    public function linkPluginAssets(ConsoleIo $io): void
+    {
+        $io->info('Linking plugin assets...');
+
+        $result = $this->executeCommand(PluginAssetsSymlinkCommand::class, ['name' => 'BootstrapUI'], $io);
+        if (
+            $result !== static::CODE_SUCCESS &&
+            $result !== null
+        ) {
+            $io->error('Linking plugin assets failed.');
+            $this->abort($result);
+        }
+    }
+
+    /**
+     * Checks whether the NPM command is available.
+     *
+     * @return bool
+     */
+    protected function _isNPMAvailable(): bool
+    {
+        if (strtoupper(substr(PHP_OS, 0, 3)) === 'WIN') {
+            $command = 'where npm';
+        } else {
+            $command = 'which npm';
+        }
+
+        return !!`$command`;
+    }
+
+    /**
+     * Deletes the `node_modules` folder.
+     *
+     * @return bool
+     */
+    protected function _deleteNodeModules(): bool
+    {
+        $path = Plugin::path('BootstrapUI') . 'node_modules';
+        if (!is_dir($path)) {
+            return true;
+        }
+
+        $nodeModulesFolder = new Folder($path);
+
+        return $nodeModulesFolder->delete();
+    }
+
+    /**
+     * Runs the NPM install command.
+     *
+     * @param array $output The variable to write the output to.
+     * @param int $return The variable to write the return status code to.
+     * @param \Cake\Console\ConsoleIo $io The console io.
+     * @return void
+     */
+    protected function _runNPMInstall(&$output, &$return, ConsoleIo $io): void
+    {
+        $pluginPath = Plugin::path('BootstrapUI');
+        if (!$this->_changeWorkingDirectory($pluginPath)) {
+            $io->error("Could not change into plugin directory `$pluginPath`.");
+            $this->abort();
+        }
+
+        exec('npm install --verbose', $output, $return);
+    }
+
+    /**
+     * Changes the current working directory.
+     *
+     * @param string $path The path to change to.
+     * @return bool
+     */
+    protected function _changeWorkingDirectory(string $path): bool
+    {
+        return chdir($path);
+    }
+
+    /**
+     * Deletes the buffered package assets.
+     *
+     * @param \Cake\Console\ConsoleIo $io The console io.
+     * @return bool
+     */
+    protected function _deleteBufferedPackageAssets(ConsoleIo $io): bool
+    {
+        $result = true;
+
+        foreach ($this->_findBufferedPackageAssets() as $file) {
+            if ($file->delete()) {
+                $io->success("`{$file->name}` successfully deleted.");
+            } else {
+                $io->warning("`{$file->name}` could not be deleted.");
+                $result = false;
+            }
+        }
+
+        return $result;
+    }
+
+    /**
+     * Finds the buffered package assets.
+     *
+     * @return \Cake\Filesystem\File[]
+     */
+    protected function _findBufferedPackageAssets(): array
+    {
+        $folder = new Folder(Plugin::path('BootstrapUI') . 'webroot', true);
+        $except = '^(?!cover)(?!dashboard)(?!signin)(?!baked-with-cakephp\.svg).*$';
+
+        $files = [];
+        foreach ($folder->findRecursive($except) as $path) {
+            $files[] = new File($path);
+        }
+
+        return $files;
+    }
+
+    /**
+     * Buffers the MPN package assets in the respective folders in the plugin's webroot.
+     *
+     * @param \Cake\Console\ConsoleIo $io The console io.
+     * @return bool
+     */
+    protected function _bufferPackageAssets(ConsoleIo $io): bool
+    {
+        $assetFolder = new Folder(Plugin::path('BootstrapUI') . 'webroot', true);
+        $cssFolder = new Folder($assetFolder->path . DS . 'css', true);
+        $jsFolder = new Folder($assetFolder->path . DS . 'js', true);
+
+        $result = true;
+        foreach ($this->_findPackageAssets() as $file) {
+            $dir = null;
+            if (preg_match('/\.css/', $file->name)) {
+                $dir = $cssFolder;
+            } elseif (preg_match('/\.js|\.min\.map/', $file->name)) {
+                $dir = $jsFolder;
+            }
+            if ($dir === null) {
+                $io->warning("Skipped `{$file->name}`.");
+                continue;
+            }
+
+            if ($file->copy($dir->path . DS . $file->name)) {
+                $io->success("`{$file->name}` successfully copied.");
+            } else {
+                $io->warning("`{$file->name}` could not be copied.");
+                $result = false;
+            }
+        }
+
+        return $result;
+    }
+
+    /**
+     * Finds the package assets to buffer.
+     *
+     * @return \Cake\Filesystem\File[]
+     */
+    protected function _findPackageAssets(): array
+    {
+        $nodeDir = new Folder(Plugin::path('BootstrapUI') . 'node_modules', true);
 
         $files = [];
         $folders = [];
@@ -103,102 +285,8 @@ class InstallCommand extends Command
                 $files[] = new File($file);
             }
         }
-        $this->_copy($files, $io);
-    }
 
-    /**
-     * Removes possibly already linked plugin assets from the application's webroot.
-     *
-     * @param \Cake\Console\ConsoleIo $io The console io.
-     * @return void
-     */
-    protected function _removePluginAssets(ConsoleIo $io): void
-    {
-        $io->info('Removing possibly existing plugin assets...');
-
-        $result = $this->executeCommand(PluginAssetsRemoveCommand::class, ['name' => 'BootstrapUI'], $io);
-        if (
-            $result !== static::CODE_SUCCESS &&
-            $result !== null
-        ) {
-            $this->abort($result);
-        }
-    }
-
-    /**
-     * Links the plugin assets into the application's webroot.
-     *
-     * @param \Cake\Console\ConsoleIo $io The console io.
-     * @return void
-     */
-    protected function _linkPluginAssets(ConsoleIo $io): void
-    {
-        $io->info('Linking plugin assets...');
-
-        $result = $this->executeCommand(PluginAssetsSymlinkCommand::class, ['name' => 'BootstrapUI'], $io);
-        if (
-            $result !== static::CODE_SUCCESS &&
-            $result !== null
-        ) {
-            $this->abort($result);
-        }
-    }
-
-    /**
-     * Copies asset files into their respective css/js asset directories.
-     *
-     * @param array $files Asset files to copy.
-     * @param \Cake\Console\ConsoleIo $io The console io.
-     * @return void
-     */
-    protected function _copy(array $files, ConsoleIo $io): void
-    {
-        $assetDir = new Folder(Plugin::path('BootstrapUI') . 'webroot', true);
-        $cssDir = new Folder($assetDir->path . DS . 'css', true);
-        $jsDir = new Folder($assetDir->path . DS . 'js', true);
-
-        foreach ($files as $file) {
-            $dir = null;
-            if (preg_match('/\.css/', $file->name)) {
-                $dir = $cssDir;
-            } elseif (preg_match('/\.js|\.min\.map/', $file->name)) {
-                $dir = $jsDir;
-            }
-            if ($dir === null) {
-                $io->warning("Skipped `{$file->name}`.");
-                continue;
-            }
-
-            if ($file->copy($dir->path . DS . $file->name)) {
-                $io->success("`{$file->name}` successfully copied.");
-            } else {
-                $io->warning("`{$file->name}` could not be copied.");
-            }
-        }
-    }
-
-    /**
-     * Deletes files from a directory except those matching the given exclusion regex.
-     *
-     * @param \Cake\Filesystem\Folder $folder Folder to clear.
-     * @param string $except Files to skip.
-     * @param \Cake\Console\ConsoleIo $io The console io.
-     * @return bool
-     */
-    protected function _clear(Folder $folder, string $except, ConsoleIo $io): bool
-    {
-        $files = $folder->findRecursive($except);
-        foreach ($files as $file) {
-            $file = new File($file);
-            if (!$file->delete()) {
-                $io->warning("`{$file->name}` could not be deleted.");
-
-                return false;
-            }
-            $io->success("`{$file->name}` successfully deleted.");
-        }
-
-        return true;
+        return $files;
     }
 
     /**
