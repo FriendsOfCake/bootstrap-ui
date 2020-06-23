@@ -70,6 +70,44 @@ class InstallCommandTest extends TestCase
         $sourceFiles = (new Folder($pluginWebrootPath))->findRecursive();
         $targetFiles = (new Folder($appWebrootPluginPath))->findRecursive();
         $this->assertEquals(count($sourceFiles), count($targetFiles));
+
+        $appWebrootPluginPath = WWW_ROOT . 'bootstrap_u_i';
+        $expected = [
+            '<info>Clearing `node_modules` folder (this can take a while)...</info>',
+            '<success>Cleared `node_modules` folder.</success>',
+            '<info>Installing packages...</info>',
+            '<success>`bootstrap.css` successfully deleted.</success>',
+            '<success>`bootstrap.js` successfully deleted.</success>',
+            '<success>`jquery.js` successfully deleted.</success>',
+            '<success>`popper.js` successfully deleted.</success>',
+            '<success>All buffered files cleared.</success>',
+            '<info>Installing packages...</info>',
+            '<success>`bootstrap.css` successfully copied.</success>',
+            '<success>`bootstrap.js` successfully copied.</success>',
+            '<success>`jquery.js` successfully copied.</success>',
+            '<success>`popper.js` successfully copied.</success>',
+            '<success>All files buffered.</success>',
+            '<info>Removing possibly existing plugin assets...</info>',
+            'For plugin: BootstrapUI',
+            'Done',
+            '<info>Linking plugin assets...</info>',
+            'For plugin: BootstrapUI',
+            "Copied assets to directory $appWebrootPluginPath",
+            'Done',
+            '<success>Installation completed.</success>',
+        ];
+        $notPresentInNonVerboseMode = [
+            '<success>`bootstrap.css` successfully deleted.</success>',
+            '<success>`bootstrap.js` successfully deleted.</success>',
+            '<success>`jquery.js` successfully deleted.</success>',
+            '<success>`popper.js` successfully deleted.</success>',
+            '<success>`bootstrap.css` successfully copied.</success>',
+            '<success>`bootstrap.js` successfully copied.</success>',
+            '<success>`jquery.js` successfully copied.</success>',
+            '<success>`popper.js` successfully copied.</success>',
+        ];
+        $this->assertEquals($notPresentInNonVerboseMode, array_values(array_diff($expected, $this->_out->messages())));
+        $this->assertExitCode(Command::CODE_SUCCESS);
     }
 
     public function testReInstall()
@@ -121,6 +159,55 @@ class InstallCommandTest extends TestCase
         $sourceFiles = (new Folder($pluginWebrootPath))->findRecursive();
         $targetFiles = (new Folder($appWebrootPluginPath))->findRecursive();
         $this->assertEquals(count($sourceFiles), count($targetFiles));
+
+        $this->assertExitCode(Command::CODE_SUCCESS);
+
+        $folder = new Folder(WWW_ROOT);
+        $folder->delete();
+    }
+
+    public function testInstallQuiet()
+    {
+        $this->exec('bootstrap install -q');
+
+        $this->assertOutputEmpty();
+        $this->assertErrorEmpty();
+        $this->assertExitCode(Command::CODE_SUCCESS);
+
+        $folder = new Folder(WWW_ROOT);
+        $folder->delete();
+    }
+
+    public function testInstallVerbose()
+    {
+        $this->exec('bootstrap install -v');
+
+        $appWebrootPluginPath = WWW_ROOT . 'bootstrap_u_i';
+        $expected = [
+            '<info>Clearing `node_modules` folder (this can take a while)...</info>',
+            '<success>Cleared `node_modules` folder.</success>',
+            '<info>Installing packages...</info>',
+            '<success>`bootstrap.css` successfully deleted.</success>',
+            '<success>`bootstrap.js` successfully deleted.</success>',
+            '<success>`jquery.js` successfully deleted.</success>',
+            '<success>`popper.js` successfully deleted.</success>',
+            '<success>All buffered files cleared.</success>',
+            '<info>Installing packages...</info>',
+            '<success>`bootstrap.css` successfully copied.</success>',
+            '<success>`bootstrap.js` successfully copied.</success>',
+            '<success>`jquery.js` successfully copied.</success>',
+            '<success>`popper.js` successfully copied.</success>',
+            '<success>All files buffered.</success>',
+            '<info>Removing possibly existing plugin assets...</info>',
+            'For plugin: BootstrapUI',
+            '<info>Linking plugin assets...</info>',
+            'For plugin: BootstrapUI',
+            "Copied assets to directory $appWebrootPluginPath",
+            'Done',
+            '<success>Installation completed.</success>',
+        ];
+        $this->assertEmpty(array_diff($expected, $this->_out->messages()));
+        $this->assertExitCode(Command::CODE_SUCCESS);
 
         $folder = new Folder(WWW_ROOT);
         $folder->delete();
@@ -317,8 +404,6 @@ class InstallCommandTest extends TestCase
         $this->assertEquals(
             [
                 '<info>Refreshing package asset buffer...</info>',
-                '<success>`style.css` successfully deleted.</success>',
-                '<success>`script.js` successfully deleted.</success>',
             ],
             $out->messages()
         );
@@ -371,8 +456,6 @@ class InstallCommandTest extends TestCase
             [
                 '<info>Refreshing package asset buffer...</info>',
                 '<success>All buffered files cleared.</success>',
-                '<success>`style.css` successfully copied.</success>',
-                '<success>`script.js` successfully copied.</success>',
                 '<success>All files buffered.</success>',
             ],
             $out->messages()

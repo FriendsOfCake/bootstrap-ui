@@ -28,6 +28,9 @@ class InstallCommand extends Command
         $this->removePluginAssets($io);
         $this->linkPluginAssets($io);
 
+        $io->out();
+        $io->success('Installation completed.');
+
         return static::CODE_SUCCESS;
     }
 
@@ -133,13 +136,23 @@ class InstallCommand extends Command
      */
     protected function _isNPMAvailable(): bool
     {
-        if (strtoupper(substr(PHP_OS, 0, 3)) === 'WIN') {
+        if ($this->_isWindows()) {
             $command = 'where npm';
         } else {
             $command = 'which npm';
         }
 
         return !!`$command`;
+    }
+
+    /**
+     * Checks whether the OS in Windows based.
+     *
+     * @return bool
+     */
+    protected function _isWindows(): bool
+    {
+        return strtoupper(substr(PHP_OS, 0, 3)) === 'WIN';
     }
 
     /**
@@ -175,7 +188,25 @@ class InstallCommand extends Command
             $this->abort();
         }
 
-        exec('npm install --verbose', $output, $return);
+        switch ($io->level()) {
+            case ConsoleIo::QUIET:
+                if ($this->_isWindows()) {
+                    $null = 'NUL';
+                } else {
+                    $null = '/dev/null';
+                }
+
+                $args = "--silent > $null";
+                break;
+
+            case ConsoleIo::VERBOSE:
+                $args = '--verbose';
+                break;
+
+            default:
+                $args = '';
+        }
+        exec("npm install $args", $output, $return);
     }
 
     /**
@@ -201,7 +232,7 @@ class InstallCommand extends Command
 
         foreach ($this->_findBufferedPackageAssets() as $file) {
             if ($file->delete()) {
-                $io->success("`{$file->name}` successfully deleted.");
+                $io->success("`{$file->name}` successfully deleted.", 1, ConsoleIo::VERBOSE);
             } else {
                 $io->warning("`{$file->name}` could not be deleted.");
                 $result = false;
@@ -255,7 +286,7 @@ class InstallCommand extends Command
             }
 
             if ($file->copy($dir->path . DS . $file->name)) {
-                $io->success("`{$file->name}` successfully copied.");
+                $io->success("`{$file->name}` successfully copied.", 1, ConsoleIo::VERBOSE);
             } else {
                 $io->warning("`{$file->name}` could not be copied.");
                 $result = false;
