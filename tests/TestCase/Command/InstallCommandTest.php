@@ -8,11 +8,11 @@ use Cake\Command\Command;
 use Cake\Console\ConsoleIo;
 use Cake\Console\Exception\StopException;
 use Cake\Core\Plugin;
-use Cake\Filesystem\File;
-use Cake\Filesystem\Folder;
+use Cake\Filesystem\Filesystem;
 use Cake\TestSuite\ConsoleIntegrationTestTrait;
 use Cake\TestSuite\Stub\ConsoleOutput;
 use Cake\TestSuite\TestCase;
+use SplFileInfo;
 
 class InstallCommandTest extends TestCase
 {
@@ -31,8 +31,8 @@ class InstallCommandTest extends TestCase
         $appWebrootPath = WWW_ROOT;
         $appWebrootPluginPath = WWW_ROOT . 'bootstrap_u_i' . DS;
 
-        $appWebrootFolder = new Folder($appWebrootPath);
-        $appWebrootFolder->delete();
+        $filesystem = new Filesystem();
+        $filesystem->deleteDir($appWebrootPath);
 
         $this->assertDirectoryNotExists($appWebrootPath);
 
@@ -67,9 +67,9 @@ class InstallCommandTest extends TestCase
             $this->assertFileExists($appWebrootPluginPath . 'js' . DS . $asset);
         }
 
-        $sourceFiles = (new Folder($pluginWebrootPath))->findRecursive();
-        $targetFiles = (new Folder($appWebrootPluginPath))->findRecursive();
-        $this->assertEquals(count($sourceFiles), count($targetFiles));
+        $sourceFiles = $filesystem->findRecursive($pluginWebrootPath);
+        $targetFiles = $filesystem->findRecursive($appWebrootPluginPath);
+        $this->assertEquals(iterator_count($sourceFiles), iterator_count($targetFiles));
 
         $appWebrootPluginPath = WWW_ROOT . 'bootstrap_u_i';
         $expected = [
@@ -156,14 +156,14 @@ class InstallCommandTest extends TestCase
             $this->assertFileExists($appWebrootPluginPath . 'js' . DS . $asset);
         }
 
-        $sourceFiles = (new Folder($pluginWebrootPath))->findRecursive();
-        $targetFiles = (new Folder($appWebrootPluginPath))->findRecursive();
-        $this->assertEquals(count($sourceFiles), count($targetFiles));
+        $filesystem = new Filesystem();
+        $sourceFiles = $filesystem->findRecursive($pluginWebrootPath);
+        $targetFiles = $filesystem->findRecursive($appWebrootPluginPath);
+        $this->assertEquals(iterator_count($sourceFiles), iterator_count($targetFiles));
 
         $this->assertExitCode(Command::CODE_SUCCESS);
 
-        $folder = new Folder(WWW_ROOT);
-        $folder->delete();
+        $filesystem->deleteDir(WWW_ROOT);
     }
 
     public function testInstallQuiet()
@@ -174,8 +174,8 @@ class InstallCommandTest extends TestCase
         $this->assertErrorEmpty();
         $this->assertExitCode(Command::CODE_SUCCESS);
 
-        $folder = new Folder(WWW_ROOT);
-        $folder->delete();
+        $filesystem = new Filesystem();
+        $filesystem->deleteDir(WWW_ROOT);
     }
 
     public function testInstallVerbose()
@@ -209,8 +209,8 @@ class InstallCommandTest extends TestCase
         $this->assertEmpty(array_diff($expected, $this->_out->messages()));
         $this->assertExitCode(Command::CODE_SUCCESS);
 
-        $folder = new Folder(WWW_ROOT);
-        $folder->delete();
+        $filesystem = new Filesystem();
+        $filesystem->deleteDir(WWW_ROOT);
     }
 
     public function testNPMNotAvailable()
@@ -385,9 +385,9 @@ class InstallCommandTest extends TestCase
             ->expects($this->once())
             ->method('_findBufferedPackageAssets')
             ->willReturn([
-                new File(TMP . 'style.css'),
-                new File(TMP . 'non-existent.file'),
-                new File(TMP . 'script.js'),
+                new SplFileInfo(TMP . 'style.css'),
+                new SplFileInfo(TMP . 'non-existent.file'),
+                new SplFileInfo(TMP . 'script.js'),
             ]);
 
         $out = new ConsoleOutput();
@@ -436,9 +436,9 @@ class InstallCommandTest extends TestCase
             ->expects($this->once())
             ->method('_findPackageAssets')
             ->willReturn([
-                new File(TMP . 'style.css'),
-                new File(TMP . 'unsupported.file'),
-                new File(TMP . 'script.js'),
+                new SplFileInfo(TMP . 'style.css'),
+                new SplFileInfo(TMP . 'unsupported.file'),
+                new SplFileInfo(TMP . 'script.js'),
             ]);
 
         $out = new ConsoleOutput();
@@ -485,7 +485,7 @@ class InstallCommandTest extends TestCase
             ->expects($this->once())
             ->method('_findPackageAssets')
             ->willReturn([
-                new File(TMP . 'non-existent.css'),
+                new SplFileInfo(TMP . 'non-existent.css'),
             ]);
 
         $out = new ConsoleOutput();

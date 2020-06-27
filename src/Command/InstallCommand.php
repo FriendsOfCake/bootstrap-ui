@@ -10,8 +10,7 @@ use Cake\Console\Arguments;
 use Cake\Console\ConsoleIo;
 use Cake\Console\ConsoleOptionParser;
 use Cake\Core\Plugin;
-use Cake\Filesystem\File;
-use Cake\Filesystem\Folder;
+use Cake\Filesystem\Filesystem;
 
 /**
  * Installs Bootstrap dependencies and links the assets to the application's webroot.
@@ -162,14 +161,9 @@ class InstallCommand extends Command
      */
     protected function _deleteNodeModules(): bool
     {
-        $path = Plugin::path('BootstrapUI') . 'node_modules';
-        if (!is_dir($path)) {
-            return true;
-        }
+        $filesystem = new Filesystem();
 
-        $nodeModulesFolder = new Folder($path);
-
-        return $nodeModulesFolder->delete();
+        return $filesystem->deleteDir(Plugin::path('BootstrapUI') . 'node_modules');
     }
 
     /**
@@ -231,10 +225,13 @@ class InstallCommand extends Command
         $result = true;
 
         foreach ($this->_findBufferedPackageAssets() as $file) {
-            if ($file->delete()) {
-                $io->success("`{$file->name}` successfully deleted.", 1, ConsoleIo::VERBOSE);
+            if (
+                is_file($file->getPathname()) &&
+                unlink($file->getPathname())
+            ) {
+                $io->success("`{$file->getFilename()}` successfully deleted.", 1, ConsoleIo::VERBOSE);
             } else {
-                $io->warning("`{$file->name}` could not be deleted.");
+                $io->warning("`{$file->getFilename()}` could not be deleted.");
                 $result = false;
             }
         }
@@ -245,16 +242,28 @@ class InstallCommand extends Command
     /**
      * Finds the buffered package assets.
      *
-     * @return \Cake\Filesystem\File[]
+     * @return \SplFileInfo[]
      */
     protected function _findBufferedPackageAssets(): array
     {
-        $folder = new Folder(Plugin::path('BootstrapUI') . 'webroot', true);
-        $except = '^(?!cover)(?!dashboard)(?!signin)(?!baked-with-cakephp\.svg).*$';
+        $filesystem = new Filesystem();
+
+        $path = Plugin::path('BootstrapUI') . 'webroot';
+        $except = '@
+            ^.*
+            (?<!(\\\\|\/)cover\.css)
+            (?<!(\\\\|\/)dashboard\.css)
+            (?<!(\\\\|\/)signin\.css)
+            (?<!(\\\\|\/)baked-with-cakephp\.svg)
+            $
+        @ix';
 
         $files = [];
-        foreach ($folder->findRecursive($except) as $path) {
-            $files[] = new File($path);
+        /** @var \SplFileInfo $file */
+        foreach ($filesystem->findRecursive($path, $except) as $file) {
+            if ($file->isFile()) {
+                $files[] = $file;
+            }
         }
 
         return $files;
@@ -268,27 +277,35 @@ class InstallCommand extends Command
      */
     protected function _bufferPackageAssets(ConsoleIo $io): bool
     {
-        $assetFolder = new Folder(Plugin::path('BootstrapUI') . 'webroot', true);
-        $cssFolder = new Folder($assetFolder->path . DS . 'css', true);
-        $jsFolder = new Folder($assetFolder->path . DS . 'js', true);
+        $filesystem = new Filesystem();
+
+        $webrootPath = Plugin::path('BootstrapUI') . 'webroot' . DS;
+        $cssPath = $webrootPath . 'css' . DS;
+        $jsPath = $webrootPath . 'js' . DS;
+
+        $filesystem->mkdir($cssPath);
+        $filesystem->mkdir($jsPath);
 
         $result = true;
         foreach ($this->_findPackageAssets() as $file) {
-            $dir = null;
-            if (preg_match('/\.css/', $file->name)) {
-                $dir = $cssFolder;
-            } elseif (preg_match('/\.js|\.min\.map/', $file->name)) {
-                $dir = $jsFolder;
+            $assetPath = null;
+            if (preg_match('/\.css/', $file->getFilename())) {
+                $assetPath = $cssPath;
+            } elseif (preg_match('/(\.js|\.min\.map)/', $file->getFilename())) {
+                $assetPath = $jsPath;
             }
-            if ($dir === null) {
-                $io->warning("Skipped `{$file->name}`.");
+            if ($assetPath === null) {
+                $io->warning("Skipped `{$file->getFilename()}`.");
                 continue;
             }
 
-            if ($file->copy($dir->path . DS . $file->name)) {
-                $io->success("`{$file->name}` successfully copied.", 1, ConsoleIo::VERBOSE);
+            if (
+                is_file($file->getPathname()) &&
+                copy($file->getPathname(), $assetPath . $file->getFilename())
+            ) {
+                $io->success("`{$file->getFilename()}` successfully copied.", 1, ConsoleIo::VERBOSE);
             } else {
-                $io->warning("`{$file->name}` could not be copied.");
+                $io->warning("`{$file->getFilename()}` could not be copied.");
                 $result = false;
             }
         }
@@ -299,21 +316,26 @@ class InstallCommand extends Command
     /**
      * Finds the package assets to buffer.
      *
-     * @return \Cake\Filesystem\File[]
+     * @return \SplFileInfo[]
      */
     protected function _findPackageAssets(): array
     {
-        $nodeDir = new Folder(Plugin::path('BootstrapUI') . 'node_modules', true);
+        $filesystem = new Filesystem();
+
+        $nodeModulesPath = Plugin::path('BootstrapUI') . 'node_modules' . DS;
+        $paths = [
+            $nodeModulesPath . 'bootstrap/dist',
+            $nodeModulesPath . 'jquery/dist',
+            $nodeModulesPath . 'popper.js/dist/umd',
+        ];
 
         $files = [];
-        $folders = [];
-        $folders[] = new Folder($nodeDir->path . DS . 'bootstrap/dist');
-        $folders[] = new Folder($nodeDir->path . DS . 'jquery/dist');
-        $folders[] = new Folder($nodeDir->path . DS . 'popper.js/dist/umd');
-
-        foreach ($folders as $folder) {
-            foreach ($folder->findRecursive() as $file) {
-                $files[] = new File($file);
+        foreach ($paths as $path) {
+            /** @var \SplFileInfo $file */
+            foreach ($filesystem->findRecursive($path) as $file) {
+                if ($file->isFile()) {
+                    $files[] = $file;
+                }
             }
         }
 

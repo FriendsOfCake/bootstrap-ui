@@ -9,7 +9,7 @@ use Cake\Console\Arguments;
 use Cake\Console\ConsoleIo;
 use Cake\Console\Exception\StopException;
 use Cake\Core\Plugin;
-use Cake\Filesystem\Folder;
+use Cake\Filesystem\Filesystem;
 use Cake\TestSuite\ConsoleIntegrationTestTrait;
 use Cake\TestSuite\Stub\ConsoleOutput;
 use Cake\TestSuite\TestCase;
@@ -29,19 +29,19 @@ class CopyLayoutsCommandTest extends TestCase
     {
         parent::tearDown();
 
+        $filesystem = new Filesystem();
+
         $targetPath =
             Plugin::path('BootstrapUI') . 'tests' . DS . 'test_app' . DS .
             'templates' . DS . 'layout' . DS . 'TwitterBootstrap' . DS;
 
-        $folder = new Folder($targetPath);
-        $folder->delete($targetPath);
+        $filesystem->deleteDir($targetPath);
 
         $customTargetPath =
             Plugin::path('BootstrapUI') . 'tests' . DS . 'test_app' . DS .
             'templates' . DS . 'layout' . DS . 'CustomPath' . DS;
 
-        $folder = new Folder($customTargetPath);
-        $folder->delete($customTargetPath);
+        $filesystem->deleteDir($customTargetPath);
     }
 
     public function testCopyLayouts()

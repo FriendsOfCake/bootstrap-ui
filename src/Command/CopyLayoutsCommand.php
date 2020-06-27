@@ -8,7 +8,7 @@ use Cake\Console\Arguments;
 use Cake\Console\ConsoleIo;
 use Cake\Console\ConsoleOptionParser;
 use Cake\Core\Plugin;
-use Cake\Filesystem\Folder;
+use Cake\Filesystem\Filesystem;
 
 /**
  * Copies the sample layouts into the application's layout templates folder.
@@ -45,9 +45,11 @@ class CopyLayoutsCommand extends Command
      */
     protected function _copyLayouts(string $targetPath): bool
     {
-        $layoutFolder = new Folder(Plugin::path('BootstrapUI') . 'templates' . DS . 'layout' . DS . 'examples');
+        $source = Plugin::path('BootstrapUI') . 'templates' . DS . 'layout' . DS . 'examples';
 
-        return $layoutFolder->copy($targetPath);
+        $filesystem = new Filesystem();
+
+        return $filesystem->copyDir($source, $targetPath);
     }
 
     /**

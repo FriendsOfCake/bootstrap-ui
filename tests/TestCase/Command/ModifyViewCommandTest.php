@@ -112,17 +112,93 @@ class ModifyViewCommandTest extends TestCase
         );
     }
 
-    public function testFileCannotBeModified()
+    public function testPathIsNotAFile()
     {
         /** @var \BootstrapUI\Command\ModifyViewCommand|\PHPUnit\Framework\MockObject\MockObject $command */
         $command = $this
             ->getMockBuilder(ModifyViewCommand::class)
-            ->onlyMethods(['_modifyView'])
+            ->onlyMethods(['_isFile'])
             ->getMock();
 
         $command
             ->expects($this->once())
-            ->method('_modifyView')
+            ->method('_isFile')
+            ->willReturn(false);
+
+        $args = new Arguments([], [], []);
+
+        $out = new ConsoleOutput();
+        $err = new ConsoleOutput();
+        $io = new ConsoleIo($out, $err);
+
+        try {
+            $result = $command->execute($args, $io);
+        } catch (StopException $exception) {
+            $result = $exception->getCode();
+        }
+
+        $filePath = APP . 'View' . DS . 'AppView.php';
+
+        $this->assertEquals(Command::CODE_ERROR, $result);
+        $this->assertEquals(
+            ['<info>Modifying view...</info>'],
+            $out->messages()
+        );
+        $this->assertEquals(
+            ["<error>Could not modify `$filePath`.</error>"],
+            $err->messages()
+        );
+    }
+
+    public function testFileCannotBeRead()
+    {
+        /** @var \BootstrapUI\Command\ModifyViewCommand|\PHPUnit\Framework\MockObject\MockObject $command */
+        $command = $this
+            ->getMockBuilder(ModifyViewCommand::class)
+            ->onlyMethods(['_readFile'])
+            ->getMock();
+
+        $command
+            ->expects($this->once())
+            ->method('_readFile')
+            ->willReturn(false);
+
+        $args = new Arguments([], [], []);
+
+        $out = new ConsoleOutput();
+        $err = new ConsoleOutput();
+        $io = new ConsoleIo($out, $err);
+
+        try {
+            $result = $command->execute($args, $io);
+        } catch (StopException $exception) {
+            $result = $exception->getCode();
+        }
+
+        $filePath = APP . 'View' . DS . 'AppView.php';
+
+        $this->assertEquals(Command::CODE_ERROR, $result);
+        $this->assertEquals(
+            ['<info>Modifying view...</info>'],
+            $out->messages()
+        );
+        $this->assertEquals(
+            ["<error>Could not modify `$filePath`.</error>"],
+            $err->messages()
+        );
+    }
+
+    public function testFileCannotBeWritten()
+    {
+        /** @var \BootstrapUI\Command\ModifyViewCommand|\PHPUnit\Framework\MockObject\MockObject $command */
+        $command = $this
+            ->getMockBuilder(ModifyViewCommand::class)
+            ->onlyMethods(['_writeFile'])
+            ->getMock();
+
+        $command
+            ->expects($this->once())
+            ->method('_writeFile')
             ->willReturn(false);
 
         $args = new Arguments([], [], []);

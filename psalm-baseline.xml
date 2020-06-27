@@ -1,37 +1,33 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<files psalm-version="3.11.6@7fc1f50f54bd6b174b1c43a37c1b0b151915d55c">
+<files psalm-version="3.12.1@9b860214d58c48b5cbe99bdb17914d0eb723c9cd">
   <file src="src/Command/CopyLayoutsCommand.php">
-    <DeprecatedClass occurrences="1">
-      <code>new Folder(Plugin::path('BootstrapUI') . 'templates' . DS . 'layout' . DS . 'examples')</code>
-    </DeprecatedClass>
+    <InternalClass occurrences="1">
+      <code>new Filesystem()</code>
+    </InternalClass>
+    <InternalMethod occurrences="1">
+      <code>copyDir</code>
+    </InternalMethod>
   </file>
   <file src="src/Command/InstallCommand.php">
-    <DeprecatedClass occurrences="13">
-      <code>new Folder($path)</code>
-      <code>\Cake\Filesystem\File[]</code>
-      <code>new Folder(Plugin::path('BootstrapUI') . 'webroot', true)</code>
-      <code>new File($path)</code>
-      <code>new Folder(Plugin::path('BootstrapUI') . 'webroot', true)</code>
-      <code>new Folder($assetFolder-&gt;path . DS . 'css', true)</code>
-      <code>new Folder($assetFolder-&gt;path . DS . 'js', true)</code>
-      <code>\Cake\Filesystem\File[]</code>
-      <code>new Folder(Plugin::path('BootstrapUI') . 'node_modules', true)</code>
-      <code>new Folder($nodeDir-&gt;path . DS . 'bootstrap/dist')</code>
-      <code>new Folder($nodeDir-&gt;path . DS . 'jquery/dist')</code>
-      <code>new Folder($nodeDir-&gt;path . DS . 'popper.js/dist/umd')</code>
-      <code>new File($file)</code>
-    </DeprecatedClass>
     <ForbiddenCode occurrences="1">
       <code>`$command`</code>
     </ForbiddenCode>
+    <InternalClass occurrences="4">
+      <code>new Filesystem()</code>
+      <code>new Filesystem()</code>
+      <code>new Filesystem()</code>
+      <code>new Filesystem()</code>
+    </InternalClass>
+    <InternalMethod occurrences="5">
+      <code>deleteDir</code>
+      <code>findRecursive</code>
+      <code>mkdir</code>
+      <code>mkdir</code>
+      <code>findRecursive</code>
+    </InternalMethod>
     <NullReference occurrences="2">
       <code>$output</code>
       <code>$return</code>
     </NullReference>
-  </file>
-  <file src="src/Command/ModifyViewCommand.php">
-    <DeprecatedClass occurrences="1">
-      <code>new File($filePath)</code>
-    </DeprecatedClass>
   </file>
 </files>

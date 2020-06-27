@@ -7,7 +7,6 @@ use Cake\Command\Command;
 use Cake\Console\Arguments;
 use Cake\Console\ConsoleIo;
 use Cake\Console\ConsoleOptionParser;
-use Cake\Filesystem\File;
 
 /**
  * Modifies `AppView.php` to extend this plugin's `UIView` class.
@@ -44,22 +43,66 @@ class ModifyViewCommand extends Command
      */
     protected function _modifyView(string $filePath): bool
     {
-        $view = new File($filePath);
+        if (!$this->_isFile($filePath)) {
+            return false;
+        }
 
-        $result = $view->replaceText(
+        $content = $this->_readFile($filePath);
+        if ($content === false) {
+            return false;
+        }
+
+        $content = str_replace(
             'use Cake\\View\\View',
-            'use BootstrapUI\\View\\UIView'
+            'use BootstrapUI\\View\\UIView',
+            $content
         );
-        $result = $result && $view->replaceText(
+        $content = str_replace(
             'class AppView extends View',
-            'class AppView extends UIView'
+            'class AppView extends UIView',
+            $content
         );
-        $result = $result && $view->replaceText(
+        $content = str_replace(
             "    public function initialize(): void\n    {\n",
-            "    public function initialize(): void\n    {\n        parent::initialize();\n"
+            "    public function initialize(): void\n    {\n        parent::initialize();\n",
+            $content
         );
 
-        return $result;
+        return $this->_writeFile($filePath, $content);
+    }
+
+    /**
+     * Checks whether the given path points to a file.
+     *
+     * @param string $filePath The file path.
+     * @return bool
+     */
+    protected function _isFile(string $filePath): bool
+    {
+        return is_file($filePath);
+    }
+
+    /**
+     * Reads a files contents.
+     *
+     * @param string $filePath The file path.
+     * @return false|string
+     */
+    protected function _readFile(string $filePath)
+    {
+        return file_get_contents($filePath);
+    }
+
+    /**
+     * Writes to a file.
+     *
+     * @param string $filePath The file path.
+     * @param string $content The content to write.
+     * @return bool
+     */
+    protected function _writeFile(string $filePath, string $content): bool
+    {
+        return file_put_contents($filePath, $content) !== false;
     }
 
     /**
