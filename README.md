@@ -463,12 +463,13 @@ BootstrapUI supports two styles of error feedback, the
 [Bootstrap tooltip feedback](https://getbootstrap.com/docs/4.5/components/forms/#tooltips) (not to be confused with
 label tooltips that are configured via the `tooltip` option!).
 
-The style can be configured via the `errorStyle` option, either globally, per form, or per control. The supported styles
-are:
+The style can be configured via the `feedbackStyle` option, either globally, per form, or per control. The supported
+styles are:
 
-- `\BootstrapUI\View\Helper\FormHelper::ERROR_STYLE_DEFAULT` Render error feedback as regular Bootstrap text feedback.
-- `\BootstrapUI\View\Helper\FormHelper::ERROR_STYLE_TOOLTIP` Render error feedback as Bootstrap tooltip feedback (inline
- forms are using this style by default).
+- `\BootstrapUI\View\Helper\FormHelper::FEEDBACK_STYLE_DEFAULT` Render error feedback as regular Bootstrap text
+ feedback.
+- `\BootstrapUI\View\Helper\FormHelper::FEEDBACK_STYLE_TOOLTIP` Render error feedback as Bootstrap tooltip feedback
+ (inline forms are using this style by default).
 
 Note that using the tooltip error style requires the form group elements to be non-static positioned! The form helper
 will automatically add Bootstraps [position utility class](https://getbootstrap.com/docs/4.5/utilities/position/)
@@ -486,7 +487,7 @@ supports the following values:
 
 ```php
 $this->Form->setConfig([
-    'errorStyle' => \BootstrapUI\View\Helper\FormHelper::ERROR_STYLE_TOOLTIP,
+    'feedbackStyle' => \BootstrapUI\View\Helper\FormHelper::FEEDBACK_STYLE_TOOLTIP,
     'formGroupPosition' => \BootstrapUI\View\Helper\FormHelper::POSITION_ABSOLUTE,
 ]);
 

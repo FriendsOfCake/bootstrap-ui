@@ -15,25 +15,18 @@ class FormHelper extends Helper
     use OptionsAwareTrait;
 
     /**
-     * The default error style.
+     * The default feedback style.
      *
      * @var string
      */
-    public const ERROR_STYLE_DEFAULT = 'default';
+    public const FEEDBACK_STYLE_DEFAULT = 'default';
 
     /**
-     * The none error style.
+     * The tooltip feedback style.
      *
      * @var string
      */
-    public const ERROR_STYLE_NONE = 'none';
-
-    /**
-     * The tooltip error style.
-     *
-     * @var string
-     */
-    public const ERROR_STYLE_TOOLTIP = 'tooltip';
+    public const FEEDBACK_STYLE_TOOLTIP = 'tooltip';
 
     /**
      * Absolute positioning.
@@ -370,8 +363,8 @@ class FormHelper extends Helper
      * - `inline` - Boolean for generating inline checkbox/radio.
      * - `help` - Help text to include in the input container.
      * - `tooltip` - Tooltip text to include in the control's label.
-     * - `errorStyle` - The error style to use, `default`, or `tooltip` (will cause `formGroupPosition` to be set to
-     *  `relative` unless explicitly configured otherwise).
+     * - `feedbackStyle` - The feedback style to use, `default`, or `tooltip` (will cause `formGroupPosition` to be set
+     *   to `relative` unless explicitly configured otherwise).
      * - `formGroupPosition` - CSS positioning of form groups, `absolute`, `fixed`, `relative`, `static`, or `sticky`.
      *
      * @param string $fieldName This should be "Modelname.fieldname".
@@ -381,7 +374,7 @@ class FormHelper extends Helper
     public function control(string $fieldName, array $options = []): string
     {
         $options += [
-            'errorStyle' => null,
+            'feedbackStyle' => null,
             'formGroupPosition' => null,
             'custom' => false,
             'prepend' => null,
@@ -433,7 +426,7 @@ class FormHelper extends Helper
                 break;
         }
 
-        $options = $this->_errorStyleOptions($fieldName, $options);
+        $options = $this->_feedbackStyleOptions($fieldName, $options);
         $options = $this->_helpOptions($fieldName, $options);
         $options = $this->_tooltipOptions($fieldName, $options);
 
@@ -446,7 +439,7 @@ class FormHelper extends Helper
 
         unset(
             $options['formGroupPosition'],
-            $options['errorStyle'],
+            $options['feedbackStyle'],
             $options['inline'],
             $options['nestedInput']
         );
@@ -687,25 +680,25 @@ class FormHelper extends Helper
      * @param array $options Options. See `$options` argument of `control()` method.
      * @return array
      */
-    protected function _errorStyleOptions(string $fieldName, array $options): array
+    protected function _feedbackStyleOptions(string $fieldName, array $options): array
     {
         $formGroupPosition = $options['formGroupPosition'] ?: $this->getConfig('formGroupPosition');
-        $errorStyle = $options['errorStyle'] ?: $this->getConfig('errorStyle');
+        $feedbackStyle = $options['feedbackStyle'] ?: $this->getConfig('feedbackStyle');
 
         if (
             $this->_align === static::ALIGN_INLINE &&
-            $errorStyle === null
+            $feedbackStyle === null
         ) {
-            $errorStyle = static::ERROR_STYLE_TOOLTIP;
+            $feedbackStyle = static::FEEDBACK_STYLE_TOOLTIP;
         }
 
-        if ($errorStyle === static::ERROR_STYLE_TOOLTIP) {
+        if ($feedbackStyle === static::FEEDBACK_STYLE_TOOLTIP) {
             $options['templates']['error'] = $this->templater()->get('errorTooltip');
         }
 
         if (
             $formGroupPosition === null &&
-            $errorStyle === static::ERROR_STYLE_TOOLTIP
+            $feedbackStyle === static::FEEDBACK_STYLE_TOOLTIP
         ) {
             $formGroupPosition = static::POSITION_RELATIVE;
         }
