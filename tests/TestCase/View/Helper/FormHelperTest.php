@@ -1738,14 +1738,14 @@ class FormHelperTest extends TestCase
         $this->Form->create($this->article, ['align' => 'foo']);
     }
 
-    public function testErrorStyleFromHelperConfig()
+    public function testFeedbackStyleFromHelperConfig()
     {
         $this->article['errors'] = [
             'title' => ['error message'],
         ];
         $this->article['required']['title'] = false;
 
-        $this->Form->setConfig('errorStyle', FormHelper::ERROR_STYLE_TOOLTIP);
+        $this->Form->setConfig('feedbackStyle', FormHelper::FEEDBACK_STYLE_TOOLTIP);
         $this->Form->create($this->article);
 
         $result = $this->Form->control('title');
@@ -1769,18 +1769,18 @@ class FormHelperTest extends TestCase
         $this->assertHtml($expected, $result);
     }
 
-    public function testOverrideErrorStyleFromHelperConfigViaControlConfig()
+    public function testOverrideFeedbackStyleFromHelperConfigViaControlConfig()
     {
         $this->article['errors'] = [
             'title' => ['error message'],
         ];
         $this->article['required']['title'] = false;
 
-        $this->Form->setConfig('errorStyle', FormHelper::ERROR_STYLE_TOOLTIP);
+        $this->Form->setConfig('feedbackStyle', FormHelper::FEEDBACK_STYLE_TOOLTIP);
         $this->Form->create($this->article);
 
         $result = $this->Form->control('title', [
-            'errorStyle' => FormHelper::ERROR_STYLE_DEFAULT,
+            'feedbackStyle' => FormHelper::FEEDBACK_STYLE_DEFAULT,
         ]);
 
         $expected = [
@@ -1810,7 +1810,7 @@ class FormHelperTest extends TestCase
         $this->article['required']['title'] = false;
 
         $this->Form->setConfig([
-            'errorStyle' => FormHelper::ERROR_STYLE_TOOLTIP,
+            'feedbackStyle' => FormHelper::FEEDBACK_STYLE_TOOLTIP,
             'formGroupPosition' => FormHelper::POSITION_ABSOLUTE,
         ]);
         $this->Form->create($this->article);
@@ -1844,7 +1844,7 @@ class FormHelperTest extends TestCase
         $this->article['required']['title'] = false;
 
         $this->Form->setConfig([
-            'errorStyle' => FormHelper::ERROR_STYLE_TOOLTIP,
+            'feedbackStyle' => FormHelper::FEEDBACK_STYLE_TOOLTIP,
             'formGroupPosition' => FormHelper::POSITION_ABSOLUTE,
         ]);
         $this->Form->create($this->article);
@@ -1872,7 +1872,7 @@ class FormHelperTest extends TestCase
         $this->assertHtml($expected, $result);
     }
 
-    public function testDefaultAlignControlWithTooltipErrorStyle()
+    public function testDefaultAlignControlWithTooltipFeedbackStyle()
     {
         $this->article['errors'] = [
             'title' => ['error message'],
@@ -1882,7 +1882,7 @@ class FormHelperTest extends TestCase
         $this->Form->create($this->article);
 
         $result = $this->Form->control('title', [
-            'errorStyle' => FormHelper::ERROR_STYLE_TOOLTIP,
+            'feedbackStyle' => FormHelper::FEEDBACK_STYLE_TOOLTIP,
         ]);
 
         $expected = [
@@ -1904,7 +1904,7 @@ class FormHelperTest extends TestCase
         $this->assertHtml($expected, $result);
     }
 
-    public function testInlineAlignControlWithDefaultErrorStyle()
+    public function testInlineAlignControlWithDefaultFeedbackStyle()
     {
         $this->article['errors'] = [
             'title' => ['error message'],
@@ -1916,7 +1916,7 @@ class FormHelperTest extends TestCase
         ]);
 
         $result = $this->Form->control('title', [
-            'errorStyle' => FormHelper::ERROR_STYLE_DEFAULT,
+            'feedbackStyle' => FormHelper::FEEDBACK_STYLE_DEFAULT,
         ]);
 
         $expected = [
@@ -1938,7 +1938,7 @@ class FormHelperTest extends TestCase
         $this->assertHtml($expected, $result);
     }
 
-    public function testHorizontalAlignControlWithTooltipErrorStyle()
+    public function testHorizontalAlignControlWithTooltipFeedbackStyle()
     {
         $this->article['errors'] = [
             'title' => ['error message'],
@@ -1955,7 +1955,7 @@ class FormHelperTest extends TestCase
         ]);
 
         $result = $this->Form->control('title', [
-            'errorStyle' => FormHelper::ERROR_STYLE_TOOLTIP,
+            'feedbackStyle' => FormHelper::FEEDBACK_STYLE_TOOLTIP,
         ]);
 
         $expected = [
