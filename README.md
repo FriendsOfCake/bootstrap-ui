@@ -5,11 +5,11 @@
 [![Total Downloads](https://img.shields.io/packagist/dt/friendsofcake/bootstrap-ui.svg?style=flat-square)](https://packagist.org/packages/friendsofcake/bootstrap-ui)
 [![License](https://img.shields.io/badge/license-MIT-blue.svg?style=flat-square)](https://packagist.org/packages/friendsofcake/bootstrap-ui)
 
-Transparently use [Bootstrap 4][twbs4] with [CakePHP 3][cakephp].
+Transparently use [Bootstrap 4][bs4] with [CakePHP 3][cakephp].
 
 ## Requirements
 
-* CakePHP 3.x
+* CakePHP 4.x
 * Bootstrap 4.x
 * npm 5.x
 * jQuery 3.2+
@@ -19,12 +19,12 @@ Transparently use [Bootstrap 4][twbs4] with [CakePHP 3][cakephp].
 ## What's included?
 
 - FlashComponent + elements (types: error, info, success, warning)
-- FormHelper (align: default, *inline (incomplete)*, horizontal)
+- FormHelper (align: default, inline, horizontal)
 - HtmlHelper (components: breadcrumbs, badge, icon)
 - PaginatorHelper
 - Widgets (basic, radio, button, select, textarea)
 - Sample layouts (cover, signin, dashboard)
-- Bake templates *incomplete*
+- Bake templates
 
 ## Installing Using [Composer][composer]
 
@@ -34,21 +34,16 @@ Transparently use [Bootstrap 4][twbs4] with [CakePHP 3][cakephp].
 composer require friendsofcake/bootstrap-ui
 ```
 
-Then load the plugin by adding the following to your app's config/boostrap.php:
-```
-\Cake\Core\Plugin::load('BootstrapUI');
-```
-
-or using CakePHP's console:
+Then load the plugin using CakePHP's console:
 ```
 bin/cake plugin load BootstrapUI
 ```
 
 ## Usage
 
-You can either use the Bootstrap Shell to make the necessary changes or do them manually.
+You can either use the Bootstrap command to make the necessary changes or do them manually.
 
-### Installing Using the Bootstrap Shell
+### Installing Using the Bootstrap Command
 
 1. To install install the bootstrap assets (bootstrap's css/js files, jquery and popper.js) via npm you can use the `install` command:
 
@@ -57,6 +52,7 @@ You can either use the Bootstrap Shell to make the necessary changes or do them 
     ```
     This will fetch all assets, copy the assets to plugin's webroot dir and symlink them to the app's webroot dir. Note that
     in debug mode the Shell will copy all assets (including source maps) and in production mode only minified versions.
+
 2. You will need to modify your `src/View/AppView` class to either extend `BootstrapUI\View\UIView` or
    use the trait `BootStrapUI\View\UIViewTrait`. For doing this you can either use the `modify_view` command or [change your view manually][bootstrap-ui#appview-setup]:
 
@@ -65,12 +61,13 @@ You can either use the Bootstrap Shell to make the necessary changes or do them 
     ```
 
     This will rewrite your `src/View/AppView` like described in [AppView Setup](#appview-setup).
+
 3. Bootstrap UI has it's own layouts. You can install them using the `copy_layouts` command or do the changes like mentioned in [BootstrapUI Layout](#bootstrapui-layout) section:
 
     ```
     bin/cake bootstrap copy_layouts
     ```
-    This will copy three sample layouts: `cover.ctp`, `dashboard.ctp` and `signin.ctp` to your app's `src/templates/layout/TwitterBootstrap`.
+    This will copy three sample layouts: `cover.php`, `dashboard.php` and `signin.php` to your app's `src/templates/layout/TwitterBootstrap`.
 
 ### Installing manually
 
@@ -78,22 +75,23 @@ You can either use the Bootstrap Shell to make the necessary changes or do them 
 #### AppView Setup
 
 For a quick setup, just make your `AppView` class extend `BootstrapUI\View\UIView`. The base class will handle
-the initializing and loading of the BootstrapUI `default.ctp` layout for your app.
+the initializing and loading of the BootstrapUI `default.php` layout for your app.
 
 The `src\View\AppView.php` will look something like the following:
 
 ```php
+declare(strict_types=1);
+
 namespace App\View;
 
 use BootstrapUI\View\UIView;
 
 class AppView extends UIView
 {
-
     /**
      * Initialization hook method.
      */
-    public function initialize()
+    public function initialize(): void
     {
         //Don't forget to call the parent::initialize()
         parent::initialize();
@@ -107,6 +105,8 @@ If you're adding BootstrapUI to an existing application. It might be easier to u
 as it gives you more control over the loading of the layout.
 
 ```php
+declare(strict_types=1);
+
 namespace App\View;
 
 use BootstrapUI\View\UIViewTrait;
@@ -119,7 +119,7 @@ class AppView extends View
     /**
      * Initialization hook method.
      */
-    public function initialize()
+    public function initialize(): void
     {
         //render the initializeUI method from the UIViewTrait
         $this->initializeUI();
@@ -129,12 +129,12 @@ class AppView extends View
 
 ## BootstrapUI Layout
 
-BootstrapUI comes with its own `default.ctp` layout file and examples taken from the Bootstrap framework.
+BootstrapUI comes with its own `default.php` layout file and examples taken from the Bootstrap framework.
 
-When no layout for the view is defined the `BootstrapUI\View\UIViewTrait` will load its own `default.ctp` layout file. You can
+When no layout for the view is defined the `BootstrapUI\View\UIViewTrait` will load its own `default.php` layout file. You can
 override this behavior in two ways.
 
-- Assign a layout to the view with `$this->layout('layout')`.
+- Assign a layout to the template with `$this->setLayout('layout')`.
 - Disable auto loading of the layout in `BootstrapUI\View\UIViewTrait` with `$this->initializeUI(['layout' => false]);`.
 
 ### Loading the Bootstrap framework
@@ -151,13 +151,13 @@ When using the BootstrapUI layout (or a copy of it), extra layout types (directl
 Bootstrap examples). You just need to copy them to your application's layouts directory:
 
 ```
-cp -R vendor/friendsofcake/bootstrap-ui/src/Template/Layout/examples src/Template/Layout/TwitterBootstrap
+cp -R vendor/friendsofcake/bootstrap-ui/templates/layout/examples templates/layout/TwitterBootstrap
 ```
 
 You can then simply extend them in your views like so:
 
 ```
-$this->extend('../Layout/TwitterBootstrap/dashboard');
+$this->extend('../layout/TwitterBootstrap/dashboard');
 ```
 
 Available types are:
@@ -186,7 +186,7 @@ cp node_modules/popper.js/dist/popper.js webroot/js
 For those of you who want even more automation, some bake templates have been included. Use them like so:
 
 ```
-bin/cake bake.bake [subcommand] -t BootstrapUI
+bin/cake bake [subcommand] -t BootstrapUI
 ```
 
 ## Helper Usage
@@ -213,6 +213,8 @@ is from the BootstrapUI plugin.
 echo $this->Form->create($article);
 echo $this->Form->control('title');
 echo $this->Form->control('published', ['type' => 'checkbox']);
+echo $this->Form->button('Submit');
+echo $this->Form->end();
 ```
 
 will render this HTML:
@@ -223,14 +225,13 @@ will render this HTML:
     <input type="hidden" name="_method" value="POST">
   </div>
   <div class="form-group text">
-    <label class="col-form-label" for="title">Title</label>
+    <label for="title">Title</label>
     <input type="text" name="title" id="title" class="form-control">
   </div>
-  <div class="form-check">
+  <div class="form-group form-check checkbox">
     <input type="hidden" name="published" value="0">
-    <label for="published">
-      <input type="checkbox" name="published" value="1" id="published">Published
-    </label>
+    <input type="checkbox" class="form-check-input" name="published" value="1" id="published">
+    <label class="form-check-label" for="published">Published</label>
   </div>
   <button type="submit" class="btn btn-secondary">Submit</button>
 </form>
@@ -253,6 +254,7 @@ echo $this->Form->create($article, ['align' => [
 ]]);
 echo $this->Form->control('title');
 echo $this->Form->control('published', ['type' => 'checkbox']);
+echo $this->Form->end();
 ```
 
 will render this HTML:
@@ -289,6 +291,7 @@ echo $this->Form->create($article, [
 ]);
 echo $this->Form->control('title', ['placeholder' => 'Title']);
 echo $this->Form->control('published', ['type' => 'checkbox']);
+echo $this->Form->end();
 ```
 
 will render this HTML:
@@ -525,17 +528,6 @@ $this->loadHelper(
 );
 ```
 
-To style auth flash messages properly set the `flash` key in `AuthComponent` config as shown:
-
-```php
-$this->loadComponent('Auth', [
-    'flash' => [
-        'element' => 'error',
-        'key' => 'auth'
-    ],
-    ...
-```
-
 ### Flash Messages / Alerts
 
 You can set Flash Messages using the default Flash syntax. Supported types are `success`, `info`, `warning`, `error`.
@@ -588,5 +580,5 @@ Copyright (c) 2015, Jad Bitar and licensed under [The MIT License][mit].
 [composer]:http://getcomposer.org
 [composer:ignore]:http://getcomposer.org/doc/faqs/should-i-commit-the-dependencies-in-my-vendor-directory.md
 [mit]:http://www.opensource.org/licenses/mit-license.php
-[twbs4]:http://getbootstrap.com
+[bs4]:http://getbootstrap.com
 [npm]:https://www.npmjs.com/
