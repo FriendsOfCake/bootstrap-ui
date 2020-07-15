@@ -20,6 +20,20 @@ class Plugin extends BasePlugin
     protected $name = 'BootstrapUI';
 
     /**
+     * Do bootstrapping or not
+     *
+     * @var bool
+     */
+    protected $bootstrapEnabled = false;
+
+    /**
+     * Load routes or not
+     *
+     * @var bool
+     */
+    protected $routesEnabled = false;
+
+    /**
      * @inheritDoc
      */
     public function console(CommandCollection $commands): CommandCollection
