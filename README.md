@@ -1,11 +1,21 @@
 # Bootstrap UI
 
-[![Build Status](https://img.shields.io/travis/FriendsOfCake/bootstrap-ui/master.svg?style=flat-square)](https://travis-ci.org/FriendsOfCake/bootstrap-ui)
-[![Coverage Status](https://img.shields.io/coveralls/FriendsOfCake/bootstrap-ui/master.svg?style=flat-square)](https://coveralls.io/r/FriendsOfCake/bootstrap-ui?branch=master)
-[![Total Downloads](https://img.shields.io/packagist/dt/friendsofcake/bootstrap-ui.svg?style=flat-square)](https://packagist.org/packages/friendsofcake/bootstrap-ui)
-[![License](https://img.shields.io/badge/license-MIT-blue.svg?style=flat-square)](https://packagist.org/packages/friendsofcake/bootstrap-ui)
+[![Build Status][ico-travis]][travis]
+[![Coverage Status][ico-coverage]][coverage]
+[![Total Downloads][ico-downloads]][package]
+[![License][ico-license]][license]
 
-Transparently use [Bootstrap 4][bs4] with [CakePHP 3][cakephp].
+[ico-travis]: https://img.shields.io/travis/friendsofcake/bootstrap-ui/master.svg?style=flat-square
+[ico-coverage]: https://img.shields.io/codecov/c/github/friendsofcake/bootstrap-ui/master.svg?style=flat-square
+[ico-downloads]: https://img.shields.io/packagist/dt/friendsofcake/bootstrap-ui.svg?style=flat-square
+[ico-license]: https://img.shields.io/badge/license-MIT-blue.svg?style=flat-square
+
+[travis]: https://travis-ci.org/friendsofcake/bootstrap-ui
+[coverage]: https://codecov.io/gh/friendsofcake/bootstrap-ui
+[package]: https://packagist.org/packages/friendsofcake/bootstrap-ui
+[license]: LICENSE.txt
+
+Transparently use [Bootstrap 4][bs4] with [CakePHP 4][cakephp].
 
 ## Requirements
 
@@ -18,61 +28,101 @@ Transparently use [Bootstrap 4][bs4] with [CakePHP 3][cakephp].
 
 ## What's included?
 
-- FlashComponent + elements (types: error, info, success, warning)
-- FormHelper (align: default, inline, horizontal)
-- HtmlHelper (components: breadcrumbs, badge, icon)
+- FlashHelper (element types: `error`, `info`, `success`, `warning`)
+- FormHelper (align: `default`, `inline`, `horizontal`)
+- BreadcrumbsHelper
+- HtmlHelper (components: `badge`, `icon`)
 - PaginatorHelper
-- Widgets (basic, radio, button, select, textarea)
-- Sample layouts (cover, signin, dashboard)
+- Widgets (`basic`, `button`, `datetime`, `file`, `select`, `textarea`)
+- Example layouts (`cover`, `signin`, `dashboard`)
 - Bake templates
 
-## Installing Using [Composer][composer]
+## Table of contents
 
-`cd` to the root of your app folder (where the `composer.json` file is) and run the following command:
+- [Installation](#installation)
+- [Setup](#setup)
+  - [Using the Bootstrap commands](#using-the-bootstrap-commands)
+  - [Manual setup](#manual-setup)
+  - [BootstrapUI layouts](#bootstrapui-layouts)
+  - [Including the Bootstrap framework](#including-the-bootstrap-framework)
+- [Bake templates](#bake-templates)
+- [Usage](#usage)
+- [Contributing](#contributing)
+- [License](#license)
+
+## Installation
+
+`cd` to the root of your app folder (where the `composer.json` file is) and run the following [Composer][composer]
+command:
 
 ```
 composer require friendsofcake/bootstrap-ui
 ```
 
 Then load the plugin using CakePHP's console:
+
 ```
 bin/cake plugin load BootstrapUI
 ```
 
-## Usage
+## Setup
 
-You can either use the Bootstrap command to make the necessary changes or do them manually.
+You can either use the Bootstrap commands to make the necessary changes, or do them manually.
 
-### Installing Using the Bootstrap Command
+### Using the Bootstrap commands
 
-1. To install install the bootstrap assets (bootstrap's css/js files, jquery and popper.js) via npm you can use the `install` command:
+1. To install the Bootstrap assets (Bootstrap's CSS/JS files, jQuery and Popper.js) via npm you can use the `install`
+   command, or [install them manually](#installing-bootstrap-assets-via-npm):
 
-    ```
-    bin/cake bootstrap install
-    ```
-    This will fetch all assets, copy the assets to plugin's webroot dir and symlink them to the app's webroot dir. Note that
-    in debug mode the Shell will copy all assets (including source maps) and in production mode only minified versions.
+   ```
+   bin/cake bootstrap install
+   ```
+
+   This will fetch all assets, copy the distribution assets to the BootstrapUI plugin's webroot directory, and symlink
+   (or copy) them to your application's `webroot` directory.
 
 2. You will need to modify your `src/View/AppView` class to either extend `BootstrapUI\View\UIView` or
-   use the trait `BootStrapUI\View\UIViewTrait`. For doing this you can either use the `modify_view` command or [change your view manually][bootstrap-ui#appview-setup]:
+   use the trait `BootStrapUI\View\UIViewTrait`. For doing this you can either use the `modify_view` command, or
+   [change your view manually](#appview-setup-using-uiview):
 
-    ```
-    bin/cake bootstrap modify_view
-    ```
+   ```
+   bin/cake bootstrap modify_view
+   ```
 
-    This will rewrite your `src/View/AppView` like described in [AppView Setup](#appview-setup).
+   This will rewrite your `src/View/AppView` like described in [AppView setup using UIView](#appview-setup-using-uiview).
 
-3. Bootstrap UI has it's own layouts. You can install them using the `copy_layouts` command or do the changes like mentioned in [BootstrapUI Layout](#bootstrapui-layout) section:
+3. BootstrapUI ships with some example layouts. You can install them using the `copy_layouts` command, or
+   [copy them manually](#copying-example-layouts):
 
-    ```
-    bin/cake bootstrap copy_layouts
-    ```
-    This will copy three sample layouts: `cover.php`, `dashboard.php` and `signin.php` to your app's `src/templates/layout/TwitterBootstrap`.
+   ```
+   bin/cake bootstrap copy_layouts
+   ```
 
-### Installing manually
+   This will copy the three example layouts `cover.php`, `dashboard.php` and `signin.php` to your application's
+   `src/templates/layout/TwitterBootstrap`.
 
+### Manual setup
 
-#### AppView Setup
+#### Installing Bootstrap assets via npm
+
+The [the `install` command](#using-the-bootstrap-commands) installs the Bootstrap assets via [npm], which you can also
+do manually if you wish to control which assets are being included, and where they are placed.
+
+Assuming you are in your application's root:
+
+```
+npm install bootstrap@4 jquery@3 popper.js@1
+cp node_modules/bootstrap/dist/css/bootstrap.css webroot/css/
+cp node_modules/bootstrap/dist/css/bootstrap.min.css webroot/css/
+cp node_modules/bootstrap/dist/js/bootstrap.js webroot/js/
+cp node_modules/bootstrap/dist/js/bootstrap.min.js webroot/js/
+cp node_modules/jquery/dist/jquery.js webroot/js
+cp node_modules/jquery/dist/jquery.min.js webroot/js
+cp node_modules/popper.js/dist/popper.js webroot/js
+cp node_modules/popper.js/dist/popper.min.js webroot/js
+```
+
+#### AppView setup using UIView
 
 For a quick setup, just make your `AppView` class extend `BootstrapUI\View\UIView`. The base class will handle
 the initializing and loading of the BootstrapUI `default.php` layout for your app.
@@ -93,16 +143,16 @@ class AppView extends UIView
      */
     public function initialize(): void
     {
-        //Don't forget to call the parent::initialize()
+        // Don't forget to call parent::initialize()
         parent::initialize();
     }
 }
 ```
 
-#### AppView Setup Using UIViewTrait
+#### AppView setup using UIViewTrait
 
-If you're adding BootstrapUI to an existing application. It might be easier to use the trait,
-as it gives you more control over the loading of the layout.
+If you're adding BootstrapUI to an existing application, it might be easier to use the trait, as it gives you more
+control over the loading of the layout.
 
 ```php
 declare(strict_types=1);
@@ -121,40 +171,39 @@ class AppView extends View
      */
     public function initialize(): void
     {
-        //render the initializeUI method from the UIViewTrait
+        parent::initialize();
+
+        // Call the initializeUI method from UIViewTrait
         $this->initializeUI();
     }
 }
 ```
 
-## BootstrapUI Layout
+#### Copying example layouts
 
-BootstrapUI comes with its own `default.php` layout file and examples taken from the Bootstrap framework.
-
-When no layout for the view is defined the `BootstrapUI\View\UIViewTrait` will load its own `default.php` layout file. You can
-override this behavior in two ways.
-
-- Assign a layout to the template with `$this->setLayout('layout')`.
-- Disable auto loading of the layout in `BootstrapUI\View\UIViewTrait` with `$this->initializeUI(['layout' => false]);`.
-
-### Loading the Bootstrap framework
-
-If you wish to use your own layout template, just make sure to include:
-
-```php
-// in the <head>
-echo $this->Html->css('path/to/bootstrap.css');
-echo $this->Html->script(['path/to/jquery.js', 'path/to/bootstrap.js']);
-```
-
-When using the BootstrapUI layout (or a copy of it), extra layout types (directly taken from the
-Bootstrap examples). You just need to copy them to your application's layouts directory:
+In order to be able to use the BootstrapUI example layouts (directly taken from the Bootstrap examples), they need to be
+copied to your application's layouts directory, either by using
+[the `copy_layouts` command](#using-the-bootstrap-commands), or by copying the files manually:
 
 ```
 cp -R vendor/friendsofcake/bootstrap-ui/templates/layout/examples templates/layout/TwitterBootstrap
 ```
 
-You can then simply extend them in your views like so:
+### BootstrapUI layouts
+
+BootstrapUI comes with its own `default.php` layout file and examples taken from the Bootstrap framework.
+
+When no layout for the view is defined, the `BootstrapUI\View\UIViewTrait` will load its own `default.php` layout file.
+You can override this behavior in two ways.
+
+- Assign a layout to the template with `$this->setLayout('layout')`.
+- Disable auto loading of the layout in `BootstrapUI\View\UIViewTrait` with `$this->initializeUI(['layout' => false]);`.
+
+#### Using the example layouts
+
+Once copied into your application's layouts directory (being it via
+[the `copy_layouts` command](#using-the-bootstrap-commands) or [manually](#copying-example-layouts)), you can simply
+extend the example layouts in your views like so:
 
 ```
 $this->extend('../layout/TwitterBootstrap/dashboard');
@@ -162,26 +211,45 @@ $this->extend('../layout/TwitterBootstrap/dashboard');
 
 Available types are:
 
-- cover
-- signin
-- dashboard
-- blog *coming soon*
+- `cover`
+- `signin`
+- `dashboard`
 
 **NOTE: Remember to set the stylesheets in the layouts you copy.**
 
-## Installing Bootstrap assets via npm
+### Including the Bootstrap framework
 
-The install script installs the bootstrap assets via [npm]. You can install them also by hand assuming you are in `ROOT`:
+If you are using [the BoostrapUI plugin's default layout](#bootstrapui-layouts), and you have installed the Bootstrap
+assets using [the `install` command](#using-the-bootstrap-commands), the required assets should automatically be
+included.
 
+If you wish to use your own layout template, then you need to take care of including the required CSS/JS files yourself.
+
+If you have installed the assets using [the `install` command](#using-the-bootstrap-commands), you can refer to
+them using the standard plugin syntax:
+
+```php
+// in the <head>
+echo $this->Html->css('BootstrapUI.bootstrap.min');
+echo $this->Html->script(['BootstrapUI.jquery.min', 'BootstrapUI.popper.min', 'BootstrapUI.bootstrap.min']);
 ```
-npm install
-cp node_modules/bootstrap/dist/css/bootstrap.css webroot/css/
-cp node_modules/bootstrap/dist/js/bootstrap.js webroot/js/
-cp node_modules/jquery/dist/jquery.js webroot/js
-cp node_modules/popper.js/dist/popper.js webroot/js
+
+If you have installed the assets manually, you'll need to use paths accordingly. With
+[the example copy script](#copying-example-layouts) you could use the standard short path syntax:
+
+```php
+echo $this->Html->css('bootstrap.min');
+echo $this->Html->script(['jquery.min', 'popper.min', 'bootstrap.min']);
 ```
 
-## Console Bake
+If you're using paths that don't adhere to the CakePHP conventions, you'll have to explicitly specify them:
+
+```php
+echo $this->Html->css('/path/to/bootstrap.css');
+echo $this->Html->script(['/path/to/jquery.js', '/path/to/popper.js', '/path/to/bootstrap.js']);
+```
+
+## Bake templates
 
 For those of you who want even more automation, some bake templates have been included. Use them like so:
 
@@ -189,7 +257,7 @@ For those of you who want even more automation, some bake templates have been in
 bin/cake bake [subcommand] -t BootstrapUI
 ```
 
-## Helper Usage
+## Usage
 
 At the core of BootstrapUI is a collection of enhancements for CakePHP core helpers. These helpers replace the HTML
 templates used to render elements for the views. This allows you to create forms and components that use the
@@ -207,7 +275,7 @@ When the `BootstrapUI\View\UIViewTrait` is initialized it loads the above helper
 CakePHP core helpers. That means that when you use `$this->Form->create()` in your views. The helper being used
 is from the BootstrapUI plugin.
 
-### Basic Form
+### Basic forms
 
 ```php
 echo $this->Form->create($article);
@@ -221,37 +289,39 @@ will render this HTML:
 
 ```html
 <form method="post" accept-charset="utf-8" role="form" action="/articles/add">
-  <div style="display:none;">
-    <input type="hidden" name="_method" value="POST">
-  </div>
-  <div class="form-group text">
-    <label for="title">Title</label>
-    <input type="text" name="title" id="title" class="form-control">
-  </div>
-  <div class="form-group form-check checkbox">
-    <input type="hidden" name="published" value="0">
-    <input type="checkbox" class="form-check-input" name="published" value="1" id="published">
-    <label class="form-check-label" for="published">Published</label>
-  </div>
-  <button type="submit" class="btn btn-secondary">Submit</button>
+    <div style="display:none;">
+        <input type="hidden" name="_method" value="POST">
+    </div>
+    <div class="form-group text">
+        <label for="title">Title</label>
+        <input type="text" name="title" id="title" class="form-control">
+    </div>
+    <div class="form-group form-check checkbox">
+        <input type="hidden" name="published" value="0">
+        <input type="checkbox" class="form-check-input" name="published" value="1" id="published">
+        <label class="form-check-label" for="published">Published</label>
+    </div>
+    <button type="submit" class="btn btn-secondary">Submit</button>
 </form>
 ```
 
-### Horizontal Form
+### Horizontal forms
 
 ```php
-echo $this->Form->create($article, ['align' => [
-    'sm' => [
-        'left' => 6,
-        'middle' => 6,
-        'right' => 12
-    ],
-    'md' => [
-        'left' => 4,
-        'middle' => 4,
-        'right' => 4
+echo $this->Form->create($article, [
+    'align' => [
+        'sm' => [
+            'left' => 6,
+            'middle' => 6,
+            'right' => 12
+        ],
+        'md' => [
+            'left' => 4,
+            'middle' => 4,
+            'right' => 4
+        ]
     ]
-]]);
+]);
 echo $this->Form->control('title');
 echo $this->Form->control('published', ['type' => 'checkbox']);
 echo $this->Form->end();
@@ -261,29 +331,28 @@ will render this HTML:
 
 ```html
 <form method="post" accept-charset="utf-8" class="form-horizontal" role="form" action="/articles/add">
-  <div style="display:none;">
-    <input type="hidden" name="_method" value="POST">
-  </div>
-  <div class="form-group text">
-    <label class="col-form-label col-sm-6 col-md-4" for="title">Title</label>
-    <div class="col-sm-6 col-md-4">
-      <input type="text" name="title" id="title" class="form-control">
+    <div style="display:none;">
+        <input type="hidden" name="_method" value="POST">
     </div>
-  </div>
-  <div class="form-group">
-    <div class="col-sm-offset-6 col-md-offset-4 col-sm-6 col-md-4">
-      <div class="checkbox">
-        <input type="hidden" name="published" value="0">
-        <label for="published">
-          <input type="checkbox" name="published" value="1" id="published">Published
-        </label>
-      </div>
+    <div class="form-group row text">
+        <label class="col-form-label col-sm-6 col-md-4" for="title">Title</label>
+        <div class="col-sm-6 col-md-4">
+            <input type="text" name="title" id="title" class="form-control">
+        </div>
     </div>
-  </div>
+    <div class="form-group row checkbox">
+        <div class="offset-sm-6 offset-md-4 col-sm-6 col-md-4">
+            <div class="form-check">
+                <input type="hidden" name="published" value="0"/>
+                <input type="checkbox" name="published" value="1" id="published" class="form-check-input"/>
+                <label class="form-check-label" for="published">Published</label>
+            </div>
+        </div>
+    </div>
 </form>
 ```
 
-### Inline Form
+### Inline forms
 
 ```php
 echo $this->Form->create($article, [
@@ -509,11 +578,11 @@ With an error on the `title` field, this would generate the following HTML:
 </div>
 ```
 
-### Configuration
+### Helper configuration
 
-You can configure each of the helpers by passing in extra parameters through the AppView.php.
+You can configure each of the helpers by passing in extra parameters when loading them in your `AppView.php`.
 
-Here is an example of changing the `prev` and `next` labels for the PaginatorHelper.
+Here is an example of changing the `prev` and `next` labels for the Paginator helper.
 
 ```php
 $this->loadHelper(
@@ -530,34 +599,30 @@ $this->loadHelper(
 
 ### Flash Messages / Alerts
 
-You can set Flash Messages using the default Flash syntax. Supported types are `success`, `info`, `warning`, `error`.
+You can set Flash Messages using the default Flash component syntax. Supported types are `success`, `info`, `warning`,
+`error`.
+
 ```php
 $this->Flash->success('Your Success Message.');
 ```
+
 If you need to set other Bootstrap Alert styles you can do this with:
+
 ```php
 $this->Flash->set('Your Dark Message.', ['params' => ['class' => 'dark']]);
 ```
+
 Supported styles are `primary`, `secondary`, `light`, `dark`.
 
-**NOTE: Check tests for more examples.**
+## Contributing
 
-## Testing
-
-You can run the tests for BootstrapUI by doing the following:
-
-```
-    $ composer install
-    $ ./vendor/bin/phpunit
-```
-
-## Patches & Features
+### Patches & Features
 
 * Fork
 * Mod, fix
 * Test - this is important, so it's not unintentionally broken
-* Commit - do not mess with license, todo, version, etc. (if you do change any, bump them into commits of
-their own that I can ignore when I pull)
+* Commit - do not mess with license, todo, version, etc. (if you do change any, put them into separate commits that can
+  be ignored when pulling)
 * Pull request - bonus point for topic branches
 
 To ensure your PRs are considered for upstream, you MUST follow the CakePHP coding standards. A `pre-commit`
@@ -568,9 +633,18 @@ cp ./contrib/pre-commit .git/hooks/
 chmod 755 .git/hooks/pre-commit
 ```
 
-## Bugs & Feedback
+### Testing
 
-http://github.com/friendsofcake/bootstrap-ui/issues
+When working on the plugin's code you can run the tests for BootstrapUI by doing the following:
+
+```
+composer install
+./vendor/bin/phpunit
+```
+
+### Bugs & Feedback
+
+https://github.com/friendsofcake/bootstrap-ui/issues
 
 ## License
 
