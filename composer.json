@@ -1,8 +1,8 @@
 {
     "name": "friendsofcake/bootstrap-ui",
-    "description": "Bootstrap support for CakePHP",
+    "description": "Bootstrap front-end framework support for CakePHP",
     "type": "cakephp-plugin",
-    "keywords": ["cakephp", "bootstrap"],
+    "keywords": ["cakephp", "bootstrap", "front-end"],
     "homepage": "http://github.com/friendsofcake/bootstrap-ui",
     "license": "MIT",
     "authors": [
@@ -47,8 +47,8 @@
         "cs-check": "phpcs -p --standard=vendor/cakephp/cakephp-codesniffer/CakePHP --ignore=comparisons src/ tests/",
         "cs-fix": "phpcbf --standard=vendor/cakephp/cakephp-codesniffer/CakePHP --ignore=comparisons src/ tests/",
         "stan": "phpstan analyse && psalm.phar",
-        "psalm": "psalm --show-info=false",
-        "stan-setup": "cp composer.json composer.backup && composer require --dev phpstan/phpstan:^0.12 psalm/phar:^3.8 && mv composer.backup composer.json",
+        "psalm": "psalm.phar",
+        "stan-setup": "cp composer.json composer.backup && composer require --dev phpstan/phpstan:^0.12 psalm/phar:^3.14 && mv composer.backup composer.json",
         "test": "phpunit"
     }
 }
