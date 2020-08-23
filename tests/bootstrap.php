@@ -6,6 +6,7 @@ use Cake\Core\Configure;
 use Cake\Core\Plugin;
 use Cake\Datasource\ConnectionManager;
 use Cake\I18n\I18n;
+use Cake\Utility\Security;
 
 require_once 'vendor/autoload.php';
 
@@ -77,3 +78,5 @@ Cache::setConfig([
         'serialize' => true
     ]
 ]);
+
+Security::setSalt('foobar');
