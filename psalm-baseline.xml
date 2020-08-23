@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<files psalm-version="3.12.1@9b860214d58c48b5cbe99bdb17914d0eb723c9cd">
+<files psalm-version="3.14.2@3538fe1955d47f6ee926c0769d71af6db08aa488">
   <file src="src/Command/CopyLayoutsCommand.php">
     <InternalClass occurrences="1">
       <code>new Filesystem()</code>
@@ -29,5 +29,10 @@
       <code>$output</code>
       <code>$return</code>
     </NullReference>
+  </file>
+  <file src="vendor/cakephp/cakephp/src/View/View.php">
+    <UnsafeInstantiation occurrences="1">
+      <code>new $this-&gt;_viewBlockClass()</code>
+    </UnsafeInstantiation>
   </file>
 </files>
