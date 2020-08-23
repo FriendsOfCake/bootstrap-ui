@@ -14,7 +14,7 @@ class BakeTest extends ConsoleIntegrationTestCase
 
     public $fixtures = [
         'plugin.BootstrapUI.Articles',
-        'plugin.BootstrapUI.Authors'
+        'plugin.BootstrapUI.Authors',
     ];
 
     public function setUp()
@@ -27,7 +27,7 @@ class BakeTest extends ConsoleIntegrationTestCase
             'Bake',
             'WyriHaximus/TwigView' => [
                 'bootstrap' => true,
-            ]
+            ],
         ]);
     }
 

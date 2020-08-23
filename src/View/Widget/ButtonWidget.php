@@ -7,7 +7,6 @@ use Cake\View\Form\ContextInterface;
 
 class ButtonWidget extends \Cake\View\Widget\ButtonWidget
 {
-
     use OptionsAwareTrait;
 
     /**
@@ -24,7 +23,7 @@ class ButtonWidget extends \Cake\View\Widget\ButtonWidget
         'info',
         'light',
         'dark',
-        'link'
+        'link',
     ];
 
     /**

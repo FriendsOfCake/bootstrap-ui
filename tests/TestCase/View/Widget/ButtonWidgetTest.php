@@ -50,7 +50,7 @@ class ButtonWidgetTest extends TestCase
         $result = $button->render(['name' => 'my_input'], $this->context);
         $expected = [
             'button' => ['type' => 'submit', 'name' => 'my_input', 'class' => 'btn btn-secondary'],
-            '/button'
+            '/button',
         ];
         $this->assertHtml($expected, $result);
     }
@@ -71,7 +71,7 @@ class ButtonWidgetTest extends TestCase
             'info',
             'light',
             'dark',
-            'link'
+            'link',
         ];
 
         $button = new ButtonWidget($this->templates);
@@ -79,7 +79,7 @@ class ButtonWidgetTest extends TestCase
         foreach ($styles as $style) {
             $expected = [
                 'button' => ['type' => 'submit', 'name' => 'my_input', 'class' => "btn-{$style} btn"],
-                '/button'
+                '/button',
             ];
 
             // support both "style" and "btn-style"
@@ -101,13 +101,13 @@ class ButtonWidgetTest extends TestCase
         $data = [
             'name' => 'my_input',
             'type' => 'button',
-            'text' => 'Some button'
+            'text' => 'Some button',
         ];
         $result = $button->render($data, $this->context);
         $expected = [
             'button' => ['type' => 'button', 'name' => 'my_input', 'class' => 'btn btn-secondary'],
             'Some button',
-            '/button'
+            '/button',
         ];
         $this->assertHtml($expected, $result);
     }
@@ -121,13 +121,13 @@ class ButtonWidgetTest extends TestCase
     {
         $button = new ButtonWidget($this->templates);
         $data = [
-            'text' => 'Some <value>'
+            'text' => 'Some <value>',
         ];
         $result = $button->render($data, $this->context);
         $expected = [
             'button' => ['type' => 'submit', 'class' => 'btn btn-secondary'],
             'Some <value>',
-            '/button'
+            '/button',
         ];
         $this->assertHtml($expected, $result);
 
@@ -136,7 +136,7 @@ class ButtonWidgetTest extends TestCase
         $expected = [
             'button' => ['type' => 'submit', 'class' => 'btn btn-secondary'],
             'Some &lt;value&gt;',
-            '/button'
+            '/button',
         ];
         $this->assertHtml($expected, $result);
     }
@@ -153,7 +153,7 @@ class ButtonWidgetTest extends TestCase
             'name' => 'my_input',
             'text' => 'Go',
             'class' => 'btn',
-            'required' => true
+            'required' => true,
         ];
         $result = $button->render($data, $this->context);
         $expected = [
@@ -161,10 +161,10 @@ class ButtonWidgetTest extends TestCase
                 'type' => 'submit',
                 'name' => 'my_input',
                 'class' => 'btn btn-secondary',
-                'required' => 'required'
+                'required' => 'required',
             ],
             'Go',
-            '/button'
+            '/button',
         ];
         $this->assertHtml($expected, $result);
     }
@@ -190,10 +190,10 @@ class ButtonWidgetTest extends TestCase
             'button' => [
                 'type' => 'submit',
                 'custom' => 'value',
-                'class' => 'btn btn-secondary'
+                'class' => 'btn btn-secondary',
             ],
             'Go',
-            '/button'
+            '/button',
         ];
         $this->assertHtml($expected, $result);
     }

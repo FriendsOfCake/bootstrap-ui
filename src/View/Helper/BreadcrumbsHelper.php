@@ -16,8 +16,8 @@ class BreadcrumbsHelper extends CoreBreadcrumbsHelper
             'wrapper' => '<nav aria-label="breadcrumb"><ol{{attrs}}>{{content}}</ol></nav>',
             'item' => '<li{{attrs}}><a href="{{url}}"{{innerAttrs}}>{{title}}</a></li>',
             'itemWithoutLink' => '<li{{attrs}}><span{{innerAttrs}}>{{title}}</span></li>',
-            'separator' => ''
-        ]
+            'separator' => '',
+        ],
     ];
 
     /**
@@ -28,8 +28,8 @@ class BreadcrumbsHelper extends CoreBreadcrumbsHelper
     protected $_defaultAttributes = [
         'class' => [
             'wrapper' => 'breadcrumb',
-            'item' => 'breadcrumb-item'
-        ]
+            'item' => 'breadcrumb-item',
+        ],
     ];
 
     /**

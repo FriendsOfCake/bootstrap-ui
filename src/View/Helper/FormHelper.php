@@ -11,7 +11,6 @@ use InvalidArgumentException;
 
 class FormHelper extends Helper
 {
-
     use OptionsAwareTrait;
 
     /**
@@ -125,7 +124,7 @@ class FormHelper extends Helper
             'multicheckboxContainer' => '<div class="form-group row {{type}}{{required}}" role="group" aria-labelledby="{{groupId}}">{{content}}</div>',
             'multicheckboxContainerError' => '<div class="form-group row {{type}}{{required}} is-invalid" role="group" aria-labelledby="{{groupId}}">{{content}}</div>',
             'multicheckboxLabel' => '<label id="{{groupId}}" class="col-form-label d-block pt-0 %s">{{text}}</label>',
-        ]
+        ],
     ];
 
     /**
@@ -219,7 +218,7 @@ class FormHelper extends Helper
     public function submit($caption = null, array $options = [])
     {
         $options += [
-            'class' => 'primary'
+            'class' => 'primary',
         ];
         $options = $this->applyButtonClasses($options);
 
@@ -325,7 +324,8 @@ class FormHelper extends Helper
                     $inline = false;
                 }
 
-                if ($inline ||
+                if (
+                    $inline ||
                     $this->_align === 'inline'
                 ) {
                     if (!$custom) {
@@ -353,7 +353,8 @@ class FormHelper extends Helper
                 $options['templateVars']['groupId'] = $this->_domId($fieldName . '-group-label');
                 $options['templates']['label'] = $this->templater()->get('radioLabel');
 
-                if ($inline ||
+                if (
+                    $inline ||
                     $this->_align === 'inline'
                 ) {
                     if (!$custom) {
@@ -382,7 +383,8 @@ class FormHelper extends Helper
                         $options['templates']['checkboxWrapper'] = $this->templater()->get('customCheckboxWrapper');
                     }
 
-                    if ($inline ||
+                    if (
+                        $inline ||
                         $this->_align === 'inline'
                     ) {
                         if (!$custom) {
@@ -397,7 +399,8 @@ class FormHelper extends Helper
                     }
                 }
 
-                if ($custom &&
+                if (
+                    $custom &&
                     $options['type'] !== 'multicheckbox'
                 ) {
                     $options['injectFormControl'] = false;
@@ -416,13 +419,15 @@ class FormHelper extends Helper
                     $options['templates']['label'] = $this->templater()->get('customFileLabel');
                     $options['templates']['formGroup'] = $this->templater()->get('customFileFormGroup');
 
-                    if ($options['prepend'] ||
+                    if (
+                        $options['prepend'] ||
                         $options['append']
                     ) {
                         if ($options['label'] === null) {
                             $options['label'] = [];
                         }
-                        if ($options['label'] !== false &&
+                        if (
+                            $options['label'] !== false &&
                             !isset($options['label']['text'])
                         ) {
                             $text = $fieldName;
@@ -554,7 +559,8 @@ class FormHelper extends Helper
     protected function multiInputAttributes(array $attributes)
     {
         $classPrefix = 'form-check';
-        if (isset($attributes['custom']) &&
+        if (
+            isset($attributes['custom']) &&
             $attributes['custom']
         ) {
             $classPrefix = 'custom-control';
@@ -609,7 +615,7 @@ class FormHelper extends Helper
             'escape' => true,
             'required' => false,
             'secure' => true,
-            'hiddenField' => true
+            'hiddenField' => true,
         ];
 
         $secure = $options['secure'];
@@ -623,7 +629,7 @@ class FormHelper extends Helper
 
         $content = $options['escape'] ? h($options['val']) : $options['val'];
         $static = $this->formatTemplate('staticControl', [
-            'content' => $content
+            'content' => $content,
         ]);
 
         if (!$hiddenField) {
@@ -730,7 +736,8 @@ class FormHelper extends Helper
         unset($options['hasError']);
 
         foreach ($this->_datetimeParts as $part) {
-            if (isset($options[$part]) &&
+            if (
+                isset($options[$part]) &&
                 $options[$part] !== false
             ) {
                 if ($hasError) {
@@ -739,7 +746,7 @@ class FormHelper extends Helper
 
                 $options[$part] += ['templateVars' => []];
                 $options[$part]['templateVars'] += [
-                    'part' => $part
+                    'part' => $part,
                 ];
             }
         }

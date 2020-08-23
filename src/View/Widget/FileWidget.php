@@ -54,7 +54,8 @@ class FileWidget extends \Cake\View\Widget\FileWidget
         $data['injectFormControl'] = false;
 
         $inputClass = 'form-control-file';
-        if (isset($data['custom']) &&
+        if (
+            isset($data['custom']) &&
             $data['custom']
         ) {
             $inputClass = 'custom-file-input';
@@ -65,7 +66,7 @@ class FileWidget extends \Cake\View\Widget\FileWidget
 
         if (isset($data['inputGroupLabel'])) {
             $data['inputGroupLabel'] += [
-                'for' => $data['id']
+                'for' => $data['id'],
             ];
             $data['templateVars']['label'] = $this->_label->render($data['inputGroupLabel'], $context);
             unset($data['inputGroupLabel']);

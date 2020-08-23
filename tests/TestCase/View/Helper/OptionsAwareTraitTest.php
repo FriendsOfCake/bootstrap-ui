@@ -10,7 +10,6 @@ use Cake\TestSuite\TestCase;
  */
 class TestOptionsAware
 {
-
     use OptionsAwareTrait;
 }
 
@@ -151,7 +150,7 @@ class OptionsAwareTraitTest extends TestCase
             'btn-outline-dark',
             'btn-outline-link',
             'btn-outline-sm',
-            'btn-outline-lg'
+            'btn-outline-lg',
         ];
 
         $this->assertEquals($res, $this->object->genAllClassNames('btn'));
