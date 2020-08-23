@@ -1,4 +1,0 @@
-parameters:
-    level: 5
-    ignoreErrors:
-        - '#Constant APP not found#'
