@@ -6,7 +6,7 @@ linters:
     fixer: true
 
 branches:
-  ignore: ['cake-4-bs-4']
+  ignore: ['1.x', 'develop']
 
 fixers:
   enable: true
