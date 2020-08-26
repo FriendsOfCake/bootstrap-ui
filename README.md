@@ -17,7 +17,7 @@
 
 Transparently use [Bootstrap 4][bs4] with [CakePHP 4][cakephp].
 
-For version info see [version map](https://github.com/FriendsOfCake/bootstrap-ui/wiki/Version-Map).
+For version info see [version map](https://github.com/FriendsOfCake/bootstrap-ui/wiki#version-map).
 
 ## Requirements
 
