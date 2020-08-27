@@ -14,7 +14,7 @@ class BakeTest extends ConsoleIntegrationTestCase
 
     protected $generatedFile = '';
 
-    public $fixtures = [
+    protected $fixtures = [
         'plugin.BootstrapUI.Articles',
         'plugin.BootstrapUI.Authors',
     ];
