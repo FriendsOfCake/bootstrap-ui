@@ -12,7 +12,7 @@ final class Classes extends Type
 {
     /** @var string The primary class */
     public const PRIMARY = 'primary';
-    /** @var string The secondary clss */
+    /** @var string The secondary class */
     public const SECONDARY = 'secondary';
     /** @var string The success class */
     public const SUCCESS = 'success';
