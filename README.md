@@ -652,9 +652,9 @@ https://github.com/friendsofcake/bootstrap-ui/issues
 
 Copyright (c) 2015, Jad Bitar and licensed under [The MIT License][mit].
 
-[cakephp]:http://cakephp.org
-[composer]:http://getcomposer.org
-[composer:ignore]:http://getcomposer.org/doc/faqs/should-i-commit-the-dependencies-in-my-vendor-directory.md
-[mit]:http://www.opensource.org/licenses/mit-license.php
-[bs4]:http://getbootstrap.com
+[cakephp]:https://cakephp.org/
+[composer]:https://getcomposer.org/
+[composer:ignore]:https://getcomposer.org/doc/faqs/should-i-commit-the-dependencies-in-my-vendor-directory.md
+[mit]:https://opensource.org/licenses/mit-license.php
+[bs4]:https://getbootstrap.com/
 [npm]:https://www.npmjs.com/
