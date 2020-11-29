@@ -413,6 +413,30 @@ This would generate the following HTML:
 </div>
 ```
 
+### Container attributes
+
+Attributes of the outer control container can be changed via the `container` option, cutting the need to use custom
+templates for simple changes. The `class` attribute is a special case, its value will be prepended to the existing
+list of classes instead of replacing it.
+
+```php
+echo $this->Form->control('title', [
+    'container' => [
+        'class' => 'my-title-control',
+        'data-meta' => 'meta information',
+    ],
+]);
+```
+
+This would generate the following HTML:
+
+```html
+<div data-meta="meta information" class="my-title-control form-group text">
+    <label for="title">Title</label>
+    <input type="text" name="title" id="title" class="form-control">
+</div>
+```
+
 ### Appending/Prepending content
 
 Appending/Prepending content to input groups is supported via the `append` and `prepend` options respectively.
