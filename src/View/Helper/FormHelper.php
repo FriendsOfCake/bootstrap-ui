@@ -544,9 +544,13 @@ class FormHelper extends Helper
      */
     protected function _dateTimeOptions(string $fieldName, array $options): array
     {
-        $options['label']['templateVars']['groupId'] =
+        $groupId =
         $options['templateVars']['groupId'] =
             $this->_domId($fieldName . '-group-label');
+
+        if ($options['label'] !== false) {
+            $options['label']['templateVars']['groupId'] = $groupId;
+        }
 
         $options['templates']['label'] = $this->templater()->get('datetimeLabel');
         $options['templates']['inputContainer'] = $this->templater()->get('datetimeContainer');
@@ -565,10 +569,14 @@ class FormHelper extends Helper
     protected function _checkboxOptions(string $fieldName, array $options): array
     {
         if (!$options['custom']) {
-            $options['label'] = $this->injectClasses('form-check-label', (array)$options['label']);
+            if ($options['label'] !== false) {
+                $options['label'] = $this->injectClasses('form-check-label', (array)$options['label']);
+            }
             $options = $this->injectClasses('form-check-input', $options);
         } else {
-            $options['label'] = $this->injectClasses('custom-control-label', (array)$options['label']);
+            if ($options['label'] !== false) {
+                $options['label'] = $this->injectClasses('custom-control-label', (array)$options['label']);
+            }
             $options = $this->injectClasses('custom-control-input', $options);
 
             if ($this->_align === static::ALIGN_HORIZONTAL) {
@@ -621,9 +629,13 @@ class FormHelper extends Helper
             $options['templates']['radioWrapper'] = $this->templater()->get('customRadioWrapper');
         }
 
-        $options['label']['templateVars']['groupId'] =
+        $groupId =
         $options['templateVars']['groupId'] =
             $this->_domId($fieldName . '-group-label');
+
+        if ($options['label'] !== false) {
+            $options['label']['templateVars']['groupId'] = $groupId;
+        }
 
         $options['templates']['label'] = $this->templater()->get('radioLabel');
 
@@ -657,9 +669,13 @@ class FormHelper extends Helper
         if (isset($options['multiple']) && $options['multiple'] === 'checkbox') {
             $options['type'] = 'multicheckbox';
 
-            $options['label']['templateVars']['groupId'] =
+            $groupId =
             $options['templateVars']['groupId'] =
                 $this->_domId($fieldName . '-group-label');
+
+            if ($options['label'] !== false) {
+                $options['label']['templateVars']['groupId'] = $groupId;
+            }
 
             $options['templates']['label'] = $this->templater()->get('multicheckboxLabel');
 
@@ -826,14 +842,17 @@ class FormHelper extends Helper
      */
     protected function _tooltipOptions(string $fieldName, array $options): array
     {
-        if ($options['tooltip']) {
+        if (
+            $options['tooltip'] &&
+            $options['label'] !== false
+        ) {
             $tooltip = $this->templater()->format(
                 'tooltip',
                 ['content' => $options['tooltip']]
             );
             $options['label']['templateVars']['tooltip'] = ' ' . $tooltip;
-            unset($options['tooltip']);
         }
+        unset($options['tooltip']);
 
         return $options;
     }
