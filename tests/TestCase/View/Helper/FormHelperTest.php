@@ -9,31 +9,6 @@ use InvalidArgumentException;
 
 class FormHelperTest extends AbstractFormHelperTest
 {
-    public function testSelectControlWithCustomLabel()
-    {
-        $this->Form->create($this->article);
-
-        $result = $this->Form->control('foreign_key', [
-            'type' => 'select',
-            'class' => 'my-class',
-            'label' => 'Custom Label',
-        ]);
-        $expected = [
-            'div' => ['class' => 'form-group select'],
-                'label' => ['for' => 'foreign-key'],
-                    'Custom Label',
-                '/label',
-                'select' => [
-                    'name' => 'foreign_key',
-                    'id' => 'foreign-key',
-                    'class' => 'my-class form-control',
-                ],
-                '/select',
-            '/div',
-        ];
-        $this->assertHtml($expected, $result);
-    }
-
     /**
      * testBasicPasswordControl method
      *
