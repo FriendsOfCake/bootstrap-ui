@@ -7,76 +7,86 @@ use BootstrapUI\Test\TestCase\View\Helper\FormHelper\AbstractFormHelperTest;
 
 class SelectControlTest extends AbstractFormHelperTest
 {
-    /**
-     * testSelectControl method
-     *
-     * @return void
-     */
-    public function testSelectControl()
+    public function testDefaultAlignSelectControl()
     {
         $this->Form->create($this->article);
 
-        $result = $this->Form->control('foreign_key', [
+        $result = $this->Form->control('users', [
             'type' => 'select',
-            'class' => 'my-class',
-        ]);
-        $expected = [
-            'div' => ['class' => 'form-group select'],
-            'label' => ['for' => 'foreign-key'],
-            'Foreign Key',
-            '/label',
-            'select' => [
-                'name' => 'foreign_key',
-                'id' => 'foreign-key',
-                'class' => 'my-class form-control',
+            'options' => [
+                1 => 'option 1',
+                2 => 'option 2',
             ],
-            '/select',
-            '/div',
-        ];
-        $this->assertHtml($expected, $result);
-    }
-
-    public function testSelectControlWithDisabledLabel()
-    {
-        $this->Form->create($this->article);
-
-        $result = $this->Form->control('foreign_key', [
-            'type' => 'select',
-            'class' => 'my-class',
-            'label' => false,
         ]);
         $expected = [
             'div' => ['class' => 'form-group select'],
-                'select' => [
-                    'name' => 'foreign_key',
-                    'id' => 'foreign-key',
-                    'class' => 'my-class form-control',
-                ],
+                ['label' => ['for' => 'users']],
+                    'Users',
+                '/label',
+                ['select' => ['name' => 'users', 'id' => 'users', 'class' => 'form-control']],
+                    ['option' => ['value' => '1']],
+                        'option 1',
+                    '/option',
+                    ['option' => ['value' => '2']],
+                        'option 2',
+                    '/option',
                 '/select',
             '/div',
         ];
         $this->assertHtml($expected, $result);
     }
 
-    public function testSelectControlWithCustomLabel()
+    public function testDefaultAlignSelectControlWithDisabledLabel()
     {
         $this->Form->create($this->article);
 
-        $result = $this->Form->control('foreign_key', [
+        $result = $this->Form->control('users', [
             'type' => 'select',
-            'class' => 'my-class',
+            'options' => [
+                1 => 'option 1',
+                2 => 'option 2',
+            ],
+            'label' => false,
+        ]);
+        $expected = [
+            'div' => ['class' => 'form-group select'],
+                ['select' => ['name' => 'users', 'id' => 'users', 'class' => 'form-control']],
+                    ['option' => ['value' => '1']],
+                        'option 1',
+                    '/option',
+                    ['option' => ['value' => '2']],
+                        'option 2',
+                    '/option',
+                '/select',
+            '/div',
+        ];
+        $this->assertHtml($expected, $result);
+    }
+
+    public function testDefaultAlignSelectControlWithCustomLabel()
+    {
+        $this->Form->create($this->article);
+
+        $result = $this->Form->control('users', [
+            'type' => 'select',
+            'options' => [
+                1 => 'option 1',
+                2 => 'option 2',
+            ],
             'label' => 'Custom Label',
         ]);
         $expected = [
             'div' => ['class' => 'form-group select'],
-                'label' => ['for' => 'foreign-key'],
+                ['label' => ['for' => 'users']],
                     'Custom Label',
                 '/label',
-                'select' => [
-                    'name' => 'foreign_key',
-                    'id' => 'foreign-key',
-                    'class' => 'my-class form-control',
-                ],
+                ['select' => ['name' => 'users', 'id' => 'users', 'class' => 'form-control']],
+                    ['option' => ['value' => '1']],
+                        'option 1',
+                    '/option',
+                    ['option' => ['value' => '2']],
+                        'option 2',
+                    '/option',
                 '/select',
             '/div',
         ];
