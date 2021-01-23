@@ -35,62 +35,6 @@ class FormHelperTest extends AbstractFormHelperTest
     }
 
     /**
-     * testStaticControl method
-     *
-     * @return void
-     */
-    public function testStaticControl()
-    {
-        $this->View->setRequest($this->View->getRequest()->withAttribute('formTokenData', []));
-
-        unset($this->article['required']['title']);
-        $this->article['defaults']['title'] = 'foo <u>bar</u>';
-        $this->Form->create($this->article);
-
-        $result = $this->Form->control('title', ['type' => 'staticControl']);
-        $expected = [
-            'div' => ['class' => 'form-group staticControl'],
-            'label' => ['for' => 'title'],
-            'Title',
-            '/label',
-            'p' => ['class' => 'form-control-plaintext'],
-            'foo &lt;u&gt;bar&lt;/u&gt;',
-            '/p',
-            'input' => [
-                'type' => 'hidden',
-                'name' => 'title',
-                'id' => 'title',
-                'value' => 'foo &lt;u&gt;bar&lt;/u&gt;',
-            ],
-            '/div',
-        ];
-        $this->assertHtml($expected, $result);
-        $this->assertSame(
-            ['title' => 'foo <u>bar</u>'],
-            $this->Form->getFormProtector()->__debugInfo()['fields']
-        );
-
-        $this->Form->fields = [];
-
-        $result = $this->Form->control('title', ['type' => 'staticControl', 'hiddenField' => false, 'escape' => false]);
-        $expected = [
-            'div' => ['class' => 'form-group staticControl'],
-            'label' => ['for' => 'title'],
-            'Title',
-            '/label',
-            'p' => ['class' => 'form-control-plaintext'],
-            'foo',
-            'u' => [],
-            'bar',
-            '/u',
-            '/p',
-            '/div',
-        ];
-        $this->assertHtml($expected, $result);
-        $this->assertEmpty($this->Form->fields);
-    }
-
-    /**
      * testBasicPasswordControl method
      *
      * @return void
