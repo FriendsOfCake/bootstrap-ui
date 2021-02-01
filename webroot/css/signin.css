@@ -7,6 +7,9 @@ body {
     display: -ms-flexbox;
     display: -webkit-box;
     display: flex;
+    -ms-flex-direction: column;
+    -webit-flex-direction: column;
+    flex-direction: column;
     -ms-flex-align: center;
     -ms-flex-pack: center;
     -webkit-box-align: center;
