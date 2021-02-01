@@ -6,5 +6,6 @@
 .stickler.yml export-ignore
 .travis.yml export-ignore
 phpunit.xml.dist export-ignore
+phpcs.xml export-ignore
 tests export-ignore
 .github export-ignore
