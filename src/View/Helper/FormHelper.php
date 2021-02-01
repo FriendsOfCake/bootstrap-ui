@@ -214,41 +214,48 @@ class FormHelper extends Helper
         'inline' => [
             'label' => '<label class="sr-only"{{attrs}}>{{text}}{{tooltip}}</label>',
             'help' => '<small{{attrs}} class="sr-only form-text text-muted">{{content}}</small>',
+            'checkboxInlineContainer' =>
+                '<div{{containerAttrs}} class="{{containerClass}}form-check form-check-inline {{type}}{{required}}">' .
+                    '{{content}}{{help}}</div>',
             'checkboxInlineContainerError' =>
                 '<div{{containerAttrs}} ' .
                     'class="{{containerClass}}form-check form-check-inline ' .
                         '{{formGroupPosition}}{{type}}{{required}} is-invalid">' .
-                            '{{content}}{{error}}</div>',
+                            '{{content}}{{error}}{{help}}</div>',
+            'customCheckboxInlineContainer' =>
+                '<div{{containerAttrs}} ' .
+                    'class="{{containerClass}}form-group custom-control custom-checkbox custom-control-inline ' .
+                        '{{type}}{{required}}">{{content}}{{help}}</div>',
             'customCheckboxInlineContainerError' =>
                 '<div{{containerAttrs}} ' .
                     'class="{{containerClass}}form-group custom-control custom-checkbox custom-control-inline ' .
-                        '{{formGroupPosition}}{{type}}{{required}} is-invalid">{{content}}{{error}}</div>',
+                        '{{formGroupPosition}}{{type}}{{required}} is-invalid">{{content}}{{error}}{{help}}</div>',
             'datetimeContainer' =>
                 '<div{{containerAttrs}} ' .
                     'class="{{containerClass}}form-group {{formGroupPosition}}{{type}}{{required}}" ' .
-                        'role="group" aria-labelledby="{{groupId}}">{{content}}</div>',
+                        'role="group" aria-labelledby="{{groupId}}">{{content}}{{help}}</div>',
             'datetimeContainerError' =>
                 '<div{{containerAttrs}} ' .
                     'class="{{containerClass}}form-group {{formGroupPosition}}{{type}}{{required}} is-invalid" ' .
-                        'role="group" aria-labelledby="{{groupId}}">{{content}}{{error}}</div>',
+                        'role="group" aria-labelledby="{{groupId}}">{{content}}{{error}}{{help}}</div>',
             'datetimeLabel' => '<span id="{{groupId}}" class="sr-only">{{text}}{{tooltip}}</span>',
             'radioContainer' =>
                 '<div{{containerAttrs}} ' .
                     'class="{{containerClass}}form-group {{formGroupPosition}}{{type}}{{required}}" role="group" ' .
-                        'aria-labelledby="{{groupId}}">{{content}}</div>',
+                        'aria-labelledby="{{groupId}}">{{content}}{{help}}</div>',
             'radioContainerError' =>
                 '<div{{containerAttrs}} ' .
                     'class="{{containerClass}}form-group {{formGroupPosition}}{{type}}{{required}} is-invalid" ' .
-                        'role="group" aria-labelledby="{{groupId}}">{{content}}{{error}}</div>',
+                        'role="group" aria-labelledby="{{groupId}}">{{content}}{{error}}{{help}}</div>',
             'radioLabel' => '<span id="{{groupId}}" class="sr-only">{{text}}{{tooltip}}</span>',
             'multicheckboxContainer' =>
                 '<div{{containerAttrs}} ' .
                     'class="{{containerClass}}form-group {{formGroupPosition}}{{type}}{{required}}" role="group" ' .
-                        'aria-labelledby="{{groupId}}">{{content}}</div>',
+                        'aria-labelledby="{{groupId}}">{{content}}{{help}}</div>',
             'multicheckboxContainerError' =>
                 '<div{{containerAttrs}} ' .
                     'class="{{containerClass}}form-group {{formGroupPosition}}{{type}}{{required}} is-invalid" ' .
-                        'role="group" aria-labelledby="{{groupId}}">{{content}}{{error}}</div>',
+                        'role="group" aria-labelledby="{{groupId}}">{{content}}{{error}}{{help}}</div>',
             'multicheckboxLabel' => '<span id="{{groupId}}" class="sr-only">{{text}}{{tooltip}}</span>',
         ],
         'horizontal' => [

@@ -108,6 +108,44 @@ class CheckboxCustomControlTest extends AbstractFormHelperTest
         $this->assertHtml($expected, $result);
     }
 
+    public function testInlineAlignCheckboxControlWithHelp()
+    {
+        $this->withErrorReporting(0, function () {
+            $this->Form->create($this->article, [
+                'align' => 'inline',
+            ]);
+        });
+
+        $result = $this->Form->control('users', [
+            'type' => 'checkbox',
+            'custom' => true,
+            'help' => 'Help text',
+        ]);
+        $expected = [
+            ['div' => ['class' => 'form-group custom-control custom-checkbox custom-control-inline checkbox']],
+                ['input' => [
+                    'type' => 'hidden',
+                    'name' => 'users',
+                    'value' => 0,
+                ]],
+                ['input' => [
+                    'class' => 'custom-control-input',
+                    'type' => 'checkbox',
+                    'name' => 'users',
+                    'id' => 'users',
+                    'value' => 1,
+                ]],
+                ['label' => ['class' => 'custom-control-label', 'for' => 'users']],
+                    'Users',
+                '/label',
+                ['small' => ['class' => 'sr-only form-text text-muted']],
+                    'Help text',
+                '/small',
+            '/div',
+        ];
+        $this->assertHtml($expected, $result);
+    }
+
     public function testInlineAlignCheckboxControlWithTooltip()
     {
         $this->withErrorReporting(0, function () {
@@ -381,6 +419,45 @@ class CheckboxCustomControlTest extends AbstractFormHelperTest
                 ['label' => ['class' => 'custom-control-label', 'for' => 'users']],
                     'Custom Label',
                 '/label',
+            '/div',
+        ];
+        $this->assertHtml($expected, $result);
+    }
+
+    public function testInlineAlignCheckboxControlInlineWithHelp()
+    {
+        $this->withErrorReporting(0, function () {
+            $this->Form->create($this->article, [
+                'align' => 'inline',
+            ]);
+        });
+
+        $result = $this->Form->control('users', [
+            'type' => 'checkbox',
+            'custom' => true,
+            'inline' => true,
+            'help' => 'Help text',
+        ]);
+        $expected = [
+            ['div' => ['class' => 'form-group custom-control custom-checkbox custom-control-inline checkbox']],
+                ['input' => [
+                    'type' => 'hidden',
+                    'name' => 'users',
+                    'value' => 0,
+                ]],
+                ['input' => [
+                    'class' => 'custom-control-input',
+                    'type' => 'checkbox',
+                    'name' => 'users',
+                    'id' => 'users',
+                    'value' => 1,
+                ]],
+                ['label' => ['class' => 'custom-control-label', 'for' => 'users']],
+                    'Users',
+                '/label',
+                ['small' => ['class' => 'sr-only form-text text-muted']],
+                    'Help text',
+                '/small',
             '/div',
         ];
         $this->assertHtml($expected, $result);

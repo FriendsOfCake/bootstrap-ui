@@ -114,6 +114,47 @@ class DateTimeControlTest extends AbstractFormHelperTest
         $this->assertHtml($expected, $result);
     }
 
+    public function testHorizontalAlignDateTimeControlWithHelp()
+    {
+        $this->Form->create($this->article, [
+            'align' => [
+                'sm' => [
+                    'left' => 5,
+                    'middle' => 7,
+                ],
+            ],
+        ]);
+
+        $now = time();
+
+        $result = $this->Form->control('created', [
+            'type' => 'time',
+            'value' => $now,
+            'help' => 'Help text',
+        ]);
+        $expected = [
+            ['div' => ['class' => 'form-group row time', 'role' => 'group', 'aria-labelledby' => 'created-group-label']],
+                ['label' => ['id' => 'created-group-label', 'class' => 'col-form-label col-sm-5']],
+                    'Created',
+                '/label',
+                ['div' => ['class' => 'col-sm-7']],
+                    'input' => [
+                        'type' => 'time',
+                        'name' => 'created',
+                        'id' => 'created',
+                        'class' => 'form-control',
+                        'step' => '1',
+                        'value' => date('H:i:s', $now),
+                    ],
+                    ['small' => ['class' => 'form-text text-muted']],
+                        'Help text',
+                    '/small',
+                '/div',
+            '/div',
+        ];
+        $this->assertHtml($expected, $result);
+    }
+
     public function testHorizontalAlignDateTimeControlWithTooltip()
     {
         $this->Form->create($this->article, [

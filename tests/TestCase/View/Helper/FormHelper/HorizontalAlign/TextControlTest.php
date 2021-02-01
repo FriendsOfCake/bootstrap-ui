@@ -138,6 +138,42 @@ class TextControlTest extends AbstractFormHelperTest
         $this->assertHtml($expected, $result);
     }
 
+    public function testHorizontalAlignTextControlWithHelp()
+    {
+        unset($this->article['required']['title']);
+        $this->Form->create($this->article, [
+            'align' => [
+                'sm' => [
+                    'left' => 5,
+                    'middle' => 7,
+                ],
+            ],
+        ]);
+
+        $result = $this->Form->control('title', [
+            'help' => 'Help text',
+        ]);
+        $expected = [
+            'div' => ['class' => 'form-group row text'],
+                'label' => ['class' => 'col-form-label col-sm-5', 'for' => 'title'],
+                    'Title',
+                '/label',
+                ['div' => ['class' => 'col-sm-7']],
+                    'input' => [
+                        'type' => 'text',
+                        'name' => 'title',
+                        'id' => 'title',
+                        'class' => 'form-control',
+                    ],
+                    ['small' => ['class' => 'form-text text-muted']],
+                        'Help text',
+                    '/small',
+                '/div',
+            '/div',
+        ];
+        $this->assertHtml($expected, $result);
+    }
+
     public function testHorizontalAlignTextControlWithTooltip()
     {
         unset($this->article['required']['title']);
