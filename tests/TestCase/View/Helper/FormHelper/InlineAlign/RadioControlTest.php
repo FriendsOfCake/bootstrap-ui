@@ -170,16 +170,23 @@ class RadioControlTest extends AbstractFormHelperTest
 
     public function testInlineAlignRadioControlWithTooltip()
     {
-        $this->Form->create($this->article);
+        $this->withErrorReporting(0, function () {
+            $this->Form->create($this->article, [
+                'align' => 'inline',
+            ]);
+        });
 
         $result = $this->Form->control('published', [
-            'inline' => true,
             'type' => 'radio',
             'tooltip' => 'Tooltip text',
         ]);
         $expected = [
-            ['div' => ['class' => 'form-group radio', 'role' => 'group', 'aria-labelledby' => 'published-group-label']],
-                ['label' => ['id' => 'published-group-label', 'class' => 'd-block']],
+            ['div' => [
+                'class' => 'form-group position-relative radio',
+                'role' => 'group',
+                'aria-labelledby' => 'published-group-label',
+            ]],
+                ['span' => ['id' => 'published-group-label', 'class' => 'sr-only']],
                     'Published ',
                     'span' => [
                         'data-toggle' => 'tooltip',
@@ -187,7 +194,7 @@ class RadioControlTest extends AbstractFormHelperTest
                         'class' => 'fas fa-info-circle',
                     ],
                     '/span',
-                '/label',
+                '/span',
                 'input' => [
                     'type' => 'hidden',
                     'name' => 'published',
@@ -198,9 +205,6 @@ class RadioControlTest extends AbstractFormHelperTest
         $this->assertHtml($expected, $result);
     }
 
-    /**
-     * Inline radio controls currently do not render error messages.
-     */
     public function testInlineAlignRadioControlWithError()
     {
         $this->withErrorReporting(0, function () {
@@ -220,7 +224,11 @@ class RadioControlTest extends AbstractFormHelperTest
             ],
         ]);
         $expected = [
-            ['div' => ['class' => 'form-group position-relative radio is-invalid', 'role' => 'group', 'aria-labelledby' => 'users-group-label']],
+            ['div' => [
+                'class' => 'form-group position-relative radio is-invalid',
+                'role' => 'group',
+                'aria-labelledby' => 'users-group-label',
+            ]],
                 ['span' => ['id' => 'users-group-label', 'class' => 'sr-only']],
                     'Users',
                 '/span',

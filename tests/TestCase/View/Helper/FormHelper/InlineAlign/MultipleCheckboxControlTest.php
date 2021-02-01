@@ -210,9 +210,6 @@ class MultipleCheckboxControlTest extends AbstractFormHelperTest
         $this->assertHtml($expected, $result);
     }
 
-    /**
-     * Inline multi checkbox controls currently do not render error messages.
-     */
     public function testInlineAlignMultipleCheckboxControlWithError()
     {
         $this->withErrorReporting(0, function () {
