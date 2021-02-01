@@ -54,6 +54,9 @@ class InstallCommand extends Command
         $io->success('Cleared `node_modules` folder.');
 
         $io->info('Installing packages...');
+
+        $output = [];
+        $return = 0;
         $this->_runNPMInstall($output, $return, $io);
         $io->out($output);
 

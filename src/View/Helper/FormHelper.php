@@ -874,7 +874,7 @@ class FormHelper extends Helper
      *   the radio label will be 'empty'. Set this option to a string to control the label value.
      *
      * @param string $fieldName Name of a field, like this "modelname.fieldname"
-     * @param array|\Traversable $options Radio button options array.
+     * @param iterable $options Radio button options array.
      * @param array $attributes Array of attributes.
      * @return string Completed radio widget set.
      * @link https://book.cakephp.org/3.0/en/views/helpers/form.html#creating-radio-buttons
@@ -905,7 +905,7 @@ class FormHelper extends Helper
      * Can be used in place of a select box with the multiple attribute.
      *
      * @param string $fieldName Name attribute of the SELECT
-     * @param array|\Traversable $options Array of the OPTION elements
+     * @param iterable $options Array of the OPTION elements
      *   (as 'value'=>'Text' pairs) to be used in the checkboxes element.
      * @param array $attributes The HTML attributes of the select element.
      * @return string Formatted SELECT element
