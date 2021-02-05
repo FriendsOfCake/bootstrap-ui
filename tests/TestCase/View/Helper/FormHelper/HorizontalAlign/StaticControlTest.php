@@ -176,8 +176,8 @@ class StaticControlTest extends AbstractFormHelperTest
             'label' => [
                 'class' => 'custom-label-class',
                 'foo' => 'bar',
-                'text' => 'Custom Label'
-            ]
+                'text' => 'Custom Label',
+            ],
         ]);
         $expected = [
             'div' => ['class' => 'form-group row staticControl'],
