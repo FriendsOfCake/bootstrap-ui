@@ -7,7 +7,6 @@ use BootstrapUI\View\Helper\FormHelper;
 use Cake\Core\Configure;
 use Cake\Http\ServerRequest;
 use Cake\I18n\I18n;
-use Cake\ORM\TableRegistry;
 use Cake\Routing\Router;
 use Cake\TestSuite\TestCase;
 use Cake\Utility\Security;
@@ -31,17 +30,9 @@ abstract class AbstractFormHelperTest extends TestCase
     public $article;
 
     /**
-     * @var array
+     * @var string
      */
-    public $dateRegex = [
-        'daysRegex' => 'preg:/(?:<option value="0?([\d]+)">\\1<\/option>[\r\n]*)*/',
-        'monthsRegex' => 'preg:/(?:<option value="[\d]+">[\w]+<\/option>[\r\n]*)*/',
-        'yearsRegex' => 'preg:/(?:<option value="([\d]+)">\\1<\/option>[\r\n]*)*/',
-        'hoursRegex' => 'preg:/(?:<option value="0?([\d]+)">\\1<\/option>[\r\n]*)*/',
-        'minutesRegex' => 'preg:/(?:<option value="([\d]+)">0?\\1<\/option>[\r\n]*)*/',
-        'secondsRegex' => 'preg:/(?:<option value="([\d]+)">0?\\1<\/option>[\r\n]*)*/',
-        'meridianRegex' => 'preg:/(?:<option value="(am|pm)">\\1<\/option>[\r\n]*)*/',
-    ];
+    public $locale;
 
     /**
      * setUp method
@@ -105,7 +96,7 @@ abstract class AbstractFormHelperTest extends TestCase
     {
         parent::tearDown();
         unset($this->Form, $this->View);
-        TableRegistry::clear();
+        $this->getTableLocator()->clear();
         I18n::setLocale($this->locale);
     }
 }
