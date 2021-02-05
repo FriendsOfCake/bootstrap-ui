@@ -1,4 +1,6 @@
 <?php
+declare(strict_types=1);
+
 namespace BootstrapUI\Test\TestCase\View\Helper\FormHelper;
 
 use BootstrapUI\View\Helper\FormHelper;
@@ -12,7 +14,8 @@ use Cake\Utility\Security;
 use Cake\View\View;
 
 abstract class AbstractFormHelperTest extends TestCase
-{    /**
+{
+    /**
      * @var \Cake\View\View
      */
     public $View;

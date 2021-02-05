@@ -467,7 +467,7 @@ class CheckboxCustomControlTest extends AbstractFormHelperTest
         ]);
         $expected = [
             ['div' => [
-                'class' => 'form-group custom-control custom-checkbox custom-control-inline checkbox is-invalid'
+                'class' => 'form-group custom-control custom-checkbox custom-control-inline checkbox is-invalid',
             ]],
                 ['input' => [
                     'class' => 'is-invalid',
