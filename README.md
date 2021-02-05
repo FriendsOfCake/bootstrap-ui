@@ -1,17 +1,17 @@
 # Bootstrap UI
 
-[![Build Status][ico-travis]][travis]
+[![Build Status][ico-ga]][ga]
 [![Coverage Status][ico-coverage]][coverage]
 [![Total Downloads][ico-downloads]][package]
 [![License][ico-license]][license]
 
-[ico-travis]: https://img.shields.io/travis/friendsofcake/bootstrap-ui/master.svg?style=flat-square
-[ico-coverage]: https://img.shields.io/codecov/c/github/friendsofcake/bootstrap-ui/master.svg?style=flat-square
+[ico-ga]: https://img.shields.io/github/workflow/status/FriendsOfCake/bootstrap-ui/CI/master?style=flat-square
+[ico-coverage]: https://img.shields.io/codecov/c/github/FriendsOfCake/bootstrap-ui.svg?style=flat-square
 [ico-downloads]: https://img.shields.io/packagist/dt/friendsofcake/bootstrap-ui.svg?style=flat-square
 [ico-license]: https://img.shields.io/badge/license-MIT-blue.svg?style=flat-square
 
-[travis]: https://travis-ci.org/friendsofcake/bootstrap-ui
-[coverage]: https://codecov.io/gh/friendsofcake/bootstrap-ui
+[ga]: https://github.com/FriendsOfCake/bootstrap-ui/actions?query=workflow%3ACI+branch%3Amaster
+[coverage]: https://codecov.io/github/FriendsOfCake/bootstrap-ui
 [package]: https://packagist.org/packages/friendsofcake/bootstrap-ui
 [license]: LICENSE.txt
 
