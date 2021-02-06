@@ -129,7 +129,7 @@ class CheckboxCustomControlTest extends AbstractFormHelperTest
         $this->assertHtml($expected, $result);
     }
 
-    public function testHorizontalAlignCheckboxControlWithHelp()
+    public function testHorizontalAlignCustomCheckboxControlWithHelp()
     {
         $this->Form->create($this->article, [
             'align' => [
@@ -174,7 +174,7 @@ class CheckboxCustomControlTest extends AbstractFormHelperTest
         $this->assertHtml($expected, $result);
     }
 
-    public function testHorizontalAlignCheckboxControlWithHelpOptions()
+    public function testHorizontalAlignCustomCheckboxControlWithHelpOptions()
     {
         $this->Form->create($this->article, [
             'align' => [
@@ -222,7 +222,7 @@ class CheckboxCustomControlTest extends AbstractFormHelperTest
         $this->assertHtml($expected, $result);
     }
 
-    public function testHorizontalAlignCheckboxControlWithTooltip()
+    public function testHorizontalAlignCustomCheckboxControlWithTooltip()
     {
         $this->Form->create($this->article, [
             'align' => [
@@ -270,7 +270,7 @@ class CheckboxCustomControlTest extends AbstractFormHelperTest
         $this->assertHtml($expected, $result);
     }
 
-    public function testHorizontalAlignCheckboxControlWithError()
+    public function testHorizontalAlignCustomCheckboxControlWithError()
     {
         $this->article['errors'] = [
             'users' => ['error message'],
@@ -641,7 +641,7 @@ class CheckboxCustomControlTest extends AbstractFormHelperTest
         $this->assertHtml($expected, $result);
     }
 
-    public function testHorizontalAlignCheckboxControlInlineWithTooltip()
+    public function testHorizontalAlignCustomCheckboxControlInlineWithTooltip()
     {
         $this->Form->create($this->article, [
             'align' => [
@@ -690,7 +690,7 @@ class CheckboxCustomControlTest extends AbstractFormHelperTest
         $this->assertHtml($expected, $result);
     }
 
-    public function testHorizontalAlignCheckboxControlInlineWithError()
+    public function testHorizontalAlignCustomCheckboxControlInlineWithError()
     {
         $this->article['errors'] = [
             'users' => ['error message'],

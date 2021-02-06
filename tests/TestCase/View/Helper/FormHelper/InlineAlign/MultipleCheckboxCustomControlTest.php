@@ -273,7 +273,7 @@ class MultipleCheckboxCustomControlTest extends AbstractFormHelperTest
         $this->assertHtml($expected, $result);
     }
 
-    public function testInlineAlignMultipleCheckboxControlWithTooltip()
+    public function testInlineAlignCustomMultipleCheckboxControlWithTooltip()
     {
         $this->withErrorReporting(0, function () {
             $this->Form->create($this->article, [
@@ -308,7 +308,7 @@ class MultipleCheckboxCustomControlTest extends AbstractFormHelperTest
         $this->assertHtml($expected, $result);
     }
 
-    public function testInlineAlignMultipleCheckboxControlWithError()
+    public function testInlineAlignCustomMultipleCheckboxControlWithError()
     {
         $this->withErrorReporting(0, function () {
             $this->article['errors'] = [

@@ -271,7 +271,7 @@ class RadioCustomControlTest extends AbstractFormHelperTest
         $this->assertHtml($expected, $result);
     }
 
-    public function testInlineAlignRadioControlWithTooltip()
+    public function testInlineAlignCustomRadioControlWithTooltip()
     {
         $this->withErrorReporting(0, function () {
             $this->Form->create($this->article, [
@@ -309,7 +309,7 @@ class RadioCustomControlTest extends AbstractFormHelperTest
         $this->assertHtml($expected, $result);
     }
 
-    public function testInlineAlignRadioControlWithError()
+    public function testInlineAlignCustomRadioControlWithError()
     {
         $this->withErrorReporting(0, function () {
             $this->article['errors'] = [

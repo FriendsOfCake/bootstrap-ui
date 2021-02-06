@@ -306,7 +306,7 @@ class MultipleCheckboxCustomControlTest extends AbstractFormHelperTest
         $this->assertHtml($expected, $result);
     }
 
-    public function testHorizontalAlignMultipleCheckboxControlWithTooltip()
+    public function testHorizontalAlignCustomMultipleCheckboxControlWithTooltip()
     {
         $this->Form->create($this->article, [
             'align' => [
@@ -345,7 +345,7 @@ class MultipleCheckboxCustomControlTest extends AbstractFormHelperTest
         $this->assertHtml($expected, $result);
     }
 
-    public function testHorizontalAlignMultipleCheckboxControlWithError()
+    public function testHorizontalAlignCustomMultipleCheckboxControlWithError()
     {
         $this->article['errors'] = [
             'users' => ['error message'],
@@ -864,7 +864,7 @@ class MultipleCheckboxCustomControlTest extends AbstractFormHelperTest
         $this->assertHtml($expected, $result);
     }
 
-    public function testHorizontalAlignMultipleCheckboxControlInlineWithTooltip()
+    public function testHorizontalAlignCustomMultipleCheckboxControlInlineWithTooltip()
     {
         $this->Form->create($this->article, [
             'align' => [
@@ -905,7 +905,7 @@ class MultipleCheckboxCustomControlTest extends AbstractFormHelperTest
         $this->assertHtml($expected, $result);
     }
 
-    public function testHorizontalAlignMultipleCheckboxControlInlineWithError()
+    public function testHorizontalAlignCustomMultipleCheckboxControlInlineWithError()
     {
         $this->article['errors'] = [
             'users' => ['error message'],

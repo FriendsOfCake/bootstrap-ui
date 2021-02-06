@@ -289,7 +289,7 @@ class DateTimeControlTest extends AbstractFormHelperTest
         $this->assertHtml($expected, $result);
     }
 
-    public function testContainerOptionsControl()
+    public function testHorizontalAlignDateTimeControlContainerOptions()
     {
         $this->Form->create($this->article, [
             'align' => [

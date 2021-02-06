@@ -167,7 +167,7 @@ class RangeCustomControlTest extends AbstractFormHelperTest
         $this->assertHtml($expected, $result);
     }
 
-    public function testDefaultAlignRangeControlWithTooltip()
+    public function testDefaultAlignCustomRangeControlWithTooltip()
     {
         $this->Form->create($this->article);
 

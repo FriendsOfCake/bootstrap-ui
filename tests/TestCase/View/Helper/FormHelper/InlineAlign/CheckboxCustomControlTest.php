@@ -108,7 +108,7 @@ class CheckboxCustomControlTest extends AbstractFormHelperTest
         $this->assertHtml($expected, $result);
     }
 
-    public function testInlineAlignCheckboxControlWithHelp()
+    public function testInlineAlignCustomCheckboxControlWithHelp()
     {
         $this->withErrorReporting(0, function () {
             $this->Form->create($this->article, [
@@ -146,7 +146,7 @@ class CheckboxCustomControlTest extends AbstractFormHelperTest
         $this->assertHtml($expected, $result);
     }
 
-    public function testInlineAlignCheckboxControlWithHelpOptions()
+    public function testInlineAlignCustomCheckboxControlWithHelpOptions()
     {
         $this->withErrorReporting(0, function () {
             $this->Form->create($this->article, [
@@ -187,7 +187,7 @@ class CheckboxCustomControlTest extends AbstractFormHelperTest
         $this->assertHtml($expected, $result);
     }
 
-    public function testInlineAlignCheckboxControlWithTooltip()
+    public function testInlineAlignCustomCheckboxControlWithTooltip()
     {
         $this->withErrorReporting(0, function () {
             $this->Form->create($this->article, [
@@ -228,7 +228,7 @@ class CheckboxCustomControlTest extends AbstractFormHelperTest
         $this->assertHtml($expected, $result);
     }
 
-    public function testInlineAlignCheckboxControlWithError()
+    public function testInlineAlignCustomCheckboxControlWithError()
     {
         $this->withErrorReporting(0, function () {
             $this->article['errors'] = [
@@ -465,7 +465,7 @@ class CheckboxCustomControlTest extends AbstractFormHelperTest
         $this->assertHtml($expected, $result);
     }
 
-    public function testInlineAlignCheckboxControlInlineWithHelp()
+    public function testInlineAlignCustomCheckboxControlInlineWithHelp()
     {
         $this->withErrorReporting(0, function () {
             $this->Form->create($this->article, [
@@ -504,7 +504,7 @@ class CheckboxCustomControlTest extends AbstractFormHelperTest
         $this->assertHtml($expected, $result);
     }
 
-    public function testInlineAlignCheckboxControlInlineWithHelpOptions()
+    public function testInlineAlignCustomCheckboxControlInlineWithHelpOptions()
     {
         $this->withErrorReporting(0, function () {
             $this->Form->create($this->article, [
@@ -546,7 +546,7 @@ class CheckboxCustomControlTest extends AbstractFormHelperTest
         $this->assertHtml($expected, $result);
     }
 
-    public function testInlineAlignCheckboxControlInlineWithTooltip()
+    public function testInlineAlignCustomCheckboxControlInlineWithTooltip()
     {
         $this->withErrorReporting(0, function () {
             $this->Form->create($this->article, [
@@ -588,7 +588,7 @@ class CheckboxCustomControlTest extends AbstractFormHelperTest
         $this->assertHtml($expected, $result);
     }
 
-    public function testInlineAlignCheckboxControlInlineWithError()
+    public function testInlineAlignCustomCheckboxControlInlineWithError()
     {
         $this->withErrorReporting(0, function () {
             $this->article['errors'] = [
