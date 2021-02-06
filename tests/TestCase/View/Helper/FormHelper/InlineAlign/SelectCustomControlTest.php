@@ -144,6 +144,45 @@ class SelectCustomControlTest extends AbstractFormHelperTest
         $this->assertHtml($expected, $result);
     }
 
+    public function testInlineAlignCustomSelectControlWithHelpOptions()
+    {
+        $this->Form->create($this->article, [
+            'align' => 'inline',
+        ]);
+
+        $result = $this->Form->control('users', [
+            'type' => 'select',
+            'options' => [
+                1 => 'option 1',
+                2 => 'option 2',
+            ],
+            'custom' => true,
+            'help' => [
+                'foo' => 'bar',
+                'content' => 'Help text',
+            ],
+        ]);
+        $expected = [
+            'div' => ['class' => 'form-group select'],
+                ['label' => ['class' => 'sr-only', 'for' => 'users']],
+                    'Users',
+                '/label',
+                ['select' => ['name' => 'users', 'id' => 'users', 'class' => 'custom-select']],
+                    ['option' => ['value' => '1']],
+                        'option 1',
+                    '/option',
+                    ['option' => ['value' => '2']],
+                        'option 2',
+                    '/option',
+                '/select',
+                ['small' => ['foo' => 'bar', 'class' => 'sr-only form-text text-muted']],
+                    'Help text',
+                '/small',
+            '/div',
+        ];
+        $this->assertHtml($expected, $result);
+    }
+
     public function testInlineAlignCustomSelectControlWithTooltip()
     {
         $this->Form->create($this->article, [

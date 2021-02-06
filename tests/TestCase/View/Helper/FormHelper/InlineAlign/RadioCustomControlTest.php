@@ -234,6 +234,43 @@ class RadioCustomControlTest extends AbstractFormHelperTest
         $this->assertHtml($expected, $result);
     }
 
+    public function testInlineAlignCustomRadioControlWithHelpOptions()
+    {
+        $this->Form->create($this->article, [
+            'align' => 'inline',
+        ]);
+
+        $result = $this->Form->control('users', [
+            'type' => 'radio',
+            'options' => [],
+            'custom' => true,
+            'help' => [
+                'foo' => 'bar',
+                'content' => 'Help text',
+            ],
+        ]);
+        $expected = [
+            ['div' => [
+                'class' => 'form-group position-relative radio',
+                'role' => 'group',
+                'aria-labelledby' => 'users-group-label',
+            ]],
+                ['span' => ['id' => 'users-group-label', 'class' => 'sr-only']],
+                    'Users',
+                '/span',
+                ['input' => [
+                    'type' => 'hidden',
+                    'name' => 'users',
+                    'value' => '',
+                ]],
+                ['small' => ['foo' => 'bar', 'class' => 'sr-only form-text text-muted']],
+                    'Help text',
+                '/small',
+            '/div',
+        ];
+        $this->assertHtml($expected, $result);
+    }
+
     public function testInlineAlignRadioControlWithTooltip()
     {
         $this->withErrorReporting(0, function () {

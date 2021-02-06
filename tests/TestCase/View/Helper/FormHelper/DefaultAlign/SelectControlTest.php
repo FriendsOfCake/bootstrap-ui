@@ -160,6 +160,42 @@ class SelectControlTest extends AbstractFormHelperTest
         $this->assertHtml($expected, $result);
     }
 
+    public function testDefaultAlignSelectControlWithHelpOptions()
+    {
+        $this->Form->create($this->article);
+
+        $result = $this->Form->control('users', [
+            'type' => 'select',
+            'options' => [
+                1 => 'option 1',
+                2 => 'option 2',
+            ],
+            'help' => [
+                'foo' => 'bar',
+                'content' => 'Help text',
+            ],
+        ]);
+        $expected = [
+            'div' => ['class' => 'form-group select'],
+                ['label' => ['for' => 'users']],
+                    'Users',
+                '/label',
+                ['select' => ['name' => 'users', 'id' => 'users', 'class' => 'form-control']],
+                    ['option' => ['value' => '1']],
+                        'option 1',
+                    '/option',
+                    ['option' => ['value' => '2']],
+                        'option 2',
+                    '/option',
+                '/select',
+                ['small' => ['foo' => 'bar', 'class' => 'form-text text-muted']],
+                    'Help text',
+                '/small',
+            '/div',
+        ];
+        $this->assertHtml($expected, $result);
+    }
+
     public function testDefaultAlignSelectControlWithTooltip()
     {
         $this->Form->create($this->article);

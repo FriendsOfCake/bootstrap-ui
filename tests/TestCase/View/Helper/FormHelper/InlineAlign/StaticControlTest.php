@@ -201,6 +201,43 @@ class StaticControlTest extends AbstractFormHelperTest
         $this->assertHtml($expected, $result);
     }
 
+    public function testInlineAlignStaticControlWithHelpOptions()
+    {
+        unset($this->article['required']['title']);
+        $this->article['defaults']['title'] = 'title';
+        $this->Form->create($this->article, [
+            'align' => 'inline',
+        ]);
+
+        $result = $this->Form->control('title', [
+            'type' => 'staticControl',
+            'help' => [
+                'foo' => 'bar',
+                'content' => 'Help text',
+            ],
+        ]);
+        $expected = [
+            'div' => ['class' => 'form-group staticControl'],
+                'label' => ['class' => 'sr-only', 'for' => 'title'],
+                    'Title',
+                '/label',
+                'p' => ['class' => 'form-control-plaintext'],
+                    'title',
+                '/p',
+                'input' => [
+                    'type' => 'hidden',
+                    'name' => 'title',
+                    'id' => 'title',
+                    'value' => 'title',
+                ],
+                ['small' => ['foo' => 'bar', 'class' => 'sr-only form-text text-muted']],
+                    'Help text',
+                '/small',
+            '/div',
+        ];
+        $this->assertHtml($expected, $result);
+    }
+
     public function testInlineAlignStaticControlWithTooltip()
     {
         unset($this->article['required']['title']);

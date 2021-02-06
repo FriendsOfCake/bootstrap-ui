@@ -166,6 +166,52 @@ class SelectCustomControlTest extends AbstractFormHelperTest
         $this->assertHtml($expected, $result);
     }
 
+    public function testHorizontalAlignCustomSelectControlWithHelpOptions()
+    {
+        $this->Form->create($this->article, [
+            'align' => [
+                'sm' => [
+                    'left' => 5,
+                    'middle' => 7,
+                ],
+            ],
+        ]);
+
+        $result = $this->Form->control('users', [
+            'type' => 'select',
+            'options' => [
+                1 => 'option 1',
+                2 => 'option 2',
+            ],
+            'custom' => true,
+            'help' => [
+                'foo' => 'bar',
+                'content' => 'Help text',
+            ],
+        ]);
+        $expected = [
+            ['div' => ['class' => 'form-group row select']],
+                ['label' => ['class' => 'col-form-label col-sm-5', 'for' => 'users']],
+                    'Users',
+                '/label',
+                ['div' => ['class' => 'col-sm-7']],
+                    ['select' => ['name' => 'users', 'id' => 'users', 'class' => 'custom-select']],
+                        ['option' => ['value' => '1']],
+                            'option 1',
+                        '/option',
+                        ['option' => ['value' => '2']],
+                            'option 2',
+                        '/option',
+                    '/select',
+                    ['small' => ['foo' => 'bar', 'class' => 'form-text text-muted']],
+                        'Help text',
+                    '/small',
+                '/div',
+            '/div',
+        ];
+        $this->assertHtml($expected, $result);
+    }
+
     public function testHorizontalAlignCustomSelectControlWithTooltip()
     {
         $this->Form->create($this->article, [
