@@ -245,7 +245,6 @@ class RadioCustomControlTest extends AbstractFormHelperTest
         $this->assertHtml($expected, $result);
     }
 
-
     public function testDefaultAlignCustomRadioControlWithTooltip()
     {
         $this->Form->create($this->article);
