@@ -123,7 +123,7 @@ class FormHelper extends Helper
             '<div{{containerAttrs}} ' .
                 'class="{{containerClass}}form-group {{formGroupPosition}}{{type}}{{required}} is-invalid" ' .
                     'role="group" aria-labelledby="{{groupId}}">{{content}}{{error}}{{help}}</div>',
-        'datetimeLabel' => '<label id="{{groupId}}">{{text}}{{tooltip}}</label>',
+        'datetimeLabel' => '<label{{attrs}}>{{text}}{{tooltip}}</label>',
         'inputContainer' =>
             '<div{{containerAttrs}} ' .
                 'class="{{containerClass}}form-group {{type}}{{required}}">{{content}}{{help}}</div>',
@@ -173,7 +173,7 @@ class FormHelper extends Helper
             '<div{{containerAttrs}} ' .
                 'class="{{containerClass}}form-group {{formGroupPosition}}{{type}}{{required}} is-invalid" ' .
                     'role="group" aria-labelledby="{{groupId}}">{{content}}{{error}}{{help}}</div>',
-        'radioLabel' => '<label id="{{groupId}}" class="d-block">{{text}}{{tooltip}}</label>',
+        'radioLabel' => '<label{{attrs}}>{{text}}{{tooltip}}</label>',
         'radioWrapper' => '<div class="form-check">{{hidden}}{{label}}</div>',
         'radioInlineWrapper' => '<div class="form-check form-check-inline">{{label}}</div>',
         'customRadioWrapper' => '<div class="custom-control custom-radio">{{hidden}}{{label}}</div>',
@@ -190,10 +190,10 @@ class FormHelper extends Helper
             '<div{{containerAttrs}} ' .
                 'class="{{containerClass}}form-group {{formGroupPosition}}{{type}}{{required}} is-invalid" ' .
                     'role="group" aria-labelledby="{{groupId}}">{{content}}{{error}}{{help}}</div>',
-        'multicheckboxLabel' => '<label id="{{groupId}}" class="d-block">{{text}}{{tooltip}}</label>',
+        'multicheckboxLabel' => '<label{{attrs}}>{{text}}{{tooltip}}</label>',
         'multicheckboxWrapper' => '<fieldset class="form-group">{{content}}</fieldset>',
         'multicheckboxTitle' => '<legend class="col-form-label pt-0">{{text}}</legend>',
-        'customFileLabel' => '<label class="custom-file-label"{{attrs}}>{{text}}{{tooltip}}</label>',
+        'customFileLabel' => '<label{{attrs}}>{{text}}{{tooltip}}</label>',
         'customFileFormGroup' => '<div class="custom-file {{invalid}}">{{input}}{{label}}</div>',
         'customFileInputGroupFormGroup' => '{{input}}',
         'customFileInputGroupContainer' =>
@@ -212,7 +212,6 @@ class FormHelper extends Helper
         'default' => [
         ],
         'inline' => [
-            'label' => '<label class="sr-only"{{attrs}}>{{text}}{{tooltip}}</label>',
             'help' => '<small{{attrs}} class="sr-only form-text text-muted">{{content}}</small>',
             'checkboxInlineContainer' =>
                 '<div{{containerAttrs}} class="{{containerClass}}form-check form-check-inline {{type}}{{required}}">' .
@@ -238,7 +237,7 @@ class FormHelper extends Helper
                 '<div{{containerAttrs}} ' .
                     'class="{{containerClass}}form-group {{formGroupPosition}}{{type}}{{required}} is-invalid" ' .
                         'role="group" aria-labelledby="{{groupId}}">{{content}}{{error}}{{help}}</div>',
-            'datetimeLabel' => '<span id="{{groupId}}" class="sr-only">{{text}}{{tooltip}}</span>',
+            'datetimeLabel' => '<span{{attrs}}>{{text}}{{tooltip}}</span>',
             'radioContainer' =>
                 '<div{{containerAttrs}} ' .
                     'class="{{containerClass}}form-group {{formGroupPosition}}{{type}}{{required}}" role="group" ' .
@@ -247,7 +246,7 @@ class FormHelper extends Helper
                 '<div{{containerAttrs}} ' .
                     'class="{{containerClass}}form-group {{formGroupPosition}}{{type}}{{required}} is-invalid" ' .
                         'role="group" aria-labelledby="{{groupId}}">{{content}}{{error}}{{help}}</div>',
-            'radioLabel' => '<span id="{{groupId}}" class="sr-only">{{text}}{{tooltip}}</span>',
+            'radioLabel' => '<span{{attrs}}>{{text}}{{tooltip}}</span>',
             'multicheckboxContainer' =>
                 '<div{{containerAttrs}} ' .
                     'class="{{containerClass}}form-group {{formGroupPosition}}{{type}}{{required}}" role="group" ' .
@@ -256,11 +255,11 @@ class FormHelper extends Helper
                 '<div{{containerAttrs}} ' .
                     'class="{{containerClass}}form-group {{formGroupPosition}}{{type}}{{required}} is-invalid" ' .
                         'role="group" aria-labelledby="{{groupId}}">{{content}}{{error}}{{help}}</div>',
-            'multicheckboxLabel' => '<span id="{{groupId}}" class="sr-only">{{text}}{{tooltip}}</span>',
+            'multicheckboxLabel' => '<span{{attrs}}>{{text}}{{tooltip}}</span>',
         ],
         'horizontal' => [
-            'label' => '<label class="col-form-label %s"{{attrs}}>{{text}}{{tooltip}}</label>',
-            'fileLabel' => '<label class="col-form-label pt-1 %s"{{attrs}}>{{text}}{{tooltip}}</label>',
+            'label' => '<label{{attrs}}>{{text}}{{tooltip}}</label>',
+            'fileLabel' => '<label{{attrs}}>{{text}}{{tooltip}}</label>',
             'formGroup' => '{{label}}<div class="%s">{{input}}{{error}}{{help}}</div>',
             'customFileFormGroup' =>
                 '<div class="%s"><div class="custom-file {{invalid}}">{{input}}{{label}}</div>{{error}}{{help}}</div>',
@@ -276,7 +275,7 @@ class FormHelper extends Helper
                 '<div{{containerAttrs}} ' .
                     'class="{{containerClass}}form-group row {{formGroupPosition}}{{type}}{{required}} is-invalid" ' .
                         'role="group" aria-labelledby="{{groupId}}">{{content}}</div>',
-            'datetimeLabel' => '<label id="{{groupId}}" class="col-form-label %s">{{text}}{{tooltip}}</label>',
+            'datetimeLabel' => '<label{{attrs}}>{{text}}{{tooltip}}</label>',
             'checkboxInlineFormGroup' => '<div class="%s"><div class="form-check form-check-inline">' .
                     '{{input}}{{label}}</div></div>',
             'submitContainer' =>
@@ -304,7 +303,7 @@ class FormHelper extends Helper
                     'class="{{containerClass}}form-group row {{formGroupPosition}}{{type}}{{required}} is-invalid" ' .
                         'role="group" aria-labelledby="{{groupId}}">{{content}}</div>',
             'radioLabel' =>
-                '<label id="{{groupId}}" class="col-form-label d-block pt-0 %s">{{text}}{{tooltip}}</label>',
+                '<label{{attrs}}>{{text}}{{tooltip}}</label>',
             'multicheckboxContainer' =>
                 '<div{{containerAttrs}} class="{{containerClass}}form-group row {{type}}{{required}}" role="group" ' .
                     'aria-labelledby="{{groupId}}">{{content}}</div>',
@@ -313,7 +312,7 @@ class FormHelper extends Helper
                     'class="{{containerClass}}form-group row {{formGroupPosition}}{{type}}{{required}} is-invalid" ' .
                         'role="group" aria-labelledby="{{groupId}}">{{content}}</div>',
             'multicheckboxLabel' =>
-                '<label id="{{groupId}}" class="col-form-label d-block pt-0 %s">{{text}}{{tooltip}}</label>',
+                '<label{{attrs}}>{{text}}{{tooltip}}</label>',
         ],
     ];
 
@@ -471,15 +470,13 @@ class FormHelper extends Helper
             case 'radio':
             case 'select':
             case 'file':
+            case 'range':
                 $function = '_' . $options['type'] . 'Options';
                 $options = $this->{$function}($fieldName, $options);
                 break;
 
-            case 'range':
-                if ($options['custom']) {
-                    $options['injectFormControl'] = false;
-                    $options = $this->injectClasses('custom-range', $options);
-                }
+            default:
+                $options = $this->_labelOptions($fieldName, $options);
                 break;
         }
 
@@ -551,12 +548,15 @@ class FormHelper extends Helper
      */
     protected function _dateTimeOptions(string $fieldName, array $options): array
     {
+        $options = $this->_labelOptions($fieldName, $options);
+
         $groupId =
         $options['templateVars']['groupId'] =
             $this->_domId($fieldName . '-group-label');
 
         if ($options['label'] !== false) {
             $options['label']['templateVars']['groupId'] = $groupId;
+            $options['label']['id'] = $groupId;
         }
 
         $options['templates']['label'] = $this->templater()->get('datetimeLabel');
@@ -642,6 +642,27 @@ class FormHelper extends Helper
 
         if ($options['label'] !== false) {
             $options['label']['templateVars']['groupId'] = $groupId;
+            $options['label']['id'] = $groupId;
+        }
+
+        if ($options['label'] !== false) {
+            $labelClasses = [];
+            if ($this->_align === static::ALIGN_HORIZONTAL) {
+                $labelClasses[] = 'col-form-label';
+            }
+            if ($this->_align !== static::ALIGN_INLINE) {
+                $labelClasses[] = 'd-block';
+            }
+            if ($this->_align === static::ALIGN_HORIZONTAL) {
+                $size = $this->_gridClass('left');
+                $labelClasses[] = "pt-0 $size";
+            }
+            if ($this->_align === static::ALIGN_INLINE) {
+                $labelClasses[] = 'sr-only';
+            }
+            if ($labelClasses) {
+                $options['label'] = $this->injectClasses($labelClasses, (array)$options['label']);
+            }
         }
 
         $options['templates']['label'] = $this->templater()->get('radioLabel');
@@ -673,6 +694,8 @@ class FormHelper extends Helper
      */
     protected function _selectOptions(string $fieldName, array $options): array
     {
+        $labelClasses = [];
+
         if (isset($options['multiple']) && $options['multiple'] === 'checkbox') {
             $options['type'] = 'multicheckbox';
 
@@ -682,6 +705,20 @@ class FormHelper extends Helper
 
             if ($options['label'] !== false) {
                 $options['label']['templateVars']['groupId'] = $groupId;
+                $options['label']['id'] = $groupId;
+            }
+
+            if ($options['label'] !== false) {
+                if ($this->_align === static::ALIGN_HORIZONTAL) {
+                    $labelClasses[] = 'col-form-label';
+                }
+                if ($this->_align !== static::ALIGN_INLINE) {
+                    $labelClasses[] = 'd-block';
+                }
+                if ($this->_align === static::ALIGN_HORIZONTAL) {
+                    $size = $this->_gridClass('left');
+                    $labelClasses[] = "pt-0 $size";
+                }
             }
 
             $options['templates']['label'] = $this->templater()->get('multicheckboxLabel');
@@ -707,6 +744,25 @@ class FormHelper extends Helper
             if ($options['nestedInput']) {
                 $options['templates']['nestingLabel'] = $this->templater()->get('nestingLabelNestedInput');
             }
+        } else {
+            if (
+                $this->_align === static::ALIGN_HORIZONTAL &&
+                $options['label'] !== false
+            ) {
+                $size = $this->_gridClass('left');
+                $labelClasses[] = "col-form-label $size";
+            }
+        }
+
+        if (
+            $this->_align === static::ALIGN_INLINE &&
+            $options['label'] !== false
+        ) {
+            $labelClasses[] = 'sr-only';
+        }
+
+        if ($labelClasses) {
+            $options['label'] = $this->injectClasses($labelClasses, (array)$options['label']);
         }
 
         if (
@@ -730,6 +786,20 @@ class FormHelper extends Helper
     protected function _fileOptions(string $fieldName, array $options): array
     {
         if (!$options['custom']) {
+            if ($options['label'] !== false) {
+                $labelClasses = [];
+                if ($this->_align === static::ALIGN_HORIZONTAL) {
+                    $size = $this->_gridClass('left');
+                    $labelClasses[] = "col-form-label pt-1 $size";
+                }
+                if ($this->_align === static::ALIGN_INLINE) {
+                    $labelClasses[] = 'sr-only';
+                }
+                if ($labelClasses) {
+                    $options['label'] = $this->injectClasses($labelClasses, (array)$options['label']);
+                }
+            }
+
             if ($this->_align === static::ALIGN_HORIZONTAL) {
                 $options['templates']['label'] = $this->templater()->get('fileLabel');
             }
@@ -742,6 +812,10 @@ class FormHelper extends Helper
 
             if ($this->_getContext()->hasError($fieldName)) {
                 $options['templateVars']['invalid'] = $this->_config['errorClass'];
+            }
+
+            if ($options['label'] !== false) {
+                $options['label'] = $this->injectClasses('custom-file-label', (array)$options['label']);
             }
 
             if (
@@ -768,6 +842,51 @@ class FormHelper extends Helper
                 $options['templates']['formGroup'] = $this->templater()->get('customFileInputGroupFormGroup');
                 $container = $this->templater()->get('customFileInputGroupContainer');
                 $options['templates']['inputGroupContainer'] = $container;
+            }
+        }
+
+        return $options;
+    }
+
+    /**
+     * Modify options for range controls.
+     *
+     * @param string $fieldName Field name.
+     * @param array $options Options. See `$options` argument of `control()` method.
+     * @return array
+     */
+    protected function _rangeOptions(string $fieldName, array $options): array
+    {
+        $options = $this->_labelOptions($fieldName, $options);
+
+        if ($options['custom']) {
+            $options['injectFormControl'] = false;
+            $options = $this->injectClasses('custom-range', $options);
+        }
+
+        return $options;
+    }
+
+    /**
+     * Modify the options for labels.
+     *
+     * @param string|null $fieldName Field name.
+     * @param array $options Options. See `$options` argument of `control()` method.
+     * @return array
+     */
+    protected function _labelOptions(?string $fieldName, array $options): array
+    {
+        if ($options['label'] !== false) {
+            $labelClasses = [];
+            if ($this->_align === static::ALIGN_HORIZONTAL) {
+                $size = $this->_gridClass('left');
+                $labelClasses[] = "col-form-label $size";
+            }
+            if ($this->_align === static::ALIGN_INLINE) {
+                $labelClasses[] = 'sr-only';
+            }
+            if ($labelClasses) {
+                $options['label'] = $this->injectClasses($labelClasses, (array)$options['label']);
             }
         }
 

@@ -179,6 +179,133 @@ class MultipleCheckboxCustomControlTest extends AbstractFormHelperTest
         $this->assertHtml($expected, $result);
     }
 
+    public function testInlineAlignCustomMultipleCheckboxControlWithCustomLabelOptions()
+    {
+        $this->withErrorReporting(0, function () {
+            $this->Form->create($this->article, [
+                'align' => 'inline',
+            ]);
+        });
+
+        $result = $this->Form->control('users', [
+            'multiple' => 'checkbox',
+            'options' => [
+                1 => 'option 1',
+                2 => 'option 2',
+            ],
+            'custom' => true,
+            'label' => [
+                'class' => 'custom-label-class',
+                'foo' => 'bar',
+                'text' => 'Custom Label',
+            ],
+        ]);
+        $expected = [
+            ['div' => [
+                'class' => 'form-group position-relative multicheckbox',
+                'role' => 'group',
+                'aria-labelledby' => 'users-group-label',
+            ]],
+                ['span' => ['id' => 'users-group-label', 'class' => 'custom-label-class sr-only', 'foo' => 'bar']],
+                    'Custom Label',
+                '/span',
+                ['input' => [
+                    'type' => 'hidden',
+                    'name' => 'users',
+                    'value' => '',
+                ]],
+                ['div' => ['class' => 'custom-control custom-checkbox custom-control-inline']],
+                    ['input' => [
+                        'class' => 'custom-control-input',
+                        'type' => 'checkbox',
+                        'name' => 'users[]',
+                        'id' => 'users-1',
+                        'value' => 1,
+                    ]],
+                    ['label' => ['class' => 'custom-control-label', 'for' => 'users-1']],
+                        'option 1',
+                    '/label',
+                '/div',
+                ['div' => ['class' => 'custom-control custom-checkbox custom-control-inline']],
+                    ['input' => [
+                        'class' => 'custom-control-input',
+                        'type' => 'checkbox',
+                        'name' => 'users[]',
+                        'id' => 'users-2',
+                        'value' => 2,
+                    ]],
+                    ['label' => ['class' => 'custom-control-label', 'for' => 'users-2']],
+                        'option 2',
+                    '/label',
+                '/div',
+            '/div',
+        ];
+        $this->assertHtml($expected, $result);
+    }
+
+    public function testInlineAlignCustomMultipleCheckboxControlWithCustomLabelTemplateIsBackwardsCompatible()
+    {
+        $this->withErrorReporting(0, function () {
+            $this->Form->create($this->article, [
+                'align' => 'inline',
+            ]);
+        });
+
+        $result = $this->Form->control('users', [
+            'multiple' => 'checkbox',
+            'options' => [
+                1 => 'option 1',
+                2 => 'option 2',
+            ],
+            'custom' => true,
+            'templates' => [
+                'multicheckboxLabel' =>
+                    '<span id="{{groupId}}" class="sr-only" back="compat">{{text}}{{tooltip}}</span>',
+            ],
+        ]);
+        $expected = [
+            ['div' => [
+                'class' => 'form-group position-relative multicheckbox',
+                'role' => 'group',
+                'aria-labelledby' => 'users-group-label',
+            ]],
+                ['span' => ['id' => 'users-group-label', 'class' => 'sr-only', 'back' => 'compat']],
+                    'Users',
+                '/span',
+                ['input' => [
+                    'type' => 'hidden',
+                    'name' => 'users',
+                    'value' => '',
+                ]],
+                ['div' => ['class' => 'custom-control custom-checkbox custom-control-inline']],
+                    ['input' => [
+                        'class' => 'custom-control-input',
+                        'type' => 'checkbox',
+                        'name' => 'users[]',
+                        'id' => 'users-1',
+                        'value' => 1,
+                    ]],
+                    ['label' => ['class' => 'custom-control-label', 'for' => 'users-1']],
+                        'option 1',
+                    '/label',
+                '/div',
+                ['div' => ['class' => 'custom-control custom-checkbox custom-control-inline']],
+                    ['input' => [
+                        'class' => 'custom-control-input',
+                        'type' => 'checkbox',
+                        'name' => 'users[]',
+                        'id' => 'users-2',
+                        'value' => 2,
+                    ]],
+                    ['label' => ['class' => 'custom-control-label', 'for' => 'users-2']],
+                        'option 2',
+                    '/label',
+                '/div',
+            '/div',
+        ];
+        $this->assertHtml($expected, $result);
+    }
+
     public function testInlineAlignCustomMultipleCheckboxControlWithHelp()
     {
         $this->withErrorReporting(0, function () {

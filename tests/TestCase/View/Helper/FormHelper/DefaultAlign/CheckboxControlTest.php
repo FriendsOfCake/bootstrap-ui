@@ -93,6 +93,44 @@ class CheckboxControlTest extends AbstractFormHelperTest
         $this->assertHtml($expected, $result);
     }
 
+    public function testDefaultAlignCheckboxControlWithCustomLabelOptions()
+    {
+        $this->Form->create($this->article);
+
+        $result = $this->Form->control('users', [
+            'type' => 'checkbox',
+            'label' => [
+                'class' => 'custom-label-class',
+                'foo' => 'bar',
+                'text' => 'Custom Label',
+            ],
+        ]);
+        $expected = [
+            ['div' => ['class' => 'form-group form-check checkbox']],
+                ['input' => [
+                    'type' => 'hidden',
+                    'name' => 'users',
+                    'value' => 0,
+                ]],
+                ['input' => [
+                    'class' => 'form-check-input',
+                    'type' => 'checkbox',
+                    'name' => 'users',
+                    'id' => 'users',
+                    'value' => 1,
+                ]],
+                ['label' => [
+                    'class' => 'custom-label-class form-check-label',
+                    'foo' => 'bar',
+                    'for' => 'users',
+                ]],
+                    'Custom Label',
+                '/label',
+            '/div',
+        ];
+        $this->assertHtml($expected, $result);
+    }
+
     public function testDefaultAlignCheckboxControlWithHelp()
     {
         $this->Form->create($this->article);
@@ -499,6 +537,45 @@ class CheckboxControlTest extends AbstractFormHelperTest
                     'value' => 1,
                 ]],
                 ['label' => ['class' => 'form-check-label', 'for' => 'users']],
+                    'Custom Label',
+                '/label',
+            '/div',
+        ];
+        $this->assertHtml($expected, $result);
+    }
+
+    public function testDefaultAlignCheckboxControlInlineWithCustomLabelOptions()
+    {
+        $this->Form->create($this->article);
+
+        $result = $this->Form->control('users', [
+            'type' => 'checkbox',
+            'inline' => true,
+            'label' => [
+                'class' => 'custom-label-class',
+                'foo' => 'bar',
+                'text' => 'Custom Label',
+            ],
+        ]);
+        $expected = [
+            ['div' => ['class' => 'form-check form-check-inline checkbox']],
+                ['input' => [
+                    'type' => 'hidden',
+                    'name' => 'users',
+                    'value' => 0,
+                ]],
+                ['input' => [
+                    'class' => 'form-check-input',
+                    'type' => 'checkbox',
+                    'name' => 'users',
+                    'id' => 'users',
+                    'value' => 1,
+                ]],
+                ['label' => [
+                    'class' => 'custom-label-class form-check-label',
+                    'foo' => 'bar',
+                    'for' => 'users',
+                ]],
                     'Custom Label',
                 '/label',
             '/div',

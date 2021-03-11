@@ -102,6 +102,85 @@ class FileControlTest extends AbstractFormHelperTest
         $this->assertHtml($expected, $result);
     }
 
+    public function testHorizontalAlignFileControlWithCustomLabelOptions()
+    {
+        $this->Form->create($this->article, [
+            'align' => [
+                'sm' => [
+                    'left' => 5,
+                    'middle' => 7,
+                ],
+            ],
+        ]);
+
+        $result = $this->Form->control('file', [
+            'type' => 'file',
+            'label' => [
+                'class' => 'custom-label-class',
+                'foo' => 'bar',
+                'text' => 'Custom Label',
+            ],
+        ]);
+        $expected = [
+            ['div' => ['class' => 'form-group row file']],
+                ['label' => ['class' => 'custom-label-class col-form-label pt-1 col-sm-5', 'foo' => 'bar', 'for' => 'file']],
+                    'Custom Label',
+                '/label',
+                ['div' => ['class' => 'col-sm-7']],
+                    ['input' => [
+                        'type' => 'file',
+                        'name' => 'file',
+                        'id' => 'file',
+                        'class' => 'form-control-file',
+                    ]],
+                '/div',
+            '/div',
+        ];
+        $this->assertHtml($expected, $result);
+    }
+
+    /**
+     * Horizontal file control label templates are not backwards compatible,
+     * they will produce a duplicate `class` attribute.
+     */
+    public function testHorizontalAlignFileControlWithCustomLabelTemplateIsBackwardsCompatible()
+    {
+        $this->markTestIncomplete('Horizontal file control label templates are not backwards compatible');
+
+        $this->Form->create($this->article, [
+            'align' => [
+                'sm' => [
+                    'left' => 5,
+                    'middle' => 7,
+                ],
+            ],
+        ]);
+
+        $result = $this->Form->control('file', [
+            'type' => 'file',
+            'templates' => [
+                'fileLabel' =>
+                    '<label class="col-form-label pt-1 %s"{{attrs}} back="compat">{{text}}{{tooltip}}</label>',
+            ],
+        ]);
+        $expected = [
+            ['div' => ['class' => 'form-group row file']],
+                ['label' => ['class' => 'col-form-label pt-1 %s', 'for' => 'file', 'back' => 'compat']],
+                    'File',
+                '/label',
+                ['div' => ['class' => 'col-sm-7']],
+                    ['input' => [
+                        'type' => 'file',
+                        'name' => 'file',
+                        'id' => 'file',
+                        'class' => 'form-control-file',
+                    ]],
+                '/div',
+            '/div',
+        ];
+        $this->assertHtml($expected, $result);
+    }
+
     public function testHorizontalAlignFileControlWithHelp()
     {
         $this->Form->create($this->article, [

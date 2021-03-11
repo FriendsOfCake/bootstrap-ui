@@ -108,6 +108,45 @@ class SelectCustomControlTest extends AbstractFormHelperTest
         $this->assertHtml($expected, $result);
     }
 
+    public function testInlineAlignCustomSelectControlWithCustomLabelOptions()
+    {
+        $this->withErrorReporting(0, function () {
+            $this->Form->create($this->article, [
+                'align' => 'inline',
+            ]);
+        });
+
+        $result = $this->Form->control('users', [
+            'type' => 'select',
+            'options' => [
+                1 => 'option 1',
+                2 => 'option 2',
+            ],
+            'custom' => true,
+            'label' => [
+                'class' => 'custom-label-class',
+                'foo' => 'bar',
+                'text' => 'Custom Label',
+            ],
+        ]);
+        $expected = [
+            ['div' => ['class' => 'form-group select']],
+                ['label' => ['class' => 'custom-label-class sr-only', 'foo' => 'bar', 'for' => 'users']],
+                    'Custom Label',
+                '/label',
+                ['select' => ['name' => 'users', 'id' => 'users', 'class' => 'custom-select']],
+                    ['option' => ['value' => '1']],
+                        'option 1',
+                    '/option',
+                    ['option' => ['value' => '2']],
+                        'option 2',
+                    '/option',
+                '/select',
+            '/div',
+        ];
+        $this->assertHtml($expected, $result);
+    }
+
     public function testInlineAlignCustomSelectControlWithHelp()
     {
         $this->Form->create($this->article, [
