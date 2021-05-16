@@ -117,12 +117,12 @@ class FormHelper extends Helper
         'help' => '<small{{attrs}} class="form-text text-muted">{{content}}</small>',
         'tooltip' => '<span data-toggle="tooltip" title="{{content}}" class="fas fa-info-circle"></span>',
         'datetimeContainer' =>
-            '<div{{containerAttrs}} class="{{containerClass}}form-group {{type}}{{required}}" role="group" ' .
-                'aria-labelledby="{{groupId}}">{{content}}{{help}}</div>',
+            '<div{{containerAttrs}} ' .
+                'class="{{containerClass}}form-group {{type}}{{required}}">{{content}}{{help}}</div>',
         'datetimeContainerError' =>
             '<div{{containerAttrs}} ' .
-                'class="{{containerClass}}form-group {{formGroupPosition}}{{type}}{{required}} is-invalid" ' .
-                    'role="group" aria-labelledby="{{groupId}}">{{content}}{{error}}{{help}}</div>',
+                'class="{{containerClass}}form-group {{formGroupPosition}}{{type}}{{required}} is-invalid">' .
+                    '{{content}}{{error}}{{help}}</div>',
         'datetimeLabel' => '<label{{attrs}}>{{text}}{{tooltip}}</label>',
         'inputContainer' =>
             '<div{{containerAttrs}} ' .
@@ -231,13 +231,13 @@ class FormHelper extends Helper
                         '{{formGroupPosition}}{{type}}{{required}} is-invalid">{{content}}{{error}}{{help}}</div>',
             'datetimeContainer' =>
                 '<div{{containerAttrs}} ' .
-                    'class="{{containerClass}}form-group {{formGroupPosition}}{{type}}{{required}}" ' .
-                        'role="group" aria-labelledby="{{groupId}}">{{content}}{{help}}</div>',
+                    'class="{{containerClass}}form-group {{formGroupPosition}}{{type}}{{required}}">' .
+                        '{{content}}{{help}}</div>',
             'datetimeContainerError' =>
                 '<div{{containerAttrs}} ' .
-                    'class="{{containerClass}}form-group {{formGroupPosition}}{{type}}{{required}} is-invalid" ' .
-                        'role="group" aria-labelledby="{{groupId}}">{{content}}{{error}}{{help}}</div>',
-            'datetimeLabel' => '<span{{attrs}}>{{text}}{{tooltip}}</span>',
+                    'class="{{containerClass}}form-group {{formGroupPosition}}{{type}}{{required}} is-invalid">' .
+                        '{{content}}{{error}}{{help}}</div>',
+            'datetimeLabel' => '<label{{attrs}}>{{text}}{{tooltip}}</label>',
             'radioContainer' =>
                 '<div{{containerAttrs}} ' .
                     'class="{{containerClass}}form-group {{formGroupPosition}}{{type}}{{required}}" role="group" ' .
@@ -269,12 +269,12 @@ class FormHelper extends Helper
             'customCheckboxFormGroup' => '<div class="%s"><div class="custom-control custom-checkbox">' .
                     '{{input}}{{label}}{{error}}{{help}}</div></div>',
             'datetimeContainer' =>
-                '<div{{containerAttrs}} class="{{containerClass}}form-group row {{type}}{{required}}" role="group" ' .
-                    'aria-labelledby="{{groupId}}">{{content}}</div>',
+                '<div{{containerAttrs}} ' .
+                    'class="{{containerClass}}form-group row {{type}}{{required}}">{{content}}</div>',
             'datetimeContainerError' =>
                 '<div{{containerAttrs}} ' .
-                    'class="{{containerClass}}form-group row {{formGroupPosition}}{{type}}{{required}} is-invalid" ' .
-                        'role="group" aria-labelledby="{{groupId}}">{{content}}</div>',
+                    'class="{{containerClass}}form-group row {{formGroupPosition}}{{type}}{{required}} is-invalid">' .
+                        '{{content}}</div>',
             'datetimeLabel' => '<label{{attrs}}>{{text}}{{tooltip}}</label>',
             'checkboxInlineFormGroup' => '<div class="%s"><div class="form-check form-check-inline">' .
                     '{{input}}{{label}}</div></div>',
@@ -550,13 +550,15 @@ class FormHelper extends Helper
     {
         $options = $this->_labelOptions($fieldName, $options);
 
+        // group IDs are no longer required for date/time controls,
+        // this is just kept for backwards compatibility
+
         $groupId =
         $options['templateVars']['groupId'] =
             $this->_domId($fieldName . '-group-label');
 
         if ($options['label'] !== false) {
             $options['label']['templateVars']['groupId'] = $groupId;
-            $options['label']['id'] = $groupId;
         }
 
         $options['templates']['label'] = $this->templater()->get('datetimeLabel');
