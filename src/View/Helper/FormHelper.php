@@ -824,9 +824,6 @@ class FormHelper extends Helper
                 $options['prepend'] ||
                 $options['append']
             ) {
-                if ($options['label'] === null) {
-                    $options['label'] = [];
-                }
                 if (
                     $options['label'] !== false &&
                     !isset($options['label']['text'])
