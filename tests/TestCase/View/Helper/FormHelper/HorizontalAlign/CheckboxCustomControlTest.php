@@ -129,6 +129,52 @@ class CheckboxCustomControlTest extends AbstractFormHelperTest
         $this->assertHtml($expected, $result);
     }
 
+    public function testHorizontalAlignCustomCheckboxControlWithCustomLabelOptions()
+    {
+        $this->Form->create($this->article, [
+            'align' => [
+                'sm' => [
+                    'left' => 5,
+                    'middle' => 7,
+                ],
+            ],
+        ]);
+
+        $result = $this->Form->control('users', [
+            'type' => 'checkbox',
+            'custom' => true,
+            'label' => [
+                'class' => 'custom-label-class',
+                'foo' => 'bar',
+                'text' => 'Custom Label',
+            ],
+        ]);
+        $expected = [
+            'div' => ['class' => 'form-group row checkbox'],
+                ['div' => ['class' => 'offset-sm-5 col-sm-7']],
+                    ['div' => ['class' => 'custom-control custom-checkbox']],
+                        ['input' => [
+                            'type' => 'hidden',
+                            'name' => 'users',
+                            'value' => 0,
+                        ]],
+                        ['input' => [
+                            'type' => 'checkbox',
+                            'name' => 'users',
+                            'value' => '1',
+                            'id' => 'users',
+                            'class' => 'custom-control-input',
+                        ]],
+                        ['label' => ['class' => 'custom-label-class custom-control-label', 'foo' => 'bar', 'for' => 'users']],
+                            'Custom Label',
+                        '/label',
+                    '/div',
+                '/div',
+            '/div',
+        ];
+        $this->assertHtml($expected, $result);
+    }
+
     public function testHorizontalAlignCustomCheckboxControlWithHelp()
     {
         $this->Form->create($this->article, [
@@ -537,6 +583,53 @@ class CheckboxCustomControlTest extends AbstractFormHelperTest
                             'class' => 'custom-control-input',
                         ]],
                         ['label' => ['class' => 'custom-control-label', 'for' => 'users']],
+                            'Custom Label',
+                        '/label',
+                    '/div',
+                '/div',
+            '/div',
+        ];
+        $this->assertHtml($expected, $result);
+    }
+
+    public function testHorizontalAlignCustomCheckboxControlInlineWithCustomLabelOptions()
+    {
+        $this->Form->create($this->article, [
+            'align' => [
+                'sm' => [
+                    'left' => 5,
+                    'middle' => 7,
+                ],
+            ],
+        ]);
+
+        $result = $this->Form->control('users', [
+            'type' => 'checkbox',
+            'custom' => true,
+            'inline' => true,
+            'label' => [
+                'class' => 'custom-label-class',
+                'foo' => 'bar',
+                'text' => 'Custom Label',
+            ],
+        ]);
+        $expected = [
+            'div' => ['class' => 'form-group row checkbox'],
+                ['div' => ['class' => 'offset-sm-5 col-sm-7']],
+                    ['div' => ['class' => 'custom-control custom-checkbox']],
+                        ['input' => [
+                            'type' => 'hidden',
+                            'name' => 'users',
+                            'value' => 0,
+                        ]],
+                        ['input' => [
+                            'type' => 'checkbox',
+                            'name' => 'users',
+                            'value' => '1',
+                            'id' => 'users',
+                            'class' => 'custom-control-input',
+                        ]],
+                        ['label' => ['class' => 'custom-label-class custom-control-label', 'foo' => 'bar', 'for' => 'users']],
                             'Custom Label',
                         '/label',
                     '/div',

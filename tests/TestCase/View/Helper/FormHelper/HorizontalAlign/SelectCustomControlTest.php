@@ -123,6 +123,50 @@ class SelectCustomControlTest extends AbstractFormHelperTest
         $this->assertHtml($expected, $result);
     }
 
+    public function testHorizontalAlignCustomSelectControlWithCustomLabelOptions()
+    {
+        $this->Form->create($this->article, [
+            'align' => [
+                'sm' => [
+                    'left' => 5,
+                    'middle' => 7,
+                ],
+            ],
+        ]);
+
+        $result = $this->Form->control('users', [
+            'type' => 'select',
+            'options' => [
+                1 => 'option 1',
+                2 => 'option 2',
+            ],
+            'custom' => true,
+            'label' => [
+                'class' => 'custom-label-class',
+                'foo' => 'bar',
+                'text' => 'Custom Label',
+            ],
+        ]);
+        $expected = [
+            ['div' => ['class' => 'form-group row select']],
+                ['label' => ['class' => 'custom-label-class col-form-label col-sm-5', 'foo' => 'bar', 'for' => 'users']],
+                    'Custom Label',
+                '/label',
+                ['div' => ['class' => 'col-sm-7']],
+                    ['select' => ['name' => 'users', 'id' => 'users', 'class' => 'custom-select']],
+                        ['option' => ['value' => '1']],
+                            'option 1',
+                        '/option',
+                        ['option' => ['value' => '2']],
+                            'option 2',
+                        '/option',
+                    '/select',
+                '/div',
+            '/div',
+        ];
+        $this->assertHtml($expected, $result);
+    }
+
     public function testHorizontalAlignCustomSelectControlWithHelp()
     {
         $this->Form->create($this->article, [

@@ -168,6 +168,127 @@ class RadioControlTest extends AbstractFormHelperTest
         $this->assertHtml($expected, $result);
     }
 
+    public function testInlineAlignRadioControlWithCustomLabelOptions()
+    {
+        $this->withErrorReporting(0, function () {
+            $this->Form->create($this->article, [
+                'align' => 'inline',
+            ]);
+        });
+
+        $result = $this->Form->control('users', [
+            'type' => 'radio',
+            'options' => [
+                1 => 'option 1',
+                2 => 'option 2',
+            ],
+            'label' => [
+                'class' => 'custom-label-class',
+                'foo' => 'bar',
+                'text' => 'Custom Label',
+            ],
+        ]);
+        $expected = [
+            ['div' => ['class' => 'form-group position-relative radio', 'role' => 'group', 'aria-labelledby' => 'users-group-label']],
+                ['span' => ['id' => 'users-group-label', 'class' => 'custom-label-class sr-only', 'foo' => 'bar']],
+                    'Custom Label',
+                '/span',
+                ['input' => [
+                    'type' => 'hidden',
+                    'name' => 'users',
+                    'value' => '',
+                ]],
+                ['div' => ['class' => 'form-check form-check-inline']],
+                    ['input' => [
+                        'class' => 'form-check-input',
+                        'type' => 'radio',
+                        'name' => 'users',
+                        'id' => 'users-1',
+                        'value' => 1,
+                    ]],
+                    ['label' => ['class' => 'form-check-label', 'for' => 'users-1']],
+                        'option 1',
+                    '/label',
+                '/div',
+                ['div' => ['class' => 'form-check form-check-inline']],
+                    ['input' => [
+                        'class' => 'form-check-input',
+                        'type' => 'radio',
+                        'name' => 'users',
+                        'id' => 'users-2',
+                        'value' => 2,
+                    ]],
+                    ['label' => ['class' => 'form-check-label', 'for' => 'users-2']],
+                        'option 2',
+                    '/label',
+                '/div',
+            '/div',
+        ];
+        $this->assertHtml($expected, $result);
+    }
+
+    public function testInlineAlignRadioControlWithCustomLabelTemplateIsBackwardsCompatible()
+    {
+        $this->withErrorReporting(0, function () {
+            $this->Form->create($this->article, [
+                'align' => 'inline',
+            ]);
+        });
+
+        $result = $this->Form->control('users', [
+            'type' => 'radio',
+            'options' => [
+                1 => 'option 1',
+                2 => 'option 2',
+            ],
+            'templates' => [
+                'radioLabel' =>
+                    '<span id="{{groupId}}" class="sr-only" back="compat">{{text}}{{tooltip}}</span>',
+            ],
+        ]);
+        $expected = [
+            ['div' => [
+                'class' => 'form-group position-relative radio',
+                'role' => 'group',
+                'aria-labelledby' => 'users-group-label',
+            ]],
+                ['span' => ['id' => 'users-group-label', 'class' => 'sr-only', 'back' => 'compat']],
+                    'Users',
+                '/span',
+                ['input' => [
+                    'type' => 'hidden',
+                    'name' => 'users',
+                    'value' => '',
+                ]],
+                ['div' => ['class' => 'form-check form-check-inline']],
+                    ['input' => [
+                        'class' => 'form-check-input',
+                        'type' => 'radio',
+                        'name' => 'users',
+                        'id' => 'users-1',
+                        'value' => 1,
+                    ]],
+                    ['label' => ['class' => 'form-check-label', 'for' => 'users-1']],
+                        'option 1',
+                    '/label',
+                '/div',
+                ['div' => ['class' => 'form-check form-check-inline']],
+                    ['input' => [
+                        'class' => 'form-check-input',
+                        'type' => 'radio',
+                        'name' => 'users',
+                        'id' => 'users-2',
+                        'value' => 2,
+                    ]],
+                    ['label' => ['class' => 'form-check-label', 'for' => 'users-2']],
+                        'option 2',
+                    '/label',
+                '/div',
+            '/div',
+        ];
+        $this->assertHtml($expected, $result);
+    }
+
     public function testInlineAlignRadioControlWithHelp()
     {
         $this->withErrorReporting(0, function () {

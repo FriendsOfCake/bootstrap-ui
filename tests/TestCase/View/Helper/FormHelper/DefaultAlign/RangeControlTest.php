@@ -93,6 +93,40 @@ class RangeControlTest extends AbstractFormHelperTest
         $this->assertHtml($expected, $result);
     }
 
+    public function testDefaultAlignRangeControlWithCustomLabelOptions()
+    {
+        $this->Form->create($this->article);
+
+        $result = $this->Form->control('height', [
+            'type' => 'range',
+            'min' => 0,
+            'max' => 10,
+            'step' => 1,
+            'label' => [
+                'class' => 'custom-label-class',
+                'foo' => 'bar',
+                'text' => 'Custom Label',
+            ],
+        ]);
+        $expected = [
+            'div' => ['class' => 'form-group range'],
+                ['label' => ['class' => 'custom-label-class', 'foo' => 'bar', 'for' => 'height']],
+                    'Custom Label',
+                '/label',
+                'input' => [
+                    'type' => 'range',
+                    'name' => 'height',
+                    'min' => 0,
+                    'max' => 10,
+                    'step' => 1,
+                    'id' => 'height',
+                    'class' => 'form-control',
+                ],
+            '/div',
+        ];
+        $this->assertHtml($expected, $result);
+    }
+
     public function testDefaultAlignRangeControlWithHelp()
     {
         $this->Form->create($this->article);

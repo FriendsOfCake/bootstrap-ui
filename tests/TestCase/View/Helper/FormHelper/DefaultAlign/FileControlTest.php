@@ -75,6 +75,38 @@ class FileControlTest extends AbstractFormHelperTest
         $this->assertHtml($expected, $result);
     }
 
+    public function testDefaultAlignFileControlWithCustomLabelOptions()
+    {
+        $this->Form->create($this->article);
+
+        $result = $this->Form->control('file', [
+            'type' => 'file',
+            'label' => [
+                'class' => 'custom-label-class',
+                'foo' => 'bar',
+                'text' => 'Custom Label',
+            ],
+        ]);
+        $expected = [
+            ['div' => ['class' => 'form-group file']],
+                ['label' => [
+                    'class' => 'custom-label-class',
+                    'foo' => 'bar',
+                    'for' => 'file',
+                ]],
+                    'Custom Label',
+                '/label',
+                ['input' => [
+                    'type' => 'file',
+                    'name' => 'file',
+                    'id' => 'file',
+                    'class' => 'form-control-file',
+                ]],
+            '/div',
+        ];
+        $this->assertHtml($expected, $result);
+    }
+
     public function testDefaultAlignFileControlWithHelp()
     {
         $this->Form->create($this->article);

@@ -78,8 +78,6 @@ class TextControlTest extends AbstractFormHelperTest
 
     public function testInlineAlignTextControlWithCustomLabelOptions()
     {
-        $this->markTestSkipped('Custom label options currently do not work');
-
         unset($this->article['required']['title']);
         $this->Form->create($this->article, [
             'align' => 'inline',

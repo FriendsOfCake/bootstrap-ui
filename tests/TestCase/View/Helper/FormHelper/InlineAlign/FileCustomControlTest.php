@@ -96,6 +96,81 @@ class FileCustomControlTest extends AbstractFormHelperTest
         $this->assertHtml($expected, $result);
     }
 
+    public function testInlineAlignCustomFileControlWithCustomLabelOptions()
+    {
+        $this->withErrorReporting(0, function () {
+            $this->Form->create($this->article, [
+                'align' => 'inline',
+            ]);
+        });
+
+        $result = $this->Form->control('file', [
+            'type' => 'file',
+            'custom' => true,
+            'label' => [
+                'class' => 'custom-label-class',
+                'foo' => 'bar',
+                'text' => 'Custom Label',
+            ],
+        ]);
+        $expected = [
+            ['div' => ['class' => 'form-group file']],
+                ['div' => ['class' => 'custom-file ']],
+                    ['input' => [
+                        'type' => 'file',
+                        'name' => 'file',
+                        'id' => 'file',
+                        'class' => 'custom-file-input',
+                    ]],
+                    ['label' => ['class' => 'custom-label-class custom-file-label', 'foo' => 'bar', 'for' => 'file']],
+                        'Custom Label',
+                    '/label',
+                 '/div',
+            '/div',
+        ];
+        $this->assertHtml($expected, $result);
+    }
+
+    /**
+     * Inline custom file control label templates are not backwards compatible,
+     * they will produce a duplicate `class` attribute.
+     */
+    public function testInlineAlignCustomFileControlWithCustomLabelTemplateIsBackwardsCompatible()
+    {
+        $this->markTestIncomplete('Inline custom file control label templates are not backwards compatible');
+
+        $this->withErrorReporting(0, function () {
+            $this->Form->create($this->article, [
+                'align' => 'inline',
+            ]);
+        });
+
+        $result = $this->Form->control('file', [
+            'type' => 'file',
+            'custom' => true,
+            'templates' => [
+                'customFileLabel' =>
+                    '<label class="custom-file-label"{{attrs}} back="compat">{{text}}{{tooltip}}</label>',
+            ],
+        ]);
+        $expected = [
+            ['div' => ['class' => 'form-group file']],
+                ['div' => ['class' => 'custom-file ']],
+                    ['input' => [
+                        'type' => 'file',
+                        'name' => 'file',
+                        'id' => 'file',
+                        'class' => 'custom-file-input',
+                    ]],
+                    ['label' => ['class' => 'custom-file-label', 'for' => 'file', 'back' => 'compact']],
+                        'File',
+                    '/label',
+                 '/div',
+            '/div',
+        ];
+        $this->assertHtml($expected, $result);
+    }
+
     public function testInlineAlignCustomFileControlWithHelp()
     {
         $this->withErrorReporting(0, function () {

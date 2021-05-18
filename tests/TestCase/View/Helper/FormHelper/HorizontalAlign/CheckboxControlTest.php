@@ -126,6 +126,51 @@ class CheckboxControlTest extends AbstractFormHelperTest
         $this->assertHtml($expected, $result);
     }
 
+    public function testHorizontalAlignCheckboxControlWithCustomLabelOptions()
+    {
+        $this->Form->create($this->article, [
+            'align' => [
+                'sm' => [
+                    'left' => 5,
+                    'middle' => 7,
+                ],
+            ],
+        ]);
+
+        $result = $this->Form->control('users', [
+            'type' => 'checkbox',
+            'label' => [
+                'class' => 'custom-label-class',
+                'foo' => 'bar',
+                'text' => 'Custom Label',
+            ],
+        ]);
+        $expected = [
+            ['div' => ['class' => 'form-group row checkbox']],
+                ['div' => ['class' => 'offset-sm-5 col-sm-7']],
+                    ['div' => ['class' => 'form-check']],
+                        ['input' => [
+                            'type' => 'hidden',
+                            'name' => 'users',
+                            'value' => 0,
+                        ]],
+                        ['input' => [
+                            'class' => 'form-check-input',
+                            'type' => 'checkbox',
+                            'name' => 'users',
+                            'id' => 'users',
+                            'value' => 1,
+                        ]],
+                        ['label' => ['class' => 'custom-label-class form-check-label', 'foo' => 'bar', 'for' => 'users']],
+                            'Custom Label',
+                        '/label',
+                    '/div',
+                '/div',
+            '/div',
+        ];
+        $this->assertHtml($expected, $result);
+    }
+
     public function testHorizontalAlignCheckboxControlWithHelp()
     {
         $this->Form->create($this->article, [
@@ -662,6 +707,52 @@ class CheckboxControlTest extends AbstractFormHelperTest
                             'value' => 1,
                         ]],
                         ['label' => ['class' => 'form-check-label', 'for' => 'users']],
+                            'Custom Label',
+                        '/label',
+                    '/div',
+                '/div',
+            '/div',
+        ];
+        $this->assertHtml($expected, $result);
+    }
+
+    public function testHorizontalAlignCheckboxControlInlineWithCustomLabelOptions()
+    {
+        $this->Form->create($this->article, [
+            'align' => [
+                'sm' => [
+                    'left' => 5,
+                    'middle' => 7,
+                ],
+            ],
+        ]);
+
+        $result = $this->Form->control('users', [
+            'type' => 'checkbox',
+            'inline' => true,
+            'label' => [
+                'class' => 'custom-label-class',
+                'foo' => 'bar',
+                'text' => 'Custom Label',
+            ],
+        ]);
+        $expected = [
+            ['div' => ['class' => 'form-group row checkbox']],
+                ['div' => ['class' => 'offset-sm-5 col-sm-7']],
+                    ['div' => ['class' => 'form-check']],
+                        ['input' => [
+                            'type' => 'hidden',
+                            'name' => 'users',
+                            'value' => 0,
+                        ]],
+                        ['input' => [
+                            'class' => 'form-check-input',
+                            'type' => 'checkbox',
+                            'name' => 'users',
+                            'id' => 'users',
+                            'value' => 1,
+                        ]],
+                        ['label' => ['class' => 'custom-label-class form-check-label', 'foo' => 'bar', 'for' => 'users']],
                             'Custom Label',
                         '/label',
                     '/div',

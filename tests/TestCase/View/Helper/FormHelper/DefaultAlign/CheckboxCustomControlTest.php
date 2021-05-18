@@ -96,6 +96,45 @@ class CheckboxCustomControlTest extends AbstractFormHelperTest
         $this->assertHtml($expected, $result);
     }
 
+    public function testDefaultAlignCustomCheckboxControlWithCustomLabelOptions()
+    {
+        $this->Form->create($this->article);
+
+        $result = $this->Form->control('users', [
+            'type' => 'checkbox',
+            'custom' => true,
+            'label' => [
+                'class' => 'custom-label-class',
+                'foo' => 'bar',
+                'text' => 'Custom Label',
+            ],
+        ]);
+        $expected = [
+            ['div' => ['class' => 'form-group custom-control custom-checkbox checkbox']],
+                ['input' => [
+                    'type' => 'hidden',
+                    'name' => 'users',
+                    'value' => 0,
+                ]],
+                ['input' => [
+                    'type' => 'checkbox',
+                    'name' => 'users',
+                    'value' => '1',
+                    'id' => 'users',
+                    'class' => 'custom-control-input',
+                ]],
+                ['label' => [
+                    'class' => 'custom-label-class custom-control-label',
+                    'foo' => 'bar',
+                    'for' => 'users',
+                ]],
+                    'Custom Label',
+                '/label',
+            '/div',
+        ];
+        $this->assertHtml($expected, $result);
+    }
+
     public function testDefaultAlignCustomCheckboxControlWithHelp()
     {
         $this->Form->create($this->article);
@@ -407,6 +446,46 @@ class CheckboxCustomControlTest extends AbstractFormHelperTest
                     'class' => 'custom-control-input',
                 ]],
                 ['label' => ['class' => 'custom-control-label', 'for' => 'users']],
+                    'Custom Label',
+                '/label',
+            '/div',
+        ];
+        $this->assertHtml($expected, $result);
+    }
+
+    public function testDefaultAlignCustomCheckboxControlInlineWithCustomLabelOptions()
+    {
+        $this->Form->create($this->article);
+
+        $result = $this->Form->control('users', [
+            'type' => 'checkbox',
+            'custom' => true,
+            'inline' => true,
+            'label' => [
+                'class' => 'custom-label-class',
+                'foo' => 'bar',
+                'text' => 'Custom Label',
+            ],
+        ]);
+        $expected = [
+            ['div' => ['class' => 'form-group custom-control custom-checkbox custom-control-inline checkbox']],
+                ['input' => [
+                    'type' => 'hidden',
+                    'name' => 'users',
+                    'value' => 0,
+                ]],
+                ['input' => [
+                    'type' => 'checkbox',
+                    'name' => 'users',
+                    'value' => '1',
+                    'id' => 'users',
+                    'class' => 'custom-control-input',
+                ]],
+                ['label' => [
+                    'class' => 'custom-label-class custom-control-label',
+                    'foo' => 'bar',
+                    'for' => 'users',
+                ]],
                     'Custom Label',
                 '/label',
             '/div',
