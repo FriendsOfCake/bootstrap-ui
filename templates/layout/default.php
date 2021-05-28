@@ -83,13 +83,13 @@ if (Configure::read('debug')) {
 }
 
 /**
- * Prepend `script` block with jQuery, Popper and Bootstrap scripts
- * Change jquery.min and bootstrap.min to use the compressed version
+ * Prepend `script` block with Popper and Bootstrap scripts
+ * Change popper.min and bootstrap.min to use the compressed version
  */
 if (Configure::read('debug')) {
-    $this->prepend('script', $this->Html->script(['BootstrapUI.jquery', 'BootstrapUI.popper', 'BootstrapUI.bootstrap']));
+    $this->prepend('script', $this->Html->script(['BootstrapUI.popper', 'BootstrapUI.bootstrap']));
 } else {
-    $this->prepend('script', $this->Html->script(['BootstrapUI.jquery.min', 'BootstrapUI.popper.min', 'BootstrapUI.bootstrap.min']));
+    $this->prepend('script', $this->Html->script(['BootstrapUI.popper.min', 'BootstrapUI.bootstrap.min']));
 }
 
 ?>

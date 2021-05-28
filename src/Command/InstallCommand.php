@@ -294,7 +294,7 @@ class InstallCommand extends Command
             $assetPath = null;
             if (preg_match('/\.css/', $file->getFilename())) {
                 $assetPath = $cssPath;
-            } elseif (preg_match('/(\.js|\.min\.map)/', $file->getFilename())) {
+            } elseif (preg_match('/\.js/', $file->getFilename())) {
                 $assetPath = $jsPath;
             }
             if ($assetPath === null) {
@@ -327,9 +327,8 @@ class InstallCommand extends Command
 
         $nodeModulesPath = Plugin::path('BootstrapUI') . 'node_modules' . DS;
         $paths = [
+            $nodeModulesPath . '@popperjs/core/dist/umd',
             $nodeModulesPath . 'bootstrap/dist',
-            $nodeModulesPath . 'jquery/dist',
-            $nodeModulesPath . 'popper.js/dist/umd',
         ];
 
         $files = [];

@@ -22,10 +22,9 @@ For version info see [version map](https://github.com/FriendsOfCake/bootstrap-ui
 ## Requirements
 
 * CakePHP 4.x
-* Bootstrap 4.x
+* Bootstrap 5.x
 * npm 5.x
-* jQuery 3.2+
-* Popper.js 1.x
+* Popper.js 2.x
 * Fontawesome 5.x
 
 ## What's included?
@@ -73,7 +72,7 @@ You can either use the Bootstrap commands to make the necessary changes, or do t
 
 ### Using the Bootstrap commands
 
-1. To install the Bootstrap assets (Bootstrap's CSS/JS files, jQuery and Popper.js) via npm you can use the `install`
+1. To install the Bootstrap assets (Bootstrap's CSS/JS files, Popper.js) via npm you can use the `install`
    command, or [install them manually](#installing-bootstrap-assets-via-npm):
 
    ```
@@ -113,15 +112,13 @@ do manually if you wish to control which assets are being included, and where th
 Assuming you are in your application's root:
 
 ```
-npm install bootstrap@4 jquery@3 popper.js@1
+npm install bootstrap@5 @popperjs/core@2
 cp node_modules/bootstrap/dist/css/bootstrap.css webroot/css/
 cp node_modules/bootstrap/dist/css/bootstrap.min.css webroot/css/
 cp node_modules/bootstrap/dist/js/bootstrap.js webroot/js/
 cp node_modules/bootstrap/dist/js/bootstrap.min.js webroot/js/
-cp node_modules/jquery/dist/jquery.js webroot/js
-cp node_modules/jquery/dist/jquery.min.js webroot/js
-cp node_modules/popper.js/dist/popper.js webroot/js
-cp node_modules/popper.js/dist/popper.min.js webroot/js
+cp node_modules/@popperjs/core/dist/umd/popper.js webroot/js
+cp node_modules/@popperjs/core/dist/umd/popper.min.js webroot/js
 ```
 
 #### AppView setup using UIView
@@ -233,7 +230,7 @@ them using the standard plugin syntax:
 ```php
 // in the <head>
 echo $this->Html->css('BootstrapUI.bootstrap.min');
-echo $this->Html->script(['BootstrapUI.jquery.min', 'BootstrapUI.popper.min', 'BootstrapUI.bootstrap.min']);
+echo $this->Html->script(['BootstrapUI.popper.min', 'BootstrapUI.bootstrap.min']);
 ```
 
 If you have installed the assets manually, you'll need to use paths accordingly. With
@@ -241,14 +238,14 @@ If you have installed the assets manually, you'll need to use paths accordingly.
 
 ```php
 echo $this->Html->css('bootstrap.min');
-echo $this->Html->script(['jquery.min', 'popper.min', 'bootstrap.min']);
+echo $this->Html->script(['popper.min', 'bootstrap.min']);
 ```
 
 If you're using paths that don't adhere to the CakePHP conventions, you'll have to explicitly specify them:
 
 ```php
 echo $this->Html->css('/path/to/bootstrap.css');
-echo $this->Html->script(['/path/to/jquery.js', '/path/to/popper.js', '/path/to/bootstrap.js']);
+echo $this->Html->script(['/path/to/popper.js', '/path/to/bootstrap.js']);
 ```
 
 ## Bake templates
