@@ -25,7 +25,7 @@ class SelectCustomControlTest extends AbstractFormHelperTest
         ]);
         $expected = [
             ['div' => ['class' => 'form-group select']],
-                ['label' => ['class' => 'sr-only', 'for' => 'users']],
+                ['label' => ['class' => 'visually-hidden', 'for' => 'users']],
                     'Users',
                 '/label',
                 ['select' => ['name' => 'users', 'id' => 'users', 'class' => 'custom-select']],
@@ -92,7 +92,7 @@ class SelectCustomControlTest extends AbstractFormHelperTest
         ]);
         $expected = [
             ['div' => ['class' => 'form-group select']],
-                ['label' => ['class' => 'sr-only', 'for' => 'users']],
+                ['label' => ['class' => 'visually-hidden', 'for' => 'users']],
                     'Custom Label',
                 '/label',
                 ['select' => ['name' => 'users', 'id' => 'users', 'class' => 'custom-select']],
@@ -131,7 +131,7 @@ class SelectCustomControlTest extends AbstractFormHelperTest
         ]);
         $expected = [
             ['div' => ['class' => 'form-group select']],
-                ['label' => ['class' => 'custom-label-class sr-only', 'foo' => 'bar', 'for' => 'users']],
+                ['label' => ['class' => 'custom-label-class visually-hidden', 'foo' => 'bar', 'for' => 'users']],
                     'Custom Label',
                 '/label',
                 ['select' => ['name' => 'users', 'id' => 'users', 'class' => 'custom-select']],
@@ -164,7 +164,7 @@ class SelectCustomControlTest extends AbstractFormHelperTest
         ]);
         $expected = [
             'div' => ['class' => 'form-group select'],
-                ['label' => ['class' => 'sr-only', 'for' => 'users']],
+                ['label' => ['class' => 'visually-hidden', 'for' => 'users']],
                     'Users',
                 '/label',
                 ['select' => ['name' => 'users', 'id' => 'users', 'class' => 'custom-select']],
@@ -175,7 +175,7 @@ class SelectCustomControlTest extends AbstractFormHelperTest
                         'option 2',
                     '/option',
                 '/select',
-                ['small' => ['class' => 'sr-only form-text text-muted']],
+                ['small' => ['class' => 'visually-hidden form-text text-muted']],
                     'Help text',
                 '/small',
             '/div',
@@ -203,7 +203,7 @@ class SelectCustomControlTest extends AbstractFormHelperTest
         ]);
         $expected = [
             'div' => ['class' => 'form-group select'],
-                ['label' => ['class' => 'sr-only', 'for' => 'users']],
+                ['label' => ['class' => 'visually-hidden', 'for' => 'users']],
                     'Users',
                 '/label',
                 ['select' => ['name' => 'users', 'id' => 'users', 'class' => 'custom-select']],
@@ -214,7 +214,7 @@ class SelectCustomControlTest extends AbstractFormHelperTest
                         'option 2',
                     '/option',
                 '/select',
-                ['small' => ['foo' => 'bar', 'class' => 'sr-only form-text text-muted']],
+                ['small' => ['foo' => 'bar', 'class' => 'visually-hidden form-text text-muted']],
                     'Help text',
                 '/small',
             '/div',
@@ -239,7 +239,7 @@ class SelectCustomControlTest extends AbstractFormHelperTest
         ]);
         $expected = [
             'div' => ['class' => 'form-group select'],
-                ['label' => ['class' => 'sr-only', 'for' => 'users']],
+                ['label' => ['class' => 'visually-hidden', 'for' => 'users']],
                     'Users',
                     'span' => [
                         'data-toggle' => 'tooltip',
@@ -280,7 +280,7 @@ class SelectCustomControlTest extends AbstractFormHelperTest
         ]);
         $expected = [
             'div' => ['class' => 'form-group position-relative select is-invalid'],
-                ['label' => ['class' => 'sr-only', 'for' => 'users']],
+                ['label' => ['class' => 'visually-hidden', 'for' => 'users']],
                     'Users',
                 '/label',
                 ['select' => ['name' => 'users', 'id' => 'users', 'class' => 'custom-select is-invalid']],
@@ -324,7 +324,7 @@ class SelectCustomControlTest extends AbstractFormHelperTest
                 'attribute' => 'container-attribute',
                 'class' => 'container-class form-group select',
             ]],
-                ['label' => ['class' => 'sr-only', 'for' => 'users']],
+                ['label' => ['class' => 'visually-hidden', 'for' => 'users']],
                     'Users',
                 '/label',
                 ['select' => ['name' => 'users', 'id' => 'users', 'class' => 'custom-select']],
@@ -369,7 +369,7 @@ class SelectCustomControlTest extends AbstractFormHelperTest
                 'attribute' => 'container-attribute',
                 'class' => 'container-class form-group position-relative select is-invalid',
             ]],
-                ['label' => ['class' => 'sr-only', 'for' => 'users']],
+                ['label' => ['class' => 'visually-hidden', 'for' => 'users']],
                     'Users',
                 '/label',
                 ['select' => ['name' => 'users', 'id' => 'users', 'class' => 'custom-select is-invalid']],
@@ -407,7 +407,7 @@ class SelectCustomControlTest extends AbstractFormHelperTest
         ]);
         $expected = [
             ['div' => ['class' => 'form-group select']],
-                ['label' => ['class' => 'sr-only', 'for' => 'users']],
+                ['label' => ['class' => 'visually-hidden', 'for' => 'users']],
                     'Users',
                 '/label',
                 ['div' => ['class' => 'input-group']],
@@ -449,7 +449,7 @@ class SelectCustomControlTest extends AbstractFormHelperTest
         ]);
         $expected = [
             ['div' => ['class' => 'form-group select']],
-                ['label' => ['class' => 'sr-only', 'for' => 'users']],
+                ['label' => ['class' => 'visually-hidden', 'for' => 'users']],
                     'Users',
                 '/label',
                 ['div' => ['class' => 'input-group']],

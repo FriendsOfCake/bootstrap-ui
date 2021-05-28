@@ -21,7 +21,7 @@ class RangeControlTest extends AbstractFormHelperTest
         ]);
         $expected = [
             'div' => ['class' => 'form-group range'],
-                ['label' => ['class' => 'sr-only', 'for' => 'height']],
+                ['label' => ['class' => 'visually-hidden', 'for' => 'height']],
                     'Height',
                 '/label',
                 'input' => [
@@ -82,7 +82,7 @@ class RangeControlTest extends AbstractFormHelperTest
         ]);
         $expected = [
             'div' => ['class' => 'form-group range'],
-                ['label' => ['class' => 'sr-only', 'for' => 'height']],
+                ['label' => ['class' => 'visually-hidden', 'for' => 'height']],
                     'Custom Label',
                 '/label',
                 'input' => [
@@ -118,7 +118,7 @@ class RangeControlTest extends AbstractFormHelperTest
         ]);
         $expected = [
             'div' => ['class' => 'form-group range'],
-                ['label' => ['class' => 'custom-label-class sr-only', 'foo' => 'bar', 'for' => 'height']],
+                ['label' => ['class' => 'custom-label-class visually-hidden', 'foo' => 'bar', 'for' => 'height']],
                     'Custom Label',
                 '/label',
                 'input' => [
@@ -150,7 +150,7 @@ class RangeControlTest extends AbstractFormHelperTest
         ]);
         $expected = [
             'div' => ['class' => 'form-group range'],
-                ['label' => ['class' => 'sr-only', 'for' => 'height']],
+                ['label' => ['class' => 'visually-hidden', 'for' => 'height']],
                     'Height',
                 '/label',
                 'input' => [
@@ -162,7 +162,7 @@ class RangeControlTest extends AbstractFormHelperTest
                     'id' => 'height',
                     'class' => 'form-control',
                 ],
-                ['small' => ['class' => 'sr-only form-text text-muted']],
+                ['small' => ['class' => 'visually-hidden form-text text-muted']],
                     'Help text',
                 '/small',
             '/div',
@@ -188,7 +188,7 @@ class RangeControlTest extends AbstractFormHelperTest
         ]);
         $expected = [
             'div' => ['class' => 'form-group range'],
-                ['label' => ['class' => 'sr-only', 'for' => 'height']],
+                ['label' => ['class' => 'visually-hidden', 'for' => 'height']],
                     'Height',
                 '/label',
                 'input' => [
@@ -200,7 +200,7 @@ class RangeControlTest extends AbstractFormHelperTest
                     'id' => 'height',
                     'class' => 'form-control',
                 ],
-                ['small' => ['foo' => 'bar', 'class' => 'sr-only form-text text-muted']],
+                ['small' => ['foo' => 'bar', 'class' => 'visually-hidden form-text text-muted']],
                     'Help text',
                 '/small',
             '/div',
@@ -223,7 +223,7 @@ class RangeControlTest extends AbstractFormHelperTest
         ]);
         $expected = [
             'div' => ['class' => 'form-group range'],
-                ['label' => ['class' => 'sr-only', 'for' => 'height']],
+                ['label' => ['class' => 'visually-hidden', 'for' => 'height']],
                     'Height ',
                     'span' => [
                         'data-toggle' => 'tooltip',
@@ -263,7 +263,7 @@ class RangeControlTest extends AbstractFormHelperTest
         ]);
         $expected = [
             'div' => ['class' => 'form-group position-relative range is-invalid'],
-                ['label' => ['class' => 'sr-only', 'for' => 'height']],
+                ['label' => ['class' => 'visually-hidden', 'for' => 'height']],
                     'Height',
                 '/label',
                 'input' => [
@@ -304,7 +304,7 @@ class RangeControlTest extends AbstractFormHelperTest
                 'attribute' => 'container-attribute',
                 'class' => 'container-class form-group range',
             ],
-                ['label' => ['class' => 'sr-only', 'for' => 'height']],
+                ['label' => ['class' => 'visually-hidden', 'for' => 'height']],
                     'Height',
                 '/label',
                 'input' => [
@@ -345,7 +345,7 @@ class RangeControlTest extends AbstractFormHelperTest
                 'attribute' => 'container-attribute',
                 'class' => 'container-class form-group position-relative range is-invalid',
             ],
-                ['label' => ['class' => 'sr-only', 'for' => 'height']],
+                ['label' => ['class' => 'visually-hidden', 'for' => 'height']],
                     'Height',
                 '/label',
                 'input' => [

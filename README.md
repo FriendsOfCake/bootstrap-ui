@@ -367,7 +367,7 @@ will render this HTML:
 ```html
 <form method="post" accept-charset="utf-8" class="form-inline" role="form" action="/articles/add">
     <div class="form-group text">
-        <label class="sr-only" for="title">Title</label>
+        <label class="visually-hidden" for="title">Title</label>
         <input type="text" name="title" placeholder="Title" id="title" class="form-control"/>
     </div>
     <div class="form-check form-check-inline checkbox">

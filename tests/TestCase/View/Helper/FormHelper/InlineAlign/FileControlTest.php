@@ -20,7 +20,7 @@ class FileControlTest extends AbstractFormHelperTest
         ]);
         $expected = [
             ['div' => ['class' => 'form-group file']],
-                ['label' => ['class' => 'sr-only', 'for' => 'file']],
+                ['label' => ['class' => 'visually-hidden', 'for' => 'file']],
                     'File',
                 '/label',
                 ['input' => [
@@ -73,7 +73,7 @@ class FileControlTest extends AbstractFormHelperTest
         ]);
         $expected = [
             ['div' => ['class' => 'form-group file']],
-                ['label' => ['class' => 'sr-only', 'for' => 'file']],
+                ['label' => ['class' => 'visually-hidden', 'for' => 'file']],
                     'Custom Label',
                 '/label',
                 ['input' => [
@@ -105,7 +105,7 @@ class FileControlTest extends AbstractFormHelperTest
         ]);
         $expected = [
             ['div' => ['class' => 'form-group file']],
-                ['label' => ['class' => 'custom-label-class sr-only', 'foo' => 'bar', 'for' => 'file']],
+                ['label' => ['class' => 'custom-label-class visually-hidden', 'foo' => 'bar', 'for' => 'file']],
                     'Custom Label',
                 '/label',
                 ['input' => [
@@ -133,7 +133,7 @@ class FileControlTest extends AbstractFormHelperTest
         ]);
         $expected = [
             ['div' => ['class' => 'form-group file']],
-                ['label' => ['class' => 'sr-only', 'for' => 'file']],
+                ['label' => ['class' => 'visually-hidden', 'for' => 'file']],
                     'File',
                 '/label',
                 ['input' => [
@@ -142,7 +142,7 @@ class FileControlTest extends AbstractFormHelperTest
                     'id' => 'file',
                     'class' => 'form-control-file',
                 ]],
-                ['small' => ['class' => 'sr-only form-text text-muted']],
+                ['small' => ['class' => 'visually-hidden form-text text-muted']],
                     'Help text',
                 '/small',
             '/div',
@@ -167,7 +167,7 @@ class FileControlTest extends AbstractFormHelperTest
         ]);
         $expected = [
             ['div' => ['class' => 'form-group file']],
-                ['label' => ['class' => 'sr-only', 'for' => 'file']],
+                ['label' => ['class' => 'visually-hidden', 'for' => 'file']],
                     'File',
                 '/label',
                 ['input' => [
@@ -176,7 +176,7 @@ class FileControlTest extends AbstractFormHelperTest
                     'id' => 'file',
                     'class' => 'form-control-file',
                 ]],
-                ['small' => ['foo' => 'bar', 'class' => 'sr-only form-text text-muted']],
+                ['small' => ['foo' => 'bar', 'class' => 'visually-hidden form-text text-muted']],
                     'Help text',
                 '/small',
             '/div',
@@ -198,7 +198,7 @@ class FileControlTest extends AbstractFormHelperTest
         ]);
         $expected = [
             ['div' => ['class' => 'form-group file']],
-                ['label' => ['class' => 'sr-only', 'for' => 'file']],
+                ['label' => ['class' => 'visually-hidden', 'for' => 'file']],
                     'File ',
                     'span' => [
                         'data-toggle' => 'tooltip',
@@ -234,7 +234,7 @@ class FileControlTest extends AbstractFormHelperTest
         ]);
         $expected = [
             ['div' => ['class' => 'form-group position-relative file is-invalid']],
-                ['label' => ['class' => 'sr-only', 'for' => 'file']],
+                ['label' => ['class' => 'visually-hidden', 'for' => 'file']],
                     'File',
                 '/label',
                 ['input' => [
@@ -271,7 +271,7 @@ class FileControlTest extends AbstractFormHelperTest
                 'attribute' => 'container-attribute',
                 'class' => 'container-class form-group file',
             ]],
-                ['label' => ['class' => 'sr-only', 'for' => 'file']],
+                ['label' => ['class' => 'visually-hidden', 'for' => 'file']],
                     'File',
                 '/label',
                 ['input' => [
@@ -308,7 +308,7 @@ class FileControlTest extends AbstractFormHelperTest
                 'attribute' => 'container-attribute',
                 'class' => 'container-class form-group position-relative file is-invalid',
             ]],
-                ['label' => ['class' => 'sr-only', 'for' => 'file']],
+                ['label' => ['class' => 'visually-hidden', 'for' => 'file']],
                     'File',
                 '/label',
                 ['input' => [

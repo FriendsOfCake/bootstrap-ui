@@ -797,7 +797,7 @@ class FormHelperTest extends AbstractFormHelperTest
 
         $expected = [
             ['div' => ['class' => 'form-group text is-invalid']],
-                ['label' => ['class' => 'sr-only', 'for' => 'title']],
+                ['label' => ['class' => 'visually-hidden', 'for' => 'title']],
                     'Title',
                 '/label',
                 'input' => [

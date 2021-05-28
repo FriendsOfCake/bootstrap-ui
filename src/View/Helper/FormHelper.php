@@ -212,7 +212,7 @@ class FormHelper extends Helper
         'default' => [
         ],
         'inline' => [
-            'help' => '<small{{attrs}} class="sr-only form-text text-muted">{{content}}</small>',
+            'help' => '<small{{attrs}} class="visually-hidden form-text text-muted">{{content}}</small>',
             'checkboxInlineContainer' =>
                 '<div{{containerAttrs}} class="{{containerClass}}form-check form-check-inline {{type}}{{required}}">' .
                     '{{content}}{{help}}</div>',
@@ -660,7 +660,7 @@ class FormHelper extends Helper
                 $labelClasses[] = "pt-0 $size";
             }
             if ($this->_align === static::ALIGN_INLINE) {
-                $labelClasses[] = 'sr-only';
+                $labelClasses[] = 'visually-hidden';
             }
             if ($labelClasses) {
                 $options['label'] = $this->injectClasses($labelClasses, (array)$options['label']);
@@ -760,7 +760,7 @@ class FormHelper extends Helper
             $this->_align === static::ALIGN_INLINE &&
             $options['label'] !== false
         ) {
-            $labelClasses[] = 'sr-only';
+            $labelClasses[] = 'visually-hidden';
         }
 
         if ($labelClasses) {
@@ -795,7 +795,7 @@ class FormHelper extends Helper
                     $labelClasses[] = "col-form-label pt-1 $size";
                 }
                 if ($this->_align === static::ALIGN_INLINE) {
-                    $labelClasses[] = 'sr-only';
+                    $labelClasses[] = 'visually-hidden';
                 }
                 if ($labelClasses) {
                     $options['label'] = $this->injectClasses($labelClasses, (array)$options['label']);
@@ -882,7 +882,7 @@ class FormHelper extends Helper
                 $labelClasses[] = "col-form-label $size";
             }
             if ($this->_align === static::ALIGN_INLINE) {
-                $labelClasses[] = 'sr-only';
+                $labelClasses[] = 'visually-hidden';
             }
             if ($labelClasses) {
                 $options['label'] = $this->injectClasses($labelClasses, (array)$options['label']);

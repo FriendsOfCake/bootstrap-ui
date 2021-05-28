@@ -34,7 +34,7 @@ class PaginatorHelper extends \Cake\View\Helper\PaginatorHelper
             'prevDisabled' => '<li class="page-item disabled">' .
                             '<a class="page-link" tabindex="-1"><span aria-hidden="true">{{text}}</span></a></li>',
             'current' => '<li class="page-item active">' .
-                            '<a class="page-link" href="#">{{text}} <span class="sr-only">(current)</span></a></li>',
+                            '<a class="page-link" href="#">{{text}} <span class="visually-hidden">(current)</span></a></li>',
             'first' => '<li class="page-item first"><a class="page-link" href="{{url}}">{{text}}</a></li>',
             'last' => '<li class="page-item last"><a class="page-link" href="{{url}}">{{text}}</a></li>',
             'number' => '<li class="page-item"><a class="page-link" href="{{url}}">{{text}}</a></li>',
