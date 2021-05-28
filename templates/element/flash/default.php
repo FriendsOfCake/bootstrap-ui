@@ -4,7 +4,7 @@ $message = (isset($params['escape']) && $params['escape'] === false) ? $message 
 
 if (in_array('alert-dismissible', $class)) {
     $button = <<<BUTTON
-<button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+<button type="button" class="close" data-bs-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
 BUTTON;
     $message = $button . $message;
 }
