@@ -44,7 +44,7 @@ class HtmlHelper extends \Cake\View\Helper\HtmlHelper
         $tag = $options['tag'];
         unset($options['tag']);
 
-        $allClasses = $this->genAllClassNames('badge');
+        $allClasses = $this->genAllClassNames('bg');
 
         if ($this->hasAnyClass($allClasses, $options)) {
             $options = $this->injectClasses('badge', $options);
@@ -52,7 +52,7 @@ class HtmlHelper extends \Cake\View\Helper\HtmlHelper
             $options = $this->injectClasses(['badge', 'secondary'], $options);
         }
 
-        $classes = $this->renameClasses('badge', $options);
+        $classes = $this->renameClasses('bg', $options);
 
         return $this->tag($tag, $text, $classes);
     }
