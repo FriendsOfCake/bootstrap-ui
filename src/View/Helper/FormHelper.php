@@ -773,6 +773,9 @@ class FormHelper extends Helper
         ) {
             $options['injectFormControl'] = false;
             $options = $this->injectClasses('custom-select', $options);
+        } elseif ($options['type'] !== 'multicheckbox') {
+            $options['injectFormControl'] = false;
+            $options = $this->injectClasses('form-select', $options);
         }
 
         return $options;
