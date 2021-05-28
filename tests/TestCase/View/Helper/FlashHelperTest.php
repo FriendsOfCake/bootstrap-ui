@@ -103,14 +103,13 @@ class FlashHelperTest extends TestCase
 
         $result = $this->Flash->render();
         $this->assertStringContainsString('<div role="alert" class="alert alert-dismissible fade show alert-info">', $result);
-        $this->assertStringContainsString('<button type="button" class="close" data-bs-dismiss="alert" aria-label="Close">', $result);
-        $this->assertStringContainsString('<span aria-hidden="true">&times;</span></button>', $result);
         $this->assertStringContainsString('This is a calling', $result);
+        $this->assertStringContainsString('<button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>', $result);
 
         $result = $this->Flash->render('error');
         $this->assertStringContainsString('<div role="alert" class="alert alert-dismissible fade show alert-danger">', $result);
-        $this->assertStringContainsString('<button type="button" class="close" data-bs-dismiss="alert" aria-label="Close">', $result);
         $this->assertStringContainsString('This is error', $result);
+        $this->assertStringContainsString('<button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>', $result);
 
         $result = $this->Flash->render('custom1', ['params' => ['class' => ['alert']]]);
         $this->assertStringContainsString('<div role="alert" class="alert alert-warning">', $result);
@@ -126,7 +125,7 @@ class FlashHelperTest extends TestCase
 
         $result = $this->Flash->render('custom4');
         $this->assertStringContainsString('<div role="alert" class="alert alert-dismissible fade show alert-primary">', $result);
-        $this->assertStringContainsString('testClass</div>', $result);
+        $this->assertStringContainsString('testClass', $result);
 
         $this->expectException(\UnexpectedValueException::class);
         $this->Flash->render('invalidKey');
@@ -168,16 +167,15 @@ class FlashHelperTest extends TestCase
 
         $result = $this->Flash->render();
         $this->assertStringContainsString('<div role="alert" class="alert alert-dismissible fade show alert-info">', $result);
-        $this->assertStringContainsString('<button type="button" class="close" data-bs-dismiss="alert" aria-label="Close">', $result);
-        $this->assertStringContainsString('<span aria-hidden="true">&times;</span></button>', $result);
         $this->assertStringContainsString('This is a calling', $result);
+        $this->assertStringContainsString('<button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>', $result);
 
         $this->assertStringContainsString('<div role="alert" class="extra alert-info">', $result);
         $this->assertStringContainsString('This is a second message', $result);
 
         $result = $this->Flash->render('error');
         $this->assertStringContainsString('<div role="alert" class="alert alert-dismissible fade show alert-danger">', $result);
-        $this->assertStringContainsString('<button type="button" class="close" data-bs-dismiss="alert" aria-label="Close">', $result);
         $this->assertStringContainsString('This is error', $result);
+        $this->assertStringContainsString('<button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>', $result);
     }
 }
