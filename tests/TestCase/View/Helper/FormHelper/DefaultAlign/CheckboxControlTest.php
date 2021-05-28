@@ -225,7 +225,7 @@ class CheckboxControlTest extends AbstractFormHelperTest
                 ['label' => ['class' => 'form-check-label', 'for' => 'users']],
                     'Users ',
                     'span' => [
-                        'data-toggle' => 'tooltip',
+                        'data-bs-toggle' => 'tooltip',
                         'title' => 'Tooltip text',
                         'class' => 'fas fa-info-circle',
                     ],
@@ -407,7 +407,7 @@ class CheckboxControlTest extends AbstractFormHelperTest
                     ]],
                     'Users ',
                     'span' => [
-                        'data-toggle' => 'tooltip',
+                        'data-bs-toggle' => 'tooltip',
                         'title' => 'Tooltip text',
                         'class' => 'fas fa-info-circle',
                     ],
@@ -680,7 +680,7 @@ class CheckboxControlTest extends AbstractFormHelperTest
                 ['label' => ['class' => 'form-check-label', 'for' => 'users']],
                     'Users ',
                     'span' => [
-                        'data-toggle' => 'tooltip',
+                        'data-bs-toggle' => 'tooltip',
                         'title' => 'Tooltip text',
                         'class' => 'fas fa-info-circle',
                     ],
@@ -867,7 +867,7 @@ class CheckboxControlTest extends AbstractFormHelperTest
                     ]],
                     'Users ',
                     'span' => [
-                        'data-toggle' => 'tooltip',
+                        'data-bs-toggle' => 'tooltip',
                         'title' => 'Tooltip text',
                         'class' => 'fas fa-info-circle',
                     ],

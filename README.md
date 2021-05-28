@@ -532,7 +532,7 @@ This would generate the following HTML:
 
 ```html
 <div class="form-group text">
-    <label for="title">Title <span data-toggle="tooltip" title="Tooltip text" class="fas fa-info-circle"></span></label>
+    <label for="title">Title <span data-bs-toggle="tooltip" title="Tooltip text" class="fas fa-info-circle"></span></label>
     <input type="text" name="title" id="title" class="form-control"/>
 </div>
 ```
@@ -546,7 +546,7 @@ accordingly, being it globally, per form, or per control:
 echo $this->Form->control('title', [
     'tooltip' => 'Tooltip text',
     'templates' => [
-        'tooltip' => '<span data-toggle="tooltip" title="{{content}}" class="material-icons">info</span>',
+        'tooltip' => '<span data-bs-toggle="tooltip" title="{{content}}" class="material-icons">info</span>',
     ],
 ]);
 ```

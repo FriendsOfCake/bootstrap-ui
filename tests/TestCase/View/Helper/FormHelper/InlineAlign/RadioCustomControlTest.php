@@ -416,7 +416,7 @@ class RadioCustomControlTest extends AbstractFormHelperTest
                 ['span' => ['id' => 'published-group-label', 'class' => 'visually-hidden']],
                     'Published ',
                     'span' => [
-                        'data-toggle' => 'tooltip',
+                        'data-bs-toggle' => 'tooltip',
                         'title' => 'Tooltip text',
                         'class' => 'fas fa-info-circle',
                     ],

@@ -201,7 +201,7 @@ class FileControlTest extends AbstractFormHelperTest
                 ['label' => ['class' => 'visually-hidden', 'for' => 'file']],
                     'File ',
                     'span' => [
-                        'data-toggle' => 'tooltip',
+                        'data-bs-toggle' => 'tooltip',
                         'title' => 'Tooltip text',
                         'class' => 'fas fa-info-circle',
                     ],

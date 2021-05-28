@@ -461,7 +461,7 @@ class MultipleCheckboxControlTest extends AbstractFormHelperTest
                 ['label' => ['id' => 'users-group-label', 'class' => 'col-form-label d-block pt-0 col-sm-5']],
                     'Users ',
                     'span' => [
-                        'data-toggle' => 'tooltip',
+                        'data-bs-toggle' => 'tooltip',
                         'title' => 'Tooltip text',
                         'class' => 'fas fa-info-circle',
                     ],
@@ -1285,7 +1285,7 @@ class MultipleCheckboxControlTest extends AbstractFormHelperTest
                 ['label' => ['id' => 'users-group-label', 'class' => 'col-form-label d-block pt-0 col-sm-5']],
                     'Users ',
                     'span' => [
-                        'data-toggle' => 'tooltip',
+                        'data-bs-toggle' => 'tooltip',
                         'title' => 'Tooltip text',
                         'class' => 'fas fa-info-circle',
                     ],

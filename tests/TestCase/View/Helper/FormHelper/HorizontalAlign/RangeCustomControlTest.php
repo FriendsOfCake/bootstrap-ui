@@ -280,7 +280,7 @@ class RangeCustomControlTest extends AbstractFormHelperTest
                 ['label' => ['class' => 'col-form-label col-sm-5', 'for' => 'height']],
                     'Height',
                     'span' => [
-                        'data-toggle' => 'tooltip',
+                        'data-bs-toggle' => 'tooltip',
                         'title' => 'Tooltip text',
                         'class' => 'fas fa-info-circle',
                     ],

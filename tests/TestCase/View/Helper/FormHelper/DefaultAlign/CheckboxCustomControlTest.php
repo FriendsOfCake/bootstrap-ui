@@ -232,7 +232,7 @@ class CheckboxCustomControlTest extends AbstractFormHelperTest
                 ['label' => ['class' => 'custom-control-label', 'for' => 'users']],
                     'Users ',
                     'span' => [
-                        'data-toggle' => 'tooltip',
+                        'data-bs-toggle' => 'tooltip',
                         'title' => 'Tooltip text',
                         'class' => 'fas fa-info-circle',
                     ],
@@ -593,7 +593,7 @@ class CheckboxCustomControlTest extends AbstractFormHelperTest
                 ['label' => ['class' => 'custom-control-label', 'for' => 'users']],
                     'Users ',
                     'span' => [
-                        'data-toggle' => 'tooltip',
+                        'data-bs-toggle' => 'tooltip',
                         'title' => 'Tooltip text',
                         'class' => 'fas fa-info-circle',
                     ],

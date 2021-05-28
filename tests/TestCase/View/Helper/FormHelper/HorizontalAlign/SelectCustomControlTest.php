@@ -281,7 +281,7 @@ class SelectCustomControlTest extends AbstractFormHelperTest
                 ['label' => ['class' => 'col-form-label col-sm-5', 'for' => 'users']],
                     'Users',
                     'span' => [
-                        'data-toggle' => 'tooltip',
+                        'data-bs-toggle' => 'tooltip',
                         'title' => 'Tooltip text',
                         'class' => 'fas fa-info-circle',
                     ],

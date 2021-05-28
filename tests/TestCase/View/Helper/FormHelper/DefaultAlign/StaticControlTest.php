@@ -237,7 +237,7 @@ class StaticControlTest extends AbstractFormHelperTest
                 'label' => ['for' => 'title'],
                     'Title',
                     'span' => [
-                        'data-toggle' => 'tooltip',
+                        'data-bs-toggle' => 'tooltip',
                         'title' => 'Tooltip text',
                         'class' => 'fas fa-info-circle',
                     ],

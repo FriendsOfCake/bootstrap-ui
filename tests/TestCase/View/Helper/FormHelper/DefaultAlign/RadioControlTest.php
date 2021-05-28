@@ -362,7 +362,7 @@ class RadioControlTest extends AbstractFormHelperTest
                 ['label' => ['id' => 'users-group-label', 'class' => 'd-block']],
                     'Users' ,
                     'span' => [
-                        'data-toggle' => 'tooltip',
+                        'data-bs-toggle' => 'tooltip',
                         'title' => 'Tooltip text',
                         'class' => 'fas fa-info-circle',
                     ],
@@ -978,7 +978,7 @@ class RadioControlTest extends AbstractFormHelperTest
                 ['label' => ['id' => 'users-group-label', 'class' => 'd-block']],
                     'Users' ,
                     'span' => [
-                        'data-toggle' => 'tooltip',
+                        'data-bs-toggle' => 'tooltip',
                         'title' => 'Tooltip text',
                         'class' => 'fas fa-info-circle',
                     ],
