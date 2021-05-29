@@ -24,7 +24,7 @@ class MultipleCheckboxControlTest extends AbstractFormHelperTest
         ]);
         $expected = [
             ['div' => ['class' => 'form-group position-relative multicheckbox', 'role' => 'group', 'aria-labelledby' => 'users-group-label']],
-                ['span' => ['id' => 'users-group-label', 'class' => 'visually-hidden']],
+                ['span' => ['id' => 'users-group-label', 'class' => 'form-label visually-hidden']],
                     'Users',
                 '/span',
                 ['input' => [
@@ -139,7 +139,7 @@ class MultipleCheckboxControlTest extends AbstractFormHelperTest
                 'role' => 'group',
                 'aria-labelledby' => 'users-group-label',
             ]],
-                ['span' => ['id' => 'users-group-label', 'class' => 'visually-hidden']],
+                ['span' => ['id' => 'users-group-label', 'class' => 'form-label visually-hidden']],
                     'Custom Label',
                 '/span',
                 ['input' => [
@@ -202,7 +202,11 @@ class MultipleCheckboxControlTest extends AbstractFormHelperTest
                 'role' => 'group',
                 'aria-labelledby' => 'users-group-label',
             ]],
-                ['span' => ['id' => 'users-group-label', 'class' => 'custom-label-class visually-hidden', 'foo' => 'bar']],
+                ['span' => [
+                    'id' => 'users-group-label',
+                    'class' => 'custom-label-class form-label visually-hidden',
+                    'foo' => 'bar',
+                ]],
                     'Custom Label',
                 '/span',
                 ['input' => [
@@ -323,7 +327,7 @@ class MultipleCheckboxControlTest extends AbstractFormHelperTest
                 'role' => 'group',
                 'aria-labelledby' => 'users-group-label',
             ]],
-                ['span' => ['id' => 'users-group-label', 'class' => 'visually-hidden']],
+                ['span' => ['id' => 'users-group-label', 'class' => 'form-label visually-hidden']],
                     'Users',
                 '/span',
                 ['input' => [
@@ -385,7 +389,7 @@ class MultipleCheckboxControlTest extends AbstractFormHelperTest
                 'role' => 'group',
                 'aria-labelledby' => 'users-group-label',
             ]],
-                ['span' => ['id' => 'users-group-label', 'class' => 'visually-hidden']],
+                ['span' => ['id' => 'users-group-label', 'class' => 'form-label visually-hidden']],
                     'Users',
                 '/span',
                 ['input' => [
@@ -416,7 +420,7 @@ class MultipleCheckboxControlTest extends AbstractFormHelperTest
         ]);
         $expected = [
             ['div' => ['class' => 'form-group position-relative multicheckbox', 'role' => 'group', 'aria-labelledby' => 'users-group-label']],
-                ['span' => ['id' => 'users-group-label', 'class' => 'visually-hidden']],
+                ['span' => ['id' => 'users-group-label', 'class' => 'form-label visually-hidden']],
                     'Users ',
                     'span' => [
                         'data-bs-toggle' => 'tooltip',
@@ -459,7 +463,7 @@ class MultipleCheckboxControlTest extends AbstractFormHelperTest
                 'role' => 'group',
                 'aria-labelledby' => 'users-group-label',
             ]],
-                ['span' => ['id' => 'users-group-label', 'class' => 'visually-hidden']],
+                ['span' => ['id' => 'users-group-label', 'class' => 'form-label visually-hidden']],
                     'Users',
                 '/span',
                 ['input' => [
@@ -526,7 +530,7 @@ class MultipleCheckboxControlTest extends AbstractFormHelperTest
                 'role' => 'group',
                 'aria-labelledby' => 'users-group-label',
             ]],
-                ['span' => ['id' => 'users-group-label', 'class' => 'visually-hidden']],
+                ['span' => ['id' => 'users-group-label', 'class' => 'form-label visually-hidden']],
                     'Users',
                 '/span',
                 ['input' => [
@@ -592,7 +596,7 @@ class MultipleCheckboxControlTest extends AbstractFormHelperTest
                 'role' => 'group',
                 'aria-labelledby' => 'users-group-label',
             ]],
-                ['span' => ['id' => 'users-group-label', 'class' => 'visually-hidden']],
+                ['span' => ['id' => 'users-group-label', 'class' => 'form-label visually-hidden']],
                     'Users',
                 '/span',
                 ['input' => [
@@ -658,7 +662,7 @@ class MultipleCheckboxControlTest extends AbstractFormHelperTest
         ]);
         $expected = [
             ['div' => ['class' => 'form-group position-relative multicheckbox', 'role' => 'group', 'aria-labelledby' => 'users-group-label']],
-                ['span' => ['id' => 'users-group-label', 'class' => 'visually-hidden']],
+                ['span' => ['id' => 'users-group-label', 'class' => 'form-label visually-hidden']],
                     'Users',
                 '/span',
                 ['input' => [
@@ -725,7 +729,7 @@ class MultipleCheckboxControlTest extends AbstractFormHelperTest
         ]);
         $expected = [
             ['div' => ['class' => 'form-group position-relative multicheckbox', 'role' => 'group', 'aria-labelledby' => 'users-group-label']],
-                ['span' => ['id' => 'users-group-label', 'class' => 'visually-hidden']],
+                ['span' => ['id' => 'users-group-label', 'class' => 'form-label visually-hidden']],
                     'Users',
                 '/span',
                 ['input' => [
@@ -788,7 +792,7 @@ class MultipleCheckboxControlTest extends AbstractFormHelperTest
         ]);
         $expected = [
             ['div' => ['class' => 'form-group position-relative multicheckbox', 'role' => 'group', 'aria-labelledby' => 'users-group-label']],
-                ['span' => ['id' => 'users-group-label', 'class' => 'visually-hidden']],
+                ['span' => ['id' => 'users-group-label', 'class' => 'form-label visually-hidden']],
                     'Users',
                 '/span',
                 ['input' => [

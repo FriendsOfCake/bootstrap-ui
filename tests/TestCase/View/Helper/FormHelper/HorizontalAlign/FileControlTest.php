@@ -23,7 +23,7 @@ class FileControlTest extends AbstractFormHelperTest
         ]);
         $expected = [
             ['div' => ['class' => 'form-group row file']],
-                ['label' => ['class' => 'col-form-label pt-1 col-sm-5', 'for' => 'file']],
+                ['label' => ['class' => 'col-form-label col-sm-5', 'for' => 'file']],
                     'File',
                 '/label',
                 ['div' => ['class' => 'col-sm-7']],
@@ -86,7 +86,7 @@ class FileControlTest extends AbstractFormHelperTest
         ]);
         $expected = [
             ['div' => ['class' => 'form-group row file']],
-                ['label' => ['class' => 'col-form-label pt-1 col-sm-5', 'for' => 'file']],
+                ['label' => ['class' => 'col-form-label col-sm-5', 'for' => 'file']],
                     'Custom Label',
                 '/label',
                 ['div' => ['class' => 'col-sm-7']],
@@ -123,7 +123,11 @@ class FileControlTest extends AbstractFormHelperTest
         ]);
         $expected = [
             ['div' => ['class' => 'form-group row file']],
-                ['label' => ['class' => 'custom-label-class col-form-label pt-1 col-sm-5', 'foo' => 'bar', 'for' => 'file']],
+                ['label' => [
+                    'class' => 'custom-label-class col-form-label col-sm-5',
+                    'foo' => 'bar',
+                    'for' => 'file',
+                ]],
                     'Custom Label',
                 '/label',
                 ['div' => ['class' => 'col-sm-7']],
@@ -160,12 +164,12 @@ class FileControlTest extends AbstractFormHelperTest
             'type' => 'file',
             'templates' => [
                 'fileLabel' =>
-                    '<label class="col-form-label pt-1 %s"{{attrs}} back="compat">{{text}}{{tooltip}}</label>',
+                    '<label class="col-form-label %s"{{attrs}} back="compat">{{text}}{{tooltip}}</label>',
             ],
         ]);
         $expected = [
             ['div' => ['class' => 'form-group row file']],
-                ['label' => ['class' => 'col-form-label pt-1 %s', 'for' => 'file', 'back' => 'compat']],
+                ['label' => ['class' => 'col-form-label %s', 'for' => 'file', 'back' => 'compat']],
                     'File',
                 '/label',
                 ['div' => ['class' => 'col-sm-7']],
@@ -198,7 +202,7 @@ class FileControlTest extends AbstractFormHelperTest
         ]);
         $expected = [
             ['div' => ['class' => 'form-group row file']],
-                ['label' => ['class' => 'col-form-label pt-1 col-sm-5', 'for' => 'file']],
+                ['label' => ['class' => 'col-form-label col-sm-5', 'for' => 'file']],
                     'File',
                 '/label',
                 ['div' => ['class' => 'col-sm-7']],
@@ -237,7 +241,7 @@ class FileControlTest extends AbstractFormHelperTest
         ]);
         $expected = [
             ['div' => ['class' => 'form-group row file']],
-                ['label' => ['class' => 'col-form-label pt-1 col-sm-5', 'for' => 'file']],
+                ['label' => ['class' => 'col-form-label col-sm-5', 'for' => 'file']],
                     'File',
                 '/label',
                 ['div' => ['class' => 'col-sm-7']],
@@ -273,7 +277,7 @@ class FileControlTest extends AbstractFormHelperTest
         ]);
         $expected = [
             ['div' => ['class' => 'form-group row file']],
-                ['label' => ['class' => 'col-form-label pt-1 col-sm-5', 'for' => 'file']],
+                ['label' => ['class' => 'col-form-label col-sm-5', 'for' => 'file']],
                     'File ',
                     'span' => [
                         'data-bs-toggle' => 'tooltip',
@@ -314,7 +318,7 @@ class FileControlTest extends AbstractFormHelperTest
         ]);
         $expected = [
             ['div' => ['class' => 'form-group row file is-invalid']],
-                ['label' => ['class' => 'col-form-label pt-1 col-sm-5', 'for' => 'file']],
+                ['label' => ['class' => 'col-form-label col-sm-5', 'for' => 'file']],
                     'File',
                 '/label',
                 ['div' => ['class' => 'col-sm-7']],
@@ -356,7 +360,7 @@ class FileControlTest extends AbstractFormHelperTest
                 'attribute' => 'container-attribute',
                 'class' => 'container-class form-group row file',
             ]],
-                ['label' => ['class' => 'col-form-label pt-1 col-sm-5', 'for' => 'file']],
+                ['label' => ['class' => 'col-form-label col-sm-5', 'for' => 'file']],
                     'File',
                 '/label',
                 ['div' => ['class' => 'col-sm-7']],
@@ -398,7 +402,7 @@ class FileControlTest extends AbstractFormHelperTest
                 'attribute' => 'container-attribute',
                 'class' => 'container-class form-group row file is-invalid',
             ]],
-                ['label' => ['class' => 'col-form-label pt-1 col-sm-5', 'for' => 'file']],
+                ['label' => ['class' => 'col-form-label col-sm-5', 'for' => 'file']],
                     'File',
                 '/label',
                 ['div' => ['class' => 'col-sm-7']],

@@ -27,7 +27,7 @@ class MultipleCheckboxControlTest extends AbstractFormHelperTest
         ]);
         $expected = [
             ['div' => ['class' => 'form-group row multicheckbox', 'role' => 'group', 'aria-labelledby' => 'users-group-label']],
-                ['label' => ['id' => 'users-group-label', 'class' => 'col-form-label d-block pt-0 col-sm-5']],
+                ['label' => ['id' => 'users-group-label', 'class' => 'col-form-label col-sm-5 d-block pt-0']],
                     'Users',
                 '/label',
                 ['div' => ['class' => 'col-sm-7']],
@@ -152,7 +152,7 @@ class MultipleCheckboxControlTest extends AbstractFormHelperTest
                 'role' => 'group',
                 'aria-labelledby' => 'users-group-label',
             ]],
-                ['label' => ['id' => 'users-group-label', 'class' => 'col-form-label d-block pt-0 col-sm-5']],
+                ['label' => ['id' => 'users-group-label', 'class' => 'col-form-label col-sm-5 d-block pt-0']],
                     'Custom Label',
                 '/label',
                 ['div' => ['class' => 'col-sm-7']],
@@ -220,7 +220,7 @@ class MultipleCheckboxControlTest extends AbstractFormHelperTest
                 'role' => 'group',
                 'aria-labelledby' => 'users-group-label',
             ]],
-                ['label' => ['id' => 'users-group-label', 'class' => 'custom-label-class col-form-label d-block pt-0 col-sm-5', 'foo' => 'bar']],
+                ['label' => ['id' => 'users-group-label', 'class' => 'custom-label-class col-form-label col-sm-5 d-block pt-0', 'foo' => 'bar']],
                     'Custom Label',
                 '/label',
                 ['div' => ['class' => 'col-sm-7']],
@@ -355,7 +355,7 @@ class MultipleCheckboxControlTest extends AbstractFormHelperTest
                 'role' => 'group',
                 'aria-labelledby' => 'users-group-label',
             ]],
-                ['label' => ['id' => 'users-group-label', 'class' => 'col-form-label d-block pt-0 col-sm-5']],
+                ['label' => ['id' => 'users-group-label', 'class' => 'col-form-label col-sm-5 d-block pt-0']],
                     'Users',
                 '/label',
                 ['div' => ['class' => 'col-sm-7']],
@@ -422,7 +422,7 @@ class MultipleCheckboxControlTest extends AbstractFormHelperTest
                 'role' => 'group',
                 'aria-labelledby' => 'users-group-label',
             ]],
-                ['label' => ['id' => 'users-group-label', 'class' => 'col-form-label d-block pt-0 col-sm-5']],
+                ['label' => ['id' => 'users-group-label', 'class' => 'col-form-label col-sm-5 d-block pt-0']],
                     'Users',
                 '/label',
                 ['div' => ['class' => 'col-sm-7']],
@@ -458,7 +458,7 @@ class MultipleCheckboxControlTest extends AbstractFormHelperTest
         ]);
         $expected = [
             ['div' => ['class' => 'form-group row multicheckbox', 'role' => 'group', 'aria-labelledby' => 'users-group-label']],
-                ['label' => ['id' => 'users-group-label', 'class' => 'col-form-label d-block pt-0 col-sm-5']],
+                ['label' => ['id' => 'users-group-label', 'class' => 'col-form-label col-sm-5 d-block pt-0']],
                     'Users ',
                     'span' => [
                         'data-bs-toggle' => 'tooltip',
@@ -506,7 +506,7 @@ class MultipleCheckboxControlTest extends AbstractFormHelperTest
                 'role' => 'group',
                 'aria-labelledby' => 'users-group-label',
             ]],
-                ['label' => ['id' => 'users-group-label', 'class' => 'col-form-label d-block pt-0 col-sm-5']],
+                ['label' => ['id' => 'users-group-label', 'class' => 'col-form-label col-sm-5 d-block pt-0']],
                     'Users',
                 '/label',
                 ['div' => ['class' => 'col-sm-7']],
@@ -578,7 +578,7 @@ class MultipleCheckboxControlTest extends AbstractFormHelperTest
                 'role' => 'group',
                 'aria-labelledby' => 'users-group-label',
             ]],
-                ['label' => ['id' => 'users-group-label', 'class' => 'col-form-label d-block pt-0 col-sm-5']],
+                ['label' => ['id' => 'users-group-label', 'class' => 'col-form-label col-sm-5 d-block pt-0']],
                     'Users',
                 '/label',
                 ['div' => ['class' => 'col-sm-7']],
@@ -649,7 +649,7 @@ class MultipleCheckboxControlTest extends AbstractFormHelperTest
                 'role' => 'group',
                 'aria-labelledby' => 'users-group-label',
             ]],
-                ['label' => ['id' => 'users-group-label', 'class' => 'col-form-label d-block pt-0 col-sm-5']],
+                ['label' => ['id' => 'users-group-label', 'class' => 'col-form-label col-sm-5 d-block pt-0']],
                     'Users',
                 '/label',
                 ['div' => ['class' => 'col-sm-7']],
@@ -713,7 +713,7 @@ class MultipleCheckboxControlTest extends AbstractFormHelperTest
         ]);
         $expected = [
             ['div' => ['class' => 'form-group row multicheckbox', 'role' => 'group', 'aria-labelledby' => 'users-group-label']],
-                ['label' => ['id' => 'users-group-label', 'class' => 'col-form-label d-block pt-0 col-sm-5']],
+                ['label' => ['id' => 'users-group-label', 'class' => 'col-form-label col-sm-5 d-block pt-0']],
                     'Users',
                 '/label',
                 ['div' => ['class' => 'col-sm-7']],
@@ -780,7 +780,7 @@ class MultipleCheckboxControlTest extends AbstractFormHelperTest
                 'role' => 'group',
                 'aria-labelledby' => 'users-group-label',
             ]],
-                ['label' => ['id' => 'users-group-label', 'class' => 'col-form-label d-block pt-0 col-sm-5']],
+                ['label' => ['id' => 'users-group-label', 'class' => 'col-form-label col-sm-5 d-block pt-0']],
                     'Users',
                 '/label',
                 ['div' => ['class' => 'col-sm-7']],
@@ -844,7 +844,7 @@ class MultipleCheckboxControlTest extends AbstractFormHelperTest
         ]);
         $expected = [
             ['div' => ['class' => 'form-group row multicheckbox', 'role' => 'group', 'aria-labelledby' => 'users-group-label']],
-                ['label' => ['id' => 'users-group-label', 'class' => 'col-form-label d-block pt-0 col-sm-5']],
+                ['label' => ['id' => 'users-group-label', 'class' => 'col-form-label col-sm-5 d-block pt-0']],
                     'Users',
                 '/label',
                 ['div' => ['class' => 'col-sm-7']],
@@ -971,7 +971,7 @@ class MultipleCheckboxControlTest extends AbstractFormHelperTest
                 'role' => 'group',
                 'aria-labelledby' => 'users-group-label',
             ]],
-                ['label' => ['id' => 'users-group-label', 'class' => 'col-form-label d-block pt-0 col-sm-5']],
+                ['label' => ['id' => 'users-group-label', 'class' => 'col-form-label col-sm-5 d-block pt-0']],
                     'Custom Label',
                 '/label',
                 ['div' => ['class' => 'col-sm-7']],
@@ -1040,7 +1040,7 @@ class MultipleCheckboxControlTest extends AbstractFormHelperTest
                 'role' => 'group',
                 'aria-labelledby' => 'users-group-label',
             ]],
-                ['label' => ['id' => 'users-group-label', 'class' => 'custom-label-class col-form-label d-block pt-0 col-sm-5', 'foo' => 'bar']],
+                ['label' => ['id' => 'users-group-label', 'class' => 'custom-label-class col-form-label col-sm-5 d-block pt-0', 'foo' => 'bar']],
                     'Custom Label',
                 '/label',
                 ['div' => ['class' => 'col-sm-7']],
@@ -1177,7 +1177,7 @@ class MultipleCheckboxControlTest extends AbstractFormHelperTest
                 'role' => 'group',
                 'aria-labelledby' => 'users-group-label',
             ]],
-                ['label' => ['id' => 'users-group-label', 'class' => 'col-form-label d-block pt-0 col-sm-5']],
+                ['label' => ['id' => 'users-group-label', 'class' => 'col-form-label col-sm-5 d-block pt-0']],
                     'Users',
                 '/label',
                 ['div' => ['class' => 'col-sm-7']],
@@ -1245,7 +1245,7 @@ class MultipleCheckboxControlTest extends AbstractFormHelperTest
                 'role' => 'group',
                 'aria-labelledby' => 'users-group-label',
             ]],
-                ['label' => ['id' => 'users-group-label', 'class' => 'col-form-label d-block pt-0 col-sm-5']],
+                ['label' => ['id' => 'users-group-label', 'class' => 'col-form-label col-sm-5 d-block pt-0']],
                     'Users',
                 '/label',
                 ['div' => ['class' => 'col-sm-7']],
@@ -1282,7 +1282,7 @@ class MultipleCheckboxControlTest extends AbstractFormHelperTest
         ]);
         $expected = [
             ['div' => ['class' => 'form-group row multicheckbox', 'role' => 'group', 'aria-labelledby' => 'users-group-label']],
-                ['label' => ['id' => 'users-group-label', 'class' => 'col-form-label d-block pt-0 col-sm-5']],
+                ['label' => ['id' => 'users-group-label', 'class' => 'col-form-label col-sm-5 d-block pt-0']],
                     'Users ',
                     'span' => [
                         'data-bs-toggle' => 'tooltip',
@@ -1331,7 +1331,7 @@ class MultipleCheckboxControlTest extends AbstractFormHelperTest
                 'role' => 'group',
                 'aria-labelledby' => 'users-group-label',
             ]],
-                ['label' => ['id' => 'users-group-label', 'class' => 'col-form-label d-block pt-0 col-sm-5']],
+                ['label' => ['id' => 'users-group-label', 'class' => 'col-form-label col-sm-5 d-block pt-0']],
                     'Users',
                 '/label',
                 ['div' => ['class' => 'col-sm-7']],
@@ -1404,7 +1404,7 @@ class MultipleCheckboxControlTest extends AbstractFormHelperTest
                 'role' => 'group',
                 'aria-labelledby' => 'users-group-label',
             ]],
-                ['label' => ['id' => 'users-group-label', 'class' => 'col-form-label d-block pt-0 col-sm-5']],
+                ['label' => ['id' => 'users-group-label', 'class' => 'col-form-label col-sm-5 d-block pt-0']],
                     'Users',
                 '/label',
                 ['div' => ['class' => 'col-sm-7']],
@@ -1476,7 +1476,7 @@ class MultipleCheckboxControlTest extends AbstractFormHelperTest
                 'role' => 'group',
                 'aria-labelledby' => 'users-group-label',
             ]],
-                ['label' => ['id' => 'users-group-label', 'class' => 'col-form-label d-block pt-0 col-sm-5']],
+                ['label' => ['id' => 'users-group-label', 'class' => 'col-form-label col-sm-5 d-block pt-0']],
                     'Users',
                 '/label',
                 ['div' => ['class' => 'col-sm-7']],
@@ -1541,7 +1541,7 @@ class MultipleCheckboxControlTest extends AbstractFormHelperTest
         ]);
         $expected = [
             ['div' => ['class' => 'form-group row multicheckbox', 'role' => 'group', 'aria-labelledby' => 'users-group-label']],
-                ['label' => ['id' => 'users-group-label', 'class' => 'col-form-label d-block pt-0 col-sm-5']],
+                ['label' => ['id' => 'users-group-label', 'class' => 'col-form-label col-sm-5 d-block pt-0']],
                     'Users',
                 '/label',
                 ['div' => ['class' => 'col-sm-7']],
@@ -1606,7 +1606,7 @@ class MultipleCheckboxControlTest extends AbstractFormHelperTest
         ]);
         $expected = [
             ['div' => ['class' => 'form-group row multicheckbox', 'role' => 'group', 'aria-labelledby' => 'users-group-label']],
-                ['label' => ['id' => 'users-group-label', 'class' => 'col-form-label d-block pt-0 col-sm-5']],
+                ['label' => ['id' => 'users-group-label', 'class' => 'col-form-label col-sm-5 d-block pt-0']],
                     'Users',
                 '/label',
                 ['div' => ['class' => 'col-sm-7']],
@@ -1712,7 +1712,7 @@ class MultipleCheckboxControlTest extends AbstractFormHelperTest
                 'role' => 'group',
                 'aria-labelledby' => 'users-group-label',
             ]],
-                ['label' => ['id' => 'users-group-label', 'class' => 'col-form-label d-block pt-0 col-sm-5']],
+                ['label' => ['id' => 'users-group-label', 'class' => 'col-form-label col-sm-5 d-block pt-0']],
                     'Users',
                 '/label',
                 ['div' => ['class' => 'col-sm-7']],
@@ -1816,7 +1816,7 @@ class MultipleCheckboxControlTest extends AbstractFormHelperTest
         ]);
         $expected = [
             ['div' => ['class' => 'form-group row multicheckbox', 'role' => 'group', 'aria-labelledby' => 'users-group-label']],
-                ['label' => ['id' => 'users-group-label', 'class' => 'col-form-label d-block pt-0 col-sm-5']],
+                ['label' => ['id' => 'users-group-label', 'class' => 'col-form-label col-sm-5 d-block pt-0']],
                     'Users',
                 '/label',
                 ['div' => ['class' => 'col-sm-7']],
@@ -1916,7 +1916,7 @@ class MultipleCheckboxControlTest extends AbstractFormHelperTest
         ]);
         $expected = [
             ['div' => ['class' => 'form-group row multicheckbox', 'role' => 'group', 'aria-labelledby' => 'users-group-label']],
-                ['label' => ['id' => 'users-group-label', 'class' => 'col-form-label d-block pt-0 col-sm-5']],
+                ['label' => ['id' => 'users-group-label', 'class' => 'col-form-label col-sm-5 d-block pt-0']],
                     'Users',
                 '/label',
                 ['div' => ['class' => 'col-sm-7']],
@@ -2017,7 +2017,7 @@ class MultipleCheckboxControlTest extends AbstractFormHelperTest
         ]);
         $expected = [
             ['div' => ['class' => 'form-group row multicheckbox', 'role' => 'group', 'aria-labelledby' => 'users-group-label']],
-                ['label' => ['id' => 'users-group-label', 'class' => 'col-form-label d-block pt-0 col-sm-5']],
+                ['label' => ['id' => 'users-group-label', 'class' => 'col-form-label col-sm-5 d-block pt-0']],
                     'Users',
                 '/label',
                 ['div' => ['class' => 'col-sm-7']],
@@ -2114,7 +2114,7 @@ class MultipleCheckboxControlTest extends AbstractFormHelperTest
         ]);
         $expected = [
             ['div' => ['class' => 'form-group row multicheckbox', 'role' => 'group', 'aria-labelledby' => 'users-group-label']],
-                ['label' => ['id' => 'users-group-label', 'class' => 'col-form-label d-block pt-0 col-sm-5']],
+                ['label' => ['id' => 'users-group-label', 'class' => 'col-form-label col-sm-5 d-block pt-0']],
                     'Users',
                 '/label',
                 ['div' => ['class' => 'col-sm-7']],
@@ -2230,7 +2230,7 @@ class MultipleCheckboxControlTest extends AbstractFormHelperTest
         ]);
         $expected = [
             ['div' => ['class' => 'form-group row multicheckbox', 'role' => 'group', 'aria-labelledby' => 'users-group-label']],
-                ['label' => ['id' => 'users-group-label', 'class' => 'col-form-label d-block pt-0 col-sm-5']],
+                ['label' => ['id' => 'users-group-label', 'class' => 'col-form-label col-sm-5 d-block pt-0']],
                     'Users',
                 '/label',
                 ['div' => ['class' => 'col-sm-7']],
@@ -2356,7 +2356,7 @@ class MultipleCheckboxControlTest extends AbstractFormHelperTest
         ]);
         $expected = [
             ['div' => ['class' => 'form-group row multicheckbox', 'role' => 'group', 'aria-labelledby' => 'users-group-label']],
-                ['label' => ['id' => 'users-group-label', 'class' => 'col-form-label d-block pt-0 col-sm-5']],
+                ['label' => ['id' => 'users-group-label', 'class' => 'col-form-label col-sm-5 d-block pt-0']],
                     'Users',
                 '/label',
                 ['div' => ['class' => 'col-sm-7']],
@@ -2473,7 +2473,7 @@ class MultipleCheckboxControlTest extends AbstractFormHelperTest
         ]);
         $expected = [
             ['div' => ['class' => 'form-group row multicheckbox', 'role' => 'group', 'aria-labelledby' => 'users-group-label']],
-                ['label' => ['id' => 'users-group-label', 'class' => 'col-form-label d-block pt-0 col-sm-5']],
+                ['label' => ['id' => 'users-group-label', 'class' => 'col-form-label col-sm-5 d-block pt-0']],
                     'Users',
                 '/label',
                 ['div' => ['class' => 'col-sm-7']],

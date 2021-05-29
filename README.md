@@ -292,7 +292,7 @@ will render this HTML:
         <input type="hidden" name="_method" value="POST">
     </div>
     <div class="form-group text">
-        <label for="title">Title</label>
+        <label class="form-label" for="title">Title</label>
         <input type="text" name="title" id="title" class="form-control">
     </div>
     <div class="form-group form-check checkbox">
@@ -367,7 +367,7 @@ will render this HTML:
 ```html
 <form method="post" accept-charset="utf-8" class="form-inline" role="form" action="/articles/add">
     <div class="form-group text">
-        <label class="visually-hidden" for="title">Title</label>
+        <label class="form-label visually-hidden" for="title">Title</label>
         <input type="text" name="title" placeholder="Title" id="title" class="form-control"/>
     </div>
     <div class="form-check form-check-inline checkbox">
@@ -405,7 +405,7 @@ This would generate the following HTML:
 
 ```html
 <div data-meta="meta information" class="my-title-control form-group text">
-    <label for="title">Title</label>
+    <label class="form-label" for="title">Title</label>
     <input type="text" name="title" id="title" class="form-control">
 </div>
 ```
@@ -424,7 +424,7 @@ This would generate the following HTML:
 
 ```html
 <div class="form-group email">
-    <label for="email">Email</label>
+    <label class="form-label" for="email">Email</label>
     <div class="input-group">
         <span class="input-group-text">@</span>
         <input type="email" name="email" id="email" class="form-control"/>
@@ -483,7 +483,7 @@ This would generate the following HTML:
 
 ```html
 <div class="form-group text">
-    <label for="title">Title</label>
+    <label class="form-label" for="title">Title</label>
     <input type="text" name="title" id="title" class="form-control"/>
     <small class="form-text text-muted">Help text</small>
 </div>
@@ -506,7 +506,9 @@ This would generate the following HTML:
 
 ```html
 <div class="form-group text">
-    <label for="title">Title <span data-bs-toggle="tooltip" title="Tooltip text" class="fas fa-info-circle"></span></label>
+    <label class="form-label" for="title">
+        Title <span data-bs-toggle="tooltip" title="Tooltip text" class="fas fa-info-circle"></span>
+    </label>
     <input type="text" name="title" id="title" class="form-control"/>
 </div>
 ```
@@ -569,7 +571,7 @@ With an error on the `title` field, this would generate the following HTML:
 
 ```html
 <div class="form-group position-absolute text is-invalid">
-    <label for="title">Title</label>
+    <label class="form-label" for="title">Title</label>
     <input type="text" name="title" id="title" class="is-invalid form-control"/>
     <div class="invalid-tooltip">Error message</div>
 </div>

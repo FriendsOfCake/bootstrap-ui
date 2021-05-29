@@ -23,7 +23,7 @@ class DateTimeControlTest extends AbstractFormHelperTest
         ]);
         $expected = [
             ['div' => ['class' => 'form-group position-relative datetime-local']],
-                ['label' => ['class' => 'visually-hidden', 'for' => 'created']],
+                ['label' => ['class' => 'form-label visually-hidden', 'for' => 'created']],
                     'Created',
                 '/label',
                 'input' => [
@@ -84,7 +84,7 @@ class DateTimeControlTest extends AbstractFormHelperTest
         ]);
         $expected = [
             ['div' => ['class' => 'form-group position-relative datetime-local']],
-                ['label' => ['class' => 'visually-hidden', 'for' => 'created']],
+                ['label' => ['class' => 'form-label visually-hidden', 'for' => 'created']],
                     'Custom Label',
                 '/label',
                 'input' => [
@@ -120,7 +120,11 @@ class DateTimeControlTest extends AbstractFormHelperTest
         ]);
         $expected = [
             ['div' => ['class' => 'form-group position-relative datetime-local']],
-                ['label' => ['class' => 'custom-label-class visually-hidden', 'foo' => 'bar', 'for' => 'created']],
+                ['label' => [
+                    'class' => 'custom-label-class form-label visually-hidden',
+                    'foo' => 'bar',
+                    'for' => 'created',
+                ]],
                     'Custom Label',
                 '/label',
                 'input' => [
@@ -198,7 +202,7 @@ class DateTimeControlTest extends AbstractFormHelperTest
         ]);
         $expected = [
             ['div' => ['class' => 'form-group position-relative datetime-local']],
-                ['label' => ['class' => 'visually-hidden', 'for' => 'created']],
+                ['label' => ['class' => 'form-label visually-hidden', 'for' => 'created']],
                     'Created',
                 '/label',
                 'input' => [
@@ -236,7 +240,7 @@ class DateTimeControlTest extends AbstractFormHelperTest
         ]);
         $expected = [
             ['div' => ['class' => 'form-group position-relative datetime-local']],
-                ['label' => ['class' => 'visually-hidden', 'for' => 'created']],
+                ['label' => ['class' => 'form-label visually-hidden', 'for' => 'created']],
                     'Created',
                 '/label',
                 'input' => [
@@ -271,7 +275,7 @@ class DateTimeControlTest extends AbstractFormHelperTest
         ]);
         $expected = [
             ['div' => ['class' => 'form-group position-relative datetime-local']],
-                ['label' => ['class' => 'visually-hidden', 'for' => 'created']],
+                ['label' => ['class' => 'form-label visually-hidden', 'for' => 'created']],
                     'Created ',
                     'span' => [
                         'data-bs-toggle' => 'tooltip',
@@ -316,7 +320,7 @@ class DateTimeControlTest extends AbstractFormHelperTest
             ['div' => [
                 'class' => 'form-group position-relative datetime-local is-invalid',
             ]],
-                ['label' => ['class' => 'visually-hidden', 'for' => 'created']],
+                ['label' => ['class' => 'form-label visually-hidden', 'for' => 'created']],
                     'Created',
                 '/label',
                 'input' => [
@@ -357,7 +361,7 @@ class DateTimeControlTest extends AbstractFormHelperTest
                 'attribute' => 'container-attribute',
                 'class' => 'container-class form-group position-relative datetime-local',
             ]],
-                ['label' => ['class' => 'visually-hidden', 'for' => 'created']],
+                ['label' => ['class' => 'form-label visually-hidden', 'for' => 'created']],
                     'Created',
                 '/label',
                 'input' => [
@@ -401,7 +405,7 @@ class DateTimeControlTest extends AbstractFormHelperTest
                 'attribute' => 'container-attribute',
                 'class' => 'container-class form-group position-relative datetime-local is-invalid',
             ]],
-                ['label' => ['class' => 'visually-hidden', 'for' => 'created']],
+                ['label' => ['class' => 'form-label visually-hidden', 'for' => 'created']],
                     'Created',
                 '/label',
                 'input' => [
@@ -435,7 +439,7 @@ class DateTimeControlTest extends AbstractFormHelperTest
         ]);
         $expected = [
             ['div' => ['class' => 'form-group position-relative date']],
-                ['label' => ['class' => 'visually-hidden', 'for' => 'created']],
+                ['label' => ['class' => 'form-label visually-hidden', 'for' => 'created']],
                     'Created',
                 '/label',
                 'input' => [
@@ -466,7 +470,7 @@ class DateTimeControlTest extends AbstractFormHelperTest
         ]);
         $expected = [
             ['div' => ['class' => 'form-group position-relative time']],
-                ['label' => ['class' => 'visually-hidden', 'for' => 'created']],
+                ['label' => ['class' => 'form-label visually-hidden', 'for' => 'created']],
                     'Created',
                 '/label',
                 'input' => [

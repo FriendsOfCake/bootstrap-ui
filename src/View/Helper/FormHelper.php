@@ -223,7 +223,6 @@ class FormHelper extends Helper
         ],
         'horizontal' => [
             'label' => '<label{{attrs}}>{{text}}{{tooltip}}</label>',
-            'fileLabel' => '<label{{attrs}}>{{text}}{{tooltip}}</label>',
             'formGroup' => '{{label}}<div class="%s">{{input}}{{error}}{{help}}</div>',
             'checkboxFormGroup' =>
                 '<div class="%s"><div class="form-check">{{input}}{{label}}{{error}}{{help}}</div></div>',
@@ -426,7 +425,6 @@ class FormHelper extends Helper
             case 'checkbox':
             case 'radio':
             case 'select':
-            case 'file':
             case 'range':
                 $function = '_' . $options['type'] . 'Options';
                 $options = $this->{$function}($fieldName, $options);
@@ -566,6 +564,8 @@ class FormHelper extends Helper
      */
     protected function _radioOptions(string $fieldName, array $options): array
     {
+        $options = $this->_labelOptions($fieldName, $options);
+
         $options = $this->injectClasses('form-check-input', $options);
 
         $groupId =
@@ -579,18 +579,11 @@ class FormHelper extends Helper
 
         if ($options['label'] !== false) {
             $labelClasses = [];
-            if ($this->_align === static::ALIGN_HORIZONTAL) {
-                $labelClasses[] = 'col-form-label';
-            }
             if ($this->_align !== static::ALIGN_INLINE) {
                 $labelClasses[] = 'd-block';
             }
             if ($this->_align === static::ALIGN_HORIZONTAL) {
-                $size = $this->_gridClass('left');
-                $labelClasses[] = "pt-0 $size";
-            }
-            if ($this->_align === static::ALIGN_INLINE) {
-                $labelClasses[] = 'visually-hidden';
+                $labelClasses[] = 'pt-0';
             }
             if ($labelClasses) {
                 $options['label'] = $this->injectClasses($labelClasses, (array)$options['label']);
@@ -622,6 +615,8 @@ class FormHelper extends Helper
      */
     protected function _selectOptions(string $fieldName, array $options): array
     {
+        $options = $this->_labelOptions($fieldName, $options);
+
         $labelClasses = [];
 
         if (isset($options['multiple']) && $options['multiple'] === 'checkbox') {
@@ -637,15 +632,11 @@ class FormHelper extends Helper
             }
 
             if ($options['label'] !== false) {
-                if ($this->_align === static::ALIGN_HORIZONTAL) {
-                    $labelClasses[] = 'col-form-label';
-                }
                 if ($this->_align !== static::ALIGN_INLINE) {
                     $labelClasses[] = 'd-block';
                 }
                 if ($this->_align === static::ALIGN_HORIZONTAL) {
-                    $size = $this->_gridClass('left');
-                    $labelClasses[] = "pt-0 $size";
+                    $labelClasses[] = "pt-0";
                 }
             }
 
@@ -664,14 +655,6 @@ class FormHelper extends Helper
             if ($options['nestedInput']) {
                 $options['templates']['nestingLabel'] = $this->templater()->get('nestingLabelNestedInput');
             }
-        } else {
-            if (
-                $this->_align === static::ALIGN_HORIZONTAL &&
-                $options['label'] !== false
-            ) {
-                $size = $this->_gridClass('left');
-                $labelClasses[] = "col-form-label $size";
-            }
         }
 
         if (
@@ -688,36 +671,6 @@ class FormHelper extends Helper
         if ($options['type'] !== 'multicheckbox') {
             $options['injectFormControl'] = false;
             $options = $this->injectClasses('form-select', $options);
-        }
-
-        return $options;
-    }
-
-    /**
-     * Modify options for file controls.
-     *
-     * @param string $fieldName Field name.
-     * @param array $options Options. See `$options` argument of `control()` method.
-     * @return array
-     */
-    protected function _fileOptions(string $fieldName, array $options): array
-    {
-        if ($options['label'] !== false) {
-            $labelClasses = [];
-            if ($this->_align === static::ALIGN_HORIZONTAL) {
-                $size = $this->_gridClass('left');
-                $labelClasses[] = "col-form-label pt-1 $size";
-            }
-            if ($this->_align === static::ALIGN_INLINE) {
-                $labelClasses[] = 'visually-hidden';
-            }
-            if ($labelClasses) {
-                $options['label'] = $this->injectClasses($labelClasses, (array)$options['label']);
-            }
-        }
-
-        if ($this->_align === static::ALIGN_HORIZONTAL) {
-            $options['templates']['label'] = $this->templater()->get('fileLabel');
         }
 
         return $options;
@@ -749,6 +702,9 @@ class FormHelper extends Helper
     {
         if ($options['label'] !== false) {
             $labelClasses = [];
+            if ($this->_align !== static::ALIGN_HORIZONTAL) {
+                $labelClasses[] = 'form-label';
+            }
             if ($this->_align === static::ALIGN_HORIZONTAL) {
                 $size = $this->_gridClass('left');
                 $labelClasses[] = "col-form-label $size";
@@ -1140,7 +1096,6 @@ class FormHelper extends Helper
         $templates['label'] = sprintf($templates['label'], $this->_gridClass('left'));
         $templates['datetimeLabel'] = sprintf($templates['datetimeLabel'], $this->_gridClass('left'));
         $templates['radioLabel'] = sprintf($templates['radioLabel'], $this->_gridClass('left'));
-        $templates['fileLabel'] = sprintf($templates['fileLabel'], $this->_gridClass('left'));
         $templates['multicheckboxLabel'] = sprintf($templates['multicheckboxLabel'], $this->_gridClass('left'));
         $templates['formGroup'] = sprintf($templates['formGroup'], $this->_gridClass('middle'));
         $containers = [

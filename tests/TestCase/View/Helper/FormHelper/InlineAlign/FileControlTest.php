@@ -20,7 +20,7 @@ class FileControlTest extends AbstractFormHelperTest
         ]);
         $expected = [
             ['div' => ['class' => 'form-group file']],
-                ['label' => ['class' => 'visually-hidden', 'for' => 'file']],
+                ['label' => ['class' => 'form-label visually-hidden', 'for' => 'file']],
                     'File',
                 '/label',
                 ['input' => [
@@ -73,7 +73,7 @@ class FileControlTest extends AbstractFormHelperTest
         ]);
         $expected = [
             ['div' => ['class' => 'form-group file']],
-                ['label' => ['class' => 'visually-hidden', 'for' => 'file']],
+                ['label' => ['class' => 'form-label visually-hidden', 'for' => 'file']],
                     'Custom Label',
                 '/label',
                 ['input' => [
@@ -105,7 +105,11 @@ class FileControlTest extends AbstractFormHelperTest
         ]);
         $expected = [
             ['div' => ['class' => 'form-group file']],
-                ['label' => ['class' => 'custom-label-class visually-hidden', 'foo' => 'bar', 'for' => 'file']],
+                ['label' => [
+                    'class' => 'custom-label-class form-label visually-hidden',
+                    'foo' => 'bar',
+                    'for' => 'file',
+                ]],
                     'Custom Label',
                 '/label',
                 ['input' => [
@@ -133,7 +137,7 @@ class FileControlTest extends AbstractFormHelperTest
         ]);
         $expected = [
             ['div' => ['class' => 'form-group file']],
-                ['label' => ['class' => 'visually-hidden', 'for' => 'file']],
+                ['label' => ['class' => 'form-label visually-hidden', 'for' => 'file']],
                     'File',
                 '/label',
                 ['input' => [
@@ -167,7 +171,7 @@ class FileControlTest extends AbstractFormHelperTest
         ]);
         $expected = [
             ['div' => ['class' => 'form-group file']],
-                ['label' => ['class' => 'visually-hidden', 'for' => 'file']],
+                ['label' => ['class' => 'form-label visually-hidden', 'for' => 'file']],
                     'File',
                 '/label',
                 ['input' => [
@@ -198,7 +202,7 @@ class FileControlTest extends AbstractFormHelperTest
         ]);
         $expected = [
             ['div' => ['class' => 'form-group file']],
-                ['label' => ['class' => 'visually-hidden', 'for' => 'file']],
+                ['label' => ['class' => 'form-label visually-hidden', 'for' => 'file']],
                     'File ',
                     'span' => [
                         'data-bs-toggle' => 'tooltip',
@@ -234,7 +238,7 @@ class FileControlTest extends AbstractFormHelperTest
         ]);
         $expected = [
             ['div' => ['class' => 'form-group position-relative file is-invalid']],
-                ['label' => ['class' => 'visually-hidden', 'for' => 'file']],
+                ['label' => ['class' => 'form-label visually-hidden', 'for' => 'file']],
                     'File',
                 '/label',
                 ['input' => [
@@ -271,7 +275,7 @@ class FileControlTest extends AbstractFormHelperTest
                 'attribute' => 'container-attribute',
                 'class' => 'container-class form-group file',
             ]],
-                ['label' => ['class' => 'visually-hidden', 'for' => 'file']],
+                ['label' => ['class' => 'form-label visually-hidden', 'for' => 'file']],
                     'File',
                 '/label',
                 ['input' => [
@@ -308,7 +312,7 @@ class FileControlTest extends AbstractFormHelperTest
                 'attribute' => 'container-attribute',
                 'class' => 'container-class form-group position-relative file is-invalid',
             ]],
-                ['label' => ['class' => 'visually-hidden', 'for' => 'file']],
+                ['label' => ['class' => 'form-label visually-hidden', 'for' => 'file']],
                     'File',
                 '/label',
                 ['input' => [

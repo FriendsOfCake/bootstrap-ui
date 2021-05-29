@@ -15,7 +15,7 @@ class TextControlTest extends AbstractFormHelperTest
         $result = $this->Form->control('title');
         $expected = [
             'div' => ['class' => 'form-group text'],
-                'label' => ['for' => 'title'],
+                ['label' => ['class' => 'form-label', 'for' => 'title']],
                     'Title',
                 '/label',
                 'input' => [
@@ -56,7 +56,7 @@ class TextControlTest extends AbstractFormHelperTest
         $result = $this->Form->control('title', ['label' => 'Custom Label']);
         $expected = [
             'div' => ['class' => 'form-group text'],
-                'label' => ['for' => 'title'],
+                ['label' => ['class' => 'form-label', 'for' => 'title']],
                     'Custom Label',
                 '/label',
                 'input' => [
@@ -84,7 +84,7 @@ class TextControlTest extends AbstractFormHelperTest
         ]);
         $expected = [
             'div' => ['class' => 'form-group text'],
-                'label' => ['for' => 'title', 'class' => 'custom-label-class', 'foo' => 'bar'],
+                'label' => ['for' => 'title', 'class' => 'custom-label-class form-label', 'foo' => 'bar'],
                     'Custom Label',
                 '/label',
                 'input' => [
@@ -108,7 +108,7 @@ class TextControlTest extends AbstractFormHelperTest
         ]);
         $expected = [
             'div' => ['class' => 'form-group text'],
-                'label' => ['for' => 'title'],
+                ['label' => ['class' => 'form-label', 'for' => 'title']],
                     'Title',
                 '/label',
                 'input' => [
@@ -138,7 +138,7 @@ class TextControlTest extends AbstractFormHelperTest
         ]);
         $expected = [
             'div' => ['class' => 'form-group text'],
-                'label' => ['for' => 'title'],
+                ['label' => ['class' => 'form-label', 'for' => 'title']],
                     'Title',
                 '/label',
                 'input' => [
@@ -165,7 +165,7 @@ class TextControlTest extends AbstractFormHelperTest
         ]);
         $expected = [
             'div' => ['class' => 'form-group text'],
-                'label' => ['for' => 'title'],
+                ['label' => ['class' => 'form-label', 'for' => 'title']],
                     'Title',
                     'span' => [
                         'data-bs-toggle' => 'tooltip',
@@ -196,7 +196,7 @@ class TextControlTest extends AbstractFormHelperTest
         $result = $this->Form->control('title');
         $expected = [
             'div' => ['class' => 'form-group text is-invalid'],
-                'label' => ['for' => 'title'],
+                ['label' => ['class' => 'form-label', 'for' => 'title']],
                     'Title',
                 '/label',
                 'input' => [
@@ -230,7 +230,7 @@ class TextControlTest extends AbstractFormHelperTest
                 'attribute' => 'container-attribute',
                 'class' => 'container-class form-group text',
             ],
-                'label' => ['for' => 'title'],
+                ['label' => ['class' => 'form-label', 'for' => 'title']],
                     'Title',
                 '/label',
                 'input' => [
@@ -264,7 +264,7 @@ class TextControlTest extends AbstractFormHelperTest
                 'attribute' => 'container-attribute',
                 'class' => 'container-class form-group text is-invalid',
             ],
-                'label' => ['for' => 'title'],
+                ['label' => ['class' => 'form-label', 'for' => 'title']],
                     'Title',
                 '/label',
                 'input' => [

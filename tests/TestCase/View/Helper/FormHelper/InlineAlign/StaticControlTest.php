@@ -20,7 +20,7 @@ class StaticControlTest extends AbstractFormHelperTest
         $result = $this->Form->control('title', ['type' => 'staticControl']);
         $expected = [
             'div' => ['class' => 'form-group staticControl'],
-                'label' => ['class' => 'visually-hidden', 'for' => 'title'],
+                'label' => ['class' => 'form-label visually-hidden', 'for' => 'title'],
                     'Title',
                 '/label',
                 'p' => ['class' => 'form-control-plaintext'],
@@ -56,7 +56,7 @@ class StaticControlTest extends AbstractFormHelperTest
         ]);
         $expected = [
             'div' => ['class' => 'form-group staticControl'],
-                'label' => ['class' => 'visually-hidden', 'for' => 'title'],
+                'label' => ['class' => 'form-label visually-hidden', 'for' => 'title'],
                     'Title',
                 '/label',
                 'p' => ['class' => 'form-control-plaintext'],
@@ -113,7 +113,7 @@ class StaticControlTest extends AbstractFormHelperTest
         ]);
         $expected = [
             'div' => ['class' => 'form-group staticControl'],
-                'label' => ['class' => 'visually-hidden', 'for' => 'title'],
+                'label' => ['class' => 'form-label visually-hidden', 'for' => 'title'],
                     'Custom Label',
                 '/label',
                 'p' => ['class' => 'form-control-plaintext'],
@@ -148,7 +148,11 @@ class StaticControlTest extends AbstractFormHelperTest
         ]);
         $expected = [
             'div' => ['class' => 'form-group staticControl'],
-                'label' => ['class' => 'custom-label-class visually-hidden', 'foo' => 'bar', 'for' => 'title'],
+                'label' => [
+                    'class' => 'custom-label-class form-label visually-hidden',
+                    'foo' => 'bar',
+                    'for' => 'title',
+                ],
                     'Custom Label',
                 '/label',
                 'p' => ['class' => 'form-control-plaintext'],
@@ -179,7 +183,7 @@ class StaticControlTest extends AbstractFormHelperTest
         ]);
         $expected = [
             'div' => ['class' => 'form-group staticControl'],
-                'label' => ['class' => 'visually-hidden', 'for' => 'title'],
+                'label' => ['class' => 'form-label visually-hidden', 'for' => 'title'],
                     'Title',
                 '/label',
                 'p' => ['class' => 'form-control-plaintext'],
@@ -216,7 +220,7 @@ class StaticControlTest extends AbstractFormHelperTest
         ]);
         $expected = [
             'div' => ['class' => 'form-group staticControl'],
-                'label' => ['class' => 'visually-hidden', 'for' => 'title'],
+                'label' => ['class' => 'form-label visually-hidden', 'for' => 'title'],
                     'Title',
                 '/label',
                 'p' => ['class' => 'form-control-plaintext'],
@@ -250,7 +254,7 @@ class StaticControlTest extends AbstractFormHelperTest
         ]);
         $expected = [
             'div' => ['class' => 'form-group staticControl'],
-                'label' => ['class' => 'visually-hidden', 'for' => 'title'],
+                'label' => ['class' => 'form-label visually-hidden', 'for' => 'title'],
                     'Title',
                     'span' => [
                         'data-bs-toggle' => 'tooltip',
@@ -289,7 +293,7 @@ class StaticControlTest extends AbstractFormHelperTest
         ]);
         $expected = [
             'div' => ['class' => 'form-group position-relative staticControl is-invalid'],
-                'label' => ['class' => 'visually-hidden', 'for' => 'title'],
+                'label' => ['class' => 'form-label visually-hidden', 'for' => 'title'],
                     'Title',
                 '/label',
                 'p' => ['class' => 'form-control-plaintext'],
@@ -330,7 +334,7 @@ class StaticControlTest extends AbstractFormHelperTest
                 'attribute' => 'container-attribute',
                 'class' => 'container-class form-group staticControl',
             ],
-                'label' => ['class' => 'visually-hidden', 'for' => 'title'],
+                'label' => ['class' => 'form-label visually-hidden', 'for' => 'title'],
                     'Title',
                 '/label',
                 'p' => ['class' => 'form-control-plaintext'],
@@ -370,7 +374,7 @@ class StaticControlTest extends AbstractFormHelperTest
                 'attribute' => 'container-attribute',
                 'class' => 'container-class form-group position-relative staticControl is-invalid',
             ],
-                'label' => ['class' => 'visually-hidden', 'for' => 'title'],
+                'label' => ['class' => 'form-label visually-hidden', 'for' => 'title'],
                     'Title',
                 '/label',
                 'p' => ['class' => 'form-control-plaintext'],

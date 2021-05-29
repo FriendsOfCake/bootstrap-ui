@@ -20,7 +20,7 @@ class RadioControlTest extends AbstractFormHelperTest
         ]);
         $expected = [
             ['div' => ['class' => 'form-group radio', 'role' => 'group', 'aria-labelledby' => 'users-group-label']],
-                ['label' => ['id' => 'users-group-label', 'class' => 'd-block']],
+                ['label' => ['id' => 'users-group-label', 'class' => 'form-label d-block']],
                     'Users',
                 '/label',
                 ['input' => [
@@ -119,7 +119,7 @@ class RadioControlTest extends AbstractFormHelperTest
         ]);
         $expected = [
             ['div' => ['class' => 'form-group radio', 'role' => 'group', 'aria-labelledby' => 'users-group-label']],
-                ['label' => ['id' => 'users-group-label', 'class' => 'd-block']],
+                ['label' => ['id' => 'users-group-label', 'class' => 'form-label d-block']],
                     'Custom Label',
                 '/label',
                 ['input' => [
@@ -174,7 +174,7 @@ class RadioControlTest extends AbstractFormHelperTest
         ]);
         $expected = [
             ['div' => ['class' => 'form-group radio', 'role' => 'group', 'aria-labelledby' => 'users-group-label']],
-                ['label' => ['id' => 'users-group-label', 'class' => 'custom-label-class d-block', 'foo' => 'bar']],
+                ['label' => ['id' => 'users-group-label', 'class' => 'custom-label-class form-label d-block', 'foo' => 'bar']],
                     'Custom Label',
                 '/label',
                 ['input' => [
@@ -279,7 +279,7 @@ class RadioControlTest extends AbstractFormHelperTest
         ]);
         $expected = [
             ['div' => ['class' => 'form-group radio', 'role' => 'group', 'aria-labelledby' => 'users-group-label']],
-                ['label' => ['id' => 'users-group-label', 'class' => 'd-block']],
+                ['label' => ['id' => 'users-group-label', 'class' => 'form-label d-block']],
                     'Users',
                 '/label',
                 ['input' => [
@@ -333,7 +333,7 @@ class RadioControlTest extends AbstractFormHelperTest
         ]);
         $expected = [
             ['div' => ['class' => 'form-group radio', 'role' => 'group', 'aria-labelledby' => 'users-group-label']],
-                ['label' => ['id' => 'users-group-label', 'class' => 'd-block']],
+                ['label' => ['id' => 'users-group-label', 'class' => 'form-label d-block']],
                     'Users',
                 '/label',
                 ['input' => [
@@ -359,7 +359,7 @@ class RadioControlTest extends AbstractFormHelperTest
         ]);
         $expected = [
             ['div' => ['class' => 'form-group radio', 'role' => 'group', 'aria-labelledby' => 'users-group-label']],
-                ['label' => ['id' => 'users-group-label', 'class' => 'd-block']],
+                ['label' => ['id' => 'users-group-label', 'class' => 'form-label d-block']],
                     'Users' ,
                     'span' => [
                         'data-bs-toggle' => 'tooltip',
@@ -398,7 +398,7 @@ class RadioControlTest extends AbstractFormHelperTest
                 'role' => 'group',
                 'aria-labelledby' => 'users-group-label',
             ]],
-                ['label' => ['id' => 'users-group-label', 'class' => 'd-block']],
+                ['label' => ['id' => 'users-group-label', 'class' => 'form-label d-block']],
                     'Users',
                 '/label',
                 ['input' => [
@@ -461,7 +461,7 @@ class RadioControlTest extends AbstractFormHelperTest
                 'role' => 'group',
                 'aria-labelledby' => 'users-group-label',
             ]],
-                ['label' => ['id' => 'users-group-label', 'class' => 'd-block']],
+                ['label' => ['id' => 'users-group-label', 'class' => 'form-label d-block']],
                     'Users',
                 '/label',
                 ['input' => [
@@ -523,7 +523,7 @@ class RadioControlTest extends AbstractFormHelperTest
                 'role' => 'group',
                 'aria-labelledby' => 'users-group-label',
             ]],
-                ['label' => ['id' => 'users-group-label', 'class' => 'd-block']],
+                ['label' => ['id' => 'users-group-label', 'class' => 'form-label d-block']],
                     'Users',
                 '/label',
                 ['input' => [
@@ -578,7 +578,7 @@ class RadioControlTest extends AbstractFormHelperTest
         ]);
         $expected = [
             ['div' => ['class' => 'form-group radio', 'role' => 'group', 'aria-labelledby' => 'users-group-label']],
-                ['label' => ['id' => 'users-group-label', 'class' => 'd-block']],
+                ['label' => ['id' => 'users-group-label', 'class' => 'form-label d-block']],
                     'Users',
                 '/label',
                 ['input' => [
@@ -629,7 +629,7 @@ class RadioControlTest extends AbstractFormHelperTest
         ]);
         $expected = [
             ['div' => ['class' => 'form-group radio', 'role' => 'group', 'aria-labelledby' => 'users-group-label']],
-                ['label' => ['id' => 'users-group-label', 'class' => 'd-block']],
+                ['label' => ['id' => 'users-group-label', 'class' => 'form-label d-block']],
                     'Users',
                 '/label',
                 ['input' => [
@@ -730,7 +730,7 @@ class RadioControlTest extends AbstractFormHelperTest
         ]);
         $expected = [
             ['div' => ['class' => 'form-group radio', 'role' => 'group', 'aria-labelledby' => 'users-group-label']],
-                ['label' => ['id' => 'users-group-label', 'class' => 'd-block']],
+                ['label' => ['id' => 'users-group-label', 'class' => 'form-label d-block']],
                     'Custom Label',
                 '/label',
                 ['input' => [
@@ -786,7 +786,11 @@ class RadioControlTest extends AbstractFormHelperTest
         ]);
         $expected = [
             ['div' => ['class' => 'form-group radio', 'role' => 'group', 'aria-labelledby' => 'users-group-label']],
-                ['label' => ['id' => 'users-group-label', 'class' => 'custom-label-class d-block', 'foo' => 'bar']],
+                ['label' => [
+                    'id' => 'users-group-label',
+                    'class' => 'custom-label-class form-label d-block',
+                    'foo' => 'bar',
+                ]],
                     'Custom Label',
                 '/label',
                 ['input' => [
@@ -893,7 +897,7 @@ class RadioControlTest extends AbstractFormHelperTest
         ]);
         $expected = [
             ['div' => ['class' => 'form-group radio', 'role' => 'group', 'aria-labelledby' => 'users-group-label']],
-                ['label' => ['id' => 'users-group-label', 'class' => 'd-block']],
+                ['label' => ['id' => 'users-group-label', 'class' => 'form-label d-block']],
                     'Users',
                 '/label',
                 ['input' => [
@@ -948,7 +952,7 @@ class RadioControlTest extends AbstractFormHelperTest
         ]);
         $expected = [
             ['div' => ['class' => 'form-group radio', 'role' => 'group', 'aria-labelledby' => 'users-group-label']],
-                ['label' => ['id' => 'users-group-label', 'class' => 'd-block']],
+                ['label' => ['id' => 'users-group-label', 'class' => 'form-label d-block']],
                     'Users',
                 '/label',
                 ['input' => [
@@ -975,7 +979,7 @@ class RadioControlTest extends AbstractFormHelperTest
         ]);
         $expected = [
             ['div' => ['class' => 'form-group radio', 'role' => 'group', 'aria-labelledby' => 'users-group-label']],
-                ['label' => ['id' => 'users-group-label', 'class' => 'd-block']],
+                ['label' => ['id' => 'users-group-label', 'class' => 'form-label d-block']],
                     'Users' ,
                     'span' => [
                         'data-bs-toggle' => 'tooltip',
@@ -1015,7 +1019,7 @@ class RadioControlTest extends AbstractFormHelperTest
                 'role' => 'group',
                 'aria-labelledby' => 'users-group-label',
             ]],
-                ['label' => ['id' => 'users-group-label', 'class' => 'd-block']],
+                ['label' => ['id' => 'users-group-label', 'class' => 'form-label d-block']],
                     'Users',
                 '/label',
                 ['input' => [
@@ -1079,7 +1083,7 @@ class RadioControlTest extends AbstractFormHelperTest
                 'role' => 'group',
                 'aria-labelledby' => 'users-group-label',
             ]],
-                ['label' => ['id' => 'users-group-label', 'class' => 'd-block']],
+                ['label' => ['id' => 'users-group-label', 'class' => 'form-label d-block']],
                     'Users',
                 '/label',
                 ['input' => [
@@ -1142,7 +1146,7 @@ class RadioControlTest extends AbstractFormHelperTest
                 'role' => 'group',
                 'aria-labelledby' => 'users-group-label',
             ]],
-                ['label' => ['id' => 'users-group-label', 'class' => 'd-block']],
+                ['label' => ['id' => 'users-group-label', 'class' => 'form-label d-block']],
                     'Users',
                 '/label',
                 ['input' => [
@@ -1198,7 +1202,7 @@ class RadioControlTest extends AbstractFormHelperTest
         ]);
         $expected = [
             ['div' => ['class' => 'form-group radio', 'role' => 'group', 'aria-labelledby' => 'users-group-label']],
-                ['label' => ['id' => 'users-group-label', 'class' => 'd-block']],
+                ['label' => ['id' => 'users-group-label', 'class' => 'form-label d-block']],
                     'Users',
                 '/label',
                 ['input' => [
@@ -1257,7 +1261,7 @@ class RadioControlTest extends AbstractFormHelperTest
                 'role' => 'group',
                 'aria-labelledby' => 'users-group-label',
             ]],
-                ['label' => ['id' => 'users-group-label', 'class' => 'd-block']],
+                ['label' => ['id' => 'users-group-label', 'class' => 'form-label d-block']],
                     'Users',
                 '/label',
                 ['input' => [
@@ -1319,7 +1323,7 @@ class RadioControlTest extends AbstractFormHelperTest
         ]);
         $expected = [
             ['div' => ['class' => 'form-group radio', 'role' => 'group', 'aria-labelledby' => 'users-group-label']],
-                ['label' => ['id' => 'users-group-label', 'class' => 'd-block']],
+                ['label' => ['id' => 'users-group-label', 'class' => 'form-label d-block']],
                     'Users',
                 '/label',
                 ['input' => [
@@ -1390,7 +1394,7 @@ class RadioControlTest extends AbstractFormHelperTest
         ]);
         $expected = [
             ['div' => ['class' => 'form-group radio', 'role' => 'group', 'aria-labelledby' => 'users-group-label']],
-                ['label' => ['id' => 'users-group-label', 'class' => 'd-block']],
+                ['label' => ['id' => 'users-group-label', 'class' => 'form-label d-block']],
                     'Users',
                 '/label',
                 ['input' => [
@@ -1462,7 +1466,7 @@ class RadioControlTest extends AbstractFormHelperTest
         ]);
         $expected = [
             ['div' => ['class' => 'form-group radio', 'role' => 'group', 'aria-labelledby' => 'users-group-label']],
-                ['label' => ['id' => 'users-group-label', 'class' => 'd-block']],
+                ['label' => ['id' => 'users-group-label', 'class' => 'form-label d-block']],
                     'Users',
                 '/label',
                 ['input' => [

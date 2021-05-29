@@ -21,7 +21,7 @@ class RangeControlTest extends AbstractFormHelperTest
         ]);
         $expected = [
             'div' => ['class' => 'form-group range'],
-                ['label' => ['class' => 'visually-hidden', 'for' => 'height']],
+                ['label' => ['class' => 'form-label visually-hidden', 'for' => 'height']],
                     'Height',
                 '/label',
                 'input' => [
@@ -82,7 +82,7 @@ class RangeControlTest extends AbstractFormHelperTest
         ]);
         $expected = [
             'div' => ['class' => 'form-group range'],
-                ['label' => ['class' => 'visually-hidden', 'for' => 'height']],
+                ['label' => ['class' => 'form-label visually-hidden', 'for' => 'height']],
                     'Custom Label',
                 '/label',
                 'input' => [
@@ -118,7 +118,11 @@ class RangeControlTest extends AbstractFormHelperTest
         ]);
         $expected = [
             'div' => ['class' => 'form-group range'],
-                ['label' => ['class' => 'custom-label-class visually-hidden', 'foo' => 'bar', 'for' => 'height']],
+                ['label' => [
+                    'class' => 'custom-label-class form-label visually-hidden',
+                    'foo' => 'bar',
+                    'for' => 'height',
+                ]],
                     'Custom Label',
                 '/label',
                 'input' => [
@@ -150,7 +154,7 @@ class RangeControlTest extends AbstractFormHelperTest
         ]);
         $expected = [
             'div' => ['class' => 'form-group range'],
-                ['label' => ['class' => 'visually-hidden', 'for' => 'height']],
+                ['label' => ['class' => 'form-label visually-hidden', 'for' => 'height']],
                     'Height',
                 '/label',
                 'input' => [
@@ -188,7 +192,7 @@ class RangeControlTest extends AbstractFormHelperTest
         ]);
         $expected = [
             'div' => ['class' => 'form-group range'],
-                ['label' => ['class' => 'visually-hidden', 'for' => 'height']],
+                ['label' => ['class' => 'form-label visually-hidden', 'for' => 'height']],
                     'Height',
                 '/label',
                 'input' => [
@@ -223,7 +227,7 @@ class RangeControlTest extends AbstractFormHelperTest
         ]);
         $expected = [
             'div' => ['class' => 'form-group range'],
-                ['label' => ['class' => 'visually-hidden', 'for' => 'height']],
+                ['label' => ['class' => 'form-label visually-hidden', 'for' => 'height']],
                     'Height ',
                     'span' => [
                         'data-bs-toggle' => 'tooltip',
@@ -263,7 +267,7 @@ class RangeControlTest extends AbstractFormHelperTest
         ]);
         $expected = [
             'div' => ['class' => 'form-group position-relative range is-invalid'],
-                ['label' => ['class' => 'visually-hidden', 'for' => 'height']],
+                ['label' => ['class' => 'form-label visually-hidden', 'for' => 'height']],
                     'Height',
                 '/label',
                 'input' => [
@@ -304,7 +308,7 @@ class RangeControlTest extends AbstractFormHelperTest
                 'attribute' => 'container-attribute',
                 'class' => 'container-class form-group range',
             ],
-                ['label' => ['class' => 'visually-hidden', 'for' => 'height']],
+                ['label' => ['class' => 'form-label visually-hidden', 'for' => 'height']],
                     'Height',
                 '/label',
                 'input' => [
@@ -345,7 +349,7 @@ class RangeControlTest extends AbstractFormHelperTest
                 'attribute' => 'container-attribute',
                 'class' => 'container-class form-group position-relative range is-invalid',
             ],
-                ['label' => ['class' => 'visually-hidden', 'for' => 'height']],
+                ['label' => ['class' => 'form-label visually-hidden', 'for' => 'height']],
                     'Height',
                 '/label',
                 'input' => [

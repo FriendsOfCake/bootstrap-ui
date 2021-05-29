@@ -24,7 +24,7 @@ class RadioControlTest extends AbstractFormHelperTest
         ]);
         $expected = [
             ['div' => ['class' => 'form-group position-relative radio', 'role' => 'group', 'aria-labelledby' => 'users-group-label']],
-                ['span' => ['id' => 'users-group-label', 'class' => 'visually-hidden']],
+                ['span' => ['id' => 'users-group-label', 'class' => 'form-label visually-hidden']],
                     'Users',
                 '/span',
                 ['input' => [
@@ -131,7 +131,7 @@ class RadioControlTest extends AbstractFormHelperTest
         ]);
         $expected = [
             ['div' => ['class' => 'form-group position-relative radio', 'role' => 'group', 'aria-labelledby' => 'users-group-label']],
-                ['span' => ['id' => 'users-group-label', 'class' => 'visually-hidden']],
+                ['span' => ['id' => 'users-group-label', 'class' => 'form-label visually-hidden']],
                     'Custom Label',
                 '/span',
                 ['input' => [
@@ -190,7 +190,11 @@ class RadioControlTest extends AbstractFormHelperTest
         ]);
         $expected = [
             ['div' => ['class' => 'form-group position-relative radio', 'role' => 'group', 'aria-labelledby' => 'users-group-label']],
-                ['span' => ['id' => 'users-group-label', 'class' => 'custom-label-class visually-hidden', 'foo' => 'bar']],
+                ['span' => [
+                    'id' => 'users-group-label',
+                    'class' => 'custom-label-class form-label visually-hidden',
+                    'foo' => 'bar',
+                ]],
                     'Custom Label',
                 '/span',
                 ['input' => [
@@ -307,7 +311,7 @@ class RadioControlTest extends AbstractFormHelperTest
         ]);
         $expected = [
             ['div' => ['class' => 'form-group position-relative radio', 'role' => 'group', 'aria-labelledby' => 'users-group-label']],
-                ['span' => ['id' => 'users-group-label', 'class' => 'visually-hidden']],
+                ['span' => ['id' => 'users-group-label', 'class' => 'form-label visually-hidden']],
                     'Users',
                 '/span',
                 ['input' => [
@@ -365,7 +369,7 @@ class RadioControlTest extends AbstractFormHelperTest
         ]);
         $expected = [
             ['div' => ['class' => 'form-group position-relative radio', 'role' => 'group', 'aria-labelledby' => 'users-group-label']],
-                ['span' => ['id' => 'users-group-label', 'class' => 'visually-hidden']],
+                ['span' => ['id' => 'users-group-label', 'class' => 'form-label visually-hidden']],
                     'Users',
                 '/span',
                 ['input' => [
@@ -399,7 +403,7 @@ class RadioControlTest extends AbstractFormHelperTest
                 'role' => 'group',
                 'aria-labelledby' => 'published-group-label',
             ]],
-                ['span' => ['id' => 'published-group-label', 'class' => 'visually-hidden']],
+                ['span' => ['id' => 'published-group-label', 'class' => 'form-label visually-hidden']],
                     'Published ',
                     'span' => [
                         'data-bs-toggle' => 'tooltip',
@@ -442,7 +446,7 @@ class RadioControlTest extends AbstractFormHelperTest
                 'role' => 'group',
                 'aria-labelledby' => 'users-group-label',
             ]],
-                ['span' => ['id' => 'users-group-label', 'class' => 'visually-hidden']],
+                ['span' => ['id' => 'users-group-label', 'class' => 'form-label visually-hidden']],
                     'Users',
                 '/span',
                 ['input' => [
@@ -509,7 +513,7 @@ class RadioControlTest extends AbstractFormHelperTest
                 'role' => 'group',
                 'aria-labelledby' => 'users-group-label',
             ]],
-                ['span' => ['id' => 'users-group-label', 'class' => 'visually-hidden']],
+                ['span' => ['id' => 'users-group-label', 'class' => 'form-label visually-hidden']],
                     'Users',
                 '/span',
                 ['input' => [
@@ -575,7 +579,7 @@ class RadioControlTest extends AbstractFormHelperTest
                 'role' => 'group',
                 'aria-labelledby' => 'users-group-label',
             ]],
-                ['span' => ['id' => 'users-group-label', 'class' => 'visually-hidden']],
+                ['span' => ['id' => 'users-group-label', 'class' => 'form-label visually-hidden']],
                     'Users',
                 '/span',
                 ['input' => [
@@ -641,7 +645,7 @@ class RadioControlTest extends AbstractFormHelperTest
         ]);
         $expected = [
             ['div' => ['class' => 'form-group position-relative radio', 'role' => 'group', 'aria-labelledby' => 'users-group-label']],
-                ['span' => ['id' => 'users-group-label', 'class' => 'visually-hidden']],
+                ['span' => ['id' => 'users-group-label', 'class' => 'form-label visually-hidden']],
                     'Users',
                 '/span',
                 ['input' => [
@@ -708,7 +712,7 @@ class RadioControlTest extends AbstractFormHelperTest
         ]);
         $expected = [
             ['div' => ['class' => 'form-group position-relative radio', 'role' => 'group', 'aria-labelledby' => 'users-group-label']],
-                ['span' => ['id' => 'users-group-label', 'class' => 'visually-hidden']],
+                ['span' => ['id' => 'users-group-label', 'class' => 'form-label visually-hidden']],
                     'Users',
                 '/span',
                 ['input' => [
@@ -771,7 +775,7 @@ class RadioControlTest extends AbstractFormHelperTest
         ]);
         $expected = [
             ['div' => ['class' => 'form-group position-relative radio', 'role' => 'group', 'aria-labelledby' => 'users-group-label']],
-                ['span' => ['id' => 'users-group-label', 'class' => 'visually-hidden']],
+                ['span' => ['id' => 'users-group-label', 'class' => 'form-label visually-hidden']],
                     'Users',
                 '/span',
                 ['input' => [

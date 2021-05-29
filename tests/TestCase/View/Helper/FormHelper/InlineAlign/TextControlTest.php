@@ -17,7 +17,7 @@ class TextControlTest extends AbstractFormHelperTest
         $result = $this->Form->control('title');
         $expected = [
             'div' => ['class' => 'form-group text'],
-                'label' => ['class' => 'visually-hidden', 'for' => 'title'],
+                'label' => ['class' => 'form-label visually-hidden', 'for' => 'title'],
                     'Title',
                 '/label',
                 'input' => [
@@ -62,7 +62,7 @@ class TextControlTest extends AbstractFormHelperTest
         $result = $this->Form->control('title', ['label' => 'Custom Label']);
         $expected = [
             'div' => ['class' => 'form-group text'],
-                'label' => ['class' => 'visually-hidden', 'for' => 'title'],
+                'label' => ['class' => 'form-label visually-hidden', 'for' => 'title'],
                     'Custom Label',
                 '/label',
                 'input' => [
@@ -92,7 +92,11 @@ class TextControlTest extends AbstractFormHelperTest
         ]);
         $expected = [
             'div' => ['class' => 'form-group text'],
-                'label' => ['class' => 'custom-label-class visually-hidden', 'foo' => 'bar', 'for' => 'title'],
+                'label' => [
+                    'class' => 'custom-label-class form-label visually-hidden',
+                    'foo' => 'bar',
+                    'for' => 'title',
+                ],
                     'Custom Label',
                 '/label',
                 'input' => [
@@ -118,7 +122,7 @@ class TextControlTest extends AbstractFormHelperTest
         ]);
         $expected = [
             'div' => ['class' => 'form-group text'],
-                'label' => ['class' => 'visually-hidden', 'for' => 'title'],
+                'label' => ['class' => 'form-label visually-hidden', 'for' => 'title'],
                     'Title',
                 '/label',
                 'input' => [
@@ -150,7 +154,7 @@ class TextControlTest extends AbstractFormHelperTest
         ]);
         $expected = [
             'div' => ['class' => 'form-group text'],
-                'label' => ['class' => 'visually-hidden', 'for' => 'title'],
+                'label' => ['class' => 'form-label visually-hidden', 'for' => 'title'],
                     'Title',
                 '/label',
                 'input' => [
@@ -179,7 +183,7 @@ class TextControlTest extends AbstractFormHelperTest
         ]);
         $expected = [
             'div' => ['class' => 'form-group text'],
-                'label' => ['class' => 'visually-hidden', 'for' => 'title'],
+                'label' => ['class' => 'form-label visually-hidden', 'for' => 'title'],
                     'Title',
                     'span' => [
                         'data-bs-toggle' => 'tooltip',
@@ -212,7 +216,7 @@ class TextControlTest extends AbstractFormHelperTest
         $result = $this->Form->control('title');
         $expected = [
             'div' => ['class' => 'form-group position-relative text is-invalid'],
-                'label' => ['class' => 'visually-hidden', 'for' => 'title'],
+                'label' => ['class' => 'form-label visually-hidden', 'for' => 'title'],
                     'Title',
                 '/label',
                 'input' => [
@@ -248,7 +252,7 @@ class TextControlTest extends AbstractFormHelperTest
                 'attribute' => 'container-attribute',
                 'class' => 'container-class form-group text',
             ],
-                'label' => ['class' => 'visually-hidden', 'for' => 'title',],
+                'label' => ['class' => 'form-label visually-hidden', 'for' => 'title'],
                     'Title',
                 '/label',
                 'input' => [
@@ -284,7 +288,7 @@ class TextControlTest extends AbstractFormHelperTest
                 'attribute' => 'container-attribute',
                 'class' => 'container-class form-group position-relative text is-invalid',
             ],
-                'label' => ['class' => 'visually-hidden', 'for' => 'title',],
+                'label' => ['class' => 'form-label visually-hidden', 'for' => 'title'],
                     'Title',
                 '/label',
                 'input' => [
