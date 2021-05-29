@@ -688,6 +688,13 @@ class FormHelper extends Helper
         $options = $this->_labelOptions($fieldName, $options);
         $options['injectFormControl'] = false;
 
+        if (
+            $options['label'] !== false &&
+            $this->_align === static::ALIGN_HORIZONTAL
+        ) {
+            $options['label'] = $this->injectClasses('pt-0', (array)$options['label']);
+        }
+
         return $this->injectClasses('form-range', $options);
     }
 

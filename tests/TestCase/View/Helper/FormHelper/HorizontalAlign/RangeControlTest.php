@@ -26,7 +26,7 @@ class RangeControlTest extends AbstractFormHelperTest
         ]);
         $expected = [
             'div' => ['class' => 'form-group row range'],
-                ['label' => ['class' => 'col-form-label col-sm-5', 'for' => 'height']],
+                ['label' => ['class' => 'col-form-label col-sm-5 pt-0', 'for' => 'height']],
                     'Height',
                 '/label',
                 ['div' => ['class' => 'col-sm-7']],
@@ -101,7 +101,7 @@ class RangeControlTest extends AbstractFormHelperTest
         ]);
         $expected = [
             'div' => ['class' => 'form-group row range'],
-                ['label' => ['class' => 'col-form-label col-sm-5', 'for' => 'height']],
+                ['label' => ['class' => 'col-form-label col-sm-5 pt-0', 'for' => 'height']],
                     'Custom Label',
                 '/label',
                 ['div' => ['class' => 'col-sm-7']],
@@ -144,7 +144,11 @@ class RangeControlTest extends AbstractFormHelperTest
         ]);
         $expected = [
             'div' => ['class' => 'form-group row range'],
-                ['label' => ['class' => 'custom-label-class col-form-label col-sm-5', 'foo' => 'bar', 'for' => 'height']],
+                ['label' => [
+                    'class' => 'custom-label-class col-form-label col-sm-5 pt-0',
+                    'foo' => 'bar',
+                    'for' => 'height',
+                ]],
                     'Custom Label',
                 '/label',
                 ['div' => ['class' => 'col-sm-7']],
@@ -183,7 +187,7 @@ class RangeControlTest extends AbstractFormHelperTest
         ]);
         $expected = [
             'div' => ['class' => 'form-group row range'],
-                ['label' => ['class' => 'col-form-label col-sm-5', 'for' => 'height']],
+                ['label' => ['class' => 'col-form-label col-sm-5 pt-0', 'for' => 'height']],
                     'Height',
                 '/label',
                 ['div' => ['class' => 'col-sm-7']],
@@ -228,7 +232,7 @@ class RangeControlTest extends AbstractFormHelperTest
         ]);
         $expected = [
             'div' => ['class' => 'form-group row range'],
-                ['label' => ['class' => 'col-form-label col-sm-5', 'for' => 'height']],
+                ['label' => ['class' => 'col-form-label col-sm-5 pt-0', 'for' => 'height']],
                     'Height',
                 '/label',
                 ['div' => ['class' => 'col-sm-7']],
@@ -270,7 +274,7 @@ class RangeControlTest extends AbstractFormHelperTest
         ]);
         $expected = [
             'div' => ['class' => 'form-group row range'],
-                ['label' => ['class' => 'col-form-label col-sm-5', 'for' => 'height']],
+                ['label' => ['class' => 'col-form-label col-sm-5 pt-0', 'for' => 'height']],
                     'Height',
                     'span' => [
                         'data-bs-toggle' => 'tooltip',
@@ -317,7 +321,7 @@ class RangeControlTest extends AbstractFormHelperTest
         ]);
         $expected = [
             'div' => ['class' => 'form-group row range is-invalid'],
-                ['label' => ['class' => 'col-form-label col-sm-5', 'for' => 'height']],
+                ['label' => ['class' => 'col-form-label col-sm-5 pt-0', 'for' => 'height']],
                     'Height',
                 '/label',
                 ['div' => ['class' => 'col-sm-7']],
@@ -365,7 +369,7 @@ class RangeControlTest extends AbstractFormHelperTest
                 'attribute' => 'container-attribute',
                 'class' => 'container-class form-group row range',
             ],
-                ['label' => ['class' => 'col-form-label col-sm-5', 'for' => 'height']],
+                ['label' => ['class' => 'col-form-label col-sm-5 pt-0', 'for' => 'height']],
                     'Height',
                 '/label',
                 ['div' => ['class' => 'col-sm-7']],
@@ -413,7 +417,7 @@ class RangeControlTest extends AbstractFormHelperTest
                 'attribute' => 'container-attribute',
                 'class' => 'container-class form-group row range is-invalid',
             ],
-                ['label' => ['class' => 'col-form-label col-sm-5', 'for' => 'height']],
+                ['label' => ['class' => 'col-form-label col-sm-5 pt-0', 'for' => 'height']],
                     'Height',
                 '/label',
                 ['div' => ['class' => 'col-sm-7']],
