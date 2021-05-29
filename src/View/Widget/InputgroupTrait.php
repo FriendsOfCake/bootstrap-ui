@@ -58,14 +58,12 @@ trait InputgroupTrait
         if ($prepend) {
             $prepend = $this->_checkForOptions($prepend);
             $attrs = $this->_processOptions($prepend, $attrs);
-            $data['inputClass'] = 'input-group-prepend';
             $prepend = $this->_addon($prepend['content'], $data);
         }
 
         if ($append) {
             $append = $this->_checkForOptions($append);
             $attrs = $this->_processOptions($append, $attrs);
-            $data['inputClass'] = 'input-group-append';
             $append = $this->_addon($append['content'], $data);
         }
 
@@ -99,20 +97,14 @@ trait InputgroupTrait
     protected function _addon(string $addon, array $data): string
     {
         if ($this->_isButton($addon)) {
-            $element = $addon;
+            $content = $addon;
         } else {
-            $element = $this->_templates->format('inputGroupText', [
+            $content = $this->_templates->format('inputGroupText', [
                 'content' => $addon,
             ]);
         }
 
-        $addon = $this->_templates->format('inputGroupAddon', [
-            'class' => $data['inputClass'],
-            'content' => $element,
-            'templateVars' => $data['templateVars'],
-        ]);
-
-        return $addon;
+        return $content;
     }
 
     /**

@@ -180,7 +180,6 @@ class FormHelper extends Helper
         'customRadioInlineWrapper' => '<div class="custom-control custom-radio custom-control-inline">' .
                 '{{hidden}}{{label}}</div>',
         'staticControl' => '<p class="form-control-plaintext">{{content}}</p>',
-        'inputGroupAddon' => '<div class="{{class}}">{{content}}</div>',
         'inputGroupContainer' => '<div{{attrs}}>{{prepend}}{{content}}{{append}}</div>',
         'inputGroupText' => '<span class="input-group-text">{{content}}</span>',
         'multicheckboxContainer' =>

@@ -450,9 +450,7 @@ This would generate the following HTML:
 <div class="form-group email">
     <label for="email">Email</label>
     <div class="input-group">
-        <div class="input-group-prepend">
-            <span class="input-group-text">@</span>
-        </div>
+        <span class="input-group-text">@</span>
         <input type="email" name="email" id="email" class="form-control"/>
     </div>
 </div>
