@@ -52,27 +52,6 @@ class FileWidget extends \Cake\View\Widget\FileWidget
      */
     public function render(array $data, ContextInterface $context): string
     {
-        $data['injectFormControl'] = false;
-
-        $inputClass = 'form-control-file';
-        if (
-            isset($data['custom']) &&
-            $data['custom']
-        ) {
-            $inputClass = 'custom-file-input';
-        }
-        unset($data['custom']);
-
-        $data = $this->injectClasses($inputClass, $data);
-
-        if (isset($data['inputGroupLabel'])) {
-            $data['inputGroupLabel'] += [
-                'for' => $data['id'],
-            ];
-            $data['templateVars']['label'] = $this->_label->render($data['inputGroupLabel'], $context);
-            unset($data['inputGroupLabel']);
-        }
-
         return $this->_withInputGroup($data, $context);
     }
 }

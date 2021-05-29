@@ -5,7 +5,6 @@ namespace BootstrapUI\View\Helper;
 
 use Cake\Core\Configure\Engine\PhpConfig;
 use Cake\Utility\Hash;
-use Cake\Utility\Inflector;
 use Cake\View\Helper\FormHelper as Helper;
 use Cake\View\View;
 use InvalidArgumentException;
@@ -138,13 +137,6 @@ class FormHelper extends Helper
             '<div{{containerAttrs}} ' .
                 'class="{{containerClass}}form-group form-check {{formGroupPosition}}{{type}}{{required}} ' .
                     'is-invalid">{{content}}{{error}}{{help}}</div>',
-        'customCheckboxContainer' =>
-            '<div{{containerAttrs}} class="{{containerClass}}form-group custom-control custom-checkbox ' .
-                '{{type}}{{required}}">{{content}}{{help}}</div>',
-        'customCheckboxContainerError' =>
-            '<div{{containerAttrs}} ' .
-                'class="{{containerClass}}form-group custom-control custom-checkbox ' .
-                    '{{formGroupPosition}}{{type}}{{required}} is-invalid">{{content}}{{error}}{{help}}</div>',
         'checkboxInlineContainer' =>
             '<div{{containerAttrs}} class="{{containerClass}}form-check form-check-inline {{type}}{{required}}">' .
                 '{{content}}</div>',
@@ -152,20 +144,9 @@ class FormHelper extends Helper
             '<div{{containerAttrs}} ' .
                 'class="{{containerClass}}form-check form-check-inline {{type}}{{required}} is-invalid">' .
                     '{{content}}</div>',
-        'customCheckboxInlineContainer' =>
-            '<div{{containerAttrs}} ' .
-                'class="{{containerClass}}form-group custom-control custom-checkbox custom-control-inline ' .
-                    '{{type}}{{required}}">{{content}}</div>',
-        'customCheckboxInlineContainerError' =>
-            '<div{{containerAttrs}} ' .
-                'class="{{containerClass}}form-group custom-control custom-checkbox custom-control-inline ' .
-                    '{{formGroupPosition}}{{type}}{{required}} is-invalid">{{content}}</div>',
         'checkboxFormGroup' => '{{input}}{{label}}',
         'checkboxWrapper' => '<div class="form-check">{{label}}</div>',
         'checkboxInlineWrapper' => '<div class="form-check form-check-inline">{{label}}</div>',
-        'customCheckboxWrapper' => '<div class="custom-control custom-checkbox">{{label}}</div>',
-        'customCheckboxInlineWrapper' => '<div class="custom-control custom-checkbox custom-control-inline">' .
-                '{{label}}</div>',
         'radioContainer' =>
             '<div{{containerAttrs}} class="{{containerClass}}form-group {{type}}{{required}}" role="group" ' .
                 'aria-labelledby="{{groupId}}">{{content}}{{help}}</div>',
@@ -176,9 +157,6 @@ class FormHelper extends Helper
         'radioLabel' => '<label{{attrs}}>{{text}}{{tooltip}}</label>',
         'radioWrapper' => '<div class="form-check">{{hidden}}{{label}}</div>',
         'radioInlineWrapper' => '<div class="form-check form-check-inline">{{label}}</div>',
-        'customRadioWrapper' => '<div class="custom-control custom-radio">{{hidden}}{{label}}</div>',
-        'customRadioInlineWrapper' => '<div class="custom-control custom-radio custom-control-inline">' .
-                '{{hidden}}{{label}}</div>',
         'staticControl' => '<p class="form-control-plaintext">{{content}}</p>',
         'inputGroupContainer' => '<div{{attrs}}>{{prepend}}{{content}}{{append}}</div>',
         'inputGroupText' => '<span class="input-group-text">{{content}}</span>',
@@ -192,11 +170,6 @@ class FormHelper extends Helper
         'multicheckboxLabel' => '<label{{attrs}}>{{text}}{{tooltip}}</label>',
         'multicheckboxWrapper' => '<fieldset class="form-group">{{content}}</fieldset>',
         'multicheckboxTitle' => '<legend class="col-form-label pt-0">{{text}}</legend>',
-        'customFileLabel' => '<label{{attrs}}>{{text}}{{tooltip}}</label>',
-        'customFileFormGroup' => '<div class="custom-file {{invalid}}">{{input}}{{label}}</div>',
-        'customFileInputGroupFormGroup' => '{{input}}',
-        'customFileInputGroupContainer' =>
-            '<div{{attrs}}>{{prepend}}<div class="custom-file {{invalid}}">{{content}}{{label}}</div>{{append}}</div>',
         'nestingLabel' => '{{hidden}}{{input}}<label{{attrs}}>{{text}}{{tooltip}}</label>',
         'nestingLabelNestedInput' => '{{hidden}}<label{{attrs}}>{{input}}{{text}}{{tooltip}}</label>',
         'submitContainer' => '<div{{containerAttrs}} class="{{containerClass}}submit">{{content}}</div>',
@@ -220,14 +193,6 @@ class FormHelper extends Helper
                     'class="{{containerClass}}form-check form-check-inline ' .
                         '{{formGroupPosition}}{{type}}{{required}} is-invalid">' .
                             '{{content}}{{error}}{{help}}</div>',
-            'customCheckboxInlineContainer' =>
-                '<div{{containerAttrs}} ' .
-                    'class="{{containerClass}}form-group custom-control custom-checkbox custom-control-inline ' .
-                        '{{type}}{{required}}">{{content}}{{help}}</div>',
-            'customCheckboxInlineContainerError' =>
-                '<div{{containerAttrs}} ' .
-                    'class="{{containerClass}}form-group custom-control custom-checkbox custom-control-inline ' .
-                        '{{formGroupPosition}}{{type}}{{required}} is-invalid">{{content}}{{error}}{{help}}</div>',
             'datetimeContainer' =>
                 '<div{{containerAttrs}} ' .
                     'class="{{containerClass}}form-group {{formGroupPosition}}{{type}}{{required}}">' .
@@ -260,13 +225,8 @@ class FormHelper extends Helper
             'label' => '<label{{attrs}}>{{text}}{{tooltip}}</label>',
             'fileLabel' => '<label{{attrs}}>{{text}}{{tooltip}}</label>',
             'formGroup' => '{{label}}<div class="%s">{{input}}{{error}}{{help}}</div>',
-            'customFileFormGroup' =>
-                '<div class="%s"><div class="custom-file {{invalid}}">{{input}}{{label}}</div>{{error}}{{help}}</div>',
-            'customFileInputGroupFormGroup' => '<div class="%s">{{input}}{{error}}{{help}}</div>',
             'checkboxFormGroup' =>
                 '<div class="%s"><div class="form-check">{{input}}{{label}}{{error}}{{help}}</div></div>',
-            'customCheckboxFormGroup' => '<div class="%s"><div class="custom-control custom-checkbox">' .
-                    '{{input}}{{label}}{{error}}{{help}}</div></div>',
             'datetimeContainer' =>
                 '<div{{containerAttrs}} ' .
                     'class="{{containerClass}}form-group row {{type}}{{required}}">{{content}}</div>',
@@ -413,7 +373,6 @@ class FormHelper extends Helper
      *   the existing list of classes instead of replacing them.
      * - `append` - Append addon to input.
      * - `prepend` - Prepend addon to input.
-     * - `custom` - Boolean whether to generate custom style checkbox/radio/select/file/range controls.
      * - `inline` - Boolean for generating inline checkbox/radio.
      * - `help` - Help text to include in the input container.
      * - `tooltip` - Tooltip text to include in the control's label.
@@ -430,7 +389,6 @@ class FormHelper extends Helper
         $options += [
             'feedbackStyle' => null,
             'formGroupPosition' => null,
-            'custom' => false,
             'prepend' => null,
             'append' => null,
             'inline' => null,
@@ -497,10 +455,6 @@ class FormHelper extends Helper
             $options['inline'],
             $options['nestedInput']
         );
-
-        if (!in_array($options['type'], ['file', 'multicheckbox', 'radio'], true)) {
-            unset($options['custom']);
-        }
 
         $result = parent::control($fieldName, $options);
 
@@ -576,25 +530,10 @@ class FormHelper extends Helper
      */
     protected function _checkboxOptions(string $fieldName, array $options): array
     {
-        if (!$options['custom']) {
-            if ($options['label'] !== false) {
-                $options['label'] = $this->injectClasses('form-check-label', (array)$options['label']);
-            }
-            $options = $this->injectClasses('form-check-input', $options);
-        } else {
-            if ($options['label'] !== false) {
-                $options['label'] = $this->injectClasses('custom-control-label', (array)$options['label']);
-            }
-            $options = $this->injectClasses('custom-control-input', $options);
-
-            if ($this->_align === static::ALIGN_HORIZONTAL) {
-                $options['templates']['checkboxFormGroup'] = $this->templater()->get('customCheckboxFormGroup');
-            } else {
-                $options['templates']['checkboxContainer'] = $this->templater()->get('customCheckboxContainer');
-                $containerError = $this->templater()->get('customCheckboxContainerError');
-                $options['templates']['checkboxContainerError'] = $containerError;
-            }
+        if ($options['label'] !== false) {
+            $options['label'] = $this->injectClasses('form-check-label', (array)$options['label']);
         }
+        $options = $this->injectClasses('form-check-input', $options);
 
         if ($this->_align === static::ALIGN_HORIZONTAL) {
             $options['inline'] = false;
@@ -604,13 +543,9 @@ class FormHelper extends Helper
             $options['inline'] ||
             $this->_align === static::ALIGN_INLINE
         ) {
-            if (!$options['custom']) {
-                $checkboxContainer = $this->templater()->get('checkboxInlineContainer');
-                $checkboxContainerError = $this->templater()->get('checkboxInlineContainerError');
-            } else {
-                $checkboxContainer = $this->templater()->get('customCheckboxInlineContainer');
-                $checkboxContainerError = $this->templater()->get('customCheckboxInlineContainerError');
-            }
+            $checkboxContainer = $this->templater()->get('checkboxInlineContainer');
+            $checkboxContainerError = $this->templater()->get('checkboxInlineContainerError');
+
             $options['templates']['checkboxContainer'] = $checkboxContainer;
             $options['templates']['checkboxContainerError'] = $checkboxContainerError;
         }
@@ -631,11 +566,7 @@ class FormHelper extends Helper
      */
     protected function _radioOptions(string $fieldName, array $options): array
     {
-        if (!$options['custom']) {
-            $options = $this->injectClasses('form-check-input', $options);
-        } else {
-            $options['templates']['radioWrapper'] = $this->templater()->get('customRadioWrapper');
-        }
+        $options = $this->injectClasses('form-check-input', $options);
 
         $groupId =
         $options['templateVars']['groupId'] =
@@ -672,11 +603,7 @@ class FormHelper extends Helper
             $options['inline'] ||
             $this->_align === static::ALIGN_INLINE
         ) {
-            if (!$options['custom']) {
-                $options['templates']['radioWrapper'] = $this->templater()->get('radioInlineWrapper');
-            } else {
-                $options['templates']['radioWrapper'] = $this->templater()->get('customRadioInlineWrapper');
-            }
+            $options['templates']['radioWrapper'] = $this->templater()->get('radioInlineWrapper');
         }
 
         if ($options['nestedInput']) {
@@ -724,21 +651,13 @@ class FormHelper extends Helper
 
             $options['templates']['label'] = $this->templater()->get('multicheckboxLabel');
 
-            if (!$options['custom']) {
-                $options = $this->injectClasses('form-check-input', $options);
-            } else {
-                $options['templates']['checkboxWrapper'] = $this->templater()->get('customCheckboxWrapper');
-            }
+            $options = $this->injectClasses('form-check-input', $options);
 
             if (
                 $options['inline'] ||
                 $this->_align === static::ALIGN_INLINE
             ) {
-                if (!$options['custom']) {
-                    $wrapper = $this->templater()->get('checkboxInlineWrapper');
-                } else {
-                    $wrapper = $this->templater()->get('customCheckboxInlineWrapper');
-                }
+                $wrapper = $this->templater()->get('checkboxInlineWrapper');
                 $options['templates']['checkboxWrapper'] = $wrapper;
             }
 
@@ -766,13 +685,7 @@ class FormHelper extends Helper
             $options['label'] = $this->injectClasses($labelClasses, (array)$options['label']);
         }
 
-        if (
-            $options['custom'] &&
-            $options['type'] !== 'multicheckbox'
-        ) {
-            $options['injectFormControl'] = false;
-            $options = $this->injectClasses('custom-select', $options);
-        } elseif ($options['type'] !== 'multicheckbox') {
+        if ($options['type'] !== 'multicheckbox') {
             $options['injectFormControl'] = false;
             $options = $this->injectClasses('form-select', $options);
         }
@@ -789,61 +702,22 @@ class FormHelper extends Helper
      */
     protected function _fileOptions(string $fieldName, array $options): array
     {
-        if (!$options['custom']) {
-            if ($options['label'] !== false) {
-                $labelClasses = [];
-                if ($this->_align === static::ALIGN_HORIZONTAL) {
-                    $size = $this->_gridClass('left');
-                    $labelClasses[] = "col-form-label pt-1 $size";
-                }
-                if ($this->_align === static::ALIGN_INLINE) {
-                    $labelClasses[] = 'visually-hidden';
-                }
-                if ($labelClasses) {
-                    $options['label'] = $this->injectClasses($labelClasses, (array)$options['label']);
-                }
-            }
-
+        if ($options['label'] !== false) {
+            $labelClasses = [];
             if ($this->_align === static::ALIGN_HORIZONTAL) {
-                $options['templates']['label'] = $this->templater()->get('fileLabel');
+                $size = $this->_gridClass('left');
+                $labelClasses[] = "col-form-label pt-1 $size";
             }
-        } else {
-            $options['custom'] = true;
-            $options['tooltip'] = null;
-
-            $options['templates']['label'] = $this->templater()->get('customFileLabel');
-            $options['templates']['formGroup'] = $this->templater()->get('customFileFormGroup');
-
-            if ($this->_getContext()->hasError($fieldName)) {
-                $options['templateVars']['invalid'] = $this->_config['errorClass'];
+            if ($this->_align === static::ALIGN_INLINE) {
+                $labelClasses[] = 'visually-hidden';
             }
-
-            if ($options['label'] !== false) {
-                $options['label'] = $this->injectClasses('custom-file-label', (array)$options['label']);
+            if ($labelClasses) {
+                $options['label'] = $this->injectClasses($labelClasses, (array)$options['label']);
             }
+        }
 
-            if (
-                $options['prepend'] ||
-                $options['append']
-            ) {
-                if (
-                    $options['label'] !== false &&
-                    !isset($options['label']['text'])
-                ) {
-                    $text = $fieldName;
-                    if (strpos($text, '.') !== false) {
-                        $fieldElements = explode('.', $text);
-                        $text = array_pop($fieldElements);
-                    }
-                    $options['label']['text'] = __(Inflector::humanize(Inflector::underscore($text)));
-                }
-                $options['inputGroupLabel'] = $options['label'];
-                $options['label'] = false;
-
-                $options['templates']['formGroup'] = $this->templater()->get('customFileInputGroupFormGroup');
-                $container = $this->templater()->get('customFileInputGroupContainer');
-                $options['templates']['inputGroupContainer'] = $container;
-            }
+        if ($this->_align === static::ALIGN_HORIZONTAL) {
+            $options['templates']['label'] = $this->templater()->get('fileLabel');
         }
 
         return $options;
@@ -859,13 +733,9 @@ class FormHelper extends Helper
     protected function _rangeOptions(string $fieldName, array $options): array
     {
         $options = $this->_labelOptions($fieldName, $options);
+        $options['injectFormControl'] = false;
 
-        if ($options['custom']) {
-            $options['injectFormControl'] = false;
-            $options = $this->injectClasses('custom-range', $options);
-        }
-
-        return $options;
+        return $this->injectClasses('form-range', $options);
     }
 
     /**
@@ -1054,17 +924,10 @@ class FormHelper extends Helper
     protected function multiInputAttributes(array $attributes): array
     {
         $classPrefix = 'form-check';
-        if (
-            isset($attributes['custom']) &&
-            $attributes['custom']
-        ) {
-            $classPrefix = 'custom-control';
-        }
-        unset($attributes['custom']);
 
         $attributes += ['label' => true];
-
         $attributes = $this->injectClasses($classPrefix . '-input', $attributes);
+
         if ($attributes['label'] === true) {
             $attributes['label'] = [];
         }
@@ -1281,11 +1144,8 @@ class FormHelper extends Helper
         $templates['multicheckboxLabel'] = sprintf($templates['multicheckboxLabel'], $this->_gridClass('left'));
         $templates['formGroup'] = sprintf($templates['formGroup'], $this->_gridClass('middle'));
         $containers = [
-            'customFileFormGroup',
-            'customFileInputGroupFormGroup',
             'checkboxFormGroup',
             'checkboxInlineFormGroup',
-            'customCheckboxFormGroup',
             'submitContainer',
         ];
         foreach ($containers as $value) {

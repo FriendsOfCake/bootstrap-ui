@@ -386,30 +386,6 @@ explicitly supports Bootstrap specific markup for the following controls:
 
 - `range`
 
-### Custom style controls
-
-BootstrapUI supports Bootstrap's
-[custom form control styles](https://getbootstrap.com/docs/4.5/components/forms/#custom-forms) for `checkbox`, `radio`,
-`select`, `file`, and `range` controls. To enable custom styles, set the `custom` option to `true`.
-
-```php
-echo $this->Form->control('image', [
-    'type' => 'file',
-    'custom' => true,
-]);
-```
-
-This would generate the following HTML:
-
-```html
-<div class="form-group file">
-    <div class="custom-file">
-        <input type="file" name="image" id="image" class="custom-file-input"/>
-        <label class="custom-file-label" for="image">Image</label>
-    </div>
-</div>
-```
-
 ### Container attributes
 
 Attributes of the outer control container can be changed via the `container` option, cutting the need to use custom

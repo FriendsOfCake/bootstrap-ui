@@ -27,7 +27,7 @@ class FileControlTest extends AbstractFormHelperTest
                     'type' => 'file',
                     'name' => 'file',
                     'id' => 'file',
-                    'class' => 'form-control-file',
+                    'class' => 'form-control',
                 ]],
             '/div',
         ];
@@ -52,7 +52,7 @@ class FileControlTest extends AbstractFormHelperTest
                     'type' => 'file',
                     'name' => 'file',
                     'id' => 'file',
-                    'class' => 'form-control-file',
+                    'class' => 'form-control',
                 ]],
             '/div',
         ];
@@ -80,7 +80,7 @@ class FileControlTest extends AbstractFormHelperTest
                     'type' => 'file',
                     'name' => 'file',
                     'id' => 'file',
-                    'class' => 'form-control-file',
+                    'class' => 'form-control',
                 ]],
             '/div',
         ];
@@ -112,7 +112,7 @@ class FileControlTest extends AbstractFormHelperTest
                     'type' => 'file',
                     'name' => 'file',
                     'id' => 'file',
-                    'class' => 'form-control-file',
+                    'class' => 'form-control',
                 ]],
             '/div',
         ];
@@ -140,7 +140,7 @@ class FileControlTest extends AbstractFormHelperTest
                     'type' => 'file',
                     'name' => 'file',
                     'id' => 'file',
-                    'class' => 'form-control-file',
+                    'class' => 'form-control',
                 ]],
                 ['small' => ['class' => 'visually-hidden form-text text-muted']],
                     'Help text',
@@ -174,7 +174,7 @@ class FileControlTest extends AbstractFormHelperTest
                     'type' => 'file',
                     'name' => 'file',
                     'id' => 'file',
-                    'class' => 'form-control-file',
+                    'class' => 'form-control',
                 ]],
                 ['small' => ['foo' => 'bar', 'class' => 'visually-hidden form-text text-muted']],
                     'Help text',
@@ -211,7 +211,7 @@ class FileControlTest extends AbstractFormHelperTest
                     'type' => 'file',
                     'name' => 'file',
                     'id' => 'file',
-                    'class' => 'form-control-file',
+                    'class' => 'form-control',
                 ]],
             '/div',
         ];
@@ -241,7 +241,7 @@ class FileControlTest extends AbstractFormHelperTest
                     'type' => 'file',
                     'name' => 'file',
                     'id' => 'file',
-                    'class' => 'is-invalid form-control-file',
+                    'class' => 'is-invalid form-control',
                 ]],
                 ['div' => ['class' => 'invalid-tooltip']],
                     'error message',
@@ -278,7 +278,7 @@ class FileControlTest extends AbstractFormHelperTest
                     'type' => 'file',
                     'name' => 'file',
                     'id' => 'file',
-                    'class' => 'form-control-file',
+                    'class' => 'form-control',
                 ]],
             '/div',
         ];
@@ -315,8 +315,107 @@ class FileControlTest extends AbstractFormHelperTest
                     'type' => 'file',
                     'name' => 'file',
                     'id' => 'file',
-                    'class' => 'is-invalid form-control-file',
+                    'class' => 'is-invalid form-control',
                 ]],
+                ['div' => ['class' => 'invalid-tooltip']],
+                    'error message',
+                '/div',
+            '/div',
+        ];
+        $this->assertHtml($expected, $result);
+    }
+
+    public function testInlineAlignFileControlInputGroupAppend()
+    {
+        $this->Form->create($this->article, [
+            'align' => 'inline',
+        ]);
+
+        $result = $this->Form->control('file', [
+            'type' => 'file',
+            'append' => 'append',
+        ]);
+        $expected = [
+            ['div' => ['class' => 'form-group file']],
+                ['label' => ['class' => 'form-label visually-hidden', 'for' => 'file']],
+                    'File',
+                '/label',
+                ['div' => ['class' => 'input-group']],
+                    ['input' => [
+                        'type' => 'file',
+                        'name' => 'file',
+                        'id' => 'file',
+                        'class' => 'form-control',
+                    ]],
+                    ['span' => ['class' => 'input-group-text']],
+                        'append',
+                    '/span',
+                '/div',
+            '/div',
+        ];
+        $this->assertHtml($expected, $result);
+    }
+
+    public function testInlineAlignFileControlInputGroupPrepend()
+    {
+        $this->Form->create($this->article, [
+            'align' => 'inline',
+        ]);
+
+        $result = $this->Form->control('file', [
+            'type' => 'file',
+            'prepend' => 'prepend',
+        ]);
+        $expected = [
+            ['div' => ['class' => 'form-group file']],
+                ['label' => ['class' => 'form-label visually-hidden', 'for' => 'file']],
+                    'File',
+                '/label',
+                ['div' => ['class' => 'input-group']],
+                    ['span' => ['class' => 'input-group-text']],
+                        'prepend',
+                    '/span',
+                    ['input' => [
+                        'type' => 'file',
+                        'name' => 'file',
+                        'id' => 'file',
+                        'class' => 'form-control',
+                    ]],
+                '/div',
+            '/div',
+        ];
+        $this->assertHtml($expected, $result);
+    }
+
+    public function testInlineAlignFileControlInputGroupWithError()
+    {
+        $this->article['errors'] = [
+            'file' => ['error message'],
+        ];
+        $this->Form->create($this->article, [
+            'align' => 'inline',
+        ]);
+
+        $result = $this->Form->control('file', [
+            'type' => 'file',
+            'append' => 'append',
+        ]);
+        $expected = [
+            ['div' => ['class' => 'form-group position-relative file is-invalid']],
+                ['label' => ['class' => 'form-label visually-hidden', 'for' => 'file']],
+                    'File',
+                '/label',
+                ['div' => ['class' => 'input-group is-invalid']],
+                    ['input' => [
+                        'type' => 'file',
+                        'name' => 'file',
+                        'id' => 'file',
+                        'class' => 'is-invalid form-control',
+                    ]],
+                    ['span' => ['class' => 'input-group-text']],
+                        'append',
+                    '/span',
+                '/div',
                 ['div' => ['class' => 'invalid-tooltip']],
                     'error message',
                 '/div',
