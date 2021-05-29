@@ -344,7 +344,7 @@ class FormHelperTest extends AbstractFormHelperTest
                 'accept-charset' => 'utf-8',
                 'role' => 'form',
                 'action' => '/articles/add',
-                'class' => 'form-inline',
+                'class' => 'form-inline d-flex',
             ],
         ];
         $this->assertHtml($expected, $result);
