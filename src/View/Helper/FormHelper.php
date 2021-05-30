@@ -213,13 +213,15 @@ class FormHelper extends Helper
             'radioLabel' => '<span{{attrs}}>{{text}}{{tooltip}}</span>',
             'multicheckboxContainer' =>
                 '<div{{containerAttrs}} ' .
-                    'class="{{containerClass}}form-group {{formGroupPosition}}{{type}}{{required}}" role="group" ' .
+                    'class="{{containerClass}}form-group d-flex {{formGroupPosition}}{{type}}{{required}}" role="group" ' .
                         'aria-labelledby="{{groupId}}">{{content}}{{help}}</div>',
             'multicheckboxContainerError' =>
                 '<div{{containerAttrs}} ' .
-                    'class="{{containerClass}}form-group {{formGroupPosition}}{{type}}{{required}} is-invalid" ' .
+                    'class="{{containerClass}}form-group d-flex {{formGroupPosition}}{{type}}{{required}} is-invalid" ' .
                         'role="group" aria-labelledby="{{groupId}}">{{content}}{{error}}{{help}}</div>',
             'multicheckboxLabel' => '<span{{attrs}}>{{text}}{{tooltip}}</span>',
+            'multicheckboxTitle' =>
+                '<legend class="col-form-label float-none pt-0">{{text}}</legend>',
         ],
         'horizontal' => [
             'label' => '<label{{attrs}}>{{text}}{{tooltip}}</label>',

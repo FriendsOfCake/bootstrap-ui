@@ -23,7 +23,11 @@ class MultipleCheckboxControlTest extends AbstractFormHelperTest
             ],
         ]);
         $expected = [
-            ['div' => ['class' => 'form-group position-relative multicheckbox', 'role' => 'group', 'aria-labelledby' => 'users-group-label']],
+            ['div' => [
+                'class' => 'form-group d-flex position-relative multicheckbox',
+                'role' => 'group',
+                'aria-labelledby' => 'users-group-label',
+            ]],
                 ['span' => ['id' => 'users-group-label', 'class' => 'form-label visually-hidden']],
                     'Users',
                 '/span',
@@ -79,7 +83,7 @@ class MultipleCheckboxControlTest extends AbstractFormHelperTest
         ]);
         $expected = [
             ['div' => [
-                'class' => 'form-group position-relative multicheckbox',
+                'class' => 'form-group d-flex position-relative multicheckbox',
                 'role' => 'group',
                 'aria-labelledby' => 'users-group-label',
             ]],
@@ -135,7 +139,7 @@ class MultipleCheckboxControlTest extends AbstractFormHelperTest
         ]);
         $expected = [
             ['div' => [
-                'class' => 'form-group position-relative multicheckbox',
+                'class' => 'form-group d-flex position-relative multicheckbox',
                 'role' => 'group',
                 'aria-labelledby' => 'users-group-label',
             ]],
@@ -198,7 +202,7 @@ class MultipleCheckboxControlTest extends AbstractFormHelperTest
         ]);
         $expected = [
             ['div' => [
-                'class' => 'form-group position-relative multicheckbox',
+                'class' => 'form-group d-flex position-relative multicheckbox',
                 'role' => 'group',
                 'aria-labelledby' => 'users-group-label',
             ]],
@@ -264,7 +268,7 @@ class MultipleCheckboxControlTest extends AbstractFormHelperTest
         ]);
         $expected = [
             ['div' => [
-                'class' => 'form-group position-relative multicheckbox',
+                'class' => 'form-group d-flex position-relative multicheckbox',
                 'role' => 'group',
                 'aria-labelledby' => 'users-group-label',
             ]],
@@ -323,7 +327,7 @@ class MultipleCheckboxControlTest extends AbstractFormHelperTest
         ]);
         $expected = [
             ['div' => [
-                'class' => 'form-group position-relative multicheckbox',
+                'class' => 'form-group d-flex position-relative multicheckbox',
                 'role' => 'group',
                 'aria-labelledby' => 'users-group-label',
             ]],
@@ -385,7 +389,7 @@ class MultipleCheckboxControlTest extends AbstractFormHelperTest
         ]);
         $expected = [
             ['div' => [
-                'class' => 'form-group position-relative multicheckbox',
+                'class' => 'form-group d-flex position-relative multicheckbox',
                 'role' => 'group',
                 'aria-labelledby' => 'users-group-label',
             ]],
@@ -419,7 +423,11 @@ class MultipleCheckboxControlTest extends AbstractFormHelperTest
             'tooltip' => 'Tooltip text',
         ]);
         $expected = [
-            ['div' => ['class' => 'form-group position-relative multicheckbox', 'role' => 'group', 'aria-labelledby' => 'users-group-label']],
+            ['div' => [
+                'class' => 'form-group d-flex position-relative multicheckbox',
+                'role' => 'group',
+                'aria-labelledby' => 'users-group-label',
+            ]],
                 ['span' => ['id' => 'users-group-label', 'class' => 'form-label visually-hidden']],
                     'Users ',
                     'span' => [
@@ -459,7 +467,7 @@ class MultipleCheckboxControlTest extends AbstractFormHelperTest
         ]);
         $expected = [
             ['div' => [
-                'class' => 'form-group position-relative multicheckbox is-invalid',
+                'class' => 'form-group d-flex position-relative multicheckbox is-invalid',
                 'role' => 'group',
                 'aria-labelledby' => 'users-group-label',
             ]],
@@ -526,7 +534,7 @@ class MultipleCheckboxControlTest extends AbstractFormHelperTest
         $expected = [
             ['div' => [
                 'attribute' => 'container-attribute',
-                'class' => 'container-class form-group position-relative multicheckbox',
+                'class' => 'container-class form-group d-flex position-relative multicheckbox',
                 'role' => 'group',
                 'aria-labelledby' => 'users-group-label',
             ]],
@@ -592,7 +600,7 @@ class MultipleCheckboxControlTest extends AbstractFormHelperTest
         $expected = [
             ['div' => [
                 'attribute' => 'container-attribute',
-                'class' => 'container-class form-group position-relative multicheckbox is-invalid',
+                'class' => 'container-class form-group d-flex position-relative multicheckbox is-invalid',
                 'role' => 'group',
                 'aria-labelledby' => 'users-group-label',
             ]],
@@ -661,7 +669,11 @@ class MultipleCheckboxControlTest extends AbstractFormHelperTest
             ],
         ]);
         $expected = [
-            ['div' => ['class' => 'form-group position-relative multicheckbox', 'role' => 'group', 'aria-labelledby' => 'users-group-label']],
+            ['div' => [
+                'class' => 'form-group d-flex position-relative multicheckbox',
+                'role' => 'group',
+                'aria-labelledby' => 'users-group-label',
+            ]],
                 ['span' => ['id' => 'users-group-label', 'class' => 'form-label visually-hidden']],
                     'Users',
                 '/span',
@@ -728,7 +740,11 @@ class MultipleCheckboxControlTest extends AbstractFormHelperTest
             'nestedInput' => true,
         ]);
         $expected = [
-            ['div' => ['class' => 'form-group position-relative multicheckbox', 'role' => 'group', 'aria-labelledby' => 'users-group-label']],
+            ['div' => [
+                'class' => 'form-group d-flex position-relative multicheckbox',
+                'role' => 'group',
+                'aria-labelledby' => 'users-group-label',
+            ]],
                 ['span' => ['id' => 'users-group-label', 'class' => 'form-label visually-hidden']],
                     'Users',
                 '/span',
@@ -791,7 +807,11 @@ class MultipleCheckboxControlTest extends AbstractFormHelperTest
             'nestedInput' => true,
         ]);
         $expected = [
-            ['div' => ['class' => 'form-group position-relative multicheckbox', 'role' => 'group', 'aria-labelledby' => 'users-group-label']],
+            ['div' => [
+                'class' => 'form-group d-flex position-relative multicheckbox',
+                'role' => 'group',
+                'aria-labelledby' => 'users-group-label',
+            ]],
                 ['span' => ['id' => 'users-group-label', 'class' => 'form-label visually-hidden']],
                     'Users',
                 '/span',
@@ -835,6 +855,205 @@ class MultipleCheckboxControlTest extends AbstractFormHelperTest
                         ]],
                         'option 3',
                     '/label',
+                '/div',
+            '/div',
+        ];
+        $this->assertHtml($expected, $result);
+    }
+
+    public function testInlineAlignMultipleCheckboxControlOptionGroups()
+    {
+        $this->Form->create($this->article, [
+            'align' => 'inline',
+        ]);
+
+        $result = $this->Form->control('users', [
+            'multiple' => 'checkbox',
+            'options' => [
+                'group 1' => [
+                    1 => 'option 1',
+                    2 => 'option 2',
+                ],
+                'group 2' => [
+                    3 => 'option 3',
+                    4 => 'option 4',
+                ],
+            ],
+        ]);
+        $expected = [
+            ['div' => [
+                'class' => 'form-group d-flex position-relative multicheckbox',
+                'role' => 'group',
+                'aria-labelledby' => 'users-group-label',
+            ]],
+                ['span' => ['id' => 'users-group-label', 'class' => 'form-label visually-hidden']],
+                    'Users',
+                '/span',
+                ['input' => [
+                    'type' => 'hidden',
+                    'name' => 'users',
+                    'value' => '',
+                ]],
+                ['fieldset' => ['class' => 'form-group']],
+                    ['legend' => ['class' => 'col-form-label float-none pt-0']],
+                        'group 1',
+                    '/legend',
+                    ['div' => ['class' => 'form-check form-check-inline']],
+                        ['input' => [
+                            'class' => 'form-check-input',
+                            'type' => 'checkbox',
+                            'name' => 'users[]',
+                            'id' => 'users-1',
+                            'value' => 1,
+                        ]],
+                        ['label' => ['class' => 'form-check-label', 'for' => 'users-1']],
+                            'option 1',
+                        '/label',
+                    '/div',
+                    ['div' => ['class' => 'form-check form-check-inline']],
+                        ['input' => [
+                            'class' => 'form-check-input',
+                            'type' => 'checkbox',
+                            'name' => 'users[]',
+                            'id' => 'users-2',
+                            'value' => 2,
+                        ]],
+                        ['label' => ['class' => 'form-check-label', 'for' => 'users-2']],
+                            'option 2',
+                        '/label',
+                    '/div',
+                 '/fieldset',
+                ['fieldset' => ['class' => 'form-group']],
+                    ['legend' => ['class' => 'col-form-label float-none pt-0']],
+                        'group 2',
+                    '/legend',
+                    ['div' => ['class' => 'form-check form-check-inline']],
+                        ['input' => [
+                            'class' => 'form-check-input',
+                            'type' => 'checkbox',
+                            'name' => 'users[]',
+                            'id' => 'users-3',
+                            'value' => 3,
+                        ]],
+                        ['label' => ['class' => 'form-check-label', 'for' => 'users-3']],
+                            'option 3',
+                        '/label',
+                    '/div',
+                    ['div' => ['class' => 'form-check form-check-inline']],
+                        ['input' => [
+                            'class' => 'form-check-input',
+                            'type' => 'checkbox',
+                            'name' => 'users[]',
+                            'id' => 'users-4',
+                            'value' => 4,
+                        ]],
+                        ['label' => ['class' => 'form-check-label', 'for' => 'users-4']],
+                            'option 4',
+                        '/label',
+                    '/div',
+                 '/fieldset',
+            '/div',
+        ];
+        $this->assertHtml($expected, $result);
+    }
+
+    public function testInlineAlignMultipleCheckboxControlOptionGroupsWithError()
+    {
+        $this->article['errors'] = [
+            'users' => ['error message'],
+        ];
+        $this->Form->create($this->article, [
+            'align' => 'inline',
+        ]);
+
+        $result = $this->Form->control('users', [
+            'multiple' => 'checkbox',
+            'options' => [
+                'group 1' => [
+                    1 => 'option 1',
+                    2 => 'option 2',
+                ],
+                'group 2' => [
+                    3 => 'option 3',
+                    4 => 'option 4',
+                ],
+            ],
+        ]);
+        $expected = [
+            ['div' => [
+                'class' => 'form-group d-flex position-relative multicheckbox is-invalid',
+                'role' => 'group',
+                'aria-labelledby' => 'users-group-label',
+            ]],
+                ['span' => ['id' => 'users-group-label', 'class' => 'form-label visually-hidden']],
+                    'Users',
+                '/span',
+                ['input' => [
+                    'class' => 'is-invalid',
+                    'type' => 'hidden',
+                    'name' => 'users',
+                    'value' => '',
+                ]],
+                ['fieldset' => ['class' => 'form-group']],
+                    ['legend' => ['class' => 'col-form-label float-none pt-0']],
+                        'group 1',
+                    '/legend',
+                    ['div' => ['class' => 'form-check form-check-inline']],
+                        ['input' => [
+                            'class' => 'form-check-input is-invalid',
+                            'type' => 'checkbox',
+                            'name' => 'users[]',
+                            'id' => 'users-1',
+                            'value' => 1,
+                        ]],
+                        ['label' => ['class' => 'form-check-label', 'for' => 'users-1']],
+                            'option 1',
+                        '/label',
+                    '/div',
+                    ['div' => ['class' => 'form-check form-check-inline']],
+                        ['input' => [
+                            'class' => 'form-check-input is-invalid',
+                            'type' => 'checkbox',
+                            'name' => 'users[]',
+                            'id' => 'users-2',
+                            'value' => 2,
+                        ]],
+                        ['label' => ['class' => 'form-check-label', 'for' => 'users-2']],
+                            'option 2',
+                        '/label',
+                    '/div',
+                 '/fieldset',
+                ['fieldset' => ['class' => 'form-group']],
+                    ['legend' => ['class' => 'col-form-label float-none pt-0']],
+                        'group 2',
+                    '/legend',
+                    ['div' => ['class' => 'form-check form-check-inline']],
+                        ['input' => [
+                            'class' => 'form-check-input is-invalid',
+                            'type' => 'checkbox',
+                            'name' => 'users[]',
+                            'id' => 'users-3',
+                            'value' => 3,
+                        ]],
+                        ['label' => ['class' => 'form-check-label', 'for' => 'users-3']],
+                            'option 3',
+                        '/label',
+                    '/div',
+                    ['div' => ['class' => 'form-check form-check-inline']],
+                        ['input' => [
+                            'class' => 'form-check-input is-invalid',
+                            'type' => 'checkbox',
+                            'name' => 'users[]',
+                            'id' => 'users-4',
+                            'value' => 4,
+                        ]],
+                        ['label' => ['class' => 'form-check-label', 'for' => 'users-4']],
+                            'option 4',
+                        '/label',
+                    '/div',
+                 '/fieldset',
+                ['div' => ['class' => 'invalid-tooltip']],
+                    'error message',
                 '/div',
             '/div',
         ];
