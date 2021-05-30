@@ -16,7 +16,7 @@ class FormHelperTest extends AbstractFormHelperTest
 
         $result = $this->Form->control('password');
         $expected = [
-            'div' => ['class' => 'form-group password'],
+            'div' => ['class' => 'mb-3 form-group password'],
             'label' => ['class' => 'form-label', 'for' => 'password'],
             'Password',
             '/label',
@@ -42,7 +42,7 @@ class FormHelperTest extends AbstractFormHelperTest
 
         $result = $this->Form->control('title');
         $expected = [
-            'div' => ['class' => 'form-group text required'],
+            'div' => ['class' => 'mb-3 form-group text required'],
                 'label' => ['class' => 'form-label', 'for' => 'title'],
                     'Title',
                 '/label',
@@ -67,7 +67,7 @@ class FormHelperTest extends AbstractFormHelperTest
 
         $result = $this->Form->control('title', ['prepend' => '@']);
         $expected = [
-            'div' => ['class' => 'form-group text required'],
+            'div' => ['class' => 'mb-3 form-group text required'],
                 'label' => ['class' => 'form-label', 'for' => 'title'],
                     'Title',
                 '/label',
@@ -97,7 +97,7 @@ class FormHelperTest extends AbstractFormHelperTest
 
         $result = $this->Form->control('title', ['append' => '@']);
         $expected = [
-            'div' => ['class' => 'form-group text required'],
+            'div' => ['class' => 'mb-3 form-group text required'],
                 'label' => ['class' => 'form-label', 'for' => 'title'],
                     'Title',
                 '/label',
@@ -127,7 +127,7 @@ class FormHelperTest extends AbstractFormHelperTest
 
         $result = $this->Form->control('title', ['prepend' => $this->Form->button('GO')]);
         $expected = [
-            'div' => ['class' => 'form-group text required'],
+            'div' => ['class' => 'mb-3 form-group text required'],
                 'label' => ['class' => 'form-label', 'for' => 'title'],
                     'Title',
                 '/label',
@@ -157,7 +157,7 @@ class FormHelperTest extends AbstractFormHelperTest
 
         $result = $this->Form->control('title', ['append' => $this->Form->button('GO')]);
         $expected = [
-            'div' => ['class' => 'form-group text required'],
+            'div' => ['class' => 'mb-3 form-group text required'],
                 'label' => ['class' => 'form-label', 'for' => 'title'],
                     'Title',
                 '/label',
@@ -187,7 +187,7 @@ class FormHelperTest extends AbstractFormHelperTest
 
         $result = $this->Form->control('title', ['prepend' => ['@', ['size' => 'lg']]]);
         $expected = [
-            'div' => ['class' => 'form-group text required'],
+            'div' => ['class' => 'mb-3 form-group text required'],
                 'label' => ['class' => 'form-label', 'for' => 'title'],
                     'Title',
                 '/label',
@@ -212,7 +212,7 @@ class FormHelperTest extends AbstractFormHelperTest
 
         $result = $this->Form->control('title', ['append' => ['@', ['size' => 'lg']]]);
         $expected = [
-            'div' => ['class' => 'form-group text required'],
+            'div' => ['class' => 'mb-3 form-group text required'],
                 'label' => ['class' => 'form-label', 'for' => 'title'],
                     'Title',
                 '/label',
@@ -246,7 +246,7 @@ class FormHelperTest extends AbstractFormHelperTest
 
         $result = $this->Form->control('title', ['prepend' => '@']);
         $expected = [
-            'div' => ['class' => 'form-group text is-invalid'],
+            'div' => ['class' => 'mb-3 form-group text is-invalid'],
                 'label' => ['class' => 'form-label', 'for' => 'title'],
                     'Title',
                 '/label',
@@ -270,7 +270,7 @@ class FormHelperTest extends AbstractFormHelperTest
 
         $result = $this->Form->control('title', ['append' => '@']);
         $expected = [
-            'div' => ['class' => 'form-group text is-invalid'],
+            'div' => ['class' => 'mb-3 form-group text is-invalid'],
                 'label' => ['class' => 'form-label', 'for' => 'title'],
                     'Title',
                 '/label',
@@ -320,7 +320,7 @@ class FormHelperTest extends AbstractFormHelperTest
 
         $result = $this->Form->control('title');
         $expected = [
-            'div' => ['class' => 'custom-container form-group'],
+            'div' => ['class' => 'custom-container mb-3 form-group'],
                 'label' => ['class' => 'form-label', 'for' => 'title'],
                     'Title',
                 '/label',
@@ -383,7 +383,7 @@ class FormHelperTest extends AbstractFormHelperTest
 
         $result = $this->Form->control('title');
         $expected = [
-            'div' => ['class' => 'form-group row text required'],
+            'div' => ['class' => 'mb-3 form-group row text required'],
                 'label' => [
                     'class' => 'col-form-label col-md-3',
                     'for' => 'title',
@@ -431,7 +431,7 @@ class FormHelperTest extends AbstractFormHelperTest
 
         $result = $this->Form->control('title');
         $expected = [
-            'div' => ['class' => 'form-group row text required'],
+            'div' => ['class' => 'mb-3 form-group row text required'],
                 'label' => [
                     'class' => 'col-form-label col-md-2',
                     'for' => 'title',
@@ -456,7 +456,7 @@ class FormHelperTest extends AbstractFormHelperTest
 
         $result = $this->Form->control('published');
         $expected = [
-            'div' => ['class' => 'form-group row checkbox'],
+            'div' => ['class' => 'mb-3 form-group row checkbox'],
                 ['div' => ['class' => 'offset-md-2 col-md-10']],
                     ['div' => ['class' => 'form-check my-checkbox']],
                         'input' => [
@@ -550,7 +550,7 @@ class FormHelperTest extends AbstractFormHelperTest
             'label' => false,
         ]);
         $expected = [
-            'div' => ['class' => 'form-group text required'],
+            'div' => ['class' => 'mb-3 form-group text required'],
                 'input' => [
                     'type' => 'text',
                     'name' => 'title',
@@ -611,7 +611,7 @@ class FormHelperTest extends AbstractFormHelperTest
         $result = $this->Form->control('title');
 
         $expected = [
-            ['div' => ['class' => 'form-group position-relative text is-invalid']],
+            ['div' => ['class' => 'mb-3 form-group position-relative text is-invalid']],
                 ['label' => ['class' => 'form-label', 'for' => 'title']],
                     'Title',
                 '/label',
@@ -644,7 +644,7 @@ class FormHelperTest extends AbstractFormHelperTest
         ]);
 
         $expected = [
-            ['div' => ['class' => 'form-group text is-invalid']],
+            ['div' => ['class' => 'mb-3 form-group text is-invalid']],
                 ['label' => ['class' => 'form-label', 'for' => 'title']],
                     'Title',
                 '/label',
@@ -678,7 +678,7 @@ class FormHelperTest extends AbstractFormHelperTest
         $result = $this->Form->control('title');
 
         $expected = [
-            ['div' => ['class' => 'form-group position-absolute text is-invalid']],
+            ['div' => ['class' => 'mb-3 form-group position-absolute text is-invalid']],
                 ['label' => ['class' => 'form-label', 'for' => 'title']],
                     'Title',
                 '/label',
@@ -714,7 +714,7 @@ class FormHelperTest extends AbstractFormHelperTest
         ]);
 
         $expected = [
-            ['div' => ['class' => 'form-group position-static text is-invalid']],
+            ['div' => ['class' => 'mb-3 form-group position-static text is-invalid']],
                 ['label' => ['class' => 'form-label', 'for' => 'title']],
                     'Title',
                 '/label',
@@ -746,7 +746,7 @@ class FormHelperTest extends AbstractFormHelperTest
         ]);
 
         $expected = [
-            ['div' => ['class' => 'form-group position-relative text is-invalid']],
+            ['div' => ['class' => 'mb-3 form-group position-relative text is-invalid']],
                 ['label' => ['class' => 'form-label', 'for' => 'title']],
                     'Title',
                 '/label',
@@ -819,7 +819,7 @@ class FormHelperTest extends AbstractFormHelperTest
         ]);
 
         $expected = [
-            ['div' => ['class' => 'form-group row position-relative text is-invalid']],
+            ['div' => ['class' => 'mb-3 form-group row position-relative text is-invalid']],
                 ['label' => ['class' => 'col-form-label col-sm-5', 'for' => 'title']],
                     'Title',
                 '/label',

@@ -168,7 +168,7 @@ class FormHelper extends Helper
                 'class="{{containerClass}}form-group {{formGroupPosition}}{{type}}{{required}} is-invalid" ' .
                     'role="group" aria-labelledby="{{groupId}}">{{content}}{{error}}{{help}}</div>',
         'multicheckboxLabel' => '<label{{attrs}}>{{text}}{{tooltip}}</label>',
-        'multicheckboxWrapper' => '<fieldset class="form-group">{{content}}</fieldset>',
+        'multicheckboxWrapper' => '<fieldset class="mb-3 form-group">{{content}}</fieldset>',
         'multicheckboxTitle' => '<legend class="col-form-label pt-0">{{text}}</legend>',
         'nestingLabel' => '{{hidden}}{{input}}<label{{attrs}}>{{text}}{{tooltip}}</label>',
         'nestingLabelNestedInput' => '{{hidden}}<label{{attrs}}>{{input}}{{text}}{{tooltip}}</label>',
@@ -220,6 +220,8 @@ class FormHelper extends Helper
                     'class="{{containerClass}}form-group d-flex {{formGroupPosition}}{{type}}{{required}} is-invalid" ' .
                         'role="group" aria-labelledby="{{groupId}}">{{content}}{{error}}{{help}}</div>',
             'multicheckboxLabel' => '<span{{attrs}}>{{text}}{{tooltip}}</span>',
+            'multicheckboxWrapper' =>
+                '<fieldset class="form-group">{{content}}</fieldset>',
             'multicheckboxTitle' =>
                 '<legend class="col-form-label float-none pt-0">{{text}}</legend>',
         ],
@@ -474,6 +476,13 @@ class FormHelper extends Helper
      */
     protected function _containerOptions(?string $fieldName, array $options): array
     {
+        if (
+            $this->_align !== static::ALIGN_INLINE &&
+            isset($options['type'])
+        ) {
+            $options['container'] = $this->injectClasses('mb-3', (array)($options['container'] ?? []));
+        }
+
         if (!isset($options['container'])) {
             return $options;
         }

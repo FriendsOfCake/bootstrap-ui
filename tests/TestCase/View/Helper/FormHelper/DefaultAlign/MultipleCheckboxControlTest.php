@@ -19,7 +19,7 @@ class MultipleCheckboxControlTest extends AbstractFormHelperTest
             ],
         ]);
         $expected = [
-            ['div' => ['class' => 'form-group multicheckbox', 'role' => 'group', 'aria-labelledby' => 'users-group-label']],
+            ['div' => ['class' => 'mb-3 form-group multicheckbox', 'role' => 'group', 'aria-labelledby' => 'users-group-label']],
                 ['label' => ['id' => 'users-group-label', 'class' => 'form-label d-block']],
                     'Users',
                 '/label',
@@ -71,7 +71,7 @@ class MultipleCheckboxControlTest extends AbstractFormHelperTest
         ]);
         $expected = [
             ['div' => [
-                'class' => 'form-group multicheckbox',
+                'class' => 'mb-3 form-group multicheckbox',
                 'role' => 'group',
                 'aria-labelledby' => 'users-group-label',
             ]],
@@ -123,7 +123,7 @@ class MultipleCheckboxControlTest extends AbstractFormHelperTest
         ]);
         $expected = [
             ['div' => [
-                'class' => 'form-group multicheckbox',
+                'class' => 'mb-3 form-group multicheckbox',
                 'role' => 'group',
                 'aria-labelledby' => 'users-group-label',
             ]],
@@ -182,7 +182,7 @@ class MultipleCheckboxControlTest extends AbstractFormHelperTest
         ]);
         $expected = [
             ['div' => [
-                'class' => 'form-group multicheckbox',
+                'class' => 'mb-3 form-group multicheckbox',
                 'role' => 'group',
                 'aria-labelledby' => 'users-group-label',
             ]],
@@ -240,7 +240,7 @@ class MultipleCheckboxControlTest extends AbstractFormHelperTest
         ]);
         $expected = [
             ['div' => [
-                'class' => 'form-group multicheckbox',
+                'class' => 'mb-3 form-group multicheckbox',
                 'role' => 'group',
                 'aria-labelledby' => 'users-group-label',
             ]],
@@ -294,7 +294,7 @@ class MultipleCheckboxControlTest extends AbstractFormHelperTest
             'help' => 'Help text',
         ]);
         $expected = [
-            ['div' => ['class' => 'form-group multicheckbox', 'role' => 'group', 'aria-labelledby' => 'users-group-label']],
+            ['div' => ['class' => 'mb-3 form-group multicheckbox', 'role' => 'group', 'aria-labelledby' => 'users-group-label']],
                 ['label' => ['id' => 'users-group-label', 'class' => 'form-label d-block']],
                     'Users',
                 '/label',
@@ -348,7 +348,7 @@ class MultipleCheckboxControlTest extends AbstractFormHelperTest
             ],
         ]);
         $expected = [
-            ['div' => ['class' => 'form-group multicheckbox', 'role' => 'group', 'aria-labelledby' => 'users-group-label']],
+            ['div' => ['class' => 'mb-3 form-group multicheckbox', 'role' => 'group', 'aria-labelledby' => 'users-group-label']],
                 ['label' => ['id' => 'users-group-label', 'class' => 'form-label d-block']],
                     'Users',
                 '/label',
@@ -375,7 +375,7 @@ class MultipleCheckboxControlTest extends AbstractFormHelperTest
             'tooltip' => 'Tooltip text',
         ]);
         $expected = [
-            ['div' => ['class' => 'form-group multicheckbox', 'role' => 'group', 'aria-labelledby' => 'users-group-label']],
+            ['div' => ['class' => 'mb-3 form-group multicheckbox', 'role' => 'group', 'aria-labelledby' => 'users-group-label']],
                 ['label' => ['id' => 'users-group-label', 'class' => 'form-label d-block']],
                     'Users ',
                     'span' => [
@@ -411,7 +411,7 @@ class MultipleCheckboxControlTest extends AbstractFormHelperTest
         ]);
         $expected = [
             ['div' => [
-                'class' => 'form-group multicheckbox is-invalid',
+                'class' => 'mb-3 form-group multicheckbox is-invalid',
                 'role' => 'group',
                 'aria-labelledby' => 'users-group-label',
             ]],
@@ -474,7 +474,7 @@ class MultipleCheckboxControlTest extends AbstractFormHelperTest
         $expected = [
             ['div' => [
                 'attribute' => 'container-attribute',
-                'class' => 'container-class form-group multicheckbox',
+                'class' => 'container-class mb-3 form-group multicheckbox',
                 'role' => 'group',
                 'aria-labelledby' => 'users-group-label',
             ]],
@@ -536,7 +536,7 @@ class MultipleCheckboxControlTest extends AbstractFormHelperTest
         $expected = [
             ['div' => [
                 'attribute' => 'container-attribute',
-                'class' => 'container-class form-group multicheckbox is-invalid',
+                'class' => 'container-class mb-3 form-group multicheckbox is-invalid',
                 'role' => 'group',
                 'aria-labelledby' => 'users-group-label',
             ]],
@@ -594,7 +594,7 @@ class MultipleCheckboxControlTest extends AbstractFormHelperTest
             'nestedInput' => true,
         ]);
         $expected = [
-            ['div' => ['class' => 'form-group multicheckbox', 'role' => 'group', 'aria-labelledby' => 'users-group-label']],
+            ['div' => ['class' => 'mb-3 form-group multicheckbox', 'role' => 'group', 'aria-labelledby' => 'users-group-label']],
                 ['label' => ['id' => 'users-group-label', 'class' => 'form-label d-block']],
                     'Users',
                 '/label',
@@ -649,7 +649,7 @@ class MultipleCheckboxControlTest extends AbstractFormHelperTest
         ]);
         $expected = [
             ['div' => [
-                'class' => 'form-group multicheckbox is-invalid',
+                'class' => 'mb-3 form-group multicheckbox is-invalid',
                 'role' => 'group',
                 'aria-labelledby' => 'users-group-label',
             ]],
@@ -707,7 +707,7 @@ class MultipleCheckboxControlTest extends AbstractFormHelperTest
             'inline' => true,
         ]);
         $expected = [
-            ['div' => ['class' => 'form-group multicheckbox', 'role' => 'group', 'aria-labelledby' => 'users-group-label']],
+            ['div' => ['class' => 'mb-3 form-group multicheckbox', 'role' => 'group', 'aria-labelledby' => 'users-group-label']],
                 ['label' => ['id' => 'users-group-label', 'class' => 'form-label d-block']],
                     'Users',
                 '/label',
@@ -759,7 +759,7 @@ class MultipleCheckboxControlTest extends AbstractFormHelperTest
             'label' => false,
         ]);
         $expected = [
-            ['div' => ['class' => 'form-group multicheckbox', 'role' => 'group', 'aria-labelledby' => 'users-group-label']],
+            ['div' => ['class' => 'mb-3 form-group multicheckbox', 'role' => 'group', 'aria-labelledby' => 'users-group-label']],
                 ['input' => [
                     'type' => 'hidden',
                     'name' => 'users',
@@ -808,7 +808,7 @@ class MultipleCheckboxControlTest extends AbstractFormHelperTest
             'label' => 'Custom Label',
         ]);
         $expected = [
-            ['div' => ['class' => 'form-group multicheckbox', 'role' => 'group', 'aria-labelledby' => 'users-group-label']],
+            ['div' => ['class' => 'mb-3 form-group multicheckbox', 'role' => 'group', 'aria-labelledby' => 'users-group-label']],
                 ['label' => ['id' => 'users-group-label', 'class' => 'form-label d-block']],
                     'Custom Label',
                 '/label',
@@ -864,7 +864,7 @@ class MultipleCheckboxControlTest extends AbstractFormHelperTest
             ],
         ]);
         $expected = [
-            ['div' => ['class' => 'form-group multicheckbox', 'role' => 'group', 'aria-labelledby' => 'users-group-label']],
+            ['div' => ['class' => 'mb-3 form-group multicheckbox', 'role' => 'group', 'aria-labelledby' => 'users-group-label']],
                 ['label' => ['id' => 'users-group-label', 'class' => 'custom-label-class form-label d-block', 'foo' => 'bar']],
                     'Custom Label',
                 '/label',
@@ -920,7 +920,7 @@ class MultipleCheckboxControlTest extends AbstractFormHelperTest
         ]);
         $expected = [
             ['div' => [
-                'class' => 'form-group multicheckbox',
+                'class' => 'mb-3 form-group multicheckbox',
                 'role' => 'group',
                 'aria-labelledby' => 'users-group-label',
             ]],
@@ -976,7 +976,7 @@ class MultipleCheckboxControlTest extends AbstractFormHelperTest
         ]);
         $expected = [
             ['div' => [
-                'class' => 'form-group multicheckbox',
+                'class' => 'mb-3 form-group multicheckbox',
                 'role' => 'group',
                 'aria-labelledby' => 'users-group-label',
             ]],
@@ -1035,7 +1035,7 @@ class MultipleCheckboxControlTest extends AbstractFormHelperTest
         ]);
         $expected = [
             ['div' => [
-                'class' => 'form-group multicheckbox',
+                'class' => 'mb-3 form-group multicheckbox',
                 'role' => 'group',
                 'aria-labelledby' => 'users-group-label',
             ]],
@@ -1067,7 +1067,7 @@ class MultipleCheckboxControlTest extends AbstractFormHelperTest
         ]);
         $expected = [
             ['div' => [
-                'class' => 'form-group multicheckbox',
+                'class' => 'mb-3 form-group multicheckbox',
                 'role' => 'group',
                 'aria-labelledby' => 'users-group-label',
             ]],
@@ -1107,7 +1107,7 @@ class MultipleCheckboxControlTest extends AbstractFormHelperTest
         ]);
         $expected = [
             ['div' => [
-                'class' => 'form-group multicheckbox is-invalid',
+                'class' => 'mb-3 form-group multicheckbox is-invalid',
                 'role' => 'group',
                 'aria-labelledby' => 'users-group-label',
             ]],
@@ -1171,7 +1171,7 @@ class MultipleCheckboxControlTest extends AbstractFormHelperTest
         $expected = [
             ['div' => [
                 'attribute' => 'container-attribute',
-                'class' => 'container-class form-group multicheckbox',
+                'class' => 'container-class mb-3 form-group multicheckbox',
                 'role' => 'group',
                 'aria-labelledby' => 'users-group-label',
             ]],
@@ -1234,7 +1234,7 @@ class MultipleCheckboxControlTest extends AbstractFormHelperTest
         $expected = [
             ['div' => [
                 'attribute' => 'container-attribute',
-                'class' => 'container-class form-group multicheckbox is-invalid',
+                'class' => 'container-class mb-3 form-group multicheckbox is-invalid',
                 'role' => 'group',
                 'aria-labelledby' => 'users-group-label',
             ]],
@@ -1293,7 +1293,7 @@ class MultipleCheckboxControlTest extends AbstractFormHelperTest
             'nestedInput' => true,
         ]);
         $expected = [
-            ['div' => ['class' => 'form-group multicheckbox', 'role' => 'group', 'aria-labelledby' => 'users-group-label']],
+            ['div' => ['class' => 'mb-3 form-group multicheckbox', 'role' => 'group', 'aria-labelledby' => 'users-group-label']],
                 ['label' => ['id' => 'users-group-label', 'class' => 'form-label d-block']],
                     'Users',
                 '/label',
@@ -1349,7 +1349,7 @@ class MultipleCheckboxControlTest extends AbstractFormHelperTest
             ],
         ]);
         $expected = [
-            ['div' => ['class' => 'form-group multicheckbox', 'role' => 'group', 'aria-labelledby' => 'users-group-label']],
+            ['div' => ['class' => 'mb-3 form-group multicheckbox', 'role' => 'group', 'aria-labelledby' => 'users-group-label']],
                 ['label' => ['id' => 'users-group-label', 'class' => 'form-label d-block']],
                     'Users',
                 '/label',
@@ -1358,7 +1358,7 @@ class MultipleCheckboxControlTest extends AbstractFormHelperTest
                     'name' => 'users',
                     'value' => '',
                 ]],
-                ['fieldset' => ['class' => 'form-group']],
+                ['fieldset' => ['class' => 'mb-3 form-group']],
                     ['legend' => ['class' => 'col-form-label pt-0']],
                         'group 1',
                     '/legend',
@@ -1387,7 +1387,7 @@ class MultipleCheckboxControlTest extends AbstractFormHelperTest
                         '/label',
                     '/div',
                  '/fieldset',
-                ['fieldset' => ['class' => 'form-group']],
+                ['fieldset' => ['class' => 'mb-3 form-group']],
                     ['legend' => ['class' => 'col-form-label pt-0']],
                         'group 2',
                     '/legend',
@@ -1443,7 +1443,7 @@ class MultipleCheckboxControlTest extends AbstractFormHelperTest
         ]);
         $expected = [
             ['div' => [
-                'class' => 'form-group multicheckbox is-invalid',
+                'class' => 'mb-3 form-group multicheckbox is-invalid',
                 'role' => 'group',
                 'aria-labelledby' => 'users-group-label',
             ]],
@@ -1456,7 +1456,7 @@ class MultipleCheckboxControlTest extends AbstractFormHelperTest
                     'name' => 'users',
                     'value' => '',
                 ]],
-                ['fieldset' => ['class' => 'form-group']],
+                ['fieldset' => ['class' => 'mb-3 form-group']],
                     ['legend' => ['class' => 'col-form-label pt-0']],
                         'group 1',
                     '/legend',
@@ -1485,7 +1485,7 @@ class MultipleCheckboxControlTest extends AbstractFormHelperTest
                         '/label',
                     '/div',
                  '/fieldset',
-                ['fieldset' => ['class' => 'form-group']],
+                ['fieldset' => ['class' => 'mb-3 form-group']],
                     ['legend' => ['class' => 'col-form-label pt-0']],
                         'group 2',
                     '/legend',
@@ -1541,7 +1541,7 @@ class MultipleCheckboxControlTest extends AbstractFormHelperTest
             'nestedInput' => true,
         ]);
         $expected = [
-            ['div' => ['class' => 'form-group multicheckbox', 'role' => 'group', 'aria-labelledby' => 'users-group-label']],
+            ['div' => ['class' => 'mb-3 form-group multicheckbox', 'role' => 'group', 'aria-labelledby' => 'users-group-label']],
                 ['label' => ['id' => 'users-group-label', 'class' => 'form-label d-block']],
                     'Users',
                 '/label',
@@ -1550,7 +1550,7 @@ class MultipleCheckboxControlTest extends AbstractFormHelperTest
                     'name' => 'users',
                     'value' => '',
                 ]],
-                ['fieldset' => ['class' => 'form-group']],
+                ['fieldset' => ['class' => 'mb-3 form-group']],
                     ['legend' => ['class' => 'col-form-label pt-0']],
                         'group 1',
                     '/legend',
@@ -1579,7 +1579,7 @@ class MultipleCheckboxControlTest extends AbstractFormHelperTest
                         '/label',
                     '/div',
                  '/fieldset',
-                ['fieldset' => ['class' => 'form-group']],
+                ['fieldset' => ['class' => 'mb-3 form-group']],
                     ['legend' => ['class' => 'col-form-label pt-0']],
                         'group 2',
                     '/legend',
@@ -1632,7 +1632,7 @@ class MultipleCheckboxControlTest extends AbstractFormHelperTest
             'inline' => true,
         ]);
         $expected = [
-            ['div' => ['class' => 'form-group multicheckbox', 'role' => 'group', 'aria-labelledby' => 'users-group-label']],
+            ['div' => ['class' => 'mb-3 form-group multicheckbox', 'role' => 'group', 'aria-labelledby' => 'users-group-label']],
                 ['label' => ['id' => 'users-group-label', 'class' => 'form-label d-block']],
                     'Users',
                 '/label',
@@ -1641,7 +1641,7 @@ class MultipleCheckboxControlTest extends AbstractFormHelperTest
                     'name' => 'users',
                     'value' => '',
                 ]],
-                ['fieldset' => ['class' => 'form-group']],
+                ['fieldset' => ['class' => 'mb-3 form-group']],
                     ['legend' => ['class' => 'col-form-label pt-0']],
                         'group 1',
                     '/legend',
@@ -1670,7 +1670,7 @@ class MultipleCheckboxControlTest extends AbstractFormHelperTest
                         '/label',
                     '/div',
                  '/fieldset',
-                ['fieldset' => ['class' => 'form-group']],
+                ['fieldset' => ['class' => 'mb-3 form-group']],
                     ['legend' => ['class' => 'col-form-label pt-0']],
                         'group 2',
                     '/legend',
@@ -1724,7 +1724,7 @@ class MultipleCheckboxControlTest extends AbstractFormHelperTest
             'nestedInput' => true,
         ]);
         $expected = [
-            ['div' => ['class' => 'form-group multicheckbox', 'role' => 'group', 'aria-labelledby' => 'users-group-label']],
+            ['div' => ['class' => 'mb-3 form-group multicheckbox', 'role' => 'group', 'aria-labelledby' => 'users-group-label']],
                 ['label' => ['id' => 'users-group-label', 'class' => 'form-label d-block']],
                     'Users',
                 '/label',
@@ -1733,7 +1733,7 @@ class MultipleCheckboxControlTest extends AbstractFormHelperTest
                     'name' => 'users',
                     'value' => '',
                 ]],
-                ['fieldset' => ['class' => 'form-group']],
+                ['fieldset' => ['class' => 'mb-3 form-group']],
                     ['legend' => ['class' => 'col-form-label pt-0']],
                         'group 1',
                     '/legend',
@@ -1762,7 +1762,7 @@ class MultipleCheckboxControlTest extends AbstractFormHelperTest
                         '/label',
                     '/div',
                  '/fieldset',
-                ['fieldset' => ['class' => 'form-group']],
+                ['fieldset' => ['class' => 'mb-3 form-group']],
                     ['legend' => ['class' => 'col-form-label pt-0']],
                         'group 2',
                     '/legend',
@@ -1812,7 +1812,7 @@ class MultipleCheckboxControlTest extends AbstractFormHelperTest
             ],
         ]);
         $expected = [
-            ['div' => ['class' => 'form-group multicheckbox', 'role' => 'group', 'aria-labelledby' => 'users-group-label']],
+            ['div' => ['class' => 'mb-3 form-group multicheckbox', 'role' => 'group', 'aria-labelledby' => 'users-group-label']],
                 ['label' => ['id' => 'users-group-label', 'class' => 'form-label d-block']],
                     'Users',
                 '/label',
@@ -1845,7 +1845,7 @@ class MultipleCheckboxControlTest extends AbstractFormHelperTest
                         'option 2',
                     '/label',
                 '/div',
-                ['fieldset' => ['class' => 'form-group']],
+                ['fieldset' => ['class' => 'mb-3 form-group']],
                     ['legend' => ['class' => 'col-form-label pt-0']],
                         'group',
                     '/legend',
@@ -1919,7 +1919,7 @@ class MultipleCheckboxControlTest extends AbstractFormHelperTest
             ],
         ]);
         $expected = [
-            ['div' => ['class' => 'form-group multicheckbox', 'role' => 'group', 'aria-labelledby' => 'users-group-label']],
+            ['div' => ['class' => 'mb-3 form-group multicheckbox', 'role' => 'group', 'aria-labelledby' => 'users-group-label']],
                 ['label' => ['id' => 'users-group-label', 'class' => 'form-label d-block']],
                     'Users',
                 '/label',
@@ -1964,7 +1964,7 @@ class MultipleCheckboxControlTest extends AbstractFormHelperTest
                         'option 3',
                     '/label',
                 '/div',
-                ['fieldset' => ['class' => 'form-group']],
+                ['fieldset' => ['class' => 'mb-3 form-group']],
                     ['legend' => ['class' => 'col-form-label pt-0']],
                         'group',
                     '/legend',
@@ -2036,7 +2036,7 @@ class MultipleCheckboxControlTest extends AbstractFormHelperTest
             'nestedInput' => true,
         ]);
         $expected = [
-            ['div' => ['class' => 'form-group multicheckbox', 'role' => 'group', 'aria-labelledby' => 'users-group-label']],
+            ['div' => ['class' => 'mb-3 form-group multicheckbox', 'role' => 'group', 'aria-labelledby' => 'users-group-label']],
                 ['label' => ['id' => 'users-group-label', 'class' => 'form-label d-block']],
                     'Users',
                 '/label',
@@ -2069,7 +2069,7 @@ class MultipleCheckboxControlTest extends AbstractFormHelperTest
                         'option 2',
                     '/label',
                 '/div',
-                ['fieldset' => ['class' => 'form-group']],
+                ['fieldset' => ['class' => 'mb-3 form-group']],
                     ['legend' => ['class' => 'col-form-label pt-0']],
                         'group',
                     '/legend',
@@ -2144,7 +2144,7 @@ class MultipleCheckboxControlTest extends AbstractFormHelperTest
             'nestedInput' => true,
         ]);
         $expected = [
-            ['div' => ['class' => 'form-group multicheckbox', 'role' => 'group', 'aria-labelledby' => 'users-group-label']],
+            ['div' => ['class' => 'mb-3 form-group multicheckbox', 'role' => 'group', 'aria-labelledby' => 'users-group-label']],
                 ['label' => ['id' => 'users-group-label', 'class' => 'form-label d-block']],
                     'Users',
                 '/label',
@@ -2189,7 +2189,7 @@ class MultipleCheckboxControlTest extends AbstractFormHelperTest
                         'option 3',
                     '/label',
                 '/div',
-                ['fieldset' => ['class' => 'form-group']],
+                ['fieldset' => ['class' => 'mb-3 form-group']],
                     ['legend' => ['class' => 'col-form-label pt-0']],
                         'group',
                     '/legend',

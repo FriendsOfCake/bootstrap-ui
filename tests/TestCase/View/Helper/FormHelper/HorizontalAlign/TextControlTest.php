@@ -21,7 +21,7 @@ class TextControlTest extends AbstractFormHelperTest
 
         $result = $this->Form->control('title');
         $expected = [
-            'div' => ['class' => 'form-group row text'],
+            'div' => ['class' => 'mb-3 form-group row text'],
                 'label' => ['class' => 'col-form-label col-sm-5', 'for' => 'title'],
                     'Title',
                 '/label',
@@ -52,7 +52,7 @@ class TextControlTest extends AbstractFormHelperTest
 
         $result = $this->Form->control('title', ['label' => false]);
         $expected = [
-            'div' => ['class' => 'form-group row text'],
+            'div' => ['class' => 'mb-3 form-group row text'],
                 ['div' => ['class' => 'col-sm-7']],
                     'input' => [
                         'type' => 'text',
@@ -80,7 +80,7 @@ class TextControlTest extends AbstractFormHelperTest
 
         $result = $this->Form->control('title', ['label' => 'Custom Label']);
         $expected = [
-            'div' => ['class' => 'form-group row text'],
+            'div' => ['class' => 'mb-3 form-group row text'],
                 'label' => ['class' => 'col-form-label col-sm-5', 'for' => 'title'],
                     'Custom Label',
                 '/label',
@@ -117,7 +117,7 @@ class TextControlTest extends AbstractFormHelperTest
             ],
         ]);
         $expected = [
-            'div' => ['class' => 'form-group row text'],
+            'div' => ['class' => 'mb-3 form-group row text'],
                 'label' => [
                     'for' => 'title',
                     'class' => 'custom-label-class col-form-label col-sm-5',
@@ -154,7 +154,7 @@ class TextControlTest extends AbstractFormHelperTest
             'help' => 'Help text',
         ]);
         $expected = [
-            'div' => ['class' => 'form-group row text'],
+            'div' => ['class' => 'mb-3 form-group row text'],
                 'label' => ['class' => 'col-form-label col-sm-5', 'for' => 'title'],
                     'Title',
                 '/label',
@@ -193,7 +193,7 @@ class TextControlTest extends AbstractFormHelperTest
             ],
         ]);
         $expected = [
-            'div' => ['class' => 'form-group row text'],
+            'div' => ['class' => 'mb-3 form-group row text'],
                 'label' => ['class' => 'col-form-label col-sm-5', 'for' => 'title'],
                     'Title',
                 '/label',
@@ -229,7 +229,7 @@ class TextControlTest extends AbstractFormHelperTest
             'tooltip' => 'Tooltip text',
         ]);
         $expected = [
-            'div' => ['class' => 'form-group row text'],
+            'div' => ['class' => 'mb-3 form-group row text'],
                 'label' => ['class' => 'col-form-label col-sm-5', 'for' => 'title'],
                     'Title',
                     'span' => [
@@ -269,7 +269,7 @@ class TextControlTest extends AbstractFormHelperTest
 
         $result = $this->Form->control('title');
         $expected = [
-            'div' => ['class' => 'form-group row text is-invalid'],
+            'div' => ['class' => 'mb-3 form-group row text is-invalid'],
                 'label' => ['class' => 'col-form-label col-sm-5', 'for' => 'title'],
                     'Title',
                 '/label',
@@ -311,7 +311,7 @@ class TextControlTest extends AbstractFormHelperTest
         $expected = [
             'div' => [
                 'attribute' => 'container-attribute',
-                'class' => 'container-class form-group row text',
+                'class' => 'container-class mb-3 form-group row text',
             ],
                 'label' => ['class' => 'col-form-label col-sm-5', 'for' => 'title',],
                     'Title',
@@ -354,7 +354,7 @@ class TextControlTest extends AbstractFormHelperTest
         $expected = [
             'div' => [
                 'attribute' => 'container-attribute',
-                'class' => 'container-class form-group row text is-invalid',
+                'class' => 'container-class mb-3 form-group row text is-invalid',
             ],
                 'label' => ['class' => 'col-form-label col-sm-5', 'for' => 'title',],
                     'Title',

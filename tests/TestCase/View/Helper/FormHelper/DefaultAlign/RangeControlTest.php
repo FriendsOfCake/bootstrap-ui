@@ -18,7 +18,7 @@ class RangeControlTest extends AbstractFormHelperTest
             'step' => 1,
         ]);
         $expected = [
-            'div' => ['class' => 'form-group range'],
+            'div' => ['class' => 'mb-3 form-group range'],
                 ['label' => ['class' => 'form-label', 'for' => 'height']],
                     'Height',
                 '/label',
@@ -48,7 +48,7 @@ class RangeControlTest extends AbstractFormHelperTest
             'label' => false,
         ]);
         $expected = [
-            'div' => ['class' => 'form-group range'],
+            'div' => ['class' => 'mb-3 form-group range'],
                 'input' => [
                     'type' => 'range',
                     'name' => 'height',
@@ -75,7 +75,7 @@ class RangeControlTest extends AbstractFormHelperTest
             'label' => 'Custom Label',
         ]);
         $expected = [
-            'div' => ['class' => 'form-group range'],
+            'div' => ['class' => 'mb-3 form-group range'],
                 ['label' => ['class' => 'form-label', 'for' => 'height']],
                     'Custom Label',
                 '/label',
@@ -109,7 +109,7 @@ class RangeControlTest extends AbstractFormHelperTest
             ],
         ]);
         $expected = [
-            'div' => ['class' => 'form-group range'],
+            'div' => ['class' => 'mb-3 form-group range'],
                 ['label' => ['class' => 'custom-label-class form-label', 'foo' => 'bar', 'for' => 'height']],
                     'Custom Label',
                 '/label',
@@ -139,7 +139,7 @@ class RangeControlTest extends AbstractFormHelperTest
             'help' => 'Help text',
         ]);
         $expected = [
-            'div' => ['class' => 'form-group range'],
+            'div' => ['class' => 'mb-3 form-group range'],
                 ['label' => ['class' => 'form-label', 'for' => 'height']],
                     'Height',
                 '/label',
@@ -175,7 +175,7 @@ class RangeControlTest extends AbstractFormHelperTest
             ],
         ]);
         $expected = [
-            'div' => ['class' => 'form-group range'],
+            'div' => ['class' => 'mb-3 form-group range'],
                 ['label' => ['class' => 'form-label', 'for' => 'height']],
                     'Height',
                 '/label',
@@ -208,7 +208,7 @@ class RangeControlTest extends AbstractFormHelperTest
             'tooltip' => 'Tooltip text',
         ]);
         $expected = [
-            'div' => ['class' => 'form-group range'],
+            'div' => ['class' => 'mb-3 form-group range'],
                 ['label' => ['class' => 'form-label', 'for' => 'height']],
                     'Height ',
                     'span' => [
@@ -246,7 +246,7 @@ class RangeControlTest extends AbstractFormHelperTest
             'step' => 1,
         ]);
         $expected = [
-            'div' => ['class' => 'form-group range is-invalid'],
+            'div' => ['class' => 'mb-3 form-group range is-invalid'],
                 ['label' => ['class' => 'form-label', 'for' => 'height']],
                     'Height',
                 '/label',
@@ -284,7 +284,7 @@ class RangeControlTest extends AbstractFormHelperTest
         $expected = [
             'div' => [
                 'attribute' => 'container-attribute',
-                'class' => 'container-class form-group range',
+                'class' => 'container-class mb-3 form-group range',
             ],
                 ['label' => ['class' => 'form-label', 'for' => 'height']],
                     'Height',
@@ -323,7 +323,7 @@ class RangeControlTest extends AbstractFormHelperTest
         $expected = [
             'div' => [
                 'attribute' => 'container-attribute',
-                'class' => 'container-class form-group range is-invalid',
+                'class' => 'container-class mb-3 form-group range is-invalid',
             ],
                 ['label' => ['class' => 'form-label', 'for' => 'height']],
                     'Height',

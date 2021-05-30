@@ -291,11 +291,11 @@ will render this HTML:
     <div style="display:none;">
         <input type="hidden" name="_method" value="POST">
     </div>
-    <div class="form-group text">
+    <div class="mb-3 form-group text">
         <label class="form-label" for="title">Title</label>
         <input type="text" name="title" id="title" class="form-control">
     </div>
-    <div class="form-group form-check checkbox">
+    <div class="mb-3 form-group form-check checkbox">
         <input type="hidden" name="published" value="0">
         <input type="checkbox" class="form-check-input" name="published" value="1" id="published">
         <label class="form-check-label" for="published">Published</label>
@@ -333,13 +333,13 @@ will render this HTML:
     <div style="display:none;">
         <input type="hidden" name="_method" value="POST">
     </div>
-    <div class="form-group row text">
+    <div class="mb-3 form-group row text">
         <label class="col-form-label col-sm-6 col-md-4" for="title">Title</label>
         <div class="col-sm-6 col-md-4">
             <input type="text" name="title" id="title" class="form-control">
         </div>
     </div>
-    <div class="form-group row checkbox">
+    <div class="mb-3 form-group row checkbox">
         <div class="offset-sm-6 offset-md-4 col-sm-6 col-md-4">
             <div class="form-check">
                 <input type="hidden" name="published" value="0"/>
@@ -404,7 +404,7 @@ echo $this->Form->control('title', [
 This would generate the following HTML:
 
 ```html
-<div data-meta="meta information" class="my-title-control form-group text">
+<div data-meta="meta information" class="my-title-control mb-3 form-group text">
     <label class="form-label" for="title">Title</label>
     <input type="text" name="title" id="title" class="form-control">
 </div>
@@ -423,7 +423,7 @@ echo $this->Form->control('email', [
 This would generate the following HTML:
 
 ```html
-<div class="form-group email">
+<div class="mb-3 form-group email">
     <label class="form-label" for="email">Email</label>
     <div class="input-group">
         <span class="input-group-text">@</span>
@@ -454,12 +454,12 @@ echo $this->Form->control('option_2', [
 This would generate the following HTML:
 
 ```html
-<div class="form-check form-check-inline checkbox">
+<div class="mb-3 form-check form-check-inline checkbox">
     <input type="hidden" name="option-1" value="0"/>
     <input type="checkbox" name="option-1" value="1" id="option-1" class="form-check-input">
     <label class="form-check-label" for="option-1">Option 1</label>
 </div>
-<div class="form-check form-check-inline checkbox">
+<div class="mb-3 form-check form-check-inline checkbox">
     <input type="hidden" name="option-2" value="0"/>
     <input type="checkbox" name="option-2" value="2" id="option-2" class="form-check-input">
     <label class="form-check-label" for="option-2">Option 2</label>
@@ -482,7 +482,7 @@ echo $this->Form->control('title', [
 This would generate the following HTML:
 
 ```html
-<div class="form-group text">
+<div class="mb-3 form-group text">
     <label class="form-label" for="title">Title</label>
     <input type="text" name="title" id="title" class="form-control"/>
     <small class="form-text text-muted">Help text</small>
@@ -505,7 +505,7 @@ echo $this->Form->control('title', [
 This would generate the following HTML:
 
 ```html
-<div class="form-group text">
+<div class="mb-3 form-group text">
     <label class="form-label" for="title">
         Title <span data-bs-toggle="tooltip" title="Tooltip text" class="fas fa-info-circle"></span>
     </label>
@@ -570,7 +570,7 @@ echo $this->Form->control('title');
 With an error on the `title` field, this would generate the following HTML:
 
 ```html
-<div class="form-group position-absolute text is-invalid">
+<div class="mb-3 form-group position-absolute text is-invalid">
     <label class="form-label" for="title">Title</label>
     <input type="text" name="title" id="title" class="is-invalid form-control"/>
     <div class="invalid-tooltip">Error message</div>

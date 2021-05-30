@@ -17,7 +17,7 @@ class StaticControlTest extends AbstractFormHelperTest
 
         $result = $this->Form->control('title', ['type' => 'staticControl']);
         $expected = [
-            'div' => ['class' => 'form-group staticControl'],
+            'div' => ['class' => 'mb-3 form-group staticControl'],
                 ['label' => ['class' => 'form-label', 'for' => 'title']],
                     'Title',
                 '/label',
@@ -51,7 +51,7 @@ class StaticControlTest extends AbstractFormHelperTest
             'escape' => false,
         ]);
         $expected = [
-            'div' => ['class' => 'form-group staticControl'],
+            'div' => ['class' => 'mb-3 form-group staticControl'],
                 ['label' => ['class' => 'form-label', 'for' => 'title']],
                     'Title',
                 '/label',
@@ -78,7 +78,7 @@ class StaticControlTest extends AbstractFormHelperTest
             'label' => false,
         ]);
         $expected = [
-            'div' => ['class' => 'form-group staticControl'],
+            'div' => ['class' => 'mb-3 form-group staticControl'],
                 'p' => ['class' => 'form-control-plaintext'],
                     'title',
                 '/p',
@@ -104,7 +104,7 @@ class StaticControlTest extends AbstractFormHelperTest
             'label' => 'Custom Label',
         ]);
         $expected = [
-            'div' => ['class' => 'form-group staticControl'],
+            'div' => ['class' => 'mb-3 form-group staticControl'],
                 ['label' => ['class' => 'form-label', 'for' => 'title']],
                     'Custom Label',
                 '/label',
@@ -137,7 +137,7 @@ class StaticControlTest extends AbstractFormHelperTest
             ],
         ]);
         $expected = [
-            'div' => ['class' => 'form-group staticControl'],
+            'div' => ['class' => 'mb-3 form-group staticControl'],
                 'label' => ['class' => 'custom-label-class form-label', 'foo' => 'bar', 'for' => 'title'],
                     'Custom Label',
                 '/label',
@@ -166,7 +166,7 @@ class StaticControlTest extends AbstractFormHelperTest
             'help' => 'Help text',
         ]);
         $expected = [
-            'div' => ['class' => 'form-group staticControl'],
+            'div' => ['class' => 'mb-3 form-group staticControl'],
                 ['label' => ['class' => 'form-label', 'for' => 'title']],
                     'Title',
                 '/label',
@@ -201,7 +201,7 @@ class StaticControlTest extends AbstractFormHelperTest
             ],
         ]);
         $expected = [
-            'div' => ['class' => 'form-group staticControl'],
+            'div' => ['class' => 'mb-3 form-group staticControl'],
                 ['label' => ['class' => 'form-label', 'for' => 'title']],
                     'Title',
                 '/label',
@@ -233,7 +233,7 @@ class StaticControlTest extends AbstractFormHelperTest
             'tooltip' => 'Tooltip text',
         ]);
         $expected = [
-            'div' => ['class' => 'form-group staticControl'],
+            'div' => ['class' => 'mb-3 form-group staticControl'],
                 ['label' => ['class' => 'form-label', 'for' => 'title']],
                     'Title',
                     'span' => [
@@ -270,7 +270,7 @@ class StaticControlTest extends AbstractFormHelperTest
             'type' => 'staticControl',
         ]);
         $expected = [
-            'div' => ['class' => 'form-group staticControl is-invalid'],
+            'div' => ['class' => 'mb-3 form-group staticControl is-invalid'],
                 ['label' => ['class' => 'form-label', 'for' => 'title']],
                     'Title',
                 '/label',
@@ -308,7 +308,7 @@ class StaticControlTest extends AbstractFormHelperTest
         $expected = [
             'div' => [
                 'attribute' => 'container-attribute',
-                'class' => 'container-class form-group staticControl',
+                'class' => 'container-class mb-3 form-group staticControl',
             ],
                 ['label' => ['class' => 'form-label', 'for' => 'title']],
                     'Title',
@@ -346,7 +346,7 @@ class StaticControlTest extends AbstractFormHelperTest
         $expected = [
             'div' => [
                 'attribute' => 'container-attribute',
-                'class' => 'container-class form-group staticControl is-invalid',
+                'class' => 'container-class mb-3 form-group staticControl is-invalid',
             ],
                 ['label' => ['class' => 'form-label', 'for' => 'title']],
                     'Title',

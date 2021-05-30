@@ -19,7 +19,7 @@ class SelectControlTest extends AbstractFormHelperTest
             ],
         ]);
         $expected = [
-            'div' => ['class' => 'form-group select'],
+            'div' => ['class' => 'mb-3 form-group select'],
                 ['label' => ['class' => 'form-label', 'for' => 'users']],
                     'Users',
                 '/label',
@@ -49,7 +49,7 @@ class SelectControlTest extends AbstractFormHelperTest
             'label' => false,
         ]);
         $expected = [
-            'div' => ['class' => 'form-group select'],
+            'div' => ['class' => 'mb-3 form-group select'],
                 ['select' => ['name' => 'users', 'id' => 'users', 'class' => 'form-select']],
                     ['option' => ['value' => '1']],
                         'option 1',
@@ -76,7 +76,7 @@ class SelectControlTest extends AbstractFormHelperTest
             'label' => 'Custom Label',
         ]);
         $expected = [
-            'div' => ['class' => 'form-group select'],
+            'div' => ['class' => 'mb-3 form-group select'],
                 ['label' => ['class' => 'form-label', 'for' => 'users']],
                     'Custom Label',
                 '/label',
@@ -110,7 +110,7 @@ class SelectControlTest extends AbstractFormHelperTest
             ],
         ]);
         $expected = [
-            'div' => ['class' => 'form-group select'],
+            'div' => ['class' => 'mb-3 form-group select'],
                 'label' => ['for' => 'users', 'class' => 'custom-label-class form-label', 'foo' => 'bar'],
                     'Custom Label',
                 '/label',
@@ -140,7 +140,7 @@ class SelectControlTest extends AbstractFormHelperTest
             'help' => 'Help text',
         ]);
         $expected = [
-            'div' => ['class' => 'form-group select'],
+            'div' => ['class' => 'mb-3 form-group select'],
                 ['label' => ['class' => 'form-label', 'for' => 'users']],
                     'Users',
                 '/label',
@@ -176,7 +176,7 @@ class SelectControlTest extends AbstractFormHelperTest
             ],
         ]);
         $expected = [
-            'div' => ['class' => 'form-group select'],
+            'div' => ['class' => 'mb-3 form-group select'],
                 ['label' => ['class' => 'form-label', 'for' => 'users']],
                     'Users',
                 '/label',
@@ -209,7 +209,7 @@ class SelectControlTest extends AbstractFormHelperTest
             'tooltip' => 'Tooltip text',
         ]);
         $expected = [
-            'div' => ['class' => 'form-group select'],
+            'div' => ['class' => 'mb-3 form-group select'],
                 ['label' => ['class' => 'form-label', 'for' => 'users']],
                     'Users',
                     'span' => [
@@ -247,7 +247,7 @@ class SelectControlTest extends AbstractFormHelperTest
             ],
         ]);
         $expected = [
-            'div' => ['class' => 'form-group select is-invalid'],
+            'div' => ['class' => 'mb-3 form-group select is-invalid'],
                 ['label' => ['class' => 'form-label', 'for' => 'users']],
                     'Users',
                 '/label',
@@ -285,7 +285,7 @@ class SelectControlTest extends AbstractFormHelperTest
         $expected = [
             'div' => [
                 'attribute' => 'container-attribute',
-                'class' => 'container-class form-group select',
+                'class' => 'container-class mb-3 form-group select',
             ],
                 ['label' => ['class' => 'form-label', 'for' => 'users']],
                     'Users',
@@ -324,7 +324,7 @@ class SelectControlTest extends AbstractFormHelperTest
         $expected = [
             'div' => [
                 'attribute' => 'container-attribute',
-                'class' => 'container-class form-group select is-invalid',
+                'class' => 'container-class mb-3 form-group select is-invalid',
             ],
                 ['label' => ['class' => 'form-label', 'for' => 'users']],
                     'Users',
@@ -358,7 +358,7 @@ class SelectControlTest extends AbstractFormHelperTest
             'append' => 'append',
         ]);
         $expected = [
-            ['div' => ['class' => 'form-group select']],
+            ['div' => ['class' => 'mb-3 form-group select']],
                 ['label' => ['class' => 'form-label', 'for' => 'users']],
                     'Users',
                 '/label',
@@ -393,7 +393,7 @@ class SelectControlTest extends AbstractFormHelperTest
             'prepend' => 'prepend',
         ]);
         $expected = [
-            ['div' => ['class' => 'form-group select']],
+            ['div' => ['class' => 'mb-3 form-group select']],
                 ['label' => ['class' => 'form-label', 'for' => 'users']],
                     'Users',
                 '/label',
