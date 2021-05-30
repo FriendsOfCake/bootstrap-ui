@@ -647,7 +647,7 @@ class FormHelper extends Helper
                     $labelClasses[] = 'd-block';
                 }
                 if ($this->_align === static::ALIGN_HORIZONTAL) {
-                    $labelClasses[] = "pt-0";
+                    $labelClasses[] = 'pt-0';
                 }
             }
 
