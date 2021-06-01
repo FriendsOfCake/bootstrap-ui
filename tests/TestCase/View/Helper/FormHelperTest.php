@@ -344,7 +344,7 @@ class FormHelperTest extends AbstractFormHelperTest
                 'accept-charset' => 'utf-8',
                 'role' => 'form',
                 'action' => '/articles/add',
-                'class' => 'form-inline d-flex',
+                'class' => 'form-inline row g-3 align-items-center',
             ],
         ];
         $this->assertHtml($expected, $result);
@@ -780,18 +780,20 @@ class FormHelperTest extends AbstractFormHelperTest
         ]);
 
         $expected = [
-            ['div' => ['class' => 'form-group text is-invalid']],
-                ['label' => ['class' => 'form-label visually-hidden', 'for' => 'title']],
-                    'Title',
-                '/label',
-                'input' => [
-                    'type' => 'text',
-                    'name' => 'title',
-                    'id' => 'title',
-                    'class' => 'is-invalid form-control',
-                ],
-                ['div' => ['class' => 'invalid-feedback']],
-                    'error message',
+            ['div' => ['class' => 'col-auto']],
+                ['div' => ['class' => 'form-group text is-invalid']],
+                    ['label' => ['class' => 'form-label visually-hidden', 'for' => 'title']],
+                        'Title',
+                    '/label',
+                    'input' => [
+                        'type' => 'text',
+                        'name' => 'title',
+                        'id' => 'title',
+                        'class' => 'is-invalid form-control',
+                    ],
+                    ['div' => ['class' => 'invalid-feedback']],
+                        'error message',
+                    '/div',
                 '/div',
             '/div',
         ];

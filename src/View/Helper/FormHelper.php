@@ -184,15 +184,16 @@ class FormHelper extends Helper
         'default' => [
         ],
         'inline' => [
+            'elementWrapper' =>
+                '<div class="col-auto">{{content}}</div>',
             'help' => '<small{{attrs}} class="visually-hidden form-text text-muted">{{content}}</small>',
             'checkboxInlineContainer' =>
-                '<div{{containerAttrs}} class="{{containerClass}}form-check form-check-inline {{type}}{{required}}">' .
+                '<div{{containerAttrs}} class="{{containerClass}}form-check {{type}}{{required}}">' .
                     '{{content}}{{help}}</div>',
             'checkboxInlineContainerError' =>
                 '<div{{containerAttrs}} ' .
-                    'class="{{containerClass}}form-check form-check-inline ' .
-                        '{{formGroupPosition}}{{type}}{{required}} is-invalid">' .
-                            '{{content}}{{error}}{{help}}</div>',
+                    'class="{{containerClass}}form-check {{formGroupPosition}}{{type}}{{required}} is-invalid">' .
+                        '{{content}}{{error}}{{help}}</div>',
             'datetimeContainer' =>
                 '<div{{containerAttrs}} ' .
                     'class="{{containerClass}}form-group {{formGroupPosition}}{{type}}{{required}}">' .
@@ -213,12 +214,13 @@ class FormHelper extends Helper
             'radioLabel' => '<span{{attrs}}>{{text}}{{tooltip}}</span>',
             'multicheckboxContainer' =>
                 '<div{{containerAttrs}} ' .
-                    'class="{{containerClass}}form-group d-flex {{formGroupPosition}}{{type}}{{required}}" role="group" ' .
-                        'aria-labelledby="{{groupId}}">{{content}}{{help}}</div>',
+                    'class="{{containerClass}}form-group d-flex {{formGroupPosition}}{{type}}{{required}}" ' .
+                        'role="group" aria-labelledby="{{groupId}}">{{content}}{{help}}</div>',
             'multicheckboxContainerError' =>
                 '<div{{containerAttrs}} ' .
-                    'class="{{containerClass}}form-group d-flex {{formGroupPosition}}{{type}}{{required}} is-invalid" ' .
-                        'role="group" aria-labelledby="{{groupId}}">{{content}}{{error}}{{help}}</div>',
+                    'class="{{containerClass}}form-group d-flex ' .
+                        '{{formGroupPosition}}{{type}}{{required}} is-invalid" ' .
+                            'role="group" aria-labelledby="{{groupId}}">{{content}}{{error}}{{help}}</div>',
             'multicheckboxLabel' => '<span{{attrs}}>{{text}}{{tooltip}}</span>',
             'multicheckboxWrapper' =>
                 '<fieldset class="form-group">{{content}}</fieldset>',
@@ -345,6 +347,16 @@ class FormHelper extends Helper
     }
 
     /**
+     * @inheritDoc
+     */
+    public function button(string $title, array $options = []): string
+    {
+        $result = parent::button($title, $options);
+
+        return $this->_postProcessElement($result, null, $options);
+    }
+
+    /**
      * Creates a submit button element.
      *
      * Overrides parent method to add CSS class `btn`, to the element.
@@ -365,7 +377,9 @@ class FormHelper extends Helper
         $options = $this->applyButtonClasses($options);
         $options = $this->_containerOptions(null, $options);
 
-        return parent::submit($caption, $options);
+        $result = parent::submit($caption, $options);
+
+        return $this->_postProcessElement($result, null, $options);
     }
 
     /**
@@ -459,6 +473,8 @@ class FormHelper extends Helper
         );
 
         $result = parent::control($fieldName, $options);
+
+        $result = $this->_postProcessElement($result, $fieldName, $options);
 
         if ($newTemplates) {
             $this->templater()->pop();
@@ -829,6 +845,29 @@ class FormHelper extends Helper
     }
 
     /**
+     * Post processes a generated form element.
+     *
+     * @param string $html The form element HTML.
+     * @param string|null $fieldName The field name.
+     * @param array $options The element generation options (see `$options` argument for `button()`, `submit()`, and
+     *  `control()`).
+     * @return string
+     * @see button()
+     * @see submit()
+     * @see control()
+     */
+    protected function _postProcessElement(string $html, ?string $fieldName, array $options): string
+    {
+        if ($this->_align === static::ALIGN_INLINE) {
+            $html = $this->templater()->format('elementWrapper', [
+                'content' => $html,
+            ]);
+        }
+
+        return $html;
+    }
+
+    /**
      * Creates a set of radio widgets.
      *
      * ### Attributes:
@@ -1104,7 +1143,7 @@ class FormHelper extends Helper
         $options = $this->injectClasses('form-' . $this->_align, $options);
 
         if ($this->_align === 'inline') {
-            $options = $this->injectClasses(['d-flex'], $options);
+            $options = $this->injectClasses(['row g-3 align-items-center'], $options);
             $options['templates'] += $templates;
 
             return $options;

@@ -19,16 +19,18 @@ class FileControlTest extends AbstractFormHelperTest
             'type' => 'file',
         ]);
         $expected = [
-            ['div' => ['class' => 'form-group file']],
-                ['label' => ['class' => 'form-label visually-hidden', 'for' => 'file']],
-                    'File',
-                '/label',
-                ['input' => [
-                    'type' => 'file',
-                    'name' => 'file',
-                    'id' => 'file',
-                    'class' => 'form-control',
-                ]],
+            ['div' => ['class' => 'col-auto']],
+                ['div' => ['class' => 'form-group file']],
+                    ['label' => ['class' => 'form-label visually-hidden', 'for' => 'file']],
+                        'File',
+                    '/label',
+                    ['input' => [
+                        'type' => 'file',
+                        'name' => 'file',
+                        'id' => 'file',
+                        'class' => 'form-control',
+                    ]],
+                '/div',
             '/div',
         ];
         $this->assertHtml($expected, $result);
@@ -47,13 +49,15 @@ class FileControlTest extends AbstractFormHelperTest
             'label' => false,
         ]);
         $expected = [
-            ['div' => ['class' => 'form-group file']],
-                ['input' => [
-                    'type' => 'file',
-                    'name' => 'file',
-                    'id' => 'file',
-                    'class' => 'form-control',
-                ]],
+            ['div' => ['class' => 'col-auto']],
+                ['div' => ['class' => 'form-group file']],
+                    ['input' => [
+                        'type' => 'file',
+                        'name' => 'file',
+                        'id' => 'file',
+                        'class' => 'form-control',
+                    ]],
+                '/div',
             '/div',
         ];
         $this->assertHtml($expected, $result);
@@ -72,16 +76,18 @@ class FileControlTest extends AbstractFormHelperTest
             'label' => 'Custom Label',
         ]);
         $expected = [
-            ['div' => ['class' => 'form-group file']],
-                ['label' => ['class' => 'form-label visually-hidden', 'for' => 'file']],
-                    'Custom Label',
-                '/label',
-                ['input' => [
-                    'type' => 'file',
-                    'name' => 'file',
-                    'id' => 'file',
-                    'class' => 'form-control',
-                ]],
+            ['div' => ['class' => 'col-auto']],
+                ['div' => ['class' => 'form-group file']],
+                    ['label' => ['class' => 'form-label visually-hidden', 'for' => 'file']],
+                        'Custom Label',
+                    '/label',
+                    ['input' => [
+                        'type' => 'file',
+                        'name' => 'file',
+                        'id' => 'file',
+                        'class' => 'form-control',
+                    ]],
+                '/div',
             '/div',
         ];
         $this->assertHtml($expected, $result);
@@ -104,20 +110,22 @@ class FileControlTest extends AbstractFormHelperTest
             ],
         ]);
         $expected = [
-            ['div' => ['class' => 'form-group file']],
-                ['label' => [
-                    'class' => 'custom-label-class form-label visually-hidden',
-                    'foo' => 'bar',
-                    'for' => 'file',
-                ]],
-                    'Custom Label',
-                '/label',
-                ['input' => [
-                    'type' => 'file',
-                    'name' => 'file',
-                    'id' => 'file',
-                    'class' => 'form-control',
-                ]],
+            ['div' => ['class' => 'col-auto']],
+                ['div' => ['class' => 'form-group file']],
+                    ['label' => [
+                        'class' => 'custom-label-class form-label visually-hidden',
+                        'foo' => 'bar',
+                        'for' => 'file',
+                    ]],
+                        'Custom Label',
+                    '/label',
+                    ['input' => [
+                        'type' => 'file',
+                        'name' => 'file',
+                        'id' => 'file',
+                        'class' => 'form-control',
+                    ]],
+                '/div',
             '/div',
         ];
         $this->assertHtml($expected, $result);
@@ -136,19 +144,21 @@ class FileControlTest extends AbstractFormHelperTest
             'help' => 'Help text',
         ]);
         $expected = [
-            ['div' => ['class' => 'form-group file']],
-                ['label' => ['class' => 'form-label visually-hidden', 'for' => 'file']],
-                    'File',
-                '/label',
-                ['input' => [
-                    'type' => 'file',
-                    'name' => 'file',
-                    'id' => 'file',
-                    'class' => 'form-control',
-                ]],
-                ['small' => ['class' => 'visually-hidden form-text text-muted']],
-                    'Help text',
-                '/small',
+            ['div' => ['class' => 'col-auto']],
+                ['div' => ['class' => 'form-group file']],
+                    ['label' => ['class' => 'form-label visually-hidden', 'for' => 'file']],
+                        'File',
+                    '/label',
+                    ['input' => [
+                        'type' => 'file',
+                        'name' => 'file',
+                        'id' => 'file',
+                        'class' => 'form-control',
+                    ]],
+                    ['small' => ['class' => 'visually-hidden form-text text-muted']],
+                        'Help text',
+                    '/small',
+                '/div',
             '/div',
         ];
         $this->assertHtml($expected, $result);
@@ -170,19 +180,21 @@ class FileControlTest extends AbstractFormHelperTest
             ],
         ]);
         $expected = [
-            ['div' => ['class' => 'form-group file']],
-                ['label' => ['class' => 'form-label visually-hidden', 'for' => 'file']],
-                    'File',
-                '/label',
-                ['input' => [
-                    'type' => 'file',
-                    'name' => 'file',
-                    'id' => 'file',
-                    'class' => 'form-control',
-                ]],
-                ['small' => ['foo' => 'bar', 'class' => 'visually-hidden form-text text-muted']],
-                    'Help text',
-                '/small',
+            ['div' => ['class' => 'col-auto']],
+                ['div' => ['class' => 'form-group file']],
+                    ['label' => ['class' => 'form-label visually-hidden', 'for' => 'file']],
+                        'File',
+                    '/label',
+                    ['input' => [
+                        'type' => 'file',
+                        'name' => 'file',
+                        'id' => 'file',
+                        'class' => 'form-control',
+                    ]],
+                    ['small' => ['foo' => 'bar', 'class' => 'visually-hidden form-text text-muted']],
+                        'Help text',
+                    '/small',
+                '/div',
             '/div',
         ];
         $this->assertHtml($expected, $result);
@@ -201,22 +213,24 @@ class FileControlTest extends AbstractFormHelperTest
             'tooltip' => 'Tooltip text',
         ]);
         $expected = [
-            ['div' => ['class' => 'form-group file']],
-                ['label' => ['class' => 'form-label visually-hidden', 'for' => 'file']],
-                    'File ',
-                    'span' => [
-                        'data-bs-toggle' => 'tooltip',
-                        'title' => 'Tooltip text',
-                        'class' => 'fas fa-info-circle',
-                    ],
-                    '/span',
-                '/label',
-                ['input' => [
-                    'type' => 'file',
-                    'name' => 'file',
-                    'id' => 'file',
-                    'class' => 'form-control',
-                ]],
+            ['div' => ['class' => 'col-auto']],
+                ['div' => ['class' => 'form-group file']],
+                    ['label' => ['class' => 'form-label visually-hidden', 'for' => 'file']],
+                        'File ',
+                        'span' => [
+                            'data-bs-toggle' => 'tooltip',
+                            'title' => 'Tooltip text',
+                            'class' => 'fas fa-info-circle',
+                        ],
+                        '/span',
+                    '/label',
+                    ['input' => [
+                        'type' => 'file',
+                        'name' => 'file',
+                        'id' => 'file',
+                        'class' => 'form-control',
+                    ]],
+                '/div',
             '/div',
         ];
         $this->assertHtml($expected, $result);
@@ -237,18 +251,20 @@ class FileControlTest extends AbstractFormHelperTest
             'type' => 'file',
         ]);
         $expected = [
-            ['div' => ['class' => 'form-group position-relative file is-invalid']],
-                ['label' => ['class' => 'form-label visually-hidden', 'for' => 'file']],
-                    'File',
-                '/label',
-                ['input' => [
-                    'type' => 'file',
-                    'name' => 'file',
-                    'id' => 'file',
-                    'class' => 'is-invalid form-control',
-                ]],
-                ['div' => ['class' => 'invalid-tooltip']],
-                    'error message',
+            ['div' => ['class' => 'col-auto']],
+                ['div' => ['class' => 'form-group position-relative file is-invalid']],
+                    ['label' => ['class' => 'form-label visually-hidden', 'for' => 'file']],
+                        'File',
+                    '/label',
+                    ['input' => [
+                        'type' => 'file',
+                        'name' => 'file',
+                        'id' => 'file',
+                        'class' => 'is-invalid form-control',
+                    ]],
+                    ['div' => ['class' => 'invalid-tooltip']],
+                        'error message',
+                    '/div',
                 '/div',
             '/div',
         ];
@@ -271,19 +287,21 @@ class FileControlTest extends AbstractFormHelperTest
             ],
         ]);
         $expected = [
-            ['div' => [
-                'attribute' => 'container-attribute',
-                'class' => 'container-class form-group file',
-            ]],
-                ['label' => ['class' => 'form-label visually-hidden', 'for' => 'file']],
-                    'File',
-                '/label',
-                ['input' => [
-                    'type' => 'file',
-                    'name' => 'file',
-                    'id' => 'file',
-                    'class' => 'form-control',
+            ['div' => ['class' => 'col-auto']],
+                ['div' => [
+                    'attribute' => 'container-attribute',
+                    'class' => 'container-class form-group file',
                 ]],
+                    ['label' => ['class' => 'form-label visually-hidden', 'for' => 'file']],
+                        'File',
+                    '/label',
+                    ['input' => [
+                        'type' => 'file',
+                        'name' => 'file',
+                        'id' => 'file',
+                        'class' => 'form-control',
+                    ]],
+                '/div',
             '/div',
         ];
         $this->assertHtml($expected, $result);
@@ -308,21 +326,23 @@ class FileControlTest extends AbstractFormHelperTest
             ],
         ]);
         $expected = [
-            ['div' => [
-                'attribute' => 'container-attribute',
-                'class' => 'container-class form-group position-relative file is-invalid',
-            ]],
-                ['label' => ['class' => 'form-label visually-hidden', 'for' => 'file']],
-                    'File',
-                '/label',
-                ['input' => [
-                    'type' => 'file',
-                    'name' => 'file',
-                    'id' => 'file',
-                    'class' => 'is-invalid form-control',
+            ['div' => ['class' => 'col-auto']],
+                ['div' => [
+                    'attribute' => 'container-attribute',
+                    'class' => 'container-class form-group position-relative file is-invalid',
                 ]],
-                ['div' => ['class' => 'invalid-tooltip']],
-                    'error message',
+                    ['label' => ['class' => 'form-label visually-hidden', 'for' => 'file']],
+                        'File',
+                    '/label',
+                    ['input' => [
+                        'type' => 'file',
+                        'name' => 'file',
+                        'id' => 'file',
+                        'class' => 'is-invalid form-control',
+                    ]],
+                    ['div' => ['class' => 'invalid-tooltip']],
+                        'error message',
+                    '/div',
                 '/div',
             '/div',
         ];
@@ -340,20 +360,22 @@ class FileControlTest extends AbstractFormHelperTest
             'append' => 'append',
         ]);
         $expected = [
-            ['div' => ['class' => 'form-group file']],
-                ['label' => ['class' => 'form-label visually-hidden', 'for' => 'file']],
-                    'File',
-                '/label',
-                ['div' => ['class' => 'input-group']],
-                    ['input' => [
-                        'type' => 'file',
-                        'name' => 'file',
-                        'id' => 'file',
-                        'class' => 'form-control',
-                    ]],
-                    ['span' => ['class' => 'input-group-text']],
-                        'append',
-                    '/span',
+            ['div' => ['class' => 'col-auto']],
+                ['div' => ['class' => 'form-group file']],
+                    ['label' => ['class' => 'form-label visually-hidden', 'for' => 'file']],
+                        'File',
+                    '/label',
+                    ['div' => ['class' => 'input-group']],
+                        ['input' => [
+                            'type' => 'file',
+                            'name' => 'file',
+                            'id' => 'file',
+                            'class' => 'form-control',
+                        ]],
+                        ['span' => ['class' => 'input-group-text']],
+                            'append',
+                        '/span',
+                    '/div',
                 '/div',
             '/div',
         ];
@@ -371,20 +393,22 @@ class FileControlTest extends AbstractFormHelperTest
             'prepend' => 'prepend',
         ]);
         $expected = [
-            ['div' => ['class' => 'form-group file']],
-                ['label' => ['class' => 'form-label visually-hidden', 'for' => 'file']],
-                    'File',
-                '/label',
-                ['div' => ['class' => 'input-group']],
-                    ['span' => ['class' => 'input-group-text']],
-                        'prepend',
-                    '/span',
-                    ['input' => [
-                        'type' => 'file',
-                        'name' => 'file',
-                        'id' => 'file',
-                        'class' => 'form-control',
-                    ]],
+            ['div' => ['class' => 'col-auto']],
+                ['div' => ['class' => 'form-group file']],
+                    ['label' => ['class' => 'form-label visually-hidden', 'for' => 'file']],
+                        'File',
+                    '/label',
+                    ['div' => ['class' => 'input-group']],
+                        ['span' => ['class' => 'input-group-text']],
+                            'prepend',
+                        '/span',
+                        ['input' => [
+                            'type' => 'file',
+                            'name' => 'file',
+                            'id' => 'file',
+                            'class' => 'form-control',
+                        ]],
+                    '/div',
                 '/div',
             '/div',
         ];
@@ -405,23 +429,25 @@ class FileControlTest extends AbstractFormHelperTest
             'append' => 'append',
         ]);
         $expected = [
-            ['div' => ['class' => 'form-group position-relative file is-invalid']],
-                ['label' => ['class' => 'form-label visually-hidden', 'for' => 'file']],
-                    'File',
-                '/label',
-                ['div' => ['class' => 'input-group is-invalid']],
-                    ['input' => [
-                        'type' => 'file',
-                        'name' => 'file',
-                        'id' => 'file',
-                        'class' => 'is-invalid form-control',
-                    ]],
-                    ['span' => ['class' => 'input-group-text']],
-                        'append',
-                    '/span',
-                '/div',
-                ['div' => ['class' => 'invalid-tooltip']],
-                    'error message',
+            ['div' => ['class' => 'col-auto']],
+                ['div' => ['class' => 'form-group position-relative file is-invalid']],
+                    ['label' => ['class' => 'form-label visually-hidden', 'for' => 'file']],
+                        'File',
+                    '/label',
+                    ['div' => ['class' => 'input-group is-invalid']],
+                        ['input' => [
+                            'type' => 'file',
+                            'name' => 'file',
+                            'id' => 'file',
+                            'class' => 'is-invalid form-control',
+                        ]],
+                        ['span' => ['class' => 'input-group-text']],
+                            'append',
+                        '/span',
+                    '/div',
+                    ['div' => ['class' => 'invalid-tooltip']],
+                        'error message',
+                    '/div',
                 '/div',
             '/div',
         ];
