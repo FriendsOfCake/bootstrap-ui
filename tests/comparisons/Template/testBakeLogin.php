@@ -15,6 +15,6 @@
 <?= $this->Form->label('password', __('Password'), ['class' => 'visually-hidden']) ?>
 <?= $this->Form->password('password', ['placeholder' => __('Password')]) ?>
 <?= $this->Form->control('remember-me', ['type' => 'checkbox', 'inline' => true]) ?>
-<?= $this->Form->submit(__('Sign in'), ['class' => 'btn btn-lg btn-primary btn-block']) ?>
+<?= $this->Form->submit(__('Sign in'), ['class' => 'w-100 btn btn-lg btn-primary']) ?>
 <p class="mt-5 mb-3 text-muted">© <?= date('Y') ?></p>
 <?= $this->Form->end() ?>
