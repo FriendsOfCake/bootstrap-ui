@@ -7,7 +7,7 @@ use Cake\Core\Configure;
 $this->Html->css('BootstrapUI.dashboard', ['block' => true]);
 $this->prepend(
     'tb_body_attrs',
-        ' class="' .
+    ' class="' .
         implode(' ', [$this->request->getParam('controller'), $this->request->getParam('action')]) .
         '" '
 );
