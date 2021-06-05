@@ -9,6 +9,7 @@
 <?= $this->Form->create(${{ singularVar }}, ['class' => 'form-signin text-center']) ?>
 <?= $this->Html->image('BootstrapUI.baked-with-cakephp.svg', ['class' => 'mb-4', 'width' => '250']) ?>
 <h1 class="h3 mb-3 font-weight-normal"><?= __('Please sign in') ?></h1>
+<?php if (isset($this->Flash)) echo $this->Flash->render(); ?>
 <?= $this->Form->label('email', __('Email address'), ['class' => 'visually-hidden']) ?>
 <?= $this->Form->email('email', ['placeholder' => __('Email address'), 'autofocus']) ?>
 <?= $this->Form->label('password', __('Password'), ['class' => 'visually-hidden']) ?>
