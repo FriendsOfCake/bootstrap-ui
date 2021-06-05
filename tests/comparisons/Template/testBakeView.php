@@ -34,7 +34,7 @@
             </tr>
         </table>
     </div>
-    <div class="row">
+    <div class="text">
         <h4><?= __('Body') ?></h4>
         <?= $this->Text->autoParagraph(h($article->body)); ?>
     </div>
