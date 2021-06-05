@@ -3,7 +3,12 @@
  * @var \Cake\View\View $this
  */
 $this->Html->css('BootstrapUI.signin', ['block' => true]);
-$this->prepend('tb_body_attrs', ' class="' . implode(' ', [$this->request->getParam('controller'), $this->request->getParam('action')]) . '" ');
+$this->prepend(
+    'tb_body_attrs',
+    ' class="text-center ' .
+    implode(' ', [$this->request->getParam('controller'), $this->request->getParam('action')]) .
+    '" '
+);
 $this->start('tb_body_start');
 /**
  * Default `flash` block.
