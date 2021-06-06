@@ -132,21 +132,23 @@ class FormHelper extends Helper
                     '{{content}}{{error}}{{help}}</div>',
         'checkboxContainer' =>
             '<div{{containerAttrs}} ' .
-                'class="{{containerClass}}form-group form-check {{type}}{{required}}">{{content}}{{help}}</div>',
+                'class="{{containerClass}}form-group form-check{{variant}} ' .
+                    '{{type}}{{required}}">{{content}}{{help}}</div>',
         'checkboxContainerError' =>
             '<div{{containerAttrs}} ' .
-                'class="{{containerClass}}form-group form-check {{formGroupPosition}}{{type}}{{required}} ' .
-                    'is-invalid">{{content}}{{error}}{{help}}</div>',
+                'class="{{containerClass}}form-group form-check{{variant}} ' .
+                    '{{formGroupPosition}}{{type}}{{required}} is-invalid">{{content}}{{error}}{{help}}</div>',
         'checkboxInlineContainer' =>
-            '<div{{containerAttrs}} class="{{containerClass}}form-check form-check-inline {{type}}{{required}}">' .
-                '{{content}}</div>',
+            '<div{{containerAttrs}} ' .
+                'class="{{containerClass}}form-check{{variant}} form-check-inline {{type}}{{required}}">' .
+                    '{{content}}</div>',
         'checkboxInlineContainerError' =>
             '<div{{containerAttrs}} ' .
-                'class="{{containerClass}}form-check form-check-inline {{type}}{{required}} is-invalid">' .
+                'class="{{containerClass}}form-check{{variant}} form-check-inline {{type}}{{required}} is-invalid">' .
                     '{{content}}</div>',
         'checkboxFormGroup' => '{{input}}{{label}}',
-        'checkboxWrapper' => '<div class="form-check">{{label}}</div>',
-        'checkboxInlineWrapper' => '<div class="form-check form-check-inline">{{label}}</div>',
+        'checkboxWrapper' => '<div class="form-check{{variant}}">{{label}}</div>',
+        'checkboxInlineWrapper' => '<div class="form-check{{variant}} form-check-inline">{{label}}</div>',
         'radioContainer' =>
             '<div{{containerAttrs}} class="{{containerClass}}form-group {{type}}{{required}}" role="group" ' .
                 'aria-labelledby="{{groupId}}">{{content}}{{help}}</div>',
@@ -188,12 +190,12 @@ class FormHelper extends Helper
                 '<div class="col-auto">{{content}}</div>',
             'help' => '<small{{attrs}} class="visually-hidden form-text text-muted">{{content}}</small>',
             'checkboxInlineContainer' =>
-                '<div{{containerAttrs}} class="{{containerClass}}form-check {{type}}{{required}}">' .
+                '<div{{containerAttrs}} class="{{containerClass}}form-check{{variant}} {{type}}{{required}}">' .
                     '{{content}}{{help}}</div>',
             'checkboxInlineContainerError' =>
                 '<div{{containerAttrs}} ' .
-                    'class="{{containerClass}}form-check {{formGroupPosition}}{{type}}{{required}} is-invalid">' .
-                        '{{content}}{{error}}{{help}}</div>',
+                    'class="{{containerClass}}form-check{{variant}} ' .
+                        '{{formGroupPosition}}{{type}}{{required}} is-invalid">{{content}}{{error}}{{help}}</div>',
             'datetimeContainer' =>
                 '<div{{containerAttrs}} ' .
                     'class="{{containerClass}}form-group {{formGroupPosition}}{{type}}{{required}}">' .
@@ -231,7 +233,7 @@ class FormHelper extends Helper
             'label' => '<label{{attrs}}>{{text}}{{tooltip}}</label>',
             'formGroup' => '{{label}}<div class="%s">{{input}}{{error}}{{help}}</div>',
             'checkboxFormGroup' =>
-                '<div class="%s"><div class="form-check">{{input}}{{label}}{{error}}{{help}}</div></div>',
+                '<div class="%s"><div class="form-check{{variant}}">{{input}}{{label}}{{error}}{{help}}</div></div>',
             'datetimeContainer' =>
                 '<div{{containerAttrs}} ' .
                     'class="{{containerClass}}form-group row {{type}}{{required}}">{{content}}</div>',
@@ -240,8 +242,8 @@ class FormHelper extends Helper
                     'class="{{containerClass}}form-group row {{formGroupPosition}}{{type}}{{required}} is-invalid">' .
                         '{{content}}</div>',
             'datetimeLabel' => '<label{{attrs}}>{{text}}{{tooltip}}</label>',
-            'checkboxInlineFormGroup' => '<div class="%s"><div class="form-check form-check-inline">' .
-                    '{{input}}{{label}}</div></div>',
+            'checkboxInlineFormGroup' =>
+                '<div class="%s"><div class="form-check{{variant}} form-check-inline">{{input}}{{label}}</div></div>',
             'submitContainer' =>
                 '<div{{containerAttrs}} class="{{containerClass}}form-group row">' .
                     '<div class="%s">{{content}}</div></div>',
@@ -391,6 +393,7 @@ class FormHelper extends Helper
      * - `append` - Append addon to input.
      * - `prepend` - Prepend addon to input.
      * - `inline` - Boolean for generating inline checkbox/radio.
+     * - `switch` - Boolean for generating switch style checkboxes.
      * - `help` - Help text to include in the input container.
      * - `tooltip` - Tooltip text to include in the control's label.
      * - `feedbackStyle` - The feedback style to use, `default`, or `tooltip` (will cause `formGroupPosition` to be set
@@ -410,6 +413,7 @@ class FormHelper extends Helper
             'append' => null,
             'inline' => null,
             'nestedInput' => false,
+            'switch' => null,
             'type' => null,
             'label' => null,
             'error' => null,
@@ -469,7 +473,8 @@ class FormHelper extends Helper
             $options['formGroupPosition'],
             $options['feedbackStyle'],
             $options['inline'],
-            $options['nestedInput']
+            $options['nestedInput'],
+            $options['switch']
         );
 
         $result = parent::control($fieldName, $options);
@@ -579,6 +584,10 @@ class FormHelper extends Helper
             $options['templates']['nestingLabel'] = $this->templater()->get('nestingLabelNestedInput');
         }
 
+        if ($options['switch']) {
+            $options['templateVars']['variant'] = ' form-switch';
+        }
+
         return $options;
     }
 
@@ -681,6 +690,10 @@ class FormHelper extends Helper
 
             if ($options['nestedInput']) {
                 $options['templates']['nestingLabel'] = $this->templater()->get('nestingLabelNestedInput');
+            }
+
+            if ($options['switch']) {
+                $options['templateVars']['variant'] = ' form-switch';
             }
         }
 

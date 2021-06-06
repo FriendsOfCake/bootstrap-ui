@@ -771,4 +771,38 @@ class CheckboxControlTest extends AbstractFormHelperTest
         ];
         $this->assertHtml($expected, $result);
     }
+
+    public function testInlineAlignCheckboxControlSwitch()
+    {
+        $this->Form->create($this->article, [
+            'align' => 'inline',
+        ]);
+
+        $result = $this->Form->control('users', [
+            'type' => 'checkbox',
+            'switch' => true,
+        ]);
+        $expected = [
+            ['div' => ['class' => 'col-auto']],
+                ['div' => ['class' => 'form-check form-switch checkbox']],
+                    ['input' => [
+                        'type' => 'hidden',
+                        'name' => 'users',
+                        'value' => 0,
+                    ]],
+                    ['input' => [
+                        'class' => 'form-check-input',
+                        'type' => 'checkbox',
+                        'name' => 'users',
+                        'id' => 'users',
+                        'value' => 1,
+                    ]],
+                    ['label' => ['class' => 'form-check-label', 'for' => 'users']],
+                        'Users',
+                    '/label',
+                '/div',
+            '/div',
+        ];
+        $this->assertHtml($expected, $result);
+    }
 }

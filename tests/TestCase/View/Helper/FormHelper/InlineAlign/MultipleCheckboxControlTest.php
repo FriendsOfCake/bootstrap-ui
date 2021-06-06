@@ -1091,4 +1091,63 @@ class MultipleCheckboxControlTest extends AbstractFormHelperTest
         ];
         $this->assertHtml($expected, $result);
     }
+
+    public function testInlineAlignMultipleCheckboxControlSwitch()
+    {
+        $this->Form->create($this->article, [
+            'align' => 'inline',
+        ]);
+
+        $result = $this->Form->control('users', [
+            'multiple' => 'checkbox',
+            'switch' => true,
+            'options' => [
+                1 => 'option 1',
+                2 => 'option 2',
+            ],
+        ]);
+        $expected = [
+            ['div' => ['class' => 'col-auto']],
+                ['div' => [
+                    'class' => 'form-group d-flex position-relative multicheckbox',
+                    'role' => 'group',
+                    'aria-labelledby' => 'users-group-label',
+                ]],
+                    ['span' => ['id' => 'users-group-label', 'class' => 'form-label visually-hidden']],
+                        'Users',
+                    '/span',
+                    ['input' => [
+                        'type' => 'hidden',
+                        'name' => 'users',
+                        'value' => '',
+                    ]],
+                    ['div' => ['class' => 'form-check form-switch form-check-inline']],
+                        ['input' => [
+                            'class' => 'form-check-input',
+                            'type' => 'checkbox',
+                            'name' => 'users[]',
+                            'id' => 'users-1',
+                            'value' => 1,
+                        ]],
+                        ['label' => ['class' => 'form-check-label', 'for' => 'users-1']],
+                            'option 1',
+                        '/label',
+                    '/div',
+                    ['div' => ['class' => 'form-check form-switch form-check-inline']],
+                        ['input' => [
+                            'class' => 'form-check-input',
+                            'type' => 'checkbox',
+                            'name' => 'users[]',
+                            'id' => 'users-2',
+                            'value' => 2,
+                        ]],
+                        ['label' => ['class' => 'form-check-label', 'for' => 'users-2']],
+                            'option 2',
+                        '/label',
+                    '/div',
+                '/div',
+            '/div',
+        ];
+        $this->assertHtml($expected, $result);
+    }
 }

@@ -385,6 +385,7 @@ BootstrapUI supports and generates Bootstrap compatible markup for all of CakePH
 explicitly supports Bootstrap specific markup for the following controls:
 
 - `range`
+- `switch`
 
 ### Container attributes
 
@@ -463,6 +464,28 @@ This would generate the following HTML:
     <input type="hidden" name="option-2" value="0"/>
     <input type="checkbox" name="option-2" value="2" id="option-2" class="form-check-input">
     <label class="form-check-label" for="option-2">Option 2</label>
+</div>
+```
+
+### Switches
+
+[Switch style checkboxes](https://getbootstrap.com/docs/5.0/forms/checks-radios/#switches) can be created by setting the
+`switch` option to `true`.
+
+```php
+echo $this->Form->control('option', [
+    'type' => 'checkbox',
+    'switch' => true,
+]);
+```
+
+This would generate the following HTML:
+
+```html
+<div class="mb-3 form-group form-check form-switch checkbox">
+    <input type="hidden" name="option" value="0"/>
+    <input type="checkbox" name="option" value="1" id="option" class="form-check-input">
+    <label class="form-check-label" for="option">Option</label>
 </div>
 ```
 
