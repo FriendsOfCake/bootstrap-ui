@@ -965,6 +965,21 @@ class FormHelper extends Helper
     }
 
     /**
+     * Creates a color input.
+     *
+     * @param string $fieldName The field name.
+     * @param array $options Array of options or HTML attributes.
+     * @return string
+     */
+    public function color(string $fieldName, array $options = []): string
+    {
+        $options['injectFormControl'] = false;
+        $options = $this->injectClasses('form-control form-control-color', $options);
+
+        return $this->text($fieldName, ['type' => 'color'] + $options);
+    }
+
+    /**
      * Closes an HTML form, cleans up values set by FormHelper::create(), and writes hidden
      * input fields where appropriate.
      *

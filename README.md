@@ -384,6 +384,7 @@ will render this HTML:
 BootstrapUI supports and generates Bootstrap compatible markup for all of CakePHP's default controls. Additionally it
 explicitly supports Bootstrap specific markup for the following controls:
 
+- `color`
 - `range`
 - `switch`
 

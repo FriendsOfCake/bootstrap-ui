@@ -596,6 +596,9 @@ class FormHelperTest extends AbstractFormHelperTest
 
         $result = $this->Form->radio('foo', ['1' => 'Opt 1', '2' => 'Opt 2']);
         $this->assertStringNotContainsString('"form-control"', $result);
+
+        $result = $this->Form->color('foo');
+        $this->assertStringContainsString('class="form-control form-control-color"', $result);
     }
 
     public function testFeedbackStyleFromHelperConfig()
