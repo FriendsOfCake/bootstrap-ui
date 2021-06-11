@@ -225,7 +225,7 @@ class FormHelperTest extends AbstractFormHelperTest
             'prepend' => [
                 $this->Form->button('NO'),
                 $this->Form->button('GO'),
-            ]
+            ],
         ]);
         $expected = [
             'div' => ['class' => 'mb-3 form-group text required'],
@@ -293,7 +293,7 @@ class FormHelperTest extends AbstractFormHelperTest
             'append' => [
                 $this->Form->button('NO'),
                 $this->Form->button('GO'),
-            ]
+            ],
         ]);
         $expected = [
             'div' => ['class' => 'mb-3 form-group text required'],
@@ -384,8 +384,8 @@ class FormHelperTest extends AbstractFormHelperTest
 
         $result = $this->Form->control('title', [
             'prepend' => [
-                '$', '0.00', ['size' => 'lg', 'class' => 'custom', 'custom' => 'attribute']
-            ]
+                '$', '0.00', ['size' => 'lg', 'class' => 'custom', 'custom' => 'attribute'],
+            ],
         ]);
         $expected = [
             'div' => ['class' => 'mb-3 form-group text required'],
@@ -416,8 +416,8 @@ class FormHelperTest extends AbstractFormHelperTest
 
         $result = $this->Form->control('title', [
             'append' => [
-                '$', '0.00', ['size' => 'lg', 'class' => 'custom', 'custom' => 'attribute']
-            ]
+                '$', '0.00', ['size' => 'lg', 'class' => 'custom', 'custom' => 'attribute'],
+            ],
         ]);
         $expected = [
             'div' => ['class' => 'mb-3 form-group text required'],
