@@ -91,6 +91,39 @@ class FormHelperTest extends AbstractFormHelperTest
         $this->assertHtml($expected, $result);
     }
 
+    public function testAddOnPrependedTextMultiple()
+    {
+        $this->Form->create($this->article);
+
+        $result = $this->Form->control('title', ['prepend' => ['$', '0.00']]);
+        $expected = [
+            'div' => ['class' => 'mb-3 form-group text required'],
+                'label' => ['class' => 'form-label', 'for' => 'title'],
+                    'Title',
+                '/label',
+                ['div' => ['class' => 'input-group']],
+                    ['span' => ['class' => 'input-group-text']],
+                        '$',
+                    '/span',
+                    ['span' => ['class' => 'input-group-text']],
+                        '0.00',
+                    '/span',
+                    'input' => [
+                        'type' => 'text',
+                        'name' => 'title',
+                        'required' => 'required',
+                        'data-validity-message' => 'This field cannot be left empty',
+                        'oninvalid' => 'this.setCustomValidity(&#039;&#039;); if (!this.value) this.setCustomValidity(this.dataset.validityMessage)',
+                        'oninput' => 'this.setCustomValidity(&#039;&#039;)',
+                        'id' => 'title',
+                        'class' => 'form-control',
+                    ],
+                '/div',
+            '/div',
+        ];
+        $this->assertHtml($expected, $result);
+    }
+
     public function testAddOnAppendedText()
     {
         $this->Form->create($this->article);
@@ -121,6 +154,39 @@ class FormHelperTest extends AbstractFormHelperTest
         $this->assertHtml($expected, $result);
     }
 
+    public function testAddOnAppendedTextMultiple()
+    {
+        $this->Form->create($this->article);
+
+        $result = $this->Form->control('title', ['append' => ['$', '0.00']]);
+        $expected = [
+            'div' => ['class' => 'mb-3 form-group text required'],
+                'label' => ['class' => 'form-label', 'for' => 'title'],
+                    'Title',
+                '/label',
+                ['div' => ['class' => 'input-group']],
+                    'input' => [
+                        'type' => 'text',
+                        'name' => 'title',
+                        'required' => 'required',
+                        'data-validity-message' => 'This field cannot be left empty',
+                        'oninvalid' => 'this.setCustomValidity(&#039;&#039;); if (!this.value) this.setCustomValidity(this.dataset.validityMessage)',
+                        'oninput' => 'this.setCustomValidity(&#039;&#039;)',
+                        'id' => 'title',
+                        'class' => 'form-control',
+                    ],
+                    ['span' => ['class' => 'input-group-text']],
+                        '$',
+                    '/span',
+                    ['span' => ['class' => 'input-group-text']],
+                        '0.00',
+                    '/span',
+                '/div',
+            '/div',
+        ];
+        $this->assertHtml($expected, $result);
+    }
+
     public function testAddOnPrependedButton()
     {
         $this->Form->create($this->article);
@@ -133,6 +199,44 @@ class FormHelperTest extends AbstractFormHelperTest
                 '/label',
                 ['div' => ['class' => 'input-group']],
                     'button' => ['type' => 'submit', 'class' => 'btn btn-secondary'],
+                        'GO',
+                    '/button',
+                    'input' => [
+                        'type' => 'text',
+                        'name' => 'title',
+                        'required' => 'required',
+                        'data-validity-message' => 'This field cannot be left empty',
+                        'oninvalid' => 'this.setCustomValidity(&#039;&#039;); if (!this.value) this.setCustomValidity(this.dataset.validityMessage)',
+                        'oninput' => 'this.setCustomValidity(&#039;&#039;)',
+                        'id' => 'title',
+                        'class' => 'form-control',
+                    ],
+                '/div',
+            '/div',
+        ];
+        $this->assertHtml($expected, $result);
+    }
+
+    public function testAddOnPrependedButtonMultiple()
+    {
+        $this->Form->create($this->article);
+
+        $result = $this->Form->control('title', [
+            'prepend' => [
+                $this->Form->button('NO'),
+                $this->Form->button('GO'),
+            ]
+        ]);
+        $expected = [
+            'div' => ['class' => 'mb-3 form-group text required'],
+                'label' => ['class' => 'form-label', 'for' => 'title'],
+                    'Title',
+                '/label',
+                ['div' => ['class' => 'input-group']],
+                    ['button' => ['type' => 'submit', 'class' => 'btn btn-secondary']],
+                        'NO',
+                    '/button',
+                    ['button' => ['type' => 'submit', 'class' => 'btn btn-secondary']],
                         'GO',
                     '/button',
                     'input' => [
@@ -173,6 +277,44 @@ class FormHelperTest extends AbstractFormHelperTest
                         'class' => 'form-control',
                     ],
                     'button' => ['type' => 'submit', 'class' => 'btn btn-secondary'],
+                        'GO',
+                    '/button',
+                '/div',
+            '/div',
+        ];
+        $this->assertHtml($expected, $result);
+    }
+
+    public function testAddOnAppendedButtonMultiple()
+    {
+        $this->Form->create($this->article);
+
+        $result = $this->Form->control('title', [
+            'append' => [
+                $this->Form->button('NO'),
+                $this->Form->button('GO'),
+            ]
+        ]);
+        $expected = [
+            'div' => ['class' => 'mb-3 form-group text required'],
+                'label' => ['class' => 'form-label', 'for' => 'title'],
+                    'Title',
+                '/label',
+                ['div' => ['class' => 'input-group']],
+                    'input' => [
+                        'type' => 'text',
+                        'name' => 'title',
+                        'required' => 'required',
+                        'data-validity-message' => 'This field cannot be left empty',
+                        'oninvalid' => 'this.setCustomValidity(&#039;&#039;); if (!this.value) this.setCustomValidity(this.dataset.validityMessage)',
+                        'oninput' => 'this.setCustomValidity(&#039;&#039;)',
+                        'id' => 'title',
+                        'class' => 'form-control',
+                    ],
+                    ['button' => ['type' => 'submit', 'class' => 'btn btn-secondary']],
+                        'NO',
+                    '/button',
+                    ['button' => ['type' => 'submit', 'class' => 'btn btn-secondary']],
                         'GO',
                     '/button',
                 '/div',
@@ -229,6 +371,67 @@ class FormHelperTest extends AbstractFormHelperTest
                     ],
                     'span' => ['class' => 'input-group-text'],
                         '@',
+                    '/span',
+                '/div',
+            '/div',
+        ];
+        $this->assertHtml($expected, $result);
+    }
+
+    public function testAddOnOptionsMultiple()
+    {
+        $this->Form->create($this->article);
+
+        $result = $this->Form->control('title', ['prepend' => ['$', '0.00', ['size' => 'lg']]]);
+        $expected = [
+            'div' => ['class' => 'mb-3 form-group text required'],
+                'label' => ['class' => 'form-label', 'for' => 'title'],
+                    'Title',
+                '/label',
+                ['div' => ['class' => 'input-group input-group-lg']],
+                    ['span' => ['class' => 'input-group-text']],
+                        '$',
+                    '/span',
+                    ['span' => ['class' => 'input-group-text']],
+                        '0.00',
+                    '/span',
+                    'input' => [
+                        'type' => 'text',
+                        'name' => 'title',
+                        'required' => 'required',
+                        'data-validity-message' => 'This field cannot be left empty',
+                        'oninvalid' => 'this.setCustomValidity(&#039;&#039;); if (!this.value) this.setCustomValidity(this.dataset.validityMessage)',
+                        'oninput' => 'this.setCustomValidity(&#039;&#039;)',
+                        'id' => 'title',
+                        'class' => 'form-control',
+                    ],
+                '/div',
+            '/div',
+        ];
+        $this->assertHtml($expected, $result);
+
+        $result = $this->Form->control('title', ['append' => ['$', '0.00', ['size' => 'lg']]]);
+        $expected = [
+            'div' => ['class' => 'mb-3 form-group text required'],
+                'label' => ['class' => 'form-label', 'for' => 'title'],
+                    'Title',
+                '/label',
+                ['div' => ['class' => 'input-group input-group-lg']],
+                    'input' => [
+                        'type' => 'text',
+                        'name' => 'title',
+                        'required' => 'required',
+                        'data-validity-message' => 'This field cannot be left empty',
+                        'oninvalid' => 'this.setCustomValidity(&#039;&#039;); if (!this.value) this.setCustomValidity(this.dataset.validityMessage)',
+                        'oninput' => 'this.setCustomValidity(&#039;&#039;)',
+                        'id' => 'title',
+                        'class' => 'form-control',
+                    ],
+                    ['span' => ['class' => 'input-group-text']],
+                        '$',
+                    '/span',
+                    ['span' => ['class' => 'input-group-text']],
+                        '0.00',
                     '/span',
                 '/div',
             '/div',

@@ -90,21 +90,25 @@ trait InputgroupTrait
     /**
      * Get addon HTML.
      *
-     * @param string $addon Addon content.
+     * @param string[] $addons Addon content.
      * @param array $data Widget data.
      * @return string
      */
-    protected function _addon(string $addon, array $data): string
+    protected function _addon(array $addons, array $data): string
     {
-        if ($this->_isButton($addon)) {
-            $content = $addon;
-        } else {
-            $content = $this->_templates->format('inputGroupText', [
-                'content' => $addon,
-            ]);
+        $content = [];
+
+        foreach ($addons as $addon) {
+            if ($this->_isButton($addon)) {
+                $content[] = $addon;
+            } else {
+                $content[] = $this->_templates->format('inputGroupText', [
+                    'content' => $addon,
+                ]);
+            }
         }
 
-        return $content;
+        return implode('', $content);
     }
 
     /**
@@ -129,10 +133,19 @@ trait InputgroupTrait
         $ret = [];
 
         if (is_array($attachment)) {
-            $ret['content'] = $attachment[0];
-            $ret['options'] = $attachment[1];
+            $content = $attachment;
+            $options = [];
+
+            $possiblyOptions = end($attachment);
+            if (is_array($possiblyOptions)) {
+                $content = array_slice($content, 0, count($content) - 1);
+                $options = $possiblyOptions;
+            }
+
+            $ret['content'] = $content;
+            $ret['options'] = $options;
         } else {
-            $ret['content'] = $attachment;
+            $ret['content'] = [$attachment];
         }
 
         return $ret;

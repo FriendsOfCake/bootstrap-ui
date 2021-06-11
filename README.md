@@ -434,6 +434,29 @@ This would generate the following HTML:
 </div>
 ```
 
+#### Multiple addons
+
+Multiple addons can be defined as an array for the `append` and `prepend` options:
+
+```php
+echo $this->Form->control('amount', [
+    'prepend' => ['$', '0.00'],
+]);
+```
+
+This would generate the following HTML:
+
+```html
+<div class="mb-3 form-group text">
+    <label class="form-label" for="amount">Amount</label>
+    <div class="input-group">
+        <span class="input-group-text">$</span>
+        <span class="input-group-text">0.00</span>
+        <input type="text" name="amount" id="amount" class="form-control"/>
+    </div>
+</div>
+```
+
 ### Inline checkboxes and radio buttons
 
 [Inline checkboxes and radio buttons](https://getbootstrap.com/docs/4.5/components/forms/#inline) (not to be confused
