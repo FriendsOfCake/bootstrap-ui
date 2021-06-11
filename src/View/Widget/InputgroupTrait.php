@@ -146,6 +146,7 @@ trait InputgroupTrait
             $ret['options'] = $options;
         } else {
             $ret['content'] = [$attachment];
+            $ret['options'] = [];
         }
 
         return $ret;
@@ -165,6 +166,17 @@ trait InputgroupTrait
             $attrs['class'][] = $this->genClassName('input-group', $attachment['options']['size']);
             $attrs['class'] = $this->_toClassArray($attrs['class']);
         }
+
+        if (isset($attachment['options']['class'])) {
+            $attrs = $this->injectClasses($attachment['options']['class'], $attrs);
+        }
+
+        unset(
+            $attachment['options']['size'],
+            $attachment['options']['class']
+        );
+
+        $attrs += $attachment['options'];
 
         return $attrs;
     }

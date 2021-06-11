@@ -382,13 +382,17 @@ class FormHelperTest extends AbstractFormHelperTest
     {
         $this->Form->create($this->article);
 
-        $result = $this->Form->control('title', ['prepend' => ['$', '0.00', ['size' => 'lg']]]);
+        $result = $this->Form->control('title', [
+            'prepend' => [
+                '$', '0.00', ['size' => 'lg', 'class' => 'custom', 'custom' => 'attribute']
+            ]
+        ]);
         $expected = [
             'div' => ['class' => 'mb-3 form-group text required'],
                 'label' => ['class' => 'form-label', 'for' => 'title'],
                     'Title',
                 '/label',
-                ['div' => ['class' => 'input-group input-group-lg']],
+                ['div' => ['class' => 'input-group input-group-lg custom', 'custom' => 'attribute']],
                     ['span' => ['class' => 'input-group-text']],
                         '$',
                     '/span',
@@ -410,13 +414,17 @@ class FormHelperTest extends AbstractFormHelperTest
         ];
         $this->assertHtml($expected, $result);
 
-        $result = $this->Form->control('title', ['append' => ['$', '0.00', ['size' => 'lg']]]);
+        $result = $this->Form->control('title', [
+            'append' => [
+                '$', '0.00', ['size' => 'lg', 'class' => 'custom', 'custom' => 'attribute']
+            ]
+        ]);
         $expected = [
             'div' => ['class' => 'mb-3 form-group text required'],
                 'label' => ['class' => 'form-label', 'for' => 'title'],
                     'Title',
                 '/label',
-                ['div' => ['class' => 'input-group input-group-lg']],
+                ['div' => ['class' => 'input-group input-group-lg custom', 'custom' => 'attribute']],
                     'input' => [
                         'type' => 'text',
                         'name' => 'title',

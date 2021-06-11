@@ -457,6 +457,41 @@ This would generate the following HTML:
 </div>
 ```
 
+#### Addon options
+
+Addons support options that apply to the input group container. They can be defined by passing an array for the `append`
+and `prepend` options, and adding an array with options as the last entry.
+
+Options can contain HTML attributes as know from control options, as well as the special `size` option, which
+automatically translates to the corresponding input group size class.
+
+```php
+echo $this->Form->control('amount', [
+    'prepend' => [
+        '$',
+        '0.00',
+        [
+            'size' => 'lg',
+            'class' => 'custom',
+            'custom' => 'attribute',
+        ],
+    ],
+]);
+```
+
+This would generate the following HTML:
+
+```html
+<div class="mb-3 form-group text">
+    <label class="form-label" for="amount">Amount</label>
+    <div class="input-group input-group-lg custom" custom="attribute">
+        <span class="input-group-text">$</span>
+        <span class="input-group-text">0.00</span>
+        <input type="text" name="amount" id="amount" class="form-control"/>
+    </div>
+</div>
+```
+
 ### Inline checkboxes and radio buttons
 
 [Inline checkboxes and radio buttons](https://getbootstrap.com/docs/4.5/components/forms/#inline) (not to be confused
