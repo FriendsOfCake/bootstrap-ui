@@ -143,48 +143,6 @@ class FileControlTest extends AbstractFormHelperTest
         $this->assertHtml($expected, $result);
     }
 
-    /**
-     * Horizontal file control label templates are not backwards compatible,
-     * they will produce a duplicate `class` attribute.
-     */
-    public function testHorizontalAlignFileControlWithCustomLabelTemplateIsBackwardsCompatible()
-    {
-        $this->markTestIncomplete('Horizontal file control label templates are not backwards compatible');
-
-        $this->Form->create($this->article, [
-            'align' => [
-                'sm' => [
-                    'left' => 5,
-                    'middle' => 7,
-                ],
-            ],
-        ]);
-
-        $result = $this->Form->control('file', [
-            'type' => 'file',
-            'templates' => [
-                'fileLabel' =>
-                    '<label class="col-form-label %s"{{attrs}} back="compat">{{text}}{{tooltip}}</label>',
-            ],
-        ]);
-        $expected = [
-            ['div' => ['class' => 'mb-3 form-group row file']],
-                ['label' => ['class' => 'col-form-label %s', 'for' => 'file', 'back' => 'compat']],
-                    'File',
-                '/label',
-                ['div' => ['class' => 'col-sm-7']],
-                    ['input' => [
-                        'type' => 'file',
-                        'name' => 'file',
-                        'id' => 'file',
-                        'class' => 'form-control',
-                    ]],
-                '/div',
-            '/div',
-        ];
-        $this->assertHtml($expected, $result);
-    }
-
     public function testHorizontalAlignFileControlWithHelp()
     {
         $this->Form->create($this->article, [

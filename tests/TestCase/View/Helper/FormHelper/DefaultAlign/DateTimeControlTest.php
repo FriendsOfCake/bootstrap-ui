@@ -133,47 +133,6 @@ class DateTimeControlTest extends AbstractFormHelperTest
         $this->assertHtml($expected, $result);
     }
 
-    public function testDefaultAlignDateTimeControlWithCustomLabelTemplateIsBackwardsCompatible()
-    {
-        $this->Form->create($this->article);
-
-        $now = new \DateTime('now');
-
-        $result = $this->Form->control('created', [
-            'type' => 'datetime-local',
-            'value' => $now->format('Y-m-d H:i:s'),
-            'templates' => [
-                'datetimeContainer' =>
-                    '<div{{containerAttrs}} class="{{containerClass}}form-group {{type}}{{required}}" role="group" ' .
-                        'aria-labelledby="{{groupId}}">{{content}}{{help}}</div>',
-                'datetimeLabel' => '<label id="{{groupId}}" back="compat">{{text}}{{tooltip}}</label>',
-            ],
-        ]);
-
-        $expected = [
-            ['div' => [
-                'class' => 'mb-3 form-group datetime-local',
-                'role' => 'group',
-                'aria-labelledby' => 'created-group-label',
-            ]],
-                ['label' => [
-                    'id' => 'created-group-label',
-                    'back' => 'compat',
-                ]],
-                    'Created',
-                '/label',
-                'input' => [
-                    'type' => 'datetime-local',
-                    'name' => 'created',
-                    'id' => 'created',
-                    'class' => 'form-control',
-                    'value' => $now->format('Y-m-d H:i:s'),
-                ],
-            '/div',
-        ];
-        $this->assertHtml($expected, $result, true);
-    }
-
     public function testDefaultAlignDateTimeControlWithHelp()
     {
         $this->Form->create($this->article);

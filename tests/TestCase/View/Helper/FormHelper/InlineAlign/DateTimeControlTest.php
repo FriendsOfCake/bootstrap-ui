@@ -147,55 +147,6 @@ class DateTimeControlTest extends AbstractFormHelperTest
         $this->assertHtml($expected, $result);
     }
 
-    public function testInlineAlignDateTimeControlWithCustomLabelTemplateIsBackwardsCompatible()
-    {
-        $this->withErrorReporting(0, function () {
-            $this->Form->create($this->article, [
-                'align' => 'inline',
-            ]);
-        });
-
-        $now = new \DateTime('now');
-
-        $result = $this->Form->control('created', [
-            'type' => 'datetime-local',
-            'value' => $now->format('Y-m-d H:i:s'),
-            'templates' => [
-                'datetimeContainer' =>
-                    '<div{{containerAttrs}} ' .
-                        'class="{{containerClass}}form-group {{formGroupPosition}}{{type}}{{required}}" ' .
-                            'role="group" aria-labelledby="{{groupId}}">{{content}}{{help}}</div>',
-                'datetimeLabel' =>
-                    '<span id="{{groupId}}" class="visually-hidden" back="compat">{{text}}{{tooltip}}</span>',
-            ],
-        ]);
-        $expected = [
-            ['div' => ['class' => 'col-auto']],
-                ['div' => [
-                    'class' => 'form-group position-relative datetime-local',
-                    'role' => 'group',
-                    'aria-labelledby' => 'created-group-label',
-                ]],
-                    ['span' => [
-                        'id' => 'created-group-label',
-                        'class' => 'visually-hidden',
-                        'back' => 'compat',
-                    ]],
-                        'Created',
-                    '/span',
-                    'input' => [
-                        'type' => 'datetime-local',
-                        'name' => 'created',
-                        'id' => 'created',
-                        'class' => 'form-control',
-                        'value' => $now->format('Y-m-d H:i:s'),
-                    ],
-                '/div',
-            '/div',
-        ];
-        $this->assertHtml($expected, $result);
-    }
-
     public function testInlineAlignDateTimeControlWithHelp()
     {
         $this->withErrorReporting(0, function () {

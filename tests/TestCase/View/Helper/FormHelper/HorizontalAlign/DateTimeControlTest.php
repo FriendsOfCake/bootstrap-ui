@@ -155,57 +155,6 @@ class DateTimeControlTest extends AbstractFormHelperTest
         $this->assertHtml($expected, $result);
     }
 
-    public function testHorizontalAlignDateTimeControlWithCustomLabelTemplateIsBackwardsCompatible()
-    {
-        $this->Form->create($this->article, [
-            'align' => [
-                'sm' => [
-                    'left' => 5,
-                    'middle' => 7,
-                ],
-            ],
-        ]);
-
-        $now = new \DateTime('now');
-
-        $result = $this->Form->control('created', [
-            'type' => 'datetime-local',
-            'value' => $now->format('Y-m-d H:i:s'),
-            'templates' => [
-                'datetimeContainer' =>
-                    '<div{{containerAttrs}} class="{{containerClass}}form-group row {{type}}{{required}}" role="group" ' .
-                        'aria-labelledby="{{groupId}}">{{content}}</div>',
-                'datetimeLabel' =>
-                    '<label id="{{groupId}}" class="col-form-label %s" back="compat">{{text}}{{tooltip}}</label>',
-            ],
-        ]);
-        $expected = [
-            ['div' => [
-                'class' => 'mb-3 form-group row datetime-local',
-                'role' => 'group',
-                'aria-labelledby' => 'created-group-label',
-            ]],
-                ['label' => [
-                    'id' => 'created-group-label',
-                    'class' => 'col-form-label %s',
-                    'back' => 'compat',
-                ]],
-                    'Created',
-                '/label',
-                ['div' => ['class' => 'col-sm-7']],
-                    'input' => [
-                        'type' => 'datetime-local',
-                        'name' => 'created',
-                        'id' => 'created',
-                        'class' => 'form-control',
-                        'value' => $now->format('Y-m-d H:i:s'),
-                    ],
-                '/div',
-            '/div',
-        ];
-        $this->assertHtml($expected, $result);
-    }
-
     public function testHorizontalAlignDateTimeControlWithHelp()
     {
         $this->Form->create($this->article, [

@@ -211,60 +211,6 @@ class RadioControlTest extends AbstractFormHelperTest
         $this->assertHtml($expected, $result);
     }
 
-    public function testDefaultAlignRadioControlWithCustomLabelTemplateIsBackwardsCompatible()
-    {
-        $this->Form->create($this->article);
-
-        $result = $this->Form->control('users', [
-            'type' => 'radio',
-            'options' => [
-                1 => 'option 1',
-                2 => 'option 2',
-            ],
-            'templates' => [
-                'radioLabel' =>
-                    '<label id="{{groupId}}" class="d-block" back="compat">{{text}}{{tooltip}}</label>',
-            ],
-        ]);
-        $expected = [
-            ['div' => ['class' => 'mb-3 form-group radio', 'role' => 'group', 'aria-labelledby' => 'users-group-label']],
-                ['label' => ['id' => 'users-group-label', 'class' => 'd-block', 'back' => 'compat']],
-                    'Users',
-                '/label',
-                ['input' => [
-                    'type' => 'hidden',
-                    'name' => 'users',
-                    'value' => '',
-                ]],
-                ['div' => ['class' => 'form-check']],
-                    ['input' => [
-                        'class' => 'form-check-input',
-                        'type' => 'radio',
-                        'name' => 'users',
-                        'id' => 'users-1',
-                        'value' => 1,
-                    ]],
-                    ['label' => ['class' => 'form-check-label', 'for' => 'users-1']],
-                        'option 1',
-                    '/label',
-                '/div',
-                ['div' => ['class' => 'form-check']],
-                    ['input' => [
-                        'class' => 'form-check-input',
-                        'type' => 'radio',
-                        'name' => 'users',
-                        'id' => 'users-2',
-                        'value' => 2,
-                    ]],
-                    ['label' => ['class' => 'form-check-label', 'for' => 'users-2']],
-                        'option 2',
-                    '/label',
-                '/div',
-            '/div',
-        ];
-        $this->assertHtml($expected, $result);
-    }
-
     public function testDefaultAlignRadioControlWithHelp()
     {
         $this->Form->create($this->article);
@@ -792,61 +738,6 @@ class RadioControlTest extends AbstractFormHelperTest
                     'foo' => 'bar',
                 ]],
                     'Custom Label',
-                '/label',
-                ['input' => [
-                    'type' => 'hidden',
-                    'name' => 'users',
-                    'value' => '',
-                ]],
-                ['div' => ['class' => 'form-check form-check-inline']],
-                    ['input' => [
-                        'class' => 'form-check-input',
-                        'type' => 'radio',
-                        'name' => 'users',
-                        'id' => 'users-1',
-                        'value' => 1,
-                    ]],
-                    ['label' => ['class' => 'form-check-label', 'for' => 'users-1']],
-                        'option 1',
-                    '/label',
-                '/div',
-                ['div' => ['class' => 'form-check form-check-inline']],
-                    ['input' => [
-                        'class' => 'form-check-input',
-                        'type' => 'radio',
-                        'name' => 'users',
-                        'id' => 'users-2',
-                        'value' => 2,
-                    ]],
-                    ['label' => ['class' => 'form-check-label', 'for' => 'users-2']],
-                        'option 2',
-                    '/label',
-                '/div',
-            '/div',
-        ];
-        $this->assertHtml($expected, $result);
-    }
-
-    public function testDefaultAlignRadioControlInlineWithCustomLabelTemplateIsBackwardsCompatible()
-    {
-        $this->Form->create($this->article);
-
-        $result = $this->Form->control('users', [
-            'type' => 'radio',
-            'options' => [
-                1 => 'option 1',
-                2 => 'option 2',
-            ],
-            'inline' => true,
-            'templates' => [
-                'radioLabel' =>
-                    '<label id="{{groupId}}" class="d-block" back="compat">{{text}}{{tooltip}}</label>',
-            ],
-        ]);
-        $expected = [
-            ['div' => ['class' => 'mb-3 form-group radio', 'role' => 'group', 'aria-labelledby' => 'users-group-label']],
-                ['label' => ['id' => 'users-group-label', 'class' => 'd-block', 'back' => 'compat']],
-                    'Users',
                 '/label',
                 ['input' => [
                     'type' => 'hidden',
