@@ -80,6 +80,7 @@ if (Configure::read('debug')) {
 } else {
     $this->prepend('css', $this->Html->css(['BootstrapUI.bootstrap.min']));
 }
+$this->prepend('css', $this->Html->css(['BootstrapUI./font/bootstrap-icons', 'BootstrapUI./font/bootstrap-icon-sizes']));
 
 /**
  * Prepend `script` block with Popper and Bootstrap scripts

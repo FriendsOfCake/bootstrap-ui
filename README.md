@@ -25,7 +25,7 @@ For version info see [version map](https://github.com/FriendsOfCake/bootstrap-ui
 * Bootstrap 5.x
 * npm 5.x
 * Popper.js 2.x
-* Fontawesome 5.x
+* Bootstrap Icons 1.5.x
 
 ## What's included?
 
@@ -112,13 +112,20 @@ do manually if you wish to control which assets are being included, and where th
 Assuming you are in your application's root:
 
 ```
-npm install bootstrap@5 @popperjs/core@2
+npm install @popperjs/core@2 bootstrap@5 bootstrap-icons@1
+mkdir -p webroot/css
+mkdir -p webroot/font/fonts
+mkdir -p webroot/js
+cp node_modules/@popperjs/core/dist/umd/popper.js webroot/js
+cp node_modules/@popperjs/core/dist/umd/popper.min.js webroot/js
 cp node_modules/bootstrap/dist/css/bootstrap.css webroot/css/
 cp node_modules/bootstrap/dist/css/bootstrap.min.css webroot/css/
 cp node_modules/bootstrap/dist/js/bootstrap.js webroot/js/
 cp node_modules/bootstrap/dist/js/bootstrap.min.js webroot/js/
-cp node_modules/@popperjs/core/dist/umd/popper.js webroot/js
-cp node_modules/@popperjs/core/dist/umd/popper.min.js webroot/js
+cp node_modules/bootstrap-icons/font/bootstrap-icons.css webroot/font/
+cp node_modules/bootstrap-icons/font/fonts/bootstrap-icons.woff webroot/font/fonts/
+cp node_modules/bootstrap-icons/font/fonts/bootstrap-icons.woff2 webroot/font/fonts/
+cp vendor/friendsofcake/bootstrap-ui/webroot/font/bootstrap-icon-sizes.css webroot/font/
 ```
 
 #### AppView setup using UIView
@@ -230,14 +237,16 @@ them using the standard plugin syntax:
 ```php
 // in the <head>
 echo $this->Html->css('BootstrapUI.bootstrap.min');
+echo $this->Html->css(['BootstrapUI./font/bootstrap-icons', 'BootstrapUI./font/bootstrap-icon-sizes']);
 echo $this->Html->script(['BootstrapUI.popper.min', 'BootstrapUI.bootstrap.min']);
 ```
 
 If you have installed the assets manually, you'll need to use paths accordingly. With
-[the example copy script](#copying-example-layouts) you could use the standard short path syntax:
+[the example copy commands](#installing-bootstrap-assets-via-npm) you could use the standard short path syntax:
 
 ```php
 echo $this->Html->css('bootstrap.min');
+echo $this->Html->css(['/font/bootstrap-icons', '/font/bootstrap-icon-sizes']);
 echo $this->Html->script(['popper.min', 'bootstrap.min']);
 ```
 
@@ -245,6 +254,7 @@ If you're using paths that don't adhere to the CakePHP conventions, you'll have 
 
 ```php
 echo $this->Html->css('/path/to/bootstrap.css');
+echo $this->Html->css(['/path/to/bootstrap-icons.css', '/path/to/bootstrap-icon-sizes.css']);
 echo $this->Html->script(['/path/to/popper.js', '/path/to/bootstrap.js']);
 ```
 
@@ -573,10 +583,9 @@ This would generate the following HTML:
 
 ### Tooltips
 
-[Bootstrap tooltips](https://getbootstrap.com/docs/4.5/components/tooltips/) can be added to labels via the `tooltip`
-option. The tooltip toggles are by default being rendered as a [Font Awesome](https://fontawesome.com/) icon, so
-additionally to including everything required by Bootstrap to support tooltips, you need to make sure to include Font
-Awesome too.
+[Bootstrap tooltips](https://getbootstrap.com/docs/5.0/components/tooltips/) can be added to labels via the `tooltip`
+option. The tooltip toggles are by default being rendered as a [Bootstrap icon](https://icons.getbootstrap.com/), which
+is being included by default when installing the assets via the `install` command.
 
 ```php
 echo $this->Form->control('title', [
@@ -589,13 +598,13 @@ This would generate the following HTML:
 ```html
 <div class="mb-3 form-group text">
     <label class="form-label" for="title">
-        Title <span data-bs-toggle="tooltip" title="Tooltip text" class="fas fa-info-circle"></span>
+        Title <span data-bs-toggle="tooltip" title="Tooltip text" class="bi bi-info-circle-fill"></span>
     </label>
     <input type="text" name="title" id="title" class="form-control"/>
 </div>
 ```
 
-If you want to use a different toggle, being it a different Font Awesome icon, or maybe a completely different icon
+If you want to use a different toggle, being it a different Boostrap icon, or maybe a completely different icon
 font/library, then you can do this by
 [overriding the `tooltip` template](https://book.cakephp.org/4/en/views/helpers/form.html#customizing-the-templates-formhelper-uses)
 accordingly, being it globally, per form, or per control:

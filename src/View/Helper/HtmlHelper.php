@@ -23,8 +23,8 @@ class HtmlHelper extends \Cake\View\Helper\HtmlHelper
     {
         $this->_defaultConfig['iconDefaults'] = [
             'tag' => 'i',
-            'iconSet' => 'fas',
-            'prefix' => 'fa',
+            'iconSet' => 'bi',
+            'prefix' => 'bi',
             'size' => null,
         ];
 
@@ -58,14 +58,14 @@ class HtmlHelper extends \Cake\View\Helper\HtmlHelper
     }
 
     /**
-     * Returns bootstrap icon markup. By default, uses `<i>` tag and font awesome icon set.
+     * Returns bootstrap icon markup. By default, uses `<i>` tag and the bootstrap icon set.
      *
      * @param string $name Name of icon (i.e. search, leaf, etc.).
      * @param array $options Additional options and HTML attributes.
      * ### Options
      *
-     * - `iconSet`: Common class name for the icon set. Default 'fas'.
-     * - `prefix`: Prefix for class names. Default 'fa'.
+     * - `iconSet`: Common class name for the icon set. Default 'bi'.
+     * - `prefix`: Prefix for class names. Default 'bi'.
      * - `size`: Size class will be generated based of this. For e.g. if you use
      *   size 'lg' class '<prefix>-lg` will be added. Default null.
      *

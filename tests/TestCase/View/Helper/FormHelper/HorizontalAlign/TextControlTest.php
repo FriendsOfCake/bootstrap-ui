@@ -235,7 +235,7 @@ class TextControlTest extends AbstractFormHelperTest
                     'span' => [
                         'data-bs-toggle' => 'tooltip',
                         'title' => 'Tooltip text',
-                        'class' => 'fas fa-info-circle',
+                        'class' => 'bi bi-info-circle-fill',
                     ],
                     '/span',
                 '/label',

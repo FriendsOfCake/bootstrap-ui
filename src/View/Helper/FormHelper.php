@@ -114,7 +114,7 @@ class FormHelper extends Helper
         'errorTooltip' => '<div class="invalid-tooltip">{{content}}</div>',
         'label' => '<label{{attrs}}>{{text}}{{tooltip}}</label>',
         'help' => '<small{{attrs}} class="d-block form-text text-muted">{{content}}</small>',
-        'tooltip' => '<span data-bs-toggle="tooltip" title="{{content}}" class="fas fa-info-circle"></span>',
+        'tooltip' => '<span data-bs-toggle="tooltip" title="{{content}}" class="bi bi-info-circle-fill"></span>',
         'datetimeContainer' =>
             '<div{{containerAttrs}} ' .
                 'class="{{containerClass}}form-group {{type}}{{required}}">{{content}}{{help}}</div>',

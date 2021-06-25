@@ -3,12 +3,17 @@ composer.lock
 node_modules
 .phpunit.result.cache
 
+# Generated test files
+tests/test_app/webroot/bootstrap_u_i
+
 # Ignore assets, except some css
 webroot/css/*
+webroot/font/*
 webroot/js/*
 !webroot/css/cover.css
 !webroot/css/dashboard.css
 !webroot/css/signin.css
+!webroot/font/bootstrap-icon-sizes.css
 
 # Tool specific files #
 #######################
