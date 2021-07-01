@@ -696,6 +696,8 @@ You can set Flash Messages using the default Flash component syntax. Supported t
 $this->Flash->success('Your Success Message.');
 ```
 
+#### Alert styles
+
 If you need to set other Bootstrap Alert styles you can do this with:
 
 ```php
@@ -703,6 +705,141 @@ $this->Flash->set('Your Dark Message.', ['params' => ['class' => 'dark']]);
 ```
 
 Supported styles are `primary`, `secondary`, `light`, `dark`.
+
+#### Icons
+
+By default alerts use Bootstrap icons depending on the alert type. The mapped types are `default`, `info`, `warning`,
+`error`, and `success`. You can disable/customize icons via the `icon` option/parameter, either globally for the flash
+helper, or individually for a single message.
+
+Message without icon:
+
+```php
+$this->Flash->success('Message without icon.', [
+    'params' => [
+        'icon' => false,
+    ],
+]);
+```
+
+Use a custom icon:
+
+```php
+$this->Flash->success('Message with custom icon.', [
+    'params' => [
+        'icon' => 'mic-mute-fill',
+    ],
+]);
+```
+
+Pass icon options (the icon name is optional here, when omitted, the default icon map will be looked up):
+
+```php
+$this->Flash->success('Message with custom icon options.', [
+    'params' => [
+        'icon' => [
+            'name' => 'mic-mute-fill',
+            'size' => '2xl',
+            'class' => 'foo bar me-2',
+            'data-custom' => 'attribute',
+        ],
+    ],
+]);
+```
+
+```html
+<i class="foo bar me-2 bi bi-mic-mute-fill bi-2xl" data-custom="attribute"></i>
+```
+
+Use custom HTML:
+
+```php
+$this->Flash->success('Message with custom icon HTML.', [
+    'params' => [
+        'icon' => '<span class="material-icons">volume_off</span>',
+    ],
+]);
+```
+
+Disable icons for all flash messages:
+
+```php
+$this->loadHelper('Flash', [
+    'className' => 'BootstrapUI.Flash',
+    'icon' => false,
+]);
+```
+
+Set icon options for all flash messages (the default icon map will be used, and the options will be applied to all
+icons):
+
+```php
+$this->loadHelper('Flash', [
+    'className' => 'BootstrapUI.Flash',
+    'icon' => [
+        'size' => '2xl',
+        'class' => 'foo bar me-2',
+        'data-custom' => 'attribute',
+    ],
+]);
+```
+
+Define a custom icon map:
+
+```php
+$this->loadHelper('Flash', [
+    'className' => 'BootstrapUI.Flash',
+    'iconMap' => [
+        'default' => 'info-circle-fill',
+        'success' => 'check-circle-fill',
+        'error' => 'exclamation-triangle-fill',
+        'info' => 'info-circle-fill',
+        'warning' => 'exclamation-triangle-fill',
+    ],
+]);
+```
+
+Use a different icon set:
+
+```php
+$this->Flash->success('Message with different icon set.', [
+    'params' => [
+        'icon' => [
+            'iconSet' => 'fas',
+            'prefix' => 'fa',
+            'name' => 'microphone-slash',
+            'size' => '2xl',
+        ],
+    ],
+]);
+```
+
+```html
+<i class="me-2 fas fa-microphone-slash fa-2xl"></i>
+```
+
+Use a different icon set for all flash messages:
+
+```php
+$this->loadHelper('Html', [
+    'className' => 'BootstrapUI.Html',
+    'iconSet' => 'fas',
+    'prefix' => 'fa',
+]);
+```
+
+```php
+$this->loadHelper('Flash', [
+    'className' => 'BootstrapUI.Flash',
+    'iconMap' => [
+        'default' => 'info-circle',
+        'success' => 'check-circle',
+        'error' => 'exclamation-triangle',
+        'info' => 'info-circle',
+        'warning' => 'exclamation-triangle',
+    ],
+]);
+```
 
 ## Contributing
 

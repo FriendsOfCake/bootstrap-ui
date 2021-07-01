@@ -1,6 +1,21 @@
 <?php
+/**
+ * @var \Cake\View\View $this
+ * @var array $params
+ * @var string $message
+ */
+
+$icon = $params['icon'];
 $class = array_unique((array)$params['class']);
 $message = (isset($params['escape']) && $params['escape'] === false) ? $message : h($message);
+
+if ($icon) {
+    $isHtml = strpos($icon, '<') !== false;
+    if (!$isHtml) {
+        $icon = $this->Html->icon($icon, $params['iconOptions']);
+    }
+    $message = $icon . "<div>$message</div>";
+}
 
 if (in_array('alert-dismissible', $class)) {
     $button = <<<BUTTON
