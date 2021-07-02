@@ -40,6 +40,42 @@ class SelectControlTest extends AbstractFormHelperTest
         $this->assertHtml($expected, $result);
     }
 
+    public function testInlineAlignSelectControlWithFloatingLabel()
+    {
+        $this->Form->create($this->article, [
+            'align' => 'inline',
+        ]);
+
+        $result = $this->Form->control('users', [
+            'type' => 'select',
+            'options' => [
+                1 => 'option 1',
+                2 => 'option 2',
+            ],
+            'label' => [
+                'floating' => true,
+            ],
+        ]);
+        $expected = [
+            ['div' => ['class' => 'col-auto']],
+                'div' => ['class' => 'form-floating form-group select'],
+                    ['select' => ['name' => 'users', 'id' => 'users', 'class' => 'form-select']],
+                        ['option' => ['value' => '1']],
+                            'option 1',
+                        '/option',
+                        ['option' => ['value' => '2']],
+                            'option 2',
+                        '/option',
+                    '/select',
+                    ['label' => ['for' => 'users']],
+                        'Users',
+                    '/label',
+                '/div',
+            '/div',
+        ];
+        $this->assertHtml($expected, $result,true);
+    }
+
     public function testInlineAlignSelectControlWithDisabledLabel()
     {
         $this->Form->create($this->article, [

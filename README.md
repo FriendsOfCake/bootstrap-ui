@@ -558,6 +558,28 @@ This would generate the following HTML:
 </div>
 ```
 
+### Floating labels
+
+[Floating labels](https://getbootstrap.com/docs/5.0/forms/floating-labels) are supported for `text`, `textarea`, and
+(non-`multiple`) `select` controls. They can be enabled via the label's `floating` option:
+
+```php
+echo $this->Form->control('title', [
+    'label' => [
+        'floating' => true,
+    ],
+]);
+```
+
+This would generate the following HTML:
+
+```html
+<div class="mb-3 form-floating form-group text">
+    <input type="text" name="title" id="title" class="form-control"/>
+    <label for="title">Title</label>
+</div>
+```
+
 ### Help text
 
 Bootstrap's [form help text](https://getbootstrap.com/docs/4.5/components/forms/#help-text) is supported via the

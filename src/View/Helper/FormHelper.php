@@ -115,6 +115,7 @@ class FormHelper extends Helper
         'label' => '<label{{attrs}}>{{text}}{{tooltip}}</label>',
         'help' => '<small{{attrs}} class="d-block form-text text-muted">{{content}}</small>',
         'tooltip' => '<span data-bs-toggle="tooltip" title="{{content}}" class="bi bi-info-circle-fill"></span>',
+        'formGroupFloatingLabel' => '{{input}}{{label}}',
         'datetimeContainer' =>
             '<div{{containerAttrs}} ' .
                 'class="{{containerClass}}form-group {{type}}{{required}}">{{content}}{{help}}</div>',
@@ -232,6 +233,7 @@ class FormHelper extends Helper
         'horizontal' => [
             'label' => '<label{{attrs}}>{{text}}{{tooltip}}</label>',
             'formGroup' => '{{label}}<div class="%s">{{input}}{{error}}{{help}}</div>',
+            'formGroupFloatingLabel' => '<div class="%s form-floating">{{input}}{{label}}{{error}}{{help}}</div>',
             'checkboxFormGroup' =>
                 '<div class="%s"><div class="form-check{{variant}}">{{input}}{{label}}{{error}}{{help}}</div></div>',
             'datetimeContainer' =>
@@ -346,6 +348,16 @@ class FormHelper extends Helper
         ];
 
         return parent::create($context, $this->_formAlignment($options));
+    }
+
+    /**
+     * @inheritDoc
+     */
+    public function label(string $fieldName, ?string $text = null, array $options = []): string
+    {
+        unset($options['floating']);
+
+        return parent::label($fieldName, $text, $options);
     }
 
     /**
@@ -502,6 +514,14 @@ class FormHelper extends Helper
             isset($options['type'])
         ) {
             $options['container'] = $this->injectClasses('mb-3', (array)($options['container'] ?? []));
+        }
+
+        if (
+            $this->_align !== static::ALIGN_HORIZONTAL &&
+            isset($options['label']['floating']) &&
+            $options['label']['floating']
+        ) {
+            $options['container'] = $this->injectClasses('form-floating', (array)($options['container'] ?? []));
         }
 
         if (!isset($options['container'])) {
@@ -699,7 +719,8 @@ class FormHelper extends Helper
 
         if (
             $this->_align === static::ALIGN_INLINE &&
-            $options['label'] !== false
+            $options['label'] !== false &&
+            !$options['label']['floating']
         ) {
             $labelClasses[] = 'visually-hidden';
         }
@@ -748,17 +769,38 @@ class FormHelper extends Helper
     protected function _labelOptions(?string $fieldName, array $options): array
     {
         if ($options['label'] !== false) {
+            $options['label'] = (array)$options['label'] + [
+                'floating' => false,
+            ];
+
             $labelClasses = [];
-            if ($this->_align !== static::ALIGN_HORIZONTAL) {
+            if ($options['label']['floating']) {
+                $options['templates']['formGroup'] = $this->templater()->get('formGroupFloatingLabel');
+            }
+
+            if (
+                $this->_align !== static::ALIGN_HORIZONTAL &&
+                !$options['label']['floating']
+            ) {
                 $labelClasses[] = 'form-label';
             }
+
             if ($this->_align === static::ALIGN_HORIZONTAL) {
-                $size = $this->_gridClass('left');
-                $labelClasses[] = "col-form-label $size";
+                if (!$options['label']['floating']) {
+                    $size = $this->_gridClass('left');
+                    $labelClasses[] = "col-form-label $size";
+                } else {
+                    $labelClasses[] = 'ps-4';
+                }
             }
-            if ($this->_align === static::ALIGN_INLINE) {
+
+            if (
+                $this->_align === static::ALIGN_INLINE &&
+                !$options['label']['floating']
+            ) {
                 $labelClasses[] = 'visually-hidden';
             }
+
             if ($labelClasses) {
                 $options['label'] = $this->injectClasses($labelClasses, (array)$options['label']);
             }
@@ -844,7 +886,8 @@ class FormHelper extends Helper
     {
         if (
             $options['tooltip'] &&
-            $options['label'] !== false
+            $options['label'] !== false &&
+            !($options['label']['floating'] ?? false)
         ) {
             $tooltip = $this->templater()->format(
                 'tooltip',
@@ -1187,6 +1230,7 @@ class FormHelper extends Helper
         $containers = [
             'checkboxFormGroup',
             'checkboxInlineFormGroup',
+            'formGroupFloatingLabel',
             'submitContainer',
         ];
         foreach ($containers as $value) {

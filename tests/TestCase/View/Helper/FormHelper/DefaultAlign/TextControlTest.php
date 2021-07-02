@@ -29,6 +29,32 @@ class TextControlTest extends AbstractFormHelperTest
         $this->assertHtml($expected, $result);
     }
 
+    public function testDefaultAlignTextControlWithFloatingLabel()
+    {
+        unset($this->article['required']['title']);
+        $this->Form->create($this->article);
+
+        $result = $this->Form->control('title', [
+            'label' => [
+                'floating' => true,
+            ],
+        ]);
+        $expected = [
+            'div' => ['class' => 'mb-3 form-floating form-group text'],
+                'input' => [
+                    'type' => 'text',
+                    'name' => 'title',
+                    'id' => 'title',
+                    'class' => 'form-control',
+                ],
+                ['label' => ['for' => 'title']],
+                    'Title',
+                '/label',
+            '/div',
+        ];
+        $this->assertHtml($expected, $result);
+    }
+
     public function testDefaultAlignTextControlWithDisabledLabel()
     {
         unset($this->article['required']['title']);

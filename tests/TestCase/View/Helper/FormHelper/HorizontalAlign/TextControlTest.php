@@ -38,6 +38,41 @@ class TextControlTest extends AbstractFormHelperTest
         $this->assertHtml($expected, $result);
     }
 
+    public function testHorizontalAlignTextControlWithFloatingLabel()
+    {
+        unset($this->article['required']['title']);
+        $this->Form->create($this->article, [
+            'align' => [
+                'sm' => [
+                    'left' => 5,
+                    'middle' => 7,
+                ],
+            ],
+        ]);
+
+        $result = $this->Form->control('title', [
+            'label' => [
+                'floating' => true,
+            ],
+        ]);
+        $expected = [
+            'div' => ['class' => 'mb-3 form-group row text'],
+                ['div' => ['class' => 'offset-sm-5 col-sm-7 form-floating']],
+                    'input' => [
+                        'type' => 'text',
+                        'name' => 'title',
+                        'id' => 'title',
+                        'class' => 'form-control',
+                    ],
+                    'label' => ['class' => 'ps-4', 'for' => 'title'],
+                        'Title',
+                    '/label',
+                '/div',
+            '/div',
+        ];
+        $this->assertHtml($expected, $result, true);
+    }
+
     public function testHorizontalAlignTextControlWithDisabledLabel()
     {
         unset($this->article['required']['title']);

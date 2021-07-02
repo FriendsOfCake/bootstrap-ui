@@ -26,12 +26,14 @@ body {
 .form-signin .form-control {
     position: relative;
 }
-.form-signin .form-control:focus {
+.form-signin .form-group.email {
+    margin-bottom: -1px !important;
+}
+.form-signin .form-floating:focus-within {
     z-index: 2;
 }
 
 .form-signin input[type="email"] {
-    margin-bottom: -1px;
     border-bottom-right-radius: 0;
     border-bottom-left-radius: 0;
 }
