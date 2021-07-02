@@ -73,7 +73,7 @@ class SelectControlTest extends AbstractFormHelperTest
                 '/div',
             '/div',
         ];
-        $this->assertHtml($expected, $result,true);
+        $this->assertHtml($expected, $result);
     }
 
     public function testInlineAlignSelectControlWithDisabledLabel()
