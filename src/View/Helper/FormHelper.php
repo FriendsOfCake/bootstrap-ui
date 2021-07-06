@@ -110,7 +110,7 @@ class FormHelper extends Helper
      * @var array
      */
     protected $_templates = [
-        'error' => '<div class="invalid-feedback">{{content}}</div>',
+        'error' => '<div class="ms-0 invalid-feedback">{{content}}</div>',
         'errorTooltip' => '<div class="invalid-tooltip">{{content}}</div>',
         'label' => '<label{{attrs}}>{{text}}{{tooltip}}</label>',
         'help' => '<small{{attrs}} class="d-block form-text text-muted">{{content}}</small>',
@@ -141,12 +141,12 @@ class FormHelper extends Helper
                     '{{formGroupPosition}}{{type}}{{required}} is-invalid">{{content}}{{error}}{{help}}</div>',
         'checkboxInlineContainer' =>
             '<div{{containerAttrs}} ' .
-                'class="{{containerClass}}form-check{{variant}} form-check-inline {{type}}{{required}}">' .
-                    '{{content}}</div>',
+                'class="{{containerClass}}form-check{{variant}} form-check-inline align-top {{type}}{{required}}">' .
+                    '{{content}}{{help}}</div>',
         'checkboxInlineContainerError' =>
             '<div{{containerAttrs}} ' .
-                'class="{{containerClass}}form-check{{variant}} form-check-inline {{type}}{{required}} is-invalid">' .
-                    '{{content}}</div>',
+                'class="{{containerClass}}form-check{{variant}} form-check-inline align-top ' .
+                    '{{formGroupPosition}}{{type}}{{required}} is-invalid">{{content}}{{error}}{{help}}</div>',
         'checkboxFormGroup' => '{{input}}{{label}}',
         'checkboxWrapper' => '<div class="form-check{{variant}}">{{label}}</div>',
         'checkboxInlineWrapper' => '<div class="form-check{{variant}} form-check-inline">{{label}}</div>',

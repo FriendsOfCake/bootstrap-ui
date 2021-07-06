@@ -264,7 +264,7 @@ class CheckboxControlTest extends AbstractFormHelperTest
                 ['label' => ['class' => 'form-check-label', 'for' => 'users']],
                     'Users',
                 '/label',
-                ['div' => ['class' => 'invalid-feedback']],
+                ['div' => ['class' => 'ms-0 invalid-feedback']],
                     'error message',
                 '/div',
             '/div',
@@ -343,7 +343,7 @@ class CheckboxControlTest extends AbstractFormHelperTest
                 ['label' => ['class' => 'form-check-label', 'for' => 'users']],
                     'Users',
                 '/label',
-                ['div' => ['class' => 'invalid-feedback']],
+                ['div' => ['class' => 'ms-0 invalid-feedback']],
                     'error message',
                 '/div',
             '/div',
@@ -447,7 +447,7 @@ class CheckboxControlTest extends AbstractFormHelperTest
                     ]],
                     'Users',
                 '/label',
-                ['div' => ['class' => 'invalid-feedback']],
+                ['div' => ['class' => 'ms-0 invalid-feedback']],
                     'error message',
                 '/div',
             '/div',
@@ -464,7 +464,7 @@ class CheckboxControlTest extends AbstractFormHelperTest
             'inline' => true,
         ]);
         $expected = [
-            ['div' => ['class' => 'mb-3 form-check form-check-inline checkbox']],
+            ['div' => ['class' => 'mb-3 form-check form-check-inline align-top checkbox']],
                 ['input' => [
                     'type' => 'hidden',
                     'name' => 'users',
@@ -495,7 +495,7 @@ class CheckboxControlTest extends AbstractFormHelperTest
             'label' => false,
         ]);
         $expected = [
-            ['div' => ['class' => 'mb-3 form-check form-check-inline checkbox']],
+            ['div' => ['class' => 'mb-3 form-check form-check-inline align-top checkbox']],
                 ['input' => [
                     'type' => 'hidden',
                     'name' => 'users',
@@ -523,7 +523,7 @@ class CheckboxControlTest extends AbstractFormHelperTest
             'label' => 'Custom Label',
         ]);
         $expected = [
-            ['div' => ['class' => 'mb-3 form-check form-check-inline checkbox']],
+            ['div' => ['class' => 'mb-3 form-check form-check-inline align-top checkbox']],
                 ['input' => [
                     'type' => 'hidden',
                     'name' => 'users',
@@ -558,7 +558,7 @@ class CheckboxControlTest extends AbstractFormHelperTest
             ],
         ]);
         $expected = [
-            ['div' => ['class' => 'mb-3 form-check form-check-inline checkbox']],
+            ['div' => ['class' => 'mb-3 form-check form-check-inline align-top checkbox']],
                 ['input' => [
                     'type' => 'hidden',
                     'name' => 'users',
@@ -583,9 +583,6 @@ class CheckboxControlTest extends AbstractFormHelperTest
         $this->assertHtml($expected, $result);
     }
 
-    /**
-     * Inline checkbox controls currently do not render help text.
-     */
     public function testDefaultAlignCheckboxControlInlineWithHelp()
     {
         $this->Form->create($this->article);
@@ -596,7 +593,7 @@ class CheckboxControlTest extends AbstractFormHelperTest
             'help' => 'Help text',
         ]);
         $expected = [
-            ['div' => ['class' => 'mb-3 form-check form-check-inline checkbox']],
+            ['div' => ['class' => 'mb-3 form-check form-check-inline align-top checkbox']],
                 ['input' => [
                     'type' => 'hidden',
                     'name' => 'users',
@@ -612,14 +609,14 @@ class CheckboxControlTest extends AbstractFormHelperTest
                 ['label' => ['class' => 'form-check-label', 'for' => 'users']],
                     'Users',
                 '/label',
+                ['small' => ['class' => 'd-block form-text text-muted']],
+                    'Help text',
+                '/small',
             '/div',
         ];
         $this->assertHtml($expected, $result);
     }
 
-    /**
-     * Inline checkboxes currently do not render help text.
-     */
     public function testDefaultAlignCheckboxControlInlineWithHelpOptions()
     {
         $this->Form->create($this->article);
@@ -633,7 +630,7 @@ class CheckboxControlTest extends AbstractFormHelperTest
             ],
         ]);
         $expected = [
-            ['div' => ['class' => 'mb-3 form-check form-check-inline checkbox']],
+            ['div' => ['class' => 'mb-3 form-check form-check-inline align-top checkbox']],
                 ['input' => [
                     'type' => 'hidden',
                     'name' => 'users',
@@ -649,6 +646,9 @@ class CheckboxControlTest extends AbstractFormHelperTest
                 ['label' => ['class' => 'form-check-label', 'for' => 'users']],
                     'Users',
                 '/label',
+                ['small' => ['foo' => 'bar', 'class' => 'd-block form-text text-muted']],
+                    'Help text',
+                '/small',
             '/div',
         ];
         $this->assertHtml($expected, $result);
@@ -664,7 +664,7 @@ class CheckboxControlTest extends AbstractFormHelperTest
             'tooltip' => 'Tooltip text',
         ]);
         $expected = [
-            ['div' => ['class' => 'mb-3 form-check form-check-inline checkbox']],
+            ['div' => ['class' => 'mb-3 form-check form-check-inline align-top checkbox']],
                 ['input' => [
                     'type' => 'hidden',
                     'name' => 'users',
@@ -691,9 +691,6 @@ class CheckboxControlTest extends AbstractFormHelperTest
         $this->assertHtml($expected, $result);
     }
 
-    /**
-     * Inline checkbox controls currently do not render error messages.
-     */
     public function testDefaultAlignCheckboxControlInlineWithError()
     {
         $this->article['errors'] = [
@@ -706,7 +703,7 @@ class CheckboxControlTest extends AbstractFormHelperTest
             'inline' => true,
         ]);
         $expected = [
-            ['div' => ['class' => 'mb-3 form-check form-check-inline checkbox is-invalid']],
+            ['div' => ['class' => 'mb-3 form-check form-check-inline align-top checkbox is-invalid']],
                 ['input' => [
                     'class' => 'is-invalid',
                     'type' => 'hidden',
@@ -723,6 +720,9 @@ class CheckboxControlTest extends AbstractFormHelperTest
                 ['label' => ['class' => 'form-check-label', 'for' => 'users']],
                     'Users',
                 '/label',
+                ['div' => ['class' => 'ms-0 invalid-feedback']],
+                    'error message',
+                '/div',
             '/div',
         ];
         $this->assertHtml($expected, $result);
@@ -743,7 +743,7 @@ class CheckboxControlTest extends AbstractFormHelperTest
         $expected = [
             ['div' => [
                 'attribute' => 'container-attribute',
-                'class' => 'container-class mb-3 form-check form-check-inline checkbox',
+                'class' => 'container-class mb-3 form-check form-check-inline align-top checkbox',
             ]],
                 ['input' => [
                     'type' => 'hidden',
@@ -765,9 +765,6 @@ class CheckboxControlTest extends AbstractFormHelperTest
         $this->assertHtml($expected, $result);
     }
 
-    /**
-     * Inline checkbox controls currently do not render error messages.
-     */
     public function testDefaultAlignCheckboxControlInlineContainerOptionsWithError()
     {
         $this->article['errors'] = [
@@ -786,7 +783,7 @@ class CheckboxControlTest extends AbstractFormHelperTest
         $expected = [
             ['div' => [
                 'attribute' => 'container-attribute',
-                'class' => 'container-class mb-3 form-check form-check-inline checkbox is-invalid',
+                'class' => 'container-class mb-3 form-check form-check-inline align-top checkbox is-invalid',
             ]],
                 ['input' => [
                     'class' => 'is-invalid',
@@ -804,6 +801,9 @@ class CheckboxControlTest extends AbstractFormHelperTest
                 ['label' => ['class' => 'form-check-label', 'for' => 'users']],
                     'Users',
                 '/label',
+                ['div' => ['class' => 'ms-0 invalid-feedback']],
+                    'error message',
+                '/div',
             '/div',
         ];
         $this->assertHtml($expected, $result);
@@ -819,7 +819,7 @@ class CheckboxControlTest extends AbstractFormHelperTest
             'nestedInput' => true,
         ]);
         $expected = [
-            ['div' => ['class' => 'mb-3 form-check form-check-inline checkbox']],
+            ['div' => ['class' => 'mb-3 form-check form-check-inline align-top checkbox']],
                 ['input' => [
                     'type' => 'hidden',
                     'name' => 'users',
@@ -851,7 +851,7 @@ class CheckboxControlTest extends AbstractFormHelperTest
             'tooltip' => 'Tooltip text',
         ]);
         $expected = [
-            ['div' => ['class' => 'mb-3 form-check form-check-inline checkbox']],
+            ['div' => ['class' => 'mb-3 form-check form-check-inline align-top checkbox']],
                 ['input' => [
                     'type' => 'hidden',
                     'name' => 'users',
