@@ -113,7 +113,7 @@ class FormHelper extends Helper
         'error' => '<div class="ms-0 invalid-feedback">{{content}}</div>',
         'errorTooltip' => '<div class="invalid-tooltip">{{content}}</div>',
         'label' => '<label{{attrs}}>{{text}}{{tooltip}}</label>',
-        'help' => '<small{{attrs}} class="d-block form-text text-muted">{{content}}</small>',
+        'help' => '<small{{attrs}}>{{content}}</small>',
         'tooltip' => '<span data-bs-toggle="tooltip" title="{{content}}" class="bi bi-info-circle-fill"></span>',
         'formGroupFloatingLabel' => '{{input}}{{label}}',
         'datetimeContainer' =>
@@ -189,7 +189,6 @@ class FormHelper extends Helper
         'inline' => [
             'elementWrapper' =>
                 '<div class="col-auto">{{content}}</div>',
-            'help' => '<small{{attrs}} class="visually-hidden form-text text-muted">{{content}}</small>',
             'checkboxInlineContainer' =>
                 '<div{{containerAttrs}} class="{{containerClass}}form-check{{variant}} {{type}}{{required}}">' .
                     '{{content}}{{help}}</div>',
@@ -856,20 +855,38 @@ class FormHelper extends Helper
     protected function _helpOptions(string $fieldName, array $options): array
     {
         if ($options['help']) {
-            if (is_string($options['help'])) {
-                $options['help'] = $this->templater()->format(
-                    'help',
-                    ['content' => $options['help']]
-                );
-            } elseif (is_array($options['help'])) {
-                $options['help'] = $this->templater()->format(
-                    'help',
-                    [
-                        'content' => $options['help']['content'],
-                        'attrs' => $this->templater()->formatAttributes($options['help'], ['class', 'content']),
-                    ]
-                );
+            if (!is_array($options['help'])) {
+                $options['help'] = [
+                    'content' => $options['help'],
+                ];
             }
+
+            if (!isset($options['help']['id'])) {
+                $descriptorId = $this->_domId($fieldName . '-help');
+                $options['help']['id'] = $descriptorId;
+            } else {
+                $descriptorId = $options['help']['id'];
+            }
+            $options['aria-describedby'] = $descriptorId;
+
+            $helpClasses = [];
+            if ($this->_align === static::ALIGN_INLINE) {
+                $helpClasses[] = 'visually-hidden';
+            } else {
+                $helpClasses[] = 'd-block';
+            }
+
+            $helpClasses[] = 'form-text';
+            if ($this->_align !== static::ALIGN_INLINE) {
+                $helpClasses[] = 'text-muted';
+            }
+
+            $options['help'] = $this->injectClasses($helpClasses, $options['help']);
+
+            $options['help'] = $this->templater()->format('help', [
+                'content' => $options['help']['content'],
+                'attrs' => $this->templater()->formatAttributes($options['help'], ['content']),
+            ]);
         }
 
         return $options;

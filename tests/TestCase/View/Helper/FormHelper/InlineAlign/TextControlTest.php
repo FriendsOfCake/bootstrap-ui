@@ -169,8 +169,9 @@ class TextControlTest extends AbstractFormHelperTest
                         'name' => 'title',
                         'id' => 'title',
                         'class' => 'form-control',
+                        'aria-describedby' => 'title-help',
                     ],
-                    ['small' => ['class' => 'visually-hidden form-text text-muted']],
+                    ['small' => ['id' => 'title-help', 'class' => 'visually-hidden form-text']],
                         'Help text',
                     '/small',
                 '/div',
@@ -188,7 +189,9 @@ class TextControlTest extends AbstractFormHelperTest
 
         $result = $this->Form->control('title', [
             'help' => [
+                'id' => 'custom-help',
                 'foo' => 'bar',
+                'class' => 'help-class',
                 'content' => 'Help text',
             ],
         ]);
@@ -203,8 +206,13 @@ class TextControlTest extends AbstractFormHelperTest
                         'name' => 'title',
                         'id' => 'title',
                         'class' => 'form-control',
+                        'aria-describedby' => 'custom-help',
                     ],
-                    ['small' => ['foo' => 'bar', 'class' => 'visually-hidden form-text text-muted']],
+                    ['small' => [
+                        'id' => 'custom-help',
+                        'foo' => 'bar',
+                        'class' => 'help-class visually-hidden form-text',
+                    ]],
                         'Help text',
                     '/small',
                 '/div',

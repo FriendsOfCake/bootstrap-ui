@@ -177,9 +177,10 @@ class StaticControlTest extends AbstractFormHelperTest
                     'type' => 'hidden',
                     'name' => 'title',
                     'id' => 'title',
+                    'aria-describedby' => 'title-help',
                     'value' => 'title',
                 ],
-                ['small' => ['class' => 'd-block form-text text-muted']],
+                ['small' => ['id' => 'title-help', 'class' => 'd-block form-text text-muted']],
                     'Help text',
                 '/small',
             '/div',
@@ -196,7 +197,9 @@ class StaticControlTest extends AbstractFormHelperTest
         $result = $this->Form->control('title', [
             'type' => 'staticControl',
             'help' => [
+                'id' => 'custom-help',
                 'foo' => 'bar',
+                'class' => 'help-class',
                 'content' => 'Help text',
             ],
         ]);
@@ -212,9 +215,14 @@ class StaticControlTest extends AbstractFormHelperTest
                     'type' => 'hidden',
                     'name' => 'title',
                     'id' => 'title',
+                    'aria-describedby' => 'custom-help',
                     'value' => 'title',
                 ],
-                ['small' => ['foo' => 'bar', 'class' => 'd-block form-text text-muted']],
+                ['small' => [
+                    'id' => 'custom-help',
+                    'foo' => 'bar',
+                    'class' => 'help-class d-block form-text text-muted',
+                ]],
                     'Help text',
                 '/small',
             '/div',

@@ -598,8 +598,32 @@ This would generate the following HTML:
 ```html
 <div class="mb-3 form-group text">
     <label class="form-label" for="title">Title</label>
-    <input type="text" name="title" id="title" class="form-control"/>
-    <small class="form-text text-muted">Help text</small>
+    <input type="text" name="title" id="title" class="form-control" aria-describedby="title-help"/>
+    <small id="title-help" class="d-block form-text text-muted">Help text</small>
+</div>
+```
+
+Attributes can be configured by passing an array for the `help` option, where the text is then defined in the `content`
+key:
+
+```php
+echo $this->Form->control('title', [
+    'help' => [
+        'id' => 'custom-help',
+        'class' => 'custom',
+        'data-custom' => 'attribute',
+        'content' => 'Help text',
+    ],
+]);
+```
+
+This would generate the following HTML:
+
+```html
+<div class="mb-3 form-group text">
+    <label class="form-label" for="title">Title</label>
+    <input type="text" name="title" id="title" class="form-control" aria-describedby="custom-help"/>
+    <small id="custom-help" class="custom d-block form-text text-muted" data-custom="attribute">Help text</small>
 </div>
 ```
 

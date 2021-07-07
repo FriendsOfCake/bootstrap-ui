@@ -154,8 +154,9 @@ class FileControlTest extends AbstractFormHelperTest
                         'name' => 'file',
                         'id' => 'file',
                         'class' => 'form-control',
+                        'aria-describedby' => 'file-help',
                     ]],
-                    ['small' => ['class' => 'visually-hidden form-text text-muted']],
+                    ['small' => ['id' => 'file-help', 'class' => 'visually-hidden form-text']],
                         'Help text',
                     '/small',
                 '/div',
@@ -175,7 +176,9 @@ class FileControlTest extends AbstractFormHelperTest
         $result = $this->Form->control('file', [
             'type' => 'file',
             'help' => [
+                'id' => 'custom-help',
                 'foo' => 'bar',
+                'class' => 'help-class',
                 'content' => 'Help text',
             ],
         ]);
@@ -190,8 +193,13 @@ class FileControlTest extends AbstractFormHelperTest
                         'name' => 'file',
                         'id' => 'file',
                         'class' => 'form-control',
+                        'aria-describedby' => 'custom-help',
                     ]],
-                    ['small' => ['foo' => 'bar', 'class' => 'visually-hidden form-text text-muted']],
+                    ['small' => [
+                        'id' => 'custom-help',
+                        'foo' => 'bar',
+                        'class' => 'help-class visually-hidden form-text',
+                    ]],
                         'Help text',
                     '/small',
                 '/div',
