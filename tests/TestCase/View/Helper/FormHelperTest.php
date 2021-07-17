@@ -582,13 +582,47 @@ class FormHelperTest extends AbstractFormHelperTest
         $this->Form->create($this->article, ['align' => 'foo']);
     }
 
-    public function testCustomGrid()
+    public function testCustomGridWithConstantsConfig()
     {
         $this->Form->create($this->article, [
             'align' => [
-                'left' => 3,
-                'middle' => 5,
-                'right' => 4,
+                FormHelper::GRID_COLUMN_ONE => 3,
+                FormHelper::GRID_COLUMN_TWO => 5,
+            ],
+        ]);
+
+        $result = $this->Form->control('title');
+        $expected = [
+            'div' => ['class' => 'mb-3 form-group row text required'],
+                'label' => [
+                    'class' => 'col-form-label col-md-3',
+                    'for' => 'title',
+                ],
+                    'Title',
+                '/label',
+                ['div' => ['class' => 'col-md-5']],
+                    'input' => [
+                        'type' => 'text',
+                        'name' => 'title',
+                        'required' => 'required',
+                        'data-validity-message' => 'This field cannot be left empty',
+                        'oninvalid' => 'this.setCustomValidity(&#039;&#039;); if (!this.value) this.setCustomValidity(this.dataset.validityMessage)',
+                        'oninput' => 'this.setCustomValidity(&#039;&#039;)',
+                        'id' => 'title',
+                        'class' => 'form-control',
+                    ],
+                '/div',
+            '/div',
+        ];
+        $this->assertHtml($expected, $result);
+    }
+
+    public function testCustomGridWithBasicArrayConfig()
+    {
+        $this->Form->create($this->article, [
+            'align' => [
+                3,
+                5,
             ],
         ]);
 
@@ -1024,8 +1058,8 @@ class FormHelperTest extends AbstractFormHelperTest
         $this->Form->create($this->article, [
             'align' => [
                 'sm' => [
-                    'left' => 5,
-                    'middle' => 7,
+                    FormHelper::GRID_COLUMN_ONE => 5,
+                    FormHelper::GRID_COLUMN_TWO => 7,
                 ],
             ],
         ]);

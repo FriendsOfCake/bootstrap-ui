@@ -298,9 +298,7 @@ will render this HTML:
 
 ```html
 <form method="post" accept-charset="utf-8" role="form" action="/articles/add">
-    <div style="display:none;">
-        <input type="hidden" name="_method" value="POST">
-    </div>
+    <!-- ... -->
     <div class="mb-3 form-group text">
         <label class="form-label" for="title">Title</label>
         <input type="text" name="title" id="title" class="form-control">
@@ -311,46 +309,48 @@ will render this HTML:
         <label class="form-check-label" for="published">Published</label>
     </div>
     <button type="submit" class="btn btn-secondary">Submit</button>
+    <!-- ... -->
 </form>
 ```
 
 ### Horizontal forms
 
+Horizontal forms automatically render labels and controls in separate columns (where applicable), labels in th first
+one, and controls in the second one.
+
+Alignment can be configured via the `align` option, which takes either a list of column sizes for the `md`
+[Bootstrap screen-size/breakpoint](https://getbootstrap.com/docs/5.0/layout/breakpoints/), or a matrix of
+screen-size/breakpoint names and column sizes.
+
+The following will use the default `md` screen-size/breakpoint:
+
 ```php
+use BootstrapUI\View\Helper\FormHelper;
+
 echo $this->Form->create($article, [
     'align' => [
-        'sm' => [
-            'left' => 6,
-            'middle' => 6,
-            'right' => 12
-        ],
-        'md' => [
-            'left' => 4,
-            'middle' => 4,
-            'right' => 4
-        ]
-    ]
+        FormHelper::GRID_COLUMN_ONE => 4, // first column (span over 4 columns)
+        FormHelper::GRID_COLUMN_TWO => 8, // second column (span over 8 columns)
+    ],
 ]);
 echo $this->Form->control('title');
 echo $this->Form->control('published', ['type' => 'checkbox']);
 echo $this->Form->end();
 ```
 
-will render this HTML:
+It will render this HTML:
 
 ```html
 <form method="post" accept-charset="utf-8" class="form-horizontal" role="form" action="/articles/add">
-    <div style="display:none;">
-        <input type="hidden" name="_method" value="POST">
-    </div>
+    <!-- ... -->
     <div class="mb-3 form-group row text">
-        <label class="col-form-label col-sm-6 col-md-4" for="title">Title</label>
-        <div class="col-sm-6 col-md-4">
+        <label class="col-form-label col-md-4" for="title">Title</label>
+        <div class="col-md-8">
             <input type="text" name="title" id="title" class="form-control">
         </div>
     </div>
     <div class="mb-3 form-group row checkbox">
-        <div class="offset-sm-6 offset-md-4 col-sm-6 col-md-4">
+        <div class="offset-md-4 col-md-8">
             <div class="form-check">
                 <input type="hidden" name="published" value="0"/>
                 <input type="checkbox" name="published" value="1" id="published" class="form-check-input"/>
@@ -358,10 +358,70 @@ will render this HTML:
             </div>
         </div>
     </div>
+    <!-- ... -->
 </form>
 ```
 
+The following uses a matrix of screen-sizes/breakpoints and column sizes:
+
+```php
+use BootstrapUI\View\Helper\FormHelper;
+
+echo $this->Form->create($article, [
+    'align' => [
+        // column sizes for the `sm` screen-size/breakpoint
+        'sm' => [
+            FormHelper::GRID_COLUMN_ONE => 6,
+            FormHelper::GRID_COLUMN_TWO => 6,
+        ],
+        // column sizes for the `md` screen-size/breakpoint
+        'md' => [
+            FormHelper::GRID_COLUMN_ONE => 4,
+            FormHelper::GRID_COLUMN_TWO => 8,
+        ],
+    ],
+]);
+echo $this->Form->control('title');
+echo $this->Form->control('published', ['type' => 'checkbox']);
+echo $this->Form->end();
+```
+
+It will render this HTML:
+
+```html
+<form method="post" accept-charset="utf-8" class="form-horizontal" role="form" action="/articles/add">
+    <!-- ... -->
+    <div class="mb-3 form-group row text">
+        <label class="col-form-label col-sm-6 col-md-4" for="title">Title</label>
+        <div class="col-sm-6 col-md-8">
+            <input type="text" name="title" id="title" class="form-control">
+        </div>
+    </div>
+    <div class="mb-3 form-group row checkbox">
+        <div class="offset-sm-6 offset-md-4 col-sm-6 col-md-8">
+            <div class="form-check">
+                <input type="hidden" name="published" value="0"/>
+                <input type="checkbox" name="published" value="1" id="published" class="form-check-input"/>
+                <label class="form-check-label" for="published">Published</label>
+            </div>
+        </div>
+    </div>
+    <!-- ... -->
+</form>
+```
+
+The default alignment will use the `md` screen-size/breakpoint and the following column sizes:
+
+```php
+[
+    FormHelper::GRID_COLUMN_ONE => 2,
+    FormHelper::GRID_COLUMN_TWO => 10,
+]
+```
+
 ### Inline forms
+
+Inline forms will render controls on one and the same row, and hide labels for most controls.
 
 ```php
 echo $this->Form->create($article, [
@@ -376,6 +436,7 @@ will render this HTML:
 
 ```html
 <form method="post" accept-charset="utf-8" class="form-inline" role="form" action="/articles/add">
+    <!-- ... -->
     <div class="form-group text">
         <label class="form-label visually-hidden" for="title">Title</label>
         <input type="text" name="title" placeholder="Title" id="title" class="form-control"/>
@@ -385,7 +446,7 @@ will render this HTML:
         <input type="checkbox" name="published" value="1" id="published" class="form-check-input">
         <label class="form-check-label" for="published">Published</label>
     </div>
-    ...
+    <!-- ... -->
 </form>
 ```
 

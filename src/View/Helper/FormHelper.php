@@ -91,6 +91,20 @@ class FormHelper extends Helper
     public const ALIGN_INLINE = 'inline';
 
     /**
+     * First grid column.
+     *
+     * @var int
+     */
+    public const GRID_COLUMN_ONE = 0;
+
+    /**
+     * Second grid column.
+     *
+     * @var int
+     */
+    public const GRID_COLUMN_TWO = 1;
+
+    /**
      * Set on `Form::create()` to tell if the type of alignment used (i.e. horizontal).
      *
      * @var string|null
@@ -309,9 +323,8 @@ class FormHelper extends Helper
             'align' => 'default',
             'errorClass' => 'is-invalid',
             'grid' => [
-                'left' => 2,
-                'middle' => 10,
-                'right' => 0,
+                static::GRID_COLUMN_ONE => 2,
+                static::GRID_COLUMN_TWO => 10,
             ],
             'templates' => $this->_templates + $this->_defaultConfig['templates'],
         ] + $this->_defaultConfig;
@@ -786,7 +799,7 @@ class FormHelper extends Helper
 
             if ($this->_align === static::ALIGN_HORIZONTAL) {
                 if (!$options['label']['floating']) {
-                    $size = $this->_gridClass('left');
+                    $size = $this->_gridClass(static::GRID_COLUMN_ONE);
                     $labelClasses[] = "col-form-label $size";
                 } else {
                     $labelClasses[] = 'ps-4';
@@ -1237,13 +1250,31 @@ class FormHelper extends Helper
             return $options;
         }
 
-        $offsetedGridClass = implode(' ', [$this->_gridClass('left', true), $this->_gridClass('middle')]);
+        $templates['label'] = sprintf(
+            $templates['label'],
+            $this->_gridClass(static::GRID_COLUMN_ONE)
+        );
+        $templates['datetimeLabel'] = sprintf(
+            $templates['datetimeLabel'],
+            $this->_gridClass(static::GRID_COLUMN_ONE)
+        );
+        $templates['radioLabel'] = sprintf(
+            $templates['radioLabel'],
+            $this->_gridClass(static::GRID_COLUMN_ONE)
+        );
+        $templates['multicheckboxLabel'] = sprintf(
+            $templates['multicheckboxLabel'],
+            $this->_gridClass(static::GRID_COLUMN_ONE)
+        );
+        $templates['formGroup'] = sprintf(
+            $templates['formGroup'],
+            $this->_gridClass(static::GRID_COLUMN_TWO)
+        );
 
-        $templates['label'] = sprintf($templates['label'], $this->_gridClass('left'));
-        $templates['datetimeLabel'] = sprintf($templates['datetimeLabel'], $this->_gridClass('left'));
-        $templates['radioLabel'] = sprintf($templates['radioLabel'], $this->_gridClass('left'));
-        $templates['multicheckboxLabel'] = sprintf($templates['multicheckboxLabel'], $this->_gridClass('left'));
-        $templates['formGroup'] = sprintf($templates['formGroup'], $this->_gridClass('middle'));
+        $offsetGridClass = implode(' ', [
+            $this->_gridClass(static::GRID_COLUMN_ONE, true),
+            $this->_gridClass(static::GRID_COLUMN_TWO),
+        ]);
         $containers = [
             'checkboxFormGroup',
             'checkboxInlineFormGroup',
@@ -1251,7 +1282,7 @@ class FormHelper extends Helper
             'submitContainer',
         ];
         foreach ($containers as $value) {
-            $templates[$value] = sprintf($templates[$value], $offsetedGridClass);
+            $templates[$value] = sprintf($templates[$value], $offsetGridClass);
         }
 
         $options['templates'] += $templates;
@@ -1262,11 +1293,11 @@ class FormHelper extends Helper
     /**
      * Returns a Bootstrap grid class (i.e. `col-md-2`).
      *
-     * @param string $position One of `left`, `middle` or `right`.
+     * @param int $columnIndex The zero-based column index.
      * @param bool $offset If true, will append `offset-` to the class.
      * @return string Classes.
      */
-    protected function _gridClass(string $position, bool $offset = false): string
+    protected function _gridClass(int $columnIndex, bool $offset = false): string
     {
         if ($this->_grid === null) {
             return '';
@@ -1277,14 +1308,14 @@ class FormHelper extends Helper
             $class = 'offset-%s-';
         }
 
-        if (isset($this->_grid[$position])) {
-            return sprintf($class, 'md') . $this->_grid[$position];
+        if (isset($this->_grid[$columnIndex])) {
+            return sprintf($class, 'md') . $this->_grid[$columnIndex];
         }
 
         $classes = [];
         foreach ($this->_grid as $screen => $positions) {
-            if (isset($positions[$position])) {
-                array_push($classes, sprintf($class, $screen) . $positions[$position]);
+            if (isset($positions[$columnIndex])) {
+                array_push($classes, sprintf($class, $screen) . $positions[$columnIndex]);
             }
         }
 

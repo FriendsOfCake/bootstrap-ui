@@ -4,6 +4,7 @@ declare(strict_types=1);
 namespace BootstrapUI\Test\TestCase\View\Helper\FormHelper\HorizontalAlign;
 
 use BootstrapUI\Test\TestCase\View\Helper\FormHelper\AbstractFormHelperTest;
+use BootstrapUI\View\Helper\FormHelper;
 
 class RadioControlTest extends AbstractFormHelperTest
 {
@@ -12,8 +13,8 @@ class RadioControlTest extends AbstractFormHelperTest
         $this->Form->create($this->article, [
             'align' => [
                 'sm' => [
-                    'left' => 5,
-                    'middle' => 7,
+                    FormHelper::GRID_COLUMN_ONE => 5,
+                    FormHelper::GRID_COLUMN_TWO => 7,
                 ],
             ],
         ]);
@@ -71,8 +72,8 @@ class RadioControlTest extends AbstractFormHelperTest
         $this->Form->create($this->article, [
             'align' => [
                 'sm' => [
-                    'left' => 5,
-                    'middle' => 7,
+                    FormHelper::GRID_COLUMN_ONE => 5,
+                    FormHelper::GRID_COLUMN_TWO => 7,
                 ],
             ],
         ]);
@@ -128,8 +129,8 @@ class RadioControlTest extends AbstractFormHelperTest
         $this->Form->create($this->article, [
             'align' => [
                 'sm' => [
-                    'left' => 5,
-                    'middle' => 7,
+                    FormHelper::GRID_COLUMN_ONE => 5,
+                    FormHelper::GRID_COLUMN_TWO => 7,
                 ],
             ],
         ]);
@@ -188,8 +189,8 @@ class RadioControlTest extends AbstractFormHelperTest
         $this->Form->create($this->article, [
             'align' => [
                 'sm' => [
-                    'left' => 5,
-                    'middle' => 7,
+                    FormHelper::GRID_COLUMN_ONE => 5,
+                    FormHelper::GRID_COLUMN_TWO => 7,
                 ],
             ],
         ]);
@@ -252,8 +253,8 @@ class RadioControlTest extends AbstractFormHelperTest
         $this->Form->create($this->article, [
             'align' => [
                 'sm' => [
-                    'left' => 5,
-                    'middle' => 7,
+                    FormHelper::GRID_COLUMN_ONE => 5,
+                    FormHelper::GRID_COLUMN_TWO => 7,
                 ],
             ],
         ]);
@@ -317,8 +318,8 @@ class RadioControlTest extends AbstractFormHelperTest
         $this->Form->create($this->article, [
             'align' => [
                 'sm' => [
-                    'left' => 5,
-                    'middle' => 7,
+                    FormHelper::GRID_COLUMN_ONE => 5,
+                    FormHelper::GRID_COLUMN_TWO => 7,
                 ],
             ],
         ]);
@@ -391,8 +392,8 @@ class RadioControlTest extends AbstractFormHelperTest
         $this->Form->create($this->article, [
             'align' => [
                 'sm' => [
-                    'left' => 5,
-                    'middle' => 7,
+                    FormHelper::GRID_COLUMN_ONE => 5,
+                    FormHelper::GRID_COLUMN_TWO => 7,
                 ],
             ],
         ]);
@@ -432,8 +433,8 @@ class RadioControlTest extends AbstractFormHelperTest
         $this->Form->create($this->article, [
             'align' => [
                 'sm' => [
-                    'left' => 5,
-                    'middle' => 7,
+                    FormHelper::GRID_COLUMN_ONE => 5,
+                    FormHelper::GRID_COLUMN_TWO => 7,
                 ],
             ],
         ]);
@@ -499,8 +500,8 @@ class RadioControlTest extends AbstractFormHelperTest
         $this->Form->create($this->article, [
             'align' => [
                 'sm' => [
-                    'left' => 5,
-                    'middle' => 7,
+                    FormHelper::GRID_COLUMN_ONE => 5,
+                    FormHelper::GRID_COLUMN_TWO => 7,
                 ],
             ],
         ]);
@@ -570,8 +571,8 @@ class RadioControlTest extends AbstractFormHelperTest
         $this->Form->create($this->article, [
             'align' => [
                 'sm' => [
-                    'left' => 5,
-                    'middle' => 7,
+                    FormHelper::GRID_COLUMN_ONE => 5,
+                    FormHelper::GRID_COLUMN_TWO => 7,
                 ],
             ],
         ]);
@@ -642,8 +643,8 @@ class RadioControlTest extends AbstractFormHelperTest
         $this->Form->create($this->article, [
             'align' => [
                 'sm' => [
-                    'left' => 5,
-                    'middle' => 7,
+                    FormHelper::GRID_COLUMN_ONE => 5,
+                    FormHelper::GRID_COLUMN_TWO => 7,
                 ],
             ],
         ]);
@@ -705,8 +706,8 @@ class RadioControlTest extends AbstractFormHelperTest
         $this->Form->create($this->article, [
             'align' => [
                 'sm' => [
-                    'left' => 5,
-                    'middle' => 7,
+                    FormHelper::GRID_COLUMN_ONE => 5,
+                    FormHelper::GRID_COLUMN_TWO => 7,
                 ],
             ],
         ]);
@@ -773,8 +774,8 @@ class RadioControlTest extends AbstractFormHelperTest
         $this->Form->create($this->article, [
             'align' => [
                 'sm' => [
-                    'left' => 5,
-                    'middle' => 7,
+                    FormHelper::GRID_COLUMN_ONE => 5,
+                    FormHelper::GRID_COLUMN_TWO => 7,
                 ],
             ],
         ]);
@@ -833,8 +834,8 @@ class RadioControlTest extends AbstractFormHelperTest
         $this->Form->create($this->article, [
             'align' => [
                 'sm' => [
-                    'left' => 5,
-                    'middle' => 7,
+                    FormHelper::GRID_COLUMN_ONE => 5,
+                    FormHelper::GRID_COLUMN_TWO => 7,
                 ],
             ],
         ]);
@@ -891,8 +892,8 @@ class RadioControlTest extends AbstractFormHelperTest
         $this->Form->create($this->article, [
             'align' => [
                 'sm' => [
-                    'left' => 5,
-                    'middle' => 7,
+                    FormHelper::GRID_COLUMN_ONE => 5,
+                    FormHelper::GRID_COLUMN_TWO => 7,
                 ],
             ],
         ]);
@@ -952,8 +953,8 @@ class RadioControlTest extends AbstractFormHelperTest
         $this->Form->create($this->article, [
             'align' => [
                 'sm' => [
-                    'left' => 5,
-                    'middle' => 7,
+                    FormHelper::GRID_COLUMN_ONE => 5,
+                    FormHelper::GRID_COLUMN_TWO => 7,
                 ],
             ],
         ]);
@@ -1017,8 +1018,8 @@ class RadioControlTest extends AbstractFormHelperTest
         $this->Form->create($this->article, [
             'align' => [
                 'sm' => [
-                    'left' => 5,
-                    'middle' => 7,
+                    FormHelper::GRID_COLUMN_ONE => 5,
+                    FormHelper::GRID_COLUMN_TWO => 7,
                 ],
             ],
         ]);
@@ -1083,8 +1084,8 @@ class RadioControlTest extends AbstractFormHelperTest
         $this->Form->create($this->article, [
             'align' => [
                 'sm' => [
-                    'left' => 5,
-                    'middle' => 7,
+                    FormHelper::GRID_COLUMN_ONE => 5,
+                    FormHelper::GRID_COLUMN_TWO => 7,
                 ],
             ],
         ]);
@@ -1158,8 +1159,8 @@ class RadioControlTest extends AbstractFormHelperTest
         $this->Form->create($this->article, [
             'align' => [
                 'sm' => [
-                    'left' => 5,
-                    'middle' => 7,
+                    FormHelper::GRID_COLUMN_ONE => 5,
+                    FormHelper::GRID_COLUMN_TWO => 7,
                 ],
             ],
         ]);
@@ -1200,8 +1201,8 @@ class RadioControlTest extends AbstractFormHelperTest
         $this->Form->create($this->article, [
             'align' => [
                 'sm' => [
-                    'left' => 5,
-                    'middle' => 7,
+                    FormHelper::GRID_COLUMN_ONE => 5,
+                    FormHelper::GRID_COLUMN_TWO => 7,
                 ],
             ],
         ]);
@@ -1268,8 +1269,8 @@ class RadioControlTest extends AbstractFormHelperTest
         $this->Form->create($this->article, [
             'align' => [
                 'sm' => [
-                    'left' => 5,
-                    'middle' => 7,
+                    FormHelper::GRID_COLUMN_ONE => 5,
+                    FormHelper::GRID_COLUMN_TWO => 7,
                 ],
             ],
         ]);
@@ -1340,8 +1341,8 @@ class RadioControlTest extends AbstractFormHelperTest
         $this->Form->create($this->article, [
             'align' => [
                 'sm' => [
-                    'left' => 5,
-                    'middle' => 7,
+                    FormHelper::GRID_COLUMN_ONE => 5,
+                    FormHelper::GRID_COLUMN_TWO => 7,
                 ],
             ],
         ]);
@@ -1413,8 +1414,8 @@ class RadioControlTest extends AbstractFormHelperTest
         $this->Form->create($this->article, [
             'align' => [
                 'sm' => [
-                    'left' => 5,
-                    'middle' => 7,
+                    FormHelper::GRID_COLUMN_ONE => 5,
+                    FormHelper::GRID_COLUMN_TWO => 7,
                 ],
             ],
         ]);
@@ -1477,8 +1478,8 @@ class RadioControlTest extends AbstractFormHelperTest
         $this->Form->create($this->article, [
             'align' => [
                 'sm' => [
-                    'left' => 5,
-                    'middle' => 7,
+                    FormHelper::GRID_COLUMN_ONE => 5,
+                    FormHelper::GRID_COLUMN_TWO => 7,
                 ],
             ],
         ]);
@@ -1546,8 +1547,8 @@ class RadioControlTest extends AbstractFormHelperTest
         $this->Form->create($this->article, [
             'align' => [
                 'sm' => [
-                    'left' => 5,
-                    'middle' => 7,
+                    FormHelper::GRID_COLUMN_ONE => 5,
+                    FormHelper::GRID_COLUMN_TWO => 7,
                 ],
             ],
         ]);
@@ -1625,8 +1626,8 @@ class RadioControlTest extends AbstractFormHelperTest
         $this->Form->create($this->article, [
             'align' => [
                 'sm' => [
-                    'left' => 5,
-                    'middle' => 7,
+                    FormHelper::GRID_COLUMN_ONE => 5,
+                    FormHelper::GRID_COLUMN_TWO => 7,
                 ],
             ],
         ]);
@@ -1705,8 +1706,8 @@ class RadioControlTest extends AbstractFormHelperTest
         $this->Form->create($this->article, [
             'align' => [
                 'sm' => [
-                    'left' => 5,
-                    'middle' => 7,
+                    FormHelper::GRID_COLUMN_ONE => 5,
+                    FormHelper::GRID_COLUMN_TWO => 7,
                 ],
             ],
         ]);
