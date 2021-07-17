@@ -64,7 +64,6 @@ class StaticControlTest extends AbstractFormHelperTest
             '/div',
         ];
         $this->assertHtml($expected, $result);
-        $this->assertEmpty($this->Form->fields);
     }
 
     public function testDefaultAlignStaticControlWithDisabledLabel()

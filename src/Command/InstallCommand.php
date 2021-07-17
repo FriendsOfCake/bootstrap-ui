@@ -177,7 +177,7 @@ class InstallCommand extends Command
      * @param \Cake\Console\ConsoleIo $io The console io.
      * @return void
      */
-    protected function _runNPMInstall(&$output, &$return, ConsoleIo $io): void
+    protected function _runNPMInstall(array &$output, int &$return, ConsoleIo $io): void
     {
         $pluginPath = Plugin::path('BootstrapUI');
         if (!$this->_changeWorkingDirectory($pluginPath)) {

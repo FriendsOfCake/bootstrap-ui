@@ -13,7 +13,7 @@ use Cake\View\Form\ContextInterface;
  */
 class TextareaWidget extends \Cake\View\Widget\TextareaWidget
 {
-    use InputgroupTrait;
+    use InputGroupTrait;
 
     /**
      * Render a text area form widget.

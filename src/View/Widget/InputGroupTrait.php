@@ -6,7 +6,7 @@ namespace BootstrapUI\View\Widget;
 use BootstrapUI\View\Helper\OptionsAwareTrait;
 use Cake\View\Form\ContextInterface;
 
-trait InputgroupTrait
+trait InputGroupTrait
 {
     use OptionsAwareTrait;
 

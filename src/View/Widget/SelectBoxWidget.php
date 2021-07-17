@@ -7,7 +7,7 @@ use Cake\View\Form\ContextInterface;
 
 class SelectBoxWidget extends \Cake\View\Widget\SelectBoxWidget
 {
-    use InputgroupTrait;
+    use InputGroupTrait;
 
     /**
      * Render a select box form input.

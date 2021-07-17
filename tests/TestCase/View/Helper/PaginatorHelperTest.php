@@ -67,9 +67,6 @@ class PaginatorHelperTest extends TestCase
 
         $this->View = new View($request);
         $this->Paginator = new PaginatorHelper($this->View);
-        $this->Paginator->Js = $this->getMockBuilder('Cake\View\Helper\PaginatorHelper')
-            ->setConstructorArgs([$this->View])
-            ->getMock();
 
         Configure::write('Routing.prefixes', []);
         Router::reload();

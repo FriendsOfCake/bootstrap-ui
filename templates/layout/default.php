@@ -43,7 +43,10 @@ if (!$this->fetch('tb_footer')) {
 /**
  * Default `body` block.
  */
-$this->prepend('tb_body_attrs', ' class="' . implode(' ', [$this->request->getParam('controller'), $this->request->getParam('action')]) . '" ');
+$this->prepend(
+    'tb_body_attrs',
+    ' class="' . implode(' ', [$this->request->getParam('controller'), $this->request->getParam('action')]) . '" '
+);
 if (!$this->fetch('tb_body_start')) {
     $this->start('tb_body_start');
     echo '<body' . $this->fetch('tb_body_attrs') . '>';
@@ -67,7 +70,10 @@ if (!$this->fetch('tb_body_end')) {
  * Prepend `meta` block with `author` and `favicon`.
  */
 if (Configure::check('App.author')) {
-    $this->prepend('meta', $this->Html->meta('author', null, ['name' => 'author', 'content' => Configure::read('App.author')]));
+    $this->prepend(
+        'meta',
+        $this->Html->meta('author', null, ['name' => 'author', 'content' => Configure::read('App.author')])
+    );
 }
 $this->prepend('meta', $this->Html->meta('favicon.ico', '/favicon.ico', ['type' => 'icon']));
 
@@ -80,7 +86,10 @@ if (Configure::read('debug')) {
 } else {
     $this->prepend('css', $this->Html->css(['BootstrapUI.bootstrap.min']));
 }
-$this->prepend('css', $this->Html->css(['BootstrapUI./font/bootstrap-icons', 'BootstrapUI./font/bootstrap-icon-sizes']));
+$this->prepend(
+    'css',
+    $this->Html->css(['BootstrapUI./font/bootstrap-icons', 'BootstrapUI./font/bootstrap-icon-sizes'])
+);
 
 /**
  * Prepend `script` block with Popper and Bootstrap scripts

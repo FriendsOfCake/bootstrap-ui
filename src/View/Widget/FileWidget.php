@@ -12,7 +12,7 @@ use Cake\View\Widget\LabelWidget;
  */
 class FileWidget extends \Cake\View\Widget\FileWidget
 {
-    use InputgroupTrait;
+    use InputGroupTrait;
 
     /**
      * Label widget.

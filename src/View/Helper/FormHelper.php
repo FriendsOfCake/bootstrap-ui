@@ -124,12 +124,18 @@ class FormHelper extends Helper
      * @var array
      */
     protected $_templates = [
-        'error' => '<div class="ms-0 invalid-feedback">{{content}}</div>',
-        'errorTooltip' => '<div class="invalid-tooltip">{{content}}</div>',
-        'label' => '<label{{attrs}}>{{text}}{{tooltip}}</label>',
-        'help' => '<small{{attrs}}>{{content}}</small>',
-        'tooltip' => '<span data-bs-toggle="tooltip" title="{{content}}" class="bi bi-info-circle-fill"></span>',
-        'formGroupFloatingLabel' => '{{input}}{{label}}',
+        'error' =>
+            '<div class="ms-0 invalid-feedback">{{content}}</div>',
+        'errorTooltip' =>
+            '<div class="invalid-tooltip">{{content}}</div>',
+        'label' =>
+            '<label{{attrs}}>{{text}}{{tooltip}}</label>',
+        'help' =>
+            '<small{{attrs}}>{{content}}</small>',
+        'tooltip' =>
+            '<span data-bs-toggle="tooltip" title="{{content}}" class="bi bi-info-circle-fill"></span>',
+        'formGroupFloatingLabel' =>
+            '{{input}}{{label}}',
         'datetimeContainer' =>
             '<div{{containerAttrs}} ' .
                 'class="{{containerClass}}form-group {{type}}{{required}}">{{content}}{{help}}</div>',
@@ -137,7 +143,8 @@ class FormHelper extends Helper
             '<div{{containerAttrs}} ' .
                 'class="{{containerClass}}form-group {{formGroupPosition}}{{type}}{{required}} is-invalid">' .
                     '{{content}}{{error}}{{help}}</div>',
-        'datetimeLabel' => '<label{{attrs}}>{{text}}{{tooltip}}</label>',
+        'datetimeLabel' =>
+            '<label{{attrs}}>{{text}}{{tooltip}}</label>',
         'inputContainer' =>
             '<div{{containerAttrs}} ' .
                 'class="{{containerClass}}form-group {{type}}{{required}}">{{content}}{{help}}</div>',
@@ -161,9 +168,12 @@ class FormHelper extends Helper
             '<div{{containerAttrs}} ' .
                 'class="{{containerClass}}form-check{{variant}} form-check-inline align-top ' .
                     '{{formGroupPosition}}{{type}}{{required}} is-invalid">{{content}}{{error}}{{help}}</div>',
-        'checkboxFormGroup' => '{{input}}{{label}}',
-        'checkboxWrapper' => '<div class="form-check{{variant}}">{{label}}</div>',
-        'checkboxInlineWrapper' => '<div class="form-check{{variant}} form-check-inline">{{label}}</div>',
+        'checkboxFormGroup' =>
+            '{{input}}{{label}}',
+        'checkboxWrapper' =>
+            '<div class="form-check{{variant}}">{{label}}</div>',
+        'checkboxInlineWrapper' =>
+            '<div class="form-check{{variant}} form-check-inline">{{label}}</div>',
         'radioContainer' =>
             '<div{{containerAttrs}} class="{{containerClass}}form-group {{type}}{{required}}" role="group" ' .
                 'aria-labelledby="{{groupId}}">{{content}}{{help}}</div>',
@@ -171,12 +181,18 @@ class FormHelper extends Helper
             '<div{{containerAttrs}} ' .
                 'class="{{containerClass}}form-group {{formGroupPosition}}{{type}}{{required}} is-invalid" ' .
                     'role="group" aria-labelledby="{{groupId}}">{{content}}{{error}}{{help}}</div>',
-        'radioLabel' => '<label{{attrs}}>{{text}}{{tooltip}}</label>',
-        'radioWrapper' => '<div class="form-check">{{hidden}}{{label}}</div>',
-        'radioInlineWrapper' => '<div class="form-check form-check-inline">{{label}}</div>',
-        'staticControl' => '<p class="form-control-plaintext">{{content}}</p>',
-        'inputGroupContainer' => '<div{{attrs}}>{{prepend}}{{content}}{{append}}</div>',
-        'inputGroupText' => '<span class="input-group-text">{{content}}</span>',
+        'radioLabel' =>
+            '<label{{attrs}}>{{text}}{{tooltip}}</label>',
+        'radioWrapper' =>
+            '<div class="form-check">{{hidden}}{{label}}</div>',
+        'radioInlineWrapper' =>
+            '<div class="form-check form-check-inline">{{label}}</div>',
+        'staticControl' =>
+            '<p class="form-control-plaintext">{{content}}</p>',
+        'inputGroupContainer' =>
+            '<div{{attrs}}>{{prepend}}{{content}}{{append}}</div>',
+        'inputGroupText' =>
+            '<span class="input-group-text">{{content}}</span>',
         'multicheckboxContainer' =>
             '<div{{containerAttrs}} class="{{containerClass}}form-group {{type}}{{required}}" role="group" ' .
                 'aria-labelledby="{{groupId}}">{{content}}{{help}}</div>',
@@ -184,12 +200,18 @@ class FormHelper extends Helper
             '<div{{containerAttrs}} ' .
                 'class="{{containerClass}}form-group {{formGroupPosition}}{{type}}{{required}} is-invalid" ' .
                     'role="group" aria-labelledby="{{groupId}}">{{content}}{{error}}{{help}}</div>',
-        'multicheckboxLabel' => '<label{{attrs}}>{{text}}{{tooltip}}</label>',
-        'multicheckboxWrapper' => '<fieldset class="mb-3 form-group">{{content}}</fieldset>',
-        'multicheckboxTitle' => '<legend class="col-form-label pt-0">{{text}}</legend>',
-        'nestingLabel' => '{{hidden}}{{input}}<label{{attrs}}>{{text}}{{tooltip}}</label>',
-        'nestingLabelNestedInput' => '{{hidden}}<label{{attrs}}>{{input}}{{text}}{{tooltip}}</label>',
-        'submitContainer' => '<div{{containerAttrs}} class="{{containerClass}}submit">{{content}}</div>',
+        'multicheckboxLabel' =>
+            '<label{{attrs}}>{{text}}{{tooltip}}</label>',
+        'multicheckboxWrapper' =>
+            '<fieldset class="mb-3 form-group">{{content}}</fieldset>',
+        'multicheckboxTitle' =>
+            '<legend class="col-form-label pt-0">{{text}}</legend>',
+        'nestingLabel' =>
+            '{{hidden}}{{input}}<label{{attrs}}>{{text}}{{tooltip}}</label>',
+        'nestingLabelNestedInput' =>
+            '{{hidden}}<label{{attrs}}>{{input}}{{text}}{{tooltip}}</label>',
+        'submitContainer' =>
+            '<div{{containerAttrs}} class="{{containerClass}}submit">{{content}}</div>',
     ];
 
     /**
@@ -218,7 +240,8 @@ class FormHelper extends Helper
                 '<div{{containerAttrs}} ' .
                     'class="{{containerClass}}form-group {{formGroupPosition}}{{type}}{{required}} is-invalid">' .
                         '{{content}}{{error}}{{help}}</div>',
-            'datetimeLabel' => '<label{{attrs}}>{{text}}{{tooltip}}</label>',
+            'datetimeLabel' =>
+                '<label{{attrs}}>{{text}}{{tooltip}}</label>',
             'radioContainer' =>
                 '<div{{containerAttrs}} ' .
                     'class="{{containerClass}}form-group {{formGroupPosition}}{{type}}{{required}}" role="group" ' .
@@ -227,7 +250,8 @@ class FormHelper extends Helper
                 '<div{{containerAttrs}} ' .
                     'class="{{containerClass}}form-group {{formGroupPosition}}{{type}}{{required}} is-invalid" ' .
                         'role="group" aria-labelledby="{{groupId}}">{{content}}{{error}}{{help}}</div>',
-            'radioLabel' => '<span{{attrs}}>{{text}}{{tooltip}}</span>',
+            'radioLabel' =>
+                '<span{{attrs}}>{{text}}{{tooltip}}</span>',
             'multicheckboxContainer' =>
                 '<div{{containerAttrs}} ' .
                     'class="{{containerClass}}form-group d-flex {{formGroupPosition}}{{type}}{{required}}" ' .
@@ -237,16 +261,20 @@ class FormHelper extends Helper
                     'class="{{containerClass}}form-group d-flex ' .
                         '{{formGroupPosition}}{{type}}{{required}} is-invalid" ' .
                             'role="group" aria-labelledby="{{groupId}}">{{content}}{{error}}{{help}}</div>',
-            'multicheckboxLabel' => '<span{{attrs}}>{{text}}{{tooltip}}</span>',
+            'multicheckboxLabel' =>
+                '<span{{attrs}}>{{text}}{{tooltip}}</span>',
             'multicheckboxWrapper' =>
                 '<fieldset class="form-group">{{content}}</fieldset>',
             'multicheckboxTitle' =>
                 '<legend class="col-form-label float-none pt-0">{{text}}</legend>',
         ],
         'horizontal' => [
-            'label' => '<label{{attrs}}>{{text}}{{tooltip}}</label>',
-            'formGroup' => '{{label}}<div class="%s">{{input}}{{error}}{{help}}</div>',
-            'formGroupFloatingLabel' => '<div class="%s form-floating">{{input}}{{label}}{{error}}{{help}}</div>',
+            'label' =>
+                '<label{{attrs}}>{{text}}{{tooltip}}</label>',
+            'formGroup' =>
+                '{{label}}<div class="%s">{{input}}{{error}}{{help}}</div>',
+            'formGroupFloatingLabel' =>
+                '<div class="%s form-floating">{{input}}{{label}}{{error}}{{help}}</div>',
             'checkboxFormGroup' =>
                 '<div class="%s"><div class="form-check{{variant}}">{{input}}{{label}}{{error}}{{help}}</div></div>',
             'datetimeContainer' =>
@@ -256,7 +284,8 @@ class FormHelper extends Helper
                 '<div{{containerAttrs}} ' .
                     'class="{{containerClass}}form-group row {{formGroupPosition}}{{type}}{{required}} is-invalid">' .
                         '{{content}}</div>',
-            'datetimeLabel' => '<label{{attrs}}>{{text}}{{tooltip}}</label>',
+            'datetimeLabel' =>
+                '<label{{attrs}}>{{text}}{{tooltip}}</label>',
             'checkboxInlineFormGroup' =>
                 '<div class="%s"><div class="form-check{{variant}} form-check-inline">{{input}}{{label}}</div></div>',
             'submitContainer' =>
@@ -387,7 +416,7 @@ class FormHelper extends Helper
      *
      * Overrides parent method to add CSS class `btn`, to the element.
      *
-     * @param string $caption The label appearing on the button OR if string contains :// or the
+     * @param string|null $caption The label appearing on the button OR if string contains :// or the
      *  extension .jpg, .jpe, .jpeg, .gif, .png use an image if the extension
      *  exists, AND the first character is /, image is relative to webroot,
      *  OR if the first character is not /, image is relative to webroot/img.
