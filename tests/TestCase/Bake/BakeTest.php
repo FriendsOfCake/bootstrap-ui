@@ -1,15 +1,17 @@
 <?php
 declare(strict_types=1);
 
-namespace BootstrapUI\Shell;
+namespace BootstrapUI\Test\TestCase\Bake;
 
-use Cake\Console\Shell;
+use Cake\Command\Command;
 use Cake\Core\Plugin;
-use Cake\TestSuite\ConsoleIntegrationTestCase;
+use Cake\TestSuite\ConsoleIntegrationTestTrait;
 use Cake\TestSuite\StringCompareTrait;
+use Cake\TestSuite\TestCase;
 
-class BakeTest extends ConsoleIntegrationTestCase
+class BakeTest extends TestCase
 {
+    use ConsoleIntegrationTestTrait;
     use StringCompareTrait;
 
     protected $generatedFile = '';
@@ -50,7 +52,7 @@ class BakeTest extends ConsoleIntegrationTestCase
 
         $this->exec('bake template Articles add -t BootstrapUI');
 
-        $this->assertExitCode(Shell::CODE_SUCCESS);
+        $this->assertExitCode(Command::CODE_SUCCESS);
         $this->assertFileExists($this->generatedFile);
 
         $result = file_get_contents($this->generatedFile);
@@ -63,7 +65,7 @@ class BakeTest extends ConsoleIntegrationTestCase
 
         $this->exec('bake template Articles edit -t BootstrapUI');
 
-        $this->assertExitCode(Shell::CODE_SUCCESS);
+        $this->assertExitCode(Command::CODE_SUCCESS);
         $this->assertFileExists($this->generatedFile);
 
         $result = file_get_contents($this->generatedFile);
@@ -76,7 +78,7 @@ class BakeTest extends ConsoleIntegrationTestCase
 
         $this->exec('bake template Articles index -t BootstrapUI');
 
-        $this->assertExitCode(Shell::CODE_SUCCESS);
+        $this->assertExitCode(Command::CODE_SUCCESS);
         $this->assertFileExists($this->generatedFile);
 
         $result = file_get_contents($this->generatedFile);
@@ -89,7 +91,7 @@ class BakeTest extends ConsoleIntegrationTestCase
 
         $this->exec('bake template Articles login -t BootstrapUI');
 
-        $this->assertExitCode(Shell::CODE_SUCCESS);
+        $this->assertExitCode(Command::CODE_SUCCESS);
         $this->assertFileExists($this->generatedFile);
 
         $result = file_get_contents($this->generatedFile);
@@ -102,7 +104,7 @@ class BakeTest extends ConsoleIntegrationTestCase
 
         $this->exec('bake template Articles view -t BootstrapUI');
 
-        $this->assertExitCode(Shell::CODE_SUCCESS);
+        $this->assertExitCode(Command::CODE_SUCCESS);
         $this->assertFileExists($this->generatedFile);
 
         $result = file_get_contents($this->generatedFile);

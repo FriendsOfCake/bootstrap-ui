@@ -4,6 +4,7 @@ declare(strict_types=1);
 namespace BootstrapUI\Test\TestCase\View\Helper\FormHelper\HorizontalAlign;
 
 use BootstrapUI\Test\TestCase\View\Helper\FormHelper\AbstractFormHelperTest;
+use BootstrapUI\View\Helper\FormHelper;
 
 class CheckboxControlTest extends AbstractFormHelperTest
 {
@@ -12,8 +13,8 @@ class CheckboxControlTest extends AbstractFormHelperTest
         $this->Form->create($this->article, [
             'align' => [
                 'sm' => [
-                    'left' => 5,
-                    'middle' => 7,
+                    FormHelper::GRID_COLUMN_ONE => 5,
+                    FormHelper::GRID_COLUMN_TWO => 7,
                 ],
             ],
         ]);
@@ -22,7 +23,7 @@ class CheckboxControlTest extends AbstractFormHelperTest
             'type' => 'checkbox',
         ]);
         $expected = [
-            ['div' => ['class' => 'form-group row checkbox']],
+            ['div' => ['class' => 'mb-3 form-group row checkbox']],
                 ['div' => ['class' => 'offset-sm-5 col-sm-7']],
                     ['div' => ['class' => 'form-check']],
                         ['input' => [
@@ -52,8 +53,8 @@ class CheckboxControlTest extends AbstractFormHelperTest
         $this->Form->create($this->article, [
             'align' => [
                 'sm' => [
-                    'left' => 5,
-                    'middle' => 7,
+                    FormHelper::GRID_COLUMN_ONE => 5,
+                    FormHelper::GRID_COLUMN_TWO => 7,
                 ],
             ],
         ]);
@@ -63,7 +64,7 @@ class CheckboxControlTest extends AbstractFormHelperTest
             'label' => false,
         ]);
         $expected = [
-            ['div' => ['class' => 'form-group row checkbox']],
+            ['div' => ['class' => 'mb-3 form-group row checkbox']],
                 ['div' => ['class' => 'offset-sm-5 col-sm-7']],
                     ['div' => ['class' => 'form-check']],
                         ['input' => [
@@ -90,8 +91,8 @@ class CheckboxControlTest extends AbstractFormHelperTest
         $this->Form->create($this->article, [
             'align' => [
                 'sm' => [
-                    'left' => 5,
-                    'middle' => 7,
+                    FormHelper::GRID_COLUMN_ONE => 5,
+                    FormHelper::GRID_COLUMN_TWO => 7,
                 ],
             ],
         ]);
@@ -101,7 +102,7 @@ class CheckboxControlTest extends AbstractFormHelperTest
             'label' => 'Custom Label',
         ]);
         $expected = [
-            ['div' => ['class' => 'form-group row checkbox']],
+            ['div' => ['class' => 'mb-3 form-group row checkbox']],
                 ['div' => ['class' => 'offset-sm-5 col-sm-7']],
                     ['div' => ['class' => 'form-check']],
                         ['input' => [
@@ -131,8 +132,8 @@ class CheckboxControlTest extends AbstractFormHelperTest
         $this->Form->create($this->article, [
             'align' => [
                 'sm' => [
-                    'left' => 5,
-                    'middle' => 7,
+                    FormHelper::GRID_COLUMN_ONE => 5,
+                    FormHelper::GRID_COLUMN_TWO => 7,
                 ],
             ],
         ]);
@@ -146,7 +147,7 @@ class CheckboxControlTest extends AbstractFormHelperTest
             ],
         ]);
         $expected = [
-            ['div' => ['class' => 'form-group row checkbox']],
+            ['div' => ['class' => 'mb-3 form-group row checkbox']],
                 ['div' => ['class' => 'offset-sm-5 col-sm-7']],
                     ['div' => ['class' => 'form-check']],
                         ['input' => [
@@ -176,8 +177,8 @@ class CheckboxControlTest extends AbstractFormHelperTest
         $this->Form->create($this->article, [
             'align' => [
                 'sm' => [
-                    'left' => 5,
-                    'middle' => 7,
+                    FormHelper::GRID_COLUMN_ONE => 5,
+                    FormHelper::GRID_COLUMN_TWO => 7,
                 ],
             ],
         ]);
@@ -187,7 +188,7 @@ class CheckboxControlTest extends AbstractFormHelperTest
             'help' => 'Help text',
         ]);
         $expected = [
-            ['div' => ['class' => 'form-group row checkbox']],
+            ['div' => ['class' => 'mb-3 form-group row checkbox']],
                 ['div' => ['class' => 'offset-sm-5 col-sm-7']],
                     ['div' => ['class' => 'form-check']],
                         ['input' => [
@@ -200,12 +201,13 @@ class CheckboxControlTest extends AbstractFormHelperTest
                             'type' => 'checkbox',
                             'name' => 'users',
                             'id' => 'users',
+                            'aria-describedby' => 'users-help',
                             'value' => 1,
                         ]],
                         ['label' => ['class' => 'form-check-label', 'for' => 'users']],
                             'Users',
                         '/label',
-                        ['small' => ['class' => 'form-text text-muted']],
+                        ['small' => ['id' => 'users-help', 'class' => 'd-block form-text text-muted']],
                             'Help text',
                         '/small',
                     '/div',
@@ -220,8 +222,8 @@ class CheckboxControlTest extends AbstractFormHelperTest
         $this->Form->create($this->article, [
             'align' => [
                 'sm' => [
-                    'left' => 5,
-                    'middle' => 7,
+                    FormHelper::GRID_COLUMN_ONE => 5,
+                    FormHelper::GRID_COLUMN_TWO => 7,
                 ],
             ],
         ]);
@@ -229,12 +231,14 @@ class CheckboxControlTest extends AbstractFormHelperTest
         $result = $this->Form->control('users', [
             'type' => 'checkbox',
             'help' => [
+                'id' => 'custom-help',
                 'foo' => 'bar',
+                'class' => 'help-class',
                 'content' => 'Help text',
             ],
         ]);
         $expected = [
-            ['div' => ['class' => 'form-group row checkbox']],
+            ['div' => ['class' => 'mb-3 form-group row checkbox']],
                 ['div' => ['class' => 'offset-sm-5 col-sm-7']],
                     ['div' => ['class' => 'form-check']],
                         ['input' => [
@@ -247,12 +251,17 @@ class CheckboxControlTest extends AbstractFormHelperTest
                             'type' => 'checkbox',
                             'name' => 'users',
                             'id' => 'users',
+                            'aria-describedby' => 'custom-help',
                             'value' => 1,
                         ]],
                         ['label' => ['class' => 'form-check-label', 'for' => 'users']],
                             'Users',
                         '/label',
-                        ['small' => ['foo' => 'bar', 'class' => 'form-text text-muted']],
+                        ['small' => [
+                            'id' => 'custom-help',
+                            'foo' => 'bar',
+                            'class' => 'help-class d-block form-text text-muted',
+                        ]],
                             'Help text',
                         '/small',
                     '/div',
@@ -267,8 +276,8 @@ class CheckboxControlTest extends AbstractFormHelperTest
         $this->Form->create($this->article, [
             'align' => [
                 'sm' => [
-                    'left' => 5,
-                    'middle' => 7,
+                    FormHelper::GRID_COLUMN_ONE => 5,
+                    FormHelper::GRID_COLUMN_TWO => 7,
                 ],
             ],
         ]);
@@ -278,7 +287,7 @@ class CheckboxControlTest extends AbstractFormHelperTest
             'tooltip' => 'Tooltip text',
         ]);
         $expected = [
-            ['div' => ['class' => 'form-group row checkbox']],
+            ['div' => ['class' => 'mb-3 form-group row checkbox']],
                 ['div' => ['class' => 'offset-sm-5 col-sm-7']],
                     ['div' => ['class' => 'form-check']],
                         ['input' => [
@@ -296,9 +305,9 @@ class CheckboxControlTest extends AbstractFormHelperTest
                         ['label' => ['class' => 'form-check-label', 'for' => 'users']],
                             'Users ',
                             'span' => [
-                                'data-toggle' => 'tooltip',
+                                'data-bs-toggle' => 'tooltip',
                                 'title' => 'Tooltip text',
-                                'class' => 'fas fa-info-circle',
+                                'class' => 'bi bi-info-circle-fill',
                             ],
                             '/span',
                         '/label',
@@ -317,8 +326,8 @@ class CheckboxControlTest extends AbstractFormHelperTest
         $this->Form->create($this->article, [
             'align' => [
                 'sm' => [
-                    'left' => 5,
-                    'middle' => 7,
+                    FormHelper::GRID_COLUMN_ONE => 5,
+                    FormHelper::GRID_COLUMN_TWO => 7,
                 ],
             ],
         ]);
@@ -327,7 +336,7 @@ class CheckboxControlTest extends AbstractFormHelperTest
             'type' => 'checkbox',
         ]);
         $expected = [
-            ['div' => ['class' => 'form-group row checkbox is-invalid']],
+            ['div' => ['class' => 'mb-3 form-group row checkbox is-invalid']],
                 ['div' => ['class' => 'offset-sm-5 col-sm-7']],
                     ['div' => ['class' => 'form-check']],
                         ['input' => [
@@ -346,7 +355,7 @@ class CheckboxControlTest extends AbstractFormHelperTest
                         ['label' => ['class' => 'form-check-label', 'for' => 'users']],
                             'Users',
                         '/label',
-                        ['div' => ['class' => 'invalid-feedback']],
+                        ['div' => ['class' => 'ms-0 invalid-feedback']],
                             'error message',
                         '/div',
                     '/div',
@@ -361,8 +370,8 @@ class CheckboxControlTest extends AbstractFormHelperTest
         $this->Form->create($this->article, [
             'align' => [
                 'sm' => [
-                    'left' => 5,
-                    'middle' => 7,
+                    FormHelper::GRID_COLUMN_ONE => 5,
+                    FormHelper::GRID_COLUMN_TWO => 7,
                 ],
             ],
         ]);
@@ -377,7 +386,7 @@ class CheckboxControlTest extends AbstractFormHelperTest
         $expected = [
             ['div' => [
                 'attribute' => 'container-attribute',
-                'class' => 'container-class form-group row checkbox',
+                'class' => 'container-class mb-3 form-group row checkbox',
             ]],
                 ['div' => ['class' => 'offset-sm-5 col-sm-7']],
                     ['div' => ['class' => 'form-check']],
@@ -411,8 +420,8 @@ class CheckboxControlTest extends AbstractFormHelperTest
         $this->Form->create($this->article, [
             'align' => [
                 'sm' => [
-                    'left' => 5,
-                    'middle' => 7,
+                    FormHelper::GRID_COLUMN_ONE => 5,
+                    FormHelper::GRID_COLUMN_TWO => 7,
                 ],
             ],
         ]);
@@ -427,7 +436,7 @@ class CheckboxControlTest extends AbstractFormHelperTest
         $expected = [
             ['div' => [
                 'attribute' => 'container-attribute',
-                'class' => 'container-class form-group row checkbox is-invalid',
+                'class' => 'container-class mb-3 form-group row checkbox is-invalid',
             ]],
                 ['div' => ['class' => 'offset-sm-5 col-sm-7']],
                     ['div' => ['class' => 'form-check']],
@@ -447,7 +456,7 @@ class CheckboxControlTest extends AbstractFormHelperTest
                         ['label' => ['class' => 'form-check-label', 'for' => 'users']],
                             'Users',
                         '/label',
-                        ['div' => ['class' => 'invalid-feedback']],
+                        ['div' => ['class' => 'ms-0 invalid-feedback']],
                             'error message',
                         '/div',
                     '/div',
@@ -462,8 +471,8 @@ class CheckboxControlTest extends AbstractFormHelperTest
         $this->Form->create($this->article, [
             'align' => [
                 'sm' => [
-                    'left' => 5,
-                    'middle' => 7,
+                    FormHelper::GRID_COLUMN_ONE => 5,
+                    FormHelper::GRID_COLUMN_TWO => 7,
                 ],
             ],
         ]);
@@ -473,7 +482,7 @@ class CheckboxControlTest extends AbstractFormHelperTest
             'nestedInput' => true,
         ]);
         $expected = [
-            ['div' => ['class' => 'form-group row checkbox']],
+            ['div' => ['class' => 'mb-3 form-group row checkbox']],
                 ['div' => ['class' => 'offset-sm-5 col-sm-7']],
                     ['div' => ['class' => 'form-check']],
                         ['input' => [
@@ -503,8 +512,8 @@ class CheckboxControlTest extends AbstractFormHelperTest
         $this->Form->create($this->article, [
             'align' => [
                 'sm' => [
-                    'left' => 5,
-                    'middle' => 7,
+                    FormHelper::GRID_COLUMN_ONE => 5,
+                    FormHelper::GRID_COLUMN_TWO => 7,
                 ],
             ],
         ]);
@@ -515,7 +524,7 @@ class CheckboxControlTest extends AbstractFormHelperTest
             'tooltip' => 'Tooltip text',
         ]);
         $expected = [
-            ['div' => ['class' => 'form-group row checkbox']],
+            ['div' => ['class' => 'mb-3 form-group row checkbox']],
                 ['div' => ['class' => 'offset-sm-5 col-sm-7']],
                     ['div' => ['class' => 'form-check']],
                         ['input' => [
@@ -533,9 +542,9 @@ class CheckboxControlTest extends AbstractFormHelperTest
                             ]],
                             'Users ',
                             'span' => [
-                                'data-toggle' => 'tooltip',
+                                'data-bs-toggle' => 'tooltip',
                                 'title' => 'Tooltip text',
-                                'class' => 'fas fa-info-circle',
+                                'class' => 'bi bi-info-circle-fill',
                             ],
                             '/span',
                         '/label',
@@ -554,8 +563,8 @@ class CheckboxControlTest extends AbstractFormHelperTest
         $this->Form->create($this->article, [
             'align' => [
                 'sm' => [
-                    'left' => 5,
-                    'middle' => 7,
+                    FormHelper::GRID_COLUMN_ONE => 5,
+                    FormHelper::GRID_COLUMN_TWO => 7,
                 ],
             ],
         ]);
@@ -565,7 +574,7 @@ class CheckboxControlTest extends AbstractFormHelperTest
             'nestedInput' => true,
         ]);
         $expected = [
-            ['div' => ['class' => 'form-group row checkbox is-invalid']],
+            ['div' => ['class' => 'mb-3 form-group row checkbox is-invalid']],
                 ['div' => ['class' => 'offset-sm-5 col-sm-7']],
                     ['div' => ['class' => 'form-check']],
                         ['input' => [
@@ -584,7 +593,7 @@ class CheckboxControlTest extends AbstractFormHelperTest
                             ]],
                             'Users',
                         '/label',
-                        ['div' => ['class' => 'invalid-feedback']],
+                        ['div' => ['class' => 'ms-0 invalid-feedback']],
                             'error message',
                         '/div',
                     '/div',
@@ -599,8 +608,8 @@ class CheckboxControlTest extends AbstractFormHelperTest
         $this->Form->create($this->article, [
             'align' => [
                 'sm' => [
-                    'left' => 5,
-                    'middle' => 7,
+                    FormHelper::GRID_COLUMN_ONE => 5,
+                    FormHelper::GRID_COLUMN_TWO => 7,
                 ],
             ],
         ]);
@@ -610,7 +619,7 @@ class CheckboxControlTest extends AbstractFormHelperTest
             'inline' => true,
         ]);
         $expected = [
-            ['div' => ['class' => 'form-group row checkbox']],
+            ['div' => ['class' => 'mb-3 form-group row checkbox']],
                 ['div' => ['class' => 'offset-sm-5 col-sm-7']],
                     ['div' => ['class' => 'form-check']],
                         ['input' => [
@@ -640,8 +649,8 @@ class CheckboxControlTest extends AbstractFormHelperTest
         $this->Form->create($this->article, [
             'align' => [
                 'sm' => [
-                    'left' => 5,
-                    'middle' => 7,
+                    FormHelper::GRID_COLUMN_ONE => 5,
+                    FormHelper::GRID_COLUMN_TWO => 7,
                 ],
             ],
         ]);
@@ -652,7 +661,7 @@ class CheckboxControlTest extends AbstractFormHelperTest
             'label' => false,
         ]);
         $expected = [
-            ['div' => ['class' => 'form-group row checkbox']],
+            ['div' => ['class' => 'mb-3 form-group row checkbox']],
                 ['div' => ['class' => 'offset-sm-5 col-sm-7']],
                     ['div' => ['class' => 'form-check']],
                         ['input' => [
@@ -679,8 +688,8 @@ class CheckboxControlTest extends AbstractFormHelperTest
         $this->Form->create($this->article, [
             'align' => [
                 'sm' => [
-                    'left' => 5,
-                    'middle' => 7,
+                    FormHelper::GRID_COLUMN_ONE => 5,
+                    FormHelper::GRID_COLUMN_TWO => 7,
                 ],
             ],
         ]);
@@ -691,7 +700,7 @@ class CheckboxControlTest extends AbstractFormHelperTest
             'label' => 'Custom Label',
         ]);
         $expected = [
-            ['div' => ['class' => 'form-group row checkbox']],
+            ['div' => ['class' => 'mb-3 form-group row checkbox']],
                 ['div' => ['class' => 'offset-sm-5 col-sm-7']],
                     ['div' => ['class' => 'form-check']],
                         ['input' => [
@@ -721,8 +730,8 @@ class CheckboxControlTest extends AbstractFormHelperTest
         $this->Form->create($this->article, [
             'align' => [
                 'sm' => [
-                    'left' => 5,
-                    'middle' => 7,
+                    FormHelper::GRID_COLUMN_ONE => 5,
+                    FormHelper::GRID_COLUMN_TWO => 7,
                 ],
             ],
         ]);
@@ -737,7 +746,7 @@ class CheckboxControlTest extends AbstractFormHelperTest
             ],
         ]);
         $expected = [
-            ['div' => ['class' => 'form-group row checkbox']],
+            ['div' => ['class' => 'mb-3 form-group row checkbox']],
                 ['div' => ['class' => 'offset-sm-5 col-sm-7']],
                     ['div' => ['class' => 'form-check']],
                         ['input' => [
@@ -767,8 +776,8 @@ class CheckboxControlTest extends AbstractFormHelperTest
         $this->Form->create($this->article, [
             'align' => [
                 'sm' => [
-                    'left' => 5,
-                    'middle' => 7,
+                    FormHelper::GRID_COLUMN_ONE => 5,
+                    FormHelper::GRID_COLUMN_TWO => 7,
                 ],
             ],
         ]);
@@ -779,7 +788,7 @@ class CheckboxControlTest extends AbstractFormHelperTest
             'help' => 'Help text',
         ]);
         $expected = [
-            ['div' => ['class' => 'form-group row checkbox']],
+            ['div' => ['class' => 'mb-3 form-group row checkbox']],
                 ['div' => ['class' => 'offset-sm-5 col-sm-7']],
                     ['div' => ['class' => 'form-check']],
                         ['input' => [
@@ -792,12 +801,13 @@ class CheckboxControlTest extends AbstractFormHelperTest
                             'type' => 'checkbox',
                             'name' => 'users',
                             'id' => 'users',
+                            'aria-describedby' => 'users-help',
                             'value' => 1,
                         ]],
                         ['label' => ['class' => 'form-check-label', 'for' => 'users']],
                             'Users',
                         '/label',
-                        ['small' => ['class' => 'form-text text-muted']],
+                        ['small' => ['id' => 'users-help', 'class' => 'd-block form-text text-muted']],
                             'Help text',
                         '/small',
                     '/div',
@@ -812,8 +822,8 @@ class CheckboxControlTest extends AbstractFormHelperTest
         $this->Form->create($this->article, [
             'align' => [
                 'sm' => [
-                    'left' => 5,
-                    'middle' => 7,
+                    FormHelper::GRID_COLUMN_ONE => 5,
+                    FormHelper::GRID_COLUMN_TWO => 7,
                 ],
             ],
         ]);
@@ -822,12 +832,14 @@ class CheckboxControlTest extends AbstractFormHelperTest
             'type' => 'checkbox',
             'inline' => true,
             'help' => [
+                'id' => 'custom-help',
                 'foo' => 'bar',
+                'class' => 'help-class',
                 'content' => 'Help text',
             ],
         ]);
         $expected = [
-            ['div' => ['class' => 'form-group row checkbox']],
+            ['div' => ['class' => 'mb-3 form-group row checkbox']],
                 ['div' => ['class' => 'offset-sm-5 col-sm-7']],
                     ['div' => ['class' => 'form-check']],
                         ['input' => [
@@ -840,12 +852,17 @@ class CheckboxControlTest extends AbstractFormHelperTest
                             'type' => 'checkbox',
                             'name' => 'users',
                             'id' => 'users',
+                            'aria-describedby' => 'custom-help',
                             'value' => 1,
                         ]],
                         ['label' => ['class' => 'form-check-label', 'for' => 'users']],
                             'Users',
                         '/label',
-                        ['small' => ['foo' => 'bar', 'class' => 'form-text text-muted']],
+                        ['small' => [
+                            'id' => 'custom-help',
+                            'foo' => 'bar',
+                            'class' => 'help-class d-block form-text text-muted',
+                        ]],
                             'Help text',
                         '/small',
                     '/div',
@@ -860,8 +877,8 @@ class CheckboxControlTest extends AbstractFormHelperTest
         $this->Form->create($this->article, [
             'align' => [
                 'sm' => [
-                    'left' => 5,
-                    'middle' => 7,
+                    FormHelper::GRID_COLUMN_ONE => 5,
+                    FormHelper::GRID_COLUMN_TWO => 7,
                 ],
             ],
         ]);
@@ -872,7 +889,7 @@ class CheckboxControlTest extends AbstractFormHelperTest
             'tooltip' => 'Tooltip text',
         ]);
         $expected = [
-            ['div' => ['class' => 'form-group row checkbox']],
+            ['div' => ['class' => 'mb-3 form-group row checkbox']],
                 ['div' => ['class' => 'offset-sm-5 col-sm-7']],
                     ['div' => ['class' => 'form-check']],
                         ['input' => [
@@ -890,9 +907,9 @@ class CheckboxControlTest extends AbstractFormHelperTest
                         ['label' => ['class' => 'form-check-label', 'for' => 'users']],
                             'Users ',
                             'span' => [
-                                'data-toggle' => 'tooltip',
+                                'data-bs-toggle' => 'tooltip',
                                 'title' => 'Tooltip text',
-                                'class' => 'fas fa-info-circle',
+                                'class' => 'bi bi-info-circle-fill',
                             ],
                             '/span',
                         '/label',
@@ -911,8 +928,8 @@ class CheckboxControlTest extends AbstractFormHelperTest
         $this->Form->create($this->article, [
             'align' => [
                 'sm' => [
-                    'left' => 5,
-                    'middle' => 7,
+                    FormHelper::GRID_COLUMN_ONE => 5,
+                    FormHelper::GRID_COLUMN_TWO => 7,
                 ],
             ],
         ]);
@@ -922,7 +939,7 @@ class CheckboxControlTest extends AbstractFormHelperTest
             'inline' => true,
         ]);
         $expected = [
-            ['div' => ['class' => 'form-group row checkbox is-invalid']],
+            ['div' => ['class' => 'mb-3 form-group row checkbox is-invalid']],
                 ['div' => ['class' => 'offset-sm-5 col-sm-7']],
                     ['div' => ['class' => 'form-check']],
                         ['input' => [
@@ -941,7 +958,7 @@ class CheckboxControlTest extends AbstractFormHelperTest
                         ['label' => ['class' => 'form-check-label', 'for' => 'users']],
                             'Users',
                         '/label',
-                        ['div' => ['class' => 'invalid-feedback']],
+                        ['div' => ['class' => 'ms-0 invalid-feedback']],
                             'error message',
                         '/div',
                     '/div',
@@ -956,8 +973,8 @@ class CheckboxControlTest extends AbstractFormHelperTest
         $this->Form->create($this->article, [
             'align' => [
                 'sm' => [
-                    'left' => 5,
-                    'middle' => 7,
+                    FormHelper::GRID_COLUMN_ONE => 5,
+                    FormHelper::GRID_COLUMN_TWO => 7,
                 ],
             ],
         ]);
@@ -973,7 +990,7 @@ class CheckboxControlTest extends AbstractFormHelperTest
         $expected = [
             ['div' => [
                 'attribute' => 'container-attribute',
-                'class' => 'container-class form-group row checkbox',
+                'class' => 'container-class mb-3 form-group row checkbox',
             ]],
                 ['div' => ['class' => 'offset-sm-5 col-sm-7']],
                     ['div' => ['class' => 'form-check']],
@@ -1007,8 +1024,8 @@ class CheckboxControlTest extends AbstractFormHelperTest
         $this->Form->create($this->article, [
             'align' => [
                 'sm' => [
-                    'left' => 5,
-                    'middle' => 7,
+                    FormHelper::GRID_COLUMN_ONE => 5,
+                    FormHelper::GRID_COLUMN_TWO => 7,
                 ],
             ],
         ]);
@@ -1024,7 +1041,7 @@ class CheckboxControlTest extends AbstractFormHelperTest
         $expected = [
             ['div' => [
                 'attribute' => 'container-attribute',
-                'class' => 'container-class form-group row checkbox is-invalid',
+                'class' => 'container-class mb-3 form-group row checkbox is-invalid',
             ]],
                 ['div' => ['class' => 'offset-sm-5 col-sm-7']],
                     ['div' => ['class' => 'form-check']],
@@ -1044,7 +1061,7 @@ class CheckboxControlTest extends AbstractFormHelperTest
                         ['label' => ['class' => 'form-check-label', 'for' => 'users']],
                             'Users',
                         '/label',
-                        ['div' => ['class' => 'invalid-feedback']],
+                        ['div' => ['class' => 'ms-0 invalid-feedback']],
                             'error message',
                         '/div',
                     '/div',
@@ -1059,8 +1076,8 @@ class CheckboxControlTest extends AbstractFormHelperTest
         $this->Form->create($this->article, [
             'align' => [
                 'sm' => [
-                    'left' => 5,
-                    'middle' => 7,
+                    FormHelper::GRID_COLUMN_ONE => 5,
+                    FormHelper::GRID_COLUMN_TWO => 7,
                 ],
             ],
         ]);
@@ -1071,7 +1088,7 @@ class CheckboxControlTest extends AbstractFormHelperTest
             'nestedInput' => true,
         ]);
         $expected = [
-            ['div' => ['class' => 'form-group row checkbox']],
+            ['div' => ['class' => 'mb-3 form-group row checkbox']],
                 ['div' => ['class' => 'offset-sm-5 col-sm-7']],
                     ['div' => ['class' => 'form-check']],
                         ['input' => [
@@ -1101,8 +1118,8 @@ class CheckboxControlTest extends AbstractFormHelperTest
         $this->Form->create($this->article, [
             'align' => [
                 'sm' => [
-                    'left' => 5,
-                    'middle' => 7,
+                    FormHelper::GRID_COLUMN_ONE => 5,
+                    FormHelper::GRID_COLUMN_TWO => 7,
                 ],
             ],
         ]);
@@ -1114,7 +1131,7 @@ class CheckboxControlTest extends AbstractFormHelperTest
             'tooltip' => 'Tooltip text',
         ]);
         $expected = [
-            ['div' => ['class' => 'form-group row checkbox']],
+            ['div' => ['class' => 'mb-3 form-group row checkbox']],
                 ['div' => ['class' => 'offset-sm-5 col-sm-7']],
                     ['div' => ['class' => 'form-check']],
                         ['input' => [
@@ -1132,11 +1149,52 @@ class CheckboxControlTest extends AbstractFormHelperTest
                             ]],
                             'Users ',
                             'span' => [
-                                'data-toggle' => 'tooltip',
+                                'data-bs-toggle' => 'tooltip',
                                 'title' => 'Tooltip text',
-                                'class' => 'fas fa-info-circle',
+                                'class' => 'bi bi-info-circle-fill',
                             ],
                             '/span',
+                        '/label',
+                    '/div',
+                '/div',
+            '/div',
+        ];
+        $this->assertHtml($expected, $result);
+    }
+
+    public function testHorizontalAlignCheckboxControlSwitch()
+    {
+        $this->Form->create($this->article, [
+            'align' => [
+                'sm' => [
+                    FormHelper::GRID_COLUMN_ONE => 5,
+                    FormHelper::GRID_COLUMN_TWO => 7,
+                ],
+            ],
+        ]);
+
+        $result = $this->Form->control('users', [
+            'type' => 'checkbox',
+            'switch' => true,
+        ]);
+        $expected = [
+            ['div' => ['class' => 'mb-3 form-group row checkbox']],
+                ['div' => ['class' => 'offset-sm-5 col-sm-7']],
+                    ['div' => ['class' => 'form-check form-switch']],
+                        ['input' => [
+                            'type' => 'hidden',
+                            'name' => 'users',
+                            'value' => 0,
+                        ]],
+                        ['input' => [
+                            'class' => 'form-check-input',
+                            'type' => 'checkbox',
+                            'name' => 'users',
+                            'id' => 'users',
+                            'value' => 1,
+                        ]],
+                        ['label' => ['class' => 'form-check-label', 'for' => 'users']],
+                            'Users',
                         '/label',
                     '/div',
                 '/div',

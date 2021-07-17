@@ -11,23 +11,6 @@ class ButtonWidget extends \Cake\View\Widget\ButtonWidget
     use OptionsAwareTrait;
 
     /**
-     * @var array
-     * @deprecated This property is no longer used.
-     * @see OptionsAwareTrait::applyButtonStyles
-     */
-    protected $_styles = [
-        'primary',
-        'secondary',
-        'success',
-        'warning',
-        'danger',
-        'info',
-        'light',
-        'dark',
-        'link',
-    ];
-
-    /**
      * Renders a button.
      *
      * @param array $data The data to build a button with.

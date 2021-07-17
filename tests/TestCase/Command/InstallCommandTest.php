@@ -40,27 +40,42 @@ class InstallCommandTest extends TestCase
 
         $this->assertDirectoryExists($appWebrootPath);
         $this->assertDirectoryExists($appWebrootPluginPath . 'css');
+        $this->assertDirectoryExists($appWebrootPluginPath . 'font');
         $this->assertDirectoryExists($appWebrootPluginPath . 'js');
 
         $cssAssets = [
             'bootstrap.css',
+            'bootstrap.css.map',
             'bootstrap.min.css',
+            'bootstrap.min.css.map',
             'cover.css',
             'dashboard.css',
             'signin.css',
         ];
+        $fontAssets = [
+            'bootstrap-icons.css',
+            'bootstrap-icon-sizes.css',
+            'fonts' . DS . 'bootstrap-icons.woff',
+            'fonts' . DS . 'bootstrap-icons.woff2',
+        ];
         $jsAssets = [
             'bootstrap.js',
+            'bootstrap.js.map',
             'bootstrap.min.js',
-            'jquery.js',
-            'jquery.min.js',
+            'bootstrap.min.js.map',
             'popper.js',
+            'popper.js.map',
             'popper.min.js',
+            'popper.min.js.map',
         ];
 
         foreach ($cssAssets as $asset) {
             $this->assertFileExists($pluginWebrootPath . 'css' . DS . $asset);
             $this->assertFileExists($appWebrootPluginPath . 'css' . DS . $asset);
+        }
+        foreach ($fontAssets as $asset) {
+            $this->assertFileExists($pluginWebrootPath . 'font' . DS . $asset);
+            $this->assertFileExists($appWebrootPluginPath . 'font' . DS . $asset);
         }
         foreach ($jsAssets as $asset) {
             $this->assertFileExists($pluginWebrootPath . 'js' . DS . $asset);
@@ -77,19 +92,40 @@ class InstallCommandTest extends TestCase
             '<success>Cleared `node_modules` folder.</success>',
             '<info>Installing packages...</info>',
             '<success>`bootstrap.css` successfully deleted.</success>',
+            '<success>`bootstrap.css.map` successfully deleted.</success>',
+            '<success>`bootstrap.min.css` successfully deleted.</success>',
+            '<success>`bootstrap.min.css.map` successfully deleted.</success>',
             '<success>`bootstrap.js` successfully deleted.</success>',
-            '<success>`jquery.js` successfully deleted.</success>',
+            '<success>`bootstrap.js.map` successfully deleted.</success>',
+            '<success>`bootstrap.min.js` successfully deleted.</success>',
+            '<success>`bootstrap.min.js.map` successfully deleted.</success>',
             '<success>`popper.js` successfully deleted.</success>',
+            '<success>`popper.js.map` successfully deleted.</success>',
+            '<success>`popper.min.js` successfully deleted.</success>',
+            '<success>`popper.min.js.map` successfully deleted.</success>',
+            '<success>`bootstrap-icons.css` successfully deleted.</success>',
+            '<success>`bootstrap-icons.woff` successfully deleted.</success>',
+            '<success>`bootstrap-icons.woff2` successfully deleted.</success>',
             '<success>All buffered files cleared.</success>',
             '<info>Installing packages...</info>',
             '<success>`bootstrap.css` successfully copied.</success>',
+            '<success>`bootstrap.css.map` successfully copied.</success>',
+            '<success>`bootstrap.min.css` successfully copied.</success>',
+            '<success>`bootstrap.min.css.map` successfully copied.</success>',
             '<success>`bootstrap.js` successfully copied.</success>',
-            '<success>`jquery.js` successfully copied.</success>',
+            '<success>`bootstrap.js.map` successfully copied.</success>',
+            '<success>`bootstrap.min.js` successfully copied.</success>',
+            '<success>`bootstrap.min.js.map` successfully copied.</success>',
             '<success>`popper.js` successfully copied.</success>',
+            '<success>`popper.js.map` successfully copied.</success>',
+            '<success>`popper.min.js` successfully copied.</success>',
+            '<success>`popper.min.js.map` successfully copied.</success>',
+            '<success>`bootstrap-icons.css` successfully copied.</success>',
+            '<success>`bootstrap-icons.woff` successfully copied.</success>',
+            '<success>`bootstrap-icons.woff2` successfully copied.</success>',
             '<success>All files buffered.</success>',
             '<info>Removing possibly existing plugin assets...</info>',
             'For plugin: BootstrapUI',
-            'Done',
             '<info>Linking plugin assets...</info>',
             'For plugin: BootstrapUI',
             "Copied assets to directory $appWebrootPluginPath",
@@ -98,13 +134,35 @@ class InstallCommandTest extends TestCase
         ];
         $notPresentInNonVerboseMode = [
             '<success>`bootstrap.css` successfully deleted.</success>',
+            '<success>`bootstrap.css.map` successfully deleted.</success>',
+            '<success>`bootstrap.min.css` successfully deleted.</success>',
+            '<success>`bootstrap.min.css.map` successfully deleted.</success>',
             '<success>`bootstrap.js` successfully deleted.</success>',
-            '<success>`jquery.js` successfully deleted.</success>',
+            '<success>`bootstrap.js.map` successfully deleted.</success>',
+            '<success>`bootstrap.min.js` successfully deleted.</success>',
+            '<success>`bootstrap.min.js.map` successfully deleted.</success>',
             '<success>`popper.js` successfully deleted.</success>',
+            '<success>`popper.js.map` successfully deleted.</success>',
+            '<success>`popper.min.js` successfully deleted.</success>',
+            '<success>`popper.min.js.map` successfully deleted.</success>',
+            '<success>`bootstrap-icons.css` successfully deleted.</success>',
+            '<success>`bootstrap-icons.woff` successfully deleted.</success>',
+            '<success>`bootstrap-icons.woff2` successfully deleted.</success>',
             '<success>`bootstrap.css` successfully copied.</success>',
+            '<success>`bootstrap.css.map` successfully copied.</success>',
+            '<success>`bootstrap.min.css` successfully copied.</success>',
+            '<success>`bootstrap.min.css.map` successfully copied.</success>',
             '<success>`bootstrap.js` successfully copied.</success>',
-            '<success>`jquery.js` successfully copied.</success>',
+            '<success>`bootstrap.js.map` successfully copied.</success>',
+            '<success>`bootstrap.min.js` successfully copied.</success>',
+            '<success>`bootstrap.min.js.map` successfully copied.</success>',
             '<success>`popper.js` successfully copied.</success>',
+            '<success>`popper.js.map` successfully copied.</success>',
+            '<success>`popper.min.js` successfully copied.</success>',
+            '<success>`popper.min.js.map` successfully copied.</success>',
+            '<success>`bootstrap-icons.css` successfully copied.</success>',
+            '<success>`bootstrap-icons.woff` successfully copied.</success>',
+            '<success>`bootstrap-icons.woff2` successfully copied.</success>',
         ];
         $this->assertEquals($notPresentInNonVerboseMode, array_values(array_diff($expected, $this->_out->messages())));
         $this->assertExitCode(Command::CODE_SUCCESS);
@@ -122,23 +180,37 @@ class InstallCommandTest extends TestCase
 
         $cssAssets = [
             'bootstrap.css',
+            'bootstrap.css.map',
             'bootstrap.min.css',
+            'bootstrap.min.css.map',
             'cover.css',
             'dashboard.css',
             'signin.css',
         ];
+        $fontAssets = [
+            'bootstrap-icons.css',
+            'bootstrap-icon-sizes.css',
+            'fonts' . DS . 'bootstrap-icons.woff',
+            'fonts' . DS . 'bootstrap-icons.woff2',
+        ];
         $jsAssets = [
             'bootstrap.js',
+            'bootstrap.js.map',
             'bootstrap.min.js',
-            'jquery.js',
-            'jquery.min.js',
+            'bootstrap.min.js.map',
             'popper.js',
+            'popper.js.map',
             'popper.min.js',
+            'popper.min.js.map',
         ];
 
         foreach ($cssAssets as $asset) {
             $this->assertFileExists($pluginWebrootPath . 'css' . DS . $asset);
             $this->assertFileExists($appWebrootPluginPath . 'css' . DS . $asset);
+        }
+        foreach ($fontAssets as $asset) {
+            $this->assertFileExists($pluginWebrootPath . 'font' . DS . $asset);
+            $this->assertFileExists($appWebrootPluginPath . 'font' . DS . $asset);
         }
         foreach ($jsAssets as $asset) {
             $this->assertFileExists($pluginWebrootPath . 'js' . DS . $asset);
@@ -150,6 +222,10 @@ class InstallCommandTest extends TestCase
         foreach ($cssAssets as $asset) {
             $this->assertFileExists($pluginWebrootPath . 'css' . DS . $asset);
             $this->assertFileExists($appWebrootPluginPath . 'css' . DS . $asset);
+        }
+        foreach ($fontAssets as $asset) {
+            $this->assertFileExists($pluginWebrootPath . 'font' . DS . $asset);
+            $this->assertFileExists($appWebrootPluginPath . 'font' . DS . $asset);
         }
         foreach ($jsAssets as $asset) {
             $this->assertFileExists($pluginWebrootPath . 'js' . DS . $asset);
@@ -188,15 +264,37 @@ class InstallCommandTest extends TestCase
             '<success>Cleared `node_modules` folder.</success>',
             '<info>Installing packages...</info>',
             '<success>`bootstrap.css` successfully deleted.</success>',
+            '<success>`bootstrap.css.map` successfully deleted.</success>',
+            '<success>`bootstrap.min.css` successfully deleted.</success>',
+            '<success>`bootstrap.min.css.map` successfully deleted.</success>',
             '<success>`bootstrap.js` successfully deleted.</success>',
-            '<success>`jquery.js` successfully deleted.</success>',
+            '<success>`bootstrap.js.map` successfully deleted.</success>',
+            '<success>`bootstrap.min.js` successfully deleted.</success>',
+            '<success>`bootstrap.min.js.map` successfully deleted.</success>',
             '<success>`popper.js` successfully deleted.</success>',
+            '<success>`popper.js.map` successfully deleted.</success>',
+            '<success>`popper.min.js` successfully deleted.</success>',
+            '<success>`popper.min.js.map` successfully deleted.</success>',
+            '<success>`bootstrap-icons.css` successfully deleted.</success>',
+            '<success>`bootstrap-icons.woff` successfully deleted.</success>',
+            '<success>`bootstrap-icons.woff2` successfully deleted.</success>',
             '<success>All buffered files cleared.</success>',
             '<info>Installing packages...</info>',
             '<success>`bootstrap.css` successfully copied.</success>',
+            '<success>`bootstrap.css.map` successfully copied.</success>',
+            '<success>`bootstrap.min.css` successfully copied.</success>',
+            '<success>`bootstrap.min.css.map` successfully copied.</success>',
             '<success>`bootstrap.js` successfully copied.</success>',
-            '<success>`jquery.js` successfully copied.</success>',
+            '<success>`bootstrap.js.map` successfully copied.</success>',
+            '<success>`bootstrap.min.js` successfully copied.</success>',
+            '<success>`bootstrap.min.js.map` successfully copied.</success>',
             '<success>`popper.js` successfully copied.</success>',
+            '<success>`popper.js.map` successfully copied.</success>',
+            '<success>`popper.min.js` successfully copied.</success>',
+            '<success>`popper.min.js.map` successfully copied.</success>',
+            '<success>`bootstrap-icons.css` successfully copied.</success>',
+            '<success>`bootstrap-icons.woff` successfully copied.</success>',
+            '<success>`bootstrap-icons.woff2` successfully copied.</success>',
             '<success>All files buffered.</success>',
             '<info>Removing possibly existing plugin assets...</info>',
             'For plugin: BootstrapUI',
@@ -444,6 +542,7 @@ class InstallCommandTest extends TestCase
         $out = new ConsoleOutput();
         $err = new ConsoleOutput();
         $io = new ConsoleIo($out, $err);
+        $io->level(ConsoleIo::VERBOSE);
 
         try {
             $result = $command->refreshAssetBuffer($io);
@@ -456,15 +555,12 @@ class InstallCommandTest extends TestCase
             [
                 '<info>Refreshing package asset buffer...</info>',
                 '<success>All buffered files cleared.</success>',
+                '<success>`style.css` successfully copied.</success>',
+                '<info>Skipped `unsupported.file`.</info>',
+                '<success>`script.js` successfully copied.</success>',
                 '<success>All files buffered.</success>',
             ],
             $out->messages()
-        );
-        $this->assertEquals(
-            [
-                '<warning>Skipped `unsupported.file`.</warning>',
-            ],
-            $err->messages()
         );
     }
 

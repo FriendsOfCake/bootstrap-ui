@@ -23,8 +23,8 @@ class HtmlHelper extends \Cake\View\Helper\HtmlHelper
     {
         $this->_defaultConfig['iconDefaults'] = [
             'tag' => 'i',
-            'iconSet' => 'fas',
-            'prefix' => 'fa',
+            'iconSet' => 'bi',
+            'prefix' => 'bi',
             'size' => null,
         ];
 
@@ -44,7 +44,7 @@ class HtmlHelper extends \Cake\View\Helper\HtmlHelper
         $tag = $options['tag'];
         unset($options['tag']);
 
-        $allClasses = $this->genAllClassNames('badge');
+        $allClasses = $this->genAllClassNames('bg');
 
         if ($this->hasAnyClass($allClasses, $options)) {
             $options = $this->injectClasses('badge', $options);
@@ -52,20 +52,20 @@ class HtmlHelper extends \Cake\View\Helper\HtmlHelper
             $options = $this->injectClasses(['badge', 'secondary'], $options);
         }
 
-        $classes = $this->renameClasses('badge', $options);
+        $classes = $this->renameClasses('bg', $options);
 
         return $this->tag($tag, $text, $classes);
     }
 
     /**
-     * Returns bootstrap icon markup. By default, uses `<i>` tag and font awesome icon set.
+     * Returns bootstrap icon markup. By default, uses `<i>` tag and the bootstrap icon set.
      *
      * @param string $name Name of icon (i.e. search, leaf, etc.).
      * @param array $options Additional options and HTML attributes.
      * ### Options
      *
-     * - `iconSet`: Common class name for the icon set. Default 'fas'.
-     * - `prefix`: Prefix for class names. Default 'fa'.
+     * - `iconSet`: Common class name for the icon set. Default 'bi'.
+     * - `prefix`: Prefix for class names. Default 'bi'.
      * - `size`: Size class will be generated based of this. For e.g. if you use
      *   size 'lg' class '<prefix>-lg` will be added. Default null.
      *
@@ -92,27 +92,5 @@ class HtmlHelper extends \Cake\View\Helper\HtmlHelper
                 ['tag', 'iconSet', 'prefix', 'size']
             ),
         ]);
-    }
-
-    /**
-     * Wrapper for Bootstrap badge component
-     *
-     * @param string $text Text to show in label.
-     * @param array|string $options Additional HTML attributes.
-     * @deprecated Label component has been removed from Bootstrap. Use badge component instead.
-     * @return string HTML badge markup.
-     */
-    public function label(string $text, $options = []): string
-    {
-        if (is_string($options)) {
-            $options = ['class' => $options];
-        } else {
-            if (isset($options['type'])) {
-                $options['class'] = $options['type'];
-                unset($options['type']);
-            }
-        }
-
-        return $this->badge($text, $options);
     }
 }

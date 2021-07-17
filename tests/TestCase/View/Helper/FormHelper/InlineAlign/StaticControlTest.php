@@ -19,19 +19,21 @@ class StaticControlTest extends AbstractFormHelperTest
 
         $result = $this->Form->control('title', ['type' => 'staticControl']);
         $expected = [
-            'div' => ['class' => 'form-group staticControl'],
-                'label' => ['class' => 'sr-only', 'for' => 'title'],
-                    'Title',
-                '/label',
-                'p' => ['class' => 'form-control-plaintext'],
-                    'foo &lt;u&gt;bar&lt;/u&gt;',
-                '/p',
-                'input' => [
-                    'type' => 'hidden',
-                    'name' => 'title',
-                    'id' => 'title',
-                    'value' => 'foo &lt;u&gt;bar&lt;/u&gt;',
-                ],
+            ['div' => ['class' => 'col-auto']],
+                'div' => ['class' => 'form-group staticControl'],
+                    'label' => ['class' => 'form-label visually-hidden', 'for' => 'title'],
+                        'Title',
+                    '/label',
+                    'p' => ['class' => 'form-control-plaintext'],
+                        'foo &lt;u&gt;bar&lt;/u&gt;',
+                    '/p',
+                    'input' => [
+                        'type' => 'hidden',
+                        'name' => 'title',
+                        'id' => 'title',
+                        'value' => 'foo &lt;u&gt;bar&lt;/u&gt;',
+                    ],
+                '/div',
             '/div',
         ];
         $this->assertHtml($expected, $result);
@@ -55,20 +57,21 @@ class StaticControlTest extends AbstractFormHelperTest
             'escape' => false,
         ]);
         $expected = [
-            'div' => ['class' => 'form-group staticControl'],
-                'label' => ['class' => 'sr-only', 'for' => 'title'],
-                    'Title',
-                '/label',
-                'p' => ['class' => 'form-control-plaintext'],
-                    'foo',
-                    'u' => [],
-                        'bar',
-                    '/u',
-                '/p',
+            ['div' => ['class' => 'col-auto']],
+                'div' => ['class' => 'form-group staticControl'],
+                    'label' => ['class' => 'form-label visually-hidden', 'for' => 'title'],
+                        'Title',
+                    '/label',
+                    'p' => ['class' => 'form-control-plaintext'],
+                        'foo',
+                        'u' => [],
+                            'bar',
+                        '/u',
+                    '/p',
+                '/div',
             '/div',
         ];
         $this->assertHtml($expected, $result);
-        $this->assertEmpty($this->Form->fields);
     }
 
     public function testInlineAlignStaticControlWithDisabledLabel()
@@ -84,16 +87,18 @@ class StaticControlTest extends AbstractFormHelperTest
             'label' => false,
         ]);
         $expected = [
-            'div' => ['class' => 'form-group staticControl'],
-                'p' => ['class' => 'form-control-plaintext'],
-                    'title',
-                '/p',
-                'input' => [
-                    'type' => 'hidden',
-                    'name' => 'title',
-                    'id' => 'title',
-                    'value' => 'title',
-                ],
+            ['div' => ['class' => 'col-auto']],
+                'div' => ['class' => 'form-group staticControl'],
+                    'p' => ['class' => 'form-control-plaintext'],
+                        'title',
+                    '/p',
+                    'input' => [
+                        'type' => 'hidden',
+                        'name' => 'title',
+                        'id' => 'title',
+                        'value' => 'title',
+                    ],
+                '/div',
             '/div',
         ];
         $this->assertHtml($expected, $result);
@@ -112,19 +117,21 @@ class StaticControlTest extends AbstractFormHelperTest
             'label' => 'Custom Label',
         ]);
         $expected = [
-            'div' => ['class' => 'form-group staticControl'],
-                'label' => ['class' => 'sr-only', 'for' => 'title'],
-                    'Custom Label',
-                '/label',
-                'p' => ['class' => 'form-control-plaintext'],
-                    'title',
-                '/p',
-                'input' => [
-                    'type' => 'hidden',
-                    'name' => 'title',
-                    'id' => 'title',
-                    'value' => 'title',
-                ],
+            ['div' => ['class' => 'col-auto']],
+                'div' => ['class' => 'form-group staticControl'],
+                    'label' => ['class' => 'form-label visually-hidden', 'for' => 'title'],
+                        'Custom Label',
+                    '/label',
+                    'p' => ['class' => 'form-control-plaintext'],
+                        'title',
+                    '/p',
+                    'input' => [
+                        'type' => 'hidden',
+                        'name' => 'title',
+                        'id' => 'title',
+                        'value' => 'title',
+                    ],
+                '/div',
             '/div',
         ];
         $this->assertHtml($expected, $result);
@@ -147,19 +154,25 @@ class StaticControlTest extends AbstractFormHelperTest
             ],
         ]);
         $expected = [
-            'div' => ['class' => 'form-group staticControl'],
-                'label' => ['class' => 'custom-label-class sr-only', 'foo' => 'bar', 'for' => 'title'],
-                    'Custom Label',
-                '/label',
-                'p' => ['class' => 'form-control-plaintext'],
-                    'title',
-                '/p',
-                'input' => [
-                    'type' => 'hidden',
-                    'name' => 'title',
-                    'id' => 'title',
-                    'value' => 'title',
-                ],
+            ['div' => ['class' => 'col-auto']],
+                'div' => ['class' => 'form-group staticControl'],
+                    'label' => [
+                        'class' => 'custom-label-class form-label visually-hidden',
+                        'foo' => 'bar',
+                        'for' => 'title',
+                    ],
+                        'Custom Label',
+                    '/label',
+                    'p' => ['class' => 'form-control-plaintext'],
+                        'title',
+                    '/p',
+                    'input' => [
+                        'type' => 'hidden',
+                        'name' => 'title',
+                        'id' => 'title',
+                        'value' => 'title',
+                    ],
+                '/div',
             '/div',
         ];
         $this->assertHtml($expected, $result);
@@ -178,22 +191,25 @@ class StaticControlTest extends AbstractFormHelperTest
             'help' => 'Help text',
         ]);
         $expected = [
-            'div' => ['class' => 'form-group staticControl'],
-                'label' => ['class' => 'sr-only', 'for' => 'title'],
-                    'Title',
-                '/label',
-                'p' => ['class' => 'form-control-plaintext'],
-                    'title',
-                '/p',
-                'input' => [
-                    'type' => 'hidden',
-                    'name' => 'title',
-                    'id' => 'title',
-                    'value' => 'title',
-                ],
-                ['small' => ['class' => 'sr-only form-text text-muted']],
-                    'Help text',
-                '/small',
+            ['div' => ['class' => 'col-auto']],
+                'div' => ['class' => 'form-group staticControl'],
+                    'label' => ['class' => 'form-label visually-hidden', 'for' => 'title'],
+                        'Title',
+                    '/label',
+                    'p' => ['class' => 'form-control-plaintext'],
+                        'title',
+                    '/p',
+                    'input' => [
+                        'type' => 'hidden',
+                        'name' => 'title',
+                        'id' => 'title',
+                        'aria-describedby' => 'title-help',
+                        'value' => 'title',
+                    ],
+                    ['small' => ['id' => 'title-help', 'class' => 'visually-hidden form-text']],
+                        'Help text',
+                    '/small',
+                '/div',
             '/div',
         ];
         $this->assertHtml($expected, $result);
@@ -210,27 +226,36 @@ class StaticControlTest extends AbstractFormHelperTest
         $result = $this->Form->control('title', [
             'type' => 'staticControl',
             'help' => [
+                'id' => 'custom-help',
                 'foo' => 'bar',
+                'class' => 'help-class',
                 'content' => 'Help text',
             ],
         ]);
         $expected = [
-            'div' => ['class' => 'form-group staticControl'],
-                'label' => ['class' => 'sr-only', 'for' => 'title'],
-                    'Title',
-                '/label',
-                'p' => ['class' => 'form-control-plaintext'],
-                    'title',
-                '/p',
-                'input' => [
-                    'type' => 'hidden',
-                    'name' => 'title',
-                    'id' => 'title',
-                    'value' => 'title',
-                ],
-                ['small' => ['foo' => 'bar', 'class' => 'sr-only form-text text-muted']],
-                    'Help text',
-                '/small',
+            ['div' => ['class' => 'col-auto']],
+                'div' => ['class' => 'form-group staticControl'],
+                    'label' => ['class' => 'form-label visually-hidden', 'for' => 'title'],
+                        'Title',
+                    '/label',
+                    'p' => ['class' => 'form-control-plaintext'],
+                        'title',
+                    '/p',
+                    'input' => [
+                        'type' => 'hidden',
+                        'name' => 'title',
+                        'id' => 'title',
+                        'aria-describedby' => 'custom-help',
+                        'value' => 'title',
+                    ],
+                    ['small' => [
+                        'id' => 'custom-help',
+                        'foo' => 'bar',
+                        'class' => 'help-class visually-hidden form-text',
+                    ]],
+                        'Help text',
+                    '/small',
+                '/div',
             '/div',
         ];
         $this->assertHtml($expected, $result);
@@ -249,25 +274,27 @@ class StaticControlTest extends AbstractFormHelperTest
             'tooltip' => 'Tooltip text',
         ]);
         $expected = [
-            'div' => ['class' => 'form-group staticControl'],
-                'label' => ['class' => 'sr-only', 'for' => 'title'],
-                    'Title',
-                    'span' => [
-                        'data-toggle' => 'tooltip',
-                        'title' => 'Tooltip text',
-                        'class' => 'fas fa-info-circle',
+            ['div' => ['class' => 'col-auto']],
+                'div' => ['class' => 'form-group staticControl'],
+                    'label' => ['class' => 'form-label visually-hidden', 'for' => 'title'],
+                        'Title',
+                        'span' => [
+                            'data-bs-toggle' => 'tooltip',
+                            'title' => 'Tooltip text',
+                            'class' => 'bi bi-info-circle-fill',
+                        ],
+                        '/span',
+                    '/label',
+                    'p' => ['class' => 'form-control-plaintext'],
+                        'title',
+                    '/p',
+                    'input' => [
+                        'type' => 'hidden',
+                        'name' => 'title',
+                        'id' => 'title',
+                        'value' => 'title',
                     ],
-                    '/span',
-                '/label',
-                'p' => ['class' => 'form-control-plaintext'],
-                    'title',
-                '/p',
-                'input' => [
-                    'type' => 'hidden',
-                    'name' => 'title',
-                    'id' => 'title',
-                    'value' => 'title',
-                ],
+                '/div',
             '/div',
         ];
         $this->assertHtml($expected, $result);
@@ -288,22 +315,24 @@ class StaticControlTest extends AbstractFormHelperTest
             'type' => 'staticControl',
         ]);
         $expected = [
-            'div' => ['class' => 'form-group position-relative staticControl is-invalid'],
-                'label' => ['class' => 'sr-only', 'for' => 'title'],
-                    'Title',
-                '/label',
-                'p' => ['class' => 'form-control-plaintext'],
-                    'title',
-                '/p',
-                'input' => [
-                    'type' => 'hidden',
-                    'name' => 'title',
-                    'id' => 'title',
-                    'class' => 'is-invalid',
-                    'value' => 'title',
-                ],
-                ['div' => ['class' => 'invalid-tooltip']],
-                    'error message',
+            ['div' => ['class' => 'col-auto']],
+                'div' => ['class' => 'form-group position-relative staticControl is-invalid'],
+                    'label' => ['class' => 'form-label visually-hidden', 'for' => 'title'],
+                        'Title',
+                    '/label',
+                    'p' => ['class' => 'form-control-plaintext'],
+                        'title',
+                    '/p',
+                    'input' => [
+                        'type' => 'hidden',
+                        'name' => 'title',
+                        'id' => 'title',
+                        'class' => 'is-invalid',
+                        'value' => 'title',
+                    ],
+                    ['div' => ['class' => 'invalid-tooltip']],
+                        'error message',
+                    '/div',
                 '/div',
             '/div',
         ];
@@ -326,22 +355,24 @@ class StaticControlTest extends AbstractFormHelperTest
             ],
         ]);
         $expected = [
-            'div' => [
-                'attribute' => 'container-attribute',
-                'class' => 'container-class form-group staticControl',
-            ],
-                'label' => ['class' => 'sr-only', 'for' => 'title'],
-                    'Title',
-                '/label',
-                'p' => ['class' => 'form-control-plaintext'],
-                    'title',
-                '/p',
-                'input' => [
-                    'type' => 'hidden',
-                    'name' => 'title',
-                    'id' => 'title',
-                    'value' => 'title',
+            ['div' => ['class' => 'col-auto']],
+                'div' => [
+                    'attribute' => 'container-attribute',
+                    'class' => 'container-class form-group staticControl',
                 ],
+                    'label' => ['class' => 'form-label visually-hidden', 'for' => 'title'],
+                        'Title',
+                    '/label',
+                    'p' => ['class' => 'form-control-plaintext'],
+                        'title',
+                    '/p',
+                    'input' => [
+                        'type' => 'hidden',
+                        'name' => 'title',
+                        'id' => 'title',
+                        'value' => 'title',
+                    ],
+                '/div',
             '/div',
         ];
         $this->assertHtml($expected, $result);
@@ -366,25 +397,27 @@ class StaticControlTest extends AbstractFormHelperTest
             ],
         ]);
         $expected = [
-            'div' => [
-                'attribute' => 'container-attribute',
-                'class' => 'container-class form-group position-relative staticControl is-invalid',
-            ],
-                'label' => ['class' => 'sr-only', 'for' => 'title'],
-                    'Title',
-                '/label',
-                'p' => ['class' => 'form-control-plaintext'],
-                    'title',
-                '/p',
-                'input' => [
-                    'type' => 'hidden',
-                    'name' => 'title',
-                    'id' => 'title',
-                    'class' => 'is-invalid',
-                    'value' => 'title',
+            ['div' => ['class' => 'col-auto']],
+                'div' => [
+                    'attribute' => 'container-attribute',
+                    'class' => 'container-class form-group position-relative staticControl is-invalid',
                 ],
-                ['div' => ['class' => 'invalid-tooltip']],
-                    'error message',
+                    'label' => ['class' => 'form-label visually-hidden', 'for' => 'title'],
+                        'Title',
+                    '/label',
+                    'p' => ['class' => 'form-control-plaintext'],
+                        'title',
+                    '/p',
+                    'input' => [
+                        'type' => 'hidden',
+                        'name' => 'title',
+                        'id' => 'title',
+                        'class' => 'is-invalid',
+                        'value' => 'title',
+                    ],
+                    ['div' => ['class' => 'invalid-tooltip']],
+                        'error message',
+                    '/div',
                 '/div',
             '/div',
         ];

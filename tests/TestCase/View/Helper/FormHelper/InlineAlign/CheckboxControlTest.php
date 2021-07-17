@@ -19,22 +19,24 @@ class CheckboxControlTest extends AbstractFormHelperTest
             'type' => 'checkbox',
         ]);
         $expected = [
-            ['div' => ['class' => 'form-check form-check-inline checkbox']],
-                ['input' => [
-                    'type' => 'hidden',
-                    'name' => 'users',
-                    'value' => 0,
-                ]],
-                ['input' => [
-                    'class' => 'form-check-input',
-                    'type' => 'checkbox',
-                    'name' => 'users',
-                    'id' => 'users',
-                    'value' => 1,
-                ]],
-                ['label' => ['class' => 'form-check-label', 'for' => 'users']],
-                    'Users',
-                '/label',
+            ['div' => ['class' => 'col-auto']],
+                ['div' => ['class' => 'form-check checkbox']],
+                    ['input' => [
+                        'type' => 'hidden',
+                        'name' => 'users',
+                        'value' => 0,
+                    ]],
+                    ['input' => [
+                        'class' => 'form-check-input',
+                        'type' => 'checkbox',
+                        'name' => 'users',
+                        'id' => 'users',
+                        'value' => 1,
+                    ]],
+                    ['label' => ['class' => 'form-check-label', 'for' => 'users']],
+                        'Users',
+                    '/label',
+                '/div',
             '/div',
         ];
         $this->assertHtml($expected, $result);
@@ -53,19 +55,21 @@ class CheckboxControlTest extends AbstractFormHelperTest
             'label' => false,
         ]);
         $expected = [
-            ['div' => ['class' => 'form-check form-check-inline checkbox']],
-                ['input' => [
-                    'type' => 'hidden',
-                    'name' => 'users',
-                    'value' => 0,
-                ]],
-                ['input' => [
-                    'class' => 'form-check-input',
-                    'type' => 'checkbox',
-                    'name' => 'users',
-                    'id' => 'users',
-                    'value' => 1,
-                ]],
+            ['div' => ['class' => 'col-auto']],
+                ['div' => ['class' => 'form-check checkbox']],
+                    ['input' => [
+                        'type' => 'hidden',
+                        'name' => 'users',
+                        'value' => 0,
+                    ]],
+                    ['input' => [
+                        'class' => 'form-check-input',
+                        'type' => 'checkbox',
+                        'name' => 'users',
+                        'id' => 'users',
+                        'value' => 1,
+                    ]],
+                '/div',
             '/div',
         ];
         $this->assertHtml($expected, $result);
@@ -84,22 +88,24 @@ class CheckboxControlTest extends AbstractFormHelperTest
             'label' => 'Custom Label',
         ]);
         $expected = [
-            ['div' => ['class' => 'form-check form-check-inline checkbox']],
-                ['input' => [
-                    'type' => 'hidden',
-                    'name' => 'users',
-                    'value' => 0,
-                ]],
-                ['input' => [
-                    'class' => 'form-check-input',
-                    'type' => 'checkbox',
-                    'name' => 'users',
-                    'id' => 'users',
-                    'value' => 1,
-                ]],
-                ['label' => ['class' => 'form-check-label', 'for' => 'users']],
-                    'Custom Label',
-                '/label',
+            ['div' => ['class' => 'col-auto']],
+                ['div' => ['class' => 'form-check checkbox']],
+                    ['input' => [
+                        'type' => 'hidden',
+                        'name' => 'users',
+                        'value' => 0,
+                    ]],
+                    ['input' => [
+                        'class' => 'form-check-input',
+                        'type' => 'checkbox',
+                        'name' => 'users',
+                        'id' => 'users',
+                        'value' => 1,
+                    ]],
+                    ['label' => ['class' => 'form-check-label', 'for' => 'users']],
+                        'Custom Label',
+                    '/label',
+                '/div',
             '/div',
         ];
         $this->assertHtml($expected, $result);
@@ -122,22 +128,24 @@ class CheckboxControlTest extends AbstractFormHelperTest
             ],
         ]);
         $expected = [
-            ['div' => ['class' => 'form-check form-check-inline checkbox']],
-                ['input' => [
-                    'type' => 'hidden',
-                    'name' => 'users',
-                    'value' => 0,
-                ]],
-                ['input' => [
-                    'class' => 'form-check-input',
-                    'type' => 'checkbox',
-                    'name' => 'users',
-                    'id' => 'users',
-                    'value' => 1,
-                ]],
-                ['label' => ['class' => 'custom-label-class form-check-label', 'foo' => 'bar', 'for' => 'users']],
-                    'Custom Label',
-                '/label',
+            ['div' => ['class' => 'col-auto']],
+                ['div' => ['class' => 'form-check checkbox']],
+                    ['input' => [
+                        'type' => 'hidden',
+                        'name' => 'users',
+                        'value' => 0,
+                    ]],
+                    ['input' => [
+                        'class' => 'form-check-input',
+                        'type' => 'checkbox',
+                        'name' => 'users',
+                        'id' => 'users',
+                        'value' => 1,
+                    ]],
+                    ['label' => ['class' => 'custom-label-class form-check-label', 'foo' => 'bar', 'for' => 'users']],
+                        'Custom Label',
+                    '/label',
+                '/div',
             '/div',
         ];
         $this->assertHtml($expected, $result);
@@ -156,25 +164,28 @@ class CheckboxControlTest extends AbstractFormHelperTest
             'help' => 'Help text',
         ]);
         $expected = [
-            ['div' => ['class' => 'form-check form-check-inline checkbox']],
-                ['input' => [
-                    'type' => 'hidden',
-                    'name' => 'users',
-                    'value' => 0,
-                ]],
-                ['input' => [
-                    'class' => 'form-check-input',
-                    'type' => 'checkbox',
-                    'name' => 'users',
-                    'id' => 'users',
-                    'value' => 1,
-                ]],
-                ['label' => ['class' => 'form-check-label', 'for' => 'users']],
-                    'Users',
-                '/label',
-                ['small' => ['class' => 'sr-only form-text text-muted']],
-                    'Help text',
-                '/small',
+            ['div' => ['class' => 'col-auto']],
+                ['div' => ['class' => 'form-check checkbox']],
+                    ['input' => [
+                        'type' => 'hidden',
+                        'name' => 'users',
+                        'value' => 0,
+                    ]],
+                    ['input' => [
+                        'class' => 'form-check-input',
+                        'type' => 'checkbox',
+                        'name' => 'users',
+                        'id' => 'users',
+                        'aria-describedby' => 'users-help',
+                        'value' => 1,
+                    ]],
+                    ['label' => ['class' => 'form-check-label', 'for' => 'users']],
+                        'Users',
+                    '/label',
+                    ['small' => ['id' => 'users-help', 'class' => 'visually-hidden form-text']],
+                        'Help text',
+                    '/small',
+                '/div',
             '/div',
         ];
         $this->assertHtml($expected, $result);
@@ -191,30 +202,39 @@ class CheckboxControlTest extends AbstractFormHelperTest
         $result = $this->Form->control('users', [
             'type' => 'checkbox',
             'help' => [
+                'id' => 'custom-help',
                 'foo' => 'bar',
+                'class' => 'help-class',
                 'content' => 'Help text',
             ],
         ]);
         $expected = [
-            ['div' => ['class' => 'form-check form-check-inline checkbox']],
-                ['input' => [
-                    'type' => 'hidden',
-                    'name' => 'users',
-                    'value' => 0,
-                ]],
-                ['input' => [
-                    'class' => 'form-check-input',
-                    'type' => 'checkbox',
-                    'name' => 'users',
-                    'id' => 'users',
-                    'value' => 1,
-                ]],
-                ['label' => ['class' => 'form-check-label', 'for' => 'users']],
-                    'Users',
-                '/label',
-                ['small' => ['foo' => 'bar', 'class' => 'sr-only form-text text-muted']],
-                    'Help text',
-                '/small',
+            ['div' => ['class' => 'col-auto']],
+                ['div' => ['class' => 'form-check checkbox']],
+                    ['input' => [
+                        'type' => 'hidden',
+                        'name' => 'users',
+                        'value' => 0,
+                    ]],
+                    ['input' => [
+                        'class' => 'form-check-input',
+                        'type' => 'checkbox',
+                        'name' => 'users',
+                        'id' => 'users',
+                        'aria-describedby' => 'custom-help',
+                        'value' => 1,
+                    ]],
+                    ['label' => ['class' => 'form-check-label', 'for' => 'users']],
+                        'Users',
+                    '/label',
+                    ['small' => [
+                        'id' => 'custom-help',
+                        'foo' => 'bar',
+                        'class' => 'help-class visually-hidden form-text',
+                    ]],
+                        'Help text',
+                    '/small',
+                '/div',
             '/div',
         ];
         $this->assertHtml($expected, $result);
@@ -233,28 +253,30 @@ class CheckboxControlTest extends AbstractFormHelperTest
             'tooltip' => 'Tooltip text',
         ]);
         $expected = [
-            ['div' => ['class' => 'form-check form-check-inline checkbox']],
-                ['input' => [
-                    'type' => 'hidden',
-                    'name' => 'users',
-                    'value' => 0,
-                ]],
-                ['input' => [
-                    'class' => 'form-check-input',
-                    'type' => 'checkbox',
-                    'name' => 'users',
-                    'id' => 'users',
-                    'value' => 1,
-                ]],
-                ['label' => ['class' => 'form-check-label', 'for' => 'users']],
-                    'Users ',
-                    'span' => [
-                        'data-toggle' => 'tooltip',
-                        'title' => 'Tooltip text',
-                        'class' => 'fas fa-info-circle',
-                    ],
-                    '/span',
-                '/label',
+            ['div' => ['class' => 'col-auto']],
+                ['div' => ['class' => 'form-check checkbox']],
+                    ['input' => [
+                        'type' => 'hidden',
+                        'name' => 'users',
+                        'value' => 0,
+                    ]],
+                    ['input' => [
+                        'class' => 'form-check-input',
+                        'type' => 'checkbox',
+                        'name' => 'users',
+                        'id' => 'users',
+                        'value' => 1,
+                    ]],
+                    ['label' => ['class' => 'form-check-label', 'for' => 'users']],
+                        'Users ',
+                        'span' => [
+                            'data-bs-toggle' => 'tooltip',
+                            'title' => 'Tooltip text',
+                            'class' => 'bi bi-info-circle-fill',
+                        ],
+                        '/span',
+                    '/label',
+                '/div',
             '/div',
         ];
         $this->assertHtml($expected, $result);
@@ -275,25 +297,27 @@ class CheckboxControlTest extends AbstractFormHelperTest
             'type' => 'checkbox',
         ]);
         $expected = [
-            ['div' => ['class' => 'form-check form-check-inline position-relative checkbox is-invalid']],
-                ['input' => [
-                    'class' => 'is-invalid',
-                    'type' => 'hidden',
-                    'name' => 'users',
-                    'value' => 0,
-                ]],
-                ['input' => [
-                    'class' => 'form-check-input is-invalid',
-                    'type' => 'checkbox',
-                    'name' => 'users',
-                    'id' => 'users',
-                    'value' => 1,
-                ]],
-                ['label' => ['class' => 'form-check-label', 'for' => 'users']],
-                    'Users',
-                '/label',
-                ['div' => ['class' => 'invalid-tooltip']],
-                    'error message',
+            ['div' => ['class' => 'col-auto']],
+                ['div' => ['class' => 'form-check position-relative checkbox is-invalid']],
+                    ['input' => [
+                        'class' => 'is-invalid',
+                        'type' => 'hidden',
+                        'name' => 'users',
+                        'value' => 0,
+                    ]],
+                    ['input' => [
+                        'class' => 'form-check-input is-invalid',
+                        'type' => 'checkbox',
+                        'name' => 'users',
+                        'id' => 'users',
+                        'value' => 1,
+                    ]],
+                    ['label' => ['class' => 'form-check-label', 'for' => 'users']],
+                        'Users',
+                    '/label',
+                    ['div' => ['class' => 'invalid-tooltip']],
+                        'error message',
+                    '/div',
                 '/div',
             '/div',
         ];
@@ -316,25 +340,27 @@ class CheckboxControlTest extends AbstractFormHelperTest
             ],
         ]);
         $expected = [
-            ['div' => [
-                'attribute' => 'container-attribute',
-                'class' => 'container-class form-check form-check-inline checkbox',
-            ]],
-                ['input' => [
-                    'type' => 'hidden',
-                    'name' => 'users',
-                    'value' => 0,
+            ['div' => ['class' => 'col-auto']],
+                ['div' => [
+                    'attribute' => 'container-attribute',
+                    'class' => 'container-class form-check checkbox',
                 ]],
-                ['input' => [
-                    'class' => 'form-check-input',
-                    'type' => 'checkbox',
-                    'name' => 'users',
-                    'id' => 'users',
-                    'value' => 1,
-                ]],
-                ['label' => ['class' => 'form-check-label', 'for' => 'users']],
-                    'Users',
-                '/label',
+                    ['input' => [
+                        'type' => 'hidden',
+                        'name' => 'users',
+                        'value' => 0,
+                    ]],
+                    ['input' => [
+                        'class' => 'form-check-input',
+                        'type' => 'checkbox',
+                        'name' => 'users',
+                        'id' => 'users',
+                        'value' => 1,
+                    ]],
+                    ['label' => ['class' => 'form-check-label', 'for' => 'users']],
+                        'Users',
+                    '/label',
+                '/div',
             '/div',
         ];
         $this->assertHtml($expected, $result);
@@ -359,28 +385,30 @@ class CheckboxControlTest extends AbstractFormHelperTest
             ],
         ]);
         $expected = [
-            ['div' => [
-                'attribute' => 'container-attribute',
-                'class' => 'container-class form-check form-check-inline position-relative checkbox is-invalid',
-            ]],
-                ['input' => [
-                    'class' => 'is-invalid',
-                    'type' => 'hidden',
-                    'name' => 'users',
-                    'value' => 0,
+            ['div' => ['class' => 'col-auto']],
+                ['div' => [
+                    'attribute' => 'container-attribute',
+                    'class' => 'container-class form-check position-relative checkbox is-invalid',
                 ]],
-                ['input' => [
-                    'class' => 'form-check-input is-invalid',
-                    'type' => 'checkbox',
-                    'name' => 'users',
-                    'id' => 'users',
-                    'value' => 1,
-                ]],
-                ['label' => ['class' => 'form-check-label', 'for' => 'users']],
-                    'Users',
-                '/label',
-                ['div' => ['class' => 'invalid-tooltip']],
-                    'error message',
+                    ['input' => [
+                        'class' => 'is-invalid',
+                        'type' => 'hidden',
+                        'name' => 'users',
+                        'value' => 0,
+                    ]],
+                    ['input' => [
+                        'class' => 'form-check-input is-invalid',
+                        'type' => 'checkbox',
+                        'name' => 'users',
+                        'id' => 'users',
+                        'value' => 1,
+                    ]],
+                    ['label' => ['class' => 'form-check-label', 'for' => 'users']],
+                        'Users',
+                    '/label',
+                    ['div' => ['class' => 'invalid-tooltip']],
+                        'error message',
+                    '/div',
                 '/div',
             '/div',
         ];
@@ -400,22 +428,24 @@ class CheckboxControlTest extends AbstractFormHelperTest
             'nestedInput' => true,
         ]);
         $expected = [
-            ['div' => ['class' => 'form-check form-check-inline checkbox']],
-                ['input' => [
-                    'type' => 'hidden',
-                    'name' => 'users',
-                    'value' => 0,
-                ]],
-                ['label' => ['class' => 'form-check-label', 'for' => 'users']],
+            ['div' => ['class' => 'col-auto']],
+                ['div' => ['class' => 'form-check checkbox']],
                     ['input' => [
-                        'class' => 'form-check-input',
-                        'type' => 'checkbox',
+                        'type' => 'hidden',
                         'name' => 'users',
-                        'id' => 'users',
-                        'value' => 1,
+                        'value' => 0,
                     ]],
-                    'Users',
-                '/label',
+                    ['label' => ['class' => 'form-check-label', 'for' => 'users']],
+                        ['input' => [
+                            'class' => 'form-check-input',
+                            'type' => 'checkbox',
+                            'name' => 'users',
+                            'id' => 'users',
+                            'value' => 1,
+                        ]],
+                        'Users',
+                    '/label',
+                '/div',
             '/div',
         ];
         $this->assertHtml($expected, $result);
@@ -435,28 +465,30 @@ class CheckboxControlTest extends AbstractFormHelperTest
             'tooltip' => 'Tooltip text',
         ]);
         $expected = [
-            ['div' => ['class' => 'form-check form-check-inline checkbox']],
-                ['input' => [
-                    'type' => 'hidden',
-                    'name' => 'users',
-                    'value' => 0,
-                ]],
-                ['label' => ['class' => 'form-check-label', 'for' => 'users']],
+            ['div' => ['class' => 'col-auto']],
+                ['div' => ['class' => 'form-check checkbox']],
                     ['input' => [
-                        'class' => 'form-check-input',
-                        'type' => 'checkbox',
+                        'type' => 'hidden',
                         'name' => 'users',
-                        'id' => 'users',
-                        'value' => 1,
+                        'value' => 0,
                     ]],
-                    'Users ',
-                    'span' => [
-                        'data-toggle' => 'tooltip',
-                        'title' => 'Tooltip text',
-                        'class' => 'fas fa-info-circle',
-                    ],
-                    '/span',
-                '/label',
+                    ['label' => ['class' => 'form-check-label', 'for' => 'users']],
+                        ['input' => [
+                            'class' => 'form-check-input',
+                            'type' => 'checkbox',
+                            'name' => 'users',
+                            'id' => 'users',
+                            'value' => 1,
+                        ]],
+                        'Users ',
+                        'span' => [
+                            'data-bs-toggle' => 'tooltip',
+                            'title' => 'Tooltip text',
+                            'class' => 'bi bi-info-circle-fill',
+                        ],
+                        '/span',
+                    '/label',
+                '/div',
             '/div',
         ];
         $this->assertHtml($expected, $result);
@@ -475,22 +507,24 @@ class CheckboxControlTest extends AbstractFormHelperTest
             'inline' => true,
         ]);
         $expected = [
-            ['div' => ['class' => 'form-check form-check-inline checkbox']],
-                ['input' => [
-                    'type' => 'hidden',
-                    'name' => 'users',
-                    'value' => 0,
-                ]],
-                ['input' => [
-                    'class' => 'form-check-input',
-                    'type' => 'checkbox',
-                    'name' => 'users',
-                    'id' => 'users',
-                    'value' => 1,
-                ]],
-                ['label' => ['class' => 'form-check-label', 'for' => 'users']],
-                    'Users',
-                '/label',
+            ['div' => ['class' => 'col-auto']],
+                ['div' => ['class' => 'form-check checkbox']],
+                    ['input' => [
+                        'type' => 'hidden',
+                        'name' => 'users',
+                        'value' => 0,
+                    ]],
+                    ['input' => [
+                        'class' => 'form-check-input',
+                        'type' => 'checkbox',
+                        'name' => 'users',
+                        'id' => 'users',
+                        'value' => 1,
+                    ]],
+                    ['label' => ['class' => 'form-check-label', 'for' => 'users']],
+                        'Users',
+                    '/label',
+                '/div',
             '/div',
         ];
         $this->assertHtml($expected, $result);
@@ -510,25 +544,28 @@ class CheckboxControlTest extends AbstractFormHelperTest
             'help' => 'Help text',
         ]);
         $expected = [
-            ['div' => ['class' => 'form-check form-check-inline checkbox']],
-                ['input' => [
-                    'type' => 'hidden',
-                    'name' => 'users',
-                    'value' => 0,
-                ]],
-                ['input' => [
-                    'class' => 'form-check-input',
-                    'type' => 'checkbox',
-                    'name' => 'users',
-                    'id' => 'users',
-                    'value' => 1,
-                ]],
-                ['label' => ['class' => 'form-check-label', 'for' => 'users']],
-                    'Users',
-                '/label',
-                ['small' => ['class' => 'sr-only form-text text-muted']],
-                    'Help text',
-                '/small',
+            ['div' => ['class' => 'col-auto']],
+                ['div' => ['class' => 'form-check checkbox']],
+                    ['input' => [
+                        'type' => 'hidden',
+                        'name' => 'users',
+                        'value' => 0,
+                    ]],
+                    ['input' => [
+                        'class' => 'form-check-input',
+                        'type' => 'checkbox',
+                        'name' => 'users',
+                        'id' => 'users',
+                        'aria-describedby' => 'users-help',
+                        'value' => 1,
+                    ]],
+                    ['label' => ['class' => 'form-check-label', 'for' => 'users']],
+                        'Users',
+                    '/label',
+                    ['small' => ['id' => 'users-help', 'class' => 'visually-hidden form-text']],
+                        'Help text',
+                    '/small',
+                '/div',
             '/div',
         ];
         $this->assertHtml($expected, $result);
@@ -546,30 +583,39 @@ class CheckboxControlTest extends AbstractFormHelperTest
             'type' => 'checkbox',
             'inline' => true,
             'help' => [
+                'id' => 'custom-help',
                 'foo' => 'bar',
+                'class' => 'help-class',
                 'content' => 'Help text',
             ],
         ]);
         $expected = [
-            ['div' => ['class' => 'form-check form-check-inline checkbox']],
-                ['input' => [
-                    'type' => 'hidden',
-                    'name' => 'users',
-                    'value' => 0,
-                ]],
-                ['input' => [
-                    'class' => 'form-check-input',
-                    'type' => 'checkbox',
-                    'name' => 'users',
-                    'id' => 'users',
-                    'value' => 1,
-                ]],
-                ['label' => ['class' => 'form-check-label', 'for' => 'users']],
-                    'Users',
-                '/label',
-                ['small' => ['foo' => 'bar', 'class' => 'sr-only form-text text-muted']],
-                    'Help text',
-                '/small',
+            ['div' => ['class' => 'col-auto']],
+                ['div' => ['class' => 'form-check checkbox']],
+                    ['input' => [
+                        'type' => 'hidden',
+                        'name' => 'users',
+                        'value' => 0,
+                    ]],
+                    ['input' => [
+                        'class' => 'form-check-input',
+                        'type' => 'checkbox',
+                        'name' => 'users',
+                        'id' => 'users',
+                        'aria-describedby' => 'custom-help',
+                        'value' => 1,
+                    ]],
+                    ['label' => ['class' => 'form-check-label', 'for' => 'users']],
+                        'Users',
+                    '/label',
+                    ['small' => [
+                        'id' => 'custom-help',
+                        'foo' => 'bar',
+                        'class' => 'help-class visually-hidden form-text',
+                    ]],
+                        'Help text',
+                    '/small',
+                '/div',
             '/div',
         ];
         $this->assertHtml($expected, $result);
@@ -589,28 +635,30 @@ class CheckboxControlTest extends AbstractFormHelperTest
             'tooltip' => 'Tooltip text',
         ]);
         $expected = [
-            ['div' => ['class' => 'form-check form-check-inline checkbox']],
-                ['input' => [
-                    'type' => 'hidden',
-                    'name' => 'users',
-                    'value' => 0,
-                ]],
-                ['input' => [
-                    'class' => 'form-check-input',
-                    'type' => 'checkbox',
-                    'name' => 'users',
-                    'id' => 'users',
-                    'value' => 1,
-                ]],
-                ['label' => ['class' => 'form-check-label', 'for' => 'users']],
-                    'Users ',
-                    'span' => [
-                        'data-toggle' => 'tooltip',
-                        'title' => 'Tooltip text',
-                        'class' => 'fas fa-info-circle',
-                    ],
-                    '/span',
-                '/label',
+            ['div' => ['class' => 'col-auto']],
+                ['div' => ['class' => 'form-check checkbox']],
+                    ['input' => [
+                        'type' => 'hidden',
+                        'name' => 'users',
+                        'value' => 0,
+                    ]],
+                    ['input' => [
+                        'class' => 'form-check-input',
+                        'type' => 'checkbox',
+                        'name' => 'users',
+                        'id' => 'users',
+                        'value' => 1,
+                    ]],
+                    ['label' => ['class' => 'form-check-label', 'for' => 'users']],
+                        'Users ',
+                        'span' => [
+                            'data-bs-toggle' => 'tooltip',
+                            'title' => 'Tooltip text',
+                            'class' => 'bi bi-info-circle-fill',
+                        ],
+                        '/span',
+                    '/label',
+                '/div',
             '/div',
         ];
         $this->assertHtml($expected, $result);
@@ -632,25 +680,27 @@ class CheckboxControlTest extends AbstractFormHelperTest
             'inline' => true,
         ]);
         $expected = [
-            ['div' => ['class' => 'form-check form-check-inline position-relative checkbox is-invalid']],
-                ['input' => [
-                    'class' => 'is-invalid',
-                    'type' => 'hidden',
-                    'name' => 'users',
-                    'value' => 0,
-                ]],
-                ['input' => [
-                    'class' => 'form-check-input is-invalid',
-                    'type' => 'checkbox',
-                    'name' => 'users',
-                    'id' => 'users',
-                    'value' => 1,
-                ]],
-                ['label' => ['class' => 'form-check-label', 'for' => 'users']],
-                    'Users',
-                '/label',
-                ['div' => ['class' => 'invalid-tooltip']],
-                    'error message',
+            ['div' => ['class' => 'col-auto']],
+                ['div' => ['class' => 'form-check position-relative checkbox is-invalid']],
+                    ['input' => [
+                        'class' => 'is-invalid',
+                        'type' => 'hidden',
+                        'name' => 'users',
+                        'value' => 0,
+                    ]],
+                    ['input' => [
+                        'class' => 'form-check-input is-invalid',
+                        'type' => 'checkbox',
+                        'name' => 'users',
+                        'id' => 'users',
+                        'value' => 1,
+                    ]],
+                    ['label' => ['class' => 'form-check-label', 'for' => 'users']],
+                        'Users',
+                    '/label',
+                    ['div' => ['class' => 'invalid-tooltip']],
+                        'error message',
+                    '/div',
                 '/div',
             '/div',
         ];
@@ -671,22 +721,24 @@ class CheckboxControlTest extends AbstractFormHelperTest
             'nestedInput' => true,
         ]);
         $expected = [
-            ['div' => ['class' => 'form-check form-check-inline checkbox']],
-                ['input' => [
-                    'type' => 'hidden',
-                    'name' => 'users',
-                    'value' => 0,
-                ]],
-                ['label' => ['class' => 'form-check-label', 'for' => 'users']],
+            ['div' => ['class' => 'col-auto']],
+                ['div' => ['class' => 'form-check checkbox']],
                     ['input' => [
-                        'class' => 'form-check-input',
-                        'type' => 'checkbox',
+                        'type' => 'hidden',
                         'name' => 'users',
-                        'id' => 'users',
-                        'value' => 1,
+                        'value' => 0,
                     ]],
-                    'Users',
-                '/label',
+                    ['label' => ['class' => 'form-check-label', 'for' => 'users']],
+                        ['input' => [
+                            'class' => 'form-check-input',
+                            'type' => 'checkbox',
+                            'name' => 'users',
+                            'id' => 'users',
+                            'value' => 1,
+                        ]],
+                        'Users',
+                    '/label',
+                '/div',
             '/div',
         ];
         $this->assertHtml($expected, $result);
@@ -707,13 +759,53 @@ class CheckboxControlTest extends AbstractFormHelperTest
             'tooltip' => 'Tooltip text',
         ]);
         $expected = [
-            ['div' => ['class' => 'form-check form-check-inline checkbox']],
-                ['input' => [
-                    'type' => 'hidden',
-                    'name' => 'users',
-                    'value' => 0,
-                ]],
-                ['label' => ['class' => 'form-check-label', 'for' => 'users']],
+            ['div' => ['class' => 'col-auto']],
+                ['div' => ['class' => 'form-check checkbox']],
+                    ['input' => [
+                        'type' => 'hidden',
+                        'name' => 'users',
+                        'value' => 0,
+                    ]],
+                    ['label' => ['class' => 'form-check-label', 'for' => 'users']],
+                        ['input' => [
+                            'class' => 'form-check-input',
+                            'type' => 'checkbox',
+                            'name' => 'users',
+                            'id' => 'users',
+                            'value' => 1,
+                        ]],
+                        'Users ',
+                        'span' => [
+                            'data-bs-toggle' => 'tooltip',
+                            'title' => 'Tooltip text',
+                            'class' => 'bi bi-info-circle-fill',
+                        ],
+                        '/span',
+                    '/label',
+                '/div',
+            '/div',
+        ];
+        $this->assertHtml($expected, $result);
+    }
+
+    public function testInlineAlignCheckboxControlSwitch()
+    {
+        $this->Form->create($this->article, [
+            'align' => 'inline',
+        ]);
+
+        $result = $this->Form->control('users', [
+            'type' => 'checkbox',
+            'switch' => true,
+        ]);
+        $expected = [
+            ['div' => ['class' => 'col-auto']],
+                ['div' => ['class' => 'form-check form-switch checkbox']],
+                    ['input' => [
+                        'type' => 'hidden',
+                        'name' => 'users',
+                        'value' => 0,
+                    ]],
                     ['input' => [
                         'class' => 'form-check-input',
                         'type' => 'checkbox',
@@ -721,14 +813,10 @@ class CheckboxControlTest extends AbstractFormHelperTest
                         'id' => 'users',
                         'value' => 1,
                     ]],
-                    'Users ',
-                    'span' => [
-                        'data-toggle' => 'tooltip',
-                        'title' => 'Tooltip text',
-                        'class' => 'fas fa-info-circle',
-                    ],
-                    '/span',
-                '/label',
+                    ['label' => ['class' => 'form-check-label', 'for' => 'users']],
+                        'Users',
+                    '/label',
+                '/div',
             '/div',
         ];
         $this->assertHtml($expected, $result);

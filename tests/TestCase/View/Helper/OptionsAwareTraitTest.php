@@ -12,7 +12,7 @@ use TestApp\Test\TestOptionsAware;
 class OptionsAwareTraitTest extends TestCase
 {
     /**
-     * @var OptionsAwareTrait
+     * @var TestOptionsAware
      */
     public $object;
 

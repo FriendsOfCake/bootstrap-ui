@@ -15,12 +15,14 @@ class SubmitControlTest extends AbstractFormHelperTest
 
         $result = $this->Form->submit('Submit');
         $expected = [
-            'div' => ['class' => 'submit'],
-                'input' => [
-                    'type' => 'submit',
-                    'value' => 'Submit',
-                    'class' => 'btn-primary btn',
-                ],
+            ['div' => ['class' => 'col-auto']],
+                'div' => ['class' => 'submit'],
+                    'input' => [
+                        'type' => 'submit',
+                        'value' => 'Submit',
+                        'class' => 'btn-primary btn',
+                    ],
+                '/div',
             '/div',
         ];
         $this->assertHtml($expected, $result);
@@ -39,15 +41,17 @@ class SubmitControlTest extends AbstractFormHelperTest
             ],
         ]);
         $expected = [
-            'div' => [
-                'attribute' => 'container-attribute',
-                'class' => 'container-class submit',
-            ],
-                'input' => [
-                    'type' => 'submit',
-                    'value' => 'Submit',
-                    'class' => 'btn-primary btn',
+            ['div' => ['class' => 'col-auto']],
+                'div' => [
+                    'attribute' => 'container-attribute',
+                    'class' => 'container-class submit',
                 ],
+                    'input' => [
+                        'type' => 'submit',
+                        'value' => 'Submit',
+                        'class' => 'btn-primary btn',
+                    ],
+                '/div',
             '/div',
         ];
         $this->assertHtml($expected, $result);

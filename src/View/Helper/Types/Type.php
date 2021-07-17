@@ -16,7 +16,7 @@ abstract class Type implements TypeInterface
      * @return array
      * @throws \ReflectionException
      */
-    public static function values()
+    public static function values(): array
     {
         $called = static::class;
         $reflection = new ReflectionClass($called);

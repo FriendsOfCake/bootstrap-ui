@@ -18,5 +18,5 @@ interface TypeInterface
      *
      * @return array An array of all constants
      */
-    public static function values();
+    public static function values(): array;
 }

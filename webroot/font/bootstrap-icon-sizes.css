@@ -1,0 +1,61 @@
+.bi-2xs {
+    font-size: .625rem;
+    line-height: .1em;
+    vertical-align: .225em;
+}
+.bi-xs {
+    font-size: .75rem;
+    line-height: .08333em;
+    vertical-align: .125em;
+}
+.bi-sm {
+    font-size: .875rem;
+    line-height: .07143em;
+    vertical-align: .05357em;
+}
+.bi-lg {
+    font-size: 1.25rem;
+    line-height: .05em;
+    vertical-align: -.075em;
+}
+.bi-xl {
+    font-size: 1.5rem;
+    line-height: .04167em;
+    vertical-align: -.125em;
+}
+.bi-2xl {
+    font-size: 2rem;
+    line-height: 1;
+    vertical-align: -.12em;
+}
+
+.bi-1x {
+    font-size: 1rem;
+}
+.bi-2x {
+    font-size: 2rem;
+}
+.bi-3x {
+    font-size: 3rem;
+}
+.bi-4x {
+    font-size: 4rem;
+}
+.bi-5x {
+    font-size: 5rem;
+}
+.bi-6x {
+    font-size: 6rem;
+}
+.bi-7x {
+    font-size: 7rem;
+}
+.bi-8x {
+    font-size: 8rem;
+}
+.bi-9x {
+    font-size: 9rem;
+}
+.bi-10x {
+    font-size: 10rem;
+}

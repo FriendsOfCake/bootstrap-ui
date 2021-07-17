@@ -6,11 +6,10 @@ namespace BootstrapUI\Test\TestCase\View\Helper\FormHelper\HorizontalAlign;
 use BootstrapUI\Test\TestCase\View\Helper\FormHelper\AbstractFormHelperTest;
 use BootstrapUI\View\Helper\FormHelper;
 
-class TextControlTest extends AbstractFormHelperTest
+class ColorControlTest extends AbstractFormHelperTest
 {
-    public function testHorizontalAlignTextControl()
+    public function testHorizontalAlignColorControl()
     {
-        unset($this->article['required']['title']);
         $this->Form->create($this->article, [
             'align' => [
                 'sm' => [
@@ -20,18 +19,22 @@ class TextControlTest extends AbstractFormHelperTest
             ],
         ]);
 
-        $result = $this->Form->control('title');
+        $result = $this->Form->control('color', [
+            'type' => 'color',
+            'value' => '#ffffff',
+        ]);
         $expected = [
-            'div' => ['class' => 'mb-3 form-group row text'],
-                'label' => ['class' => 'col-form-label col-sm-5', 'for' => 'title'],
-                    'Title',
+            'div' => ['class' => 'mb-3 form-group row color'],
+                'label' => ['class' => 'col-form-label col-sm-5', 'for' => 'color'],
+                    'Color',
                 '/label',
                 ['div' => ['class' => 'col-sm-7']],
                     'input' => [
-                        'type' => 'text',
-                        'name' => 'title',
-                        'id' => 'title',
-                        'class' => 'form-control',
+                        'type' => 'color',
+                        'name' => 'color',
+                        'id' => 'color',
+                        'class' => 'form-control form-control-color',
+                        'value' => '#ffffff',
                     ],
                 '/div',
             '/div',
@@ -39,9 +42,8 @@ class TextControlTest extends AbstractFormHelperTest
         $this->assertHtml($expected, $result);
     }
 
-    public function testHorizontalAlignTextControlWithFloatingLabel()
+    public function testHorizontalAlignColorControlWithDisabledLabel()
     {
-        unset($this->article['required']['title']);
         $this->Form->create($this->article, [
             'align' => [
                 'sm' => [
@@ -51,50 +53,20 @@ class TextControlTest extends AbstractFormHelperTest
             ],
         ]);
 
-        $result = $this->Form->control('title', [
-            'label' => [
-                'floating' => true,
-            ],
+        $result = $this->Form->control('color', [
+            'type' => 'color',
+            'value' => '#ffffff',
+            'label' => false,
         ]);
         $expected = [
-            'div' => ['class' => 'mb-3 form-group row text'],
-                ['div' => ['class' => 'offset-sm-5 col-sm-7 form-floating']],
-                    'input' => [
-                        'type' => 'text',
-                        'name' => 'title',
-                        'id' => 'title',
-                        'class' => 'form-control',
-                    ],
-                    'label' => ['class' => 'ps-4', 'for' => 'title'],
-                        'Title',
-                    '/label',
-                '/div',
-            '/div',
-        ];
-        $this->assertHtml($expected, $result);
-    }
-
-    public function testHorizontalAlignTextControlWithDisabledLabel()
-    {
-        unset($this->article['required']['title']);
-        $this->Form->create($this->article, [
-            'align' => [
-                'sm' => [
-                    FormHelper::GRID_COLUMN_ONE => 5,
-                    FormHelper::GRID_COLUMN_TWO => 7,
-                ],
-            ],
-        ]);
-
-        $result = $this->Form->control('title', ['label' => false]);
-        $expected = [
-            'div' => ['class' => 'mb-3 form-group row text'],
+            'div' => ['class' => 'mb-3 form-group row color'],
                 ['div' => ['class' => 'col-sm-7']],
                     'input' => [
-                        'type' => 'text',
-                        'name' => 'title',
-                        'id' => 'title',
-                        'class' => 'form-control',
+                        'type' => 'color',
+                        'name' => 'color',
+                        'id' => 'color',
+                        'class' => 'form-control form-control-color',
+                        'value' => '#ffffff',
                     ],
                 '/div',
             '/div',
@@ -102,9 +74,9 @@ class TextControlTest extends AbstractFormHelperTest
         $this->assertHtml($expected, $result);
     }
 
-    public function testHorizontalAlignTextControlWithCustomLabel()
+    public function testHorizontalAlignColorControlWithCustomLabel()
     {
-        unset($this->article['required']['title']);
+        unset($this->article['required']['color']);
         $this->Form->create($this->article, [
             'align' => [
                 'sm' => [
@@ -114,18 +86,23 @@ class TextControlTest extends AbstractFormHelperTest
             ],
         ]);
 
-        $result = $this->Form->control('title', ['label' => 'Custom Label']);
+        $result = $this->Form->control('color', [
+            'type' => 'color',
+            'value' => '#ffffff',
+            'label' => 'Custom Label',
+        ]);
         $expected = [
-            'div' => ['class' => 'mb-3 form-group row text'],
-                'label' => ['class' => 'col-form-label col-sm-5', 'for' => 'title'],
+            'div' => ['class' => 'mb-3 form-group row color'],
+                'label' => ['class' => 'col-form-label col-sm-5', 'for' => 'color'],
                     'Custom Label',
                 '/label',
                 ['div' => ['class' => 'col-sm-7']],
                     'input' => [
-                        'type' => 'text',
-                        'name' => 'title',
-                        'id' => 'title',
-                        'class' => 'form-control',
+                        'type' => 'color',
+                        'name' => 'color',
+                        'id' => 'color',
+                        'class' => 'form-control form-control-color',
+                        'value' => '#ffffff',
                     ],
                 '/div',
             '/div',
@@ -133,9 +110,9 @@ class TextControlTest extends AbstractFormHelperTest
         $this->assertHtml($expected, $result);
     }
 
-    public function testHorizontalAlignTextControlWithCustomLabelOptions()
+    public function testHorizontalAlignColorControlWithCustomLabelOptions()
     {
-        unset($this->article['required']['title']);
+        unset($this->article['required']['color']);
         $this->Form->create($this->article, [
             'align' => [
                 'sm' => [
@@ -145,7 +122,9 @@ class TextControlTest extends AbstractFormHelperTest
             ],
         ]);
 
-        $result = $this->Form->control('title', [
+        $result = $this->Form->control('color', [
+            'type' => 'color',
+            'value' => '#ffffff',
             'label' => [
                 'class' => 'custom-label-class',
                 'foo' => 'bar',
@@ -153,9 +132,9 @@ class TextControlTest extends AbstractFormHelperTest
             ],
         ]);
         $expected = [
-            'div' => ['class' => 'mb-3 form-group row text'],
+            'div' => ['class' => 'mb-3 form-group row color'],
                 'label' => [
-                    'for' => 'title',
+                    'for' => 'color',
                     'class' => 'custom-label-class col-form-label col-sm-5',
                     'foo' => 'bar',
                 ],
@@ -163,10 +142,11 @@ class TextControlTest extends AbstractFormHelperTest
                 '/label',
                 ['div' => ['class' => 'col-sm-7']],
                     'input' => [
-                        'type' => 'text',
-                        'name' => 'title',
-                        'id' => 'title',
-                        'class' => 'form-control',
+                        'type' => 'color',
+                        'name' => 'color',
+                        'id' => 'color',
+                        'class' => 'form-control form-control-color',
+                        'value' => '#ffffff',
                     ],
                 '/div',
             '/div',
@@ -174,9 +154,9 @@ class TextControlTest extends AbstractFormHelperTest
         $this->assertHtml($expected, $result);
     }
 
-    public function testHorizontalAlignTextControlWithHelp()
+    public function testHorizontalAlignColorControlWithHelp()
     {
-        unset($this->article['required']['title']);
+        unset($this->article['required']['color']);
         $this->Form->create($this->article, [
             'align' => [
                 'sm' => [
@@ -186,23 +166,26 @@ class TextControlTest extends AbstractFormHelperTest
             ],
         ]);
 
-        $result = $this->Form->control('title', [
+        $result = $this->Form->control('color', [
+            'type' => 'color',
+            'value' => '#ffffff',
             'help' => 'Help text',
         ]);
         $expected = [
-            'div' => ['class' => 'mb-3 form-group row text'],
-                'label' => ['class' => 'col-form-label col-sm-5', 'for' => 'title'],
-                    'Title',
+            'div' => ['class' => 'mb-3 form-group row color'],
+                'label' => ['class' => 'col-form-label col-sm-5', 'for' => 'color'],
+                    'Color',
                 '/label',
                 ['div' => ['class' => 'col-sm-7']],
                     'input' => [
-                        'type' => 'text',
-                        'name' => 'title',
-                        'id' => 'title',
-                        'class' => 'form-control',
-                        'aria-describedby' => 'title-help',
+                        'type' => 'color',
+                        'name' => 'color',
+                        'id' => 'color',
+                        'class' => 'form-control form-control-color',
+                        'aria-describedby' => 'color-help',
+                        'value' => '#ffffff',
                     ],
-                    ['small' => ['id' => 'title-help', 'class' => 'd-block form-text text-muted']],
+                    ['small' => ['id' => 'color-help', 'class' => 'd-block form-text text-muted']],
                         'Help text',
                     '/small',
                 '/div',
@@ -211,9 +194,9 @@ class TextControlTest extends AbstractFormHelperTest
         $this->assertHtml($expected, $result);
     }
 
-    public function testHorizontalAlignTextControlWithHelpOptions()
+    public function testHorizontalAlignColorControlWithHelpOptions()
     {
-        unset($this->article['required']['title']);
+        unset($this->article['required']['color']);
         $this->Form->create($this->article, [
             'align' => [
                 'sm' => [
@@ -223,7 +206,9 @@ class TextControlTest extends AbstractFormHelperTest
             ],
         ]);
 
-        $result = $this->Form->control('title', [
+        $result = $this->Form->control('color', [
+            'type' => 'color',
+            'value' => '#ffffff',
             'help' => [
                 'id' => 'custom-help',
                 'foo' => 'bar',
@@ -232,17 +217,18 @@ class TextControlTest extends AbstractFormHelperTest
             ],
         ]);
         $expected = [
-            'div' => ['class' => 'mb-3 form-group row text'],
-                'label' => ['class' => 'col-form-label col-sm-5', 'for' => 'title'],
-                    'Title',
+            'div' => ['class' => 'mb-3 form-group row color'],
+                'label' => ['class' => 'col-form-label col-sm-5', 'for' => 'color'],
+                    'Color',
                 '/label',
                 ['div' => ['class' => 'col-sm-7']],
                     'input' => [
-                        'type' => 'text',
-                        'name' => 'title',
-                        'id' => 'title',
-                        'class' => 'form-control',
+                        'type' => 'color',
+                        'name' => 'color',
+                        'id' => 'color',
+                        'class' => 'form-control form-control-color',
                         'aria-describedby' => 'custom-help',
+                        'value' => '#ffffff',
                     ],
                     ['small' => [
                         'id' => 'custom-help',
@@ -257,9 +243,9 @@ class TextControlTest extends AbstractFormHelperTest
         $this->assertHtml($expected, $result);
     }
 
-    public function testHorizontalAlignTextControlWithTooltip()
+    public function testHorizontalAlignColorControlWithTooltip()
     {
-        unset($this->article['required']['title']);
+        unset($this->article['required']['color']);
         $this->Form->create($this->article, [
             'align' => [
                 'sm' => [
@@ -269,13 +255,15 @@ class TextControlTest extends AbstractFormHelperTest
             ],
         ]);
 
-        $result = $this->Form->control('title', [
+        $result = $this->Form->control('color', [
+            'type' => 'color',
+            'value' => '#ffffff',
             'tooltip' => 'Tooltip text',
         ]);
         $expected = [
-            'div' => ['class' => 'mb-3 form-group row text'],
-                'label' => ['class' => 'col-form-label col-sm-5', 'for' => 'title'],
-                    'Title',
+            'div' => ['class' => 'mb-3 form-group row color'],
+                'label' => ['class' => 'col-form-label col-sm-5', 'for' => 'color'],
+                    'Color',
                     'span' => [
                         'data-bs-toggle' => 'tooltip',
                         'title' => 'Tooltip text',
@@ -285,10 +273,11 @@ class TextControlTest extends AbstractFormHelperTest
                 '/label',
                 ['div' => ['class' => 'col-sm-7']],
                     'input' => [
-                        'type' => 'text',
-                        'name' => 'title',
-                        'id' => 'title',
-                        'class' => 'form-control',
+                        'type' => 'color',
+                        'name' => 'color',
+                        'id' => 'color',
+                        'class' => 'form-control form-control-color',
+                        'value' => '#ffffff',
                     ],
                 '/div',
             '/div',
@@ -296,12 +285,12 @@ class TextControlTest extends AbstractFormHelperTest
         $this->assertHtml($expected, $result);
     }
 
-    public function testHorizontalAlignTextControlWithError()
+    public function testHorizontalAlignColorControlWithError()
     {
         $this->article['errors'] = [
-            'title' => ['error message'],
+            'color' => ['error message'],
         ];
-        unset($this->article['required']['title']);
+        unset($this->article['required']['color']);
         $this->Form->create($this->article, [
             'align' => [
                 'sm' => [
@@ -311,18 +300,22 @@ class TextControlTest extends AbstractFormHelperTest
             ],
         ]);
 
-        $result = $this->Form->control('title');
+        $result = $this->Form->control('color', [
+            'type' => 'color',
+            'value' => '#ffffff',
+        ]);
         $expected = [
-            'div' => ['class' => 'mb-3 form-group row text is-invalid'],
-                'label' => ['class' => 'col-form-label col-sm-5', 'for' => 'title'],
-                    'Title',
+            'div' => ['class' => 'mb-3 form-group row color is-invalid'],
+                'label' => ['class' => 'col-form-label col-sm-5', 'for' => 'color'],
+                    'Color',
                 '/label',
                 ['div' => ['class' => 'col-sm-7']],
                     'input' => [
-                        'type' => 'text',
-                        'name' => 'title',
-                        'id' => 'title',
-                        'class' => 'is-invalid form-control',
+                        'type' => 'color',
+                        'name' => 'color',
+                        'id' => 'color',
+                        'class' => 'form-control form-control-color is-invalid',
+                        'value' => '#ffffff',
                     ],
                     ['div' => ['class' => 'ms-0 invalid-feedback']],
                         'error message',
@@ -333,9 +326,9 @@ class TextControlTest extends AbstractFormHelperTest
         $this->assertHtml($expected, $result);
     }
 
-    public function testHorizontalAlignTextControlContainerOptions()
+    public function testHorizontalAlignColorControlContainerOptions()
     {
-        unset($this->article['required']['title']);
+        unset($this->article['required']['color']);
         $this->Form->create($this->article, [
             'align' => [
                 'sm' => [
@@ -345,7 +338,9 @@ class TextControlTest extends AbstractFormHelperTest
             ],
         ]);
 
-        $result = $this->Form->control('title', [
+        $result = $this->Form->control('color', [
+            'type' => 'color',
+            'value' => '#ffffff',
             'container' => [
                 'class' => 'container-class',
                 'attribute' => 'container-attribute',
@@ -355,17 +350,18 @@ class TextControlTest extends AbstractFormHelperTest
         $expected = [
             'div' => [
                 'attribute' => 'container-attribute',
-                'class' => 'container-class mb-3 form-group row text',
+                'class' => 'container-class mb-3 form-group row color',
             ],
-                'label' => ['class' => 'col-form-label col-sm-5', 'for' => 'title',],
-                    'Title',
+                'label' => ['class' => 'col-form-label col-sm-5', 'for' => 'color',],
+                    'Color',
                 '/label',
                 ['div' => ['class' => 'col-sm-7']],
                     'input' => [
-                        'type' => 'text',
-                        'name' => 'title',
-                        'id' => 'title',
-                        'class' => 'form-control',
+                        'type' => 'color',
+                        'name' => 'color',
+                        'id' => 'color',
+                        'class' => 'form-control form-control-color',
+                        'value' => '#ffffff',
                     ],
                 '/div',
             '/div',
@@ -373,11 +369,10 @@ class TextControlTest extends AbstractFormHelperTest
         $this->assertHtml($expected, $result);
     }
 
-    public function testHorizontalAlignTextControlContainerOptionsWithError()
+    public function testHorizontalAlignColorControlContainerOptionsWithError()
     {
-        unset($this->article['required']['title']);
         $this->article['errors'] = [
-            'title' => ['error message'],
+            'color' => ['error message'],
         ];
         $this->Form->create($this->article, [
             'align' => [
@@ -388,7 +383,9 @@ class TextControlTest extends AbstractFormHelperTest
             ],
         ]);
 
-        $result = $this->Form->control('title', [
+        $result = $this->Form->control('color', [
+            'type' => 'color',
+            'value' => '#ffffff',
             'container' => [
                 'class' => 'container-class',
                 'attribute' => 'container-attribute',
@@ -398,17 +395,18 @@ class TextControlTest extends AbstractFormHelperTest
         $expected = [
             'div' => [
                 'attribute' => 'container-attribute',
-                'class' => 'container-class mb-3 form-group row text is-invalid',
+                'class' => 'container-class mb-3 form-group row color is-invalid',
             ],
-                'label' => ['class' => 'col-form-label col-sm-5', 'for' => 'title',],
-                    'Title',
+                'label' => ['class' => 'col-form-label col-sm-5', 'for' => 'color',],
+                    'Color',
                 '/label',
                 ['div' => ['class' => 'col-sm-7']],
                     'input' => [
-                        'type' => 'text',
-                        'name' => 'title',
-                        'id' => 'title',
-                        'class' => 'is-invalid form-control',
+                        'type' => 'color',
+                        'name' => 'color',
+                        'id' => 'color',
+                        'class' => 'form-control form-control-color is-invalid',
+                        'value' => '#ffffff',
                     ],
                     ['div' => ['class' => 'ms-0 invalid-feedback']],
                         'error message',

@@ -7,7 +7,7 @@ use Cake\View\Form\ContextInterface;
 
 class BasicWidget extends \Cake\View\Widget\BasicWidget
 {
-    use InputgroupTrait;
+    use InputGroupTrait;
 
     /**
      * Render a text widget or other simple widget like email/tel/number.

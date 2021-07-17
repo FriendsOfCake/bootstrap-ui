@@ -15,12 +15,22 @@ class FlashHelper extends Helper
      *
      * - class: List of classes to be applied to the div containing message
      * - attributes: Additional attributes for the div containing message
+     * - icon: A boolean defining whether to use icons, or a string holding an icon name or HTML.
+     * - iconMap: A map of flash element names and icon definitions.
      *
      * @var array
      */
     protected $_defaultConfig = [
-        'class' => ['alert', 'alert-dismissible', 'fade', 'show'],
+        'class' => ['alert', 'alert-dismissible', 'fade', 'show', 'd-flex', 'align-items-center'],
         'attributes' => ['role' => 'alert'],
+        'icon' => true,
+        'iconMap' => [
+            'default' => 'info-circle-fill',
+            'success' => 'check-circle-fill',
+            'error' => 'exclamation-triangle-fill',
+            'info' => 'info-circle-fill',
+            'warning' => 'exclamation-triangle-fill',
+        ],
         'element' => 'BootstrapUI.flash/default',
     ];
 
@@ -67,6 +77,35 @@ class FlashHelper extends Helper
                 preg_match('#flash/(default|success|error|info|warning)$#', $element, $matches)
             ) {
                 $class = $matches[1];
+
+                $icon = $message['params']['icon'];
+                if ($icon !== false) {
+                    if (!is_array($icon)) {
+                        $icon = ['name' => $icon];
+                    }
+
+                    if (
+                        !isset($icon['name']) ||
+                        $icon['name'] === true
+                    ) {
+                        $iconMap = $this->getConfig('iconMap');
+                        $mappedIcon = $iconMap[$class] ?? false;
+
+                        if (!is_array($mappedIcon)) {
+                            $mappedIcon = ['name' => $mappedIcon];
+                        }
+                        $icon = $mappedIcon + $icon;
+                    }
+
+                    $message['params']['icon'] = $icon['name'];
+                    unset($icon['name']);
+
+                    $message['params']['iconOptions'] = $icon + [
+                        'size' => 'xl',
+                        'class' => 'me-2',
+                    ];
+                }
+
                 $class = str_replace(['default', 'error'], ['info', 'danger'], $class);
 
                 if (is_array($message['params']['class'])) {

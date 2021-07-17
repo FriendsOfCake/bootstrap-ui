@@ -67,9 +67,6 @@ class PaginatorHelperTest extends TestCase
 
         $this->View = new View($request);
         $this->Paginator = new PaginatorHelper($this->View);
-        $this->Paginator->Js = $this->getMockBuilder('Cake\View\Helper\PaginatorHelper')
-            ->setConstructorArgs([$this->View])
-            ->getMock();
 
         Configure::write('Routing.prefixes', []);
         Router::reload();
@@ -117,7 +114,7 @@ class PaginatorHelperTest extends TestCase
             ['li' => ['class' => 'page-item']], ['a' => ['class' => 'page-link', 'href' => '/Clients/index?page=5']], '5', '/a', '/li',
             ['li' => ['class' => 'page-item']], ['a' => ['class' => 'page-link', 'href' => '/Clients/index?page=6']], '6', '/a', '/li',
             ['li' => ['class' => 'page-item']], ['a' => ['class' => 'page-link', 'href' => '/Clients/index?page=7']], '7', '/a', '/li',
-            ['li' => ['class' => 'page-item active']], ['a' => ['class' => 'page-link', 'href' => '#']], '8', ['span' => ['class' => 'sr-only']], '(current)', '/span', '/a', '/li',
+            ['li' => ['class' => 'page-item active']], ['a' => ['class' => 'page-link', 'href' => '#']], '8', ['span' => ['class' => 'visually-hidden']], '(current)', '/span', '/a', '/li',
             ['li' => ['class' => 'page-item']], ['a' => ['class' => 'page-link', 'href' => '/Clients/index?page=9']], '9', '/a', '/li',
             ['li' => ['class' => 'page-item']], ['a' => ['class' => 'page-link', 'href' => '/Clients/index?page=10']], '10', '/a', '/li',
             ['li' => ['class' => 'page-item']], ['a' => ['class' => 'page-link', 'href' => '/Clients/index?page=11']], '11', '/a', '/li',
@@ -146,7 +143,7 @@ class PaginatorHelperTest extends TestCase
             ['li' => ['class' => 'page-item']], ['a' => ['class' => 'page-link', 'href' => '/Clients/index?page=5']], '5', '/a', '/li',
             ['li' => ['class' => 'page-item']], ['a' => ['class' => 'page-link', 'href' => '/Clients/index?page=6']], '6', '/a', '/li',
             ['li' => ['class' => 'page-item']], ['a' => ['class' => 'page-link', 'href' => '/Clients/index?page=7']], '7', '/a', '/li',
-            ['li' => ['class' => 'page-item active']], ['a' => ['class' => 'page-link', 'href' => '#']], '8', ['span' => ['class' => 'sr-only']], '(current)', '/span', '/a', '/li',
+            ['li' => ['class' => 'page-item active']], ['a' => ['class' => 'page-link', 'href' => '#']], '8', ['span' => ['class' => 'visually-hidden']], '(current)', '/span', '/a', '/li',
             ['li' => ['class' => 'page-item']], ['a' => ['class' => 'page-link', 'href' => '/Clients/index?page=9']], '9', '/a', '/li',
             ['li' => ['class' => 'page-item']], ['a' => ['class' => 'page-link', 'href' => '/Clients/index?page=10']], '10', '/a', '/li',
             ['li' => ['class' => 'page-item']], ['a' => ['class' => 'page-link', 'href' => '/Clients/index?page=11']], '11', '/a', '/li',
@@ -171,7 +168,7 @@ class PaginatorHelperTest extends TestCase
         $result = $this->Paginator->links(['size' => 'lg']);
         $expected = [
             'ul' => ['class' => 'pagination pagination-lg'],
-            ['li' => ['class' => 'page-item active']], 'a' => ['class' => 'page-link', 'href' => '#'], '1', 'span' => ['class' => 'sr-only'], '(current)', '/span', '/a', '/li',
+            ['li' => ['class' => 'page-item active']], 'a' => ['class' => 'page-link', 'href' => '#'], '1', 'span' => ['class' => 'visually-hidden'], '(current)', '/span', '/a', '/li',
             ['li' => ['class' => 'page-item']], ['a' => ['class' => 'page-link', 'href' => '/Clients/index?page=2']], '2', '/a', '/li',
             '/ul',
         ];

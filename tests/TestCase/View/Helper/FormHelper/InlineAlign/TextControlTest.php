@@ -16,16 +16,48 @@ class TextControlTest extends AbstractFormHelperTest
 
         $result = $this->Form->control('title');
         $expected = [
-            'div' => ['class' => 'form-group text'],
-                'label' => ['class' => 'sr-only', 'for' => 'title'],
-                    'Title',
-                '/label',
-                'input' => [
-                    'type' => 'text',
-                    'name' => 'title',
-                    'id' => 'title',
-                    'class' => 'form-control',
-                ],
+            ['div' => ['class' => 'col-auto']],
+                'div' => ['class' => 'form-group text'],
+                    'label' => ['class' => 'form-label visually-hidden', 'for' => 'title'],
+                        'Title',
+                    '/label',
+                    'input' => [
+                        'type' => 'text',
+                        'name' => 'title',
+                        'id' => 'title',
+                        'class' => 'form-control',
+                    ],
+                '/div',
+            '/div',
+        ];
+        $this->assertHtml($expected, $result);
+    }
+
+    public function testInlineAlignTextControlWithFloatingLabel()
+    {
+        unset($this->article['required']['title']);
+        $this->Form->create($this->article, [
+            'align' => 'inline',
+        ]);
+
+        $result = $this->Form->control('title', [
+            'label' => [
+                'floating' => true,
+            ],
+        ]);
+        $expected = [
+            ['div' => ['class' => 'col-auto']],
+                'div' => ['class' => 'form-floating form-group text'],
+                    'input' => [
+                        'type' => 'text',
+                        'name' => 'title',
+                        'id' => 'title',
+                        'class' => 'form-control',
+                    ],
+                    'label' => ['for' => 'title'],
+                        'Title',
+                    '/label',
+                '/div',
             '/div',
         ];
         $this->assertHtml($expected, $result);
@@ -40,13 +72,15 @@ class TextControlTest extends AbstractFormHelperTest
 
         $result = $this->Form->control('title', ['label' => false]);
         $expected = [
-            'div' => ['class' => 'form-group text'],
-                'input' => [
-                    'type' => 'text',
-                    'name' => 'title',
-                    'id' => 'title',
-                    'class' => 'form-control',
-                ],
+            ['div' => ['class' => 'col-auto']],
+                'div' => ['class' => 'form-group text'],
+                    'input' => [
+                        'type' => 'text',
+                        'name' => 'title',
+                        'id' => 'title',
+                        'class' => 'form-control',
+                    ],
+                '/div',
             '/div',
         ];
         $this->assertHtml($expected, $result);
@@ -61,16 +95,18 @@ class TextControlTest extends AbstractFormHelperTest
 
         $result = $this->Form->control('title', ['label' => 'Custom Label']);
         $expected = [
-            'div' => ['class' => 'form-group text'],
-                'label' => ['class' => 'sr-only', 'for' => 'title'],
-                    'Custom Label',
-                '/label',
-                'input' => [
-                    'type' => 'text',
-                    'name' => 'title',
-                    'id' => 'title',
-                    'class' => 'form-control',
-                ],
+            ['div' => ['class' => 'col-auto']],
+                'div' => ['class' => 'form-group text'],
+                    'label' => ['class' => 'form-label visually-hidden', 'for' => 'title'],
+                        'Custom Label',
+                    '/label',
+                    'input' => [
+                        'type' => 'text',
+                        'name' => 'title',
+                        'id' => 'title',
+                        'class' => 'form-control',
+                    ],
+                '/div',
             '/div',
         ];
         $this->assertHtml($expected, $result);
@@ -91,16 +127,22 @@ class TextControlTest extends AbstractFormHelperTest
             ],
         ]);
         $expected = [
-            'div' => ['class' => 'form-group text'],
-                'label' => ['class' => 'custom-label-class sr-only', 'foo' => 'bar', 'for' => 'title'],
-                    'Custom Label',
-                '/label',
-                'input' => [
-                    'type' => 'text',
-                    'name' => 'title',
-                    'id' => 'title',
-                    'class' => 'form-control',
-                ],
+            ['div' => ['class' => 'col-auto']],
+                'div' => ['class' => 'form-group text'],
+                    'label' => [
+                        'class' => 'custom-label-class form-label visually-hidden',
+                        'foo' => 'bar',
+                        'for' => 'title',
+                    ],
+                        'Custom Label',
+                    '/label',
+                    'input' => [
+                        'type' => 'text',
+                        'name' => 'title',
+                        'id' => 'title',
+                        'class' => 'form-control',
+                    ],
+                '/div',
             '/div',
         ];
         $this->assertHtml($expected, $result);
@@ -117,19 +159,22 @@ class TextControlTest extends AbstractFormHelperTest
             'help' => 'Help text',
         ]);
         $expected = [
-            'div' => ['class' => 'form-group text'],
-                'label' => ['class' => 'sr-only', 'for' => 'title'],
-                    'Title',
-                '/label',
-                'input' => [
-                    'type' => 'text',
-                    'name' => 'title',
-                    'id' => 'title',
-                    'class' => 'form-control',
-                ],
-                ['small' => ['class' => 'sr-only form-text text-muted']],
-                    'Help text',
-                '/small',
+            ['div' => ['class' => 'col-auto']],
+                'div' => ['class' => 'form-group text'],
+                    'label' => ['class' => 'form-label visually-hidden', 'for' => 'title'],
+                        'Title',
+                    '/label',
+                    'input' => [
+                        'type' => 'text',
+                        'name' => 'title',
+                        'id' => 'title',
+                        'class' => 'form-control',
+                        'aria-describedby' => 'title-help',
+                    ],
+                    ['small' => ['id' => 'title-help', 'class' => 'visually-hidden form-text']],
+                        'Help text',
+                    '/small',
+                '/div',
             '/div',
         ];
         $this->assertHtml($expected, $result);
@@ -144,24 +189,33 @@ class TextControlTest extends AbstractFormHelperTest
 
         $result = $this->Form->control('title', [
             'help' => [
+                'id' => 'custom-help',
                 'foo' => 'bar',
+                'class' => 'help-class',
                 'content' => 'Help text',
             ],
         ]);
         $expected = [
-            'div' => ['class' => 'form-group text'],
-                'label' => ['class' => 'sr-only', 'for' => 'title'],
-                    'Title',
-                '/label',
-                'input' => [
-                    'type' => 'text',
-                    'name' => 'title',
-                    'id' => 'title',
-                    'class' => 'form-control',
-                ],
-                ['small' => ['foo' => 'bar', 'class' => 'sr-only form-text text-muted']],
-                    'Help text',
-                '/small',
+            ['div' => ['class' => 'col-auto']],
+                'div' => ['class' => 'form-group text'],
+                    'label' => ['class' => 'form-label visually-hidden', 'for' => 'title'],
+                        'Title',
+                    '/label',
+                    'input' => [
+                        'type' => 'text',
+                        'name' => 'title',
+                        'id' => 'title',
+                        'class' => 'form-control',
+                        'aria-describedby' => 'custom-help',
+                    ],
+                    ['small' => [
+                        'id' => 'custom-help',
+                        'foo' => 'bar',
+                        'class' => 'help-class visually-hidden form-text',
+                    ]],
+                        'Help text',
+                    '/small',
+                '/div',
             '/div',
         ];
         $this->assertHtml($expected, $result);
@@ -178,22 +232,24 @@ class TextControlTest extends AbstractFormHelperTest
             'tooltip' => 'Tooltip text',
         ]);
         $expected = [
-            'div' => ['class' => 'form-group text'],
-                'label' => ['class' => 'sr-only', 'for' => 'title'],
-                    'Title',
-                    'span' => [
-                        'data-toggle' => 'tooltip',
-                        'title' => 'Tooltip text',
-                        'class' => 'fas fa-info-circle',
+            ['div' => ['class' => 'col-auto']],
+                'div' => ['class' => 'form-group text'],
+                    'label' => ['class' => 'form-label visually-hidden', 'for' => 'title'],
+                        'Title',
+                        'span' => [
+                            'data-bs-toggle' => 'tooltip',
+                            'title' => 'Tooltip text',
+                            'class' => 'bi bi-info-circle-fill',
+                        ],
+                        '/span',
+                    '/label',
+                    'input' => [
+                        'type' => 'text',
+                        'name' => 'title',
+                        'id' => 'title',
+                        'class' => 'form-control',
                     ],
-                    '/span',
-                '/label',
-                'input' => [
-                    'type' => 'text',
-                    'name' => 'title',
-                    'id' => 'title',
-                    'class' => 'form-control',
-                ],
+                '/div',
             '/div',
         ];
         $this->assertHtml($expected, $result);
@@ -211,18 +267,20 @@ class TextControlTest extends AbstractFormHelperTest
 
         $result = $this->Form->control('title');
         $expected = [
-            'div' => ['class' => 'form-group position-relative text is-invalid'],
-                'label' => ['class' => 'sr-only', 'for' => 'title'],
-                    'Title',
-                '/label',
-                'input' => [
-                    'type' => 'text',
-                    'name' => 'title',
-                    'id' => 'title',
-                    'class' => 'is-invalid form-control',
-                ],
-                ['div' => ['class' => 'invalid-tooltip']],
-                    'error message',
+            ['div' => ['class' => 'col-auto']],
+                'div' => ['class' => 'form-group position-relative text is-invalid'],
+                    'label' => ['class' => 'form-label visually-hidden', 'for' => 'title'],
+                        'Title',
+                    '/label',
+                    'input' => [
+                        'type' => 'text',
+                        'name' => 'title',
+                        'id' => 'title',
+                        'class' => 'is-invalid form-control',
+                    ],
+                    ['div' => ['class' => 'invalid-tooltip']],
+                        'error message',
+                    '/div',
                 '/div',
             '/div',
         ];
@@ -244,19 +302,21 @@ class TextControlTest extends AbstractFormHelperTest
         ]);
 
         $expected = [
-            'div' => [
-                'attribute' => 'container-attribute',
-                'class' => 'container-class form-group text',
-            ],
-                'label' => ['class' => 'sr-only', 'for' => 'title',],
-                    'Title',
-                '/label',
-                'input' => [
-                    'type' => 'text',
-                    'name' => 'title',
-                    'id' => 'title',
-                    'class' => 'form-control',
+            ['div' => ['class' => 'col-auto']],
+                'div' => [
+                    'attribute' => 'container-attribute',
+                    'class' => 'container-class form-group text',
                 ],
+                    'label' => ['class' => 'form-label visually-hidden', 'for' => 'title'],
+                        'Title',
+                    '/label',
+                    'input' => [
+                        'type' => 'text',
+                        'name' => 'title',
+                        'id' => 'title',
+                        'class' => 'form-control',
+                    ],
+                '/div',
             '/div',
         ];
         $this->assertHtml($expected, $result);
@@ -280,21 +340,23 @@ class TextControlTest extends AbstractFormHelperTest
         ]);
 
         $expected = [
-            'div' => [
-                'attribute' => 'container-attribute',
-                'class' => 'container-class form-group position-relative text is-invalid',
-            ],
-                'label' => ['class' => 'sr-only', 'for' => 'title',],
-                    'Title',
-                '/label',
-                'input' => [
-                    'type' => 'text',
-                    'name' => 'title',
-                    'id' => 'title',
-                    'class' => 'is-invalid form-control',
+            ['div' => ['class' => 'col-auto']],
+                'div' => [
+                    'attribute' => 'container-attribute',
+                    'class' => 'container-class form-group position-relative text is-invalid',
                 ],
-                ['div' => ['class' => 'invalid-tooltip']],
-                    'error message',
+                    'label' => ['class' => 'form-label visually-hidden', 'for' => 'title'],
+                        'Title',
+                    '/label',
+                    'input' => [
+                        'type' => 'text',
+                        'name' => 'title',
+                        'id' => 'title',
+                        'class' => 'is-invalid form-control',
+                    ],
+                    ['div' => ['class' => 'invalid-tooltip']],
+                        'error message',
+                    '/div',
                 '/div',
             '/div',
         ];
