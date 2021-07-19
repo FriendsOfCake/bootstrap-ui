@@ -28,17 +28,19 @@ class PaginatorHelper extends \Cake\View\Helper\PaginatorHelper
                     '<a class="page-link" rel="next" aria-label="Next" href="{{url}}">' .
                         '<span aria-hidden="true">{{text}}</span></a></li>',
             'nextDisabled' =>
-                '<li class="page-item disabled"><a class="page-link" tabindex="-1">' .
-                    '<span aria-hidden="true">{{text}}</span></a></li>',
+                '<li class="page-item disabled">' .
+                    '<a class="page-link" tabindex="-1" aria-disabled="true" aria-label="Next">' .
+                        '<span aria-hidden="true">{{text}}</span></a></li>',
             'prevActive' =>
                 '<li class="page-item">' .
                     '<a class="page-link" rel="prev" aria-label="Previous" href="{{url}}">' .
                         '<span aria-hidden="true">{{text}}</span></a></li>',
             'prevDisabled' =>
                 '<li class="page-item disabled">' .
-                    '<a class="page-link" tabindex="-1"><span aria-hidden="true">{{text}}</span></a></li>',
+                    '<a class="page-link" tabindex="-1" aria-disabled="true" aria-label="Previous">' .
+                        '<span aria-hidden="true">{{text}}</span></a></li>',
             'current' =>
-                '<li class="page-item active">' .
+                '<li class="page-item active" aria-current="page">' .
                     '<a class="page-link" href="#">{{text}} <span class="visually-hidden">(current)</span></a></li>',
             'first' =>
                 '<li class="page-item first"><a class="page-link" href="{{url}}">{{text}}</a></li>',
@@ -50,10 +52,10 @@ class PaginatorHelper extends \Cake\View\Helper\PaginatorHelper
 
         parent::__construct($View, $config + [
             'labels' => [
-                'first' => '&laquo;',
-                'last' => '&raquo;',
-                'prev' => '&lsaquo;',
-                'next' => '&rsaquo;',
+                'first' => '«',
+                'last' => '»',
+                'prev' => '‹',
+                'next' => '›',
             ],
         ]);
     }
@@ -73,6 +75,7 @@ class PaginatorHelper extends \Cake\View\Helper\PaginatorHelper
      * - `last` If set generates "last" link. Can be `true` or string.
      * - `size` Used to control sizing class added to UL tag. For eg.
      *   using `'size' => 'lg'` would add class `pagination-lg` to UL tag.
+     * - `escape` Whether to escape the link text. Defaults to `true`.
      *
      * @param array $options Options for the numbers.
      * @return string|false Numbers string.
@@ -86,7 +89,11 @@ class PaginatorHelper extends \Cake\View\Helper\PaginatorHelper
             'class' => $class,
             'after' => '',
             'size' => null,
+            'escape' => true,
         ];
+
+        $escape = $options['escape'];
+        unset($options['escape']);
 
         $options['class'] = implode(' ', (array)$options['class']);
 
@@ -107,7 +114,7 @@ class PaginatorHelper extends \Cake\View\Helper\PaginatorHelper
             if ($options['first'] === true) {
                 $options['first'] = $this->getConfig('labels.first');
             }
-            $options['before'] .= $this->first($options['first'], ['escape' => false]);
+            $options['before'] .= $this->first($options['first'], ['escape' => $escape]);
             unset($options['first']);
         }
 
@@ -115,21 +122,21 @@ class PaginatorHelper extends \Cake\View\Helper\PaginatorHelper
             if ($options['prev'] === true) {
                 $options['prev'] = $this->getConfig('labels.prev');
             }
-            $options['before'] .= $this->prev($options['prev'], ['escape' => false]);
+            $options['before'] .= $this->prev($options['prev'], ['escape' => $escape]);
         }
 
         if (isset($options['next'])) {
             if ($options['next'] === true) {
                 $options['next'] = $this->getConfig('labels.next');
             }
-            $options['after'] = $this->next($options['next'], ['escape' => false]);
+            $options['after'] = $this->next($options['next'], ['escape' => $escape]);
         }
 
         if (isset($options['last'])) {
             if ($options['last'] === true) {
                 $options['last'] = $this->getConfig('labels.last');
             }
-            $options['after'] .= $this->last($options['last'], ['escape' => false]);
+            $options['after'] .= $this->last($options['last'], ['escape' => $escape]);
             unset($options['last']);
         }
 

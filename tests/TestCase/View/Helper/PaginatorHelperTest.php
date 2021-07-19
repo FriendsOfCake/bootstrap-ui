@@ -4,9 +4,7 @@ declare(strict_types=1);
 namespace BootstrapUI\Test\TestCase\View\Helper;
 
 use BootstrapUI\View\Helper\PaginatorHelper;
-use Cake\Core\Configure;
 use Cake\Http\ServerRequest;
-use Cake\I18n\I18n;
 use Cake\Routing\Router;
 use Cake\TestSuite\TestCase;
 use Cake\View\View;
@@ -27,11 +25,6 @@ class PaginatorHelperTest extends TestCase
     public $Paginator;
 
     /**
-     * @var string
-     */
-    public $locale;
-
-    /**
      * setUp method
      *
      * @return void
@@ -39,8 +32,6 @@ class PaginatorHelperTest extends TestCase
     public function setUp(): void
     {
         parent::setUp();
-
-        Configure::write('Config.language', 'eng');
 
         $request = new ServerRequest([
             'params' => [
@@ -51,29 +42,22 @@ class PaginatorHelperTest extends TestCase
                 'pass' => [],
             ],
         ]);
-        $request = $request->withParam('paging', [
-            'Article' => [
-                'page' => 1,
-                'current' => 9,
-                'count' => 62,
-                'prevPage' => false,
-                'nextPage' => true,
-                'pageCount' => 7,
-                'sort' => null,
-                'direction' => null,
-                'limit' => null,
+        $request = $request->withAttribute('paging', [
+            'Client' => [
+                'page' => 2,
+                'current' => 1,
+                'count' => 3,
+                'prevPage' => 1,
+                'nextPage' => 3,
+                'pageCount' => 3,
             ],
         ]);
 
         $this->View = new View($request);
         $this->Paginator = new PaginatorHelper($this->View);
 
-        Configure::write('Routing.prefixes', []);
-        Router::reload();
         Router::connect('/{controller}/{action}/*');
         Router::setRequest($request);
-
-        $this->locale = I18n::getLocale();
     }
 
     /**
@@ -85,96 +69,275 @@ class PaginatorHelperTest extends TestCase
     {
         parent::tearDown();
         unset($this->View, $this->Paginator);
-
-        I18n::setLocale($this->locale);
     }
 
-    /**
-     * testLinks method
-     *
-     * @return void
-     */
-    public function testLinks()
+    public function testLinksDefaults(): void
     {
-        $request = $this->Paginator->getView()->getRequest()->withAttribute('paging', [
-            'Client' => [
-                'page' => 8,
-                'current' => 3,
-                'count' => 30,
-                'prevPage' => false,
-                'nextPage' => 2,
-                'pageCount' => 15,
-            ],
-        ]);
-        $this->Paginator->getView()->setRequest($request);
         $result = $this->Paginator->links();
         $expected = [
             'ul' => ['class' => 'pagination'],
-            ['li' => ['class' => 'page-item']], ['a' => ['class' => 'page-link', 'href' => '/Clients/index?page=4']], '4', '/a', '/li',
-            ['li' => ['class' => 'page-item']], ['a' => ['class' => 'page-link', 'href' => '/Clients/index?page=5']], '5', '/a', '/li',
-            ['li' => ['class' => 'page-item']], ['a' => ['class' => 'page-link', 'href' => '/Clients/index?page=6']], '6', '/a', '/li',
-            ['li' => ['class' => 'page-item']], ['a' => ['class' => 'page-link', 'href' => '/Clients/index?page=7']], '7', '/a', '/li',
-            ['li' => ['class' => 'page-item active']], ['a' => ['class' => 'page-link', 'href' => '#']], '8', ['span' => ['class' => 'visually-hidden']], '(current)', '/span', '/a', '/li',
-            ['li' => ['class' => 'page-item']], ['a' => ['class' => 'page-link', 'href' => '/Clients/index?page=9']], '9', '/a', '/li',
-            ['li' => ['class' => 'page-item']], ['a' => ['class' => 'page-link', 'href' => '/Clients/index?page=10']], '10', '/a', '/li',
-            ['li' => ['class' => 'page-item']], ['a' => ['class' => 'page-link', 'href' => '/Clients/index?page=11']], '11', '/a', '/li',
-            ['li' => ['class' => 'page-item']], ['a' => ['class' => 'page-link', 'href' => '/Clients/index?page=12']], '12', '/a', '/li',
+                ['li' => ['class' => 'page-item']],
+                    ['a' => ['class' => 'page-link', 'href' => '/Clients/index']], '1', '/a',
+                '/li',
+                ['li' => ['class' => 'page-item active', 'aria-current' => 'page']],
+                    ['a' => ['class' => 'page-link', 'href' => '#']],
+                        '2', ['span' => ['class' => 'visually-hidden']], '(current)', '/span',
+                    '/a',
+                '/li',
+                ['li' => ['class' => 'page-item']],
+                    ['a' => ['class' => 'page-link', 'href' => '/Clients/index?page=3']], '3', '/a',
+                '/li',
             '/ul',
         ];
         $this->assertHtml($expected, $result);
+    }
 
-        $request = $this->Paginator->getView()->getRequest()->withParam('paging', [
-            'Client' => [
-                'page' => 8,
-                'current' => 3,
-                'count' => 30,
-                'prevPage' => false,
-                'nextPage' => 2,
-                'pageCount' => 15,
-            ],
-        ]);
-        $this->Paginator->getView()->setRequest($request);
+    public function testLinksAllControls(): void
+    {
         $result = $this->Paginator->links(['prev' => true, 'next' => true, 'first' => true, 'last' => true]);
         $expected = [
             'ul' => ['class' => 'pagination'],
-            ['li' => ['class' => 'page-item first']], ['a' => ['class' => 'page-link', 'href' => '/Clients/index']], '&laquo;', '/a', '/li',
-            ['li' => ['class' => 'page-item disabled']], ['a' => ['class' => 'page-link', 'tabindex' => '-1']], ['span' => ['aria-hidden' => 'true']], '&lsaquo;', '/span', '/a', '/li',
-            ['li' => ['class' => 'page-item']], ['a' => ['class' => 'page-link', 'href' => '/Clients/index?page=4']], '4', '/a', '/li',
-            ['li' => ['class' => 'page-item']], ['a' => ['class' => 'page-link', 'href' => '/Clients/index?page=5']], '5', '/a', '/li',
-            ['li' => ['class' => 'page-item']], ['a' => ['class' => 'page-link', 'href' => '/Clients/index?page=6']], '6', '/a', '/li',
-            ['li' => ['class' => 'page-item']], ['a' => ['class' => 'page-link', 'href' => '/Clients/index?page=7']], '7', '/a', '/li',
-            ['li' => ['class' => 'page-item active']], ['a' => ['class' => 'page-link', 'href' => '#']], '8', ['span' => ['class' => 'visually-hidden']], '(current)', '/span', '/a', '/li',
-            ['li' => ['class' => 'page-item']], ['a' => ['class' => 'page-link', 'href' => '/Clients/index?page=9']], '9', '/a', '/li',
-            ['li' => ['class' => 'page-item']], ['a' => ['class' => 'page-link', 'href' => '/Clients/index?page=10']], '10', '/a', '/li',
-            ['li' => ['class' => 'page-item']], ['a' => ['class' => 'page-link', 'href' => '/Clients/index?page=11']], '11', '/a', '/li',
-            ['li' => ['class' => 'page-item']], ['a' => ['class' => 'page-link', 'href' => '/Clients/index?page=12']], '12', '/a', '/li',
-            ['li' => ['class' => 'page-item']], ['a' => ['class' => 'page-link', 'rel' => 'next', 'aria-label' => 'Next', 'href' => '/Clients/index?page=9']], ['span' => ['aria-hidden' => 'true']], '&rsaquo;', '/span', '/a', '/li',
-            ['li' => ['class' => 'page-item last']], ['a' => ['class' => 'page-link', 'href' => '/Clients/index?page=15']], '&raquo;', '/a', '/li',
+                ['li' => ['class' => 'page-item first']],
+                    ['a' => ['class' => 'page-link', 'href' => '/Clients/index']], '«', '/a',
+                '/li',
+                ['li' => ['class' => 'page-item']],
+                    ['a' => [
+                        'class' => 'page-link',
+                        'rel' => 'prev',
+                        'aria-label' => 'Previous',
+                        'href' => '/Clients/index',
+                    ]],
+                        ['span' => ['aria-hidden' => 'true']], '‹', '/span',
+                    '/a',
+                '/li',
+                ['li' => ['class' => 'page-item']],
+                    ['a' => ['class' => 'page-link', 'href' => '/Clients/index']], '1', '/a',
+                '/li',
+                ['li' => ['class' => 'page-item active', 'aria-current' => 'page']],
+                    ['a' => ['class' => 'page-link', 'href' => '#']],
+                        '2', ['span' => ['class' => 'visually-hidden']], '(current)', '/span',
+                    '/a',
+                '/li',
+                ['li' => ['class' => 'page-item']],
+                    ['a' => ['class' => 'page-link', 'href' => '/Clients/index?page=3']], '3', '/a',
+                '/li',
+                ['li' => ['class' => 'page-item']],
+                    ['a' => [
+                        'class' => 'page-link',
+                        'rel' => 'next',
+                        'aria-label' => 'Next',
+                        'href' => '/Clients/index?page=3',
+                    ]],
+                        ['span' => ['aria-hidden' => 'true']], '›', '/span', '/a',
+                '/li',
+                ['li' => ['class' => 'page-item last']],
+                    ['a' => ['class' => 'page-link', 'href' => '/Clients/index?page=3']], '»', '/a',
+                '/li',
             '/ul',
         ];
         $this->assertHtml($expected, $result);
+    }
 
-        $request = $this->Paginator->getView()->getRequest()->withAttribute('paging', [
+    public function testLinksNoPreviousNext(): void
+    {
+        $request = $this->Paginator->getView()->getRequest();
+        $request = $request->withAttribute('paging', [
             'Client' => [
-                'page' => 1,
-                'current' => 1,
-                'count' => 2,
                 'prevPage' => false,
-                'nextPage' => 2,
-                'pageCount' => 2,
-            ],
+                'nextPage' => false,
+            ] + $request->getAttribute('paging')['Client'],
         ]);
         $this->Paginator->getView()->setRequest($request);
+
+        $result = $this->Paginator->links(['prev' => true, 'next' => true, 'first' => true, 'last' => true]);
+        $expected = [
+            'ul' => ['class' => 'pagination'],
+                ['li' => ['class' => 'page-item first']],
+                    ['a' => ['class' => 'page-link', 'href' => '/Clients/index']], '«', '/a',
+                '/li',
+                ['li' => ['class' => 'page-item disabled']],
+                    ['a' => [
+                        'class' => 'page-link',
+                        'tabindex' => '-1',
+                        'aria-disabled' => 'true',
+                        'aria-label' => 'Previous',
+                    ]],
+                        ['span' => ['aria-hidden' => 'true']], '‹', '/span',
+                    '/a',
+                '/li',
+                ['li' => ['class' => 'page-item']],
+                    ['a' => ['class' => 'page-link', 'href' => '/Clients/index']], '1', '/a',
+                '/li',
+                ['li' => ['class' => 'page-item active', 'aria-current' => 'page']],
+                    ['a' => ['class' => 'page-link', 'href' => '#']],
+                        '2', ['span' => ['class' => 'visually-hidden']], '(current)', '/span',
+                    '/a',
+                '/li',
+                ['li' => ['class' => 'page-item']],
+                    ['a' => ['class' => 'page-link', 'href' => '/Clients/index?page=3']], '3', '/a',
+                '/li',
+                ['li' => ['class' => 'page-item disabled']],
+                    ['a' => [
+                        'class' => 'page-link',
+                        'tabindex' => '-1',
+                        'aria-disabled' => 'true',
+                        'aria-label' => 'Next',
+                    ]],
+                        ['span' => ['aria-hidden' => 'true']], '›', '/span', '/a',
+                '/li',
+                ['li' => ['class' => 'page-item last']],
+                    ['a' => ['class' => 'page-link', 'href' => '/Clients/index?page=3']], '»', '/a',
+                '/li',
+            '/ul',
+        ];
+        $this->assertHtml($expected, $result);
+    }
+
+    public function testLinksSize(): void
+    {
         $result = $this->Paginator->links(['size' => 'lg']);
         $expected = [
             'ul' => ['class' => 'pagination pagination-lg'],
-            ['li' => ['class' => 'page-item active']], 'a' => ['class' => 'page-link', 'href' => '#'], '1', 'span' => ['class' => 'visually-hidden'], '(current)', '/span', '/a', '/li',
-            ['li' => ['class' => 'page-item']], ['a' => ['class' => 'page-link', 'href' => '/Clients/index?page=2']], '2', '/a', '/li',
+                ['li' => ['class' => 'page-item']],
+                    ['a' => ['class' => 'page-link', 'href' => '/Clients/index']], '1', '/a',
+                '/li',
+                ['li' => ['class' => 'page-item active', 'aria-current' => 'page']],
+                    'a' => ['class' => 'page-link', 'href' => '#'],
+                        '2', 'span' => ['class' => 'visually-hidden'], '(current)', '/span',
+                    '/a',
+                '/li',
+                ['li' => ['class' => 'page-item']],
+                    ['a' => ['class' => 'page-link', 'href' => '/Clients/index?page=3']], '3', '/a',
+                '/li',
             '/ul',
         ];
         $this->assertHtml($expected, $result);
+    }
 
+    public function testLinksInvalidSize(): void
+    {
         $result = $this->Paginator->links(['size' => 'sx']);
         $this->assertFalse($result);
+    }
+
+    public function testLinksEscape(): void
+    {
+        $result = $this->Paginator->links([
+            'first' => '<i class="bi bi-arrow-left"></i>',
+            'last' => '<i class="bi bi-arrow-right"></i>',
+            'prev' => '<i class="bi bi-arrow-left-short"></i>',
+            'next' => '<i class="bi bi-arrow-right-short"></i>',
+        ]);
+        $expected = [
+            'ul' => ['class' => 'pagination'],
+                ['li' => ['class' => 'page-item first']],
+                    ['a' => ['class' => 'page-link', 'href' => '/Clients/index']],
+                        '&lt;i class=&quot;bi bi-arrow-left&quot;&gt;&lt;/i&gt;',
+                    '/a',
+                '/li',
+                ['li' => ['class' => 'page-item']],
+                    ['a' => [
+                        'class' => 'page-link',
+                        'rel' => 'prev',
+                        'aria-label' => 'Previous',
+                        'href' => '/Clients/index',
+                    ]],
+                        ['span' => ['aria-hidden' => 'true']],
+                            '&lt;i class=&quot;bi bi-arrow-left-short&quot;&gt;&lt;/i&gt;',
+                        '/span',
+                    '/a',
+                '/li',
+                ['li' => ['class' => 'page-item']],
+                    ['a' => ['class' => 'page-link', 'href' => '/Clients/index']], '1', '/a',
+                '/li',
+                ['li' => ['class' => 'page-item active', 'aria-current' => 'page']],
+                    'a' => ['class' => 'page-link', 'href' => '#'],
+                        '2', 'span' => ['class' => 'visually-hidden'], '(current)', '/span',
+                    '/a',
+                '/li',
+                ['li' => ['class' => 'page-item']],
+                    ['a' => ['class' => 'page-link', 'href' => '/Clients/index?page=3']], '3', '/a',
+                '/li',
+                ['li' => ['class' => 'page-item']],
+                    ['a' => [
+                        'class' => 'page-link',
+                        'rel' => 'next',
+                        'aria-label' => 'Next',
+                        'href' => '/Clients/index?page=3',
+                    ]],
+                        ['span' => ['aria-hidden' => 'true']],
+                            '&lt;i class=&quot;bi bi-arrow-right-short&quot;&gt;&lt;/i&gt;',
+                        '/span',
+                    '/a',
+                '/li',
+                ['li' => ['class' => 'page-item last']],
+                    ['a' => ['class' => 'page-link', 'href' => '/Clients/index?page=3']],
+                        '&lt;i class=&quot;bi bi-arrow-right&quot;&gt;&lt;/i&gt;',
+                    '/a',
+                '/li',
+            '/ul',
+        ];
+        $this->assertHtml($expected, $result, true);
+    }
+
+    public function testLinksDisableEscape(): void
+    {
+        $result = $this->Paginator->links([
+            'first' => '<i class="bi bi-arrow-left"></i>',
+            'last' => '<i class="bi bi-arrow-right"></i>',
+            'prev' => '<i class="bi bi-arrow-left-short"></i>',
+            'next' => '<i class="bi bi-arrow-right-short"></i>',
+            'escape' => false,
+        ]);
+        $expected = [
+            'ul' => ['class' => 'pagination'],
+                ['li' => ['class' => 'page-item first']],
+                    ['a' => ['class' => 'page-link', 'href' => '/Clients/index']],
+                        ['i' => ['class' => 'bi bi-arrow-left']], '/i',
+                    '/a',
+                '/li',
+                ['li' => ['class' => 'page-item']],
+                    ['a' => [
+                        'class' => 'page-link',
+                        'rel' => 'prev',
+                        'aria-label' => 'Previous',
+                        'href' => '/Clients/index',
+                    ]],
+                        ['span' => ['aria-hidden' => 'true']],
+                            ['i' => ['class' => 'bi bi-arrow-left-short']], '/i',
+                        '/span',
+                    '/a',
+                '/li',
+                ['li' => ['class' => 'page-item']],
+                    ['a' => ['class' => 'page-link', 'href' => '/Clients/index']], '1', '/a',
+                '/li',
+                ['li' => ['class' => 'page-item active', 'aria-current' => 'page']],
+                    'a' => ['class' => 'page-link', 'href' => '#'],
+                        '2', 'span' => ['class' => 'visually-hidden'], '(current)', '/span',
+                    '/a',
+                '/li',
+                ['li' => ['class' => 'page-item']],
+                    ['a' => ['class' => 'page-link', 'href' => '/Clients/index?page=3']], '3', '/a',
+                '/li',
+                ['li' => ['class' => 'page-item']],
+                    ['a' => [
+                        'class' => 'page-link',
+                        'rel' => 'next',
+                        'aria-label' => 'Next',
+                        'href' => '/Clients/index?page=3',
+                    ]],
+                        ['span' => ['aria-hidden' => 'true']],
+                            ['i' => ['class' => 'bi bi-arrow-right-short']], '/i',
+                        '/span',
+                    '/a',
+                '/li',
+                ['li' => ['class' => 'page-item last']],
+                    ['a' => ['class' => 'page-link', 'href' => '/Clients/index?page=3']],
+                        ['i' => ['class' => 'bi bi-arrow-right']], '/i',
+                    '/a',
+                '/li',
+            '/ul',
+        ];
+        $this->assertHtml($expected, $result, true);
     }
 }
