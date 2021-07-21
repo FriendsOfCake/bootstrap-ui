@@ -289,7 +289,7 @@ class PaginatorHelper extends \Cake\View\Helper\PaginatorHelper
         unset($options['label']);
 
         $options['templates'] += [
-            "{$name}" => $this->getConfig("templates.{$name}"),
+            "{$name}" => $this->getConfig("templates.{$name}", ''),
             "{$name}Active" => $this->getConfig("templates.{$name}Active", ''),
             "{$name}Disabled" => $this->getConfig("templates.{$name}Disabled", ''),
         ];
