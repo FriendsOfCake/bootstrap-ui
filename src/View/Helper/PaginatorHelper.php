@@ -15,6 +15,30 @@ class PaginatorHelper extends \Cake\View\Helper\PaginatorHelper
     protected $_allowedSizes = ['sm', 'lg'];
 
     /**
+     * Label defaults.
+     *
+     * @var array
+     */
+    protected $_labels = [
+        'first' => [
+            'label' => 'First',
+            'text' => '«',
+        ],
+        'last' => [
+            'label' => 'Last',
+            'text' => '»',
+        ],
+        'prev' => [
+            'label' => 'Previous',
+            'text' => '‹',
+        ],
+        'next' => [
+            'label' => 'Next',
+            'text' => '›',
+        ],
+    ];
+
+    /**
      * Constructor. Overridden to merge passed args with URL options.
      *
      * @param \Cake\View\View $View The View this helper is being attached to.
@@ -25,39 +49,114 @@ class PaginatorHelper extends \Cake\View\Helper\PaginatorHelper
         $this->_defaultConfig['templates'] = [
             'nextActive' =>
                 '<li class="page-item">' .
-                    '<a class="page-link" rel="next" aria-label="Next" href="{{url}}">' .
+                    '<a class="page-link" rel="next" aria-label="{{label}}" href="{{url}}">' .
                         '<span aria-hidden="true">{{text}}</span></a></li>',
             'nextDisabled' =>
                 '<li class="page-item disabled">' .
-                    '<a class="page-link" tabindex="-1" aria-disabled="true" aria-label="Next">' .
+                    '<a class="page-link" tabindex="-1" aria-disabled="true" aria-label="{{label}}">' .
                         '<span aria-hidden="true">{{text}}</span></a></li>',
             'prevActive' =>
                 '<li class="page-item">' .
-                    '<a class="page-link" rel="prev" aria-label="Previous" href="{{url}}">' .
+                    '<a class="page-link" rel="prev" aria-label="{{label}}" href="{{url}}">' .
                         '<span aria-hidden="true">{{text}}</span></a></li>',
             'prevDisabled' =>
                 '<li class="page-item disabled">' .
-                    '<a class="page-link" tabindex="-1" aria-disabled="true" aria-label="Previous">' .
+                    '<a class="page-link" tabindex="-1" aria-disabled="true" aria-label="{{label}}">' .
                         '<span aria-hidden="true">{{text}}</span></a></li>',
             'current' =>
                 '<li class="page-item active" aria-current="page">' .
-                    '<a class="page-link" href="#">{{text}} <span class="visually-hidden">(current)</span></a></li>',
+                    '<a class="page-link" href="#">{{text}}</a></li>',
             'first' =>
-                '<li class="page-item first"><a class="page-link" href="{{url}}">{{text}}</a></li>',
+                '<li class="page-item first"><a class="page-link" aria-label="{{label}}" href="{{url}}">' .
+                    '<span aria-hidden="true">{{text}}</span></a></li>',
             'last' =>
-                '<li class="page-item last"><a class="page-link" href="{{url}}">{{text}}</a></li>',
+                '<li class="page-item last"><a class="page-link" aria-label="{{label}}" href="{{url}}">' .
+                    '<span aria-hidden="true">{{text}}</span></a></li>',
             'number' =>
                 '<li class="page-item"><a class="page-link" href="{{url}}">{{text}}</a></li>',
         ] + $this->_defaultConfig['templates'];
 
         parent::__construct($View, $config + [
-            'labels' => [
-                'first' => '«',
-                'last' => '»',
-                'prev' => '‹',
-                'next' => '›',
-            ],
+            'labels' => $this->_labels,
         ]);
+    }
+
+    /**
+     * {@inheritDoc}
+     *
+     * This methods supports the following options additionally to the ones supported by the core:
+     *
+     * - `label` The text to use for the ARIA label property.
+     * - `templates` An array of templates, or template file name containing the templates you'd like to use when
+     *    generating the link for first page. This method uses the `first` template.
+     */
+    public function first($first = '«', array $options = []): string
+    {
+        $options = $this->_templateOptions('first', $options);
+
+        $templater = $this->templater();
+        $templater->push();
+        $templateMethod = is_string($options['templates']) ? 'load' : 'add';
+        $templater->{$templateMethod}($options['templates']);
+
+        $out = parent::first($first, $options);
+
+        $templater->pop();
+
+        return $out;
+    }
+
+    /**
+     * {@inheritDoc}
+     *
+     * This methods supports the following options additionally to the ones supported by the core:
+     *
+     * - `label` The text to use for the ARIA label property.
+     * - `templates` An array of templates, or template file name containing the templates you'd like to use when
+     *    generating the link for last page. This method uses the `last` template.
+     */
+    public function last($last = '»', array $options = []): string
+    {
+        $options = $this->_templateOptions('last', $options);
+
+        $templater = $this->templater();
+        $templater->push();
+        $templateMethod = is_string($options['templates']) ? 'load' : 'add';
+        $templater->{$templateMethod}($options['templates']);
+
+        $out = parent::last($last, $options);
+
+        $templater->pop();
+
+        return $out;
+    }
+
+    /**
+     * {@inheritDoc}
+     *
+     * This methods supports the following options additionally to the ones supported by the core:
+     *
+     * - `label` The text to use for the ARIA label property.
+     */
+    public function prev(string $title = '‹', array $options = []): string
+    {
+        $options = $this->_templateOptions('prev', $options);
+
+        return parent::prev($title, $options);
+    }
+
+    /**
+     * {@inheritDoc}
+     *
+     * This methods supports the following options additionally to the ones supported by the core:
+     *
+     * - `label` The text to use for the ARIA label property.
+     */
+    public function next(string $title = '›', array $options = []): string
+    {
+        $options = $this->_templateOptions('next', $options);
+
+        return parent::next($title, $options);
     }
 
     /**
@@ -69,16 +168,16 @@ class PaginatorHelper extends \Cake\View\Helper\PaginatorHelper
      *
      * ### Options
      *
-     * - `first` If set generates "first" link. Can be `true` or string.
-     * - `prev` If set generates "previous" link. Can be `true` or string.
-     * - `next` If set generates "next" link. Can be `true` or string.
-     * - `last` If set generates "last" link. Can be `true` or string.
+     * - `first` If set generates "first" link. Can be `true`, a string, or an array.
+     * - `prev` If set generates "previous" link. Can be `true`, a string, or an array.
+     * - `next` If set generates "next" link. Can be `true`, a string, or an array.
+     * - `last` If set generates "last" link. Can be `true`, a string, or an array.
      * - `size` Used to control sizing class added to UL tag. For eg.
      *   using `'size' => 'lg'` would add class `pagination-lg` to UL tag.
      * - `escape` Whether to escape the link text. Defaults to `true`.
      *
      * @param array $options Options for the numbers.
-     * @return string|false Numbers string.
+     * @return string|false Pagination controls markup, or `false` in case of an invalid `size` option.
      * @link http://book.cakephp.org/3.0/en/views/helpers/paginator.html#creating-page-number-links
      */
     public function links(array $options = [])
@@ -111,37 +210,97 @@ class PaginatorHelper extends \Cake\View\Helper\PaginatorHelper
         unset($options['class'], $options['size']);
 
         if (isset($options['first'])) {
-            if ($options['first'] === true) {
-                $options['first'] = $this->getConfig('labels.first');
-            }
-            $options['before'] .= $this->first($options['first'], ['escape' => $escape]);
+            $options = $this->_labelOptions('first', $options);
+            $options['before'] .= $this->first($options['first']['text'], [
+                'label' => $options['first']['label'],
+                'escape' => $escape,
+            ]);
             unset($options['first']);
         }
 
         if (isset($options['prev'])) {
-            if ($options['prev'] === true) {
-                $options['prev'] = $this->getConfig('labels.prev');
-            }
-            $options['before'] .= $this->prev($options['prev'], ['escape' => $escape]);
+            $options = $this->_labelOptions('prev', $options);
+            $options['before'] .= $this->prev($options['prev']['text'], [
+                'label' => $options['prev']['label'],
+                'escape' => $escape,
+            ]);
+            unset($options['prev']);
         }
 
         if (isset($options['next'])) {
-            if ($options['next'] === true) {
-                $options['next'] = $this->getConfig('labels.next');
-            }
-            $options['after'] = $this->next($options['next'], ['escape' => $escape]);
+            $options = $this->_labelOptions('next', $options);
+            $options['after'] = $this->next($options['next']['text'], [
+                'label' => $options['next']['label'],
+                'escape' => $escape,
+            ]);
+            unset($options['next']);
         }
 
         if (isset($options['last'])) {
-            if ($options['last'] === true) {
-                $options['last'] = $this->getConfig('labels.last');
-            }
-            $options['after'] .= $this->last($options['last'], ['escape' => $escape]);
+            $options = $this->_labelOptions('last', $options);
+            $options['after'] .= $this->last($options['last']['text'], [
+                'label' => $options['last']['label'],
+                'escape' => $escape,
+            ]);
             unset($options['last']);
         }
 
         $options['after'] .= '</ul>';
 
         return parent::numbers($options);
+    }
+
+    /**
+     * Prepares label options.
+     *
+     * @param string $name The name of the control for which to prepare the label options.
+     * @param array $options The array containing the label option.
+     * @return array
+     */
+    protected function _labelOptions(string $name, array $options): array
+    {
+        if ($options[$name] === true) {
+            $options[$name] = $this->getConfig("labels.$name");
+        }
+        if (!is_array($options[$name])) {
+            $options[$name] = [
+                'text' => $options[$name],
+            ];
+        }
+        $options[$name] += $this->_labels[$name];
+
+        return $options;
+    }
+
+    /**
+     * Prepares template options.
+     *
+     * @param string $name The name of the control for which to prepare the template options.
+     * @param array $options The array containing the template option.
+     * @return array
+     */
+    protected function _templateOptions(string $name, array $options): array
+    {
+        $options += [
+            'label' => $this->getConfig("labels.{$name}.label"),
+            'templates' => [],
+        ];
+        $label = $options['label'];
+        unset($options['label']);
+
+        $options['templates'] += [
+            "{$name}" => $this->getConfig("templates.{$name}"),
+            "{$name}Active" => $this->getConfig("templates.{$name}Active", ''),
+            "{$name}Disabled" => $this->getConfig("templates.{$name}Disabled", ''),
+        ];
+
+        $options['templates']["{$name}"] =
+            str_replace('{{label}}', h($label), $options['templates']["{$name}"]);
+        $options['templates']["{$name}Active"] =
+            str_replace('{{label}}', h($label), $options['templates']["{$name}Active"]);
+        $options['templates']["{$name}Disabled"] =
+            str_replace('{{label}}', h($label), $options['templates']["{$name}Disabled"]);
+
+        return $options;
     }
 }

@@ -948,6 +948,194 @@ $this->loadHelper('Flash', [
 ]);
 ```
 
+### Pagination
+
+The paginator helper generates bootstrap compatible/styles markup when using the helper's standard methods, and also
+includes a convenience method that can generate a full set of pagination controls, that is first/previous/next/last as
+well as page number links, all enclosed in a list wrapper.
+
+```php
+echo $this->Paginator->first();
+echo $this->Paginator->prev();
+echo $this->Paginator->numbers();
+echo $this->Paginator->next();
+echo $this->Paginator->last();
+```
+
+This would generate the following HTML:
+
+```html
+<li class="page-item first">
+    <a class="page-link" aria-label="First" href="/articles/index">
+        <span aria-hidden="true">«</span>
+    </a>
+</li>
+<li class="page-item">
+    <a class="page-link" rel="prev" aria-label="Previous" href="/articles/index">
+        <span aria-hidden="true">‹</span>
+    </a>
+</li>
+<li class="page-item">
+    <a class="page-link" href="/articles/index">1</a>
+</li>
+<li class="page-item active" aria-current="page">
+    <a class="page-link" href="#">2</a>
+</li>
+<li class="page-item">
+    <a class="page-link" href="/articles/index?page=3">3</a>
+</li>
+<li class="page-item">
+    <a class="page-link" rel="next" aria-label="Next" href="/articles/index?page=3">
+        <span aria-hidden="true">›</span>
+    </a>
+</li>
+<li class="page-item last">
+    <a class="page-link" aria-label="Last" href="/articles/index?page=3">
+        <span aria-hidden="true">»</span>
+    </a>
+</li>
+```
+
+#### Configuring the ARIA labels
+
+When using the standard methods you can use the `label` option to pass a custom string to use for
+[the `aria-label` attribute](https://getbootstrap.com/docs/5.0/components/pagination/#working-with-icons):
+
+```php
+echo $this->Paginator->first('«', ['label' => __('Beginning')]);
+echo $this->Paginator->prev('‹', ['label' => __('Back')]);
+echo $this->Paginator->next('›', ['label' => __('Forward')]);
+echo $this->Paginator->last('»', ['label' => __('End')]);
+```
+
+This would generate the following HTML:
+
+```html
+<li class="page-item first">
+    <a class="page-link" aria-label="Beginning" href="/articles/index">
+        <span aria-hidden="true">«</span>
+    </a>
+</li>
+<li class="page-item">
+    <a class="page-link" rel="prev" aria-label="Back" href="/articles/index">
+        <span aria-hidden="true">‹</span>
+    </a>
+</li>
+<li class="page-item">
+    <a class="page-link" rel="next" aria-label="Forward" href="/articles/index?page=3">
+        <span aria-hidden="true">›</span>
+    </a>
+</li>
+<li class="page-item last">
+    <a class="page-link" aria-label="End" href="/articles/index?page=3">
+        <span aria-hidden="true">»</span>
+    </a>
+</li>
+```
+
+#### Generating a full set of controls
+
+A full set of pagination controls, that is first/previous/next/last as well as page number links, all enclosed in a list
+wrapper, can be generated using the `links()` method.
+
+By default it renders numbers only:
+
+```php
+echo $this->Paginator->links();
+```
+
+This would generate the following HTML:
+
+```html
+<ul class="pagination">
+    <li class="page-item">
+        <a class="page-link" href="/articles/index">1</a>
+    </li>
+    <li class="page-item active" aria-current="page">
+        <a class="page-link" href="#">2</a>
+    </li>
+    <li class="page-item">
+        <a class="page-link" href="/articles/index?page=3">3</a>
+    </li>
+</ul>
+```
+
+##### Configuring controls
+
+The generated controls can be configured via the `first`, `prev`, `next`, and `last` options, which each can take either
+boolean `true` to generate the control with the helper defaults, a string that is used as the control's text, or an
+array that allows specifying the link text as well as the ARIA label.
+
+The generated controls can be configured via the `first`, `prev`, `next`, and `last` options, which each take either
+boolean `true` to indicate that the control should be generated using the helper defaults, a string that is used as the
+control's text, or an array with `label` and `text` options that determine the ARIA label value and the link text:
+
+```php
+echo $this->Paginator->links([
+    'first' => '❮❮',
+    'prev' => true,
+    'next' => true,
+    'last' => [
+        'label' => 'End',
+        'text' => '❯❯',
+    ],
+]);
+```
+
+This would generate the following HTML:
+
+```html
+<ul class="pagination">
+    <li class="page-item first">
+        <a class="page-link" aria-label="First" href="/articles/index">
+            <span aria-hidden="true">❮❮</span>
+        </a>
+    </li>
+    <li class="page-item">
+        <a class="page-link" rel="prev" aria-label="Previous" href="/articles/index">
+            <span aria-hidden="true">‹</span>
+        </a>
+    </li>
+    <li class="page-item">
+        <a class="page-link" href="/articles/index">1</a>
+    </li>
+    <li class="page-item active" aria-current="page">
+        <a class="page-link" href="#">2</a>
+    </li>
+    <li class="page-item">
+        <a class="page-link" href="/articles/index?page=3">3</a>
+    </li>
+    <li class="page-item">
+        <a class="page-link" rel="next" aria-label="Next" href="/articles/index?page=3">
+            <span aria-hidden="true">›</span>
+        </a>
+    </li>
+    <li class="page-item last">
+        <a class="page-link" aria-label="End" href="/articles/index?page=3">
+            <span aria-hidden="true">❯❯</span>
+        </a>
+    </li>
+</ul>
+```
+
+##### Sizing
+
+[The size](https://getbootstrap.com/docs/5.0/components/pagination/#sizing) can be specified via the `size` option:
+
+```php
+echo $this->Paginator->links([
+    'size' => 'lg',
+]);
+```
+
+This would generate the following HTML:
+
+```html
+<ul class="pagination pagination-lg">
+    <!-- ... -->
+</ul>
+```
+
 ## Contributing
 
 ### Patches & Features

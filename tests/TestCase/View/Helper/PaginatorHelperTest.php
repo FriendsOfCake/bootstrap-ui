@@ -81,7 +81,7 @@ class PaginatorHelperTest extends TestCase
                 '/li',
                 ['li' => ['class' => 'page-item active', 'aria-current' => 'page']],
                     ['a' => ['class' => 'page-link', 'href' => '#']],
-                        '2', ['span' => ['class' => 'visually-hidden']], '(current)', '/span',
+                        '2',
                     '/a',
                 '/li',
                 ['li' => ['class' => 'page-item']],
@@ -98,7 +98,9 @@ class PaginatorHelperTest extends TestCase
         $expected = [
             'ul' => ['class' => 'pagination'],
                 ['li' => ['class' => 'page-item first']],
-                    ['a' => ['class' => 'page-link', 'href' => '/Clients/index']], '«', '/a',
+                    ['a' => ['class' => 'page-link', 'aria-label' => 'First', 'href' => '/Clients/index']],
+                        ['span' => ['aria-hidden' => 'true']], '«', '/span',
+                    '/a',
                 '/li',
                 ['li' => ['class' => 'page-item']],
                     ['a' => [
@@ -115,7 +117,7 @@ class PaginatorHelperTest extends TestCase
                 '/li',
                 ['li' => ['class' => 'page-item active', 'aria-current' => 'page']],
                     ['a' => ['class' => 'page-link', 'href' => '#']],
-                        '2', ['span' => ['class' => 'visually-hidden']], '(current)', '/span',
+                        '2',
                     '/a',
                 '/li',
                 ['li' => ['class' => 'page-item']],
@@ -131,7 +133,78 @@ class PaginatorHelperTest extends TestCase
                         ['span' => ['aria-hidden' => 'true']], '›', '/span', '/a',
                 '/li',
                 ['li' => ['class' => 'page-item last']],
-                    ['a' => ['class' => 'page-link', 'href' => '/Clients/index?page=3']], '»', '/a',
+                    ['a' => ['class' => 'page-link', 'aria-label' => 'Last', 'href' => '/Clients/index?page=3']],
+                        ['span' => ['aria-hidden' => 'true']], '»', '/span',
+                    '/a',
+                '/li',
+            '/ul',
+        ];
+        $this->assertHtml($expected, $result);
+    }
+
+    public function testLinksCustomTextAndLabels(): void
+    {
+        echo $this->Paginator->links();
+
+        $result = $this->Paginator->links([
+            'first' => [
+                'label' => 'Beginning',
+                'text' => '❰❰',
+            ],
+            'last' => [
+                'label' => 'End',
+                'text' => '❱❱',
+            ],
+            'prev' => [
+                'label' => 'Back',
+                'text' => '❮',
+            ],
+            'next' => [
+                'label' => 'Forward',
+                'text' => '❯',
+            ],
+        ]);
+        $expected = [
+            'ul' => ['class' => 'pagination'],
+                ['li' => ['class' => 'page-item first']],
+                    ['a' => ['class' => 'page-link', 'aria-label' => 'Beginning', 'href' => '/Clients/index']],
+                        ['span' => ['aria-hidden' => 'true']], '❰❰', '/span',
+                    '/a',
+                '/li',
+                ['li' => ['class' => 'page-item']],
+                    ['a' => [
+                        'class' => 'page-link',
+                        'rel' => 'prev',
+                        'aria-label' => 'Back',
+                        'href' => '/Clients/index',
+                    ]],
+                        ['span' => ['aria-hidden' => 'true']], '❮', '/span',
+                    '/a',
+                '/li',
+                ['li' => ['class' => 'page-item']],
+                    ['a' => ['class' => 'page-link', 'href' => '/Clients/index']], '1', '/a',
+                '/li',
+                ['li' => ['class' => 'page-item active', 'aria-current' => 'page']],
+                    ['a' => ['class' => 'page-link', 'href' => '#']],
+                        '2',
+                    '/a',
+                '/li',
+                ['li' => ['class' => 'page-item']],
+                    ['a' => ['class' => 'page-link', 'href' => '/Clients/index?page=3']], '3', '/a',
+                '/li',
+                ['li' => ['class' => 'page-item']],
+                    ['a' => [
+                        'class' => 'page-link',
+                        'rel' => 'next',
+                        'aria-label' => 'Forward',
+                        'href' => '/Clients/index?page=3',
+                    ]],
+                        ['span' => ['aria-hidden' => 'true']], '❯', '/span', '/a',
+                '/li',
+                ['li' => ['class' => 'page-item last']],
+                    ['a' => ['class' => 'page-link', 'aria-label' => 'End', 'href' => '/Clients/index?page=3']],
+                        ['span' => ['aria-hidden' => 'true']], '❱❱', '/span',
+                    '/a',
                 '/li',
             '/ul',
         ];
@@ -153,7 +226,9 @@ class PaginatorHelperTest extends TestCase
         $expected = [
             'ul' => ['class' => 'pagination'],
                 ['li' => ['class' => 'page-item first']],
-                    ['a' => ['class' => 'page-link', 'href' => '/Clients/index']], '«', '/a',
+                    ['a' => ['class' => 'page-link', 'aria-label' => 'First', 'href' => '/Clients/index']],
+                        ['span' => ['aria-hidden' => 'true']], '«', '/span',
+                    '/a',
                 '/li',
                 ['li' => ['class' => 'page-item disabled']],
                     ['a' => [
@@ -170,7 +245,7 @@ class PaginatorHelperTest extends TestCase
                 '/li',
                 ['li' => ['class' => 'page-item active', 'aria-current' => 'page']],
                     ['a' => ['class' => 'page-link', 'href' => '#']],
-                        '2', ['span' => ['class' => 'visually-hidden']], '(current)', '/span',
+                        '2',
                     '/a',
                 '/li',
                 ['li' => ['class' => 'page-item']],
@@ -186,7 +261,9 @@ class PaginatorHelperTest extends TestCase
                         ['span' => ['aria-hidden' => 'true']], '›', '/span', '/a',
                 '/li',
                 ['li' => ['class' => 'page-item last']],
-                    ['a' => ['class' => 'page-link', 'href' => '/Clients/index?page=3']], '»', '/a',
+                    ['a' => ['class' => 'page-link', 'aria-label' => 'Last', 'href' => '/Clients/index?page=3']],
+                        ['span' => ['aria-hidden' => 'true']], '»', '/span',
+                    '/a',
                 '/li',
             '/ul',
         ];
@@ -203,7 +280,7 @@ class PaginatorHelperTest extends TestCase
                 '/li',
                 ['li' => ['class' => 'page-item active', 'aria-current' => 'page']],
                     'a' => ['class' => 'page-link', 'href' => '#'],
-                        '2', 'span' => ['class' => 'visually-hidden'], '(current)', '/span',
+                        '2',
                     '/a',
                 '/li',
                 ['li' => ['class' => 'page-item']],
@@ -231,8 +308,10 @@ class PaginatorHelperTest extends TestCase
         $expected = [
             'ul' => ['class' => 'pagination'],
                 ['li' => ['class' => 'page-item first']],
-                    ['a' => ['class' => 'page-link', 'href' => '/Clients/index']],
-                        '&lt;i class=&quot;bi bi-arrow-left&quot;&gt;&lt;/i&gt;',
+                    ['a' => ['class' => 'page-link', 'aria-label' => 'First', 'href' => '/Clients/index']],
+                        ['span' => ['aria-hidden' => 'true']],
+                            '&lt;i class=&quot;bi bi-arrow-left&quot;&gt;&lt;/i&gt;',
+                        '/span',
                     '/a',
                 '/li',
                 ['li' => ['class' => 'page-item']],
@@ -252,7 +331,7 @@ class PaginatorHelperTest extends TestCase
                 '/li',
                 ['li' => ['class' => 'page-item active', 'aria-current' => 'page']],
                     'a' => ['class' => 'page-link', 'href' => '#'],
-                        '2', 'span' => ['class' => 'visually-hidden'], '(current)', '/span',
+                        '2',
                     '/a',
                 '/li',
                 ['li' => ['class' => 'page-item']],
@@ -271,13 +350,15 @@ class PaginatorHelperTest extends TestCase
                     '/a',
                 '/li',
                 ['li' => ['class' => 'page-item last']],
-                    ['a' => ['class' => 'page-link', 'href' => '/Clients/index?page=3']],
-                        '&lt;i class=&quot;bi bi-arrow-right&quot;&gt;&lt;/i&gt;',
+                    ['a' => ['class' => 'page-link', 'aria-label' => 'Last', 'href' => '/Clients/index?page=3']],
+                        ['span' => ['aria-hidden' => 'true']],
+                            '&lt;i class=&quot;bi bi-arrow-right&quot;&gt;&lt;/i&gt;',
+                        '/span',
                     '/a',
                 '/li',
             '/ul',
         ];
-        $this->assertHtml($expected, $result, true);
+        $this->assertHtml($expected, $result);
     }
 
     public function testLinksDisableEscape(): void
@@ -292,8 +373,10 @@ class PaginatorHelperTest extends TestCase
         $expected = [
             'ul' => ['class' => 'pagination'],
                 ['li' => ['class' => 'page-item first']],
-                    ['a' => ['class' => 'page-link', 'href' => '/Clients/index']],
-                        ['i' => ['class' => 'bi bi-arrow-left']], '/i',
+                    ['a' => ['class' => 'page-link', 'aria-label' => 'First', 'href' => '/Clients/index']],
+                        ['span' => ['aria-hidden' => 'true']],
+                            ['i' => ['class' => 'bi bi-arrow-left']], '/i',
+                        '/span',
                     '/a',
                 '/li',
                 ['li' => ['class' => 'page-item']],
@@ -313,7 +396,7 @@ class PaginatorHelperTest extends TestCase
                 '/li',
                 ['li' => ['class' => 'page-item active', 'aria-current' => 'page']],
                     'a' => ['class' => 'page-link', 'href' => '#'],
-                        '2', 'span' => ['class' => 'visually-hidden'], '(current)', '/span',
+                        '2',
                     '/a',
                 '/li',
                 ['li' => ['class' => 'page-item']],
@@ -332,12 +415,240 @@ class PaginatorHelperTest extends TestCase
                     '/a',
                 '/li',
                 ['li' => ['class' => 'page-item last']],
-                    ['a' => ['class' => 'page-link', 'href' => '/Clients/index?page=3']],
-                        ['i' => ['class' => 'bi bi-arrow-right']], '/i',
+                    ['a' => ['class' => 'page-link', 'aria-label' => 'Last', 'href' => '/Clients/index?page=3']],
+                        ['span' => ['aria-hidden' => 'true']],
+                            ['i' => ['class' => 'bi bi-arrow-right']], '/i',
+                        '/span',
                     '/a',
                 '/li',
             '/ul',
         ];
-        $this->assertHtml($expected, $result, true);
+        $this->assertHtml($expected, $result);
+    }
+
+    public function testFirst()
+    {
+        $result = $this->Paginator->first();
+        $expected = [
+            ['li' => ['class' => 'page-item first']],
+                ['a' => ['class' => 'page-link', 'aria-label' => 'First', 'href' => '/Clients/index']],
+                    ['span' => ['aria-hidden' => 'true']],
+                        '«',
+                    '/span',
+                '/a',
+            '/li',
+        ];
+        $this->assertHtml($expected, $result);
+    }
+
+    public function testFirstCustomLabel()
+    {
+        $result = $this->Paginator->first('«', ['label' => 'Beginning']);
+        $expected = [
+            ['li' => ['class' => 'page-item first']],
+                ['a' => ['class' => 'page-link', 'aria-label' => 'Beginning', 'href' => '/Clients/index']],
+                    ['span' => ['aria-hidden' => 'true']],
+                        '«',
+                    '/span',
+                '/a',
+            '/li',
+        ];
+        $this->assertHtml($expected, $result);
+    }
+
+    public function testFirstCustomTemplate()
+    {
+        $result = $this->Paginator->first('«', [
+            'templates' => [
+                'first' => '<a data-label="{{label}}" href="{{url}}">{{text}}</a>',
+            ],
+        ]);
+        $expected = [
+            ['a' => ['data-label' => 'First', 'href' => '/Clients/index']],
+                '«',
+            '/a',
+        ];
+        $this->assertHtml($expected, $result);
+    }
+
+    public function testLast()
+    {
+        $result = $this->Paginator->last();
+        $expected = [
+            ['li' => ['class' => 'page-item last']],
+                ['a' => ['class' => 'page-link', 'aria-label' => 'Last', 'href' => '/Clients/index?page=3']],
+                    ['span' => ['aria-hidden' => 'true']],
+                        '»',
+                    '/span',
+                '/a',
+            '/li',
+        ];
+        $this->assertHtml($expected, $result);
+    }
+
+    public function testLastCustomLabel()
+    {
+        $result = $this->Paginator->last('»', ['label' => 'End']);
+        $expected = [
+            ['li' => ['class' => 'page-item last']],
+                ['a' => ['class' => 'page-link', 'aria-label' => 'End', 'href' => '/Clients/index?page=3']],
+                    ['span' => ['aria-hidden' => 'true']],
+                        '»',
+                    '/span',
+                '/a',
+            '/li',
+        ];
+        $this->assertHtml($expected, $result);
+    }
+
+    public function testLastCustomTemplate()
+    {
+        $result = $this->Paginator->last('»', [
+            'templates' => [
+                'last' => '<a data-label="{{label}}" href="{{url}}">{{text}}</a>',
+            ],
+        ]);
+        $expected = [
+            ['a' => ['data-label' => 'Last', 'href' => '/Clients/index?page=3']],
+                '»',
+            '/a',
+        ];
+        $this->assertHtml($expected, $result);
+    }
+
+    public function testPrev()
+    {
+        $result = $this->Paginator->prev();
+        $expected = [
+            ['li' => ['class' => 'page-item']],
+                ['a' => ['class' => 'page-link', 'rel' => 'prev', 'aria-label' => 'Previous', 'href' => '/Clients/index']],
+                    ['span' => ['aria-hidden' => 'true']],
+                        '‹',
+                    '/span',
+                '/a',
+            '/li',
+        ];
+        $this->assertHtml($expected, $result);
+    }
+
+    public function testPrevCustomLabel()
+    {
+        $result = $this->Paginator->prev('‹', ['label' => 'Back']);
+        $expected = [
+            ['li' => ['class' => 'page-item']],
+                ['a' => ['class' => 'page-link', 'rel' => 'prev', 'aria-label' => 'Back', 'href' => '/Clients/index']],
+                    ['span' => ['aria-hidden' => 'true']],
+                        '‹',
+                    '/span',
+                '/a',
+            '/li',
+        ];
+        $this->assertHtml($expected, $result);
+    }
+
+    public function testPrevCustomTemplate()
+    {
+        $result = $this->Paginator->prev('‹', [
+            'templates' => [
+                'prevActive' => '<a data-label="{{label}}" href="{{url}}">{{text}}</a>',
+            ],
+        ]);
+        $expected = [
+            ['a' => ['data-label' => 'Previous', 'href' => '/Clients/index']],
+                '‹',
+            '/a',
+        ];
+        $this->assertHtml($expected, $result);
+    }
+
+    public function testPrevDisabledCustomTemplate()
+    {
+        $request = $this->Paginator->getView()->getRequest();
+        $request = $request->withAttribute('paging', [
+            'Client' => [
+                'prevPage' => false,
+            ] + $request->getAttribute('paging')['Client'],
+        ]);
+        $this->Paginator->getView()->setRequest($request);
+
+        $result = $this->Paginator->prev('‹', [
+            'templates' => [
+                'prevDisabled' => '<a data-label="{{label}}" href="{{url}}">{{text}}</a>',
+            ],
+        ]);
+        $expected = [
+            ['a' => ['data-label' => 'Previous', 'href' => '']],
+                '‹',
+            '/a',
+        ];
+        $this->assertHtml($expected, $result);
+    }
+
+    public function testNext()
+    {
+        $result = $this->Paginator->next();
+        $expected = [
+            ['li' => ['class' => 'page-item']],
+                ['a' => ['class' => 'page-link', 'rel' => 'next', 'aria-label' => 'Next', 'href' => '/Clients/index?page=3']],
+                    ['span' => ['aria-hidden' => 'true']],
+                        '›',
+                    '/span',
+                '/a',
+            '/li',
+        ];
+        $this->assertHtml($expected, $result);
+    }
+
+    public function testNextCustomLabel()
+    {
+        $result = $this->Paginator->next('›', ['label' => 'Forward']);
+        $expected = [
+            ['li' => ['class' => 'page-item']],
+                ['a' => ['class' => 'page-link', 'rel' => 'next', 'aria-label' => 'Forward', 'href' => '/Clients/index?page=3']],
+                    ['span' => ['aria-hidden' => 'true']],
+                        '›',
+                    '/span',
+                '/a',
+            '/li',
+        ];
+        $this->assertHtml($expected, $result);
+    }
+
+    public function testNextCustomTemplate()
+    {
+        $result = $this->Paginator->next('›', [
+            'templates' => [
+                'nextActive' => '<a data-label="{{label}}" href="{{url}}">{{text}}</a>',
+            ],
+        ]);
+        $expected = [
+            ['a' => ['data-label' => 'Next', 'href' => '/Clients/index?page=3']],
+                '›',
+            '/a',
+        ];
+        $this->assertHtml($expected, $result);
+    }
+
+    public function testNextDisabledCustomTemplate()
+    {
+        $request = $this->Paginator->getView()->getRequest();
+        $request = $request->withAttribute('paging', [
+            'Client' => [
+                'nextPage' => false,
+            ] + $request->getAttribute('paging')['Client'],
+        ]);
+        $this->Paginator->getView()->setRequest($request);
+
+        $result = $this->Paginator->next('›', [
+            'templates' => [
+                'nextDisabled' => '<a data-label="{{label}}" href="{{url}}">{{text}}</a>',
+            ],
+        ]);
+        $expected = [
+            ['a' => ['data-label' => 'Next', 'href' => '']],
+                '›',
+            '/a',
+        ];
+        $this->assertHtml($expected, $result);
     }
 }
