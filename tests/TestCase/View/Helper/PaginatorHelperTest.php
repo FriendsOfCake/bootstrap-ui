@@ -144,8 +144,6 @@ class PaginatorHelperTest extends TestCase
 
     public function testLinksCustomTextAndLabels(): void
     {
-        echo $this->Paginator->links();
-
         $result = $this->Paginator->links([
             'first' => [
                 'label' => 'Beginning',
