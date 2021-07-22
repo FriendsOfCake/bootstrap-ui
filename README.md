@@ -15,7 +15,7 @@
 [package]: https://packagist.org/packages/friendsofcake/bootstrap-ui
 [license]: LICENSE.txt
 
-Transparently use [Bootstrap 4][bs4] with [CakePHP 4][cakephp].
+Transparently use [Bootstrap 5][bs] with [CakePHP 4][cakephp].
 
 For version info see [version map](https://github.com/FriendsOfCake/bootstrap-ui/wiki#version-map).
 
@@ -266,11 +266,28 @@ For those of you who want even more automation, some bake templates have been in
 bin/cake bake [subcommand] -t BootstrapUI
 ```
 
+Currently, bake templates for the following bake subcommands are included:
+
+### `template`
+
+Additionally to the default `index`, `add`, `edit`, and `view` templates, a `login` template is available too. While
+the default CRUD action view templates can be utilised like this:
+
+```bash
+bin/cake bake template ControllerName -t BootstrapUI
+```
+
+the `login` template has to be used explicitly by specifying the action name:
+
+```bash
+bin/cake bake template ControllerName login -t BootstrapUI
+```
+
 ## Usage
 
-At the core of BootstrapUI is a collection of enhancements for CakePHP core helpers. These helpers replace the HTML
-templates used to render elements for the views. This allows you to create forms and components that use the
-Bootstrap styles.
+At the core of BootstrapUI is a collection of enhancements for CakePHP core helpers. Among other things, these helpers
+replace the HTML templates used to render elements for the views. This allows you to create forms and components that
+use the Bootstrap styles.
 
 The current list of enhanced helpers are:
 
@@ -281,7 +298,7 @@ The current list of enhanced helpers are:
 - `BootstrapUI\View\Helper\BreadcrumbsHelper`
 
 When the `BootstrapUI\View\UIViewTrait` is initialized it loads the above helpers with the same aliases as the
-CakePHP core helpers. That means that when you use `$this->Form->create()` in your views. The helper being used
+CakePHP core helpers. That means that when you use `$this->Form->create()` in your views, the helper being used
 is from the BootstrapUI plugin.
 
 ### Basic forms
@@ -565,11 +582,11 @@ This would generate the following HTML:
 
 ### Inline checkboxes and radio buttons
 
-[Inline checkboxes and radio buttons](https://getbootstrap.com/docs/4.5/components/forms/#inline) (not to be confused
-with inline aligned forms), can be created by setting the `inline` option to `true`.
+[Inline checkboxes/switches and radio buttons](https://getbootstrap.com/docs/4.5/components/forms/#inline) (not to be
+confused with inline aligned forms), can be created by setting the `inline` option to `true`.
 
-Inlined checkboxes and radio buttons will be rendered on the same horizontal row, regardless of the configured form
-alignment.
+Inlined checkboxes/switches and radio buttons will be rendered on the same horizontal row. When using horizontal form
+alignment however, only multi-checkboxes will render on the same row!
 
 ```php
 echo $this->Form->control('option_1', [
@@ -775,25 +792,6 @@ With an error on the `title` field, this would generate the following HTML:
 </div>
 ```
 
-### Helper configuration
-
-You can configure each of the helpers by passing in extra parameters when loading them in your `AppView.php`.
-
-Here is an example of changing the `prev` and `next` labels for the Paginator helper.
-
-```php
-$this->loadHelper(
-    'Paginator',
-    [
-        'className' => 'BootstrapUI.Paginator',
-        'labels' => [
-            'prev' => 'previous',
-            'next' => 'next',
-        ]
-    ]
-);
-```
-
 ### Flash Messages / Alerts
 
 You can set Flash Messages using the default Flash component syntax. Supported types are `success`, `info`, `warning`,
@@ -930,8 +928,10 @@ Use a different icon set for all flash messages:
 ```php
 $this->loadHelper('Html', [
     'className' => 'BootstrapUI.Html',
-    'iconSet' => 'fas',
-    'prefix' => 'fa',
+    'iconDefaults' => [
+        'iconSet' => 'fas',
+        'prefix' => 'fa',
+    ],
 ]);
 ```
 
@@ -946,6 +946,123 @@ $this->loadHelper('Flash', [
         'warning' => 'exclamation-triangle',
     ],
 ]);
+```
+
+### Badges
+
+By default badges will render as `secondary` theme styled:
+
+```php
+echo $this->Html->badge('Text');
+```
+
+```html
+<span class="badge bg-secondary">Text</span>
+```
+
+#### Background colors
+
+[Background colors](https://getbootstrap.com/docs/5.0/components/badge/#background-colors) can be changed by specifying
+one of the Bootstrap theme color names via the `class` option, the helper will make sure that the correct prefixes
+are being applied:
+
+```php
+echo $this->Html->badge('Text', [
+    'class' => 'danger',
+]);
+```
+
+```html
+<span class="badge bg-danger">Text</span>
+```
+
+#### Using a different HTML tag
+
+By default badges are using the `<span>` tag. This can be changed via the `tag` option:
+
+```php
+echo $this->Html->badge('Text', [
+    'tag' => 'div',
+]);
+```
+
+```html
+<div class="badge bg-secondary">Text</div>
+```
+
+### Icons
+
+By default the HTML helper is configured to use [Bootstrap icons](https://icons.getbootstrap.com/).
+
+```php
+echo $this->Html->icon('mic-mute-fill');
+```
+
+```html
+<i class="bi bi-mic-mute-fill"></i>
+```
+
+#### Sizes
+
+Sizes can be specified via the `size` option, the passed value will automatically be prefixed:
+
+```php
+echo $this->Html->icon('mic-mute-fill', [
+    'size' => '2xl',
+]);
+```
+
+```html
+<i class="bi bi-mic-mute-fill bi-2xl"></i>
+```
+
+This plugin ships Bootstrap icon classes for the following sizes that center-align the icon vertically: `2xs`, `xs`,
+`sm`, `lg`, `xl`, and `2xl`, and the following ones that align the icons on the baseline: `1x`, `2x`, `3x`, `4x`, `5x`,
+`6x`, `7x`, `8x`, `9x`, and `10x`.
+
+#### Using a different icon set
+
+You can use a different icon set by configuring the `iconSet` and `prefix `options, either per `icon()` call:
+
+```php
+echo $this->Html->icon('microphone-slash', [
+    'iconSet' => 'fas',
+    'prefix' => 'fa',
+]);
+```
+
+or globally for all usages of `HtmlHelper::icon()` by configuring the HTML helper defaults:
+
+```php
+$this->loadHelper('Html', [
+    'className' => 'BootstrapUI.Html',
+    'iconDefaults' => [
+        'iconSet' => 'fas',
+        'prefix' => 'fa',
+    ],
+]);
+```
+
+### Breadcrumbs
+
+The breadcrumbs helper is a drop-in replacement, no additional configuration is available/required.
+
+```php
+echo $this->Breadcrumbs
+    ->add('Home', '/')
+    ->add('Articles', '/articles')
+    ->add('View')
+    ->render();
+```
+
+```html
+<nav aria-label="breadcrumb">
+    <ol class="breadcrumb">
+        <li class="breadcrumb-item"><a href="/">Home</a></li>
+        <li class="breadcrumb-item active"><a href="/articles" aria-current="page">Articles</a></li>
+        <li class="breadcrumb-item"><span>View</span></li>
+    </ol>
+</nav>
 ```
 
 ### Pagination
@@ -1136,6 +1253,22 @@ This would generate the following HTML:
 </ul>
 ```
 
+### Helper configuration
+
+You can configure each of the helpers by passing in extra parameters when loading them in your `AppView.php`.
+
+Here is an example of changing the `prev` and `next` labels for the Paginator helper.
+
+```php
+$this->loadHelper('Paginator', [
+    'className' => 'BootstrapUI.Paginator',
+    'labels' => [
+        'prev' => 'previous',
+        'next' => 'next',
+    ],
+]);
+```
+
 ## Contributing
 
 ### Patches & Features
@@ -1176,5 +1309,5 @@ Copyright (c) 2015, Jad Bitar and licensed under [The MIT License][mit].
 [composer]:https://getcomposer.org/
 [composer:ignore]:https://getcomposer.org/doc/faqs/should-i-commit-the-dependencies-in-my-vendor-directory.md
 [mit]:https://opensource.org/licenses/mit-license.php
-[bs4]:https://getbootstrap.com/
+[bs]:https://getbootstrap.com/
 [npm]:https://www.npmjs.com/

@@ -32,10 +32,14 @@ class HtmlHelper extends \Cake\View\Helper\HtmlHelper
     }
 
     /**
-     * Returns Bootstrap badge markup. By default, uses `<SPAN>`.
+     * Returns Bootstrap badge markup. By default, uses `<span>`.
+     *
+     * ### Options
+     *
+     * - `tag`: The HTML tag to use for the badge. Default `span`.
      *
      * @param string $text Text to show in badge.
-     * @param array $options Additional HTML attributes.
+     * @param array $options Additional options and HTML attributes.
      * @return string HTML badge markup.
      */
     public function badge(string $text, array $options = []): string
@@ -60,17 +64,18 @@ class HtmlHelper extends \Cake\View\Helper\HtmlHelper
     /**
      * Returns bootstrap icon markup. By default, uses `<i>` tag and the bootstrap icon set.
      *
-     * @param string $name Name of icon (i.e. search, leaf, etc.).
-     * @param array $options Additional options and HTML attributes.
      * ### Options
      *
-     * - `iconSet`: Common class name for the icon set. Default 'bi'.
-     * - `prefix`: Prefix for class names. Default 'bi'.
+     * - `iconSet`: Common class name for the icon set. Default `bi`.
+     * - `prefix`: Prefix for class names. Default `bi`.
      * - `size`: Size class will be generated based of this. For e.g. if you use
-     *   size 'lg' class '<prefix>-lg` will be added. Default null.
+     *   size `lg` class '<prefix>-lg` will be added. Default null.
      *
      * You can use `iconDefaults` option for the helper to set default values
      * for above options.
+     *
+     * @param string $name Name of icon (i.e. `search`, `exclamation`, etc.).
+     * @param array $options Additional options and HTML attributes.
      * @return string HTML icon markup.
      */
     public function icon(string $name, array $options = []): string
