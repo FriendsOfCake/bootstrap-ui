@@ -271,7 +271,7 @@ Currently, bake templates for the following bake subcommands are included:
 ### `template`
 
 Additionally to the default `index`, `add`, `edit`, and `view` templates, a `login` template is available too. While
-the default CRUD action view templates can be utilised like this:
+the default CRUD action view templates can be utilized like this:
 
 ```bash
 bin/cake bake template ControllerName -t BootstrapUI
