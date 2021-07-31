@@ -381,7 +381,7 @@ class FlashHelperTest extends TestCase
                 'element' => 'flash/default',
                 'params' => [
                     'icon' => [
-                        'iconSet' => 'fas',
+                        'namespace' => 'fas',
                         'prefix' => 'fa',
                         'name' => 'microphone-slash',
                         'size' => '2xl',

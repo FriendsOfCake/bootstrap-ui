@@ -910,7 +910,7 @@ Use a different icon set:
 $this->Flash->success('Message with different icon set.', [
     'params' => [
         'icon' => [
-            'iconSet' => 'fas',
+            'namespace' => 'fas',
             'prefix' => 'fa',
             'name' => 'microphone-slash',
             'size' => '2xl',
@@ -929,7 +929,7 @@ Use a different icon set for all flash messages:
 $this->loadHelper('Html', [
     'className' => 'BootstrapUI.Html',
     'iconDefaults' => [
-        'iconSet' => 'fas',
+        'namespace' => 'fas',
         'prefix' => 'fa',
     ],
 ]);
@@ -1022,11 +1022,11 @@ This plugin ships Bootstrap icon classes for the following sizes that center-ali
 
 #### Using a different icon set
 
-You can use a different icon set by configuring the `iconSet` and `prefix `options, either per `icon()` call:
+You can use a different icon set by configuring the `namespace` and `prefix `options, either per `icon()` call:
 
 ```php
 echo $this->Html->icon('microphone-slash', [
-    'iconSet' => 'fas',
+    'namespace' => 'fas',
     'prefix' => 'fa',
 ]);
 ```
@@ -1037,7 +1037,7 @@ or globally for all usages of `HtmlHelper::icon()` by configuring the HTML helpe
 $this->loadHelper('Html', [
     'className' => 'BootstrapUI.Html',
     'iconDefaults' => [
-        'iconSet' => 'fas',
+        'namespace' => 'fas',
         'prefix' => 'fa',
     ],
 ]);

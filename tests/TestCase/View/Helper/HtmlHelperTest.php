@@ -61,7 +61,7 @@ class HtmlHelperTest extends TestCase
         ];
         $this->assertHtml($expected, $result);
 
-        $result = $this->Html->icon('foo', ['iconSet' => 'fas', 'prefix' => 'fa']);
+        $result = $this->Html->icon('foo', ['namespace' => 'fas', 'prefix' => 'fa']);
         $expected = [
             'i' => ['class' => 'fas fa-foo'],
             '/i',

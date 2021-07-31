@@ -14,7 +14,12 @@ class HtmlHelper extends \Cake\View\Helper\HtmlHelper
      *
      * ### Settings
      *
-     * - `iconDefaults`: Default for icons.
+     * - `iconDefaults`: Default options for icons. Accepts the following options:
+     *      - `tag`: The HTML tag to use for the icon. Default `i`.
+     *      - `namespace`: Common class name for the icon set. Default `bi`.
+     *      - `prefix`: Prefix for class names. Default `bi`.
+     *      - `size`: Size class will be generated based of this. For e.g. if you use
+     *        size `lg` class '<prefix>-lg` will be added. Default null.
      *
      * @param \Cake\View\View $View The View this helper is being attached to.
      * @param array $config Configuration settings for the helper.
@@ -23,7 +28,7 @@ class HtmlHelper extends \Cake\View\Helper\HtmlHelper
     {
         $this->_defaultConfig['iconDefaults'] = [
             'tag' => 'i',
-            'iconSet' => 'bi',
+            'namespace' => 'bi',
             'prefix' => 'bi',
             'size' => null,
         ];
@@ -66,7 +71,8 @@ class HtmlHelper extends \Cake\View\Helper\HtmlHelper
      *
      * ### Options
      *
-     * - `iconSet`: Common class name for the icon set. Default `bi`.
+     * - `tag`: The HTML tag to use for the icon. Default `i`.
+     * - `namespace`: Common class name for the icon set. Default `bi`.
      * - `prefix`: Prefix for class names. Default `bi`.
      * - `size`: Size class will be generated based of this. For e.g. if you use
      *   size `lg` class '<prefix>-lg` will be added. Default null.
@@ -84,7 +90,7 @@ class HtmlHelper extends \Cake\View\Helper\HtmlHelper
             'class' => null,
         ];
 
-        $classes = [$options['iconSet'], $options['prefix'] . '-' . $name];
+        $classes = [$options['namespace'], $options['prefix'] . '-' . $name];
         if (!empty($options['size'])) {
             $classes[] = $options['prefix'] . '-' . $options['size'];
         }
@@ -94,7 +100,7 @@ class HtmlHelper extends \Cake\View\Helper\HtmlHelper
             'tag' => $options['tag'],
             'attrs' => $this->templater()->formatAttributes(
                 $options,
-                ['tag', 'iconSet', 'prefix', 'size']
+                ['tag', 'namespace', 'prefix', 'size']
             ),
         ]);
     }
