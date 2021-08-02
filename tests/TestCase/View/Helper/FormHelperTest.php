@@ -16,8 +16,8 @@ class FormHelperTest extends AbstractFormHelperTest
 
         $result = $this->Form->control('password');
         $expected = [
-            'div' => ['class' => 'form-group password'],
-            'label' => ['for' => 'password'],
+            'div' => ['class' => 'mb-3 form-group password'],
+            'label' => ['class' => 'form-label', 'for' => 'password'],
             'Password',
             '/label',
             'input' => [
@@ -42,8 +42,8 @@ class FormHelperTest extends AbstractFormHelperTest
 
         $result = $this->Form->control('title');
         $expected = [
-            'div' => ['class' => 'form-group text required'],
-                'label' => ['for' => 'title'],
+            'div' => ['class' => 'mb-3 form-group text required'],
+                'label' => ['class' => 'form-label', 'for' => 'title'],
                     'Title',
                 '/label',
                 'input' => [
@@ -67,16 +67,47 @@ class FormHelperTest extends AbstractFormHelperTest
 
         $result = $this->Form->control('title', ['prepend' => '@']);
         $expected = [
-            'div' => ['class' => 'form-group text required'],
-                'label' => ['for' => 'title'],
+            'div' => ['class' => 'mb-3 form-group text required'],
+                'label' => ['class' => 'form-label', 'for' => 'title'],
                     'Title',
                 '/label',
                 ['div' => ['class' => 'input-group']],
-                    ['div' => ['class' => 'input-group-prepend']],
-                        'span' => ['class' => 'input-group-text'],
-                            '@',
-                        '/span',
-                    '/div',
+                    'span' => ['class' => 'input-group-text'],
+                        '@',
+                    '/span',
+                    'input' => [
+                        'type' => 'text',
+                        'name' => 'title',
+                        'required' => 'required',
+                        'data-validity-message' => 'This field cannot be left empty',
+                        'oninvalid' => 'this.setCustomValidity(&#039;&#039;); if (!this.value) this.setCustomValidity(this.dataset.validityMessage)',
+                        'oninput' => 'this.setCustomValidity(&#039;&#039;)',
+                        'id' => 'title',
+                        'class' => 'form-control',
+                    ],
+                '/div',
+            '/div',
+        ];
+        $this->assertHtml($expected, $result);
+    }
+
+    public function testAddOnPrependedTextMultiple()
+    {
+        $this->Form->create($this->article);
+
+        $result = $this->Form->control('title', ['prepend' => ['$', '0.00']]);
+        $expected = [
+            'div' => ['class' => 'mb-3 form-group text required'],
+                'label' => ['class' => 'form-label', 'for' => 'title'],
+                    'Title',
+                '/label',
+                ['div' => ['class' => 'input-group']],
+                    ['span' => ['class' => 'input-group-text']],
+                        '$',
+                    '/span',
+                    ['span' => ['class' => 'input-group-text']],
+                        '0.00',
+                    '/span',
                     'input' => [
                         'type' => 'text',
                         'name' => 'title',
@@ -99,8 +130,8 @@ class FormHelperTest extends AbstractFormHelperTest
 
         $result = $this->Form->control('title', ['append' => '@']);
         $expected = [
-            'div' => ['class' => 'form-group text required'],
-                'label' => ['for' => 'title'],
+            'div' => ['class' => 'mb-3 form-group text required'],
+                'label' => ['class' => 'form-label', 'for' => 'title'],
                     'Title',
                 '/label',
                 ['div' => ['class' => 'input-group']],
@@ -114,11 +145,42 @@ class FormHelperTest extends AbstractFormHelperTest
                         'id' => 'title',
                         'class' => 'form-control',
                     ],
-                    ['div' => ['class' => 'input-group-append']],
-                        'span' => ['class' => 'input-group-text'],
-                            '@',
-                        '/span',
-                    '/div',
+                    'span' => ['class' => 'input-group-text'],
+                        '@',
+                    '/span',
+                '/div',
+            '/div',
+        ];
+        $this->assertHtml($expected, $result);
+    }
+
+    public function testAddOnAppendedTextMultiple()
+    {
+        $this->Form->create($this->article);
+
+        $result = $this->Form->control('title', ['append' => ['$', '0.00']]);
+        $expected = [
+            'div' => ['class' => 'mb-3 form-group text required'],
+                'label' => ['class' => 'form-label', 'for' => 'title'],
+                    'Title',
+                '/label',
+                ['div' => ['class' => 'input-group']],
+                    'input' => [
+                        'type' => 'text',
+                        'name' => 'title',
+                        'required' => 'required',
+                        'data-validity-message' => 'This field cannot be left empty',
+                        'oninvalid' => 'this.setCustomValidity(&#039;&#039;); if (!this.value) this.setCustomValidity(this.dataset.validityMessage)',
+                        'oninput' => 'this.setCustomValidity(&#039;&#039;)',
+                        'id' => 'title',
+                        'class' => 'form-control',
+                    ],
+                    ['span' => ['class' => 'input-group-text']],
+                        '$',
+                    '/span',
+                    ['span' => ['class' => 'input-group-text']],
+                        '0.00',
+                    '/span',
                 '/div',
             '/div',
         ];
@@ -131,16 +193,52 @@ class FormHelperTest extends AbstractFormHelperTest
 
         $result = $this->Form->control('title', ['prepend' => $this->Form->button('GO')]);
         $expected = [
-            'div' => ['class' => 'form-group text required'],
-                'label' => ['for' => 'title'],
+            'div' => ['class' => 'mb-3 form-group text required'],
+                'label' => ['class' => 'form-label', 'for' => 'title'],
                     'Title',
                 '/label',
                 ['div' => ['class' => 'input-group']],
-                    ['div' => ['class' => 'input-group-prepend']],
-                        'button' => ['type' => 'submit', 'class' => 'btn btn-secondary'],
-                            'GO',
-                        '/button',
-                    '/div',
+                    'button' => ['type' => 'submit', 'class' => 'btn btn-secondary'],
+                        'GO',
+                    '/button',
+                    'input' => [
+                        'type' => 'text',
+                        'name' => 'title',
+                        'required' => 'required',
+                        'data-validity-message' => 'This field cannot be left empty',
+                        'oninvalid' => 'this.setCustomValidity(&#039;&#039;); if (!this.value) this.setCustomValidity(this.dataset.validityMessage)',
+                        'oninput' => 'this.setCustomValidity(&#039;&#039;)',
+                        'id' => 'title',
+                        'class' => 'form-control',
+                    ],
+                '/div',
+            '/div',
+        ];
+        $this->assertHtml($expected, $result);
+    }
+
+    public function testAddOnPrependedButtonMultiple()
+    {
+        $this->Form->create($this->article);
+
+        $result = $this->Form->control('title', [
+            'prepend' => [
+                $this->Form->button('NO'),
+                $this->Form->button('GO'),
+            ],
+        ]);
+        $expected = [
+            'div' => ['class' => 'mb-3 form-group text required'],
+                'label' => ['class' => 'form-label', 'for' => 'title'],
+                    'Title',
+                '/label',
+                ['div' => ['class' => 'input-group']],
+                    ['button' => ['type' => 'submit', 'class' => 'btn btn-secondary']],
+                        'NO',
+                    '/button',
+                    ['button' => ['type' => 'submit', 'class' => 'btn btn-secondary']],
+                        'GO',
+                    '/button',
                     'input' => [
                         'type' => 'text',
                         'name' => 'title',
@@ -163,8 +261,8 @@ class FormHelperTest extends AbstractFormHelperTest
 
         $result = $this->Form->control('title', ['append' => $this->Form->button('GO')]);
         $expected = [
-            'div' => ['class' => 'form-group text required'],
-                'label' => ['for' => 'title'],
+            'div' => ['class' => 'mb-3 form-group text required'],
+                'label' => ['class' => 'form-label', 'for' => 'title'],
                     'Title',
                 '/label',
                 ['div' => ['class' => 'input-group']],
@@ -178,11 +276,47 @@ class FormHelperTest extends AbstractFormHelperTest
                         'id' => 'title',
                         'class' => 'form-control',
                     ],
-                    ['div' => ['class' => 'input-group-append']],
-                        'button' => ['type' => 'submit', 'class' => 'btn btn-secondary'],
-                            'GO',
-                        '/button',
-                    '/div',
+                    'button' => ['type' => 'submit', 'class' => 'btn btn-secondary'],
+                        'GO',
+                    '/button',
+                '/div',
+            '/div',
+        ];
+        $this->assertHtml($expected, $result);
+    }
+
+    public function testAddOnAppendedButtonMultiple()
+    {
+        $this->Form->create($this->article);
+
+        $result = $this->Form->control('title', [
+            'append' => [
+                $this->Form->button('NO'),
+                $this->Form->button('GO'),
+            ],
+        ]);
+        $expected = [
+            'div' => ['class' => 'mb-3 form-group text required'],
+                'label' => ['class' => 'form-label', 'for' => 'title'],
+                    'Title',
+                '/label',
+                ['div' => ['class' => 'input-group']],
+                    'input' => [
+                        'type' => 'text',
+                        'name' => 'title',
+                        'required' => 'required',
+                        'data-validity-message' => 'This field cannot be left empty',
+                        'oninvalid' => 'this.setCustomValidity(&#039;&#039;); if (!this.value) this.setCustomValidity(this.dataset.validityMessage)',
+                        'oninput' => 'this.setCustomValidity(&#039;&#039;)',
+                        'id' => 'title',
+                        'class' => 'form-control',
+                    ],
+                    ['button' => ['type' => 'submit', 'class' => 'btn btn-secondary']],
+                        'NO',
+                    '/button',
+                    ['button' => ['type' => 'submit', 'class' => 'btn btn-secondary']],
+                        'GO',
+                    '/button',
                 '/div',
             '/div',
         ];
@@ -195,16 +329,14 @@ class FormHelperTest extends AbstractFormHelperTest
 
         $result = $this->Form->control('title', ['prepend' => ['@', ['size' => 'lg']]]);
         $expected = [
-            'div' => ['class' => 'form-group text required'],
-                'label' => ['for' => 'title'],
+            'div' => ['class' => 'mb-3 form-group text required'],
+                'label' => ['class' => 'form-label', 'for' => 'title'],
                     'Title',
                 '/label',
                 ['div' => ['class' => 'input-group input-group-lg']],
-                    ['div' => ['class' => 'input-group-prepend']],
-                        'span' => ['class' => 'input-group-text'],
-                            '@',
-                        '/span',
-                    '/div',
+                    'span' => ['class' => 'input-group-text'],
+                        '@',
+                    '/span',
                     'input' => [
                         'type' => 'text',
                         'name' => 'title',
@@ -222,8 +354,8 @@ class FormHelperTest extends AbstractFormHelperTest
 
         $result = $this->Form->control('title', ['append' => ['@', ['size' => 'lg']]]);
         $expected = [
-            'div' => ['class' => 'form-group text required'],
-                'label' => ['for' => 'title'],
+            'div' => ['class' => 'mb-3 form-group text required'],
+                'label' => ['class' => 'form-label', 'for' => 'title'],
                     'Title',
                 '/label',
                 ['div' => ['class' => 'input-group input-group-lg']],
@@ -237,11 +369,78 @@ class FormHelperTest extends AbstractFormHelperTest
                         'id' => 'title',
                         'class' => 'form-control',
                     ],
-                    ['div' => ['class' => 'input-group-append']],
-                        'span' => ['class' => 'input-group-text'],
-                            '@',
-                        '/span',
-                    '/div',
+                    'span' => ['class' => 'input-group-text'],
+                        '@',
+                    '/span',
+                '/div',
+            '/div',
+        ];
+        $this->assertHtml($expected, $result);
+    }
+
+    public function testAddOnOptionsMultiple()
+    {
+        $this->Form->create($this->article);
+
+        $result = $this->Form->control('title', [
+            'prepend' => [
+                '$', '0.00', ['size' => 'lg', 'class' => 'custom', 'custom' => 'attribute'],
+            ],
+        ]);
+        $expected = [
+            'div' => ['class' => 'mb-3 form-group text required'],
+                'label' => ['class' => 'form-label', 'for' => 'title'],
+                    'Title',
+                '/label',
+                ['div' => ['class' => 'input-group input-group-lg custom', 'custom' => 'attribute']],
+                    ['span' => ['class' => 'input-group-text']],
+                        '$',
+                    '/span',
+                    ['span' => ['class' => 'input-group-text']],
+                        '0.00',
+                    '/span',
+                    'input' => [
+                        'type' => 'text',
+                        'name' => 'title',
+                        'required' => 'required',
+                        'data-validity-message' => 'This field cannot be left empty',
+                        'oninvalid' => 'this.setCustomValidity(&#039;&#039;); if (!this.value) this.setCustomValidity(this.dataset.validityMessage)',
+                        'oninput' => 'this.setCustomValidity(&#039;&#039;)',
+                        'id' => 'title',
+                        'class' => 'form-control',
+                    ],
+                '/div',
+            '/div',
+        ];
+        $this->assertHtml($expected, $result);
+
+        $result = $this->Form->control('title', [
+            'append' => [
+                '$', '0.00', ['size' => 'lg', 'class' => 'custom', 'custom' => 'attribute'],
+            ],
+        ]);
+        $expected = [
+            'div' => ['class' => 'mb-3 form-group text required'],
+                'label' => ['class' => 'form-label', 'for' => 'title'],
+                    'Title',
+                '/label',
+                ['div' => ['class' => 'input-group input-group-lg custom', 'custom' => 'attribute']],
+                    'input' => [
+                        'type' => 'text',
+                        'name' => 'title',
+                        'required' => 'required',
+                        'data-validity-message' => 'This field cannot be left empty',
+                        'oninvalid' => 'this.setCustomValidity(&#039;&#039;); if (!this.value) this.setCustomValidity(this.dataset.validityMessage)',
+                        'oninput' => 'this.setCustomValidity(&#039;&#039;)',
+                        'id' => 'title',
+                        'class' => 'form-control',
+                    ],
+                    ['span' => ['class' => 'input-group-text']],
+                        '$',
+                    '/span',
+                    ['span' => ['class' => 'input-group-text']],
+                        '0.00',
+                    '/span',
                 '/div',
             '/div',
         ];
@@ -258,16 +457,14 @@ class FormHelperTest extends AbstractFormHelperTest
 
         $result = $this->Form->control('title', ['prepend' => '@']);
         $expected = [
-            'div' => ['class' => 'form-group text is-invalid'],
-                'label' => ['for' => 'title'],
+            'div' => ['class' => 'mb-3 form-group text is-invalid'],
+                'label' => ['class' => 'form-label', 'for' => 'title'],
                     'Title',
                 '/label',
                 ['div' => ['class' => 'input-group is-invalid']],
-                    ['div' => ['class' => 'input-group-prepend']],
-                        'span' => ['class' => 'input-group-text'],
-                            '@',
-                        '/span',
-                    '/div',
+                    'span' => ['class' => 'input-group-text'],
+                        '@',
+                    '/span',
                     'input' => [
                         'type' => 'text',
                         'name' => 'title',
@@ -275,7 +472,7 @@ class FormHelperTest extends AbstractFormHelperTest
                         'class' => 'is-invalid form-control',
                     ],
                 '/div',
-                ['div' => ['class' => 'invalid-feedback']],
+                ['div' => ['class' => 'ms-0 invalid-feedback']],
                     'error message',
                 '/div',
             '/div',
@@ -284,8 +481,8 @@ class FormHelperTest extends AbstractFormHelperTest
 
         $result = $this->Form->control('title', ['append' => '@']);
         $expected = [
-            'div' => ['class' => 'form-group text is-invalid'],
-                'label' => ['for' => 'title'],
+            'div' => ['class' => 'mb-3 form-group text is-invalid'],
+                'label' => ['class' => 'form-label', 'for' => 'title'],
                     'Title',
                 '/label',
                 ['div' => ['class' => 'input-group is-invalid']],
@@ -295,13 +492,11 @@ class FormHelperTest extends AbstractFormHelperTest
                         'id' => 'title',
                         'class' => 'is-invalid form-control',
                     ],
-                    ['div' => ['class' => 'input-group-append']],
-                        'span' => ['class' => 'input-group-text'],
-                            '@',
-                        '/span',
-                    '/div',
+                    'span' => ['class' => 'input-group-text'],
+                        '@',
+                    '/span',
                 '/div',
-                ['div' => ['class' => 'invalid-feedback']],
+                ['div' => ['class' => 'ms-0 invalid-feedback']],
                     'error message',
                 '/div',
             '/div',
@@ -336,8 +531,8 @@ class FormHelperTest extends AbstractFormHelperTest
 
         $result = $this->Form->control('title');
         $expected = [
-            'div' => ['class' => 'custom-container form-group'],
-                'label' => ['for' => 'title'],
+            'div' => ['class' => 'custom-container mb-3 form-group'],
+                'label' => ['class' => 'form-label', 'for' => 'title'],
                     'Title',
                 '/label',
                 'input' => [
@@ -360,7 +555,7 @@ class FormHelperTest extends AbstractFormHelperTest
                 'accept-charset' => 'utf-8',
                 'role' => 'form',
                 'action' => '/articles/add',
-                'class' => 'form-inline',
+                'class' => 'form-inline row g-3 align-items-center',
             ],
         ];
         $this->assertHtml($expected, $result);
@@ -387,19 +582,53 @@ class FormHelperTest extends AbstractFormHelperTest
         $this->Form->create($this->article, ['align' => 'foo']);
     }
 
-    public function testCustomGrid()
+    public function testCustomGridWithConstantsConfig()
     {
         $this->Form->create($this->article, [
             'align' => [
-                'left' => 3,
-                'middle' => 5,
-                'right' => 4,
+                FormHelper::GRID_COLUMN_ONE => 3,
+                FormHelper::GRID_COLUMN_TWO => 5,
             ],
         ]);
 
         $result = $this->Form->control('title');
         $expected = [
-            'div' => ['class' => 'form-group row text required'],
+            'div' => ['class' => 'mb-3 form-group row text required'],
+                'label' => [
+                    'class' => 'col-form-label col-md-3',
+                    'for' => 'title',
+                ],
+                    'Title',
+                '/label',
+                ['div' => ['class' => 'col-md-5']],
+                    'input' => [
+                        'type' => 'text',
+                        'name' => 'title',
+                        'required' => 'required',
+                        'data-validity-message' => 'This field cannot be left empty',
+                        'oninvalid' => 'this.setCustomValidity(&#039;&#039;); if (!this.value) this.setCustomValidity(this.dataset.validityMessage)',
+                        'oninput' => 'this.setCustomValidity(&#039;&#039;)',
+                        'id' => 'title',
+                        'class' => 'form-control',
+                    ],
+                '/div',
+            '/div',
+        ];
+        $this->assertHtml($expected, $result);
+    }
+
+    public function testCustomGridWithBasicArrayConfig()
+    {
+        $this->Form->create($this->article, [
+            'align' => [
+                3,
+                5,
+            ],
+        ]);
+
+        $result = $this->Form->control('title');
+        $expected = [
+            'div' => ['class' => 'mb-3 form-group row text required'],
                 'label' => [
                     'class' => 'col-form-label col-md-3',
                     'for' => 'title',
@@ -447,7 +676,7 @@ class FormHelperTest extends AbstractFormHelperTest
 
         $result = $this->Form->control('title');
         $expected = [
-            'div' => ['class' => 'form-group row text required'],
+            'div' => ['class' => 'mb-3 form-group row text required'],
                 'label' => [
                     'class' => 'col-form-label col-md-2',
                     'for' => 'title',
@@ -472,7 +701,7 @@ class FormHelperTest extends AbstractFormHelperTest
 
         $result = $this->Form->control('published');
         $expected = [
-            'div' => ['class' => 'form-group row checkbox'],
+            'div' => ['class' => 'mb-3 form-group row checkbox'],
                 ['div' => ['class' => 'offset-md-2 col-md-10']],
                     ['div' => ['class' => 'form-check my-checkbox']],
                         'input' => [
@@ -566,7 +795,7 @@ class FormHelperTest extends AbstractFormHelperTest
             'label' => false,
         ]);
         $expected = [
-            'div' => ['class' => 'form-group text required'],
+            'div' => ['class' => 'mb-3 form-group text required'],
                 'input' => [
                     'type' => 'text',
                     'name' => 'title',
@@ -605,13 +834,16 @@ class FormHelperTest extends AbstractFormHelperTest
         $this->assertStringContainsString('class="form-control"', $result);
 
         $result = $this->Form->file('foo');
-        $this->assertStringNotContainsString('"form-control"', $result);
+        $this->assertStringContainsString('"form-control"', $result);
 
         $result = $this->Form->checkbox('foo');
         $this->assertStringNotContainsString('"form-control"', $result);
 
         $result = $this->Form->radio('foo', ['1' => 'Opt 1', '2' => 'Opt 2']);
         $this->assertStringNotContainsString('"form-control"', $result);
+
+        $result = $this->Form->color('foo');
+        $this->assertStringContainsString('class="form-control form-control-color"', $result);
     }
 
     public function testFeedbackStyleFromHelperConfig()
@@ -627,8 +859,8 @@ class FormHelperTest extends AbstractFormHelperTest
         $result = $this->Form->control('title');
 
         $expected = [
-            ['div' => ['class' => 'form-group position-relative text is-invalid']],
-                ['label' => ['for' => 'title']],
+            ['div' => ['class' => 'mb-3 form-group position-relative text is-invalid']],
+                ['label' => ['class' => 'form-label', 'for' => 'title']],
                     'Title',
                 '/label',
                 'input' => [
@@ -660,8 +892,8 @@ class FormHelperTest extends AbstractFormHelperTest
         ]);
 
         $expected = [
-            ['div' => ['class' => 'form-group text is-invalid']],
-                ['label' => ['for' => 'title']],
+            ['div' => ['class' => 'mb-3 form-group text is-invalid']],
+                ['label' => ['class' => 'form-label', 'for' => 'title']],
                     'Title',
                 '/label',
                 'input' => [
@@ -670,7 +902,7 @@ class FormHelperTest extends AbstractFormHelperTest
                     'id' => 'title',
                     'class' => 'is-invalid form-control',
                 ],
-                ['div' => ['class' => 'invalid-feedback']],
+                ['div' => ['class' => 'ms-0 invalid-feedback']],
                     'error message',
                 '/div',
             '/div',
@@ -694,8 +926,8 @@ class FormHelperTest extends AbstractFormHelperTest
         $result = $this->Form->control('title');
 
         $expected = [
-            ['div' => ['class' => 'form-group position-absolute text is-invalid']],
-                ['label' => ['for' => 'title']],
+            ['div' => ['class' => 'mb-3 form-group position-absolute text is-invalid']],
+                ['label' => ['class' => 'form-label', 'for' => 'title']],
                     'Title',
                 '/label',
                 'input' => [
@@ -730,8 +962,8 @@ class FormHelperTest extends AbstractFormHelperTest
         ]);
 
         $expected = [
-            ['div' => ['class' => 'form-group position-static text is-invalid']],
-                ['label' => ['for' => 'title']],
+            ['div' => ['class' => 'mb-3 form-group position-static text is-invalid']],
+                ['label' => ['class' => 'form-label', 'for' => 'title']],
                     'Title',
                 '/label',
                 'input' => [
@@ -762,8 +994,8 @@ class FormHelperTest extends AbstractFormHelperTest
         ]);
 
         $expected = [
-            ['div' => ['class' => 'form-group position-relative text is-invalid']],
-                ['label' => ['for' => 'title']],
+            ['div' => ['class' => 'mb-3 form-group position-relative text is-invalid']],
+                ['label' => ['class' => 'form-label', 'for' => 'title']],
                     'Title',
                 '/label',
                 'input' => [
@@ -796,18 +1028,20 @@ class FormHelperTest extends AbstractFormHelperTest
         ]);
 
         $expected = [
-            ['div' => ['class' => 'form-group text is-invalid']],
-                ['label' => ['class' => 'sr-only', 'for' => 'title']],
-                    'Title',
-                '/label',
-                'input' => [
-                    'type' => 'text',
-                    'name' => 'title',
-                    'id' => 'title',
-                    'class' => 'is-invalid form-control',
-                ],
-                ['div' => ['class' => 'invalid-feedback']],
-                    'error message',
+            ['div' => ['class' => 'col-auto']],
+                ['div' => ['class' => 'form-group text is-invalid']],
+                    ['label' => ['class' => 'form-label visually-hidden', 'for' => 'title']],
+                        'Title',
+                    '/label',
+                    'input' => [
+                        'type' => 'text',
+                        'name' => 'title',
+                        'id' => 'title',
+                        'class' => 'is-invalid form-control',
+                    ],
+                    ['div' => ['class' => 'ms-0 invalid-feedback']],
+                        'error message',
+                    '/div',
                 '/div',
             '/div',
         ];
@@ -824,8 +1058,8 @@ class FormHelperTest extends AbstractFormHelperTest
         $this->Form->create($this->article, [
             'align' => [
                 'sm' => [
-                    'left' => 5,
-                    'middle' => 7,
+                    FormHelper::GRID_COLUMN_ONE => 5,
+                    FormHelper::GRID_COLUMN_TWO => 7,
                 ],
             ],
         ]);
@@ -835,7 +1069,7 @@ class FormHelperTest extends AbstractFormHelperTest
         ]);
 
         $expected = [
-            ['div' => ['class' => 'form-group row position-relative text is-invalid']],
+            ['div' => ['class' => 'mb-3 form-group row position-relative text is-invalid']],
                 ['label' => ['class' => 'col-form-label col-sm-5', 'for' => 'title']],
                     'Title',
                 '/label',
@@ -848,216 +1082,6 @@ class FormHelperTest extends AbstractFormHelperTest
                     ]],
                     ['div' => ['class' => 'invalid-tooltip']],
                         'error message',
-                    '/div',
-                '/div',
-            '/div',
-        ];
-        $this->assertHtml($expected, $result);
-    }
-
-    public function testCustomFileControlInputGroupInferLabelFromField()
-    {
-        $this->Form->create($this->article);
-
-        $result = $this->Form->control('file', [
-            'type' => 'file',
-            'custom' => true,
-            'append' => 'append',
-        ]);
-        $expected = [
-            ['div' => ['class' => 'form-group file']],
-                ['div' => ['class' => 'input-group']],
-                    ['div' => ['class' => 'custom-file ']],
-                        ['input' => [
-                            'type' => 'file',
-                            'name' => 'file',
-                            'id' => 'file',
-                            'class' => 'custom-file-input',
-                        ]],
-                        ['label' => ['class' => 'custom-file-label', 'for' => 'file']],
-                            'File',
-                        '/label',
-                     '/div',
-                    ['div' => ['class' => 'input-group-append']],
-                        ['span' => ['class' => 'input-group-text']],
-                            'append',
-                        '/span',
-                    '/div',
-                '/div',
-            '/div',
-        ];
-        $this->assertHtml($expected, $result);
-    }
-
-    public function testCustomFileControlInputGroupInferLabelFromAssociatedField()
-    {
-        $this->Form->create($this->article);
-
-        $result = $this->Form->control('associated.0.file', [
-            'type' => 'file',
-            'custom' => true,
-            'append' => 'append',
-        ]);
-        $expected = [
-            ['div' => ['class' => 'form-group file']],
-                ['div' => ['class' => 'input-group']],
-                    ['div' => ['class' => 'custom-file ']],
-                        ['input' => [
-                            'type' => 'file',
-                            'name' => 'associated[0][file]',
-                            'id' => 'associated-0-file',
-                            'class' => 'custom-file-input',
-                        ]],
-                        ['label' => ['class' => 'custom-file-label', 'for' => 'associated-0-file']],
-                            'File',
-                        '/label',
-                     '/div',
-                    ['div' => ['class' => 'input-group-append']],
-                        ['span' => ['class' => 'input-group-text']],
-                            'append',
-                        '/span',
-                    '/div',
-                '/div',
-            '/div',
-        ];
-        $this->assertHtml($expected, $result);
-    }
-
-    public function testCustomFileControlInputGroupLabelTextFromOptions()
-    {
-        $this->Form->create($this->article);
-
-        $result = $this->Form->control('file', [
-            'type' => 'file',
-            'label' => [
-                'text' => 'text',
-            ],
-            'custom' => true,
-            'append' => 'append',
-        ]);
-        $expected = [
-            ['div' => ['class' => 'form-group file']],
-                ['div' => ['class' => 'input-group']],
-                    ['div' => ['class' => 'custom-file ']],
-                        ['input' => [
-                            'type' => 'file',
-                            'name' => 'file',
-                            'id' => 'file',
-                            'class' => 'custom-file-input',
-                        ]],
-                        ['label' => ['class' => 'custom-file-label', 'for' => 'file']],
-                            'text',
-                        '/label',
-                     '/div',
-                    ['div' => ['class' => 'input-group-append']],
-                        ['span' => ['class' => 'input-group-text']],
-                            'append',
-                        '/span',
-                    '/div',
-                '/div',
-            '/div',
-        ];
-        $this->assertHtml($expected, $result);
-    }
-
-    public function testCustomFileControlInputGroupLabelAttributes()
-    {
-        $this->Form->create($this->article);
-
-        $result = $this->Form->control('file', [
-            'type' => 'file',
-            'label' => [
-                'foo' => 'bar',
-            ],
-            'custom' => true,
-            'append' => 'append',
-        ]);
-        $expected = [
-            ['div' => ['class' => 'form-group file']],
-                ['div' => ['class' => 'input-group']],
-                    ['div' => ['class' => 'custom-file ']],
-                        ['input' => [
-                            'type' => 'file',
-                            'name' => 'file',
-                            'id' => 'file',
-                            'class' => 'custom-file-input',
-                        ]],
-                        ['label' => ['class' => 'custom-file-label', 'foo' => 'bar', 'for' => 'file']],
-                            'File',
-                        '/label',
-                     '/div',
-                    ['div' => ['class' => 'input-group-append']],
-                        ['span' => ['class' => 'input-group-text']],
-                            'append',
-                        '/span',
-                    '/div',
-                '/div',
-            '/div',
-        ];
-        $this->assertHtml($expected, $result);
-    }
-
-    public function testCustomFileControlInputGroupLabelEscaping()
-    {
-        $result = $this->Form->control('file', [
-            'type' => 'file',
-            'label' => [
-                'text' => '<b>text</b>',
-            ],
-            'custom' => true,
-            'append' => 'append',
-        ]);
-        $expected = [
-            ['div' => ['class' => 'form-group file']],
-                ['div' => ['class' => 'input-group']],
-                    ['div' => ['class' => 'custom-file ']],
-                        ['input' => [
-                            'type' => 'file',
-                            'name' => 'file',
-                            'id' => 'file',
-                            'class' => 'custom-file-input',
-                        ]],
-                        ['label' => ['class' => 'custom-file-label', 'for' => 'file']],
-                            '&lt;b&gt;text&lt;/b&gt;',
-                        '/label',
-                     '/div',
-                    ['div' => ['class' => 'input-group-append']],
-                        ['span' => ['class' => 'input-group-text']],
-                            'append',
-                        '/span',
-                    '/div',
-                '/div',
-            '/div',
-        ];
-        $this->assertHtml($expected, $result);
-
-        $result = $this->Form->control('file', [
-            'type' => 'file',
-            'label' => [
-                'text' => '<b>text</b>',
-                'escape' => false,
-            ],
-            'custom' => true,
-            'append' => 'append',
-        ]);
-        $expected = [
-            ['div' => ['class' => 'form-group file']],
-                ['div' => ['class' => 'input-group']],
-                    ['div' => ['class' => 'custom-file ']],
-                        ['input' => [
-                            'type' => 'file',
-                            'name' => 'file',
-                            'id' => 'file',
-                            'class' => 'custom-file-input',
-                        ]],
-                        ['label' => ['class' => 'custom-file-label', 'for' => 'file']],
-                            ['b' => true], 'text', '/b',
-                        '/label',
-                     '/div',
-                    ['div' => ['class' => 'input-group-append']],
-                        ['span' => ['class' => 'input-group-text']],
-                            'append',
-                        '/span',
                     '/div',
                 '/div',
             '/div',

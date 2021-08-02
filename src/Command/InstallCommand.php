@@ -177,7 +177,7 @@ class InstallCommand extends Command
      * @param \Cake\Console\ConsoleIo $io The console io.
      * @return void
      */
-    protected function _runNPMInstall(&$output, &$return, ConsoleIo $io): void
+    protected function _runNPMInstall(array &$output, int &$return, ConsoleIo $io): void
     {
         $pluginPath = Plugin::path('BootstrapUI');
         if (!$this->_changeWorkingDirectory($pluginPath)) {
@@ -257,6 +257,7 @@ class InstallCommand extends Command
             (?<!(\\\\|\/)cover\.css)
             (?<!(\\\\|\/)dashboard\.css)
             (?<!(\\\\|\/)signin\.css)
+            (?<!(\\\\|\/)bootstrap-icon-sizes\.css)
             (?<!(\\\\|\/)baked-with-cakephp\.svg)
             $
         @ix';
@@ -284,23 +285,42 @@ class InstallCommand extends Command
 
         $webrootPath = Plugin::path('BootstrapUI') . 'webroot' . DS;
         $cssPath = $webrootPath . 'css' . DS;
+        $fontPath = $webrootPath . 'font' . DS;
         $jsPath = $webrootPath . 'js' . DS;
-
-        $filesystem->mkdir($cssPath);
-        $filesystem->mkdir($jsPath);
 
         $result = true;
         foreach ($this->_findPackageAssets() as $file) {
             $assetPath = null;
-            if (preg_match('/\.css/', $file->getFilename())) {
+
+            $matches = [];
+            $DS = preg_quote(DS, '/');
+            if (
+                preg_match(
+                    "/{$DS}font{$DS}(?P<subdirs>.+{$DS})?.+\\.(css|woff|woff2)$/",
+                    $file->getPathname(),
+                    $matches
+                )
+            ) {
+                $assetPath = $fontPath;
+            } elseif (preg_match('/\.css(\.map)?$/', $file->getFilename())) {
                 $assetPath = $cssPath;
-            } elseif (preg_match('/(\.js|\.min\.map)/', $file->getFilename())) {
+            } elseif (preg_match('/\.js(\.map)?$/', $file->getFilename())) {
                 $assetPath = $jsPath;
             }
+
             if ($assetPath === null) {
-                $io->warning("Skipped `{$file->getFilename()}`.");
+                $io->info("Skipped `{$file->getFilename()}`.", 1, ConsoleIo::VERBOSE);
                 continue;
             }
+
+            if (
+                isset($matches['subdirs']) &&
+                $matches['subdirs']
+            ) {
+                $assetPath .= $matches['subdirs'];
+            }
+
+            $filesystem->mkdir($assetPath);
 
             if (
                 is_file($file->getPathname()) &&
@@ -327,9 +347,9 @@ class InstallCommand extends Command
 
         $nodeModulesPath = Plugin::path('BootstrapUI') . 'node_modules' . DS;
         $paths = [
+            $nodeModulesPath . '@popperjs/core/dist/umd',
             $nodeModulesPath . 'bootstrap/dist',
-            $nodeModulesPath . 'jquery/dist',
-            $nodeModulesPath . 'popper.js/dist/umd',
+            $nodeModulesPath . 'bootstrap-icons',
         ];
 
         $files = [];
