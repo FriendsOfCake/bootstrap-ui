@@ -125,9 +125,9 @@ class FormHelper extends Helper
      */
     protected $_templates = [
         'error' =>
-            '<div class="ms-0 invalid-feedback">{{content}}</div>',
+            '<div id="{{id}}" class="ms-0 invalid-feedback">{{content}}</div>',
         'errorTooltip' =>
-            '<div class="invalid-tooltip">{{content}}</div>',
+            '<div id="{{id}}" class="invalid-tooltip">{{content}}</div>',
         'label' =>
             '<label{{attrs}}>{{text}}{{tooltip}}</label>',
         'help' =>
@@ -341,6 +341,13 @@ class FormHelper extends Helper
     ];
 
     /**
+     * The name of the field for which the current error is being generated.
+     *
+     * @var string|null
+     */
+    private $_errorFieldName = null;
+
+    /**
      * Construct the widgets and binds the default context providers.
      *
      * @param \Cake\View\View $View The View this helper is being attached to.
@@ -389,6 +396,40 @@ class FormHelper extends Helper
         ];
 
         return parent::create($context, $this->_formAlignment($options));
+    }
+
+    /**
+     * @inheritDoc
+     */
+    public function error(string $field, $text = null, array $options = []): string
+    {
+        $this->_errorFieldName = $field;
+        $error = parent::error($field, $text, $options);
+        $this->_errorFieldName = null;
+
+        return $error;
+    }
+
+    /**
+     * @inheritDoc
+     */
+    public function formatTemplate(string $name, array $data): string
+    {
+        // Injects the `id` attribute value for the error template.
+        // This is done for backwards compatibility reasons, as the
+        // core form helper only introduced this behavior with
+        // CakePHP 4.3. This can be removed once the required minimum
+        // CakePHP version is bumped accordingly.
+
+        if (
+            $name === 'error' &&
+            !isset($data['id']) &&
+            $this->_errorFieldName !== null
+        ) {
+            $data['id'] = $this->_domId($this->_errorFieldName . '-error');
+        }
+
+        return parent::formatTemplate($name, $data);
     }
 
     /**
@@ -512,6 +553,7 @@ class FormHelper extends Helper
 
         $options = $this->_containerOptions($fieldName, $options);
         $options = $this->_feedbackStyleOptions($fieldName, $options);
+        $options = $this->_ariaOptions($fieldName, $options);
         $options = $this->_helpOptions($fieldName, $options);
         $options = $this->_tooltipOptions($fieldName, $options);
 
@@ -888,6 +930,79 @@ class FormHelper extends Helper
     }
 
     /**
+     * Modify options for aria attributes.
+     *
+     * @param string $fieldName Field name.
+     * @param array $options Options. See `$options` argument of `control()` method.
+     * @return array
+     */
+    protected function _ariaOptions(string $fieldName, array $options): array
+    {
+        if (
+            $options['type'] === 'hidden' ||
+            (
+                isset($options['aria-describedby']) &&
+                isset($options['aria-invalid'])
+            )
+        ) {
+            return $options;
+        }
+
+        $isError =
+            $options['error'] !== false &&
+            $this->isFieldError($fieldName);
+
+        // `aria-invalid` and `aria-required` are injected for backwards
+        // compatibility reasons, as support for this has only been
+        // introduced in the core form helper with CakePHP 4.3. This can
+        // be removed once the required minimum CakePHP version is bumped
+        // accordingly.
+
+        if (
+            $isError &&
+            !isset($options['aria-invalid'])
+        ) {
+            $options['aria-invalid'] = 'true';
+        }
+
+        if (
+            $options['required'] &&
+            !isset($options['aria-required'])
+        ) {
+            $options['aria-required'] = 'true';
+        }
+
+        if (isset($options['aria-describedby'])) {
+            return $options;
+        }
+
+        $describedByIds = [];
+
+        if ($isError) {
+            $describedByIds[] = $this->_domId($fieldName . '-error');
+        }
+
+        if ($options['help']) {
+            if (
+                is_array($options['help']) &&
+                isset($options['help']['id'])
+            ) {
+                $descriptorId = $options['help']['id'];
+            } else {
+                $descriptorId = $this->_domId($fieldName . '-help');
+            }
+
+            $describedByIds[] = $descriptorId;
+        }
+
+        if ($describedByIds) {
+            $options['aria-describedby'] = $describedByIds;
+        }
+
+        return $options;
+    }
+
+    /**
      * Modify options for control's help.
      *
      * @param string $fieldName Field name.
@@ -904,12 +1019,8 @@ class FormHelper extends Helper
             }
 
             if (!isset($options['help']['id'])) {
-                $descriptorId = $this->_domId($fieldName . '-help');
-                $options['help']['id'] = $descriptorId;
-            } else {
-                $descriptorId = $options['help']['id'];
+                $options['help']['id'] = $this->_domId($fieldName . '-help');
             }
-            $options['aria-describedby'] = $descriptorId;
 
             $helpClasses = [];
             if ($this->_align === static::ALIGN_INLINE) {

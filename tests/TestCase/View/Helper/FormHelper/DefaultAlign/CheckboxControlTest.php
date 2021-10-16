@@ -267,14 +267,109 @@ class CheckboxControlTest extends AbstractFormHelperTest
                     'type' => 'checkbox',
                     'name' => 'users',
                     'id' => 'users',
+                    'aria-invalid' => 'true',
+                    'aria-describedby' => 'users-error',
                     'value' => 1,
                 ]],
                 ['label' => ['class' => 'form-check-label', 'for' => 'users']],
                     'Users',
                 '/label',
-                ['div' => ['class' => 'ms-0 invalid-feedback']],
+                ['div' => ['id' => 'users-error', 'class' => 'ms-0 invalid-feedback']],
                     'error message',
                 '/div',
+            '/div',
+        ];
+        $this->assertHtml($expected, $result);
+    }
+
+    public function testDefaultAlignCheckboxControlWithErrorAndHelp()
+    {
+        $this->article['errors'] = [
+            'users' => ['error message'],
+        ];
+        $this->Form->create($this->article);
+
+        $result = $this->Form->control('users', [
+            'type' => 'checkbox',
+            'help' => 'Help text',
+        ]);
+        $expected = [
+            ['div' => ['class' => 'mb-3 form-group form-check checkbox is-invalid']],
+                ['input' => [
+                    'class' => 'is-invalid',
+                    'type' => 'hidden',
+                    'name' => 'users',
+                    'value' => 0,
+                ]],
+                ['input' => [
+                    'class' => 'form-check-input is-invalid',
+                    'type' => 'checkbox',
+                    'name' => 'users',
+                    'id' => 'users',
+                    'aria-invalid' => 'true',
+                    'aria-describedby' => 'users-error users-help',
+                    'value' => 1,
+                ]],
+                ['label' => ['class' => 'form-check-label', 'for' => 'users']],
+                    'Users',
+                '/label',
+                ['div' => ['id' => 'users-error', 'class' => 'ms-0 invalid-feedback']],
+                    'error message',
+                '/div',
+                ['small' => ['id' => 'users-help', 'class' => 'd-block form-text text-muted']],
+                    'Help text',
+                '/small',
+            '/div',
+        ];
+        $this->assertHtml($expected, $result);
+    }
+
+    public function testDefaultAlignCheckboxControlWithErrorAndHelpAndOptions()
+    {
+        $this->article['errors'] = [
+            'users' => ['error message'],
+        ];
+        $this->Form->create($this->article);
+
+        $result = $this->Form->control('users', [
+            'type' => 'checkbox',
+            'help' => [
+                'id' => 'custom-help',
+                'foo' => 'bar',
+                'class' => 'help-class',
+                'content' => 'Help text',
+            ],
+        ]);
+        $expected = [
+            ['div' => ['class' => 'mb-3 form-group form-check checkbox is-invalid']],
+                ['input' => [
+                    'class' => 'is-invalid',
+                    'type' => 'hidden',
+                    'name' => 'users',
+                    'value' => 0,
+                ]],
+                ['input' => [
+                    'class' => 'form-check-input is-invalid',
+                    'type' => 'checkbox',
+                    'name' => 'users',
+                    'id' => 'users',
+                    'aria-invalid' => 'true',
+                    'aria-describedby' => 'users-error custom-help',
+                    'value' => 1,
+                ]],
+                ['label' => ['class' => 'form-check-label', 'for' => 'users']],
+                    'Users',
+                '/label',
+                ['div' => ['id' => 'users-error', 'class' => 'ms-0 invalid-feedback']],
+                    'error message',
+                '/div',
+                ['small' => [
+                    'id' => 'custom-help',
+                    'foo' => 'bar',
+                    'class' => 'help-class d-block form-text text-muted',
+                ]],
+                    'Help text',
+                '/small',
             '/div',
         ];
         $this->assertHtml($expected, $result);
@@ -346,12 +441,14 @@ class CheckboxControlTest extends AbstractFormHelperTest
                     'type' => 'checkbox',
                     'name' => 'users',
                     'id' => 'users',
+                    'aria-invalid' => 'true',
+                    'aria-describedby' => 'users-error',
                     'value' => 1,
                 ]],
                 ['label' => ['class' => 'form-check-label', 'for' => 'users']],
                     'Users',
                 '/label',
-                ['div' => ['class' => 'ms-0 invalid-feedback']],
+                ['div' => ['id' => 'users-error', 'class' => 'ms-0 invalid-feedback']],
                     'error message',
                 '/div',
             '/div',
@@ -451,11 +548,13 @@ class CheckboxControlTest extends AbstractFormHelperTest
                         'type' => 'checkbox',
                         'name' => 'users',
                         'id' => 'users',
+                        'aria-invalid' => 'true',
+                        'aria-describedby' => 'users-error',
                         'value' => 1,
                     ]],
                     'Users',
                 '/label',
-                ['div' => ['class' => 'ms-0 invalid-feedback']],
+                ['div' => ['id' => 'users-error', 'class' => 'ms-0 invalid-feedback']],
                     'error message',
                 '/div',
             '/div',
@@ -731,12 +830,14 @@ class CheckboxControlTest extends AbstractFormHelperTest
                     'type' => 'checkbox',
                     'name' => 'users',
                     'id' => 'users',
+                    'aria-invalid' => 'true',
+                    'aria-describedby' => 'users-error',
                     'value' => 1,
                 ]],
                 ['label' => ['class' => 'form-check-label', 'for' => 'users']],
                     'Users',
                 '/label',
-                ['div' => ['class' => 'ms-0 invalid-feedback']],
+                ['div' => ['id' => 'users-error', 'class' => 'ms-0 invalid-feedback']],
                     'error message',
                 '/div',
             '/div',
@@ -812,12 +913,14 @@ class CheckboxControlTest extends AbstractFormHelperTest
                     'type' => 'checkbox',
                     'name' => 'users',
                     'id' => 'users',
+                    'aria-invalid' => 'true',
+                    'aria-describedby' => 'users-error',
                     'value' => 1,
                 ]],
                 ['label' => ['class' => 'form-check-label', 'for' => 'users']],
                     'Users',
                 '/label',
-                ['div' => ['class' => 'ms-0 invalid-feedback']],
+                ['div' => ['id' => 'users-error', 'class' => 'ms-0 invalid-feedback']],
                     'error message',
                 '/div',
             '/div',

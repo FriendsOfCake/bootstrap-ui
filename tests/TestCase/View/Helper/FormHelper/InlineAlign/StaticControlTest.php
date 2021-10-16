@@ -328,11 +328,112 @@ class StaticControlTest extends AbstractFormHelperTest
                         'name' => 'title',
                         'id' => 'title',
                         'class' => 'is-invalid',
+                        'aria-invalid' => 'true',
+                        'aria-describedby' => 'title-error',
                         'value' => 'title',
                     ],
-                    ['div' => ['class' => 'invalid-tooltip']],
+                    ['div' => ['id' => 'title-error', 'class' => 'invalid-tooltip']],
                         'error message',
                     '/div',
+                '/div',
+            '/div',
+        ];
+        $this->assertHtml($expected, $result);
+    }
+
+    public function testInlineAlignStaticControlWithErrorAndHelp()
+    {
+        $this->article['errors'] = [
+            'title' => ['error message'],
+        ];
+        unset($this->article['required']['title']);
+        $this->article['defaults']['title'] = 'title';
+        $this->Form->create($this->article, [
+            'align' => 'inline',
+        ]);
+
+        $result = $this->Form->control('title', [
+            'type' => 'staticControl',
+            'help' => 'Help text',
+        ]);
+        $expected = [
+            ['div' => ['class' => 'col-auto']],
+                'div' => ['class' => 'form-group position-relative staticControl is-invalid'],
+                    'label' => ['class' => 'form-label visually-hidden', 'for' => 'title'],
+                        'Title',
+                    '/label',
+                    'p' => ['class' => 'form-control-plaintext'],
+                        'title',
+                    '/p',
+                    'input' => [
+                        'type' => 'hidden',
+                        'name' => 'title',
+                        'id' => 'title',
+                        'class' => 'is-invalid',
+                        'aria-invalid' => 'true',
+                        'aria-describedby' => 'title-error title-help',
+                        'value' => 'title',
+                    ],
+                    ['div' => ['id' => 'title-error', 'class' => 'invalid-tooltip']],
+                        'error message',
+                    '/div',
+                    ['small' => ['id' => 'title-help', 'class' => 'visually-hidden form-text']],
+                        'Help text',
+                    '/small',
+                '/div',
+            '/div',
+        ];
+        $this->assertHtml($expected, $result);
+    }
+
+    public function testInlineAlignStaticControlWithErrorAndHelpOptions()
+    {
+        $this->article['errors'] = [
+            'title' => ['error message'],
+        ];
+        unset($this->article['required']['title']);
+        $this->article['defaults']['title'] = 'title';
+        $this->Form->create($this->article, [
+            'align' => 'inline',
+        ]);
+
+        $result = $this->Form->control('title', [
+            'type' => 'staticControl',
+            'help' => [
+                'id' => 'custom-help',
+                'foo' => 'bar',
+                'class' => 'help-class',
+                'content' => 'Help text',
+            ],
+        ]);
+        $expected = [
+            ['div' => ['class' => 'col-auto']],
+                'div' => ['class' => 'form-group position-relative staticControl is-invalid'],
+                    'label' => ['class' => 'form-label visually-hidden', 'for' => 'title'],
+                        'Title',
+                    '/label',
+                    'p' => ['class' => 'form-control-plaintext'],
+                        'title',
+                    '/p',
+                    'input' => [
+                        'type' => 'hidden',
+                        'name' => 'title',
+                        'id' => 'title',
+                        'class' => 'is-invalid',
+                        'aria-invalid' => 'true',
+                        'aria-describedby' => 'title-error custom-help',
+                        'value' => 'title',
+                    ],
+                    ['div' => ['id' => 'title-error', 'class' => 'invalid-tooltip']],
+                        'error message',
+                    '/div',
+                    ['small' => [
+                        'id' => 'custom-help',
+                        'foo' => 'bar',
+                        'class' => 'help-class visually-hidden form-text',
+                    ]],
+                        'Help text',
+                    '/small',
                 '/div',
             '/div',
         ];
@@ -413,9 +514,11 @@ class StaticControlTest extends AbstractFormHelperTest
                         'name' => 'title',
                         'id' => 'title',
                         'class' => 'is-invalid',
+                        'aria-invalid' => 'true',
+                        'aria-describedby' => 'title-error',
                         'value' => 'title',
                     ],
-                    ['div' => ['class' => 'invalid-tooltip']],
+                    ['div' => ['id' => 'title-error', 'class' => 'invalid-tooltip']],
                         'error message',
                     '/div',
                 '/div',

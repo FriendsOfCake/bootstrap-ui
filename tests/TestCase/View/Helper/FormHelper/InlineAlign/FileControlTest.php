@@ -269,10 +269,103 @@ class FileControlTest extends AbstractFormHelperTest
                         'name' => 'file',
                         'id' => 'file',
                         'class' => 'is-invalid form-control',
+                        'aria-invalid' => 'true',
+                        'aria-describedby' => 'file-error',
                     ]],
-                    ['div' => ['class' => 'invalid-tooltip']],
+                    ['div' => ['id' => 'file-error', 'class' => 'invalid-tooltip']],
                         'error message',
                     '/div',
+                '/div',
+            '/div',
+        ];
+        $this->assertHtml($expected, $result);
+    }
+
+    public function testInlineAlignFileControlWithErrorAndHelp()
+    {
+        $this->withErrorReporting(0, function () {
+            $this->article['errors'] = [
+                'file' => ['error message'],
+            ];
+            $this->Form->create($this->article, [
+                'align' => 'inline',
+            ]);
+        });
+
+        $result = $this->Form->control('file', [
+            'type' => 'file',
+            'help' => 'Help text',
+        ]);
+        $expected = [
+            ['div' => ['class' => 'col-auto']],
+                ['div' => ['class' => 'form-group position-relative file is-invalid']],
+                    ['label' => ['class' => 'form-label visually-hidden', 'for' => 'file']],
+                        'File',
+                    '/label',
+                    ['input' => [
+                        'type' => 'file',
+                        'name' => 'file',
+                        'id' => 'file',
+                        'class' => 'is-invalid form-control',
+                        'aria-invalid' => 'true',
+                        'aria-describedby' => 'file-error file-help',
+                    ]],
+                    ['div' => ['id' => 'file-error', 'class' => 'invalid-tooltip']],
+                        'error message',
+                    '/div',
+                    ['small' => ['id' => 'file-help', 'class' => 'visually-hidden form-text']],
+                        'Help text',
+                    '/small',
+                '/div',
+            '/div',
+        ];
+        $this->assertHtml($expected, $result);
+    }
+
+    public function testInlineAlignFileControlWithErrorAndHelpOptions()
+    {
+        $this->withErrorReporting(0, function () {
+            $this->article['errors'] = [
+                'file' => ['error message'],
+            ];
+            $this->Form->create($this->article, [
+                'align' => 'inline',
+            ]);
+        });
+
+        $result = $this->Form->control('file', [
+            'type' => 'file',
+            'help' => [
+                'id' => 'custom-help',
+                'foo' => 'bar',
+                'class' => 'help-class',
+                'content' => 'Help text',
+            ],
+        ]);
+        $expected = [
+            ['div' => ['class' => 'col-auto']],
+                ['div' => ['class' => 'form-group position-relative file is-invalid']],
+                    ['label' => ['class' => 'form-label visually-hidden', 'for' => 'file']],
+                        'File',
+                    '/label',
+                    ['input' => [
+                        'type' => 'file',
+                        'name' => 'file',
+                        'id' => 'file',
+                        'class' => 'is-invalid form-control',
+                        'aria-invalid' => 'true',
+                        'aria-describedby' => 'file-error custom-help',
+                    ]],
+                    ['div' => ['id' => 'file-error', 'class' => 'invalid-tooltip']],
+                        'error message',
+                    '/div',
+                    ['small' => [
+                        'id' => 'custom-help',
+                        'foo' => 'bar',
+                        'class' => 'help-class visually-hidden form-text',
+                    ]],
+                        'Help text',
+                    '/small',
                 '/div',
             '/div',
         ];
@@ -347,8 +440,10 @@ class FileControlTest extends AbstractFormHelperTest
                         'name' => 'file',
                         'id' => 'file',
                         'class' => 'is-invalid form-control',
+                        'aria-invalid' => 'true',
+                        'aria-describedby' => 'file-error',
                     ]],
-                    ['div' => ['class' => 'invalid-tooltip']],
+                    ['div' => ['id' => 'file-error', 'class' => 'invalid-tooltip']],
                         'error message',
                     '/div',
                 '/div',
@@ -448,12 +543,14 @@ class FileControlTest extends AbstractFormHelperTest
                             'name' => 'file',
                             'id' => 'file',
                             'class' => 'is-invalid form-control',
+                            'aria-invalid' => 'true',
+                            'aria-describedby' => 'file-error',
                         ]],
                         ['span' => ['class' => 'input-group-text']],
                             'append',
                         '/span',
                     '/div',
-                    ['div' => ['class' => 'invalid-tooltip']],
+                    ['div' => ['id' => 'file-error', 'class' => 'invalid-tooltip']],
                         'error message',
                     '/div',
                 '/div',

@@ -222,10 +222,91 @@ class FileControlTest extends AbstractFormHelperTest
                     'name' => 'file',
                     'id' => 'file',
                     'class' => 'is-invalid form-control',
+                    'aria-invalid' => 'true',
+                    'aria-describedby' => 'file-error',
                 ]],
-                ['div' => ['class' => 'ms-0 invalid-feedback']],
+                ['div' => ['id' => 'file-error', 'class' => 'ms-0 invalid-feedback']],
                     'error message',
                 '/div',
+            '/div',
+        ];
+        $this->assertHtml($expected, $result);
+    }
+
+    public function testDefaultAlignFileControlWithErrorAndHelp()
+    {
+        $this->article['errors'] = [
+            'file' => ['error message'],
+        ];
+        $this->Form->create($this->article);
+
+        $result = $this->Form->control('file', [
+            'type' => 'file',
+            'help' => 'Help text',
+        ]);
+        $expected = [
+            ['div' => ['class' => 'mb-3 form-group file is-invalid']],
+                ['label' => ['class' => 'form-label', 'for' => 'file']],
+                    'File',
+                '/label',
+                ['input' => [
+                    'type' => 'file',
+                    'name' => 'file',
+                    'id' => 'file',
+                    'class' => 'is-invalid form-control',
+                    'aria-invalid' => 'true',
+                    'aria-describedby' => 'file-error file-help',
+                ]],
+                ['div' => ['id' => 'file-error', 'class' => 'ms-0 invalid-feedback']],
+                    'error message',
+                '/div',
+                ['small' => ['id' => 'file-help', 'class' => 'd-block form-text text-muted']],
+                    'Help text',
+                '/small',
+            '/div',
+        ];
+        $this->assertHtml($expected, $result);
+    }
+
+    public function testDefaultAlignFileControlWithErrorAndHelpOptions()
+    {
+        $this->article['errors'] = [
+            'file' => ['error message'],
+        ];
+        $this->Form->create($this->article);
+
+        $result = $this->Form->control('file', [
+            'type' => 'file',
+            'help' => [
+                'id' => 'custom-help',
+                'foo' => 'bar',
+                'class' => 'help-class',
+                'content' => 'Help text',
+            ],
+        ]);
+        $expected = [
+            ['div' => ['class' => 'mb-3 form-group file is-invalid']],
+                ['label' => ['class' => 'form-label', 'for' => 'file']],
+                    'File',
+                '/label',
+                ['input' => [
+                    'type' => 'file',
+                    'name' => 'file',
+                    'id' => 'file',
+                    'class' => 'is-invalid form-control',
+                    'aria-invalid' => 'true',
+                    'aria-describedby' => 'file-error custom-help',
+                ]],
+                ['div' => ['id' => 'file-error', 'class' => 'ms-0 invalid-feedback']],
+                    'error message',
+                '/div',
+                ['small' => [
+                    'id' => 'custom-help',
+                    'foo' => 'bar',
+                    'class' => 'help-class d-block form-text text-muted',
+                ]],
+                    'Help text',
+                '/small',
             '/div',
         ];
         $this->assertHtml($expected, $result);
@@ -288,8 +369,10 @@ class FileControlTest extends AbstractFormHelperTest
                     'name' => 'file',
                     'id' => 'file',
                     'class' => 'is-invalid form-control',
+                    'aria-invalid' => 'true',
+                    'aria-describedby' => 'file-error',
                 ]],
-                ['div' => ['class' => 'ms-0 invalid-feedback']],
+                ['div' => ['id' => 'file-error', 'class' => 'ms-0 invalid-feedback']],
                     'error message',
                 '/div',
             '/div',
@@ -377,12 +460,14 @@ class FileControlTest extends AbstractFormHelperTest
                         'name' => 'file',
                         'id' => 'file',
                         'class' => 'is-invalid form-control',
+                        'aria-invalid' => 'true',
+                        'aria-describedby' => 'file-error',
                     ]],
                     ['span' => ['class' => 'input-group-text']],
                         'append',
                     '/span',
                 '/div',
-                ['div' => ['class' => 'ms-0 invalid-feedback']],
+                ['div' => ['id' => 'file-error', 'class' => 'ms-0 invalid-feedback']],
                     'error message',
                 '/div',
             '/div',

@@ -277,10 +277,99 @@ class TextControlTest extends AbstractFormHelperTest
                         'name' => 'title',
                         'id' => 'title',
                         'class' => 'is-invalid form-control',
+                        'aria-invalid' => 'true',
+                        'aria-describedby' => 'title-error',
                     ],
-                    ['div' => ['class' => 'invalid-tooltip']],
+                    ['div' => ['id' => 'title-error', 'class' => 'invalid-tooltip']],
                         'error message',
                     '/div',
+                '/div',
+            '/div',
+        ];
+        $this->assertHtml($expected, $result);
+    }
+
+    public function testInlineAlignTextControlWithErrorAndHelp()
+    {
+        $this->article['errors'] = [
+            'title' => ['error message'],
+        ];
+        unset($this->article['required']['title']);
+        $this->Form->create($this->article, [
+            'align' => 'inline',
+        ]);
+
+        $result = $this->Form->control('title', [
+            'help' => 'Help text',
+        ]);
+        $expected = [
+            ['div' => ['class' => 'col-auto']],
+                'div' => ['class' => 'form-group position-relative text is-invalid'],
+                    'label' => ['class' => 'form-label visually-hidden', 'for' => 'title'],
+                        'Title',
+                    '/label',
+                    'input' => [
+                        'type' => 'text',
+                        'name' => 'title',
+                        'id' => 'title',
+                        'class' => 'is-invalid form-control',
+                        'aria-invalid' => 'true',
+                        'aria-describedby' => 'title-error title-help',
+                    ],
+                    ['div' => ['id' => 'title-error', 'class' => 'invalid-tooltip']],
+                        'error message',
+                    '/div',
+                    ['small' => ['id' => 'title-help', 'class' => 'visually-hidden form-text']],
+                        'Help text',
+                    '/small',
+                '/div',
+            '/div',
+        ];
+        $this->assertHtml($expected, $result);
+    }
+
+    public function testInlineAlignTextControlWithErrorAndHelpOptions()
+    {
+        $this->article['errors'] = [
+            'title' => ['error message'],
+        ];
+        unset($this->article['required']['title']);
+        $this->Form->create($this->article, [
+            'align' => 'inline',
+        ]);
+
+        $result = $this->Form->control('title', [
+            'help' => [
+                'id' => 'custom-help',
+                'foo' => 'bar',
+                'class' => 'help-class',
+                'content' => 'Help text',
+            ],
+        ]);
+        $expected = [
+            ['div' => ['class' => 'col-auto']],
+                'div' => ['class' => 'form-group position-relative text is-invalid'],
+                    'label' => ['class' => 'form-label visually-hidden', 'for' => 'title'],
+                        'Title',
+                    '/label',
+                    'input' => [
+                        'type' => 'text',
+                        'name' => 'title',
+                        'id' => 'title',
+                        'class' => 'is-invalid form-control',
+                        'aria-invalid' => 'true',
+                        'aria-describedby' => 'title-error custom-help',
+                    ],
+                    ['div' => ['id' => 'title-error', 'class' => 'invalid-tooltip']],
+                        'error message',
+                    '/div',
+                    ['small' => [
+                        'id' => 'custom-help',
+                        'foo' => 'bar',
+                        'class' => 'help-class visually-hidden form-text',
+                    ]],
+                        'Help text',
+                    '/small',
                 '/div',
             '/div',
         ];
@@ -353,8 +442,10 @@ class TextControlTest extends AbstractFormHelperTest
                         'name' => 'title',
                         'id' => 'title',
                         'class' => 'is-invalid form-control',
+                        'aria-invalid' => 'true',
+                        'aria-describedby' => 'title-error',
                     ],
-                    ['div' => ['class' => 'invalid-tooltip']],
+                    ['div' => ['id' => 'title-error', 'class' => 'invalid-tooltip']],
                         'error message',
                     '/div',
                 '/div',

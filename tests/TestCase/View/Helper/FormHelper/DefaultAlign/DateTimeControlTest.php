@@ -269,11 +269,106 @@ class DateTimeControlTest extends AbstractFormHelperTest
                     'name' => 'created',
                     'id' => 'created',
                     'class' => 'is-invalid form-control',
+                    'aria-invalid' => 'true',
+                    'aria-describedby' => 'created-error',
                     'value' => $now->format('Y-m-d H:i:s'),
                 ],
-                ['div' => ['class' => 'ms-0 invalid-feedback']],
+                ['div' => ['id' => 'created-error', 'class' => 'ms-0 invalid-feedback']],
                     'error message',
                 '/div',
+            '/div',
+        ];
+        $this->assertHtml($expected, $result);
+    }
+
+    public function testDefaultAlignDateTimeControlWithErrorAndHelp()
+    {
+        $this->article['errors'] = [
+            'created' => ['error message'],
+        ];
+        $this->Form->create($this->article);
+
+        $now = new \DateTime('now');
+
+        $result = $this->Form->control('created', [
+            'type' => 'datetime-local',
+            'value' => $now->format('Y-m-d H:i:s'),
+            'help' => 'Help text',
+        ]);
+
+        $expected = [
+            ['div' => [
+                'class' => 'mb-3 form-group datetime-local is-invalid',
+            ]],
+                ['label' => ['class' => 'form-label', 'for' => 'created']],
+                    'Created',
+                '/label',
+                'input' => [
+                    'type' => 'datetime-local',
+                    'name' => 'created',
+                    'id' => 'created',
+                    'class' => 'is-invalid form-control',
+                    'aria-invalid' => 'true',
+                    'aria-describedby' => 'created-error created-help',
+                    'value' => $now->format('Y-m-d H:i:s'),
+                ],
+                ['div' => ['id' => 'created-error', 'class' => 'ms-0 invalid-feedback']],
+                    'error message',
+                '/div',
+                ['small' => ['id' => 'created-help', 'class' => 'd-block form-text text-muted']],
+                    'Help text',
+                '/small',
+            '/div',
+        ];
+        $this->assertHtml($expected, $result);
+    }
+
+    public function testDefaultAlignDateTimeControlWithErrorAndHelpOptions()
+    {
+        $this->article['errors'] = [
+            'created' => ['error message'],
+        ];
+        $this->Form->create($this->article);
+
+        $now = new \DateTime('now');
+
+        $result = $this->Form->control('created', [
+            'type' => 'datetime-local',
+            'value' => $now->format('Y-m-d H:i:s'),
+            'help' => [
+                'id' => 'custom-help',
+                'foo' => 'bar',
+                'class' => 'help-class',
+                'content' => 'Help text',
+            ],
+        ]);
+
+        $expected = [
+            ['div' => [
+                'class' => 'mb-3 form-group datetime-local is-invalid',
+            ]],
+                ['label' => ['class' => 'form-label', 'for' => 'created']],
+                    'Created',
+                '/label',
+                'input' => [
+                    'type' => 'datetime-local',
+                    'name' => 'created',
+                    'id' => 'created',
+                    'class' => 'is-invalid form-control',
+                    'aria-invalid' => 'true',
+                    'aria-describedby' => 'created-error custom-help',
+                    'value' => $now->format('Y-m-d H:i:s'),
+                ],
+                ['div' => ['id' => 'created-error', 'class' => 'ms-0 invalid-feedback']],
+                    'error message',
+                '/div',
+                ['small' => [
+                    'id' => 'custom-help',
+                    'foo' => 'bar',
+                    'class' => 'help-class d-block form-text text-muted',
+                ]],
+                    'Help text',
+                '/small',
             '/div',
         ];
         $this->assertHtml($expected, $result);
@@ -345,9 +440,11 @@ class DateTimeControlTest extends AbstractFormHelperTest
                     'name' => 'created',
                     'id' => 'created',
                     'class' => 'is-invalid form-control',
+                    'aria-invalid' => 'true',
+                    'aria-describedby' => 'created-error',
                     'value' => $now->format('Y-m-d H:i:s'),
                 ],
-                ['div' => ['class' => 'ms-0 invalid-feedback']],
+                ['div' => ['id' => 'created-error', 'class' => 'ms-0 invalid-feedback']],
                     'error message',
                 '/div',
             '/div',

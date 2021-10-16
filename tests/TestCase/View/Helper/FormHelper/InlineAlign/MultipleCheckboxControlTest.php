@@ -476,6 +476,8 @@ class MultipleCheckboxControlTest extends AbstractFormHelperTest
                             'type' => 'checkbox',
                             'name' => 'users[]',
                             'id' => 'users-1',
+                            'aria-invalid' => 'true',
+                            'aria-describedby' => 'users-error',
                             'value' => 1,
                         ]],
                         ['label' => ['class' => 'form-check-label', 'for' => 'users-1']],
@@ -488,15 +490,176 @@ class MultipleCheckboxControlTest extends AbstractFormHelperTest
                             'type' => 'checkbox',
                             'name' => 'users[]',
                             'id' => 'users-2',
+                            'aria-invalid' => 'true',
+                            'aria-describedby' => 'users-error',
                             'value' => 2,
                         ]],
                         ['label' => ['class' => 'form-check-label', 'for' => 'users-2']],
                             'option 2',
                         '/label',
                     '/div',
-                    ['div' => ['class' => 'invalid-tooltip']],
+                    ['div' => ['id' => 'users-error', 'class' => 'invalid-tooltip']],
                         'error message',
                     '/div',
+                '/div',
+            '/div',
+        ];
+        $this->assertHtml($expected, $result);
+    }
+
+    public function testInlineAlignMultipleCheckboxControlWithErrorAndHelp()
+    {
+        $this->withErrorReporting(0, function () {
+            $this->article['errors'] = [
+                'users' => ['error message'],
+            ];
+            $this->Form->create($this->article, [
+                'align' => 'inline',
+            ]);
+        });
+
+        $result = $this->Form->control('users', [
+            'multiple' => 'checkbox',
+            'options' => [
+                1 => 'option 1',
+                2 => 'option 2',
+            ],
+            'help' => 'Help text',
+        ]);
+        $expected = [
+            ['div' => ['class' => 'col-auto']],
+                ['div' => [
+                    'class' => 'form-group d-flex position-relative multicheckbox is-invalid',
+                    'role' => 'group',
+                    'aria-labelledby' => 'users-group-label',
+                ]],
+                    ['span' => ['id' => 'users-group-label', 'class' => 'form-label visually-hidden']],
+                        'Users',
+                    '/span',
+                    ['input' => [
+                        'class' => 'is-invalid',
+                        'type' => 'hidden',
+                        'name' => 'users',
+                        'value' => '',
+                    ]],
+                    ['div' => ['class' => 'form-check form-check-inline']],
+                        ['input' => [
+                            'class' => 'form-check-input is-invalid',
+                            'type' => 'checkbox',
+                            'name' => 'users[]',
+                            'id' => 'users-1',
+                            'aria-invalid' => 'true',
+                            'aria-describedby' => 'users-error users-help',
+                            'value' => 1,
+                        ]],
+                        ['label' => ['class' => 'form-check-label', 'for' => 'users-1']],
+                            'option 1',
+                        '/label',
+                    '/div',
+                    ['div' => ['class' => 'form-check form-check-inline']],
+                        ['input' => [
+                            'class' => 'form-check-input is-invalid',
+                            'type' => 'checkbox',
+                            'name' => 'users[]',
+                            'id' => 'users-2',
+                            'aria-invalid' => 'true',
+                            'aria-describedby' => 'users-error users-help',
+                            'value' => 2,
+                        ]],
+                        ['label' => ['class' => 'form-check-label', 'for' => 'users-2']],
+                            'option 2',
+                        '/label',
+                    '/div',
+                    ['div' => ['id' => 'users-error', 'class' => 'invalid-tooltip']],
+                        'error message',
+                    '/div',
+                    ['small' => ['id' => 'users-help', 'class' => 'visually-hidden form-text']],
+                        'Help text',
+                    '/small',
+                '/div',
+            '/div',
+        ];
+        $this->assertHtml($expected, $result);
+    }
+
+    public function testInlineAlignMultipleCheckboxControlWithErrorAndHelpOptions()
+    {
+        $this->withErrorReporting(0, function () {
+            $this->article['errors'] = [
+                'users' => ['error message'],
+            ];
+            $this->Form->create($this->article, [
+                'align' => 'inline',
+            ]);
+        });
+
+        $result = $this->Form->control('users', [
+            'multiple' => 'checkbox',
+            'options' => [
+                1 => 'option 1',
+                2 => 'option 2',
+            ],
+            'help' => [
+                'id' => 'custom-help',
+                'foo' => 'bar',
+                'class' => 'help-class',
+                'content' => 'Help text',
+            ],
+        ]);
+        $expected = [
+            ['div' => ['class' => 'col-auto']],
+                ['div' => [
+                    'class' => 'form-group d-flex position-relative multicheckbox is-invalid',
+                    'role' => 'group',
+                    'aria-labelledby' => 'users-group-label',
+                ]],
+                    ['span' => ['id' => 'users-group-label', 'class' => 'form-label visually-hidden']],
+                        'Users',
+                    '/span',
+                    ['input' => [
+                        'class' => 'is-invalid',
+                        'type' => 'hidden',
+                        'name' => 'users',
+                        'value' => '',
+                    ]],
+                    ['div' => ['class' => 'form-check form-check-inline']],
+                        ['input' => [
+                            'class' => 'form-check-input is-invalid',
+                            'type' => 'checkbox',
+                            'name' => 'users[]',
+                            'id' => 'users-1',
+                            'aria-invalid' => 'true',
+                            'aria-describedby' => 'users-error custom-help',
+                            'value' => 1,
+                        ]],
+                        ['label' => ['class' => 'form-check-label', 'for' => 'users-1']],
+                            'option 1',
+                        '/label',
+                    '/div',
+                    ['div' => ['class' => 'form-check form-check-inline']],
+                        ['input' => [
+                            'class' => 'form-check-input is-invalid',
+                            'type' => 'checkbox',
+                            'name' => 'users[]',
+                            'id' => 'users-2',
+                            'aria-invalid' => 'true',
+                            'aria-describedby' => 'users-error custom-help',
+                            'value' => 2,
+                        ]],
+                        ['label' => ['class' => 'form-check-label', 'for' => 'users-2']],
+                            'option 2',
+                        '/label',
+                    '/div',
+                    ['div' => ['id' => 'users-error', 'class' => 'invalid-tooltip']],
+                        'error message',
+                    '/div',
+                    ['small' => [
+                        'id' => 'custom-help',
+                        'foo' => 'bar',
+                        'class' => 'help-class visually-hidden form-text',
+                    ]],
+                        'Help text',
+                    '/small',
                 '/div',
             '/div',
         ];
@@ -613,6 +776,8 @@ class MultipleCheckboxControlTest extends AbstractFormHelperTest
                             'type' => 'checkbox',
                             'name' => 'users[]',
                             'id' => 'users-1',
+                            'aria-invalid' => 'true',
+                            'aria-describedby' => 'users-error',
                             'value' => 1,
                         ]],
                         ['label' => ['class' => 'form-check-label', 'for' => 'users-1']],
@@ -625,13 +790,15 @@ class MultipleCheckboxControlTest extends AbstractFormHelperTest
                             'type' => 'checkbox',
                             'name' => 'users[]',
                             'id' => 'users-2',
+                            'aria-invalid' => 'true',
+                            'aria-describedby' => 'users-error',
                             'value' => 2,
                         ]],
                         ['label' => ['class' => 'form-check-label', 'for' => 'users-2']],
                             'option 2',
                         '/label',
                     '/div',
-                    ['div' => ['class' => 'invalid-tooltip']],
+                    ['div' => ['id' => 'users-error', 'class' => 'invalid-tooltip']],
                         'error message',
                     '/div',
                 '/div',
@@ -1008,6 +1175,8 @@ class MultipleCheckboxControlTest extends AbstractFormHelperTest
                                 'type' => 'checkbox',
                                 'name' => 'users[]',
                                 'id' => 'users-1',
+                                'aria-invalid' => 'true',
+                                'aria-describedby' => 'users-error',
                                 'value' => 1,
                             ]],
                             ['label' => ['class' => 'form-check-label', 'for' => 'users-1']],
@@ -1020,6 +1189,8 @@ class MultipleCheckboxControlTest extends AbstractFormHelperTest
                                 'type' => 'checkbox',
                                 'name' => 'users[]',
                                 'id' => 'users-2',
+                                'aria-invalid' => 'true',
+                                'aria-describedby' => 'users-error',
                                 'value' => 2,
                             ]],
                             ['label' => ['class' => 'form-check-label', 'for' => 'users-2']],
@@ -1037,6 +1208,8 @@ class MultipleCheckboxControlTest extends AbstractFormHelperTest
                                 'type' => 'checkbox',
                                 'name' => 'users[]',
                                 'id' => 'users-3',
+                                'aria-invalid' => 'true',
+                                'aria-describedby' => 'users-error',
                                 'value' => 3,
                             ]],
                             ['label' => ['class' => 'form-check-label', 'for' => 'users-3']],
@@ -1049,6 +1222,8 @@ class MultipleCheckboxControlTest extends AbstractFormHelperTest
                                 'type' => 'checkbox',
                                 'name' => 'users[]',
                                 'id' => 'users-4',
+                                'aria-invalid' => 'true',
+                                'aria-describedby' => 'users-error',
                                 'value' => 4,
                             ]],
                             ['label' => ['class' => 'form-check-label', 'for' => 'users-4']],
@@ -1056,7 +1231,7 @@ class MultipleCheckboxControlTest extends AbstractFormHelperTest
                             '/label',
                         '/div',
                      '/fieldset',
-                    ['div' => ['class' => 'invalid-tooltip']],
+                    ['div' => ['id' => 'users-error', 'class' => 'invalid-tooltip']],
                         'error message',
                     '/div',
                 '/div',
