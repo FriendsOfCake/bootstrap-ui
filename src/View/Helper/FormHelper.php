@@ -941,6 +941,7 @@ class FormHelper extends Helper
         if (
             $options['type'] === 'hidden' ||
             (
+                isset($options['aria-required']) &&
                 isset($options['aria-describedby']) &&
                 isset($options['aria-invalid'])
             )

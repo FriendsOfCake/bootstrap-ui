@@ -1183,4 +1183,41 @@ class FormHelperTest extends AbstractFormHelperTest
         ];
         $this->assertHtml($expected, $result);
     }
+
+    public function testPartiallyOverrideAriaAttributes()
+    {
+        $this->article['errors'] = [
+            'title' => ['error message'],
+        ];
+
+        $this->Form->create($this->article);
+
+        $result = $this->Form->control('title', [
+            'aria-invalid' => false,
+            'aria-describedby' => 'custom',
+        ]);
+        $expected = [
+            'div' => ['class' => 'mb-3 form-group text required is-invalid'],
+                ['label' => ['class' => 'form-label', 'for' => 'title']],
+                    'Title',
+                '/label',
+                'input' => [
+                    'type' => 'text',
+                    'name' => 'title',
+                    'id' => 'title',
+                    'data-validity-message' => 'This field cannot be left empty',
+                    'oninvalid' => 'this.setCustomValidity(&#039;&#039;); if (!this.value) this.setCustomValidity(this.dataset.validityMessage)',
+                    'oninput' => 'this.setCustomValidity(&#039;&#039;)',
+                    'class' => 'is-invalid form-control',
+                    'required' => 'required',
+                    'aria-required' => 'true',
+                    'aria-describedby' => 'custom',
+                ],
+                ['div' => ['id' => 'title-error', 'class' => 'ms-0 invalid-feedback']],
+                    'error message',
+                '/div',
+            '/div',
+        ];
+        $this->assertHtml($expected, $result);
+    }
 }
