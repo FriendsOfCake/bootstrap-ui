@@ -268,11 +268,104 @@ class ColorControlTest extends AbstractFormHelperTest
                         'name' => 'color',
                         'id' => 'color',
                         'class' => 'form-control form-control-color is-invalid',
+                        'aria-invalid' => 'true',
+                        'aria-describedby' => 'color-error',
                         'value' => '#ffffff',
                     ],
-                    ['div' => ['class' => 'invalid-tooltip']],
+                    ['div' => ['id' => 'color-error', 'class' => 'invalid-tooltip']],
                         'error message',
                     '/div',
+                '/div',
+            '/div',
+        ];
+        $this->assertHtml($expected, $result);
+    }
+
+    public function testInlineAlignColorControlWithErrorAndHelp()
+    {
+        $this->article['errors'] = [
+            'color' => ['error message'],
+        ];
+        $this->Form->create($this->article, [
+            'align' => 'inline',
+        ]);
+
+        $result = $this->Form->control('color', [
+            'type' => 'color',
+            'value' => '#ffffff',
+            'help' => 'Help text',
+        ]);
+        $expected = [
+            ['div' => ['class' => 'col-auto']],
+                'div' => ['class' => 'form-group position-relative color is-invalid'],
+                    'label' => ['class' => 'form-label visually-hidden', 'for' => 'color'],
+                        'Color',
+                    '/label',
+                    'input' => [
+                        'type' => 'color',
+                        'name' => 'color',
+                        'id' => 'color',
+                        'class' => 'form-control form-control-color is-invalid',
+                        'aria-invalid' => 'true',
+                        'aria-describedby' => 'color-error color-help',
+                        'value' => '#ffffff',
+                    ],
+                    ['div' => ['id' => 'color-error', 'class' => 'invalid-tooltip']],
+                        'error message',
+                    '/div',
+                    ['small' => ['id' => 'color-help', 'class' => 'visually-hidden form-text']],
+                        'Help text',
+                    '/small',
+                '/div',
+            '/div',
+        ];
+        $this->assertHtml($expected, $result);
+    }
+
+    public function testInlineAlignColorControlWithErrorAndHelpOptions()
+    {
+        $this->article['errors'] = [
+            'color' => ['error message'],
+        ];
+        $this->Form->create($this->article, [
+            'align' => 'inline',
+        ]);
+
+        $result = $this->Form->control('color', [
+            'type' => 'color',
+            'value' => '#ffffff',
+            'help' => [
+                'id' => 'custom-help',
+                'foo' => 'bar',
+                'class' => 'help-class',
+                'content' => 'Help text',
+            ],
+        ]);
+        $expected = [
+            ['div' => ['class' => 'col-auto']],
+                'div' => ['class' => 'form-group position-relative color is-invalid'],
+                    'label' => ['class' => 'form-label visually-hidden', 'for' => 'color'],
+                        'Color',
+                    '/label',
+                    'input' => [
+                        'type' => 'color',
+                        'name' => 'color',
+                        'id' => 'color',
+                        'class' => 'form-control form-control-color is-invalid',
+                        'aria-invalid' => 'true',
+                        'aria-describedby' => 'color-error custom-help',
+                        'value' => '#ffffff',
+                    ],
+                    ['div' => ['id' => 'color-error', 'class' => 'invalid-tooltip']],
+                        'error message',
+                    '/div',
+                    ['small' => [
+                        'id' => 'custom-help',
+                        'foo' => 'bar',
+                        'class' => 'help-class visually-hidden form-text',
+                    ]],
+                        'Help text',
+                    '/small',
                 '/div',
             '/div',
         ];
@@ -348,9 +441,11 @@ class ColorControlTest extends AbstractFormHelperTest
                         'name' => 'color',
                         'id' => 'color',
                         'class' => 'form-control form-control-color is-invalid',
+                        'aria-invalid' => 'true',
+                        'aria-describedby' => 'color-error',
                         'value' => '#ffffff',
                     ],
-                    ['div' => ['class' => 'invalid-tooltip']],
+                    ['div' => ['id' => 'color-error', 'class' => 'invalid-tooltip']],
                         'error message',
                     '/div',
                 '/div',

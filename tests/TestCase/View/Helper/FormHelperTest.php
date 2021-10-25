@@ -55,6 +55,7 @@ class FormHelperTest extends AbstractFormHelperTest
                     'id' => 'title',
                     'class' => 'form-control',
                     'required' => 'required',
+                    'aria-required' => 'true',
                 ],
             '/div',
         ];
@@ -84,6 +85,7 @@ class FormHelperTest extends AbstractFormHelperTest
                         'oninput' => 'this.setCustomValidity(&#039;&#039;)',
                         'id' => 'title',
                         'class' => 'form-control',
+                        'aria-required' => 'true',
                     ],
                 '/div',
             '/div',
@@ -117,6 +119,7 @@ class FormHelperTest extends AbstractFormHelperTest
                         'oninput' => 'this.setCustomValidity(&#039;&#039;)',
                         'id' => 'title',
                         'class' => 'form-control',
+                        'aria-required' => 'true',
                     ],
                 '/div',
             '/div',
@@ -144,6 +147,7 @@ class FormHelperTest extends AbstractFormHelperTest
                         'oninput' => 'this.setCustomValidity(&#039;&#039;)',
                         'id' => 'title',
                         'class' => 'form-control',
+                        'aria-required' => 'true',
                     ],
                     'span' => ['class' => 'input-group-text'],
                         '@',
@@ -174,6 +178,7 @@ class FormHelperTest extends AbstractFormHelperTest
                         'oninput' => 'this.setCustomValidity(&#039;&#039;)',
                         'id' => 'title',
                         'class' => 'form-control',
+                        'aria-required' => 'true',
                     ],
                     ['span' => ['class' => 'input-group-text']],
                         '$',
@@ -210,6 +215,7 @@ class FormHelperTest extends AbstractFormHelperTest
                         'oninput' => 'this.setCustomValidity(&#039;&#039;)',
                         'id' => 'title',
                         'class' => 'form-control',
+                        'aria-required' => 'true',
                     ],
                 '/div',
             '/div',
@@ -248,6 +254,7 @@ class FormHelperTest extends AbstractFormHelperTest
                         'oninput' => 'this.setCustomValidity(&#039;&#039;)',
                         'id' => 'title',
                         'class' => 'form-control',
+                        'aria-required' => 'true',
                     ],
                 '/div',
             '/div',
@@ -275,6 +282,7 @@ class FormHelperTest extends AbstractFormHelperTest
                         'oninput' => 'this.setCustomValidity(&#039;&#039;)',
                         'id' => 'title',
                         'class' => 'form-control',
+                        'aria-required' => 'true',
                     ],
                     'button' => ['type' => 'submit', 'class' => 'btn btn-secondary'],
                         'GO',
@@ -310,6 +318,7 @@ class FormHelperTest extends AbstractFormHelperTest
                         'oninput' => 'this.setCustomValidity(&#039;&#039;)',
                         'id' => 'title',
                         'class' => 'form-control',
+                        'aria-required' => 'true',
                     ],
                     ['button' => ['type' => 'submit', 'class' => 'btn btn-secondary']],
                         'NO',
@@ -346,6 +355,7 @@ class FormHelperTest extends AbstractFormHelperTest
                         'oninput' => 'this.setCustomValidity(&#039;&#039;)',
                         'id' => 'title',
                         'class' => 'form-control',
+                        'aria-required' => 'true',
                     ],
                 '/div',
             '/div',
@@ -368,6 +378,7 @@ class FormHelperTest extends AbstractFormHelperTest
                         'oninput' => 'this.setCustomValidity(&#039;&#039;)',
                         'id' => 'title',
                         'class' => 'form-control',
+                        'aria-required' => 'true',
                     ],
                     'span' => ['class' => 'input-group-text'],
                         '@',
@@ -408,6 +419,7 @@ class FormHelperTest extends AbstractFormHelperTest
                         'oninput' => 'this.setCustomValidity(&#039;&#039;)',
                         'id' => 'title',
                         'class' => 'form-control',
+                        'aria-required' => 'true',
                     ],
                 '/div',
             '/div',
@@ -434,6 +446,7 @@ class FormHelperTest extends AbstractFormHelperTest
                         'oninput' => 'this.setCustomValidity(&#039;&#039;)',
                         'id' => 'title',
                         'class' => 'form-control',
+                        'aria-required' => 'true',
                     ],
                     ['span' => ['class' => 'input-group-text']],
                         '$',
@@ -470,9 +483,11 @@ class FormHelperTest extends AbstractFormHelperTest
                         'name' => 'title',
                         'id' => 'title',
                         'class' => 'is-invalid form-control',
+                        'aria-invalid' => 'true',
+                        'aria-describedby' => 'title-error',
                     ],
                 '/div',
-                ['div' => ['class' => 'ms-0 invalid-feedback']],
+                ['div' => ['id' => 'title-error', 'class' => 'ms-0 invalid-feedback']],
                     'error message',
                 '/div',
             '/div',
@@ -491,12 +506,14 @@ class FormHelperTest extends AbstractFormHelperTest
                         'name' => 'title',
                         'id' => 'title',
                         'class' => 'is-invalid form-control',
+                        'aria-invalid' => 'true',
+                        'aria-describedby' => 'title-error',
                     ],
                     'span' => ['class' => 'input-group-text'],
                         '@',
                     '/span',
                 '/div',
-                ['div' => ['class' => 'ms-0 invalid-feedback']],
+                ['div' => ['id' => 'title-error', 'class' => 'ms-0 invalid-feedback']],
                     'error message',
                 '/div',
             '/div',
@@ -610,6 +627,7 @@ class FormHelperTest extends AbstractFormHelperTest
                         'oninput' => 'this.setCustomValidity(&#039;&#039;)',
                         'id' => 'title',
                         'class' => 'form-control',
+                        'aria-required' => 'true',
                     ],
                 '/div',
             '/div',
@@ -645,6 +663,7 @@ class FormHelperTest extends AbstractFormHelperTest
                         'oninput' => 'this.setCustomValidity(&#039;&#039;)',
                         'id' => 'title',
                         'class' => 'form-control',
+                        'aria-required' => 'true',
                     ],
                 '/div',
             '/div',
@@ -693,6 +712,7 @@ class FormHelperTest extends AbstractFormHelperTest
                         'oninput' => 'this.setCustomValidity(&#039;&#039;)',
                         'id' => 'title',
                         'class' => 'form-control',
+                        'aria-required' => 'true',
                     ],
                 '/div',
             '/div',
@@ -805,6 +825,7 @@ class FormHelperTest extends AbstractFormHelperTest
                     'oninput' => 'this.setCustomValidity(&#039;&#039;)',
                     'id' => 'title',
                     'class' => 'form-control',
+                    'aria-required' => 'true',
                 ],
             '/div',
         ];
@@ -868,8 +889,10 @@ class FormHelperTest extends AbstractFormHelperTest
                     'name' => 'title',
                     'id' => 'title',
                     'class' => 'is-invalid form-control',
+                    'aria-invalid' => 'true',
+                    'aria-describedby' => 'title-error',
                 ],
-                ['div' => ['class' => 'invalid-tooltip']],
+                ['div' => ['id' => 'title-error', 'class' => 'invalid-tooltip']],
                     'error message',
                 '/div',
             '/div',
@@ -901,8 +924,10 @@ class FormHelperTest extends AbstractFormHelperTest
                     'name' => 'title',
                     'id' => 'title',
                     'class' => 'is-invalid form-control',
+                    'aria-invalid' => 'true',
+                    'aria-describedby' => 'title-error',
                 ],
-                ['div' => ['class' => 'ms-0 invalid-feedback']],
+                ['div' => ['id' => 'title-error', 'class' => 'ms-0 invalid-feedback']],
                     'error message',
                 '/div',
             '/div',
@@ -935,8 +960,10 @@ class FormHelperTest extends AbstractFormHelperTest
                     'name' => 'title',
                     'id' => 'title',
                     'class' => 'is-invalid form-control',
+                    'aria-invalid' => 'true',
+                    'aria-describedby' => 'title-error',
                 ],
-                ['div' => ['class' => 'invalid-tooltip']],
+                ['div' => ['id' => 'title-error', 'class' => 'invalid-tooltip']],
                     'error message',
                 '/div',
             '/div',
@@ -971,8 +998,10 @@ class FormHelperTest extends AbstractFormHelperTest
                     'name' => 'title',
                     'id' => 'title',
                     'class' => 'is-invalid form-control',
+                    'aria-invalid' => 'true',
+                    'aria-describedby' => 'title-error',
                 ],
-                ['div' => ['class' => 'invalid-tooltip']],
+                ['div' => ['id' => 'title-error', 'class' => 'invalid-tooltip']],
                     'error message',
                 '/div',
             '/div',
@@ -1003,8 +1032,10 @@ class FormHelperTest extends AbstractFormHelperTest
                     'name' => 'title',
                     'id' => 'title',
                     'class' => 'is-invalid form-control',
+                    'aria-invalid' => 'true',
+                    'aria-describedby' => 'title-error',
                 ],
-                ['div' => ['class' => 'invalid-tooltip']],
+                ['div' => ['id' => 'title-error', 'class' => 'invalid-tooltip']],
                     'error message',
                 '/div',
             '/div',
@@ -1038,8 +1069,10 @@ class FormHelperTest extends AbstractFormHelperTest
                         'name' => 'title',
                         'id' => 'title',
                         'class' => 'is-invalid form-control',
+                        'aria-invalid' => 'true',
+                        'aria-describedby' => 'title-error',
                     ],
-                    ['div' => ['class' => 'ms-0 invalid-feedback']],
+                    ['div' => ['id' => 'title-error', 'class' => 'ms-0 invalid-feedback']],
                         'error message',
                     '/div',
                 '/div',
@@ -1079,10 +1112,109 @@ class FormHelperTest extends AbstractFormHelperTest
                         'name' => 'title',
                         'id' => 'title',
                         'class' => 'is-invalid form-control',
+                        'aria-invalid' => 'true',
+                        'aria-describedby' => 'title-error',
                     ]],
-                    ['div' => ['class' => 'invalid-tooltip']],
+                    ['div' => ['id' => 'title-error', 'class' => 'invalid-tooltip']],
                         'error message',
                     '/div',
+                '/div',
+            '/div',
+        ];
+        $this->assertHtml($expected, $result);
+    }
+
+    public function testHiddenFieldsDoNotGenerateAriaAttributes()
+    {
+        $this->article['errors'] = [
+            'title' => ['error message'],
+        ];
+
+        $this->Form->create($this->article);
+
+        $result = $this->Form->control('title', [
+            'type' => 'hidden',
+            'help' => 'help text',
+        ]);
+        $expected = [
+            'input' => [
+                'type' => 'hidden',
+                'name' => 'title',
+                'id' => 'title',
+                'class' => 'is-invalid',
+            ],
+        ];
+        $this->assertHtml($expected, $result);
+    }
+
+    public function testOverrideAriaAttributes()
+    {
+        $this->article['errors'] = [
+            'title' => ['error message'],
+        ];
+
+        $this->Form->create($this->article);
+
+        $result = $this->Form->control('title', [
+            'aria-required' => false,
+            'aria-invalid' => false,
+            'aria-describedby' => 'custom',
+        ]);
+        $expected = [
+            'div' => ['class' => 'mb-3 form-group text required is-invalid'],
+                ['label' => ['class' => 'form-label', 'for' => 'title']],
+                    'Title',
+                '/label',
+                'input' => [
+                    'type' => 'text',
+                    'name' => 'title',
+                    'id' => 'title',
+                    'data-validity-message' => 'This field cannot be left empty',
+                    'oninvalid' => 'this.setCustomValidity(&#039;&#039;); if (!this.value) this.setCustomValidity(this.dataset.validityMessage)',
+                    'oninput' => 'this.setCustomValidity(&#039;&#039;)',
+                    'class' => 'is-invalid form-control',
+                    'required' => 'required',
+                    'aria-describedby' => 'custom',
+                ],
+                ['div' => ['id' => 'title-error', 'class' => 'ms-0 invalid-feedback']],
+                    'error message',
+                '/div',
+            '/div',
+        ];
+        $this->assertHtml($expected, $result);
+    }
+
+    public function testPartiallyOverrideAriaAttributes()
+    {
+        $this->article['errors'] = [
+            'title' => ['error message'],
+        ];
+
+        $this->Form->create($this->article);
+
+        $result = $this->Form->control('title', [
+            'aria-invalid' => false,
+            'aria-describedby' => 'custom',
+        ]);
+        $expected = [
+            'div' => ['class' => 'mb-3 form-group text required is-invalid'],
+                ['label' => ['class' => 'form-label', 'for' => 'title']],
+                    'Title',
+                '/label',
+                'input' => [
+                    'type' => 'text',
+                    'name' => 'title',
+                    'id' => 'title',
+                    'data-validity-message' => 'This field cannot be left empty',
+                    'oninvalid' => 'this.setCustomValidity(&#039;&#039;); if (!this.value) this.setCustomValidity(this.dataset.validityMessage)',
+                    'oninput' => 'this.setCustomValidity(&#039;&#039;)',
+                    'class' => 'is-invalid form-control',
+                    'required' => 'required',
+                    'aria-required' => 'true',
+                    'aria-describedby' => 'custom',
+                ],
+                ['div' => ['id' => 'title-error', 'class' => 'ms-0 invalid-feedback']],
+                    'error message',
                 '/div',
             '/div',
         ];

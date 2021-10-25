@@ -305,9 +305,11 @@ class DateTimeControlTest extends AbstractFormHelperTest
                         'name' => 'created',
                         'id' => 'created',
                         'class' => 'is-invalid form-control',
+                        'aria-invalid' => 'true',
+                        'aria-describedby' => 'created-error',
                         'value' => $now->format('Y-m-d H:i:s'),
                     ],
-                    ['div' => ['class' => 'invalid-tooltip']],
+                    ['div' => ['id' => 'created-error', 'class' => 'invalid-tooltip']],
                         'error message',
                     '/div',
                 '/div',
@@ -356,6 +358,109 @@ class DateTimeControlTest extends AbstractFormHelperTest
         $this->assertHtml($expected, $result);
     }
 
+    public function testInlineAlignDateTimeControlWithErrorAndHelp()
+    {
+        $this->withErrorReporting(0, function () {
+            $this->article['errors'] = [
+                'created' => ['error message'],
+            ];
+            $this->Form->create($this->article, [
+                'align' => 'inline',
+            ]);
+        });
+
+        $now = new \DateTime('now');
+
+        $result = $this->Form->control('created', [
+            'type' => 'datetime-local',
+            'value' => $now->format('Y-m-d H:i:s'),
+            'help' => 'Help text',
+        ]);
+        $expected = [
+            ['div' => ['class' => 'col-auto']],
+                ['div' => [
+                    'class' => 'form-group position-relative datetime-local is-invalid',
+                ]],
+                    ['label' => ['class' => 'form-label visually-hidden', 'for' => 'created']],
+                        'Created',
+                    '/label',
+                    'input' => [
+                        'type' => 'datetime-local',
+                        'name' => 'created',
+                        'id' => 'created',
+                        'class' => 'is-invalid form-control',
+                        'aria-invalid' => 'true',
+                        'aria-describedby' => 'created-error created-help',
+                        'value' => $now->format('Y-m-d H:i:s'),
+                    ],
+                    ['div' => ['id' => 'created-error', 'class' => 'invalid-tooltip']],
+                        'error message',
+                    '/div',
+                    ['small' => ['id' => 'created-help', 'class' => 'visually-hidden form-text']],
+                        'Help text',
+                    '/small',
+                '/div',
+            '/div',
+        ];
+        $this->assertHtml($expected, $result);
+    }
+
+    public function testInlineAlignDateTimeControlWithErrorAndHelpOptions()
+    {
+        $this->withErrorReporting(0, function () {
+            $this->article['errors'] = [
+                'created' => ['error message'],
+            ];
+            $this->Form->create($this->article, [
+                'align' => 'inline',
+            ]);
+        });
+
+        $now = new \DateTime('now');
+
+        $result = $this->Form->control('created', [
+            'type' => 'datetime-local',
+            'value' => $now->format('Y-m-d H:i:s'),
+            'help' => [
+                'id' => 'custom-help',
+                'foo' => 'bar',
+                'class' => 'help-class',
+                'content' => 'Help text',
+            ],
+        ]);
+        $expected = [
+            ['div' => ['class' => 'col-auto']],
+                ['div' => [
+                    'class' => 'form-group position-relative datetime-local is-invalid',
+                ]],
+                    ['label' => ['class' => 'form-label visually-hidden', 'for' => 'created']],
+                        'Created',
+                    '/label',
+                    'input' => [
+                        'type' => 'datetime-local',
+                        'name' => 'created',
+                        'id' => 'created',
+                        'class' => 'is-invalid form-control',
+                        'aria-invalid' => 'true',
+                        'aria-describedby' => 'created-error custom-help',
+                        'value' => $now->format('Y-m-d H:i:s'),
+                    ],
+                    ['div' => ['id' => 'created-error', 'class' => 'invalid-tooltip']],
+                        'error message',
+                    '/div',
+                    ['small' => [
+                        'id' => 'custom-help',
+                        'foo' => 'bar',
+                        'class' => 'help-class visually-hidden form-text',
+                    ]],
+                        'Help text',
+                    '/small',
+                '/div',
+            '/div',
+        ];
+        $this->assertHtml($expected, $result);
+    }
+
     /**
      * Inline datetime controls currently do not render error messages.
      */
@@ -394,9 +499,11 @@ class DateTimeControlTest extends AbstractFormHelperTest
                         'name' => 'created',
                         'id' => 'created',
                         'class' => 'is-invalid form-control',
+                        'aria-invalid' => 'true',
+                        'aria-describedby' => 'created-error',
                         'value' => $now->format('Y-m-d H:i:s'),
                     ],
-                    ['div' => ['class' => 'invalid-tooltip']],
+                    ['div' => ['id' => 'created-error', 'class' => 'invalid-tooltip']],
                         'error message',
                     '/div',
                 '/div',

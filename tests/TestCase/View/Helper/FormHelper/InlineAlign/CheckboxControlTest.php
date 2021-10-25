@@ -310,14 +310,121 @@ class CheckboxControlTest extends AbstractFormHelperTest
                         'type' => 'checkbox',
                         'name' => 'users',
                         'id' => 'users',
+                        'aria-invalid' => 'true',
+                        'aria-describedby' => 'users-error',
                         'value' => 1,
                     ]],
                     ['label' => ['class' => 'form-check-label', 'for' => 'users']],
                         'Users',
                     '/label',
-                    ['div' => ['class' => 'invalid-tooltip']],
+                    ['div' => ['id' => 'users-error', 'class' => 'invalid-tooltip']],
                         'error message',
                     '/div',
+                '/div',
+            '/div',
+        ];
+        $this->assertHtml($expected, $result);
+    }
+
+    public function testInlineAlignCheckboxControlWithErrorAndHelp()
+    {
+        $this->withErrorReporting(0, function () {
+            $this->article['errors'] = [
+                'users' => ['error message'],
+            ];
+            $this->Form->create($this->article, [
+                'align' => 'inline',
+            ]);
+        });
+
+        $result = $this->Form->control('users', [
+            'type' => 'checkbox',
+            'help' => 'Help text',
+        ]);
+        $expected = [
+            ['div' => ['class' => 'col-auto']],
+                ['div' => ['class' => 'form-check position-relative checkbox is-invalid']],
+                    ['input' => [
+                        'class' => 'is-invalid',
+                        'type' => 'hidden',
+                        'name' => 'users',
+                        'value' => 0,
+                    ]],
+                    ['input' => [
+                        'class' => 'form-check-input is-invalid',
+                        'type' => 'checkbox',
+                        'name' => 'users',
+                        'id' => 'users',
+                        'aria-invalid' => 'true',
+                        'aria-describedby' => 'users-error users-help',
+                        'value' => 1,
+                    ]],
+                    ['label' => ['class' => 'form-check-label', 'for' => 'users']],
+                        'Users',
+                    '/label',
+                    ['div' => ['id' => 'users-error', 'class' => 'invalid-tooltip']],
+                        'error message',
+                    '/div',
+                    ['small' => ['id' => 'users-help', 'class' => 'visually-hidden form-text']],
+                        'Help text',
+                    '/small',
+                '/div',
+            '/div',
+        ];
+        $this->assertHtml($expected, $result);
+    }
+
+    public function testInlineAlignCheckboxControlWithErrorAndHelpOptions()
+    {
+        $this->withErrorReporting(0, function () {
+            $this->article['errors'] = [
+                'users' => ['error message'],
+            ];
+            $this->Form->create($this->article, [
+                'align' => 'inline',
+            ]);
+        });
+
+        $result = $this->Form->control('users', [
+            'type' => 'checkbox',
+            'help' => [
+                'id' => 'custom-help',
+                'foo' => 'bar',
+                'class' => 'help-class',
+                'content' => 'Help text',
+            ],
+        ]);
+        $expected = [
+            ['div' => ['class' => 'col-auto']],
+                ['div' => ['class' => 'form-check position-relative checkbox is-invalid']],
+                    ['input' => [
+                        'class' => 'is-invalid',
+                        'type' => 'hidden',
+                        'name' => 'users',
+                        'value' => 0,
+                    ]],
+                    ['input' => [
+                        'class' => 'form-check-input is-invalid',
+                        'type' => 'checkbox',
+                        'name' => 'users',
+                        'id' => 'users',
+                        'aria-invalid' => 'true',
+                        'aria-describedby' => 'users-error custom-help',
+                        'value' => 1,
+                    ]],
+                    ['label' => ['class' => 'form-check-label', 'for' => 'users']],
+                        'Users',
+                    '/label',
+                    ['div' => ['id' => 'users-error', 'class' => 'invalid-tooltip']],
+                        'error message',
+                    '/div',
+                    ['small' => [
+                        'id' => 'custom-help',
+                        'foo' => 'bar',
+                        'class' => 'help-class visually-hidden form-text',
+                    ]],
+                        'Help text',
+                    '/small',
                 '/div',
             '/div',
         ];
@@ -401,12 +508,14 @@ class CheckboxControlTest extends AbstractFormHelperTest
                         'type' => 'checkbox',
                         'name' => 'users',
                         'id' => 'users',
+                        'aria-invalid' => 'true',
+                        'aria-describedby' => 'users-error',
                         'value' => 1,
                     ]],
                     ['label' => ['class' => 'form-check-label', 'for' => 'users']],
                         'Users',
                     '/label',
-                    ['div' => ['class' => 'invalid-tooltip']],
+                    ['div' => ['id' => 'users-error', 'class' => 'invalid-tooltip']],
                         'error message',
                     '/div',
                 '/div',
@@ -693,12 +802,14 @@ class CheckboxControlTest extends AbstractFormHelperTest
                         'type' => 'checkbox',
                         'name' => 'users',
                         'id' => 'users',
+                        'aria-invalid' => 'true',
+                        'aria-describedby' => 'users-error',
                         'value' => 1,
                     ]],
                     ['label' => ['class' => 'form-check-label', 'for' => 'users']],
                         'Users',
                     '/label',
-                    ['div' => ['class' => 'invalid-tooltip']],
+                    ['div' => ['id' => 'users-error', 'class' => 'invalid-tooltip']],
                         'error message',
                     '/div',
                 '/div',

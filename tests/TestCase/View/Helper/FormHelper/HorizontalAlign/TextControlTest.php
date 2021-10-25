@@ -323,10 +323,109 @@ class TextControlTest extends AbstractFormHelperTest
                         'name' => 'title',
                         'id' => 'title',
                         'class' => 'is-invalid form-control',
+                        'aria-invalid' => 'true',
+                        'aria-describedby' => 'title-error',
                     ],
-                    ['div' => ['class' => 'ms-0 invalid-feedback']],
+                    ['div' => ['id' => 'title-error', 'class' => 'ms-0 invalid-feedback']],
                         'error message',
                     '/div',
+                '/div',
+            '/div',
+        ];
+        $this->assertHtml($expected, $result);
+    }
+
+    public function testHorizontalAlignTextControlWithErrorAndHelp()
+    {
+        $this->article['errors'] = [
+            'title' => ['error message'],
+        ];
+        unset($this->article['required']['title']);
+        $this->Form->create($this->article, [
+            'align' => [
+                'sm' => [
+                    FormHelper::GRID_COLUMN_ONE => 5,
+                    FormHelper::GRID_COLUMN_TWO => 7,
+                ],
+            ],
+        ]);
+
+        $result = $this->Form->control('title', [
+            'help' => 'Help text',
+        ]);
+        $expected = [
+            'div' => ['class' => 'mb-3 form-group row text is-invalid'],
+                'label' => ['class' => 'col-form-label col-sm-5', 'for' => 'title'],
+                    'Title',
+                '/label',
+                ['div' => ['class' => 'col-sm-7']],
+                    'input' => [
+                        'type' => 'text',
+                        'name' => 'title',
+                        'id' => 'title',
+                        'class' => 'is-invalid form-control',
+                        'aria-invalid' => 'true',
+                        'aria-describedby' => 'title-error title-help',
+                    ],
+                    ['div' => ['id' => 'title-error', 'class' => 'ms-0 invalid-feedback']],
+                        'error message',
+                    '/div',
+                    ['small' => ['id' => 'title-help', 'class' => 'd-block form-text text-muted']],
+                        'Help text',
+                    '/small',
+                '/div',
+            '/div',
+        ];
+        $this->assertHtml($expected, $result);
+    }
+
+    public function testHorizontalAlignTextControlWithErrorAndHelpOptions()
+    {
+        $this->article['errors'] = [
+            'title' => ['error message'],
+        ];
+        unset($this->article['required']['title']);
+        $this->Form->create($this->article, [
+            'align' => [
+                'sm' => [
+                    FormHelper::GRID_COLUMN_ONE => 5,
+                    FormHelper::GRID_COLUMN_TWO => 7,
+                ],
+            ],
+        ]);
+
+        $result = $this->Form->control('title', [
+            'help' => [
+                'id' => 'custom-help',
+                'foo' => 'bar',
+                'class' => 'help-class',
+                'content' => 'Help text',
+            ],
+        ]);
+        $expected = [
+            'div' => ['class' => 'mb-3 form-group row text is-invalid'],
+                'label' => ['class' => 'col-form-label col-sm-5', 'for' => 'title'],
+                    'Title',
+                '/label',
+                ['div' => ['class' => 'col-sm-7']],
+                    'input' => [
+                        'type' => 'text',
+                        'name' => 'title',
+                        'id' => 'title',
+                        'class' => 'is-invalid form-control',
+                        'aria-invalid' => 'true',
+                        'aria-describedby' => 'title-error custom-help',
+                    ],
+                    ['div' => ['id' => 'title-error', 'class' => 'ms-0 invalid-feedback']],
+                        'error message',
+                    '/div',
+                    ['small' => [
+                        'id' => 'custom-help',
+                        'foo' => 'bar',
+                        'class' => 'help-class d-block form-text text-muted',
+                    ]],
+                        'Help text',
+                    '/small',
                 '/div',
             '/div',
         ];
@@ -409,8 +508,10 @@ class TextControlTest extends AbstractFormHelperTest
                         'name' => 'title',
                         'id' => 'title',
                         'class' => 'is-invalid form-control',
+                        'aria-invalid' => 'true',
+                        'aria-describedby' => 'title-error',
                     ],
-                    ['div' => ['class' => 'ms-0 invalid-feedback']],
+                    ['div' => ['id' => 'title-error', 'class' => 'ms-0 invalid-feedback']],
                         'error message',
                     '/div',
                 '/div',

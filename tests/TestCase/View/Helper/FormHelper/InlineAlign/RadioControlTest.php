@@ -475,6 +475,8 @@ class RadioControlTest extends AbstractFormHelperTest
                             'type' => 'radio',
                             'name' => 'users',
                             'id' => 'users-1',
+                            'aria-invalid' => 'true',
+                            'aria-describedby' => 'users-error',
                             'value' => 1,
                         ]],
                         ['label' => ['class' => 'form-check-label', 'for' => 'users-1']],
@@ -487,15 +489,176 @@ class RadioControlTest extends AbstractFormHelperTest
                             'type' => 'radio',
                             'name' => 'users',
                             'id' => 'users-2',
+                            'aria-invalid' => 'true',
+                            'aria-describedby' => 'users-error',
                             'value' => 2,
                         ]],
                         ['label' => ['class' => 'form-check-label', 'for' => 'users-2']],
                             'option 2',
                         '/label',
                     '/div',
-                    ['div' => ['class' => 'invalid-tooltip']],
+                    ['div' => ['id' => 'users-error', 'class' => 'invalid-tooltip']],
                         'error message',
                     '/div',
+                '/div',
+            '/div',
+        ];
+        $this->assertHtml($expected, $result);
+    }
+
+    public function testInlineAlignRadioControlWithErrorAndHelp()
+    {
+        $this->withErrorReporting(0, function () {
+            $this->article['errors'] = [
+                'users' => ['error message'],
+            ];
+            $this->Form->create($this->article, [
+                'align' => 'inline',
+            ]);
+        });
+
+        $result = $this->Form->control('users', [
+            'type' => 'radio',
+            'options' => [
+                1 => 'option 1',
+                2 => 'option 2',
+            ],
+            'help' => 'Help text',
+        ]);
+        $expected = [
+            ['div' => ['class' => 'col-auto']],
+                ['div' => [
+                    'class' => 'form-group position-relative radio is-invalid',
+                    'role' => 'group',
+                    'aria-labelledby' => 'users-group-label',
+                ]],
+                    ['span' => ['id' => 'users-group-label', 'class' => 'form-label visually-hidden']],
+                        'Users',
+                    '/span',
+                    ['input' => [
+                        'class' => 'is-invalid',
+                        'type' => 'hidden',
+                        'name' => 'users',
+                        'value' => '',
+                    ]],
+                    ['div' => ['class' => 'form-check form-check-inline']],
+                        ['input' => [
+                            'class' => 'form-check-input is-invalid',
+                            'type' => 'radio',
+                            'name' => 'users',
+                            'id' => 'users-1',
+                            'aria-invalid' => 'true',
+                            'aria-describedby' => 'users-error users-help',
+                            'value' => 1,
+                        ]],
+                        ['label' => ['class' => 'form-check-label', 'for' => 'users-1']],
+                            'option 1',
+                        '/label',
+                    '/div',
+                    ['div' => ['class' => 'form-check form-check-inline']],
+                        ['input' => [
+                            'class' => 'form-check-input is-invalid',
+                            'type' => 'radio',
+                            'name' => 'users',
+                            'id' => 'users-2',
+                            'aria-invalid' => 'true',
+                            'aria-describedby' => 'users-error users-help',
+                            'value' => 2,
+                        ]],
+                        ['label' => ['class' => 'form-check-label', 'for' => 'users-2']],
+                            'option 2',
+                        '/label',
+                    '/div',
+                    ['div' => ['id' => 'users-error', 'class' => 'invalid-tooltip']],
+                        'error message',
+                    '/div',
+                    ['small' => ['id' => 'users-help', 'class' => 'visually-hidden form-text']],
+                        'Help text',
+                    '/small',
+                '/div',
+            '/div',
+        ];
+        $this->assertHtml($expected, $result);
+    }
+
+    public function testInlineAlignRadioControlWithErrorAndHelpOptions()
+    {
+        $this->withErrorReporting(0, function () {
+            $this->article['errors'] = [
+                'users' => ['error message'],
+            ];
+            $this->Form->create($this->article, [
+                'align' => 'inline',
+            ]);
+        });
+
+        $result = $this->Form->control('users', [
+            'type' => 'radio',
+            'options' => [
+                1 => 'option 1',
+                2 => 'option 2',
+            ],
+            'help' => [
+                'id' => 'custom-help',
+                'foo' => 'bar',
+                'class' => 'help-class',
+                'content' => 'Help text',
+            ],
+        ]);
+        $expected = [
+            ['div' => ['class' => 'col-auto']],
+                ['div' => [
+                    'class' => 'form-group position-relative radio is-invalid',
+                    'role' => 'group',
+                    'aria-labelledby' => 'users-group-label',
+                ]],
+                    ['span' => ['id' => 'users-group-label', 'class' => 'form-label visually-hidden']],
+                        'Users',
+                    '/span',
+                    ['input' => [
+                        'class' => 'is-invalid',
+                        'type' => 'hidden',
+                        'name' => 'users',
+                        'value' => '',
+                    ]],
+                    ['div' => ['class' => 'form-check form-check-inline']],
+                        ['input' => [
+                            'class' => 'form-check-input is-invalid',
+                            'type' => 'radio',
+                            'name' => 'users',
+                            'id' => 'users-1',
+                            'aria-invalid' => 'true',
+                            'aria-describedby' => 'users-error custom-help',
+                            'value' => 1,
+                        ]],
+                        ['label' => ['class' => 'form-check-label', 'for' => 'users-1']],
+                            'option 1',
+                        '/label',
+                    '/div',
+                    ['div' => ['class' => 'form-check form-check-inline']],
+                        ['input' => [
+                            'class' => 'form-check-input is-invalid',
+                            'type' => 'radio',
+                            'name' => 'users',
+                            'id' => 'users-2',
+                            'aria-invalid' => 'true',
+                            'aria-describedby' => 'users-error custom-help',
+                            'value' => 2,
+                        ]],
+                        ['label' => ['class' => 'form-check-label', 'for' => 'users-2']],
+                            'option 2',
+                        '/label',
+                    '/div',
+                    ['div' => ['id' => 'users-error', 'class' => 'invalid-tooltip']],
+                        'error message',
+                    '/div',
+                    ['small' => [
+                        'id' => 'custom-help',
+                        'foo' => 'bar',
+                        'class' => 'help-class visually-hidden form-text',
+                    ]],
+                        'Help text',
+                    '/small',
                 '/div',
             '/div',
         ];
@@ -612,6 +775,8 @@ class RadioControlTest extends AbstractFormHelperTest
                             'type' => 'radio',
                             'name' => 'users',
                             'id' => 'users-1',
+                            'aria-invalid' => 'true',
+                            'aria-describedby' => 'users-error',
                             'value' => 1,
                         ]],
                         ['label' => ['class' => 'form-check-label', 'for' => 'users-1']],
@@ -624,13 +789,15 @@ class RadioControlTest extends AbstractFormHelperTest
                             'type' => 'radio',
                             'name' => 'users',
                             'id' => 'users-2',
+                            'aria-invalid' => 'true',
+                            'aria-describedby' => 'users-error',
                             'value' => 2,
                         ]],
                         ['label' => ['class' => 'form-check-label', 'for' => 'users-2']],
                             'option 2',
                         '/label',
                     '/div',
-                    ['div' => ['class' => 'invalid-tooltip']],
+                    ['div' => ['id' => 'users-error', 'class' => 'invalid-tooltip']],
                         'error message',
                     '/div',
                 '/div',

@@ -338,7 +338,13 @@ class SelectControlTest extends AbstractFormHelperTest
                     ['label' => ['class' => 'form-label visually-hidden', 'for' => 'users']],
                         'Users',
                     '/label',
-                    ['select' => ['name' => 'users', 'id' => 'users', 'class' => 'form-select is-invalid']],
+                    ['select' => [
+                        'name' => 'users',
+                        'id' => 'users',
+                        'class' => 'form-select is-invalid',
+                        'aria-invalid' => 'true',
+                        'aria-describedby' => 'users-error',
+                    ]],
                         ['option' => ['value' => '1']],
                             'option 1',
                         '/option',
@@ -346,9 +352,116 @@ class SelectControlTest extends AbstractFormHelperTest
                             'option 2',
                         '/option',
                     '/select',
-                    ['div' => ['class' => 'invalid-tooltip']],
+                    ['div' => ['id' => 'users-error', 'class' => 'invalid-tooltip']],
                         'error message',
                     '/div',
+                '/div',
+            '/div',
+        ];
+        $this->assertHtml($expected, $result);
+    }
+
+    public function testInlineAlignSelectControlWithErrorAndHelp()
+    {
+        $this->article['errors'] = [
+            'users' => ['error message'],
+        ];
+        $this->Form->create($this->article, [
+            'align' => 'inline',
+        ]);
+
+        $result = $this->Form->control('users', [
+            'type' => 'select',
+            'options' => [
+                1 => 'option 1',
+                2 => 'option 2',
+            ],
+            'help' => 'Help text',
+        ]);
+        $expected = [
+            ['div' => ['class' => 'col-auto']],
+                'div' => ['class' => 'form-group position-relative select is-invalid'],
+                    ['label' => ['class' => 'form-label visually-hidden', 'for' => 'users']],
+                        'Users',
+                    '/label',
+                    ['select' => [
+                        'name' => 'users',
+                        'id' => 'users',
+                        'class' => 'form-select is-invalid',
+                        'aria-invalid' => 'true',
+                        'aria-describedby' => 'users-error users-help',
+                    ]],
+                        ['option' => ['value' => '1']],
+                            'option 1',
+                        '/option',
+                        ['option' => ['value' => '2']],
+                            'option 2',
+                        '/option',
+                    '/select',
+                    ['div' => ['id' => 'users-error', 'class' => 'invalid-tooltip']],
+                        'error message',
+                    '/div',
+                    ['small' => ['id' => 'users-help', 'class' => 'visually-hidden form-text']],
+                        'Help text',
+                    '/small',
+                '/div',
+            '/div',
+        ];
+        $this->assertHtml($expected, $result);
+    }
+
+    public function testInlineAlignSelectControlWithErrorAndHelpOptions()
+    {
+        $this->article['errors'] = [
+            'users' => ['error message'],
+        ];
+        $this->Form->create($this->article, [
+            'align' => 'inline',
+        ]);
+
+        $result = $this->Form->control('users', [
+            'type' => 'select',
+            'options' => [
+                1 => 'option 1',
+                2 => 'option 2',
+            ],
+            'help' => [
+                'id' => 'custom-help',
+                'foo' => 'bar',
+                'class' => 'help-class',
+                'content' => 'Help text',
+            ],
+        ]);
+        $expected = [
+            ['div' => ['class' => 'col-auto']],
+                'div' => ['class' => 'form-group position-relative select is-invalid'],
+                    ['label' => ['class' => 'form-label visually-hidden', 'for' => 'users']],
+                        'Users',
+                    '/label',
+                    ['select' => [
+                        'name' => 'users',
+                        'id' => 'users',
+                        'class' => 'form-select is-invalid',
+                        'aria-invalid' => 'true',
+                        'aria-describedby' => 'users-error custom-help',
+                    ]],
+                        ['option' => ['value' => '1']],
+                            'option 1',
+                        '/option',
+                        ['option' => ['value' => '2']],
+                            'option 2',
+                        '/option',
+                    '/select',
+                    ['div' => ['id' => 'users-error', 'class' => 'invalid-tooltip']],
+                        'error message',
+                    '/div',
+                    ['small' => [
+                        'id' => 'custom-help',
+                        'foo' => 'bar',
+                        'class' => 'help-class visually-hidden form-text',
+                    ]],
+                        'Help text',
+                    '/small',
                 '/div',
             '/div',
         ];
@@ -424,7 +537,13 @@ class SelectControlTest extends AbstractFormHelperTest
                     ['label' => ['class' => 'form-label visually-hidden', 'for' => 'users']],
                         'Users',
                     '/label',
-                    ['select' => ['name' => 'users', 'id' => 'users', 'class' => 'form-select is-invalid']],
+                    ['select' => [
+                        'name' => 'users',
+                        'id' => 'users',
+                        'class' => 'form-select is-invalid',
+                        'aria-invalid' => 'true',
+                        'aria-describedby' => 'users-error',
+                    ]],
                         ['option' => ['value' => '1']],
                             'option 1',
                         '/option',
@@ -432,7 +551,7 @@ class SelectControlTest extends AbstractFormHelperTest
                             'option 2',
                         '/option',
                     '/select',
-                    ['div' => ['class' => 'invalid-tooltip']],
+                    ['div' => ['id' => 'users-error', 'class' => 'invalid-tooltip']],
                         'error message',
                     '/div',
                 '/div',

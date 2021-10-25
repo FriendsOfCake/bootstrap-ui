@@ -266,10 +266,103 @@ class RangeControlTest extends AbstractFormHelperTest
                     'step' => 1,
                     'id' => 'height',
                     'class' => 'form-range is-invalid',
+                    'aria-invalid' => 'true',
+                    'aria-describedby' => 'height-error',
                 ],
-                ['div' => ['class' => 'ms-0 invalid-feedback']],
+                ['div' => ['id' => 'height-error', 'class' => 'ms-0 invalid-feedback']],
                     'error message',
                 '/div',
+            '/div',
+        ];
+        $this->assertHtml($expected, $result);
+    }
+
+    public function testDefaultAlignRangeControlWithErrorAndHelp()
+    {
+        $this->article['errors'] = [
+            'height' => ['error message'],
+        ];
+        $this->Form->create($this->article);
+
+        $result = $this->Form->control('height', [
+            'type' => 'range',
+            'min' => 0,
+            'max' => 10,
+            'step' => 1,
+            'help' => 'Help text',
+        ]);
+        $expected = [
+            'div' => ['class' => 'mb-3 form-group range is-invalid'],
+                ['label' => ['class' => 'form-label', 'for' => 'height']],
+                    'Height',
+                '/label',
+                'input' => [
+                    'type' => 'range',
+                    'name' => 'height',
+                    'min' => 0,
+                    'max' => 10,
+                    'step' => 1,
+                    'id' => 'height',
+                    'class' => 'form-range is-invalid',
+                    'aria-invalid' => 'true',
+                    'aria-describedby' => 'height-error height-help',
+                ],
+                ['div' => ['id' => 'height-error', 'class' => 'ms-0 invalid-feedback']],
+                    'error message',
+                '/div',
+                ['small' => ['id' => 'height-help', 'class' => 'd-block form-text text-muted']],
+                    'Help text',
+                '/small',
+            '/div',
+        ];
+        $this->assertHtml($expected, $result);
+    }
+
+    public function testDefaultAlignRangeControlWithErrorAndHelpOptions()
+    {
+        $this->article['errors'] = [
+            'height' => ['error message'],
+        ];
+        $this->Form->create($this->article);
+
+        $result = $this->Form->control('height', [
+            'type' => 'range',
+            'min' => 0,
+            'max' => 10,
+            'step' => 1,
+            'help' => [
+                'id' => 'custom-help',
+                'foo' => 'bar',
+                'class' => 'help-class',
+                'content' => 'Help text',
+            ],
+        ]);
+        $expected = [
+            'div' => ['class' => 'mb-3 form-group range is-invalid'],
+                ['label' => ['class' => 'form-label', 'for' => 'height']],
+                    'Height',
+                '/label',
+                'input' => [
+                    'type' => 'range',
+                    'name' => 'height',
+                    'min' => 0,
+                    'max' => 10,
+                    'step' => 1,
+                    'id' => 'height',
+                    'class' => 'form-range is-invalid',
+                    'aria-invalid' => 'true',
+                    'aria-describedby' => 'height-error custom-help',
+                ],
+                ['div' => ['id' => 'height-error', 'class' => 'ms-0 invalid-feedback']],
+                    'error message',
+                '/div',
+                ['small' => [
+                    'id' => 'custom-help',
+                    'foo' => 'bar',
+                    'class' => 'help-class d-block form-text text-muted',
+                ]],
+                    'Help text',
+                '/small',
             '/div',
         ];
         $this->assertHtml($expected, $result);
@@ -344,8 +437,10 @@ class RangeControlTest extends AbstractFormHelperTest
                     'step' => 1,
                     'id' => 'height',
                     'class' => 'form-range is-invalid',
+                    'aria-invalid' => 'true',
+                    'aria-describedby' => 'height-error',
                 ],
-                ['div' => ['class' => 'ms-0 invalid-feedback']],
+                ['div' => ['id' => 'height-error', 'class' => 'ms-0 invalid-feedback']],
                     'error message',
                 '/div',
             '/div',

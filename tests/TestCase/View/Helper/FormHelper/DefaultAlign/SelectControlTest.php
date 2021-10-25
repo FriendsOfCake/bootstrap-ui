@@ -299,7 +299,13 @@ class SelectControlTest extends AbstractFormHelperTest
                 ['label' => ['class' => 'form-label', 'for' => 'users']],
                     'Users',
                 '/label',
-                ['select' => ['name' => 'users', 'id' => 'users', 'class' => 'form-select is-invalid']],
+                ['select' => [
+                    'name' => 'users',
+                    'id' => 'users',
+                    'class' => 'form-select is-invalid',
+                    'aria-invalid' => 'true',
+                    'aria-describedby' => 'users-error',
+                ]],
                     ['option' => ['value' => '1']],
                         'option 1',
                     '/option',
@@ -307,9 +313,108 @@ class SelectControlTest extends AbstractFormHelperTest
                         'option 2',
                     '/option',
                 '/select',
-                ['div' => ['class' => 'ms-0 invalid-feedback']],
+                ['div' => ['id' => 'users-error', 'class' => 'ms-0 invalid-feedback']],
                     'error message',
                 '/div',
+            '/div',
+        ];
+        $this->assertHtml($expected, $result);
+    }
+
+    public function testDefaultAlignSelectControlWithErrorAndHelp()
+    {
+        $this->article['errors'] = [
+            'users' => ['error message'],
+        ];
+        $this->Form->create($this->article);
+
+        $result = $this->Form->control('users', [
+            'type' => 'select',
+            'options' => [
+                1 => 'option 1',
+                2 => 'option 2',
+            ],
+            'help' => 'Help text',
+        ]);
+        $expected = [
+            'div' => ['class' => 'mb-3 form-group select is-invalid'],
+                ['label' => ['class' => 'form-label', 'for' => 'users']],
+                    'Users',
+                '/label',
+                ['select' => [
+                    'name' => 'users',
+                    'id' => 'users',
+                    'class' => 'form-select is-invalid',
+                    'aria-invalid' => 'true',
+                    'aria-describedby' => 'users-error users-help',
+                ]],
+                    ['option' => ['value' => '1']],
+                        'option 1',
+                    '/option',
+                    ['option' => ['value' => '2']],
+                        'option 2',
+                    '/option',
+                '/select',
+                ['div' => ['id' => 'users-error', 'class' => 'ms-0 invalid-feedback']],
+                    'error message',
+                '/div',
+                ['small' => ['id' => 'users-help', 'class' => 'd-block form-text text-muted']],
+                    'Help text',
+                '/small',
+            '/div',
+        ];
+        $this->assertHtml($expected, $result);
+    }
+
+    public function testDefaultAlignSelectControlWithErrorAndHelpOptions()
+    {
+        $this->article['errors'] = [
+            'users' => ['error message'],
+        ];
+        $this->Form->create($this->article);
+
+        $result = $this->Form->control('users', [
+            'type' => 'select',
+            'options' => [
+                1 => 'option 1',
+                2 => 'option 2',
+            ],
+            'help' => [
+                'id' => 'custom-help',
+                'foo' => 'bar',
+                'class' => 'help-class',
+                'content' => 'Help text',
+            ],
+        ]);
+        $expected = [
+            'div' => ['class' => 'mb-3 form-group select is-invalid'],
+                ['label' => ['class' => 'form-label', 'for' => 'users']],
+                    'Users',
+                '/label',
+                ['select' => [
+                    'name' => 'users',
+                    'id' => 'users',
+                    'class' => 'form-select is-invalid',
+                    'aria-invalid' => 'true',
+                    'aria-describedby' => 'users-error custom-help',
+                ]],
+                    ['option' => ['value' => '1']],
+                        'option 1',
+                    '/option',
+                    ['option' => ['value' => '2']],
+                        'option 2',
+                    '/option',
+                '/select',
+                ['div' => ['id' => 'users-error', 'class' => 'ms-0 invalid-feedback']],
+                    'error message',
+                '/div',
+                ['small' => [
+                    'id' => 'custom-help',
+                    'foo' => 'bar',
+                    'class' => 'help-class d-block form-text text-muted',
+                ]],
+                    'Help text',
+                '/small',
             '/div',
         ];
         $this->assertHtml($expected, $result);
@@ -377,7 +482,13 @@ class SelectControlTest extends AbstractFormHelperTest
                 ['label' => ['class' => 'form-label', 'for' => 'users']],
                     'Users',
                 '/label',
-                ['select' => ['name' => 'users', 'id' => 'users', 'class' => 'form-select is-invalid']],
+                ['select' => [
+                    'name' => 'users',
+                    'id' => 'users',
+                    'class' => 'form-select is-invalid',
+                    'aria-invalid' => 'true',
+                    'aria-describedby' => 'users-error',
+                ]],
                     ['option' => ['value' => '1']],
                         'option 1',
                     '/option',
@@ -385,7 +496,7 @@ class SelectControlTest extends AbstractFormHelperTest
                         'option 2',
                     '/option',
                 '/select',
-                ['div' => ['class' => 'ms-0 invalid-feedback']],
+                ['div' => ['id' => 'users-error', 'class' => 'ms-0 invalid-feedback']],
                     'error message',
                 '/div',
             '/div',

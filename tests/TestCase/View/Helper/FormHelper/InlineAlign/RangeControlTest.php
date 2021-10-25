@@ -301,10 +301,111 @@ class RangeControlTest extends AbstractFormHelperTest
                         'step' => 1,
                         'id' => 'height',
                         'class' => 'form-range is-invalid',
+                        'aria-invalid' => 'true',
+                        'aria-describedby' => 'height-error',
                     ],
-                    ['div' => ['class' => 'invalid-tooltip']],
+                    ['div' => ['id' => 'height-error', 'class' => 'invalid-tooltip']],
                         'error message',
                     '/div',
+                '/div',
+            '/div',
+        ];
+        $this->assertHtml($expected, $result);
+    }
+
+    public function testInlineAlignRangeControlWithErrorAndHelp()
+    {
+        $this->article['errors'] = [
+            'height' => ['error message'],
+        ];
+        $this->Form->create($this->article, [
+            'align' => 'inline',
+        ]);
+
+        $result = $this->Form->control('height', [
+            'type' => 'range',
+            'min' => 0,
+            'max' => 10,
+            'step' => 1,
+            'help' => 'Help text',
+        ]);
+        $expected = [
+            ['div' => ['class' => 'col-auto']],
+                'div' => ['class' => 'form-group position-relative range is-invalid'],
+                    ['label' => ['class' => 'form-label visually-hidden', 'for' => 'height']],
+                        'Height',
+                    '/label',
+                    'input' => [
+                        'type' => 'range',
+                        'name' => 'height',
+                        'min' => 0,
+                        'max' => 10,
+                        'step' => 1,
+                        'id' => 'height',
+                        'class' => 'form-range is-invalid',
+                        'aria-invalid' => 'true',
+                        'aria-describedby' => 'height-error height-help',
+                    ],
+                    ['div' => ['id' => 'height-error', 'class' => 'invalid-tooltip']],
+                        'error message',
+                    '/div',
+                    ['small' => ['id' => 'height-help', 'class' => 'visually-hidden form-text']],
+                        'Help text',
+                    '/small',
+                '/div',
+            '/div',
+        ];
+        $this->assertHtml($expected, $result);
+    }
+
+    public function testInlineAlignRangeControlWithErrorAndHelpOptions()
+    {
+        $this->article['errors'] = [
+            'height' => ['error message'],
+        ];
+        $this->Form->create($this->article, [
+            'align' => 'inline',
+        ]);
+
+        $result = $this->Form->control('height', [
+            'type' => 'range',
+            'min' => 0,
+            'max' => 10,
+            'step' => 1,
+            'help' => [
+                'id' => 'custom-help',
+                'foo' => 'bar',
+                'class' => 'help-class',
+                'content' => 'Help text',
+            ],
+        ]);
+        $expected = [
+            ['div' => ['class' => 'col-auto']],
+                'div' => ['class' => 'form-group position-relative range is-invalid'],
+                    ['label' => ['class' => 'form-label visually-hidden', 'for' => 'height']],
+                        'Height',
+                    '/label',
+                    'input' => [
+                        'type' => 'range',
+                        'name' => 'height',
+                        'min' => 0,
+                        'max' => 10,
+                        'step' => 1,
+                        'id' => 'height',
+                        'class' => 'form-range is-invalid',
+                        'aria-invalid' => 'true',
+                        'aria-describedby' => 'height-error custom-help',
+                    ],
+                    ['div' => ['id' => 'height-error', 'class' => 'invalid-tooltip']],
+                        'error message',
+                    '/div',
+                    ['small' => [
+                        'id' => 'custom-help',
+                        'foo' => 'bar',
+                        'class' => 'help-class visually-hidden form-text',
+                    ]],
+                        'Help text',
+                    '/small',
                 '/div',
             '/div',
         ];
@@ -387,8 +488,10 @@ class RangeControlTest extends AbstractFormHelperTest
                         'step' => 1,
                         'id' => 'height',
                         'class' => 'form-range is-invalid',
+                        'aria-invalid' => 'true',
+                        'aria-describedby' => 'height-error',
                     ],
-                    ['div' => ['class' => 'invalid-tooltip']],
+                    ['div' => ['id' => 'height-error', 'class' => 'invalid-tooltip']],
                         'error message',
                     '/div',
                 '/div',

@@ -233,11 +233,96 @@ class ColorControlTest extends AbstractFormHelperTest
                     'name' => 'color',
                     'id' => 'color',
                     'class' => 'form-control form-control-color is-invalid',
+                    'aria-invalid' => 'true',
+                    'aria-describedby' => 'color-error',
                     'value' => '#ffffff',
                 ],
-                ['div' => ['class' => 'ms-0 invalid-feedback']],
+                ['div' => ['id' => 'color-error', 'class' => 'ms-0 invalid-feedback']],
                     'error message',
                 '/div',
+            '/div',
+        ];
+        $this->assertHtml($expected, $result);
+    }
+
+    public function testDefaultAlignColorControlWithErrorAndHelp()
+    {
+        $this->article['errors'] = [
+            'color' => ['error message'],
+        ];
+        $this->Form->create($this->article);
+
+        $result = $this->Form->control('color', [
+            'type' => 'color',
+            'value' => '#ffffff',
+            'help' => 'Help text',
+        ]);
+        $expected = [
+            'div' => ['class' => 'mb-3 form-group color is-invalid'],
+                ['label' => ['class' => 'form-label', 'for' => 'color']],
+                    'Color',
+                '/label',
+                'input' => [
+                    'type' => 'color',
+                    'name' => 'color',
+                    'id' => 'color',
+                    'class' => 'form-control form-control-color is-invalid',
+                    'aria-invalid' => 'true',
+                    'aria-describedby' => 'color-error color-help',
+                    'value' => '#ffffff',
+                ],
+                ['div' => ['id' => 'color-error', 'class' => 'ms-0 invalid-feedback']],
+                    'error message',
+                '/div',
+                ['small' => ['id' => 'color-help', 'class' => 'd-block form-text text-muted']],
+                    'Help text',
+                '/small',
+            '/div',
+        ];
+        $this->assertHtml($expected, $result);
+    }
+
+    public function testDefaultAlignColorControlWithErrorAndHelpOptions()
+    {
+        $this->article['errors'] = [
+            'color' => ['error message'],
+        ];
+        $this->Form->create($this->article);
+
+        $result = $this->Form->control('color', [
+            'type' => 'color',
+            'value' => '#ffffff',
+            'help' => [
+                'id' => 'custom-help',
+                'foo' => 'bar',
+                'class' => 'help-class',
+                'content' => 'Help text',
+            ],
+        ]);
+        $expected = [
+            'div' => ['class' => 'mb-3 form-group color is-invalid'],
+                ['label' => ['class' => 'form-label', 'for' => 'color']],
+                    'Color',
+                '/label',
+                'input' => [
+                    'type' => 'color',
+                    'name' => 'color',
+                    'id' => 'color',
+                    'class' => 'form-control form-control-color is-invalid',
+                    'aria-invalid' => 'true',
+                    'aria-describedby' => 'color-error custom-help',
+                    'value' => '#ffffff',
+                ],
+                ['div' => ['id' => 'color-error', 'class' => 'ms-0 invalid-feedback']],
+                    'error message',
+                '/div',
+                ['small' => [
+                    'id' => 'custom-help',
+                    'foo' => 'bar',
+                    'class' => 'help-class d-block form-text text-muted',
+                ]],
+                    'Help text',
+                '/small',
             '/div',
         ];
         $this->assertHtml($expected, $result);
@@ -305,9 +390,11 @@ class ColorControlTest extends AbstractFormHelperTest
                     'name' => 'color',
                     'id' => 'color',
                     'class' => 'form-control form-control-color is-invalid',
+                    'aria-invalid' => 'true',
+                    'aria-describedby' => 'color-error',
                     'value' => '#ffffff',
                 ],
-                ['div' => ['class' => 'ms-0 invalid-feedback']],
+                ['div' => ['id' => 'color-error', 'class' => 'ms-0 invalid-feedback']],
                     'error message',
                 '/div',
             '/div',

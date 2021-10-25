@@ -289,11 +289,104 @@ class StaticControlTest extends AbstractFormHelperTest
                     'name' => 'title',
                     'id' => 'title',
                     'class' => 'is-invalid',
+                    'aria-invalid' => 'true',
+                    'aria-describedby' => 'title-error',
                     'value' => 'title',
                 ],
-                ['div' => ['class' => 'ms-0 invalid-feedback']],
+                ['div' => ['id' => 'title-error', 'class' => 'ms-0 invalid-feedback']],
                     'error message',
                 '/div',
+            '/div',
+        ];
+        $this->assertHtml($expected, $result);
+    }
+
+    public function testDefaultAlignStaticControlWithErrorAndHelp()
+    {
+        $this->article['errors'] = [
+            'title' => ['error message'],
+        ];
+        unset($this->article['required']['title']);
+        $this->article['defaults']['title'] = 'title';
+        $this->Form->create($this->article);
+
+        $result = $this->Form->control('title', [
+            'type' => 'staticControl',
+            'help' => 'Help text',
+        ]);
+        $expected = [
+            'div' => ['class' => 'mb-3 form-group staticControl is-invalid'],
+                ['label' => ['class' => 'form-label', 'for' => 'title']],
+                    'Title',
+                '/label',
+                'p' => ['class' => 'form-control-plaintext'],
+                    'title',
+                '/p',
+                'input' => [
+                    'type' => 'hidden',
+                    'name' => 'title',
+                    'id' => 'title',
+                    'class' => 'is-invalid',
+                    'aria-invalid' => 'true',
+                    'aria-describedby' => 'title-error title-help',
+                    'value' => 'title',
+                ],
+                ['div' => ['id' => 'title-error', 'class' => 'ms-0 invalid-feedback']],
+                    'error message',
+                '/div',
+                ['small' => ['id' => 'title-help', 'class' => 'd-block form-text text-muted']],
+                    'Help text',
+                '/small',
+            '/div',
+        ];
+        $this->assertHtml($expected, $result);
+    }
+
+    public function testDefaultAlignStaticControlWithErrorAndHelpOptions()
+    {
+        $this->article['errors'] = [
+            'title' => ['error message'],
+        ];
+        unset($this->article['required']['title']);
+        $this->article['defaults']['title'] = 'title';
+        $this->Form->create($this->article);
+
+        $result = $this->Form->control('title', [
+            'type' => 'staticControl',
+            'help' => [
+                'id' => 'custom-help',
+                'foo' => 'bar',
+                'class' => 'help-class',
+                'content' => 'Help text',
+            ],
+        ]);
+        $expected = [
+            'div' => ['class' => 'mb-3 form-group staticControl is-invalid'],
+                ['label' => ['class' => 'form-label', 'for' => 'title']],
+                    'Title',
+                '/label',
+                'p' => ['class' => 'form-control-plaintext'],
+                    'title',
+                '/p',
+                'input' => [
+                    'type' => 'hidden',
+                    'name' => 'title',
+                    'id' => 'title',
+                    'class' => 'is-invalid',
+                    'aria-invalid' => 'true',
+                    'aria-describedby' => 'title-error custom-help',
+                    'value' => 'title',
+                ],
+                ['div' => ['id' => 'title-error', 'class' => 'ms-0 invalid-feedback']],
+                    'error message',
+                '/div',
+                ['small' => [
+                    'id' => 'custom-help',
+                    'foo' => 'bar',
+                    'class' => 'help-class d-block form-text text-muted',
+                ]],
+                    'Help text',
+                '/small',
             '/div',
         ];
         $this->assertHtml($expected, $result);
@@ -366,9 +459,11 @@ class StaticControlTest extends AbstractFormHelperTest
                     'name' => 'title',
                     'id' => 'title',
                     'class' => 'is-invalid',
+                    'aria-invalid' => 'true',
+                    'aria-describedby' => 'title-error',
                     'value' => 'title',
                 ],
-                ['div' => ['class' => 'ms-0 invalid-feedback']],
+                ['div' => ['id' => 'title-error', 'class' => 'ms-0 invalid-feedback']],
                     'error message',
                 '/div',
             '/div',
