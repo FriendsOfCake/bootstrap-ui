@@ -348,10 +348,7 @@ class FormHelper extends Helper
     private $_errorFieldName = null;
 
     /**
-     * Construct the widgets and binds the default context providers.
-     *
-     * @param \Cake\View\View $View The View this helper is being attached to.
-     * @param array $config Configuration settings for the helper.
+     * @inheritDoc
      */
     public function __construct(View $View, array $config = [])
     {
@@ -378,13 +375,7 @@ class FormHelper extends Helper
     }
 
     /**
-     * Returns an HTML FORM element.
-     *
-     * @param mixed $context The context for which the form is being defined.
-     *   Can be a ContextInterface instance, ORM entity, ORM resultset, or an
-     *   array of meta data. You can use `null` to make a context-less form.
-     * @param array $options An array of html attributes and options.
-     * @return string An formatted opening FORM tag.
+     * @inheritDoc
      */
     public function create($context = null, array $options = []): string
     {
@@ -453,17 +444,7 @@ class FormHelper extends Helper
     }
 
     /**
-     * Creates a submit button element.
-     *
-     * Overrides parent method to add CSS class `btn`, to the element.
-     *
-     * @param string|null $caption The label appearing on the button OR if string contains :// or the
-     *  extension .jpg, .jpe, .jpeg, .gif, .png use an image if the extension
-     *  exists, AND the first character is /, image is relative to webroot,
-     *  OR if the first character is not /, image is relative to webroot/img.
-     * @param array $options Array of options. See above.
-     * @return string A HTML submit button
-     * @link http://book.cakephp.org/3.0/en/views/helpers/form.html#creating-buttons-and-submit-elements
+     * @inheritDoc
      */
     public function submit(?string $caption = null, array $options = []): string
     {
@@ -479,9 +460,10 @@ class FormHelper extends Helper
     }
 
     /**
-     * Generates a form input element complete with label and wrapper div.
+     * {@inheritDoc}
      *
-     * Adds extra option besides the ones supported by parent class method:
+     * Additionally to the core form helper options, the following BootstrapUI related options are supported:
+     *
      * - `container` - An array of container attributes, with `class` being a special case, prepending the value to
      *   the existing list of classes instead of replacing them.
      * - `append` - Append addon to input.
@@ -493,10 +475,6 @@ class FormHelper extends Helper
      * - `feedbackStyle` - The feedback style to use, `default`, or `tooltip` (will cause `formGroupPosition` to be set
      *   to `relative` unless explicitly configured otherwise).
      * - `formGroupPosition` - CSS positioning of form groups, `absolute`, `fixed`, `relative`, `static`, or `sticky`.
-     *
-     * @param string $fieldName This should be "Modelname.fieldname".
-     * @param array $options Each type of input takes different options.
-     * @return string Completed form widget.
      */
     public function control(string $fieldName, array $options = []): string
     {
@@ -1095,26 +1073,7 @@ class FormHelper extends Helper
     }
 
     /**
-     * Creates a set of radio widgets.
-     *
-     * ### Attributes:
-     *
-     * - `value` - Indicates the value when this radio button is checked.
-     * - `label` - Either `false` to disable label around the widget or an array of attributes for
-     *    the label tag. `selected` will be added to any classes e.g. `'class' => 'myclass'` where widget
-     *    is checked
-     * - `hiddenField` - boolean to indicate if you want the results of radio() to include
-     *    a hidden input with a value of ''. This is useful for creating radio sets that are non-continuous.
-     * - `disabled` - Set to `true` or `disabled` to disable all the radio buttons. Use an array of
-     *   values to disable specific radio buttons.
-     * - `empty` - Set to `true` to create an input with the value '' as the first option. When `true`
-     *   the radio label will be 'empty'. Set this option to a string to control the label value.
-     *
-     * @param string $fieldName Name of a field, like this "modelname.fieldname"
-     * @param iterable $options Radio button options array.
-     * @param array $attributes Array of attributes.
-     * @return string Completed radio widget set.
-     * @link https://book.cakephp.org/3.0/en/views/helpers/form.html#creating-radio-buttons
+     * @inheritDoc
      */
     public function radio(string $fieldName, iterable $options = [], array $attributes = []): string
     {
@@ -1124,29 +1083,7 @@ class FormHelper extends Helper
     }
 
     /**
-     * Creates a set of checkboxes out of options.
-     *
-     * ### Options
-     *
-     * - `escape` - If true contents of options will be HTML entity encoded. Defaults to true.
-     * - `val` The selected value of the input.
-     * - `class` - When using multiple = checkbox the class name to apply to the divs. Defaults to 'checkbox'.
-     * - `disabled` - Control the disabled attribute. When creating checkboxes, `true` will disable all checkboxes.
-     *   You can also set disabled to a list of values you want to disable when creating checkboxes.
-     * - `hiddenField` - Set to false to remove the hidden field that ensures a value
-     *   is always submitted.
-     * - `label` - Either `false` to disable label around the widget or an array of attributes for
-     *   the label tag. `selected` will be added to any classes e.g. `'class' => 'myclass'` where
-     *   widget is checked
-     *
-     * Can be used in place of a select box with the multiple attribute.
-     *
-     * @param string $fieldName Name attribute of the SELECT
-     * @param iterable $options Array of the OPTION elements
-     *   (as 'value'=>'Text' pairs) to be used in the checkboxes element.
-     * @param array $attributes The HTML attributes of the select element.
-     * @return string Formatted SELECT element
-     * @see \Cake\View\Helper\FormHelper::select() for supported option formats.
+     * @inheritDoc
      */
     public function multiCheckbox(string $fieldName, iterable $options, array $attributes = []): string
     {
@@ -1194,14 +1131,7 @@ class FormHelper extends Helper
     }
 
     /**
-     * Closes an HTML form, cleans up values set by FormHelper::create(), and writes hidden
-     * input fields where appropriate.
-     *
-     * Overrides parent method to reset the form alignment and grid size.
-     *
-     * @param array $secureAttributes Secure attributes which will be passed as HTML attributes
-     *   into the hidden input elements generated for the Security Component.
-     * @return string A closing FORM tag.
+     * @inheritDoc
      */
     public function end(array $secureAttributes = []): string
     {
@@ -1264,13 +1194,7 @@ class FormHelper extends Helper
     }
 
     /**
-     * Generates an input element.
-     *
-     * Overrides parent method to unset 'help' key.
-     *
-     * @param string $fieldName The field's name.
-     * @param array $options The options for the input element.
-     * @return string|array The generated input element.
+     * @inheritDoc
      */
     protected function _getInput(string $fieldName, array $options)
     {
@@ -1280,10 +1204,7 @@ class FormHelper extends Helper
     }
 
     /**
-     * Generates an group template element
-     *
-     * @param array $options The options for group template
-     * @return string The generated group template
+     * @inheritDoc
      */
     protected function _groupTemplate(array $options): string
     {
@@ -1302,10 +1223,7 @@ class FormHelper extends Helper
     }
 
     /**
-     * Generates an input container template
-     *
-     * @param array $options The options for input container template.
-     * @return string The generated input container template.
+     * @inheritDoc
      */
     protected function _inputContainerTemplate(array $options): string
     {
@@ -1325,11 +1243,7 @@ class FormHelper extends Helper
     }
 
     /**
-     * Generates input options array
-     *
-     * @param string $fieldName The name of the field to parse options for.
-     * @param array $options Options list.
-     * @return array Options
+     * @inheritDoc
      */
     protected function _parseOptions(string $fieldName, array $options): array
     {
