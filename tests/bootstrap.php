@@ -67,6 +67,11 @@ Configure::write('App', [
         'templates' => [TEST_APP . 'templates' . DS]
     ]
 ]);
+Configure::write('Error', [
+    'ignoredDeprecationPaths' => [
+        'vendor/cakephp/cakephp/src/TestSuite/Fixture/FixtureInjector.php',
+    ],
+]);
 
 Cache::setConfig([
     '_cake_core_' => [

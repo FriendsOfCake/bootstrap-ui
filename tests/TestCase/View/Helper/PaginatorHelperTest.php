@@ -56,7 +56,8 @@ class PaginatorHelperTest extends TestCase
         $this->View = new View($request);
         $this->Paginator = new PaginatorHelper($this->View);
 
-        Router::connect('/{controller}/{action}/*');
+        $routeBuilder = Router::createRouteBuilder('/');
+        $routeBuilder->connect('/{controller}/{action}/*');
         Router::setRequest($request);
     }
 

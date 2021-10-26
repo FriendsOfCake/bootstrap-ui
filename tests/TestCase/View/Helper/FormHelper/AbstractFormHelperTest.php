@@ -80,8 +80,10 @@ abstract class AbstractFormHelperTest extends TestCase
         ];
 
         Security::setSalt('foo!');
-        Router::connect('/:controller', ['action' => 'index']);
-        Router::connect('/:controller/:action/*');
+
+        $routeBuilder = Router::createRouteBuilder('/');
+        $routeBuilder->connect('/{controller}', ['action' => 'index']);
+        $routeBuilder->connect('/{controller}/{action}/*');
 
         $this->locale = I18n::getLocale();
         I18n::setLocale('eng');
