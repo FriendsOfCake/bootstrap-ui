@@ -272,9 +272,6 @@ class DateTimeControlTest extends AbstractFormHelperTest
         $this->assertHtml($expected, $result);
     }
 
-    /**
-     * Inline datetime controls currently do not render error messages.
-     */
     public function testInlineAlignDateTimeControlWithError()
     {
         $this->withErrorReporting(0, function () {
