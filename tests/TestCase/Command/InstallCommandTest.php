@@ -322,6 +322,7 @@ class InstallCommandTest extends TestCase
         "bootstrap-icons": "^1.5.0"
     }
 }
+
 EOT;
 
         $testLockFileContents = <<<EOT
@@ -346,6 +347,7 @@ EOT;
         }
     }
 }
+
 EOT;
 
         $pluginPath = Plugin::path('BootstrapUI');
@@ -357,6 +359,9 @@ EOT;
         $this->assertNotFalse(file_put_contents($pluginPath . 'package-lock.json', $testLockFileContents));
 
         $this->exec('bootstrap install');
+
+        $this->assertStringEqualsFile($pluginPath . 'package.json', $testPackageFileContents);
+        $this->assertStringEqualsFile($pluginPath . 'package-lock.json', $testLockFileContents);
 
         $package = json_decode(
             file_get_contents($pluginPath . 'node_modules' . DS . '@popperjs' . DS . 'core' . DS . 'package.json'),
@@ -377,6 +382,9 @@ EOT;
         $this->assertSame('1.5.0', $package['version']);
 
         $this->exec('bootstrap install --latest');
+
+        $this->assertStringEqualsFile($pluginPath . 'package.json', $testPackageFileContents);
+        $this->assertStringEqualsFile($pluginPath . 'package-lock.json', $testLockFileContents);
 
         $package = json_decode(
             file_get_contents($pluginPath . 'node_modules' . DS . '@popperjs' . DS . 'core' . DS . 'package.json'),
