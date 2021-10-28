@@ -23,7 +23,7 @@ For version info see [version map](https://github.com/FriendsOfCake/bootstrap-ui
 
 * CakePHP 4.x
 * Bootstrap 5.x
-* npm 5.x
+* npm 6.x
 * Popper.js 2.x
 * Bootstrap Icons 1.5.x
 
