@@ -5,6 +5,7 @@ namespace BootstrapUI\Test\TestCase\Command;
 
 use BootstrapUI\Command\InstallCommand;
 use Cake\Command\Command;
+use Cake\Console\Arguments;
 use Cake\Console\ConsoleIo;
 use Cake\Console\Exception\StopException;
 use Cake\Core\Plugin;
@@ -311,6 +312,108 @@ class InstallCommandTest extends TestCase
         $filesystem->deleteDir(WWW_ROOT);
     }
 
+    public function testInstallLatest()
+    {
+        $testPackageFileContents = <<<EOT
+{
+    "dependencies": {
+        "@popperjs/core": "^2.9.2",
+        "bootstrap": "^5.0.1",
+        "bootstrap-icons": "^1.5.0"
+    }
+}
+
+EOT;
+
+        $testLockFileContents = <<<EOT
+{
+    "requires": true,
+    "lockfileVersion": 1,
+    "dependencies": {
+        "@popperjs/core": {
+            "version": "2.9.2",
+            "resolved": "https://registry.npmjs.org/@popperjs/core/-/core-2.9.2.tgz",
+            "integrity": "sha512-VZMYa7+fXHdwIq1TDhSXoVmSPEGM/aa+6Aiq3nVVJ9bXr24zScr+NlKFKC3iPljA7ho/GAZr+d2jOf5GIRC30Q=="
+        },
+        "bootstrap": {
+            "version": "5.0.1",
+            "resolved": "https://registry.npmjs.org/bootstrap/-/bootstrap-5.0.1.tgz",
+            "integrity": "sha512-Fl79+wsLOZKoiU345KeEaWD0ik8WKRI5zm0YSPj2oF1Qr+BO7z0fco6GbUtqjoG1h4VI89PeKJnMsMMVQdKKTw=="
+        },
+        "bootstrap-icons": {
+            "version": "1.5.0",
+            "resolved": "https://registry.npmjs.org/bootstrap-icons/-/bootstrap-icons-1.5.0.tgz",
+            "integrity": "sha512-44feMc7DE1Ccpsas/1wioN8ewFJNquvi5FewA06wLnqct7CwMdGDVy41ieHaacogzDqLfG8nADIvMNp9e4bfbA=="
+        }
+    }
+}
+
+EOT;
+
+        $pluginPath = Plugin::path('BootstrapUI');
+
+        $this->assertTrue(rename($pluginPath . 'package.json', $pluginPath . 'package.json.bak'));
+        $this->assertTrue(rename($pluginPath . 'package-lock.json', $pluginPath . 'package-lock.json.bak'));
+
+        $this->assertNotFalse(file_put_contents($pluginPath . 'package.json', $testPackageFileContents));
+        $this->assertNotFalse(file_put_contents($pluginPath . 'package-lock.json', $testLockFileContents));
+
+        $this->exec('bootstrap install');
+
+        $this->assertStringEqualsFile($pluginPath . 'package.json', $testPackageFileContents);
+        $this->assertStringEqualsFile($pluginPath . 'package-lock.json', $testLockFileContents);
+
+        $package = json_decode(
+            file_get_contents($pluginPath . 'node_modules' . DS . '@popperjs' . DS . 'core' . DS . 'package.json'),
+            true
+        );
+        $this->assertSame('2.9.2', $package['version']);
+
+        $package = json_decode(
+            file_get_contents($pluginPath . 'node_modules' . DS . 'bootstrap' . DS . 'package.json'),
+            true
+        );
+        $this->assertSame('5.0.1', $package['version']);
+
+        $package = json_decode(
+            file_get_contents($pluginPath . 'node_modules' . DS . 'bootstrap-icons' . DS . 'package.json'),
+            true
+        );
+        $this->assertSame('1.5.0', $package['version']);
+
+        $this->exec('bootstrap install --latest');
+
+        $this->assertStringEqualsFile($pluginPath . 'package.json', $testPackageFileContents);
+        $this->assertStringEqualsFile($pluginPath . 'package-lock.json', $testLockFileContents);
+
+        $package = json_decode(
+            file_get_contents($pluginPath . 'node_modules' . DS . '@popperjs' . DS . 'core' . DS . 'package.json'),
+            true
+        );
+        $this->assertTrue(version_compare($package['version'], '2.9.2', '>'));
+        $this->assertTrue(version_compare($package['version'], '3.0.0', '<'));
+
+        $package = json_decode(
+            file_get_contents($pluginPath . 'node_modules' . DS . 'bootstrap' . DS . 'package.json'),
+            true
+        );
+        $this->assertTrue(version_compare($package['version'], '5.0.1', '>'));
+        $this->assertTrue(version_compare($package['version'], '6.0.0', '<'));
+
+        $package = json_decode(
+            file_get_contents($pluginPath . 'node_modules' . DS . 'bootstrap-icons' . DS . 'package.json'),
+            true
+        );
+        $this->assertTrue(version_compare($package['version'], '1.5.0', '>'));
+        $this->assertTrue(version_compare($package['version'], '2.0.0', '<'));
+
+        $this->assertTrue(rename($pluginPath . 'package.json.bak', $pluginPath . 'package.json'));
+        $this->assertTrue(rename($pluginPath . 'package-lock.json.bak', $pluginPath . 'package-lock.json'));
+
+        $filesystem = new Filesystem();
+        $filesystem->deleteDir(WWW_ROOT);
+    }
+
     public function testNPMNotAvailable()
     {
         /** @var \BootstrapUI\Command\InstallCommand|\PHPUnit\Framework\MockObject\MockObject $command */
@@ -326,10 +429,11 @@ class InstallCommandTest extends TestCase
 
         $out = new ConsoleOutput();
         $err = new ConsoleOutput();
+        $args = new Arguments([], [], []);
         $io = new ConsoleIo($out, $err);
 
         try {
-            $result = $command->installPackages($io);
+            $result = $command->installPackages($args, $io);
         } catch (StopException $exception) {
             $result = $exception->getCode();
         }
@@ -357,10 +461,11 @@ class InstallCommandTest extends TestCase
 
         $out = new ConsoleOutput();
         $err = new ConsoleOutput();
+        $args = new Arguments([], [], []);
         $io = new ConsoleIo($out, $err);
 
         try {
-            $result = $command->installPackages($io);
+            $result = $command->installPackages($args, $io);
         } catch (StopException $exception) {
             $result = $exception->getCode();
         }
@@ -395,10 +500,11 @@ class InstallCommandTest extends TestCase
 
         $out = new ConsoleOutput();
         $err = new ConsoleOutput();
+        $args = new Arguments([], [], []);
         $io = new ConsoleIo($out, $err);
 
         try {
-            $result = $command->installPackages($io);
+            $result = $command->installPackages($args, $io);
         } catch (StopException $exception) {
             $result = $exception->getCode();
         }
@@ -444,10 +550,11 @@ class InstallCommandTest extends TestCase
 
         $out = new ConsoleOutput();
         $err = new ConsoleOutput();
+        $args = new Arguments([], [], []);
         $io = new ConsoleIo($out, $err);
 
         try {
-            $result = $command->installPackages($io);
+            $result = $command->installPackages($args, $io);
         } catch (StopException $exception) {
             $result = $exception->getCode();
         }
@@ -688,11 +795,12 @@ class InstallCommandTest extends TestCase
 application's webroot.
 
 <info>Usage:</info>
-cake bootstrap install [-h] [-q] [-v]
+cake bootstrap install [-h] [-l] [-q] [-v]
 
 <info>Options:</info>
 
 --help, -h     Display this help.
+--latest, -l   To install the latest minor versions of required assets.
 --quiet, -q    Enable quiet output.
 --verbose, -v  Enable verbose output.
 "],

@@ -23,7 +23,7 @@ For version info see [version map](https://github.com/FriendsOfCake/bootstrap-ui
 
 * CakePHP 4.x
 * Bootstrap 5.x
-* npm 5.x
+* npm 6.x
 * Popper.js 2.x
 * Bootstrap Icons 1.5.x
 
@@ -81,6 +81,13 @@ You can either use the Bootstrap commands to make the necessary changes, or do t
 
    This will fetch all assets, copy the distribution assets to the BootstrapUI plugin's webroot directory, and symlink
    (or copy) them to your application's `webroot` directory.
+
+   If you want to install the latest minor versions of the assets instead of the exact pinned ones, you can use the
+   `--latest` option:
+
+   ```
+   bin/cake bootstrap install --latest
+   ```
 
 2. You will need to modify your `src/View/AppView` class to either extend `BootstrapUI\View\UIView` or
    use the trait `BootStrapUI\View\UIViewTrait`. For doing this you can either use the `modify_view` command, or
