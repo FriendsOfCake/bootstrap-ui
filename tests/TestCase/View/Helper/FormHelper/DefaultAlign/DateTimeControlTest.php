@@ -243,6 +243,35 @@ class DateTimeControlTest extends AbstractFormHelperTest
         $this->assertHtml($expected, $result);
     }
 
+    public function testDefaultAlignDateTimeControlWithCustomSpacing()
+    {
+        $this->Form->create($this->article);
+
+        $now = new \DateTime('now');
+
+        $result = $this->Form->control('created', [
+            'type' => 'datetime-local',
+            'value' => $now->format('Y-m-d H:i:s'),
+            'spacing' => 'custom-spacing',
+        ]);
+
+        $expected = [
+            ['div' => ['class' => 'custom-spacing form-group datetime-local']],
+            ['label' => ['class' => 'form-label', 'for' => 'created']],
+            'Created',
+            '/label',
+            'input' => [
+                'type' => 'datetime-local',
+                'name' => 'created',
+                'id' => 'created',
+                'class' => 'form-control',
+                'value' => $now->format('Y-m-d H:i:s'),
+            ],
+            '/div',
+        ];
+        $this->assertHtml($expected, $result);
+    }
+
     public function testDefaultAlignDateTimeControlWithError()
     {
         $this->article['errors'] = [

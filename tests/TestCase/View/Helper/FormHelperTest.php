@@ -578,6 +578,24 @@ class FormHelperTest extends AbstractFormHelperTest
         $this->assertHtml($expected, $result);
     }
 
+    public function testInlineFormCreateWithCustomSpacing()
+    {
+        $result = $this->Form->create($this->article, [
+            'align' => 'inline',
+            'spacing' => 'custom-spacing'
+        ]);
+        $expected = [
+            'form' => [
+                'method' => 'post',
+                'accept-charset' => 'utf-8',
+                'role' => 'form',
+                'action' => '/articles/add',
+                'class' => 'form-inline row custom-spacing align-items-center',
+            ],
+        ];
+        $this->assertHtml($expected, $result);
+    }
+
     public function testHorizontalFormCreate()
     {
         $result = $this->Form->create($this->article, ['align' => 'horizontal']);
@@ -1219,5 +1237,383 @@ class FormHelperTest extends AbstractFormHelperTest
             '/div',
         ];
         $this->assertHtml($expected, $result);
+    }
+
+    public function testSpacingViaCreateConfigIsBeingResetOnFormClose()
+    {
+        $this->article['required']['title'] = false;
+
+        $this->Form->create($this->article, [
+            'spacing' => 'custom-spacing-create',
+        ]);
+        $result = $this->Form->control('title');
+        $this->Form->end();
+
+        $expected = [
+            ['div' => ['class' => 'custom-spacing-create form-group text']],
+                ['label' => ['class' => 'form-label', 'for' => 'title']],
+                    'Title',
+                '/label',
+                'input' => [
+                    'type' => 'text',
+                    'name' => 'title',
+                    'id' => 'title',
+                    'class' => 'form-control',
+                ],
+            '/div',
+        ];
+        $this->assertHtml($expected, $result);
+
+        $this->Form->create($this->article);
+        $result = $this->Form->control('title');
+        $this->Form->end();
+
+        $expected = [
+            ['div' => ['class' => 'mb-3 form-group text']],
+                ['label' => ['class' => 'form-label', 'for' => 'title']],
+                    'Title',
+                '/label',
+                'input' => [
+                    'type' => 'text',
+                    'name' => 'title',
+                    'id' => 'title',
+                    'class' => 'form-control',
+                ],
+            '/div',
+        ];
+        $this->assertHtml($expected, $result);
+    }
+
+    public function testOverrideSpacingFromHelperConfigViaCreateConfig()
+    {
+        $this->article['required']['title'] = false;
+
+        $this->Form->setConfig([
+            'spacing' => 'custom-spacing-helper',
+        ]);
+
+        $this->Form->create($this->article);
+        $result = $this->Form->control('title');
+        $this->Form->end();
+
+        $expected = [
+            ['div' => ['class' => 'custom-spacing-helper form-group text']],
+                ['label' => ['class' => 'form-label', 'for' => 'title']],
+                    'Title',
+                '/label',
+                'input' => [
+                    'type' => 'text',
+                    'name' => 'title',
+                    'id' => 'title',
+                    'class' => 'form-control',
+                ],
+            '/div',
+        ];
+        $this->assertHtml($expected, $result);
+
+        $this->Form->create($this->article, [
+            'spacing' => 'custom-spacing-create',
+        ]);
+        $result = $this->Form->control('title');
+        $this->Form->end();
+
+        $expected = [
+            ['div' => ['class' => 'custom-spacing-create form-group text']],
+                ['label' => ['class' => 'form-label', 'for' => 'title']],
+                    'Title',
+                '/label',
+                'input' => [
+                    'type' => 'text',
+                    'name' => 'title',
+                    'id' => 'title',
+                    'class' => 'form-control',
+                ],
+            '/div',
+        ];
+        $this->assertHtml($expected, $result);
+    }
+
+    public function testOverrideSpacingFromHelperConfigViaControlConfig()
+    {
+        $this->article['required']['title'] = false;
+
+        $this->Form->setConfig([
+            'spacing' => 'custom-spacing-helper',
+        ]);
+
+        $this->Form->create($this->article);
+        $result = $this->Form->control('title');
+        $this->Form->end();
+
+        $expected = [
+            ['div' => ['class' => 'custom-spacing-helper form-group text']],
+                ['label' => ['class' => 'form-label', 'for' => 'title']],
+                    'Title',
+                '/label',
+                'input' => [
+                    'type' => 'text',
+                    'name' => 'title',
+                    'id' => 'title',
+                    'class' => 'form-control',
+                ],
+            '/div',
+        ];
+        $this->assertHtml($expected, $result);
+
+        $this->Form->create($this->article);
+        $result = $this->Form->control('title', [
+            'spacing' => 'custom-spacing-control',
+        ]);
+        $this->Form->end();
+
+        $expected = [
+            ['div' => ['class' => 'custom-spacing-control form-group text']],
+                ['label' => ['class' => 'form-label', 'for' => 'title']],
+                    'Title',
+                '/label',
+                'input' => [
+                    'type' => 'text',
+                    'name' => 'title',
+                    'id' => 'title',
+                    'class' => 'form-control',
+                ],
+            '/div',
+        ];
+        $this->assertHtml($expected, $result, true);
+    }
+
+    public function testOverrideSpacingFromCreateConfigViaControlConfig()
+    {
+        $this->article['required']['title'] = false;
+
+        $this->Form->create($this->article, [
+            'spacing' => 'custom-spacing-create',
+        ]);
+        $result = $this->Form->control('title');
+
+        $expected = [
+            ['div' => ['class' => 'custom-spacing-create form-group text']],
+                ['label' => ['class' => 'form-label', 'for' => 'title']],
+                    'Title',
+                '/label',
+                'input' => [
+                    'type' => 'text',
+                    'name' => 'title',
+                    'id' => 'title',
+                    'class' => 'form-control',
+                ],
+            '/div',
+        ];
+        $this->assertHtml($expected, $result);
+
+        $result = $this->Form->control('title', [
+            'spacing' => 'custom-spacing-control',
+        ]);
+        $expected = [
+            ['div' => ['class' => 'custom-spacing-control form-group text']],
+                ['label' => ['class' => 'form-label', 'for' => 'title']],
+                    'Title',
+                '/label',
+                'input' => [
+                    'type' => 'text',
+                    'name' => 'title',
+                    'id' => 'title',
+                    'class' => 'form-control',
+                ],
+            '/div',
+        ];
+        $this->assertHtml($expected, $result, true);
+
+        $this->Form->end();
+    }
+
+    public function testDisableSpacingViaHelperConfig()
+    {
+        $this->article['required']['title'] = false;
+
+        $this->Form->create($this->article);
+        $result = $this->Form->control('title');
+        $this->Form->end();
+
+        $expected = [
+            ['div' => ['class' => 'mb-3 form-group text']],
+                ['label' => ['class' => 'form-label', 'for' => 'title']],
+                    'Title',
+                '/label',
+                'input' => [
+                    'type' => 'text',
+                    'name' => 'title',
+                    'id' => 'title',
+                    'class' => 'form-control',
+                ],
+            '/div',
+        ];
+        $this->assertHtml($expected, $result);
+
+        $this->Form->setConfig([
+            'spacing' => false,
+        ]);
+
+        $this->Form->create($this->article);
+        $result = $this->Form->control('title');
+        $this->Form->end();
+
+        $expected = [
+            ['div' => ['class' => 'form-group text']],
+                ['label' => ['class' => 'form-label', 'for' => 'title']],
+                    'Title',
+                '/label',
+                'input' => [
+                    'type' => 'text',
+                    'name' => 'title',
+                    'id' => 'title',
+                    'class' => 'form-control',
+                ],
+            '/div',
+        ];
+        $this->assertHtml($expected, $result);
+    }
+
+    public function testDisableSpacingFromHelperConfigViaCreateConfig()
+    {
+        $this->article['required']['title'] = false;
+
+        $this->Form->setConfig([
+            'spacing' => 'custom-spacing-helper',
+        ]);
+
+        $this->Form->create($this->article);
+        $result = $this->Form->control('title');
+        $this->Form->end();
+
+        $expected = [
+            ['div' => ['class' => 'custom-spacing-helper form-group text']],
+                ['label' => ['class' => 'form-label', 'for' => 'title']],
+                    'Title',
+                '/label',
+                'input' => [
+                    'type' => 'text',
+                    'name' => 'title',
+                    'id' => 'title',
+                    'class' => 'form-control',
+                ],
+            '/div',
+        ];
+        $this->assertHtml($expected, $result);
+
+        $this->Form->create($this->article, [
+            'spacing' => false,
+        ]);
+        $result = $this->Form->control('title');
+        $this->Form->end();
+
+        $expected = [
+            ['div' => ['class' => 'form-group text']],
+                ['label' => ['class' => 'form-label', 'for' => 'title']],
+                    'Title',
+                '/label',
+                'input' => [
+                    'type' => 'text',
+                    'name' => 'title',
+                    'id' => 'title',
+                    'class' => 'form-control',
+                ],
+            '/div',
+        ];
+        $this->assertHtml($expected, $result);
+    }
+
+    public function testDisableSpacingFromHelperConfigViaControlConfig()
+    {
+        $this->article['required']['title'] = false;
+
+        $this->Form->setConfig([
+            'spacing' => 'custom-spacing-helper',
+        ]);
+
+        $this->Form->create($this->article);
+        $result = $this->Form->control('title');
+        $this->Form->end();
+
+        $expected = [
+            ['div' => ['class' => 'custom-spacing-helper form-group text']],
+                ['label' => ['class' => 'form-label', 'for' => 'title']],
+                    'Title',
+                '/label',
+                'input' => [
+                    'type' => 'text',
+                    'name' => 'title',
+                    'id' => 'title',
+                    'class' => 'form-control',
+                ],
+            '/div',
+        ];
+        $this->assertHtml($expected, $result);
+
+        $this->Form->create($this->article);
+        $result = $this->Form->control('title', [
+            'spacing' => false,
+        ]);
+        $this->Form->end();
+
+        $expected = [
+            ['div' => ['class' => 'form-group text']],
+                ['label' => ['class' => 'form-label', 'for' => 'title']],
+                    'Title',
+                '/label',
+                'input' => [
+                    'type' => 'text',
+                    'name' => 'title',
+                    'id' => 'title',
+                    'class' => 'form-control',
+                ],
+            '/div',
+        ];
+        $this->assertHtml($expected, $result, true);
+    }
+
+    public function testDisableSpacingFromCreateConfigViaControlConfig()
+    {
+        $this->article['required']['title'] = false;
+
+        $this->Form->create($this->article, [
+            'spacing' => 'custom-spacing-create',
+        ]);
+        $result = $this->Form->control('title');
+
+        $expected = [
+            ['div' => ['class' => 'custom-spacing-create form-group text']],
+                ['label' => ['class' => 'form-label', 'for' => 'title']],
+                    'Title',
+                '/label',
+                'input' => [
+                    'type' => 'text',
+                    'name' => 'title',
+                    'id' => 'title',
+                    'class' => 'form-control',
+                ],
+            '/div',
+        ];
+        $this->assertHtml($expected, $result);
+
+        $result = $this->Form->control('title', [
+            'spacing' => false,
+        ]);
+        $expected = [
+            ['div' => ['class' => 'form-group text']],
+                ['label' => ['class' => 'form-label', 'for' => 'title']],
+                    'Title',
+                '/label',
+                'input' => [
+                    'type' => 'text',
+                    'name' => 'title',
+                    'id' => 'title',
+                    'class' => 'form-control',
+                ],
+            '/div',
+        ];
+        $this->assertHtml($expected, $result, true);
+
+        $this->Form->end();
     }
 }

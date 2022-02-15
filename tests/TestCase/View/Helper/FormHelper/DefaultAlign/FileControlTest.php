@@ -202,6 +202,30 @@ class FileControlTest extends AbstractFormHelperTest
         $this->assertHtml($expected, $result);
     }
 
+    public function testDefaultAlignFileControlWithCustomSpacing()
+    {
+        $this->Form->create($this->article);
+
+        $result = $this->Form->control('file', [
+            'type' => 'file',
+            'spacing' => 'custom-spacing',
+        ]);
+        $expected = [
+            ['div' => ['class' => 'custom-spacing form-group file']],
+                ['label' => ['class' => 'form-label', 'for' => 'file']],
+                    'File',
+                '/label',
+                ['input' => [
+                    'type' => 'file',
+                    'name' => 'file',
+                    'id' => 'file',
+                    'class' => 'form-control',
+                ]],
+            '/div',
+        ];
+        $this->assertHtml($expected, $result);
+    }
+
     public function testDefaultAlignFileControlWithError()
     {
         $this->article['errors'] = [

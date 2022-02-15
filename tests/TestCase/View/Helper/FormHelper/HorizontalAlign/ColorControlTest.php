@@ -285,6 +285,41 @@ class ColorControlTest extends AbstractFormHelperTest
         $this->assertHtml($expected, $result);
     }
 
+    public function testHorizontalAlignColorControlWithCustomSpacing()
+    {
+        $this->Form->create($this->article, [
+            'align' => [
+                'sm' => [
+                    FormHelper::GRID_COLUMN_ONE => 5,
+                    FormHelper::GRID_COLUMN_TWO => 7,
+                ],
+            ],
+        ]);
+
+        $result = $this->Form->control('color', [
+            'type' => 'color',
+            'value' => '#ffffff',
+            'spacing' => 'custom-spacing',
+        ]);
+        $expected = [
+            'div' => ['class' => 'custom-spacing form-group row color'],
+                'label' => ['class' => 'col-form-label col-sm-5', 'for' => 'color'],
+                    'Color',
+                '/label',
+                ['div' => ['class' => 'col-sm-7']],
+                    'input' => [
+                        'type' => 'color',
+                        'name' => 'color',
+                        'id' => 'color',
+                        'class' => 'form-control form-control-color',
+                        'value' => '#ffffff',
+                    ],
+                '/div',
+            '/div',
+        ];
+        $this->assertHtml($expected, $result);
+    }
+
     public function testHorizontalAlignColorControlWithError()
     {
         $this->article['errors'] = [
