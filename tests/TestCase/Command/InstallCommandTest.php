@@ -327,8 +327,47 @@ EOT;
 
         $testLockFileContents = <<<EOT
 {
+    "name": "bootstrap-ui",
+    "lockfileVersion": 2,
     "requires": true,
-    "lockfileVersion": 1,
+    "packages": {
+        "": {
+            "dependencies": {
+                "@popperjs/core": "^2.9.2",
+                "bootstrap": "^5.0.1",
+                "bootstrap-icons": "^1.5.0"
+            }
+        },
+        "node_modules/@popperjs/core": {
+            "version": "2.9.2",
+            "resolved": "https://registry.npmjs.org/@popperjs/core/-/core-2.9.2.tgz",
+            "integrity": "sha512-VZMYa7+fXHdwIq1TDhSXoVmSPEGM/aa+6Aiq3nVVJ9bXr24zScr+NlKFKC3iPljA7ho/GAZr+d2jOf5GIRC30Q==",
+            "funding": {
+                "type": "opencollective",
+                "url": "https://opencollective.com/popperjs"
+            }
+        },
+        "node_modules/bootstrap": {
+            "version": "5.0.1",
+            "resolved": "https://registry.npmjs.org/bootstrap/-/bootstrap-5.0.1.tgz",
+            "integrity": "sha512-Fl79+wsLOZKoiU345KeEaWD0ik8WKRI5zm0YSPj2oF1Qr+BO7z0fco6GbUtqjoG1h4VI89PeKJnMsMMVQdKKTw==",
+            "funding": {
+                "type": "opencollective",
+                "url": "https://opencollective.com/bootstrap"
+            },
+            "peerDependencies": {
+                "@popperjs/core": "^2.9.2"
+            }
+        },
+        "node_modules/bootstrap-icons": {
+            "version": "1.5.0",
+            "resolved": "https://registry.npmjs.org/bootstrap-icons/-/bootstrap-icons-1.5.0.tgz",
+            "integrity": "sha512-44feMc7DE1Ccpsas/1wioN8ewFJNquvi5FewA06wLnqct7CwMdGDVy41ieHaacogzDqLfG8nADIvMNp9e4bfbA==",
+            "engines": {
+                "node": ">=10"
+            }
+        }
+    },
     "dependencies": {
         "@popperjs/core": {
             "version": "2.9.2",
@@ -338,7 +377,8 @@ EOT;
         "bootstrap": {
             "version": "5.0.1",
             "resolved": "https://registry.npmjs.org/bootstrap/-/bootstrap-5.0.1.tgz",
-            "integrity": "sha512-Fl79+wsLOZKoiU345KeEaWD0ik8WKRI5zm0YSPj2oF1Qr+BO7z0fco6GbUtqjoG1h4VI89PeKJnMsMMVQdKKTw=="
+            "integrity": "sha512-Fl79+wsLOZKoiU345KeEaWD0ik8WKRI5zm0YSPj2oF1Qr+BO7z0fco6GbUtqjoG1h4VI89PeKJnMsMMVQdKKTw==",
+            "requires": {}
         },
         "bootstrap-icons": {
             "version": "1.5.0",
