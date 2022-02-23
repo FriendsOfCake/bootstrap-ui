@@ -13,7 +13,7 @@ $this->Html->css('BootstrapUI.cover', ['block' => true]);
 $this->prepend(
     'tb_body_attrs',
     'class="d-flex h-100 text-center text-white bg-dark ' .
-        implode(' ', [$this->request->getParam('controller'), $this->request->getParam('action')]) .
+        implode(' ', [h($this->request->getParam('controller')), h($this->request->getParam('action'))]) .
         '" '
 );
 
