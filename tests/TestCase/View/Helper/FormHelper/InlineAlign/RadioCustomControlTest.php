@@ -468,6 +468,7 @@ class RadioCustomControlTest extends AbstractFormHelperTest
                 ]],
                 ['div' => ['class' => 'custom-control custom-radio custom-control-inline']],
                     ['input' => [
+                        'aria-invalid' => 'true',
                         'class' => 'custom-control-input is-invalid',
                         'type' => 'radio',
                         'name' => 'users',
@@ -480,6 +481,7 @@ class RadioCustomControlTest extends AbstractFormHelperTest
                 '/div',
                 ['div' => ['class' => 'custom-control custom-radio custom-control-inline']],
                     ['input' => [
+                        'aria-invalid' => 'true',
                         'class' => 'custom-control-input is-invalid',
                         'type' => 'radio',
                         'name' => 'users',
@@ -599,6 +601,7 @@ class RadioCustomControlTest extends AbstractFormHelperTest
                 ]],
                 ['div' => ['class' => 'custom-control custom-radio custom-control-inline']],
                     ['input' => [
+                        'aria-invalid' => 'true',
                         'class' => 'custom-control-input is-invalid',
                         'type' => 'radio',
                         'name' => 'users',
@@ -611,6 +614,7 @@ class RadioCustomControlTest extends AbstractFormHelperTest
                 '/div',
                 ['div' => ['class' => 'custom-control custom-radio custom-control-inline']],
                     ['input' => [
+                        'aria-invalid' => 'true',
                         'class' => 'custom-control-input is-invalid',
                         'type' => 'radio',
                         'name' => 'users',

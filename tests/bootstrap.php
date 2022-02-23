@@ -89,3 +89,8 @@ ConnectionManager::setConfig('test', ['url' => getenv('db_dsn')]);
 
 Plugin::getCollection()->add(new \BootstrapUI\Plugin(['path' => ROOT . DS]));
 Plugin::getCollection()->add(new \Bake\Plugin());
+
+Configure::write(
+    'Error.ignoredDeprecationPaths',
+    ['vendor/cakephp/cakephp/src/TestSuite/Fixture/FixtureInjector.php']
+);
