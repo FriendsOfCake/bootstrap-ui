@@ -45,7 +45,7 @@ if (!$this->fetch('tb_footer')) {
  */
 $this->prepend(
     'tb_body_attrs',
-    ' class="' . implode(' ', [$this->request->getParam('controller'), $this->request->getParam('action')]) . '" '
+    ' class="' . implode(' ', [h($this->request->getParam('controller')), h($this->request->getParam('action'))]) . '" '
 );
 if (!$this->fetch('tb_body_start')) {
     $this->start('tb_body_start');
