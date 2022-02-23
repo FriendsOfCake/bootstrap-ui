@@ -497,6 +497,7 @@ class RadioControlTest extends AbstractFormHelperTest
                     ]],
                     ['div' => ['class' => 'form-check']],
                         ['input' => [
+                            'aria-invalid' => 'true',
                             'class' => 'form-check-input is-invalid',
                             'type' => 'radio',
                             'name' => 'users',
@@ -509,6 +510,7 @@ class RadioControlTest extends AbstractFormHelperTest
                     '/div',
                     ['div' => ['class' => 'form-check']],
                         ['input' => [
+                            'aria-invalid' => 'true',
                             'class' => 'form-check-input is-invalid',
                             'type' => 'radio',
                             'name' => 'users',
@@ -640,6 +642,7 @@ class RadioControlTest extends AbstractFormHelperTest
                     ]],
                     ['div' => ['class' => 'form-check']],
                         ['input' => [
+                            'aria-invalid' => 'true',
                             'class' => 'form-check-input is-invalid',
                             'type' => 'radio',
                             'name' => 'users',
@@ -652,6 +655,7 @@ class RadioControlTest extends AbstractFormHelperTest
                     '/div',
                     ['div' => ['class' => 'form-check']],
                         ['input' => [
+                            'aria-invalid' => 'true',
                             'class' => 'form-check-input is-invalid',
                             'type' => 'radio',
                             'name' => 'users',
@@ -772,6 +776,7 @@ class RadioControlTest extends AbstractFormHelperTest
                     ['div' => ['class' => 'form-check']],
                         ['label' => ['class' => 'form-check-label', 'for' => 'users-1']],
                             ['input' => [
+                                'aria-invalid' => 'true',
                                 'class' => 'form-check-input is-invalid',
                                 'type' => 'radio',
                                 'name' => 'users',
@@ -784,6 +789,7 @@ class RadioControlTest extends AbstractFormHelperTest
                     ['div' => ['class' => 'form-check']],
                         ['label' => ['class' => 'form-check-label', 'for' => 'users-2']],
                             ['input' => [
+                                'aria-invalid' => 'true',
                                 'class' => 'form-check-input is-invalid',
                                 'type' => 'radio',
                                 'name' => 'users',
@@ -1301,6 +1307,7 @@ class RadioControlTest extends AbstractFormHelperTest
                     ]],
                     ['div' => ['class' => 'form-check form-check-inline']],
                         ['input' => [
+                            'aria-invalid' => 'true',
                             'class' => 'form-check-input is-invalid',
                             'type' => 'radio',
                             'name' => 'users',
@@ -1313,6 +1320,7 @@ class RadioControlTest extends AbstractFormHelperTest
                     '/div',
                     ['div' => ['class' => 'form-check form-check-inline']],
                         ['input' => [
+                            'aria-invalid' => 'true',
                             'class' => 'form-check-input is-invalid',
                             'type' => 'radio',
                             'name' => 'users',
@@ -1446,6 +1454,7 @@ class RadioControlTest extends AbstractFormHelperTest
                     ]],
                     ['div' => ['class' => 'form-check form-check-inline']],
                         ['input' => [
+                            'aria-invalid' => 'true',
                             'class' => 'form-check-input is-invalid',
                             'type' => 'radio',
                             'name' => 'users',
@@ -1458,6 +1467,7 @@ class RadioControlTest extends AbstractFormHelperTest
                     '/div',
                     ['div' => ['class' => 'form-check form-check-inline']],
                         ['input' => [
+                            'aria-invalid' => 'true',
                             'class' => 'form-check-input is-invalid',
                             'type' => 'radio',
                             'name' => 'users',
@@ -1580,6 +1590,7 @@ class RadioControlTest extends AbstractFormHelperTest
                     ['div' => ['class' => 'form-check form-check-inline']],
                         ['label' => ['class' => 'form-check-label', 'for' => 'users-1']],
                             ['input' => [
+                                'aria-invalid' => 'true',
                                 'class' => 'form-check-input is-invalid',
                                 'type' => 'radio',
                                 'name' => 'users',
@@ -1592,6 +1603,7 @@ class RadioControlTest extends AbstractFormHelperTest
                     ['div' => ['class' => 'form-check form-check-inline']],
                         ['label' => ['class' => 'form-check-label', 'for' => 'users-2']],
                             ['input' => [
+                                'aria-invalid' => 'true',
                                 'class' => 'form-check-input is-invalid',
                                 'type' => 'radio',
                                 'name' => 'users',

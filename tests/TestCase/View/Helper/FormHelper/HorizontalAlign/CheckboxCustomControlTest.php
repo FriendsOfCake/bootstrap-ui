@@ -345,6 +345,7 @@ class CheckboxCustomControlTest extends AbstractFormHelperTest
                             'value' => 0,
                         ]],
                         ['input' => [
+                            'aria-invalid' => 'true',
                             'class' => 'custom-control-input is-invalid',
                             'type' => 'checkbox',
                             'name' => 'users',
@@ -452,6 +453,7 @@ class CheckboxCustomControlTest extends AbstractFormHelperTest
                             'name' => 'users',
                             'value' => '1',
                             'id' => 'users',
+                            'aria-invalid' => 'true',
                             'class' => 'custom-control-input is-invalid',
                         ]],
                         ['label' => ['class' => 'custom-control-label', 'for' => 'users']],
@@ -813,6 +815,7 @@ class CheckboxCustomControlTest extends AbstractFormHelperTest
                             'value' => 0,
                         ]],
                         ['input' => [
+                            'aria-invalid' => 'true',
                             'class' => 'custom-control-input is-invalid',
                             'type' => 'checkbox',
                             'name' => 'users',
@@ -922,6 +925,7 @@ class CheckboxCustomControlTest extends AbstractFormHelperTest
                             'name' => 'users',
                             'value' => '1',
                             'id' => 'users',
+                            'aria-invalid' => 'true',
                             'class' => 'custom-control-input is-invalid',
                         ]],
                         ['label' => ['class' => 'custom-control-label', 'for' => 'users']],

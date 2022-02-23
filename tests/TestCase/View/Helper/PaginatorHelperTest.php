@@ -73,7 +73,8 @@ class PaginatorHelperTest extends TestCase
 
         Configure::write('Routing.prefixes', []);
         Router::reload();
-        Router::connect('/{controller}/{action}/*');
+        $builder = Router::createRouteBuilder('/');
+        $builder->connect('/{controller}/{action}/*');
         Router::setRequest($request);
 
         $this->locale = I18n::getLocale();

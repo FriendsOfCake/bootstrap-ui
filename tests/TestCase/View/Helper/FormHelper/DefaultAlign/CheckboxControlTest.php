@@ -255,6 +255,7 @@ class CheckboxControlTest extends AbstractFormHelperTest
                     'value' => 0,
                 ]],
                 ['input' => [
+                    'aria-invalid' => 'true',
                     'class' => 'form-check-input is-invalid',
                     'type' => 'checkbox',
                     'name' => 'users',
@@ -334,6 +335,7 @@ class CheckboxControlTest extends AbstractFormHelperTest
                     'value' => 0,
                 ]],
                 ['input' => [
+                    'aria-invalid' => 'true',
                     'class' => 'form-check-input is-invalid',
                     'type' => 'checkbox',
                     'name' => 'users',
@@ -439,6 +441,7 @@ class CheckboxControlTest extends AbstractFormHelperTest
                 ]],
                 ['label' => ['class' => 'form-check-label', 'for' => 'users']],
                     ['input' => [
+                        'aria-invalid' => 'true',
                         'class' => 'form-check-input is-invalid',
                         'type' => 'checkbox',
                         'name' => 'users',
@@ -714,6 +717,7 @@ class CheckboxControlTest extends AbstractFormHelperTest
                     'value' => 0,
                 ]],
                 ['input' => [
+                    'aria-invalid' => 'true',
                     'class' => 'form-check-input is-invalid',
                     'type' => 'checkbox',
                     'name' => 'users',
@@ -795,6 +799,7 @@ class CheckboxControlTest extends AbstractFormHelperTest
                     'value' => 0,
                 ]],
                 ['input' => [
+                    'aria-invalid' => 'true',
                     'class' => 'form-check-input is-invalid',
                     'type' => 'checkbox',
                     'name' => 'users',
