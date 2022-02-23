@@ -16,7 +16,7 @@ class FlashHelper extends Helper
      * - class: List of classes to be applied to the div containing message
      * - attributes: Additional attributes for the div containing message
      *
-     * @var array
+     * @var array<string, mixed>
      */
     protected $_defaultConfig = [
         'class' => ['alert', 'alert-dismissible', 'fade', 'show'],
@@ -57,6 +57,7 @@ class FlashHelper extends Helper
 
         $out = '';
         foreach ($stack as $message) {
+            /** @var array<string, mixed> $message */
             $message = $options + $message;
             $message['params'] += $this->_config;
             $this->getView()->getRequest()->getSession()->delete("Flash.$key");
