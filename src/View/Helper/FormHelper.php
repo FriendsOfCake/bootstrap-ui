@@ -482,6 +482,7 @@ class FormHelper extends Helper
 
         $options = $this->_containerOptions($fieldName, $options);
         $options = $this->_feedbackStyleOptions($fieldName, $options);
+        $options = $this->_ariaOptions($fieldName, $options);
         $options = $this->_helpOptions($fieldName, $options);
         $options = $this->_tooltipOptions($fieldName, $options);
 
@@ -924,6 +925,53 @@ class FormHelper extends Helper
 
         if ($formGroupPosition !== null) {
             $options['templateVars']['formGroupPosition'] = 'position-' . $formGroupPosition . ' ';
+        }
+
+        return $options;
+    }
+
+    /**
+     * Modify options for aria attributes.
+     *
+     * `aria-invalid` and `aria-required` are injected for forwards
+     * compatibility reasons, as they have been introduced in the core form
+     * helper with CakePHP 4.3. This can be removed once the required minimum
+     * CakePHP version is bumped accordingly.
+     *
+     * @param string $fieldName Field name.
+     * @param array<string, mixed> $options Options. See `$options` argument of `control()` method.
+     * @return array<string, mixed>
+     */
+    protected function _ariaOptions(string $fieldName, array $options): array
+    {
+        if (
+            $options['type'] === 'hidden' ||
+            $options['type'] === 'select' ||
+            isset($options['multiple']) ||
+            (
+                isset($options['aria-required']) &&
+                isset($options['aria-invalid'])
+            )
+        ) {
+            return $options;
+        }
+
+        $isError =
+            $options['error'] !== false &&
+            $this->isFieldError($fieldName);
+
+        if (
+            $isError &&
+            !isset($options['aria-invalid'])
+        ) {
+            $options['aria-invalid'] = 'true';
+        }
+
+        if (
+            $options['required'] &&
+            !isset($options['aria-required'])
+        ) {
+            $options['aria-required'] = 'true';
         }
 
         return $options;
