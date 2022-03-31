@@ -582,7 +582,7 @@ class FormHelperTest extends AbstractFormHelperTest
     {
         $result = $this->Form->create($this->article, [
             'align' => 'inline',
-            'spacing' => 'custom-spacing'
+            'spacing' => 'custom-spacing',
         ]);
         $expected = [
             'form' => [
