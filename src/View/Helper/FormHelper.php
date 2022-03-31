@@ -119,6 +119,13 @@ class FormHelper extends Helper
     protected $_grid;
 
     /**
+     * Set on `Form::create()` to tell the spacing type.
+     *
+     * @var string|false|null
+     */
+    protected $_spacing;
+
+    /**
      * Default Bootstrap string templates.
      *
      * @var array
@@ -203,7 +210,7 @@ class FormHelper extends Helper
         'multicheckboxLabel' =>
             '<label{{attrs}}>{{text}}{{tooltip}}</label>',
         'multicheckboxWrapper' =>
-            '<fieldset class="mb-3 form-group">{{content}}</fieldset>',
+            '<fieldset class="%s form-group">{{content}}</fieldset>',
         'multicheckboxTitle' =>
             '<legend class="col-form-label pt-0">{{text}}</legend>',
         'nestingLabel' =>
@@ -348,7 +355,16 @@ class FormHelper extends Helper
     private $_errorFieldName = null;
 
     /**
-     * @inheritDoc
+     * {@inheritDoc}
+     *
+     * Additionally to the core form helper options, the following BootstrapUI related options are supported:
+     *
+     * - `align` - The default alignment to use for all forms.
+     * - `grid` - The default grid setup to use for all horizontal forms.
+     * - `spacing` - The spacing to use for all forms. Can be either a string to define a class that will be
+     *   used for all form alignments, or an array of strings, keyed by the alignment type to define individual
+     *   classes to use per alignment. Set to `false` to disable automatic spacing class usage.
+     * - `templateSet` - An array of template sets, keyed by the alignment type.
      */
     public function __construct(View $View, array $config = [])
     {
@@ -359,6 +375,7 @@ class FormHelper extends Helper
                 static::GRID_COLUMN_ONE => 2,
                 static::GRID_COLUMN_TWO => 10,
             ],
+            'spacing' => null,
             'templates' => $this->_templates + $this->_defaultConfig['templates'],
         ] + $this->_defaultConfig;
 
@@ -375,7 +392,12 @@ class FormHelper extends Helper
     }
 
     /**
-     * @inheritDoc
+     * {@inheritDoc}
+     *
+     * Additionally to the core form helper create options, the following BootstrapUI related options are supported:
+     *
+     * - `spacing` - The spacing to use for the form. Can be either a string to define a class, or boolean `false` to
+     *   disable automatic spacing class usage.
      */
     public function create($context = null, array $options = []): string
     {
@@ -384,9 +406,10 @@ class FormHelper extends Helper
             'role' => 'form',
             'align' => null,
             'templates' => [],
+            'spacing' => null,
         ];
 
-        return parent::create($context, $this->_formAlignment($options));
+        return parent::create($context, $this->_processFormOptions($options));
     }
 
     /**
@@ -475,6 +498,8 @@ class FormHelper extends Helper
      * - `feedbackStyle` - The feedback style to use, `default`, or `tooltip` (will cause `formGroupPosition` to be set
      *   to `relative` unless explicitly configured otherwise).
      * - `formGroupPosition` - CSS positioning of form groups, `absolute`, `fixed`, `relative`, `static`, or `sticky`.
+     * - `spacing` - The spacing to use for the control. Can be either a string to define a class, or boolean `false`
+     *   to disable automatic spacing class usage.
      */
     public function control(string $fieldName, array $options = []): string
     {
@@ -497,6 +522,7 @@ class FormHelper extends Helper
             'templateVars' => [],
             'labelOptions' => true,
             'container' => null,
+            'spacing' => null,
         ];
         $options = $this->_parseOptions($fieldName, $options);
 
@@ -529,6 +555,7 @@ class FormHelper extends Helper
                 break;
         }
 
+        $options = $this->_spacingOptions($fieldName, $options);
         $options = $this->_containerOptions($fieldName, $options);
         $options = $this->_feedbackStyleOptions($fieldName, $options);
         $options = $this->_ariaOptions($fieldName, $options);
@@ -545,6 +572,7 @@ class FormHelper extends Helper
         unset(
             $options['formGroupPosition'],
             $options['feedbackStyle'],
+            $options['spacing'],
             $options['inline'],
             $options['nestedInput'],
             $options['switch']
@@ -562,6 +590,35 @@ class FormHelper extends Helper
     }
 
     /**
+     * Modify options and templates based on spacing.
+     *
+     * @param string $fieldName Field name.
+     * @param array $options Options. See `$options` argument of `control()` method.
+     * @return array
+     */
+    protected function _spacingOptions(string $fieldName, array $options): array
+    {
+        if (!isset($options['spacing'])) {
+            $options['spacing'] = $this->_spacing;
+        }
+
+        if ($options['spacing'] === false) {
+            return $options;
+        }
+
+        if ($this->_align !== static::ALIGN_INLINE) {
+            $options['templates'] += [
+                'multicheckboxWrapper' => sprintf(
+                    $this->templater()->getConfig('multicheckboxWrapper'),
+                    $options['spacing']
+                ),
+            ];
+        }
+
+        return $options;
+    }
+
+    /**
      * Modify the options for container templates.
      *
      * @param string|null $fieldName Field name.
@@ -572,9 +629,10 @@ class FormHelper extends Helper
     {
         if (
             $this->_align !== static::ALIGN_INLINE &&
-            isset($options['type'])
+            isset($options['type']) &&
+            $options['spacing'] !== false
         ) {
-            $options['container'] = $this->injectClasses('mb-3', (array)($options['container'] ?? []));
+            $options['container'] = $this->injectClasses($options['spacing'], (array)($options['container'] ?? []));
         }
 
         if (
@@ -1135,7 +1193,7 @@ class FormHelper extends Helper
      */
     public function end(array $secureAttributes = []): string
     {
-        $this->_align = $this->_grid = null;
+        $this->_clearFormState();
 
         return parent::end($secureAttributes);
     }
@@ -1257,12 +1315,14 @@ class FormHelper extends Helper
     }
 
     /**
-     * Form alignment detector/switcher.
+     * Processes form creation options.
+     *
+     * Handles per-form scoped tasks like form alignment detection/switching.
      *
      * @param array $options Options.
      * @return array Modified options.
      */
-    protected function _formAlignment(array $options): array
+    protected function _processFormOptions(array $options): array
     {
         if (!$options['align']) {
             $options['align'] = $this->_detectFormAlignment($options);
@@ -1285,6 +1345,12 @@ class FormHelper extends Helper
 
         unset($options['align']);
 
+        if (!isset($options['spacing'])) {
+            $options['spacing'] = $this->_getSpacingForAlignment($this->_align);
+        }
+        $this->_spacing = $options['spacing'];
+        unset($options['spacing']);
+
         $templates = $this->_config['templateSet'][$this->_align];
         if (is_string($options['templates'])) {
             $options['templates'] = (new PhpConfig())->read($options['templates']);
@@ -1299,7 +1365,14 @@ class FormHelper extends Helper
         $options = $this->injectClasses('form-' . $this->_align, $options);
 
         if ($this->_align === 'inline') {
-            $options = $this->injectClasses(['row g-3 align-items-center'], $options);
+            $options = $this->injectClasses(
+                [
+                    'row',
+                    $this->_spacing,
+                    'align-items-center',
+                ],
+                $options
+            );
             $options['templates'] += $templates;
 
             return $options;
@@ -1392,5 +1465,56 @@ class FormHelper extends Helper
         }
 
         return $this->getConfig('align');
+    }
+
+    /**
+     * Returns the spacing class for the given alignment.
+     *
+     * If no spacing classes have been explicitly configured via the helper's `spacing` option, this method will by
+     * default return `g-3` for inline alignment, and `mb-3` for horizontal and default alignments.
+     *
+     * May return `false` to indicate that no spacing should be used.
+     *
+     * @param string $align The alignment type for which to retrieve the spacing class.
+     * @return string|bool
+     */
+    protected function _getSpacingForAlignment(string $align)
+    {
+        $spacing = $this->getConfig('spacing');
+
+        if ($spacing === false) {
+            return false;
+        }
+
+        if (
+            $spacing !== null &&
+            !is_array($spacing)
+        ) {
+            $spacing = [
+                static::ALIGN_DEFAULT => $spacing,
+                static::ALIGN_HORIZONTAL => $spacing,
+                static::ALIGN_INLINE => $spacing,
+            ];
+        }
+        $spacing = (array)$spacing + [
+            static::ALIGN_DEFAULT => 'mb-3',
+            static::ALIGN_HORIZONTAL => 'mb-3',
+            static::ALIGN_INLINE => 'g-3',
+        ];
+
+        return $spacing[$align];
+    }
+
+    /**
+     * Clears per-form scoped state.
+     *
+     * @return void
+     */
+    protected function _clearFormState()
+    {
+        $this->_align =
+        $this->_grid =
+        $this->_spacing =
+            null;
     }
 }

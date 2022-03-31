@@ -264,6 +264,35 @@ class StaticControlTest extends AbstractFormHelperTest
         $this->assertHtml($expected, $result);
     }
 
+    public function testDefaultAlignStaticControlWithCustomSpacing()
+    {
+        unset($this->article['required']['title']);
+        $this->article['defaults']['title'] = 'foo <u>bar</u>';
+        $this->Form->create($this->article);
+
+        $result = $this->Form->control('title', [
+            'type' => 'staticControl',
+            'spacing' => 'custom-spacing',
+        ]);
+        $expected = [
+            'div' => ['class' => 'custom-spacing form-group staticControl'],
+                ['label' => ['class' => 'form-label', 'for' => 'title']],
+                    'Title',
+                '/label',
+                'p' => ['class' => 'form-control-plaintext'],
+                    'foo &lt;u&gt;bar&lt;/u&gt;',
+                '/p',
+                'input' => [
+                    'type' => 'hidden',
+                    'name' => 'title',
+                    'id' => 'title',
+                    'value' => 'foo &lt;u&gt;bar&lt;/u&gt;',
+                ],
+            '/div',
+        ];
+        $this->assertHtml($expected, $result);
+    }
+
     public function testDefaultAlignStaticControlWithError()
     {
         $this->article['errors'] = [

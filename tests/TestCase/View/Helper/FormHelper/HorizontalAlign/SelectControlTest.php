@@ -357,6 +357,45 @@ class SelectControlTest extends AbstractFormHelperTest
         $this->assertHtml($expected, $result);
     }
 
+    public function testHorizontalAlignSelectControlWithCustomSpacing()
+    {
+        $this->Form->create($this->article, [
+            'align' => [
+                'sm' => [
+                    FormHelper::GRID_COLUMN_ONE => 5,
+                    FormHelper::GRID_COLUMN_TWO => 7,
+                ],
+            ],
+        ]);
+
+        $result = $this->Form->control('users', [
+            'type' => 'select',
+            'options' => [
+                1 => 'option 1',
+                2 => 'option 2',
+            ],
+            'spacing' => 'custom-spacing',
+        ]);
+        $expected = [
+            ['div' => ['class' => 'custom-spacing form-group row select']],
+                ['label' => ['class' => 'col-form-label col-sm-5', 'for' => 'users']],
+                    'Users',
+                '/label',
+                ['div' => ['class' => 'col-sm-7']],
+                    ['select' => ['name' => 'users', 'id' => 'users', 'class' => 'form-select']],
+                        ['option' => ['value' => '1']],
+                            'option 1',
+                        '/option',
+                        ['option' => ['value' => '2']],
+                            'option 2',
+                        '/option',
+                    '/select',
+                '/div',
+            '/div',
+        ];
+        $this->assertHtml($expected, $result);
+    }
+
     public function testHorizontalAlignSelectControlWithError()
     {
         $this->article['errors'] = [
