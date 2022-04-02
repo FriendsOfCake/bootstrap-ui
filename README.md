@@ -474,6 +474,38 @@ will render this HTML:
 </form>
 ```
 
+### Spacing
+
+Out of the box BootstrapUI applies some default spacing for form controls. For default and horizontal aligned forms,
+the `mb-3` [spacing class](https://getbootstrap.com/docs/5.0/utilities/spacing/) is being applied to all controls,
+while inline forms are using the `g-3` [gutter class](https://getbootstrap.com/docs/5.0/layout/gutters/).
+
+This can be changed using the `spacing` option, it applies on a per-helper and per-form basis for all alignments, and
+for default/horizontal alignments it also applies on a per-control basis.
+
+```php
+// for all forms
+echo $this->Form->setConfig([
+    'spacing' => 'mb-6',
+]);
+```
+
+```php
+// for a specific form
+echo $this->Form->create($entity, [
+    'spacing' => 'mb-6',
+]);
+```
+
+```php
+// for a specific control (default/horizontal aligned forms only)
+echo $this->Form->control('title', [
+    'spacing' => 'mb-6',
+]);
+```
+
+To completely disable this behavior, set the `spacing` option to `false`.
+
 ### Supported controls
 
 BootstrapUI supports and generates Bootstrap compatible markup for all of CakePHP's default controls. Additionally it
