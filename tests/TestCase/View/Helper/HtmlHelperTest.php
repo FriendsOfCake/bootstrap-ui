@@ -37,7 +37,7 @@ class HtmlHelperTest extends TestCase
     {
         $result = $this->Html->badge('foo');
         $expected = [
-            'span' => ['class' => 'badge badge-secondary'],
+            'span' => ['class' => 'badge bg-secondary'],
             'foo',
             '/span',
         ];
@@ -45,7 +45,7 @@ class HtmlHelperTest extends TestCase
 
         $result = $this->Html->badge('foo', ['class' => 'primary']);
         $expected = [
-            'span' => ['class' => 'badge-primary badge'],
+            'span' => ['class' => 'bg-primary badge'],
             'foo',
             '/span',
         ];
@@ -56,48 +56,21 @@ class HtmlHelperTest extends TestCase
     {
         $result = $this->Html->icon('foo');
         $expected = [
-            'i' => ['class' => 'fas fa-foo'],
+            'i' => ['class' => 'bi bi-foo'],
             '/i',
         ];
         $this->assertHtml($expected, $result);
 
-        $result = $this->Html->icon('foo', ['iconSet' => 'fa']);
+        $result = $this->Html->icon('foo', ['namespace' => 'fas', 'prefix' => 'fa']);
         $expected = [
-            'i' => ['class' => 'fa fa-foo'],
+            'i' => ['class' => 'fas fa-foo'],
             '/i',
         ];
         $this->assertHtml($expected, $result);
 
         $result = $this->Html->icon('foo', ['tag' => 'span', 'size' => 'lg']);
         $expected = [
-            'span' => ['class' => 'fas fa-foo fa-lg'],
-            '/span',
-        ];
-        $this->assertHtml($expected, $result);
-    }
-
-    public function testLabel()
-    {
-        $result = $this->Html->label('foo');
-        $expected = [
-            'span' => ['class' => 'badge badge-secondary'],
-            'foo',
-            '/span',
-        ];
-        $this->assertHtml($expected, $result);
-
-        $result = $this->Html->label('foo', ['type' => 'primary']);
-        $expected = [
-            'span' => ['class' => 'badge-primary badge'],
-            'foo',
-            '/span',
-        ];
-        $this->assertHtml($expected, $result);
-
-        $result = $this->Html->label('foo', 'primary');
-        $expected = [
-            'span' => ['class' => 'badge-primary badge'],
-            'foo',
+            'span' => ['class' => 'bi bi-foo bi-lg'],
             '/span',
         ];
         $this->assertHtml($expected, $result);

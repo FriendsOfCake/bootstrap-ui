@@ -85,7 +85,7 @@
     </div>
 {% if groupedFields.text %}
 {% for field in groupedFields.text %}
-    <div class="row">
+    <div class="text">
         <h4><?= __('{{ field|humanize }}') ?></h4>
         <?= $this->Text->autoParagraph(h(${{ singularVar }}->{{ field }})); ?>
     </div>

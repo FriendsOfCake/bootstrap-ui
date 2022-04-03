@@ -4,6 +4,7 @@ declare(strict_types=1);
 namespace BootstrapUI\Test\TestCase\View\Helper\FormHelper\HorizontalAlign;
 
 use BootstrapUI\Test\TestCase\View\Helper\FormHelper\AbstractFormHelperTest;
+use BootstrapUI\View\Helper\FormHelper;
 
 class DateTimeControlTest extends AbstractFormHelperTest
 {
@@ -12,8 +13,8 @@ class DateTimeControlTest extends AbstractFormHelperTest
         $this->Form->create($this->article, [
             'align' => [
                 'sm' => [
-                    'left' => 5,
-                    'middle' => 7,
+                    FormHelper::GRID_COLUMN_ONE => 5,
+                    FormHelper::GRID_COLUMN_TWO => 7,
                 ],
             ],
         ]);
@@ -25,7 +26,7 @@ class DateTimeControlTest extends AbstractFormHelperTest
             'value' => $now->format('Y-m-d H:i:s'),
         ]);
         $expected = [
-            ['div' => ['class' => 'form-group row datetime-local']],
+            ['div' => ['class' => 'mb-3 form-group row datetime-local']],
                 ['label' => ['class' => 'col-form-label col-sm-5', 'for' => 'created']],
                     'Created',
                 '/label',
@@ -48,8 +49,8 @@ class DateTimeControlTest extends AbstractFormHelperTest
         $this->Form->create($this->article, [
             'align' => [
                 'sm' => [
-                    'left' => 5,
-                    'middle' => 7,
+                    FormHelper::GRID_COLUMN_ONE => 5,
+                    FormHelper::GRID_COLUMN_TWO => 7,
                 ],
             ],
         ]);
@@ -62,7 +63,7 @@ class DateTimeControlTest extends AbstractFormHelperTest
             'label' => false,
         ]);
         $expected = [
-            ['div' => ['class' => 'form-group row datetime-local']],
+            ['div' => ['class' => 'mb-3 form-group row datetime-local']],
                 ['div' => ['class' => 'col-sm-7']],
                     'input' => [
                         'type' => 'datetime-local',
@@ -82,8 +83,8 @@ class DateTimeControlTest extends AbstractFormHelperTest
         $this->Form->create($this->article, [
             'align' => [
                 'sm' => [
-                    'left' => 5,
-                    'middle' => 7,
+                    FormHelper::GRID_COLUMN_ONE => 5,
+                    FormHelper::GRID_COLUMN_TWO => 7,
                 ],
             ],
         ]);
@@ -96,7 +97,7 @@ class DateTimeControlTest extends AbstractFormHelperTest
             'label' => 'Custom Label',
         ]);
         $expected = [
-            ['div' => ['class' => 'form-group row datetime-local']],
+            ['div' => ['class' => 'mb-3 form-group row datetime-local']],
                 ['label' => ['class' => 'col-form-label col-sm-5', 'for' => 'created']],
                     'Custom Label',
                 '/label',
@@ -119,8 +120,8 @@ class DateTimeControlTest extends AbstractFormHelperTest
         $this->Form->create($this->article, [
             'align' => [
                 'sm' => [
-                    'left' => 5,
-                    'middle' => 7,
+                    FormHelper::GRID_COLUMN_ONE => 5,
+                    FormHelper::GRID_COLUMN_TWO => 7,
                 ],
             ],
         ]);
@@ -137,60 +138,9 @@ class DateTimeControlTest extends AbstractFormHelperTest
             ],
         ]);
         $expected = [
-            ['div' => ['class' => 'form-group row datetime-local']],
+            ['div' => ['class' => 'mb-3 form-group row datetime-local']],
                 ['label' => ['class' => 'custom-label-class col-form-label col-sm-5', 'foo' => 'bar', 'for' => 'created']],
                     'Custom Label',
-                '/label',
-                ['div' => ['class' => 'col-sm-7']],
-                    'input' => [
-                        'type' => 'datetime-local',
-                        'name' => 'created',
-                        'id' => 'created',
-                        'class' => 'form-control',
-                        'value' => $now->format('Y-m-d H:i:s'),
-                    ],
-                '/div',
-            '/div',
-        ];
-        $this->assertHtml($expected, $result);
-    }
-
-    public function testHorizontalAlignDateTimeControlWithCustomLabelTemplateIsBackwardsCompatible()
-    {
-        $this->Form->create($this->article, [
-            'align' => [
-                'sm' => [
-                    'left' => 5,
-                    'middle' => 7,
-                ],
-            ],
-        ]);
-
-        $now = new \DateTime('now');
-
-        $result = $this->Form->control('created', [
-            'type' => 'datetime-local',
-            'value' => $now->format('Y-m-d H:i:s'),
-            'templates' => [
-                'datetimeContainer' =>
-                    '<div{{containerAttrs}} class="{{containerClass}}form-group row {{type}}{{required}}" role="group" ' .
-                        'aria-labelledby="{{groupId}}">{{content}}</div>',
-                'datetimeLabel' =>
-                    '<label id="{{groupId}}" class="col-form-label %s" back="compat">{{text}}{{tooltip}}</label>',
-            ],
-        ]);
-        $expected = [
-            ['div' => [
-                'class' => 'form-group row datetime-local',
-                'role' => 'group',
-                'aria-labelledby' => 'created-group-label',
-            ]],
-                ['label' => [
-                    'id' => 'created-group-label',
-                    'class' => 'col-form-label %s',
-                    'back' => 'compat',
-                ]],
-                    'Created',
                 '/label',
                 ['div' => ['class' => 'col-sm-7']],
                     'input' => [
@@ -211,8 +161,8 @@ class DateTimeControlTest extends AbstractFormHelperTest
         $this->Form->create($this->article, [
             'align' => [
                 'sm' => [
-                    'left' => 5,
-                    'middle' => 7,
+                    FormHelper::GRID_COLUMN_ONE => 5,
+                    FormHelper::GRID_COLUMN_TWO => 7,
                 ],
             ],
         ]);
@@ -225,7 +175,7 @@ class DateTimeControlTest extends AbstractFormHelperTest
             'help' => 'Help text',
         ]);
         $expected = [
-            ['div' => ['class' => 'form-group row time']],
+            ['div' => ['class' => 'mb-3 form-group row time']],
                 ['label' => ['class' => 'col-form-label col-sm-5', 'for' => 'created']],
                     'Created',
                 '/label',
@@ -235,10 +185,11 @@ class DateTimeControlTest extends AbstractFormHelperTest
                         'name' => 'created',
                         'id' => 'created',
                         'class' => 'form-control',
+                        'aria-describedby' => 'created-help',
                         'step' => '1',
                         'value' => date('H:i:s', $now),
                     ],
-                    ['small' => ['class' => 'form-text text-muted']],
+                    ['small' => ['id' => 'created-help', 'class' => 'd-block form-text text-muted']],
                         'Help text',
                     '/small',
                 '/div',
@@ -252,8 +203,8 @@ class DateTimeControlTest extends AbstractFormHelperTest
         $this->Form->create($this->article, [
             'align' => [
                 'sm' => [
-                    'left' => 5,
-                    'middle' => 7,
+                    FormHelper::GRID_COLUMN_ONE => 5,
+                    FormHelper::GRID_COLUMN_TWO => 7,
                 ],
             ],
         ]);
@@ -264,12 +215,14 @@ class DateTimeControlTest extends AbstractFormHelperTest
             'type' => 'time',
             'value' => $now,
             'help' => [
+                'id' => 'custom-help',
                 'foo' => 'bar',
+                'class' => 'help-class',
                 'content' => 'Help text',
             ],
         ]);
         $expected = [
-            ['div' => ['class' => 'form-group row time']],
+            ['div' => ['class' => 'mb-3 form-group row time']],
                 ['label' => ['class' => 'col-form-label col-sm-5', 'for' => 'created']],
                     'Created',
                 '/label',
@@ -279,10 +232,15 @@ class DateTimeControlTest extends AbstractFormHelperTest
                         'name' => 'created',
                         'id' => 'created',
                         'class' => 'form-control',
+                        'aria-describedby' => 'custom-help',
                         'step' => '1',
                         'value' => date('H:i:s', $now),
                     ],
-                    ['small' => ['foo' => 'bar', 'class' => 'form-text text-muted']],
+                    ['small' => [
+                        'id' => 'custom-help',
+                        'foo' => 'bar',
+                        'class' => 'help-class d-block form-text text-muted',
+                    ]],
                         'Help text',
                     '/small',
                 '/div',
@@ -296,8 +254,8 @@ class DateTimeControlTest extends AbstractFormHelperTest
         $this->Form->create($this->article, [
             'align' => [
                 'sm' => [
-                    'left' => 5,
-                    'middle' => 7,
+                    FormHelper::GRID_COLUMN_ONE => 5,
+                    FormHelper::GRID_COLUMN_TWO => 7,
                 ],
             ],
         ]);
@@ -310,13 +268,13 @@ class DateTimeControlTest extends AbstractFormHelperTest
             'tooltip' => 'Tooltip text',
         ]);
         $expected = [
-            ['div' => ['class' => 'form-group row time']],
+            ['div' => ['class' => 'mb-3 form-group row time']],
                 ['label' => ['class' => 'col-form-label col-sm-5', 'for' => 'created']],
                     'Created ',
                     'span' => [
-                        'data-toggle' => 'tooltip',
+                        'data-bs-toggle' => 'tooltip',
                         'title' => 'Tooltip text',
-                        'class' => 'fas fa-info-circle',
+                        'class' => 'bi bi-info-circle-fill',
                     ],
                     '/span',
                 '/label',
@@ -335,6 +293,43 @@ class DateTimeControlTest extends AbstractFormHelperTest
         $this->assertHtml($expected, $result);
     }
 
+    public function testHorizontalAlignDateTimeControlWithCustomSpacing()
+    {
+        $this->Form->create($this->article, [
+            'align' => [
+                'sm' => [
+                    FormHelper::GRID_COLUMN_ONE => 5,
+                    FormHelper::GRID_COLUMN_TWO => 7,
+                ],
+            ],
+        ]);
+
+        $now = new \DateTime('now');
+
+        $result = $this->Form->control('created', [
+            'type' => 'datetime-local',
+            'value' => $now->format('Y-m-d H:i:s'),
+            'spacing' => 'custom-spacing',
+        ]);
+        $expected = [
+            ['div' => ['class' => 'custom-spacing form-group row datetime-local']],
+                ['label' => ['class' => 'col-form-label col-sm-5', 'for' => 'created']],
+                    'Created',
+                '/label',
+                ['div' => ['class' => 'col-sm-7']],
+                    'input' => [
+                        'type' => 'datetime-local',
+                        'name' => 'created',
+                        'id' => 'created',
+                        'class' => 'form-control',
+                        'value' => $now->format('Y-m-d H:i:s'),
+                    ],
+                '/div',
+            '/div',
+        ];
+        $this->assertHtml($expected, $result);
+    }
+
     public function testHorizontalAlignDateTimeControlWithError()
     {
         $this->article['errors'] = [
@@ -343,8 +338,8 @@ class DateTimeControlTest extends AbstractFormHelperTest
         $this->Form->create($this->article, [
             'align' => [
                 'sm' => [
-                    'left' => 5,
-                    'middle' => 7,
+                    FormHelper::GRID_COLUMN_ONE => 5,
+                    FormHelper::GRID_COLUMN_TWO => 7,
                 ],
             ],
         ]);
@@ -357,7 +352,7 @@ class DateTimeControlTest extends AbstractFormHelperTest
         ]);
         $expected = [
             ['div' => [
-                'class' => 'form-group row datetime-local is-invalid',
+                'class' => 'mb-3 form-group row datetime-local is-invalid',
             ]],
                 ['label' => ['class' => 'col-form-label col-sm-5', 'for' => 'created']],
                     'Created',
@@ -369,11 +364,122 @@ class DateTimeControlTest extends AbstractFormHelperTest
                         'id' => 'created',
                         'aria-invalid' => 'true',
                         'class' => 'is-invalid form-control',
+                        'aria-invalid' => 'true',
+                        'aria-describedby' => 'created-error',
                         'value' => $now->format('Y-m-d H:i:s'),
                     ],
-                    ['div' => ['class' => 'invalid-feedback']],
+                    ['div' => ['id' => 'created-error', 'class' => 'ms-0 invalid-feedback']],
                         'error message',
                     '/div',
+                '/div',
+            '/div',
+        ];
+        $this->assertHtml($expected, $result);
+    }
+
+    public function testHorizontalAlignDateTimeControlWithErrorAndHelp()
+    {
+        $this->article['errors'] = [
+            'created' => ['error message'],
+        ];
+        $this->Form->create($this->article, [
+            'align' => [
+                'sm' => [
+                    FormHelper::GRID_COLUMN_ONE => 5,
+                    FormHelper::GRID_COLUMN_TWO => 7,
+                ],
+            ],
+        ]);
+
+        $now = new \DateTime('now');
+
+        $result = $this->Form->control('created', [
+            'type' => 'datetime-local',
+            'value' => $now->format('Y-m-d H:i:s'),
+            'help' => 'Help text',
+        ]);
+        $expected = [
+            ['div' => [
+                'class' => 'mb-3 form-group row datetime-local is-invalid',
+            ]],
+                ['label' => ['class' => 'col-form-label col-sm-5', 'for' => 'created']],
+                    'Created',
+                '/label',
+                ['div' => ['class' => 'col-sm-7']],
+                    'input' => [
+                        'type' => 'datetime-local',
+                        'name' => 'created',
+                        'id' => 'created',
+                        'class' => 'is-invalid form-control',
+                        'aria-invalid' => 'true',
+                        'aria-describedby' => 'created-error created-help',
+                        'value' => $now->format('Y-m-d H:i:s'),
+                    ],
+                    ['div' => ['id' => 'created-error', 'class' => 'ms-0 invalid-feedback']],
+                        'error message',
+                    '/div',
+                    ['small' => ['id' => 'created-help', 'class' => 'd-block form-text text-muted']],
+                        'Help text',
+                    '/small',
+                '/div',
+            '/div',
+        ];
+        $this->assertHtml($expected, $result);
+    }
+
+    public function testHorizontalAlignDateTimeControlWithErrorAndHelpOptions()
+    {
+        $this->article['errors'] = [
+            'created' => ['error message'],
+        ];
+        $this->Form->create($this->article, [
+            'align' => [
+                'sm' => [
+                    FormHelper::GRID_COLUMN_ONE => 5,
+                    FormHelper::GRID_COLUMN_TWO => 7,
+                ],
+            ],
+        ]);
+
+        $now = new \DateTime('now');
+
+        $result = $this->Form->control('created', [
+            'type' => 'datetime-local',
+            'value' => $now->format('Y-m-d H:i:s'),
+            'help' => [
+                'id' => 'custom-help',
+                'foo' => 'bar',
+                'class' => 'help-class',
+                'content' => 'Help text',
+            ],
+        ]);
+        $expected = [
+            ['div' => [
+                'class' => 'mb-3 form-group row datetime-local is-invalid',
+            ]],
+                ['label' => ['class' => 'col-form-label col-sm-5', 'for' => 'created']],
+                    'Created',
+                '/label',
+                ['div' => ['class' => 'col-sm-7']],
+                    'input' => [
+                        'type' => 'datetime-local',
+                        'name' => 'created',
+                        'id' => 'created',
+                        'class' => 'is-invalid form-control',
+                        'aria-invalid' => 'true',
+                        'aria-describedby' => 'created-error custom-help',
+                        'value' => $now->format('Y-m-d H:i:s'),
+                    ],
+                    ['div' => ['id' => 'created-error', 'class' => 'ms-0 invalid-feedback']],
+                        'error message',
+                    '/div',
+                    ['small' => [
+                        'id' => 'custom-help',
+                        'foo' => 'bar',
+                        'class' => 'help-class d-block form-text text-muted',
+                    ]],
+                        'Help text',
+                    '/small',
                 '/div',
             '/div',
         ];
@@ -385,8 +491,8 @@ class DateTimeControlTest extends AbstractFormHelperTest
         $this->Form->create($this->article, [
             'align' => [
                 'sm' => [
-                    'left' => 5,
-                    'middle' => 7,
+                    FormHelper::GRID_COLUMN_ONE => 5,
+                    FormHelper::GRID_COLUMN_TWO => 7,
                 ],
             ],
         ]);
@@ -404,7 +510,7 @@ class DateTimeControlTest extends AbstractFormHelperTest
         $expected = [
             ['div' => [
                 'attribute' => 'container-attribute',
-                'class' => 'container-class form-group row datetime-local',
+                'class' => 'container-class mb-3 form-group row datetime-local',
             ]],
                 ['label' => ['class' => 'col-form-label col-sm-5', 'for' => 'created']],
                     'Created',
@@ -431,8 +537,8 @@ class DateTimeControlTest extends AbstractFormHelperTest
         $this->Form->create($this->article, [
             'align' => [
                 'sm' => [
-                    'left' => 5,
-                    'middle' => 7,
+                    FormHelper::GRID_COLUMN_ONE => 5,
+                    FormHelper::GRID_COLUMN_TWO => 7,
                 ],
             ],
         ]);
@@ -450,7 +556,7 @@ class DateTimeControlTest extends AbstractFormHelperTest
         $expected = [
             ['div' => [
                 'attribute' => 'container-attribute',
-                'class' => 'container-class form-group row datetime-local is-invalid',
+                'class' => 'container-class mb-3 form-group row datetime-local is-invalid',
             ]],
                 ['label' => ['class' => 'col-form-label col-sm-5', 'for' => 'created']],
                     'Created',
@@ -462,9 +568,11 @@ class DateTimeControlTest extends AbstractFormHelperTest
                         'id' => 'created',
                         'aria-invalid' => 'true',
                         'class' => 'is-invalid form-control',
+                        'aria-invalid' => 'true',
+                        'aria-describedby' => 'created-error',
                         'value' => $now->format('Y-m-d H:i:s'),
                     ],
-                    ['div' => ['class' => 'invalid-feedback']],
+                    ['div' => ['id' => 'created-error', 'class' => 'ms-0 invalid-feedback']],
                         'error message',
                     '/div',
                 '/div',
@@ -478,8 +586,8 @@ class DateTimeControlTest extends AbstractFormHelperTest
         $this->Form->create($this->article, [
             'align' => [
                 'sm' => [
-                    'left' => 5,
-                    'middle' => 7,
+                    FormHelper::GRID_COLUMN_ONE => 5,
+                    FormHelper::GRID_COLUMN_TWO => 7,
                 ],
             ],
         ]);
@@ -491,7 +599,7 @@ class DateTimeControlTest extends AbstractFormHelperTest
             'value' => $now,
         ]);
         $expected = [
-            ['div' => ['class' => 'form-group row date']],
+            ['div' => ['class' => 'mb-3 form-group row date']],
                 ['label' => ['class' => 'col-form-label col-sm-5', 'for' => 'created']],
                     'Created',
                 '/label',
@@ -514,8 +622,8 @@ class DateTimeControlTest extends AbstractFormHelperTest
         $this->Form->create($this->article, [
             'align' => [
                 'sm' => [
-                    'left' => 5,
-                    'middle' => 7,
+                    FormHelper::GRID_COLUMN_ONE => 5,
+                    FormHelper::GRID_COLUMN_TWO => 7,
                 ],
             ],
         ]);
@@ -527,7 +635,7 @@ class DateTimeControlTest extends AbstractFormHelperTest
             'value' => $now,
         ]);
         $expected = [
-            ['div' => ['class' => 'form-group row time']],
+            ['div' => ['class' => 'mb-3 form-group row time']],
                 ['label' => ['class' => 'col-form-label col-sm-5', 'for' => 'created']],
                     'Created',
                 '/label',
@@ -551,8 +659,8 @@ class DateTimeControlTest extends AbstractFormHelperTest
         $this->Form->create($this->article, [
             'align' => [
                 'sm' => [
-                    'left' => 5,
-                    'middle' => 7,
+                    FormHelper::GRID_COLUMN_ONE => 5,
+                    FormHelper::GRID_COLUMN_TWO => 7,
                 ],
             ],
         ]);
@@ -560,17 +668,17 @@ class DateTimeControlTest extends AbstractFormHelperTest
         $result = $this->Form->control('created', [
             'type' => 'datetime',
         ]);
-        $this->assertStringContainsString('<div class="form-group row datetime">', $result);
+        $this->assertStringContainsString('<div class="mb-3 form-group row datetime">', $result);
 
         $result = $this->Form->control('created', [
             'type' => 'date',
         ]);
-        $this->assertStringContainsString('<div class="form-group row date">', $result);
+        $this->assertStringContainsString('<div class="mb-3 form-group row date">', $result);
 
         $result = $this->Form->control('created', [
             'type' => 'time',
         ]);
-        $this->assertStringContainsString('<div class="form-group row time">', $result);
+        $this->assertStringContainsString('<div class="mb-3 form-group row time">', $result);
 
         $this->Form->setTemplates([
             'datetimeContainer' => '<div class="custom datetimeContainer {{type}}{{required}}" role="group" aria-labelledby="{{groupId}}">{{content}}</div>',
@@ -603,8 +711,8 @@ class DateTimeControlTest extends AbstractFormHelperTest
         $this->Form->create($this->article, [
             'align' => [
                 'sm' => [
-                    'left' => 5,
-                    'middle' => 7,
+                    FormHelper::GRID_COLUMN_ONE => 5,
+                    FormHelper::GRID_COLUMN_TWO => 7,
                 ],
             ],
         ]);
@@ -612,17 +720,17 @@ class DateTimeControlTest extends AbstractFormHelperTest
         $result = $this->Form->control('created', [
             'type' => 'datetime',
         ]);
-        $this->assertStringContainsString('<div class="form-group row datetime is-invalid">', $result);
+        $this->assertStringContainsString('<div class="mb-3 form-group row datetime is-invalid">', $result);
 
         $result = $this->Form->control('created', [
             'type' => 'date',
         ]);
-        $this->assertStringContainsString('<div class="form-group row date is-invalid">', $result);
+        $this->assertStringContainsString('<div class="mb-3 form-group row date is-invalid">', $result);
 
         $result = $this->Form->control('created', [
             'type' => 'time',
         ]);
-        $this->assertStringContainsString('<div class="form-group row time is-invalid">', $result);
+        $this->assertStringContainsString('<div class="mb-3 form-group row time is-invalid">', $result);
 
         $result = $this->Form->control('created', [
             'type' => 'datetime',

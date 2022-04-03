@@ -22,17 +22,19 @@ class DateTimeControlTest extends AbstractFormHelperTest
             'value' => $now->format('Y-m-d H:i:s'),
         ]);
         $expected = [
-            ['div' => ['class' => 'form-group position-relative datetime-local']],
-                ['label' => ['class' => 'sr-only', 'for' => 'created']],
-                    'Created',
-                '/label',
-                'input' => [
-                    'type' => 'datetime-local',
-                    'name' => 'created',
-                    'id' => 'created',
-                    'class' => 'form-control',
-                    'value' => $now->format('Y-m-d H:i:s'),
-                ],
+            ['div' => ['class' => 'col-auto']],
+                ['div' => ['class' => 'form-group position-relative datetime-local']],
+                    ['label' => ['class' => 'form-label visually-hidden', 'for' => 'created']],
+                        'Created',
+                    '/label',
+                    'input' => [
+                        'type' => 'datetime-local',
+                        'name' => 'created',
+                        'id' => 'created',
+                        'class' => 'form-control',
+                        'value' => $now->format('Y-m-d H:i:s'),
+                    ],
+                '/div',
             '/div',
         ];
         $this->assertHtml($expected, $result);
@@ -54,14 +56,16 @@ class DateTimeControlTest extends AbstractFormHelperTest
             'label' => false,
         ]);
         $expected = [
-            ['div' => ['class' => 'form-group position-relative datetime-local']],
-                'input' => [
-                    'type' => 'datetime-local',
-                    'name' => 'created',
-                    'id' => 'created',
-                    'class' => 'form-control',
-                    'value' => $now->format('Y-m-d H:i:s'),
-                ],
+            ['div' => ['class' => 'col-auto']],
+                ['div' => ['class' => 'form-group position-relative datetime-local']],
+                    'input' => [
+                        'type' => 'datetime-local',
+                        'name' => 'created',
+                        'id' => 'created',
+                        'class' => 'form-control',
+                        'value' => $now->format('Y-m-d H:i:s'),
+                    ],
+                '/div',
             '/div',
         ];
         $this->assertHtml($expected, $result);
@@ -83,17 +87,19 @@ class DateTimeControlTest extends AbstractFormHelperTest
             'label' => 'Custom Label',
         ]);
         $expected = [
-            ['div' => ['class' => 'form-group position-relative datetime-local']],
-                ['label' => ['class' => 'sr-only', 'for' => 'created']],
-                    'Custom Label',
-                '/label',
-                'input' => [
-                    'type' => 'datetime-local',
-                    'name' => 'created',
-                    'id' => 'created',
-                    'class' => 'form-control',
-                    'value' => $now->format('Y-m-d H:i:s'),
-                ],
+            ['div' => ['class' => 'col-auto']],
+                ['div' => ['class' => 'form-group position-relative datetime-local']],
+                    ['label' => ['class' => 'form-label visually-hidden', 'for' => 'created']],
+                        'Custom Label',
+                    '/label',
+                    'input' => [
+                        'type' => 'datetime-local',
+                        'name' => 'created',
+                        'id' => 'created',
+                        'class' => 'form-control',
+                        'value' => $now->format('Y-m-d H:i:s'),
+                    ],
+                '/div',
             '/div',
         ];
         $this->assertHtml($expected, $result);
@@ -119,63 +125,23 @@ class DateTimeControlTest extends AbstractFormHelperTest
             ],
         ]);
         $expected = [
-            ['div' => ['class' => 'form-group position-relative datetime-local']],
-                ['label' => ['class' => 'custom-label-class sr-only', 'foo' => 'bar', 'for' => 'created']],
-                    'Custom Label',
-                '/label',
-                'input' => [
-                    'type' => 'datetime-local',
-                    'name' => 'created',
-                    'id' => 'created',
-                    'class' => 'form-control',
-                    'value' => $now->format('Y-m-d H:i:s'),
-                ],
-            '/div',
-        ];
-        $this->assertHtml($expected, $result);
-    }
-
-    public function testInlineAlignDateTimeControlWithCustomLabelTemplateIsBackwardsCompatible()
-    {
-        $this->withErrorReporting(0, function () {
-            $this->Form->create($this->article, [
-                'align' => 'inline',
-            ]);
-        });
-
-        $now = new \DateTime('now');
-
-        $result = $this->Form->control('created', [
-            'type' => 'datetime-local',
-            'value' => $now->format('Y-m-d H:i:s'),
-            'templates' => [
-                'datetimeContainer' =>
-                    '<div{{containerAttrs}} ' .
-                        'class="{{containerClass}}form-group {{formGroupPosition}}{{type}}{{required}}" ' .
-                            'role="group" aria-labelledby="{{groupId}}">{{content}}{{help}}</div>',
-                'datetimeLabel' => '<span id="{{groupId}}" class="sr-only" back="compat">{{text}}{{tooltip}}</span>',
-            ],
-        ]);
-        $expected = [
-            ['div' => [
-                'class' => 'form-group position-relative datetime-local',
-                'role' => 'group',
-                'aria-labelledby' => 'created-group-label',
-            ]],
-                ['span' => [
-                    'id' => 'created-group-label',
-                    'class' => 'sr-only',
-                    'back' => 'compat',
-                ]],
-                    'Created',
-                '/span',
-                'input' => [
-                    'type' => 'datetime-local',
-                    'name' => 'created',
-                    'id' => 'created',
-                    'class' => 'form-control',
-                    'value' => $now->format('Y-m-d H:i:s'),
-                ],
+            ['div' => ['class' => 'col-auto']],
+                ['div' => ['class' => 'form-group position-relative datetime-local']],
+                    ['label' => [
+                        'class' => 'custom-label-class form-label visually-hidden',
+                        'foo' => 'bar',
+                        'for' => 'created',
+                    ]],
+                        'Custom Label',
+                    '/label',
+                    'input' => [
+                        'type' => 'datetime-local',
+                        'name' => 'created',
+                        'id' => 'created',
+                        'class' => 'form-control',
+                        'value' => $now->format('Y-m-d H:i:s'),
+                    ],
+                '/div',
             '/div',
         ];
         $this->assertHtml($expected, $result);
@@ -197,20 +163,23 @@ class DateTimeControlTest extends AbstractFormHelperTest
             'help' => 'Help text',
         ]);
         $expected = [
-            ['div' => ['class' => 'form-group position-relative datetime-local']],
-                ['label' => ['class' => 'sr-only', 'for' => 'created']],
-                    'Created',
-                '/label',
-                'input' => [
-                    'type' => 'datetime-local',
-                    'name' => 'created',
-                    'id' => 'created',
-                    'class' => 'form-control',
-                    'value' => $now->format('Y-m-d H:i:s'),
-                ],
-                ['small' => ['class' => 'sr-only form-text text-muted']],
-                    'Help text',
-                '/small',
+            ['div' => ['class' => 'col-auto']],
+                ['div' => ['class' => 'form-group position-relative datetime-local']],
+                    ['label' => ['class' => 'form-label visually-hidden', 'for' => 'created']],
+                        'Created',
+                    '/label',
+                    'input' => [
+                        'type' => 'datetime-local',
+                        'name' => 'created',
+                        'id' => 'created',
+                        'class' => 'form-control',
+                        'aria-describedby' => 'created-help',
+                        'value' => $now->format('Y-m-d H:i:s'),
+                    ],
+                    ['small' => ['id' => 'created-help', 'class' => 'visually-hidden form-text']],
+                        'Help text',
+                    '/small',
+                '/div',
             '/div',
         ];
         $this->assertHtml($expected, $result);
@@ -230,25 +199,34 @@ class DateTimeControlTest extends AbstractFormHelperTest
             'type' => 'datetime-local',
             'value' => $now->format('Y-m-d H:i:s'),
             'help' => [
+                'id' => 'custom-help',
                 'foo' => 'bar',
+                'class' => 'help-class',
                 'content' => 'Help text',
             ],
         ]);
         $expected = [
-            ['div' => ['class' => 'form-group position-relative datetime-local']],
-                ['label' => ['class' => 'sr-only', 'for' => 'created']],
-                    'Created',
-                '/label',
-                'input' => [
-                    'type' => 'datetime-local',
-                    'name' => 'created',
-                    'id' => 'created',
-                    'class' => 'form-control',
-                    'value' => $now->format('Y-m-d H:i:s'),
-                ],
-                ['small' => ['foo' => 'bar', 'class' => 'sr-only form-text text-muted']],
-                    'Help text',
-                '/small',
+            ['div' => ['class' => 'col-auto']],
+                ['div' => ['class' => 'form-group position-relative datetime-local']],
+                    ['label' => ['class' => 'form-label visually-hidden', 'for' => 'created']],
+                        'Created',
+                    '/label',
+                    'input' => [
+                        'type' => 'datetime-local',
+                        'name' => 'created',
+                        'id' => 'created',
+                        'class' => 'form-control',
+                        'aria-describedby' => 'custom-help',
+                        'value' => $now->format('Y-m-d H:i:s'),
+                    ],
+                    ['small' => [
+                        'id' => 'custom-help',
+                        'foo' => 'bar',
+                        'class' => 'help-class visually-hidden form-text',
+                    ]],
+                        'Help text',
+                    '/small',
+                '/div',
             '/div',
         ];
         $this->assertHtml($expected, $result);
@@ -270,31 +248,30 @@ class DateTimeControlTest extends AbstractFormHelperTest
             'tooltip' => 'Tooltip text',
         ]);
         $expected = [
-            ['div' => ['class' => 'form-group position-relative datetime-local']],
-                ['label' => ['class' => 'sr-only', 'for' => 'created']],
-                    'Created ',
-                    'span' => [
-                        'data-toggle' => 'tooltip',
-                        'title' => 'Tooltip text',
-                        'class' => 'fas fa-info-circle',
+            ['div' => ['class' => 'col-auto']],
+                ['div' => ['class' => 'form-group position-relative datetime-local']],
+                    ['label' => ['class' => 'form-label visually-hidden', 'for' => 'created']],
+                        'Created ',
+                        'span' => [
+                            'data-bs-toggle' => 'tooltip',
+                            'title' => 'Tooltip text',
+                            'class' => 'bi bi-info-circle-fill',
+                        ],
+                        '/span',
+                    '/label',
+                    'input' => [
+                        'type' => 'datetime-local',
+                        'name' => 'created',
+                        'id' => 'created',
+                        'class' => 'form-control',
+                        'value' => $now->format('Y-m-d H:i:s'),
                     ],
-                    '/span',
-                '/label',
-                'input' => [
-                    'type' => 'datetime-local',
-                    'name' => 'created',
-                    'id' => 'created',
-                    'class' => 'form-control',
-                    'value' => $now->format('Y-m-d H:i:s'),
-                ],
+                '/div',
             '/div',
         ];
         $this->assertHtml($expected, $result);
     }
 
-    /**
-     * Inline datetime controls currently do not render error messages.
-     */
     public function testInlineAlignDateTimeControlWithError()
     {
         $this->withErrorReporting(0, function () {
@@ -313,22 +290,25 @@ class DateTimeControlTest extends AbstractFormHelperTest
             'value' => $now->format('Y-m-d H:i:s'),
         ]);
         $expected = [
-            ['div' => [
-                'class' => 'form-group position-relative datetime-local is-invalid',
-            ]],
-                ['label' => ['class' => 'sr-only', 'for' => 'created']],
-                    'Created',
-                '/label',
-                'input' => [
-                    'type' => 'datetime-local',
-                    'name' => 'created',
-                    'id' => 'created',
-                    'aria-invalid' => 'true',
-                    'class' => 'is-invalid form-control',
-                    'value' => $now->format('Y-m-d H:i:s'),
-                ],
-                ['div' => ['class' => 'invalid-tooltip']],
-                    'error message',
+            ['div' => ['class' => 'col-auto']],
+                ['div' => [
+                    'class' => 'form-group position-relative datetime-local is-invalid',
+                ]],
+                    ['label' => ['class' => 'form-label visually-hidden', 'for' => 'created']],
+                        'Created',
+                    '/label',
+                    'input' => [
+                        'type' => 'datetime-local',
+                        'name' => 'created',
+                        'id' => 'created',
+                        'class' => 'is-invalid form-control',
+                        'aria-invalid' => 'true',
+                        'aria-describedby' => 'created-error',
+                        'value' => $now->format('Y-m-d H:i:s'),
+                    ],
+                    ['div' => ['id' => 'created-error', 'class' => 'invalid-tooltip']],
+                        'error message',
+                    '/div',
                 '/div',
             '/div',
         ];
@@ -354,20 +334,125 @@ class DateTimeControlTest extends AbstractFormHelperTest
             ],
         ]);
         $expected = [
-            ['div' => [
-                'attribute' => 'container-attribute',
-                'class' => 'container-class form-group position-relative datetime-local',
-            ]],
-                ['label' => ['class' => 'sr-only', 'for' => 'created']],
-                    'Created',
-                '/label',
-                'input' => [
-                    'type' => 'datetime-local',
-                    'name' => 'created',
-                    'id' => 'created',
-                    'class' => 'form-control',
-                    'value' => $now->format('Y-m-d H:i:s'),
-                ],
+            ['div' => ['class' => 'col-auto']],
+                ['div' => [
+                    'attribute' => 'container-attribute',
+                    'class' => 'container-class form-group position-relative datetime-local',
+                ]],
+                    ['label' => ['class' => 'form-label visually-hidden', 'for' => 'created']],
+                        'Created',
+                    '/label',
+                    'input' => [
+                        'type' => 'datetime-local',
+                        'name' => 'created',
+                        'id' => 'created',
+                        'class' => 'form-control',
+                        'value' => $now->format('Y-m-d H:i:s'),
+                    ],
+                '/div',
+            '/div',
+        ];
+        $this->assertHtml($expected, $result);
+    }
+
+    public function testInlineAlignDateTimeControlWithErrorAndHelp()
+    {
+        $this->withErrorReporting(0, function () {
+            $this->article['errors'] = [
+                'created' => ['error message'],
+            ];
+            $this->Form->create($this->article, [
+                'align' => 'inline',
+            ]);
+        });
+
+        $now = new \DateTime('now');
+
+        $result = $this->Form->control('created', [
+            'type' => 'datetime-local',
+            'value' => $now->format('Y-m-d H:i:s'),
+            'help' => 'Help text',
+        ]);
+        $expected = [
+            ['div' => ['class' => 'col-auto']],
+                ['div' => [
+                    'class' => 'form-group position-relative datetime-local is-invalid',
+                ]],
+                    ['label' => ['class' => 'form-label visually-hidden', 'for' => 'created']],
+                        'Created',
+                    '/label',
+                    'input' => [
+                        'type' => 'datetime-local',
+                        'name' => 'created',
+                        'id' => 'created',
+                        'class' => 'is-invalid form-control',
+                        'aria-invalid' => 'true',
+                        'aria-describedby' => 'created-error created-help',
+                        'value' => $now->format('Y-m-d H:i:s'),
+                    ],
+                    ['div' => ['id' => 'created-error', 'class' => 'invalid-tooltip']],
+                        'error message',
+                    '/div',
+                    ['small' => ['id' => 'created-help', 'class' => 'visually-hidden form-text']],
+                        'Help text',
+                    '/small',
+                '/div',
+            '/div',
+        ];
+        $this->assertHtml($expected, $result);
+    }
+
+    public function testInlineAlignDateTimeControlWithErrorAndHelpOptions()
+    {
+        $this->withErrorReporting(0, function () {
+            $this->article['errors'] = [
+                'created' => ['error message'],
+            ];
+            $this->Form->create($this->article, [
+                'align' => 'inline',
+            ]);
+        });
+
+        $now = new \DateTime('now');
+
+        $result = $this->Form->control('created', [
+            'type' => 'datetime-local',
+            'value' => $now->format('Y-m-d H:i:s'),
+            'help' => [
+                'id' => 'custom-help',
+                'foo' => 'bar',
+                'class' => 'help-class',
+                'content' => 'Help text',
+            ],
+        ]);
+        $expected = [
+            ['div' => ['class' => 'col-auto']],
+                ['div' => [
+                    'class' => 'form-group position-relative datetime-local is-invalid',
+                ]],
+                    ['label' => ['class' => 'form-label visually-hidden', 'for' => 'created']],
+                        'Created',
+                    '/label',
+                    'input' => [
+                        'type' => 'datetime-local',
+                        'name' => 'created',
+                        'id' => 'created',
+                        'class' => 'is-invalid form-control',
+                        'aria-invalid' => 'true',
+                        'aria-describedby' => 'created-error custom-help',
+                        'value' => $now->format('Y-m-d H:i:s'),
+                    ],
+                    ['div' => ['id' => 'created-error', 'class' => 'invalid-tooltip']],
+                        'error message',
+                    '/div',
+                    ['small' => [
+                        'id' => 'custom-help',
+                        'foo' => 'bar',
+                        'class' => 'help-class visually-hidden form-text',
+                    ]],
+                        'Help text',
+                    '/small',
+                '/div',
             '/div',
         ];
         $this->assertHtml($expected, $result);
@@ -398,23 +483,26 @@ class DateTimeControlTest extends AbstractFormHelperTest
             ],
         ]);
         $expected = [
-            ['div' => [
-                'attribute' => 'container-attribute',
-                'class' => 'container-class form-group position-relative datetime-local is-invalid',
-            ]],
-                ['label' => ['class' => 'sr-only', 'for' => 'created']],
-                    'Created',
-                '/label',
-                'input' => [
-                    'type' => 'datetime-local',
-                    'name' => 'created',
-                    'id' => 'created',
-                    'aria-invalid' => 'true',
-                    'class' => 'is-invalid form-control',
-                    'value' => $now->format('Y-m-d H:i:s'),
-                ],
-                ['div' => ['class' => 'invalid-tooltip']],
-                    'error message',
+            ['div' => ['class' => 'col-auto']],
+                ['div' => [
+                    'attribute' => 'container-attribute',
+                    'class' => 'container-class form-group position-relative datetime-local is-invalid',
+                ]],
+                    ['label' => ['class' => 'form-label visually-hidden', 'for' => 'created']],
+                        'Created',
+                    '/label',
+                    'input' => [
+                        'type' => 'datetime-local',
+                        'name' => 'created',
+                        'id' => 'created',
+                        'class' => 'is-invalid form-control',
+                        'aria-invalid' => 'true',
+                        'aria-describedby' => 'created-error',
+                        'value' => $now->format('Y-m-d H:i:s'),
+                    ],
+                    ['div' => ['id' => 'created-error', 'class' => 'invalid-tooltip']],
+                        'error message',
+                    '/div',
                 '/div',
             '/div',
         ];
@@ -436,17 +524,19 @@ class DateTimeControlTest extends AbstractFormHelperTest
             'value' => $now,
         ]);
         $expected = [
-            ['div' => ['class' => 'form-group position-relative date']],
-                ['label' => ['class' => 'sr-only', 'for' => 'created']],
-                    'Created',
-                '/label',
-                'input' => [
-                    'type' => 'date',
-                    'name' => 'created',
-                    'id' => 'created',
-                    'class' => 'form-control',
-                    'value' => date('Y-m-d', $now),
-                ],
+            ['div' => ['class' => 'col-auto']],
+                ['div' => ['class' => 'form-group position-relative date']],
+                    ['label' => ['class' => 'form-label visually-hidden', 'for' => 'created']],
+                        'Created',
+                    '/label',
+                    'input' => [
+                        'type' => 'date',
+                        'name' => 'created',
+                        'id' => 'created',
+                        'class' => 'form-control',
+                        'value' => date('Y-m-d', $now),
+                    ],
+                '/div',
             '/div',
         ];
         $this->assertHtml($expected, $result);
@@ -467,18 +557,20 @@ class DateTimeControlTest extends AbstractFormHelperTest
             'value' => $now,
         ]);
         $expected = [
-            ['div' => ['class' => 'form-group position-relative time']],
-                ['label' => ['class' => 'sr-only', 'for' => 'created']],
-                    'Created',
-                '/label',
-                'input' => [
-                    'type' => 'time',
-                    'name' => 'created',
-                    'id' => 'created',
-                    'class' => 'form-control',
-                    'step' => '1',
-                    'value' => date('H:i:s', $now),
-                ],
+            ['div' => ['class' => 'col-auto']],
+                ['div' => ['class' => 'form-group position-relative time']],
+                    ['label' => ['class' => 'form-label visually-hidden', 'for' => 'created']],
+                        'Created',
+                    '/label',
+                    'input' => [
+                        'type' => 'time',
+                        'name' => 'created',
+                        'id' => 'created',
+                        'class' => 'form-control',
+                        'step' => '1',
+                        'value' => date('H:i:s', $now),
+                    ],
+                '/div',
             '/div',
         ];
         $this->assertHtml($expected, $result);

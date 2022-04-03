@@ -14,7 +14,12 @@ class HtmlHelper extends \Cake\View\Helper\HtmlHelper
      *
      * ### Settings
      *
-     * - `iconDefaults`: Default for icons.
+     * - `iconDefaults`: Default options for icons. Accepts the following options:
+     *      - `tag`: The HTML tag to use for the icon. Default `i`.
+     *      - `namespace`: Common class name for the icon set. Default `bi`.
+     *      - `prefix`: Prefix for class names. Default `bi`.
+     *      - `size`: Size class will be generated based of this. For e.g. if you use
+     *        size `lg` class '<prefix>-lg` will be added. Default null.
      *
      * @param \Cake\View\View $View The View this helper is being attached to.
      * @param array $config Configuration settings for the helper.
@@ -23,8 +28,8 @@ class HtmlHelper extends \Cake\View\Helper\HtmlHelper
     {
         $this->_defaultConfig['iconDefaults'] = [
             'tag' => 'i',
-            'iconSet' => 'fas',
-            'prefix' => 'fa',
+            'namespace' => 'bi',
+            'prefix' => 'bi',
             'size' => null,
         ];
 
@@ -32,10 +37,14 @@ class HtmlHelper extends \Cake\View\Helper\HtmlHelper
     }
 
     /**
-     * Returns Bootstrap badge markup. By default, uses `<SPAN>`.
+     * Returns Bootstrap badge markup. By default, uses `<span>`.
+     *
+     * ### Options
+     *
+     * - `tag`: The HTML tag to use for the badge. Default `span`.
      *
      * @param string $text Text to show in badge.
-     * @param array $options Additional HTML attributes.
+     * @param array $options Additional options and HTML attributes.
      * @return string HTML badge markup.
      */
     public function badge(string $text, array $options = []): string
@@ -44,7 +53,7 @@ class HtmlHelper extends \Cake\View\Helper\HtmlHelper
         $tag = $options['tag'];
         unset($options['tag']);
 
-        $allClasses = $this->genAllClassNames('badge');
+        $allClasses = $this->genAllClassNames('bg');
 
         if ($this->hasAnyClass($allClasses, $options)) {
             $options = $this->injectClasses('badge', $options);
@@ -52,25 +61,27 @@ class HtmlHelper extends \Cake\View\Helper\HtmlHelper
             $options = $this->injectClasses(['badge', 'secondary'], $options);
         }
 
-        $classes = $this->renameClasses('badge', $options);
+        $classes = $this->renameClasses('bg', $options);
 
         return $this->tag($tag, $text, $classes);
     }
 
     /**
-     * Returns bootstrap icon markup. By default, uses `<i>` tag and font awesome icon set.
+     * Returns bootstrap icon markup. By default, uses `<i>` tag and the bootstrap icon set.
      *
-     * @param string $name Name of icon (i.e. search, leaf, etc.).
-     * @param array $options Additional options and HTML attributes.
      * ### Options
      *
-     * - `iconSet`: Common class name for the icon set. Default 'fas'.
-     * - `prefix`: Prefix for class names. Default 'fa'.
+     * - `tag`: The HTML tag to use for the icon. Default `i`.
+     * - `namespace`: Common class name for the icon set. Default `bi`.
+     * - `prefix`: Prefix for class names. Default `bi`.
      * - `size`: Size class will be generated based of this. For e.g. if you use
-     *   size 'lg' class '<prefix>-lg` will be added. Default null.
+     *   size `lg` class '<prefix>-lg` will be added. Default null.
      *
      * You can use `iconDefaults` option for the helper to set default values
      * for above options.
+     *
+     * @param string $name Name of icon (i.e. `search`, `exclamation`, etc.).
+     * @param array $options Additional options and HTML attributes.
      * @return string HTML icon markup.
      */
     public function icon(string $name, array $options = []): string
@@ -79,7 +90,7 @@ class HtmlHelper extends \Cake\View\Helper\HtmlHelper
             'class' => null,
         ];
 
-        $classes = [$options['iconSet'], $options['prefix'] . '-' . $name];
+        $classes = [$options['namespace'], $options['prefix'] . '-' . $name];
         if (!empty($options['size'])) {
             $classes[] = $options['prefix'] . '-' . $options['size'];
         }
@@ -89,30 +100,8 @@ class HtmlHelper extends \Cake\View\Helper\HtmlHelper
             'tag' => $options['tag'],
             'attrs' => $this->templater()->formatAttributes(
                 $options,
-                ['tag', 'iconSet', 'prefix', 'size']
+                ['tag', 'namespace', 'prefix', 'size']
             ),
         ]);
-    }
-
-    /**
-     * Wrapper for Bootstrap badge component
-     *
-     * @param string $text Text to show in label.
-     * @param array|string $options Additional HTML attributes.
-     * @deprecated Label component has been removed from Bootstrap. Use badge component instead.
-     * @return string HTML badge markup.
-     */
-    public function label(string $text, $options = []): string
-    {
-        if (is_string($options)) {
-            $options = ['class' => $options];
-        } else {
-            if (isset($options['type'])) {
-                $options['class'] = $options['type'];
-                unset($options['type']);
-            }
-        }
-
-        return $this->badge($text, $options);
     }
 }

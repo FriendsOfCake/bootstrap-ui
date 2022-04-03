@@ -22,7 +22,7 @@ class InstallCommand extends Command
      */
     public function execute(Arguments $args, ConsoleIo $io)
     {
-        $this->installPackages($io);
+        $this->installPackages($args, $io);
         $this->refreshAssetBuffer($io);
         $this->removePluginAssets($io);
         $this->linkPluginAssets($io);
@@ -36,10 +36,11 @@ class InstallCommand extends Command
     /**
      * Installs Bootstrap dependencies using NPM.
      *
+     * @param \Cake\Console\Arguments $args The command arguments.
      * @param \Cake\Console\ConsoleIo $io The console io.
      * @return void
      */
-    public function installPackages(ConsoleIo $io): void
+    public function installPackages(Arguments $args, ConsoleIo $io): void
     {
         if (!$this->_isNPMAvailable()) {
             $io->error('NPM (https://www.npmjs.com/) is required, but not installed. Aborting.');
@@ -57,7 +58,7 @@ class InstallCommand extends Command
 
         $output = [];
         $return = 0;
-        $this->_runNPMInstall($output, $return, $io);
+        $this->_runNPMInstall($output, $return, $io, $args->getOption('latest') === true);
         $io->out($output);
 
         if ($return !== 0) {
@@ -175,9 +176,10 @@ class InstallCommand extends Command
      * @param array $output The variable to write the output to.
      * @param int $return The variable to write the return status code to.
      * @param \Cake\Console\ConsoleIo $io The console io.
+     * @param bool $useLatest Whether to install the latest minor versions.
      * @return void
      */
-    protected function _runNPMInstall(&$output, &$return, ConsoleIo $io): void
+    protected function _runNPMInstall(array &$output, int &$return, ConsoleIo $io, bool $useLatest = false): void
     {
         $pluginPath = Plugin::path('BootstrapUI');
         if (!$this->_changeWorkingDirectory($pluginPath)) {
@@ -185,6 +187,10 @@ class InstallCommand extends Command
             $this->abort();
         }
 
+        $args = [];
+        if ($useLatest) {
+            $args[] = '--package-lock false';
+        }
         switch ($io->level()) {
             case ConsoleIo::QUIET:
                 if ($this->_isWindows()) {
@@ -193,16 +199,15 @@ class InstallCommand extends Command
                     $null = '/dev/null';
                 }
 
-                $args = "--silent > $null";
+                $args[] = "--silent > $null";
                 break;
 
             case ConsoleIo::VERBOSE:
-                $args = '--verbose';
+                $args[] = '--verbose';
                 break;
-
-            default:
-                $args = '';
         }
+        $args = implode(' ', $args);
+
         exec("npm install $args", $output, $return);
     }
 
@@ -257,6 +262,7 @@ class InstallCommand extends Command
             (?<!(\\\\|\/)cover\.css)
             (?<!(\\\\|\/)dashboard\.css)
             (?<!(\\\\|\/)signin\.css)
+            (?<!(\\\\|\/)bootstrap-icon-sizes\.css)
             (?<!(\\\\|\/)baked-with-cakephp\.svg)
             $
         @ix';
@@ -284,23 +290,42 @@ class InstallCommand extends Command
 
         $webrootPath = Plugin::path('BootstrapUI') . 'webroot' . DS;
         $cssPath = $webrootPath . 'css' . DS;
+        $fontPath = $webrootPath . 'font' . DS;
         $jsPath = $webrootPath . 'js' . DS;
-
-        $filesystem->mkdir($cssPath);
-        $filesystem->mkdir($jsPath);
 
         $result = true;
         foreach ($this->_findPackageAssets() as $file) {
             $assetPath = null;
-            if (preg_match('/\.css/', $file->getFilename())) {
+
+            $matches = [];
+            $DS = preg_quote(DS, '/');
+            if (
+                preg_match(
+                    "/{$DS}font{$DS}(?P<subdirs>.+{$DS})?.+\\.(css|woff|woff2)$/",
+                    $file->getPathname(),
+                    $matches
+                )
+            ) {
+                $assetPath = $fontPath;
+            } elseif (preg_match('/\.css(\.map)?$/', $file->getFilename())) {
                 $assetPath = $cssPath;
-            } elseif (preg_match('/(\.js|\.min\.map)/', $file->getFilename())) {
+            } elseif (preg_match('/\.js(\.map)?$/', $file->getFilename())) {
                 $assetPath = $jsPath;
             }
+
             if ($assetPath === null) {
-                $io->warning("Skipped `{$file->getFilename()}`.");
+                $io->info("Skipped `{$file->getFilename()}`.", 1, ConsoleIo::VERBOSE);
                 continue;
             }
+
+            if (
+                isset($matches['subdirs']) &&
+                $matches['subdirs']
+            ) {
+                $assetPath .= $matches['subdirs'];
+            }
+
+            $filesystem->mkdir($assetPath);
 
             if (
                 is_file($file->getPathname()) &&
@@ -327,9 +352,9 @@ class InstallCommand extends Command
 
         $nodeModulesPath = Plugin::path('BootstrapUI') . 'node_modules' . DS;
         $paths = [
+            $nodeModulesPath . '@popperjs/core/dist/umd',
             $nodeModulesPath . 'bootstrap/dist',
-            $nodeModulesPath . 'jquery/dist',
-            $nodeModulesPath . 'popper.js/dist/umd',
+            $nodeModulesPath . 'bootstrap-icons',
         ];
 
         $files = [];
@@ -353,6 +378,12 @@ class InstallCommand extends Command
         return $parser
             ->setDescription(
                 'Installs Bootstrap dependencies and links the assets to the application\'s webroot.'
-            );
+            )
+            ->addOption('latest', [
+                'help' => 'To install the latest minor versions of required assets.',
+                'required' => false,
+                'boolean' => true,
+                'short' => 'l',
+            ]);
     }
 }

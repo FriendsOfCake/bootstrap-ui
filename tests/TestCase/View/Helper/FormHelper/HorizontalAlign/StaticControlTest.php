@@ -4,6 +4,7 @@ declare(strict_types=1);
 namespace BootstrapUI\Test\TestCase\View\Helper\FormHelper\HorizontalAlign;
 
 use BootstrapUI\Test\TestCase\View\Helper\FormHelper\AbstractFormHelperTest;
+use BootstrapUI\View\Helper\FormHelper;
 
 class StaticControlTest extends AbstractFormHelperTest
 {
@@ -16,15 +17,15 @@ class StaticControlTest extends AbstractFormHelperTest
         $this->Form->create($this->article, [
             'align' => [
                 'sm' => [
-                    'left' => 5,
-                    'middle' => 7,
+                    FormHelper::GRID_COLUMN_ONE => 5,
+                    FormHelper::GRID_COLUMN_TWO => 7,
                 ],
             ],
         ]);
 
         $result = $this->Form->control('title', ['type' => 'staticControl']);
         $expected = [
-            'div' => ['class' => 'form-group row staticControl'],
+            'div' => ['class' => 'mb-3 form-group row staticControl'],
                 'label' => ['class' => 'col-form-label col-sm-5', 'for' => 'title'],
                     'Title',
                 '/label',
@@ -55,8 +56,8 @@ class StaticControlTest extends AbstractFormHelperTest
         $this->Form->create($this->article, [
             'align' => [
                 'sm' => [
-                    'left' => 5,
-                    'middle' => 7,
+                    FormHelper::GRID_COLUMN_ONE => 5,
+                    FormHelper::GRID_COLUMN_TWO => 7,
                 ],
             ],
         ]);
@@ -67,7 +68,7 @@ class StaticControlTest extends AbstractFormHelperTest
             'escape' => false,
         ]);
         $expected = [
-            'div' => ['class' => 'form-group row staticControl'],
+            'div' => ['class' => 'mb-3 form-group row staticControl'],
                 'label' => ['class' => 'col-form-label col-sm-5', 'for' => 'title'],
                     'Title',
                 '/label',
@@ -82,7 +83,6 @@ class StaticControlTest extends AbstractFormHelperTest
             '/div',
         ];
         $this->assertHtml($expected, $result);
-        $this->assertEmpty($this->Form->fields);
     }
 
     public function testHorizontalAlignStaticControlWithDisabledLabel()
@@ -92,8 +92,8 @@ class StaticControlTest extends AbstractFormHelperTest
         $this->Form->create($this->article, [
             'align' => [
                 'sm' => [
-                    'left' => 5,
-                    'middle' => 7,
+                    FormHelper::GRID_COLUMN_ONE => 5,
+                    FormHelper::GRID_COLUMN_TWO => 7,
                 ],
             ],
         ]);
@@ -103,7 +103,7 @@ class StaticControlTest extends AbstractFormHelperTest
             'label' => false,
         ]);
         $expected = [
-            'div' => ['class' => 'form-group row staticControl'],
+            'div' => ['class' => 'mb-3 form-group row staticControl'],
                 ['div' => ['class' => 'col-sm-7']],
                     'p' => ['class' => 'form-control-plaintext'],
                         'title',
@@ -127,8 +127,8 @@ class StaticControlTest extends AbstractFormHelperTest
         $this->Form->create($this->article, [
             'align' => [
                 'sm' => [
-                    'left' => 5,
-                    'middle' => 7,
+                    FormHelper::GRID_COLUMN_ONE => 5,
+                    FormHelper::GRID_COLUMN_TWO => 7,
                 ],
             ],
         ]);
@@ -138,7 +138,7 @@ class StaticControlTest extends AbstractFormHelperTest
             'label' => 'Custom Label',
         ]);
         $expected = [
-            'div' => ['class' => 'form-group row staticControl'],
+            'div' => ['class' => 'mb-3 form-group row staticControl'],
                 'label' => ['class' => 'col-form-label col-sm-5', 'for' => 'title'],
                     'Custom Label',
                 '/label',
@@ -165,8 +165,8 @@ class StaticControlTest extends AbstractFormHelperTest
         $this->Form->create($this->article, [
             'align' => [
                 'sm' => [
-                    'left' => 5,
-                    'middle' => 7,
+                    FormHelper::GRID_COLUMN_ONE => 5,
+                    FormHelper::GRID_COLUMN_TWO => 7,
                 ],
             ],
         ]);
@@ -180,7 +180,7 @@ class StaticControlTest extends AbstractFormHelperTest
             ],
         ]);
         $expected = [
-            'div' => ['class' => 'form-group row staticControl'],
+            'div' => ['class' => 'mb-3 form-group row staticControl'],
                 'label' => ['class' => 'custom-label-class col-form-label col-sm-5', 'foo' => 'bar', 'for' => 'title'],
                     'Custom Label',
                 '/label',
@@ -207,8 +207,8 @@ class StaticControlTest extends AbstractFormHelperTest
         $this->Form->create($this->article, [
             'align' => [
                 'sm' => [
-                    'left' => 5,
-                    'middle' => 7,
+                    FormHelper::GRID_COLUMN_ONE => 5,
+                    FormHelper::GRID_COLUMN_TWO => 7,
                 ],
             ],
         ]);
@@ -218,7 +218,7 @@ class StaticControlTest extends AbstractFormHelperTest
             'help' => 'Help text',
         ]);
         $expected = [
-            'div' => ['class' => 'form-group row staticControl'],
+            'div' => ['class' => 'mb-3 form-group row staticControl'],
                 'label' => ['class' => 'col-form-label col-sm-5', 'for' => 'title'],
                     'Title',
                 '/label',
@@ -230,9 +230,10 @@ class StaticControlTest extends AbstractFormHelperTest
                         'type' => 'hidden',
                         'name' => 'title',
                         'id' => 'title',
+                        'aria-describedby' => 'title-help',
                         'value' => 'title',
                     ],
-                    ['small' => ['class' => 'form-text text-muted']],
+                    ['small' => ['id' => 'title-help', 'class' => 'd-block form-text text-muted']],
                         'Help text',
                     '/small',
                 '/div',
@@ -248,8 +249,8 @@ class StaticControlTest extends AbstractFormHelperTest
         $this->Form->create($this->article, [
             'align' => [
                 'sm' => [
-                    'left' => 5,
-                    'middle' => 7,
+                    FormHelper::GRID_COLUMN_ONE => 5,
+                    FormHelper::GRID_COLUMN_TWO => 7,
                 ],
             ],
         ]);
@@ -257,12 +258,14 @@ class StaticControlTest extends AbstractFormHelperTest
         $result = $this->Form->control('title', [
             'type' => 'staticControl',
             'help' => [
+                'id' => 'custom-help',
                 'foo' => 'bar',
+                'class' => 'help-class',
                 'content' => 'Help text',
             ],
         ]);
         $expected = [
-            'div' => ['class' => 'form-group row staticControl'],
+            'div' => ['class' => 'mb-3 form-group row staticControl'],
                 'label' => ['class' => 'col-form-label col-sm-5', 'for' => 'title'],
                     'Title',
                 '/label',
@@ -274,9 +277,14 @@ class StaticControlTest extends AbstractFormHelperTest
                         'type' => 'hidden',
                         'name' => 'title',
                         'id' => 'title',
+                        'aria-describedby' => 'custom-help',
                         'value' => 'title',
                     ],
-                    ['small' => ['foo' => 'bar', 'class' => 'form-text text-muted']],
+                    ['small' => [
+                        'id' => 'custom-help',
+                        'foo' => 'bar',
+                        'class' => 'help-class d-block form-text text-muted',
+                    ]],
                         'Help text',
                     '/small',
                 '/div',
@@ -292,8 +300,8 @@ class StaticControlTest extends AbstractFormHelperTest
         $this->Form->create($this->article, [
             'align' => [
                 'sm' => [
-                    'left' => 5,
-                    'middle' => 7,
+                    FormHelper::GRID_COLUMN_ONE => 5,
+                    FormHelper::GRID_COLUMN_TWO => 7,
                 ],
             ],
         ]);
@@ -303,13 +311,13 @@ class StaticControlTest extends AbstractFormHelperTest
             'tooltip' => 'Tooltip text',
         ]);
         $expected = [
-            'div' => ['class' => 'form-group row staticControl'],
+            'div' => ['class' => 'mb-3 form-group row staticControl'],
                 'label' => ['class' => 'col-form-label col-sm-5', 'for' => 'title'],
                     'Title',
                     'span' => [
-                        'data-toggle' => 'tooltip',
+                        'data-bs-toggle' => 'tooltip',
                         'title' => 'Tooltip text',
-                        'class' => 'fas fa-info-circle',
+                        'class' => 'bi bi-info-circle-fill',
                     ],
                     '/span',
                 '/label',
@@ -329,6 +337,44 @@ class StaticControlTest extends AbstractFormHelperTest
         $this->assertHtml($expected, $result);
     }
 
+    public function testHorizontalAlignStaticControlWithCustomSpacing()
+    {
+        unset($this->article['required']['title']);
+        $this->article['defaults']['title'] = 'foo <u>bar</u>';
+        $this->Form->create($this->article, [
+            'align' => [
+                'sm' => [
+                    FormHelper::GRID_COLUMN_ONE => 5,
+                    FormHelper::GRID_COLUMN_TWO => 7,
+                ],
+            ],
+        ]);
+
+        $result = $this->Form->control('title', [
+            'type' => 'staticControl',
+            'spacing' => 'custom-spacing',
+        ]);
+        $expected = [
+            'div' => ['class' => 'custom-spacing form-group row staticControl'],
+                'label' => ['class' => 'col-form-label col-sm-5', 'for' => 'title'],
+                    'Title',
+                '/label',
+                ['div' => ['class' => 'col-sm-7']],
+                    'p' => ['class' => 'form-control-plaintext'],
+                        'foo &lt;u&gt;bar&lt;/u&gt;',
+                    '/p',
+                    'input' => [
+                        'type' => 'hidden',
+                        'name' => 'title',
+                        'id' => 'title',
+                        'value' => 'foo &lt;u&gt;bar&lt;/u&gt;',
+                    ],
+                '/div',
+            '/div',
+        ];
+        $this->assertHtml($expected, $result);
+    }
+
     public function testHorizontalAlignStaticControlWithError()
     {
         $this->article['errors'] = [
@@ -339,8 +385,8 @@ class StaticControlTest extends AbstractFormHelperTest
         $this->Form->create($this->article, [
             'align' => [
                 'sm' => [
-                    'left' => 5,
-                    'middle' => 7,
+                    FormHelper::GRID_COLUMN_ONE => 5,
+                    FormHelper::GRID_COLUMN_TWO => 7,
                 ],
             ],
         ]);
@@ -349,7 +395,7 @@ class StaticControlTest extends AbstractFormHelperTest
             'type' => 'staticControl',
         ]);
         $expected = [
-            'div' => ['class' => 'form-group row staticControl is-invalid'],
+            'div' => ['class' => 'mb-3 form-group row staticControl is-invalid'],
                 'label' => ['class' => 'col-form-label col-sm-5', 'for' => 'title'],
                     'Title',
                 '/label',
@@ -363,11 +409,122 @@ class StaticControlTest extends AbstractFormHelperTest
                         'id' => 'title',
                         'aria-invalid' => 'true',
                         'class' => 'is-invalid',
+                        'aria-invalid' => 'true',
+                        'aria-describedby' => 'title-error',
                         'value' => 'title',
                     ],
-                    ['div' => ['class' => 'invalid-feedback']],
+                    ['div' => ['id' => 'title-error', 'class' => 'ms-0 invalid-feedback']],
                         'error message',
                     '/div',
+                '/div',
+            '/div',
+        ];
+        $this->assertHtml($expected, $result);
+    }
+
+    public function testHorizontalAlignStaticControlWithErrorAndHelp()
+    {
+        $this->article['errors'] = [
+            'title' => ['error message'],
+        ];
+        unset($this->article['required']['title']);
+        $this->article['defaults']['title'] = 'title';
+        $this->Form->create($this->article, [
+            'align' => [
+                'sm' => [
+                    FormHelper::GRID_COLUMN_ONE => 5,
+                    FormHelper::GRID_COLUMN_TWO => 7,
+                ],
+            ],
+        ]);
+
+        $result = $this->Form->control('title', [
+            'type' => 'staticControl',
+            'help' => 'Help text',
+        ]);
+        $expected = [
+            'div' => ['class' => 'mb-3 form-group row staticControl is-invalid'],
+                'label' => ['class' => 'col-form-label col-sm-5', 'for' => 'title'],
+                    'Title',
+                '/label',
+                ['div' => ['class' => 'col-sm-7']],
+                    'p' => ['class' => 'form-control-plaintext'],
+                        'title',
+                    '/p',
+                    'input' => [
+                        'type' => 'hidden',
+                        'name' => 'title',
+                        'id' => 'title',
+                        'class' => 'is-invalid',
+                        'aria-invalid' => 'true',
+                        'aria-describedby' => 'title-error title-help',
+                        'value' => 'title',
+                    ],
+                    ['div' => ['id' => 'title-error', 'class' => 'ms-0 invalid-feedback']],
+                        'error message',
+                    '/div',
+                    ['small' => ['id' => 'title-help', 'class' => 'd-block form-text text-muted']],
+                        'Help text',
+                    '/small',
+                '/div',
+            '/div',
+        ];
+        $this->assertHtml($expected, $result);
+    }
+
+    public function testHorizontalAlignStaticControlWithErrorAndHelpOptions()
+    {
+        $this->article['errors'] = [
+            'title' => ['error message'],
+        ];
+        unset($this->article['required']['title']);
+        $this->article['defaults']['title'] = 'title';
+        $this->Form->create($this->article, [
+            'align' => [
+                'sm' => [
+                    FormHelper::GRID_COLUMN_ONE => 5,
+                    FormHelper::GRID_COLUMN_TWO => 7,
+                ],
+            ],
+        ]);
+
+        $result = $this->Form->control('title', [
+            'type' => 'staticControl',
+            'help' => [
+                'id' => 'custom-help',
+                'foo' => 'bar',
+                'class' => 'help-class',
+                'content' => 'Help text',
+            ],
+        ]);
+        $expected = [
+            'div' => ['class' => 'mb-3 form-group row staticControl is-invalid'],
+                'label' => ['class' => 'col-form-label col-sm-5', 'for' => 'title'],
+                    'Title',
+                '/label',
+                ['div' => ['class' => 'col-sm-7']],
+                    'p' => ['class' => 'form-control-plaintext'],
+                        'title',
+                    '/p',
+                    'input' => [
+                        'type' => 'hidden',
+                        'name' => 'title',
+                        'id' => 'title',
+                        'class' => 'is-invalid',
+                        'aria-invalid' => 'true',
+                        'aria-describedby' => 'title-error custom-help',
+                        'value' => 'title',
+                    ],
+                    ['div' => ['id' => 'title-error', 'class' => 'ms-0 invalid-feedback']],
+                        'error message',
+                    '/div',
+                    ['small' => [
+                        'id' => 'custom-help',
+                        'foo' => 'bar',
+                        'class' => 'help-class d-block form-text text-muted',
+                    ]],
+                        'Help text',
+                    '/small',
                 '/div',
             '/div',
         ];
@@ -381,8 +538,8 @@ class StaticControlTest extends AbstractFormHelperTest
         $this->Form->create($this->article, [
             'align' => [
                 'sm' => [
-                    'left' => 5,
-                    'middle' => 7,
+                    FormHelper::GRID_COLUMN_ONE => 5,
+                    FormHelper::GRID_COLUMN_TWO => 7,
                 ],
             ],
         ]);
@@ -397,7 +554,7 @@ class StaticControlTest extends AbstractFormHelperTest
         $expected = [
             'div' => [
                 'attribute' => 'container-attribute',
-                'class' => 'container-class form-group row staticControl',
+                'class' => 'container-class mb-3 form-group row staticControl',
             ],
                 'label' => ['class' => 'col-form-label col-sm-5', 'for' => 'title'],
                     'Title',
@@ -428,8 +585,8 @@ class StaticControlTest extends AbstractFormHelperTest
         $this->Form->create($this->article, [
             'align' => [
                 'sm' => [
-                    'left' => 5,
-                    'middle' => 7,
+                    FormHelper::GRID_COLUMN_ONE => 5,
+                    FormHelper::GRID_COLUMN_TWO => 7,
                 ],
             ],
         ]);
@@ -444,7 +601,7 @@ class StaticControlTest extends AbstractFormHelperTest
         $expected = [
             'div' => [
                 'attribute' => 'container-attribute',
-                'class' => 'container-class form-group row staticControl is-invalid',
+                'class' => 'container-class mb-3 form-group row staticControl is-invalid',
             ],
                 'label' => ['class' => 'col-form-label col-sm-5', 'for' => 'title'],
                     'Title',
@@ -459,9 +616,11 @@ class StaticControlTest extends AbstractFormHelperTest
                         'id' => 'title',
                         'aria-invalid' => 'true',
                         'class' => 'is-invalid',
+                        'aria-invalid' => 'true',
+                        'aria-describedby' => 'title-error',
                         'value' => 'title',
                     ],
-                    ['div' => ['class' => 'invalid-feedback']],
+                    ['div' => ['id' => 'title-error', 'class' => 'ms-0 invalid-feedback']],
                         'error message',
                     '/div',
                 '/div',
