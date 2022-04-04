@@ -5,6 +5,7 @@ namespace BootstrapUI\View\Helper;
 
 use Cake\Core\Configure\Engine\PhpConfig;
 use Cake\Utility\Hash;
+use Cake\Utility\Inflector;
 use Cake\View\Helper\FormHelper as Helper;
 use Cake\View\View;
 use InvalidArgumentException;
@@ -559,6 +560,7 @@ class FormHelper extends Helper
         $options = $this->_containerOptions($fieldName, $options);
         $options = $this->_feedbackStyleOptions($fieldName, $options);
         $options = $this->_ariaOptions($fieldName, $options);
+        $options = $this->_placeholderOptions($fieldName, $options);
         $options = $this->_helpOptions($fieldName, $options);
         $options = $this->_tooltipOptions($fieldName, $options);
 
@@ -1034,6 +1036,40 @@ class FormHelper extends Helper
 
         if ($describedByIds) {
             $options['aria-describedby'] = $describedByIds;
+        }
+
+        return $options;
+    }
+
+    /**
+     * Modify options for placeholders.
+     *
+     * @param string $fieldName Field name.
+     * @param array $options Options. See `$options` argument of `control()` method.
+     * @return array
+     */
+    protected function _placeholderOptions(string $fieldName, array $options): array
+    {
+        if (
+            !isset($options['placeholder']) &&
+            isset($options['label']['floating']) &&
+            $options['label']['floating'] &&
+            in_array($options['type'], ['text', 'textarea'], true)
+        ) {
+            if (isset($options['label']['text'])) {
+                $options['placeholder'] = $options['label']['text'];
+            } else {
+                $text = $fieldName;
+                if (strpos($text, '.') !== false) {
+                    $fieldElements = explode('.', $text);
+                    $text = array_pop($fieldElements);
+                }
+                if (substr($text, -3) === '_id') {
+                    $text = substr($text, 0, -3);
+                }
+
+                $options['placeholder'] = __(Inflector::humanize(Inflector::underscore($text)));
+            }
         }
 
         return $options;

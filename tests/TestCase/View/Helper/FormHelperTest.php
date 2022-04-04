@@ -1616,4 +1616,85 @@ class FormHelperTest extends AbstractFormHelperTest
 
         $this->Form->end();
     }
+
+    public function testFloatingLabelPlaceholderGeneration()
+    {
+        $this->article['required']['title'] = false;
+        $this->Form->create($this->article);
+
+        $result = $this->Form->control('title', [
+            'label' => [
+                'floating' => true,
+            ],
+        ]);
+        $expected = [
+            'div' => ['class' => 'mb-3 form-floating form-group text'],
+                'input' => [
+                    'type' => 'text',
+                    'name' => 'title',
+                    'id' => 'title',
+                    'placeholder' => 'Title',
+                    'class' => 'form-control',
+                ],
+                ['label' => ['for' => 'title']],
+                    'Title',
+                '/label',
+            '/div',
+        ];
+        $this->assertHtml($expected, $result);
+    }
+
+    public function testFloatingLabelPlaceholderGenerationForNestedField()
+    {
+        $this->Form->create($this->article);
+
+        $result = $this->Form->control('author.name', [
+            'label' => [
+                'floating' => true,
+            ],
+        ]);
+        $expected = [
+            'div' => ['class' => 'mb-3 form-floating form-group text'],
+                'input' => [
+                    'type' => 'text',
+                    'name' => 'author[name]',
+                    'id' => 'author-name',
+                    'placeholder' => 'Name',
+                    'class' => 'form-control',
+                ],
+                ['label' => ['for' => 'author-name']],
+                    'Name',
+                '/label',
+            '/div',
+        ];
+        $this->assertHtml($expected, $result);
+    }
+
+    public function testFloatingLabelPlaceholderGenerationForIdField()
+    {
+        unset($this->article['required']['author_id']);
+        $this->Form->create($this->article);
+
+        $result = $this->Form->control('author_id', [
+            'type' => 'text',
+            'label' => [
+                'floating' => true,
+            ],
+        ]);
+        $expected = [
+            'div' => ['class' => 'mb-3 form-floating form-group text'],
+                'input' => [
+                    'type' => 'text',
+                    'name' => 'author_id',
+                    'id' => 'author-id',
+                    'placeholder' => 'Author',
+                    'class' => 'form-control',
+                ],
+                ['label' => ['for' => 'author-id']],
+                    'Author',
+                '/label',
+            '/div',
+        ];
+        $this->assertHtml($expected, $result);
+    }
 }
