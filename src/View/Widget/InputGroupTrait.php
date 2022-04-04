@@ -6,7 +6,7 @@ namespace BootstrapUI\View\Widget;
 use BootstrapUI\View\Helper\OptionsAwareTrait;
 use Cake\View\Form\ContextInterface;
 
-trait InputgroupTrait
+trait InputGroupTrait
 {
     use OptionsAwareTrait;
 
@@ -58,14 +58,12 @@ trait InputgroupTrait
         if ($prepend) {
             $prepend = $this->_checkForOptions($prepend);
             $attrs = $this->_processOptions($prepend, $attrs);
-            $data['inputClass'] = 'input-group-prepend';
             $prepend = $this->_addon($prepend['content'], $data);
         }
 
         if ($append) {
             $append = $this->_checkForOptions($append);
             $attrs = $this->_processOptions($append, $attrs);
-            $data['inputClass'] = 'input-group-append';
             $append = $this->_addon($append['content'], $data);
         }
 
@@ -92,27 +90,25 @@ trait InputgroupTrait
     /**
      * Get addon HTML.
      *
-     * @param string $addon Addon content.
+     * @param string[] $addons Addon content.
      * @param array $data Widget data.
      * @return string
      */
-    protected function _addon(string $addon, array $data): string
+    protected function _addon(array $addons, array $data): string
     {
-        if ($this->_isButton($addon)) {
-            $element = $addon;
-        } else {
-            $element = $this->_templates->format('inputGroupText', [
-                'content' => $addon,
-            ]);
+        $content = [];
+
+        foreach ($addons as $addon) {
+            if ($this->_isButton($addon)) {
+                $content[] = $addon;
+            } else {
+                $content[] = $this->_templates->format('inputGroupText', [
+                    'content' => $addon,
+                ]);
+            }
         }
 
-        $addon = $this->_templates->format('inputGroupAddon', [
-            'class' => $data['inputClass'],
-            'content' => $element,
-            'templateVars' => $data['templateVars'],
-        ]);
-
-        return $addon;
+        return implode('', $content);
     }
 
     /**
@@ -137,10 +133,20 @@ trait InputgroupTrait
         $ret = [];
 
         if (is_array($attachment)) {
-            $ret['content'] = $attachment[0];
-            $ret['options'] = $attachment[1];
+            $content = $attachment;
+            $options = [];
+
+            $possiblyOptions = end($attachment);
+            if (is_array($possiblyOptions)) {
+                $content = array_slice($content, 0, count($content) - 1);
+                $options = $possiblyOptions;
+            }
+
+            $ret['content'] = $content;
+            $ret['options'] = $options;
         } else {
-            $ret['content'] = $attachment;
+            $ret['content'] = [$attachment];
+            $ret['options'] = [];
         }
 
         return $ret;
@@ -160,6 +166,17 @@ trait InputgroupTrait
             $attrs['class'][] = $this->genClassName('input-group', $attachment['options']['size']);
             $attrs['class'] = $this->_toClassArray($attrs['class']);
         }
+
+        if (isset($attachment['options']['class'])) {
+            $attrs = $this->injectClasses($attachment['options']['class'], $attrs);
+        }
+
+        unset(
+            $attachment['options']['size'],
+            $attachment['options']['class']
+        );
+
+        $attrs += $attachment['options'];
 
         return $attrs;
     }

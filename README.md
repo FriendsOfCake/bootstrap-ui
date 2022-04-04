@@ -15,18 +15,17 @@
 [package]: https://packagist.org/packages/friendsofcake/bootstrap-ui
 [license]: LICENSE.txt
 
-Transparently use [Bootstrap 4][bs4] with [CakePHP 4][cakephp].
+Transparently use [Bootstrap 5][bs] with [CakePHP 4][cakephp].
 
 For version info see [version map](https://github.com/FriendsOfCake/bootstrap-ui/wiki#version-map).
 
 ## Requirements
 
 * CakePHP 4.x
-* Bootstrap 4.x
-* npm 5.x
-* jQuery 3.2+
-* Popper.js 1.x
-* Fontawesome 5.x
+* Bootstrap 5.x
+* npm 6.x
+* Popper.js 2.x
+* Bootstrap Icons 1.5.x
 
 ## What's included?
 
@@ -73,7 +72,7 @@ You can either use the Bootstrap commands to make the necessary changes, or do t
 
 ### Using the Bootstrap commands
 
-1. To install the Bootstrap assets (Bootstrap's CSS/JS files, jQuery and Popper.js) via npm you can use the `install`
+1. To install the Bootstrap assets (Bootstrap's CSS/JS files, Popper.js) via npm you can use the `install`
    command, or [install them manually](#installing-bootstrap-assets-via-npm):
 
    ```
@@ -82,6 +81,13 @@ You can either use the Bootstrap commands to make the necessary changes, or do t
 
    This will fetch all assets, copy the distribution assets to the BootstrapUI plugin's webroot directory, and symlink
    (or copy) them to your application's `webroot` directory.
+
+   If you want to install the latest minor versions of the assets instead of the exact pinned ones, you can use the
+   `--latest` option:
+
+   ```
+   bin/cake bootstrap install --latest
+   ```
 
 2. You will need to modify your `src/View/AppView` class to either extend `BootstrapUI\View\UIView` or
    use the trait `BootStrapUI\View\UIViewTrait`. For doing this you can either use the `modify_view` command, or
@@ -113,15 +119,20 @@ do manually if you wish to control which assets are being included, and where th
 Assuming you are in your application's root:
 
 ```
-npm install bootstrap@4 jquery@3 popper.js@1
+npm install @popperjs/core@2 bootstrap@5 bootstrap-icons@1
+mkdir -p webroot/css
+mkdir -p webroot/font/fonts
+mkdir -p webroot/js
+cp node_modules/@popperjs/core/dist/umd/popper.js webroot/js
+cp node_modules/@popperjs/core/dist/umd/popper.min.js webroot/js
 cp node_modules/bootstrap/dist/css/bootstrap.css webroot/css/
 cp node_modules/bootstrap/dist/css/bootstrap.min.css webroot/css/
 cp node_modules/bootstrap/dist/js/bootstrap.js webroot/js/
 cp node_modules/bootstrap/dist/js/bootstrap.min.js webroot/js/
-cp node_modules/jquery/dist/jquery.js webroot/js
-cp node_modules/jquery/dist/jquery.min.js webroot/js
-cp node_modules/popper.js/dist/popper.js webroot/js
-cp node_modules/popper.js/dist/popper.min.js webroot/js
+cp node_modules/bootstrap-icons/font/bootstrap-icons.css webroot/font/
+cp node_modules/bootstrap-icons/font/fonts/bootstrap-icons.woff webroot/font/fonts/
+cp node_modules/bootstrap-icons/font/fonts/bootstrap-icons.woff2 webroot/font/fonts/
+cp vendor/friendsofcake/bootstrap-ui/webroot/font/bootstrap-icon-sizes.css webroot/font/
 ```
 
 #### AppView setup using UIView
@@ -233,22 +244,25 @@ them using the standard plugin syntax:
 ```php
 // in the <head>
 echo $this->Html->css('BootstrapUI.bootstrap.min');
-echo $this->Html->script(['BootstrapUI.jquery.min', 'BootstrapUI.popper.min', 'BootstrapUI.bootstrap.min']);
+echo $this->Html->css(['BootstrapUI./font/bootstrap-icons', 'BootstrapUI./font/bootstrap-icon-sizes']);
+echo $this->Html->script(['BootstrapUI.popper.min', 'BootstrapUI.bootstrap.min']);
 ```
 
 If you have installed the assets manually, you'll need to use paths accordingly. With
-[the example copy script](#copying-example-layouts) you could use the standard short path syntax:
+[the example copy commands](#installing-bootstrap-assets-via-npm) you could use the standard short path syntax:
 
 ```php
 echo $this->Html->css('bootstrap.min');
-echo $this->Html->script(['jquery.min', 'popper.min', 'bootstrap.min']);
+echo $this->Html->css(['/font/bootstrap-icons', '/font/bootstrap-icon-sizes']);
+echo $this->Html->script(['popper.min', 'bootstrap.min']);
 ```
 
 If you're using paths that don't adhere to the CakePHP conventions, you'll have to explicitly specify them:
 
 ```php
 echo $this->Html->css('/path/to/bootstrap.css');
-echo $this->Html->script(['/path/to/jquery.js', '/path/to/popper.js', '/path/to/bootstrap.js']);
+echo $this->Html->css(['/path/to/bootstrap-icons.css', '/path/to/bootstrap-icon-sizes.css']);
+echo $this->Html->script(['/path/to/popper.js', '/path/to/bootstrap.js']);
 ```
 
 ## Bake templates
@@ -259,11 +273,28 @@ For those of you who want even more automation, some bake templates have been in
 bin/cake bake [subcommand] -t BootstrapUI
 ```
 
+Currently, bake templates for the following bake subcommands are included:
+
+### `template`
+
+Additionally to the default `index`, `add`, `edit`, and `view` templates, a `login` template is available too. While
+the default CRUD action view templates can be utilized like this:
+
+```bash
+bin/cake bake template ControllerName -t BootstrapUI
+```
+
+the `login` template has to be used explicitly by specifying the action name:
+
+```bash
+bin/cake bake template ControllerName login -t BootstrapUI
+```
+
 ## Usage
 
-At the core of BootstrapUI is a collection of enhancements for CakePHP core helpers. These helpers replace the HTML
-templates used to render elements for the views. This allows you to create forms and components that use the
-Bootstrap styles.
+At the core of BootstrapUI is a collection of enhancements for CakePHP core helpers. Among other things, these helpers
+replace the HTML templates used to render elements for the views. This allows you to create forms and components that
+use the Bootstrap styles.
 
 The current list of enhanced helpers are:
 
@@ -274,7 +305,7 @@ The current list of enhanced helpers are:
 - `BootstrapUI\View\Helper\BreadcrumbsHelper`
 
 When the `BootstrapUI\View\UIViewTrait` is initialized it loads the above helpers with the same aliases as the
-CakePHP core helpers. That means that when you use `$this->Form->create()` in your views. The helper being used
+CakePHP core helpers. That means that when you use `$this->Form->create()` in your views, the helper being used
 is from the BootstrapUI plugin.
 
 ### Basic forms
@@ -291,59 +322,59 @@ will render this HTML:
 
 ```html
 <form method="post" accept-charset="utf-8" role="form" action="/articles/add">
-    <div style="display:none;">
-        <input type="hidden" name="_method" value="POST">
-    </div>
-    <div class="form-group text">
-        <label for="title">Title</label>
+    <!-- ... -->
+    <div class="mb-3 form-group text">
+        <label class="form-label" for="title">Title</label>
         <input type="text" name="title" id="title" class="form-control">
     </div>
-    <div class="form-group form-check checkbox">
+    <div class="mb-3 form-group form-check checkbox">
         <input type="hidden" name="published" value="0">
         <input type="checkbox" class="form-check-input" name="published" value="1" id="published">
         <label class="form-check-label" for="published">Published</label>
     </div>
     <button type="submit" class="btn btn-secondary">Submit</button>
+    <!-- ... -->
 </form>
 ```
 
 ### Horizontal forms
 
+Horizontal forms automatically render labels and controls in separate columns (where applicable), labels in th first
+one, and controls in the second one.
+
+Alignment can be configured via the `align` option, which takes either a list of column sizes for the `md`
+[Bootstrap screen-size/breakpoint](https://getbootstrap.com/docs/5.0/layout/breakpoints/), or a matrix of
+screen-size/breakpoint names and column sizes.
+
+The following will use the default `md` screen-size/breakpoint:
+
 ```php
+use BootstrapUI\View\Helper\FormHelper;
+
 echo $this->Form->create($article, [
     'align' => [
-        'sm' => [
-            'left' => 6,
-            'middle' => 6,
-            'right' => 12
-        ],
-        'md' => [
-            'left' => 4,
-            'middle' => 4,
-            'right' => 4
-        ]
-    ]
+        FormHelper::GRID_COLUMN_ONE => 4, // first column (span over 4 columns)
+        FormHelper::GRID_COLUMN_TWO => 8, // second column (span over 8 columns)
+    ],
 ]);
 echo $this->Form->control('title');
 echo $this->Form->control('published', ['type' => 'checkbox']);
 echo $this->Form->end();
 ```
 
-will render this HTML:
+It will render this HTML:
 
 ```html
 <form method="post" accept-charset="utf-8" class="form-horizontal" role="form" action="/articles/add">
-    <div style="display:none;">
-        <input type="hidden" name="_method" value="POST">
-    </div>
-    <div class="form-group row text">
-        <label class="col-form-label col-sm-6 col-md-4" for="title">Title</label>
-        <div class="col-sm-6 col-md-4">
+    <!-- ... -->
+    <div class="mb-3 form-group row text">
+        <label class="col-form-label col-md-4" for="title">Title</label>
+        <div class="col-md-8">
             <input type="text" name="title" id="title" class="form-control">
         </div>
     </div>
-    <div class="form-group row checkbox">
-        <div class="offset-sm-6 offset-md-4 col-sm-6 col-md-4">
+    <div class="mb-3 form-group row checkbox">
+        <div class="offset-md-4 col-md-8">
             <div class="form-check">
                 <input type="hidden" name="published" value="0"/>
                 <input type="checkbox" name="published" value="1" id="published" class="form-check-input"/>
@@ -351,10 +382,70 @@ will render this HTML:
             </div>
         </div>
     </div>
+    <!-- ... -->
 </form>
 ```
 
+The following uses a matrix of screen-sizes/breakpoints and column sizes:
+
+```php
+use BootstrapUI\View\Helper\FormHelper;
+
+echo $this->Form->create($article, [
+    'align' => [
+        // column sizes for the `sm` screen-size/breakpoint
+        'sm' => [
+            FormHelper::GRID_COLUMN_ONE => 6,
+            FormHelper::GRID_COLUMN_TWO => 6,
+        ],
+        // column sizes for the `md` screen-size/breakpoint
+        'md' => [
+            FormHelper::GRID_COLUMN_ONE => 4,
+            FormHelper::GRID_COLUMN_TWO => 8,
+        ],
+    ],
+]);
+echo $this->Form->control('title');
+echo $this->Form->control('published', ['type' => 'checkbox']);
+echo $this->Form->end();
+```
+
+It will render this HTML:
+
+```html
+<form method="post" accept-charset="utf-8" class="form-horizontal" role="form" action="/articles/add">
+    <!-- ... -->
+    <div class="mb-3 form-group row text">
+        <label class="col-form-label col-sm-6 col-md-4" for="title">Title</label>
+        <div class="col-sm-6 col-md-8">
+            <input type="text" name="title" id="title" class="form-control">
+        </div>
+    </div>
+    <div class="mb-3 form-group row checkbox">
+        <div class="offset-sm-6 offset-md-4 col-sm-6 col-md-8">
+            <div class="form-check">
+                <input type="hidden" name="published" value="0"/>
+                <input type="checkbox" name="published" value="1" id="published" class="form-check-input"/>
+                <label class="form-check-label" for="published">Published</label>
+            </div>
+        </div>
+    </div>
+    <!-- ... -->
+</form>
+```
+
+The default alignment will use the `md` screen-size/breakpoint and the following column sizes:
+
+```php
+[
+    FormHelper::GRID_COLUMN_ONE => 2,
+    FormHelper::GRID_COLUMN_TWO => 10,
+]
+```
+
 ### Inline forms
+
+Inline forms will render controls on one and the same row, and hide labels for most controls.
 
 ```php
 echo $this->Form->create($article, [
@@ -369,8 +460,9 @@ will render this HTML:
 
 ```html
 <form method="post" accept-charset="utf-8" class="form-inline" role="form" action="/articles/add">
+    <!-- ... -->
     <div class="form-group text">
-        <label class="sr-only" for="title">Title</label>
+        <label class="form-label visually-hidden" for="title">Title</label>
         <input type="text" name="title" placeholder="Title" id="title" class="form-control"/>
     </div>
     <div class="form-check form-check-inline checkbox">
@@ -378,40 +470,50 @@ will render this HTML:
         <input type="checkbox" name="published" value="1" id="published" class="form-check-input">
         <label class="form-check-label" for="published">Published</label>
     </div>
-    ...
+    <!-- ... -->
 </form>
 ```
+
+### Spacing
+
+Out of the box BootstrapUI applies some default spacing for form controls. For default and horizontal aligned forms,
+the `mb-3` [spacing class](https://getbootstrap.com/docs/5.0/utilities/spacing/) is being applied to all controls,
+while inline forms are using the `g-3` [gutter class](https://getbootstrap.com/docs/5.0/layout/gutters/).
+
+This can be changed using the `spacing` option, it applies on a per-helper and per-form basis for all alignments, and
+for default/horizontal alignments it also applies on a per-control basis.
+
+```php
+// for all forms
+echo $this->Form->setConfig([
+    'spacing' => 'mb-6',
+]);
+```
+
+```php
+// for a specific form
+echo $this->Form->create($entity, [
+    'spacing' => 'mb-6',
+]);
+```
+
+```php
+// for a specific control (default/horizontal aligned forms only)
+echo $this->Form->control('title', [
+    'spacing' => 'mb-6',
+]);
+```
+
+To completely disable this behavior, set the `spacing` option to `false`.
 
 ### Supported controls
 
 BootstrapUI supports and generates Bootstrap compatible markup for all of CakePHP's default controls. Additionally it
 explicitly supports Bootstrap specific markup for the following controls:
 
+- `color`
 - `range`
-
-### Custom style controls
-
-BootstrapUI supports Bootstrap's
-[custom form control styles](https://getbootstrap.com/docs/4.5/components/forms/#custom-forms) for `checkbox`, `radio`,
-`select`, `file`, and `range` controls. To enable custom styles, set the `custom` option to `true`.
-
-```php
-echo $this->Form->control('image', [
-    'type' => 'file',
-    'custom' => true,
-]);
-```
-
-This would generate the following HTML:
-
-```html
-<div class="form-group file">
-    <div class="custom-file">
-        <input type="file" name="image" id="image" class="custom-file-input"/>
-        <label class="custom-file-label" for="image">Image</label>
-    </div>
-</div>
-```
+- `switch`
 
 ### Container attributes
 
@@ -431,8 +533,8 @@ echo $this->Form->control('title', [
 This would generate the following HTML:
 
 ```html
-<div data-meta="meta information" class="my-title-control form-group text">
-    <label for="title">Title</label>
+<div data-meta="meta information" class="my-title-control mb-3 form-group text">
+    <label class="form-label" for="title">Title</label>
     <input type="text" name="title" id="title" class="form-control">
 </div>
 ```
@@ -450,24 +552,80 @@ echo $this->Form->control('email', [
 This would generate the following HTML:
 
 ```html
-<div class="form-group email">
-    <label for="email">Email</label>
+<div class="mb-3 form-group email">
+    <label class="form-label" for="email">Email</label>
     <div class="input-group">
-        <div class="input-group-prepend">
-            <span class="input-group-text">@</span>
-        </div>
+        <span class="input-group-text">@</span>
         <input type="email" name="email" id="email" class="form-control"/>
+    </div>
+</div>
+```
+
+#### Multiple addons
+
+Multiple addons can be defined as an array for the `append` and `prepend` options:
+
+```php
+echo $this->Form->control('amount', [
+    'prepend' => ['$', '0.00'],
+]);
+```
+
+This would generate the following HTML:
+
+```html
+<div class="mb-3 form-group text">
+    <label class="form-label" for="amount">Amount</label>
+    <div class="input-group">
+        <span class="input-group-text">$</span>
+        <span class="input-group-text">0.00</span>
+        <input type="text" name="amount" id="amount" class="form-control"/>
+    </div>
+</div>
+```
+
+#### Addon options
+
+Addons support options that apply to the input group container. They can be defined by passing an array for the `append`
+and `prepend` options, and adding an array with options as the last entry.
+
+Options can contain HTML attributes as know from control options, as well as the special `size` option, which
+automatically translates to the corresponding input group size class.
+
+```php
+echo $this->Form->control('amount', [
+    'prepend' => [
+        '$',
+        '0.00',
+        [
+            'size' => 'lg',
+            'class' => 'custom',
+            'custom' => 'attribute',
+        ],
+    ],
+]);
+```
+
+This would generate the following HTML:
+
+```html
+<div class="mb-3 form-group text">
+    <label class="form-label" for="amount">Amount</label>
+    <div class="input-group input-group-lg custom" custom="attribute">
+        <span class="input-group-text">$</span>
+        <span class="input-group-text">0.00</span>
+        <input type="text" name="amount" id="amount" class="form-control"/>
     </div>
 </div>
 ```
 
 ### Inline checkboxes and radio buttons
 
-[Inline checkboxes and radio buttons](https://getbootstrap.com/docs/4.5/components/forms/#inline) (not to be confused
-with inline aligned forms), can be created by setting the `inline` option to `true`.
+[Inline checkboxes/switches and radio buttons](https://getbootstrap.com/docs/4.5/components/forms/#inline) (not to be
+confused with inline aligned forms), can be created by setting the `inline` option to `true`.
 
-Inlined checkboxes and radio buttons will be rendered on the same horizontal row, regardless of the configured form
-alignment.
+Inlined checkboxes/switches and radio buttons will be rendered on the same horizontal row. When using horizontal form
+alignment however, only multi-checkboxes will render on the same row!
 
 ```php
 echo $this->Form->control('option_1', [
@@ -483,15 +641,59 @@ echo $this->Form->control('option_2', [
 This would generate the following HTML:
 
 ```html
-<div class="form-check form-check-inline checkbox">
+<div class="mb-3 form-check form-check-inline checkbox">
     <input type="hidden" name="option-1" value="0"/>
     <input type="checkbox" name="option-1" value="1" id="option-1" class="form-check-input">
     <label class="form-check-label" for="option-1">Option 1</label>
 </div>
-<div class="form-check form-check-inline checkbox">
+<div class="mb-3 form-check form-check-inline checkbox">
     <input type="hidden" name="option-2" value="0"/>
     <input type="checkbox" name="option-2" value="2" id="option-2" class="form-check-input">
     <label class="form-check-label" for="option-2">Option 2</label>
+</div>
+```
+
+### Switches
+
+[Switch style checkboxes](https://getbootstrap.com/docs/5.0/forms/checks-radios/#switches) can be created by setting the
+`switch` option to `true`.
+
+```php
+echo $this->Form->control('option', [
+    'type' => 'checkbox',
+    'switch' => true,
+]);
+```
+
+This would generate the following HTML:
+
+```html
+<div class="mb-3 form-group form-check form-switch checkbox">
+    <input type="hidden" name="option" value="0"/>
+    <input type="checkbox" name="option" value="1" id="option" class="form-check-input">
+    <label class="form-check-label" for="option">Option</label>
+</div>
+```
+
+### Floating labels
+
+[Floating labels](https://getbootstrap.com/docs/5.0/forms/floating-labels) are supported for `text`, `textarea`, and
+(non-`multiple`) `select` controls. They can be enabled via the label's `floating` option:
+
+```php
+echo $this->Form->control('title', [
+    'label' => [
+        'floating' => true,
+    ],
+]);
+```
+
+This would generate the following HTML:
+
+```html
+<div class="mb-3 form-floating form-group text">
+    <input type="text" name="title" id="title" class="form-control"/>
+    <label for="title">Title</label>
 </div>
 ```
 
@@ -511,19 +713,42 @@ echo $this->Form->control('title', [
 This would generate the following HTML:
 
 ```html
-<div class="form-group text">
-    <label for="title">Title</label>
-    <input type="text" name="title" id="title" class="form-control"/>
-    <small class="form-text text-muted">Help text</small>
+<div class="mb-3 form-group text">
+    <label class="form-label" for="title">Title</label>
+    <input type="text" name="title" id="title" class="form-control" aria-describedby="title-help"/>
+    <small id="title-help" class="d-block form-text text-muted">Help text</small>
+</div>
+```
+
+Attributes can be configured by passing an array for the `help` option, where the text is then defined in the `content`
+key:
+
+```php
+echo $this->Form->control('title', [
+    'help' => [
+        'id' => 'custom-help',
+        'class' => 'custom',
+        'data-custom' => 'attribute',
+        'content' => 'Help text',
+    ],
+]);
+```
+
+This would generate the following HTML:
+
+```html
+<div class="mb-3 form-group text">
+    <label class="form-label" for="title">Title</label>
+    <input type="text" name="title" id="title" class="form-control" aria-describedby="custom-help"/>
+    <small id="custom-help" class="custom d-block form-text text-muted" data-custom="attribute">Help text</small>
 </div>
 ```
 
 ### Tooltips
 
-[Bootstrap tooltips](https://getbootstrap.com/docs/4.5/components/tooltips/) can be added to labels via the `tooltip`
-option. The tooltip toggles are by default being rendered as a [Font Awesome](https://fontawesome.com/) icon, so
-additionally to including everything required by Bootstrap to support tooltips, you need to make sure to include Font
-Awesome too.
+[Bootstrap tooltips](https://getbootstrap.com/docs/5.0/components/tooltips/) can be added to labels via the `tooltip`
+option. The tooltip toggles are by default being rendered as a [Bootstrap icon](https://icons.getbootstrap.com/), which
+is being included by default when installing the assets via the `install` command.
 
 ```php
 echo $this->Form->control('title', [
@@ -534,13 +759,15 @@ echo $this->Form->control('title', [
 This would generate the following HTML:
 
 ```html
-<div class="form-group text">
-    <label for="title">Title <span data-toggle="tooltip" title="Tooltip text" class="fas fa-info-circle"></span></label>
+<div class="mb-3 form-group text">
+    <label class="form-label" for="title">
+        Title <span data-bs-toggle="tooltip" title="Tooltip text" class="bi bi-info-circle-fill"></span>
+    </label>
     <input type="text" name="title" id="title" class="form-control"/>
 </div>
 ```
 
-If you want to use a different toggle, being it a different Font Awesome icon, or maybe a completely different icon
+If you want to use a different toggle, being it a different Boostrap icon, or maybe a completely different icon
 font/library, then you can do this by
 [overriding the `tooltip` template](https://book.cakephp.org/4/en/views/helpers/form.html#customizing-the-templates-formhelper-uses)
 accordingly, being it globally, per form, or per control:
@@ -549,7 +776,7 @@ accordingly, being it globally, per form, or per control:
 echo $this->Form->control('title', [
     'tooltip' => 'Tooltip text',
     'templates' => [
-        'tooltip' => '<span data-toggle="tooltip" title="{{content}}" class="material-icons">info</span>',
+        'tooltip' => '<span data-bs-toggle="tooltip" title="{{content}}" class="material-icons">info</span>',
     ],
 ]);
 ```
@@ -597,30 +824,11 @@ echo $this->Form->control('title');
 With an error on the `title` field, this would generate the following HTML:
 
 ```html
-<div class="form-group position-absolute text is-invalid">
-    <label for="title">Title</label>
+<div class="mb-3 form-group position-absolute text is-invalid">
+    <label class="form-label" for="title">Title</label>
     <input type="text" name="title" id="title" class="is-invalid form-control"/>
     <div class="invalid-tooltip">Error message</div>
 </div>
-```
-
-### Helper configuration
-
-You can configure each of the helpers by passing in extra parameters when loading them in your `AppView.php`.
-
-Here is an example of changing the `prev` and `next` labels for the Paginator helper.
-
-```php
-$this->loadHelper(
-    'Paginator',
-    [
-        'className' => 'BootstrapUI.Paginator',
-        'labels' => [
-            'prev' => 'previous',
-            'next' => 'next',
-        ]
-    ]
-);
 ```
 
 ### Flash Messages / Alerts
@@ -632,6 +840,8 @@ You can set Flash Messages using the default Flash component syntax. Supported t
 $this->Flash->success('Your Success Message.');
 ```
 
+#### Alert styles
+
 If you need to set other Bootstrap Alert styles you can do this with:
 
 ```php
@@ -639,6 +849,464 @@ $this->Flash->set('Your Dark Message.', ['params' => ['class' => 'dark']]);
 ```
 
 Supported styles are `primary`, `secondary`, `light`, `dark`.
+
+#### Icons
+
+By default alerts use Bootstrap icons depending on the alert type. The mapped types are `default`, `info`, `warning`,
+`error`, and `success`. You can disable/customize icons via the `icon` option/parameter, either globally for the flash
+helper, or individually for a single message.
+
+Message without icon:
+
+```php
+$this->Flash->success('Message without icon.', [
+    'params' => [
+        'icon' => false,
+    ],
+]);
+```
+
+Use a custom icon:
+
+```php
+$this->Flash->success('Message with custom icon.', [
+    'params' => [
+        'icon' => 'mic-mute-fill',
+    ],
+]);
+```
+
+Pass icon options (the icon name is optional here, when omitted, the default icon map will be looked up):
+
+```php
+$this->Flash->success('Message with custom icon options.', [
+    'params' => [
+        'icon' => [
+            'name' => 'mic-mute-fill',
+            'size' => '2xl',
+            'class' => 'foo bar me-2',
+            'data-custom' => 'attribute',
+        ],
+    ],
+]);
+```
+
+```html
+<i class="foo bar me-2 bi bi-mic-mute-fill bi-2xl" data-custom="attribute"></i>
+```
+
+Use custom HTML:
+
+```php
+$this->Flash->success('Message with custom icon HTML.', [
+    'params' => [
+        'icon' => '<span class="material-icons">volume_off</span>',
+    ],
+]);
+```
+
+Disable icons for all flash messages:
+
+```php
+$this->loadHelper('Flash', [
+    'className' => 'BootstrapUI.Flash',
+    'icon' => false,
+]);
+```
+
+Set icon options for all flash messages (the default icon map will be used, and the options will be applied to all
+icons):
+
+```php
+$this->loadHelper('Flash', [
+    'className' => 'BootstrapUI.Flash',
+    'icon' => [
+        'size' => '2xl',
+        'class' => 'foo bar me-2',
+        'data-custom' => 'attribute',
+    ],
+]);
+```
+
+Define a custom icon map:
+
+```php
+$this->loadHelper('Flash', [
+    'className' => 'BootstrapUI.Flash',
+    'iconMap' => [
+        'default' => 'info-circle-fill',
+        'success' => 'check-circle-fill',
+        'error' => 'exclamation-triangle-fill',
+        'info' => 'info-circle-fill',
+        'warning' => 'exclamation-triangle-fill',
+    ],
+]);
+```
+
+Use a different icon set:
+
+```php
+$this->Flash->success('Message with different icon set.', [
+    'params' => [
+        'icon' => [
+            'namespace' => 'fas',
+            'prefix' => 'fa',
+            'name' => 'microphone-slash',
+            'size' => '2xl',
+        ],
+    ],
+]);
+```
+
+```html
+<i class="me-2 fas fa-microphone-slash fa-2xl"></i>
+```
+
+Use a different icon set for all flash messages:
+
+```php
+$this->loadHelper('Html', [
+    'className' => 'BootstrapUI.Html',
+    'iconDefaults' => [
+        'namespace' => 'fas',
+        'prefix' => 'fa',
+    ],
+]);
+```
+
+```php
+$this->loadHelper('Flash', [
+    'className' => 'BootstrapUI.Flash',
+    'iconMap' => [
+        'default' => 'info-circle',
+        'success' => 'check-circle',
+        'error' => 'exclamation-triangle',
+        'info' => 'info-circle',
+        'warning' => 'exclamation-triangle',
+    ],
+]);
+```
+
+### Badges
+
+By default badges will render as `secondary` theme styled:
+
+```php
+echo $this->Html->badge('Text');
+```
+
+```html
+<span class="badge bg-secondary">Text</span>
+```
+
+#### Background colors
+
+[Background colors](https://getbootstrap.com/docs/5.0/components/badge/#background-colors) can be changed by specifying
+one of the Bootstrap theme color names via the `class` option, the helper will make sure that the correct prefixes
+are being applied:
+
+```php
+echo $this->Html->badge('Text', [
+    'class' => 'danger',
+]);
+```
+
+```html
+<span class="badge bg-danger">Text</span>
+```
+
+#### Using a different HTML tag
+
+By default badges are using the `<span>` tag. This can be changed via the `tag` option:
+
+```php
+echo $this->Html->badge('Text', [
+    'tag' => 'div',
+]);
+```
+
+```html
+<div class="badge bg-secondary">Text</div>
+```
+
+### Icons
+
+By default the HTML helper is configured to use [Bootstrap icons](https://icons.getbootstrap.com/).
+
+```php
+echo $this->Html->icon('mic-mute-fill');
+```
+
+```html
+<i class="bi bi-mic-mute-fill"></i>
+```
+
+#### Sizes
+
+Sizes can be specified via the `size` option, the passed value will automatically be prefixed:
+
+```php
+echo $this->Html->icon('mic-mute-fill', [
+    'size' => '2xl',
+]);
+```
+
+```html
+<i class="bi bi-mic-mute-fill bi-2xl"></i>
+```
+
+This plugin ships Bootstrap icon classes for the following sizes that center-align the icon vertically: `2xs`, `xs`,
+`sm`, `lg`, `xl`, and `2xl`, and the following ones that align the icons on the baseline: `1x`, `2x`, `3x`, `4x`, `5x`,
+`6x`, `7x`, `8x`, `9x`, and `10x`.
+
+#### Using a different icon set
+
+You can use a different icon set by configuring the `namespace` and `prefix `options, either per `icon()` call:
+
+```php
+echo $this->Html->icon('microphone-slash', [
+    'namespace' => 'fas',
+    'prefix' => 'fa',
+]);
+```
+
+or globally for all usages of `HtmlHelper::icon()` by configuring the HTML helper defaults:
+
+```php
+$this->loadHelper('Html', [
+    'className' => 'BootstrapUI.Html',
+    'iconDefaults' => [
+        'namespace' => 'fas',
+        'prefix' => 'fa',
+    ],
+]);
+```
+
+### Breadcrumbs
+
+The breadcrumbs helper is a drop-in replacement, no additional configuration is available/required.
+
+```php
+echo $this->Breadcrumbs
+    ->add('Home', '/')
+    ->add('Articles', '/articles')
+    ->add('View')
+    ->render();
+```
+
+```html
+<nav aria-label="breadcrumb">
+    <ol class="breadcrumb">
+        <li class="breadcrumb-item"><a href="/">Home</a></li>
+        <li class="breadcrumb-item active"><a href="/articles" aria-current="page">Articles</a></li>
+        <li class="breadcrumb-item"><span>View</span></li>
+    </ol>
+</nav>
+```
+
+### Pagination
+
+The paginator helper generates bootstrap compatible/styles markup when using the helper's standard methods, and also
+includes a convenience method that can generate a full set of pagination controls, that is first/previous/next/last as
+well as page number links, all enclosed in a list wrapper.
+
+```php
+echo $this->Paginator->first();
+echo $this->Paginator->prev();
+echo $this->Paginator->numbers();
+echo $this->Paginator->next();
+echo $this->Paginator->last();
+```
+
+This would generate the following HTML:
+
+```html
+<li class="page-item first">
+    <a class="page-link" aria-label="First" href="/articles/index">
+        <span aria-hidden="true">«</span>
+    </a>
+</li>
+<li class="page-item">
+    <a class="page-link" rel="prev" aria-label="Previous" href="/articles/index">
+        <span aria-hidden="true">‹</span>
+    </a>
+</li>
+<li class="page-item">
+    <a class="page-link" href="/articles/index">1</a>
+</li>
+<li class="page-item active" aria-current="page">
+    <a class="page-link" href="#">2</a>
+</li>
+<li class="page-item">
+    <a class="page-link" href="/articles/index?page=3">3</a>
+</li>
+<li class="page-item">
+    <a class="page-link" rel="next" aria-label="Next" href="/articles/index?page=3">
+        <span aria-hidden="true">›</span>
+    </a>
+</li>
+<li class="page-item last">
+    <a class="page-link" aria-label="Last" href="/articles/index?page=3">
+        <span aria-hidden="true">»</span>
+    </a>
+</li>
+```
+
+#### Configuring the ARIA labels
+
+When using the standard methods you can use the `label` option to pass a custom string to use for
+[the `aria-label` attribute](https://getbootstrap.com/docs/5.0/components/pagination/#working-with-icons):
+
+```php
+echo $this->Paginator->first('«', ['label' => __('Beginning')]);
+echo $this->Paginator->prev('‹', ['label' => __('Back')]);
+echo $this->Paginator->next('›', ['label' => __('Forward')]);
+echo $this->Paginator->last('»', ['label' => __('End')]);
+```
+
+This would generate the following HTML:
+
+```html
+<li class="page-item first">
+    <a class="page-link" aria-label="Beginning" href="/articles/index">
+        <span aria-hidden="true">«</span>
+    </a>
+</li>
+<li class="page-item">
+    <a class="page-link" rel="prev" aria-label="Back" href="/articles/index">
+        <span aria-hidden="true">‹</span>
+    </a>
+</li>
+<li class="page-item">
+    <a class="page-link" rel="next" aria-label="Forward" href="/articles/index?page=3">
+        <span aria-hidden="true">›</span>
+    </a>
+</li>
+<li class="page-item last">
+    <a class="page-link" aria-label="End" href="/articles/index?page=3">
+        <span aria-hidden="true">»</span>
+    </a>
+</li>
+```
+
+#### Generating a full set of controls
+
+A full set of pagination controls, that is first/previous/next/last as well as page number links, all enclosed in a list
+wrapper, can be generated using the `links()` method.
+
+By default it renders numbers only:
+
+```php
+echo $this->Paginator->links();
+```
+
+This would generate the following HTML:
+
+```html
+<ul class="pagination">
+    <li class="page-item">
+        <a class="page-link" href="/articles/index">1</a>
+    </li>
+    <li class="page-item active" aria-current="page">
+        <a class="page-link" href="#">2</a>
+    </li>
+    <li class="page-item">
+        <a class="page-link" href="/articles/index?page=3">3</a>
+    </li>
+</ul>
+```
+
+##### Configuring controls
+
+The generated controls can be configured via the `first`, `prev`, `next`, and `last` options, which each can take either
+boolean `true` to generate the control with the helper defaults, a string that is used as the control's text, or an
+array that allows specifying the link text as well as the ARIA label.
+
+The generated controls can be configured via the `first`, `prev`, `next`, and `last` options, which each take either
+boolean `true` to indicate that the control should be generated using the helper defaults, a string that is used as the
+control's text, or an array with `label` and `text` options that determine the ARIA label value and the link text:
+
+```php
+echo $this->Paginator->links([
+    'first' => '❮❮',
+    'prev' => true,
+    'next' => true,
+    'last' => [
+        'label' => 'End',
+        'text' => '❯❯',
+    ],
+]);
+```
+
+This would generate the following HTML:
+
+```html
+<ul class="pagination">
+    <li class="page-item first">
+        <a class="page-link" aria-label="First" href="/articles/index">
+            <span aria-hidden="true">❮❮</span>
+        </a>
+    </li>
+    <li class="page-item">
+        <a class="page-link" rel="prev" aria-label="Previous" href="/articles/index">
+            <span aria-hidden="true">‹</span>
+        </a>
+    </li>
+    <li class="page-item">
+        <a class="page-link" href="/articles/index">1</a>
+    </li>
+    <li class="page-item active" aria-current="page">
+        <a class="page-link" href="#">2</a>
+    </li>
+    <li class="page-item">
+        <a class="page-link" href="/articles/index?page=3">3</a>
+    </li>
+    <li class="page-item">
+        <a class="page-link" rel="next" aria-label="Next" href="/articles/index?page=3">
+            <span aria-hidden="true">›</span>
+        </a>
+    </li>
+    <li class="page-item last">
+        <a class="page-link" aria-label="End" href="/articles/index?page=3">
+            <span aria-hidden="true">❯❯</span>
+        </a>
+    </li>
+</ul>
+```
+
+##### Sizing
+
+[The size](https://getbootstrap.com/docs/5.0/components/pagination/#sizing) can be specified via the `size` option:
+
+```php
+echo $this->Paginator->links([
+    'size' => 'lg',
+]);
+```
+
+This would generate the following HTML:
+
+```html
+<ul class="pagination pagination-lg">
+    <!-- ... -->
+</ul>
+```
+
+### Helper configuration
+
+You can configure each of the helpers by passing in extra parameters when loading them in your `AppView.php`.
+
+Here is an example of changing the `prev` and `next` labels for the Paginator helper.
+
+```php
+$this->loadHelper('Paginator', [
+    'className' => 'BootstrapUI.Paginator',
+    'labels' => [
+        'prev' => 'previous',
+        'next' => 'next',
+    ],
+]);
+```
 
 ## Contributing
 
@@ -680,5 +1348,5 @@ Copyright (c) 2015, Jad Bitar and licensed under [The MIT License][mit].
 [composer]:https://getcomposer.org/
 [composer:ignore]:https://getcomposer.org/doc/faqs/should-i-commit-the-dependencies-in-my-vendor-directory.md
 [mit]:https://opensource.org/licenses/mit-license.php
-[bs4]:https://getbootstrap.com/
+[bs]:https://getbootstrap.com/
 [npm]:https://www.npmjs.com/

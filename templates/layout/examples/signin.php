@@ -5,7 +5,9 @@
 $this->Html->css('BootstrapUI.signin', ['block' => true]);
 $this->prepend(
     'tb_body_attrs',
-    ' class="' . implode(' ', [h($this->request->getParam('controller')), h($this->request->getParam('action'))]) . '" '
+    ' class="text-center ' .
+    implode(' ', [h($this->request->getParam('controller')), h($this->request->getParam('action'))]) .
+    '" '
 );
 $this->start('tb_body_start');
 /**
@@ -13,8 +15,7 @@ $this->start('tb_body_start');
  */
 if (!$this->fetch('tb_flash')) {
     $this->start('tb_flash');
-    if (isset($this->Flash))
-        echo $this->Flash->render();
+    echo $this->Flash->render();
     $this->end();
 }
 ?>

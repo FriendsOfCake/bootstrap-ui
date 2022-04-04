@@ -19,8 +19,8 @@ class RadioControlTest extends AbstractFormHelperTest
             ],
         ]);
         $expected = [
-            ['div' => ['class' => 'form-group radio', 'role' => 'group', 'aria-labelledby' => 'users-group-label']],
-                ['label' => ['id' => 'users-group-label', 'class' => 'd-block']],
+            ['div' => ['class' => 'mb-3 form-group radio', 'role' => 'group', 'aria-labelledby' => 'users-group-label']],
+                ['label' => ['id' => 'users-group-label', 'class' => 'form-label d-block']],
                     'Users',
                 '/label',
                 ['input' => [
@@ -70,7 +70,7 @@ class RadioControlTest extends AbstractFormHelperTest
             'label' => false,
         ]);
         $expected = [
-            ['div' => ['class' => 'form-group radio', 'role' => 'group', 'aria-labelledby' => 'users-group-label']],
+            ['div' => ['class' => 'mb-3 form-group radio', 'role' => 'group', 'aria-labelledby' => 'users-group-label']],
                 ['input' => [
                     'type' => 'hidden',
                     'name' => 'users',
@@ -118,8 +118,8 @@ class RadioControlTest extends AbstractFormHelperTest
             'label' => 'Custom Label',
         ]);
         $expected = [
-            ['div' => ['class' => 'form-group radio', 'role' => 'group', 'aria-labelledby' => 'users-group-label']],
-                ['label' => ['id' => 'users-group-label', 'class' => 'd-block']],
+            ['div' => ['class' => 'mb-3 form-group radio', 'role' => 'group', 'aria-labelledby' => 'users-group-label']],
+                ['label' => ['id' => 'users-group-label', 'class' => 'form-label d-block']],
                     'Custom Label',
                 '/label',
                 ['input' => [
@@ -173,63 +173,9 @@ class RadioControlTest extends AbstractFormHelperTest
             ],
         ]);
         $expected = [
-            ['div' => ['class' => 'form-group radio', 'role' => 'group', 'aria-labelledby' => 'users-group-label']],
-                ['label' => ['id' => 'users-group-label', 'class' => 'custom-label-class d-block', 'foo' => 'bar']],
+            ['div' => ['class' => 'mb-3 form-group radio', 'role' => 'group', 'aria-labelledby' => 'users-group-label']],
+                ['label' => ['id' => 'users-group-label', 'class' => 'custom-label-class form-label d-block', 'foo' => 'bar']],
                     'Custom Label',
-                '/label',
-                ['input' => [
-                    'type' => 'hidden',
-                    'name' => 'users',
-                    'value' => '',
-                ]],
-                ['div' => ['class' => 'form-check']],
-                    ['input' => [
-                        'class' => 'form-check-input',
-                        'type' => 'radio',
-                        'name' => 'users',
-                        'id' => 'users-1',
-                        'value' => 1,
-                    ]],
-                    ['label' => ['class' => 'form-check-label', 'for' => 'users-1']],
-                        'option 1',
-                    '/label',
-                '/div',
-                ['div' => ['class' => 'form-check']],
-                    ['input' => [
-                        'class' => 'form-check-input',
-                        'type' => 'radio',
-                        'name' => 'users',
-                        'id' => 'users-2',
-                        'value' => 2,
-                    ]],
-                    ['label' => ['class' => 'form-check-label', 'for' => 'users-2']],
-                        'option 2',
-                    '/label',
-                '/div',
-            '/div',
-        ];
-        $this->assertHtml($expected, $result);
-    }
-
-    public function testDefaultAlignRadioControlWithCustomLabelTemplateIsBackwardsCompatible()
-    {
-        $this->Form->create($this->article);
-
-        $result = $this->Form->control('users', [
-            'type' => 'radio',
-            'options' => [
-                1 => 'option 1',
-                2 => 'option 2',
-            ],
-            'templates' => [
-                'radioLabel' =>
-                    '<label id="{{groupId}}" class="d-block" back="compat">{{text}}{{tooltip}}</label>',
-            ],
-        ]);
-        $expected = [
-            ['div' => ['class' => 'form-group radio', 'role' => 'group', 'aria-labelledby' => 'users-group-label']],
-                ['label' => ['id' => 'users-group-label', 'class' => 'd-block', 'back' => 'compat']],
-                    'Users',
                 '/label',
                 ['input' => [
                     'type' => 'hidden',
@@ -278,8 +224,8 @@ class RadioControlTest extends AbstractFormHelperTest
             'help' => 'Help text',
         ]);
         $expected = [
-            ['div' => ['class' => 'form-group radio', 'role' => 'group', 'aria-labelledby' => 'users-group-label']],
-                ['label' => ['id' => 'users-group-label', 'class' => 'd-block']],
+            ['div' => ['class' => 'mb-3 form-group radio', 'role' => 'group', 'aria-labelledby' => 'users-group-label']],
+                ['label' => ['id' => 'users-group-label', 'class' => 'form-label d-block']],
                     'Users',
                 '/label',
                 ['input' => [
@@ -293,6 +239,7 @@ class RadioControlTest extends AbstractFormHelperTest
                         'type' => 'radio',
                         'name' => 'users',
                         'id' => 'users-1',
+                        'aria-describedby' => 'users-help',
                         'value' => 1,
                     ]],
                     ['label' => ['class' => 'form-check-label', 'for' => 'users-1']],
@@ -305,13 +252,14 @@ class RadioControlTest extends AbstractFormHelperTest
                         'type' => 'radio',
                         'name' => 'users',
                         'id' => 'users-2',
+                        'aria-describedby' => 'users-help',
                         'value' => 2,
                     ]],
                     ['label' => ['class' => 'form-check-label', 'for' => 'users-2']],
                         'option 2',
                     '/label',
                 '/div',
-                ['small' => ['class' => 'form-text text-muted']],
+                ['small' => ['id' => 'users-help', 'class' => 'd-block form-text text-muted']],
                     'Help text',
                 '/small',
             '/div',
@@ -325,15 +273,20 @@ class RadioControlTest extends AbstractFormHelperTest
 
         $result = $this->Form->control('users', [
             'type' => 'radio',
-            'options' => [],
+            'options' => [
+                1 => 'option 1',
+                2 => 'option 2',
+            ],
             'help' => [
+                'id' => 'custom-help',
                 'foo' => 'bar',
+                'class' => 'help-class',
                 'content' => 'Help text',
             ],
         ]);
         $expected = [
-            ['div' => ['class' => 'form-group radio', 'role' => 'group', 'aria-labelledby' => 'users-group-label']],
-                ['label' => ['id' => 'users-group-label', 'class' => 'd-block']],
+            ['div' => ['class' => 'mb-3 form-group radio', 'role' => 'group', 'aria-labelledby' => 'users-group-label']],
+                ['label' => ['id' => 'users-group-label', 'class' => 'form-label d-block']],
                     'Users',
                 '/label',
                 ['input' => [
@@ -341,7 +294,37 @@ class RadioControlTest extends AbstractFormHelperTest
                     'name' => 'users',
                     'value' => '',
                 ]],
-                ['small' => ['foo' => 'bar', 'class' => 'form-text text-muted']],
+                ['div' => ['class' => 'form-check']],
+                    ['input' => [
+                        'class' => 'form-check-input',
+                        'type' => 'radio',
+                        'name' => 'users',
+                        'id' => 'users-1',
+                        'aria-describedby' => 'custom-help',
+                        'value' => 1,
+                    ]],
+                    ['label' => ['class' => 'form-check-label', 'for' => 'users-1']],
+                        'option 1',
+                    '/label',
+                '/div',
+                ['div' => ['class' => 'form-check']],
+                    ['input' => [
+                        'class' => 'form-check-input',
+                        'type' => 'radio',
+                        'name' => 'users',
+                        'id' => 'users-2',
+                        'aria-describedby' => 'custom-help',
+                        'value' => 2,
+                    ]],
+                    ['label' => ['class' => 'form-check-label', 'for' => 'users-2']],
+                        'option 2',
+                    '/label',
+                '/div',
+                ['small' => [
+                    'id' => 'custom-help',
+                    'foo' => 'bar',
+                    'class' => 'help-class d-block form-text text-muted',
+                ]],
                     'Help text',
                 '/small',
             '/div',
@@ -358,15 +341,43 @@ class RadioControlTest extends AbstractFormHelperTest
             'tooltip' => 'Tooltip text',
         ]);
         $expected = [
-            ['div' => ['class' => 'form-group radio', 'role' => 'group', 'aria-labelledby' => 'users-group-label']],
-                ['label' => ['id' => 'users-group-label', 'class' => 'd-block']],
+            ['div' => ['class' => 'mb-3 form-group radio', 'role' => 'group', 'aria-labelledby' => 'users-group-label']],
+                ['label' => ['id' => 'users-group-label', 'class' => 'form-label d-block']],
                     'Users' ,
                     'span' => [
-                        'data-toggle' => 'tooltip',
+                        'data-bs-toggle' => 'tooltip',
                         'title' => 'Tooltip text',
-                        'class' => 'fas fa-info-circle',
+                        'class' => 'bi bi-info-circle-fill',
                     ],
                     '/span',
+                '/label',
+                ['input' => [
+                    'type' => 'hidden',
+                    'name' => 'users',
+                    'value' => '',
+                ]],
+            '/div',
+        ];
+        $this->assertHtml($expected, $result);
+    }
+
+    public function testDefaultAlignRadioControlWithCustomSpacing()
+    {
+        $this->Form->create($this->article);
+
+        $result = $this->Form->control('users', [
+            'type' => 'radio',
+            'options' => [],
+            'spacing' => 'custom-spacing',
+        ]);
+        $expected = [
+            ['div' => [
+                'class' => 'custom-spacing form-group radio',
+                'role' => 'group',
+                'aria-labelledby' => 'users-group-label',
+            ]],
+                ['label' => ['id' => 'users-group-label', 'class' => 'form-label d-block']],
+                    'Users',
                 '/label',
                 ['input' => [
                     'type' => 'hidden',
@@ -394,11 +405,11 @@ class RadioControlTest extends AbstractFormHelperTest
         ]);
         $expected = [
             ['div' => [
-                'class' => 'form-group radio is-invalid',
+                'class' => 'mb-3 form-group radio is-invalid',
                 'role' => 'group',
                 'aria-labelledby' => 'users-group-label',
             ]],
-                ['label' => ['id' => 'users-group-label', 'class' => 'd-block']],
+                ['label' => ['id' => 'users-group-label', 'class' => 'form-label d-block']],
                     'Users',
                 '/label',
                 ['input' => [
@@ -414,6 +425,8 @@ class RadioControlTest extends AbstractFormHelperTest
                         'type' => 'radio',
                         'name' => 'users',
                         'id' => 'users-1',
+                        'aria-invalid' => 'true',
+                        'aria-describedby' => 'users-error',
                         'value' => 1,
                     ]],
                     ['label' => ['class' => 'form-check-label', 'for' => 'users-1']],
@@ -427,15 +440,164 @@ class RadioControlTest extends AbstractFormHelperTest
                         'type' => 'radio',
                         'name' => 'users',
                         'id' => 'users-2',
+                        'aria-invalid' => 'true',
+                        'aria-describedby' => 'users-error',
                         'value' => 2,
                     ]],
                     ['label' => ['class' => 'form-check-label', 'for' => 'users-2']],
                         'option 2',
                     '/label',
                 '/div',
-                ['div' => ['class' => 'invalid-feedback']],
+                ['div' => ['id' => 'users-error', 'class' => 'ms-0 invalid-feedback']],
                     'error message',
                 '/div',
+            '/div',
+        ];
+        $this->assertHtml($expected, $result);
+    }
+
+    public function testDefaultAlignRadioControlWithErrorAndHelp()
+    {
+        $this->article['errors'] = [
+            'users' => ['error message'],
+        ];
+        $this->Form->create($this->article);
+
+        $result = $this->Form->control('users', [
+            'type' => 'radio',
+            'options' => [
+                1 => 'option 1',
+                2 => 'option 2',
+            ],
+            'help' => 'Help text',
+        ]);
+        $expected = [
+            ['div' => [
+                'class' => 'mb-3 form-group radio is-invalid',
+                'role' => 'group',
+                'aria-labelledby' => 'users-group-label',
+            ]],
+                ['label' => ['id' => 'users-group-label', 'class' => 'form-label d-block']],
+                    'Users',
+                '/label',
+                ['input' => [
+                    'class' => 'is-invalid',
+                    'type' => 'hidden',
+                    'name' => 'users',
+                    'value' => '',
+                ]],
+                ['div' => ['class' => 'form-check']],
+                    ['input' => [
+                        'class' => 'form-check-input is-invalid',
+                        'type' => 'radio',
+                        'name' => 'users',
+                        'id' => 'users-1',
+                        'aria-invalid' => 'true',
+                        'aria-describedby' => 'users-error users-help',
+                        'value' => 1,
+                    ]],
+                    ['label' => ['class' => 'form-check-label', 'for' => 'users-1']],
+                        'option 1',
+                    '/label',
+                '/div',
+                ['div' => ['class' => 'form-check']],
+                    ['input' => [
+                        'class' => 'form-check-input is-invalid',
+                        'type' => 'radio',
+                        'name' => 'users',
+                        'id' => 'users-2',
+                        'aria-invalid' => 'true',
+                        'aria-describedby' => 'users-error users-help',
+                        'value' => 2,
+                    ]],
+                    ['label' => ['class' => 'form-check-label', 'for' => 'users-2']],
+                        'option 2',
+                    '/label',
+                '/div',
+                ['div' => ['id' => 'users-error', 'class' => 'ms-0 invalid-feedback']],
+                    'error message',
+                '/div',
+                ['small' => ['id' => 'users-help', 'class' => 'd-block form-text text-muted']],
+                    'Help text',
+                '/small',
+            '/div',
+        ];
+        $this->assertHtml($expected, $result);
+    }
+
+    public function testDefaultAlignRadioControlWithErrorAndHelpOptions()
+    {
+        $this->article['errors'] = [
+            'users' => ['error message'],
+        ];
+        $this->Form->create($this->article);
+
+        $result = $this->Form->control('users', [
+            'type' => 'radio',
+            'options' => [
+                1 => 'option 1',
+                2 => 'option 2',
+            ],
+            'help' => [
+                'id' => 'custom-help',
+                'foo' => 'bar',
+                'class' => 'help-class',
+                'content' => 'Help text',
+            ],
+        ]);
+        $expected = [
+            ['div' => [
+                'class' => 'mb-3 form-group radio is-invalid',
+                'role' => 'group',
+                'aria-labelledby' => 'users-group-label',
+            ]],
+                ['label' => ['id' => 'users-group-label', 'class' => 'form-label d-block']],
+                    'Users',
+                '/label',
+                ['input' => [
+                    'class' => 'is-invalid',
+                    'type' => 'hidden',
+                    'name' => 'users',
+                    'value' => '',
+                ]],
+                ['div' => ['class' => 'form-check']],
+                    ['input' => [
+                        'class' => 'form-check-input is-invalid',
+                        'type' => 'radio',
+                        'name' => 'users',
+                        'id' => 'users-1',
+                        'aria-invalid' => 'true',
+                        'aria-describedby' => 'users-error custom-help',
+                        'value' => 1,
+                    ]],
+                    ['label' => ['class' => 'form-check-label', 'for' => 'users-1']],
+                        'option 1',
+                    '/label',
+                '/div',
+                ['div' => ['class' => 'form-check']],
+                    ['input' => [
+                        'class' => 'form-check-input is-invalid',
+                        'type' => 'radio',
+                        'name' => 'users',
+                        'id' => 'users-2',
+                        'aria-invalid' => 'true',
+                        'aria-describedby' => 'users-error custom-help',
+                        'value' => 2,
+                    ]],
+                    ['label' => ['class' => 'form-check-label', 'for' => 'users-2']],
+                        'option 2',
+                    '/label',
+                '/div',
+                ['div' => ['id' => 'users-error', 'class' => 'ms-0 invalid-feedback']],
+                    'error message',
+                '/div',
+                ['small' => [
+                    'id' => 'custom-help',
+                    'foo' => 'bar',
+                    'class' => 'help-class d-block form-text text-muted',
+                ]],
+                    'Help text',
+                '/small',
             '/div',
         ];
         $this->assertHtml($expected, $result);
@@ -459,11 +621,11 @@ class RadioControlTest extends AbstractFormHelperTest
         $expected = [
             ['div' => [
                 'attribute' => 'container-attribute',
-                'class' => 'container-class form-group radio',
+                'class' => 'container-class mb-3 form-group radio',
                 'role' => 'group',
                 'aria-labelledby' => 'users-group-label',
             ]],
-                ['label' => ['id' => 'users-group-label', 'class' => 'd-block']],
+                ['label' => ['id' => 'users-group-label', 'class' => 'form-label d-block']],
                     'Users',
                 '/label',
                 ['input' => [
@@ -521,11 +683,11 @@ class RadioControlTest extends AbstractFormHelperTest
         $expected = [
             ['div' => [
                 'attribute' => 'container-attribute',
-                'class' => 'container-class form-group radio is-invalid',
+                'class' => 'container-class mb-3 form-group radio is-invalid',
                 'role' => 'group',
                 'aria-labelledby' => 'users-group-label',
             ]],
-                ['label' => ['id' => 'users-group-label', 'class' => 'd-block']],
+                ['label' => ['id' => 'users-group-label', 'class' => 'form-label d-block']],
                     'Users',
                 '/label',
                 ['input' => [
@@ -541,6 +703,8 @@ class RadioControlTest extends AbstractFormHelperTest
                         'type' => 'radio',
                         'name' => 'users',
                         'id' => 'users-1',
+                        'aria-invalid' => 'true',
+                        'aria-describedby' => 'users-error',
                         'value' => 1,
                     ]],
                     ['label' => ['class' => 'form-check-label', 'for' => 'users-1']],
@@ -554,13 +718,15 @@ class RadioControlTest extends AbstractFormHelperTest
                         'type' => 'radio',
                         'name' => 'users',
                         'id' => 'users-2',
+                        'aria-invalid' => 'true',
+                        'aria-describedby' => 'users-error',
                         'value' => 2,
                     ]],
                     ['label' => ['class' => 'form-check-label', 'for' => 'users-2']],
                         'option 2',
                     '/label',
                 '/div',
-                ['div' => ['class' => 'invalid-feedback']],
+                ['div' => ['id' => 'users-error', 'class' => 'ms-0 invalid-feedback']],
                     'error message',
                 '/div',
             '/div',
@@ -581,8 +747,8 @@ class RadioControlTest extends AbstractFormHelperTest
             'nestedInput' => true,
         ]);
         $expected = [
-            ['div' => ['class' => 'form-group radio', 'role' => 'group', 'aria-labelledby' => 'users-group-label']],
-                ['label' => ['id' => 'users-group-label', 'class' => 'd-block']],
+            ['div' => ['class' => 'mb-3 form-group radio', 'role' => 'group', 'aria-labelledby' => 'users-group-label']],
+                ['label' => ['id' => 'users-group-label', 'class' => 'form-label d-block']],
                     'Users',
                 '/label',
                 ['input' => [
@@ -632,8 +798,8 @@ class RadioControlTest extends AbstractFormHelperTest
             'inline' => true,
         ]);
         $expected = [
-            ['div' => ['class' => 'form-group radio', 'role' => 'group', 'aria-labelledby' => 'users-group-label']],
-                ['label' => ['id' => 'users-group-label', 'class' => 'd-block']],
+            ['div' => ['class' => 'mb-3 form-group radio', 'role' => 'group', 'aria-labelledby' => 'users-group-label']],
+                ['label' => ['id' => 'users-group-label', 'class' => 'form-label d-block']],
                     'Users',
                 '/label',
                 ['input' => [
@@ -684,7 +850,7 @@ class RadioControlTest extends AbstractFormHelperTest
             'label' => false,
         ]);
         $expected = [
-            ['div' => ['class' => 'form-group radio', 'role' => 'group', 'aria-labelledby' => 'users-group-label']],
+            ['div' => ['class' => 'mb-3 form-group radio', 'role' => 'group', 'aria-labelledby' => 'users-group-label']],
                 ['input' => [
                     'type' => 'hidden',
                     'name' => 'users',
@@ -733,8 +899,8 @@ class RadioControlTest extends AbstractFormHelperTest
             'label' => 'Custom Label',
         ]);
         $expected = [
-            ['div' => ['class' => 'form-group radio', 'role' => 'group', 'aria-labelledby' => 'users-group-label']],
-                ['label' => ['id' => 'users-group-label', 'class' => 'd-block']],
+            ['div' => ['class' => 'mb-3 form-group radio', 'role' => 'group', 'aria-labelledby' => 'users-group-label']],
+                ['label' => ['id' => 'users-group-label', 'class' => 'form-label d-block']],
                     'Custom Label',
                 '/label',
                 ['input' => [
@@ -789,64 +955,13 @@ class RadioControlTest extends AbstractFormHelperTest
             ],
         ]);
         $expected = [
-            ['div' => ['class' => 'form-group radio', 'role' => 'group', 'aria-labelledby' => 'users-group-label']],
-                ['label' => ['id' => 'users-group-label', 'class' => 'custom-label-class d-block', 'foo' => 'bar']],
-                    'Custom Label',
-                '/label',
-                ['input' => [
-                    'type' => 'hidden',
-                    'name' => 'users',
-                    'value' => '',
+            ['div' => ['class' => 'mb-3 form-group radio', 'role' => 'group', 'aria-labelledby' => 'users-group-label']],
+                ['label' => [
+                    'id' => 'users-group-label',
+                    'class' => 'custom-label-class form-label d-block',
+                    'foo' => 'bar',
                 ]],
-                ['div' => ['class' => 'form-check form-check-inline']],
-                    ['input' => [
-                        'class' => 'form-check-input',
-                        'type' => 'radio',
-                        'name' => 'users',
-                        'id' => 'users-1',
-                        'value' => 1,
-                    ]],
-                    ['label' => ['class' => 'form-check-label', 'for' => 'users-1']],
-                        'option 1',
-                    '/label',
-                '/div',
-                ['div' => ['class' => 'form-check form-check-inline']],
-                    ['input' => [
-                        'class' => 'form-check-input',
-                        'type' => 'radio',
-                        'name' => 'users',
-                        'id' => 'users-2',
-                        'value' => 2,
-                    ]],
-                    ['label' => ['class' => 'form-check-label', 'for' => 'users-2']],
-                        'option 2',
-                    '/label',
-                '/div',
-            '/div',
-        ];
-        $this->assertHtml($expected, $result);
-    }
-
-    public function testDefaultAlignRadioControlInlineWithCustomLabelTemplateIsBackwardsCompatible()
-    {
-        $this->Form->create($this->article);
-
-        $result = $this->Form->control('users', [
-            'type' => 'radio',
-            'options' => [
-                1 => 'option 1',
-                2 => 'option 2',
-            ],
-            'inline' => true,
-            'templates' => [
-                'radioLabel' =>
-                    '<label id="{{groupId}}" class="d-block" back="compat">{{text}}{{tooltip}}</label>',
-            ],
-        ]);
-        $expected = [
-            ['div' => ['class' => 'form-group radio', 'role' => 'group', 'aria-labelledby' => 'users-group-label']],
-                ['label' => ['id' => 'users-group-label', 'class' => 'd-block', 'back' => 'compat']],
-                    'Users',
+                    'Custom Label',
                 '/label',
                 ['input' => [
                     'type' => 'hidden',
@@ -896,8 +1011,8 @@ class RadioControlTest extends AbstractFormHelperTest
             'help' => 'Help text',
         ]);
         $expected = [
-            ['div' => ['class' => 'form-group radio', 'role' => 'group', 'aria-labelledby' => 'users-group-label']],
-                ['label' => ['id' => 'users-group-label', 'class' => 'd-block']],
+            ['div' => ['class' => 'mb-3 form-group radio', 'role' => 'group', 'aria-labelledby' => 'users-group-label']],
+                ['label' => ['id' => 'users-group-label', 'class' => 'form-label d-block']],
                     'Users',
                 '/label',
                 ['input' => [
@@ -911,6 +1026,7 @@ class RadioControlTest extends AbstractFormHelperTest
                         'type' => 'radio',
                         'name' => 'users',
                         'id' => 'users-1',
+                        'aria-describedby' => 'users-help',
                         'value' => 1,
                     ]],
                     ['label' => ['class' => 'form-check-label', 'for' => 'users-1']],
@@ -923,13 +1039,14 @@ class RadioControlTest extends AbstractFormHelperTest
                         'type' => 'radio',
                         'name' => 'users',
                         'id' => 'users-2',
+                        'aria-describedby' => 'users-help',
                         'value' => 2,
                     ]],
                     ['label' => ['class' => 'form-check-label', 'for' => 'users-2']],
                         'option 2',
                     '/label',
                 '/div',
-                ['small' => ['class' => 'form-text text-muted']],
+                ['small' => ['id' => 'users-help', 'class' => 'd-block form-text text-muted']],
                     'Help text',
                 '/small',
             '/div',
@@ -943,16 +1060,21 @@ class RadioControlTest extends AbstractFormHelperTest
 
         $result = $this->Form->control('users', [
             'type' => 'radio',
-            'options' => [],
+            'options' => [
+                1 => 'option 1',
+                2 => 'option 2',
+            ],
             'inline' => true,
             'help' => [
+                'id' => 'custom-help',
                 'foo' => 'bar',
+                'class' => 'help-class',
                 'content' => 'Help text',
             ],
         ]);
         $expected = [
-            ['div' => ['class' => 'form-group radio', 'role' => 'group', 'aria-labelledby' => 'users-group-label']],
-                ['label' => ['id' => 'users-group-label', 'class' => 'd-block']],
+            ['div' => ['class' => 'mb-3 form-group radio', 'role' => 'group', 'aria-labelledby' => 'users-group-label']],
+                ['label' => ['id' => 'users-group-label', 'class' => 'form-label d-block']],
                     'Users',
                 '/label',
                 ['input' => [
@@ -960,7 +1082,37 @@ class RadioControlTest extends AbstractFormHelperTest
                     'name' => 'users',
                     'value' => '',
                 ]],
-                ['small' => ['foo' => 'bar', 'class' => 'form-text text-muted']],
+                ['div' => ['class' => 'form-check form-check-inline']],
+                    ['input' => [
+                        'class' => 'form-check-input',
+                        'type' => 'radio',
+                        'name' => 'users',
+                        'id' => 'users-1',
+                        'aria-describedby' => 'custom-help',
+                        'value' => 1,
+                    ]],
+                    ['label' => ['class' => 'form-check-label', 'for' => 'users-1']],
+                        'option 1',
+                    '/label',
+                '/div',
+                ['div' => ['class' => 'form-check form-check-inline']],
+                    ['input' => [
+                        'class' => 'form-check-input',
+                        'type' => 'radio',
+                        'name' => 'users',
+                        'id' => 'users-2',
+                        'aria-describedby' => 'custom-help',
+                        'value' => 2,
+                    ]],
+                    ['label' => ['class' => 'form-check-label', 'for' => 'users-2']],
+                        'option 2',
+                    '/label',
+                '/div',
+                ['small' => [
+                    'id' => 'custom-help',
+                    'foo' => 'bar',
+                    'class' => 'help-class d-block form-text text-muted',
+                ]],
                     'Help text',
                 '/small',
             '/div',
@@ -978,13 +1130,13 @@ class RadioControlTest extends AbstractFormHelperTest
             'tooltip' => 'Tooltip text',
         ]);
         $expected = [
-            ['div' => ['class' => 'form-group radio', 'role' => 'group', 'aria-labelledby' => 'users-group-label']],
-                ['label' => ['id' => 'users-group-label', 'class' => 'd-block']],
+            ['div' => ['class' => 'mb-3 form-group radio', 'role' => 'group', 'aria-labelledby' => 'users-group-label']],
+                ['label' => ['id' => 'users-group-label', 'class' => 'form-label d-block']],
                     'Users' ,
                     'span' => [
-                        'data-toggle' => 'tooltip',
+                        'data-bs-toggle' => 'tooltip',
                         'title' => 'Tooltip text',
-                        'class' => 'fas fa-info-circle',
+                        'class' => 'bi bi-info-circle-fill',
                     ],
                     '/span',
                 '/label',
@@ -1015,11 +1167,11 @@ class RadioControlTest extends AbstractFormHelperTest
         ]);
         $expected = [
             ['div' => [
-                'class' => 'form-group radio is-invalid',
+                'class' => 'mb-3 form-group radio is-invalid',
                 'role' => 'group',
                 'aria-labelledby' => 'users-group-label',
             ]],
-                ['label' => ['id' => 'users-group-label', 'class' => 'd-block']],
+                ['label' => ['id' => 'users-group-label', 'class' => 'form-label d-block']],
                     'Users',
                 '/label',
                 ['input' => [
@@ -1035,6 +1187,8 @@ class RadioControlTest extends AbstractFormHelperTest
                         'type' => 'radio',
                         'name' => 'users',
                         'id' => 'users-1',
+                        'aria-invalid' => 'true',
+                        'aria-describedby' => 'users-error',
                         'value' => 1,
                     ]],
                     ['label' => ['class' => 'form-check-label', 'for' => 'users-1']],
@@ -1048,13 +1202,15 @@ class RadioControlTest extends AbstractFormHelperTest
                         'type' => 'radio',
                         'name' => 'users',
                         'id' => 'users-2',
+                        'aria-invalid' => 'true',
+                        'aria-describedby' => 'users-error',
                         'value' => 2,
                     ]],
                     ['label' => ['class' => 'form-check-label', 'for' => 'users-2']],
                         'option 2',
                     '/label',
                 '/div',
-                ['div' => ['class' => 'invalid-feedback']],
+                ['div' => ['id' => 'users-error', 'class' => 'ms-0 invalid-feedback']],
                     'error message',
                 '/div',
             '/div',
@@ -1081,11 +1237,11 @@ class RadioControlTest extends AbstractFormHelperTest
         $expected = [
             ['div' => [
                 'attribute' => 'container-attribute',
-                'class' => 'container-class form-group radio',
+                'class' => 'container-class mb-3 form-group radio',
                 'role' => 'group',
                 'aria-labelledby' => 'users-group-label',
             ]],
-                ['label' => ['id' => 'users-group-label', 'class' => 'd-block']],
+                ['label' => ['id' => 'users-group-label', 'class' => 'form-label d-block']],
                     'Users',
                 '/label',
                 ['input' => [
@@ -1144,11 +1300,11 @@ class RadioControlTest extends AbstractFormHelperTest
         $expected = [
             ['div' => [
                 'attribute' => 'container-attribute',
-                'class' => 'container-class form-group radio is-invalid',
+                'class' => 'container-class mb-3 form-group radio is-invalid',
                 'role' => 'group',
                 'aria-labelledby' => 'users-group-label',
             ]],
-                ['label' => ['id' => 'users-group-label', 'class' => 'd-block']],
+                ['label' => ['id' => 'users-group-label', 'class' => 'form-label d-block']],
                     'Users',
                 '/label',
                 ['input' => [
@@ -1164,6 +1320,8 @@ class RadioControlTest extends AbstractFormHelperTest
                         'type' => 'radio',
                         'name' => 'users',
                         'id' => 'users-1',
+                        'aria-invalid' => 'true',
+                        'aria-describedby' => 'users-error',
                         'value' => 1,
                     ]],
                     ['label' => ['class' => 'form-check-label', 'for' => 'users-1']],
@@ -1177,13 +1335,15 @@ class RadioControlTest extends AbstractFormHelperTest
                         'type' => 'radio',
                         'name' => 'users',
                         'id' => 'users-2',
+                        'aria-invalid' => 'true',
+                        'aria-describedby' => 'users-error',
                         'value' => 2,
                     ]],
                     ['label' => ['class' => 'form-check-label', 'for' => 'users-2']],
                         'option 2',
                     '/label',
                 '/div',
-                ['div' => ['class' => 'invalid-feedback']],
+                ['div' => ['id' => 'users-error', 'class' => 'ms-0 invalid-feedback']],
                     'error message',
                 '/div',
             '/div',
@@ -1205,8 +1365,8 @@ class RadioControlTest extends AbstractFormHelperTest
             'nestedInput' => true,
         ]);
         $expected = [
-            ['div' => ['class' => 'form-group radio', 'role' => 'group', 'aria-labelledby' => 'users-group-label']],
-                ['label' => ['id' => 'users-group-label', 'class' => 'd-block']],
+            ['div' => ['class' => 'mb-3 form-group radio', 'role' => 'group', 'aria-labelledby' => 'users-group-label']],
+                ['label' => ['id' => 'users-group-label', 'class' => 'form-label d-block']],
                     'Users',
                 '/label',
                 ['input' => [
@@ -1261,11 +1421,11 @@ class RadioControlTest extends AbstractFormHelperTest
         ]);
         $expected = [
             ['div' => [
-                'class' => 'form-group radio is-invalid',
+                'class' => 'mb-3 form-group radio is-invalid',
                 'role' => 'group',
                 'aria-labelledby' => 'users-group-label',
             ]],
-                ['label' => ['id' => 'users-group-label', 'class' => 'd-block']],
+                ['label' => ['id' => 'users-group-label', 'class' => 'form-label d-block']],
                     'Users',
                 '/label',
                 ['input' => [
@@ -1282,6 +1442,8 @@ class RadioControlTest extends AbstractFormHelperTest
                             'type' => 'radio',
                             'name' => 'users',
                             'id' => 'users-1',
+                            'aria-invalid' => 'true',
+                            'aria-describedby' => 'users-error',
                             'value' => 1,
                         ]],
                         'option 1',
@@ -1295,12 +1457,14 @@ class RadioControlTest extends AbstractFormHelperTest
                             'type' => 'radio',
                             'name' => 'users',
                             'id' => 'users-2',
+                            'aria-invalid' => 'true',
+                            'aria-describedby' => 'users-error',
                             'value' => 2,
                         ]],
                         'option 2',
                     '/label',
                 '/div',
-                ['div' => ['class' => 'invalid-feedback']],
+                ['div' => ['id' => 'users-error', 'class' => 'ms-0 invalid-feedback']],
                     'error message',
                 '/div',
             '/div',
@@ -1328,8 +1492,8 @@ class RadioControlTest extends AbstractFormHelperTest
             ],
         ]);
         $expected = [
-            ['div' => ['class' => 'form-group radio', 'role' => 'group', 'aria-labelledby' => 'users-group-label']],
-                ['label' => ['id' => 'users-group-label', 'class' => 'd-block']],
+            ['div' => ['class' => 'mb-3 form-group radio', 'role' => 'group', 'aria-labelledby' => 'users-group-label']],
+                ['label' => ['id' => 'users-group-label', 'class' => 'form-label d-block']],
                     'Users',
                 '/label',
                 ['input' => [
@@ -1399,8 +1563,8 @@ class RadioControlTest extends AbstractFormHelperTest
             'inline' => true,
         ]);
         $expected = [
-            ['div' => ['class' => 'form-group radio', 'role' => 'group', 'aria-labelledby' => 'users-group-label']],
-                ['label' => ['id' => 'users-group-label', 'class' => 'd-block']],
+            ['div' => ['class' => 'mb-3 form-group radio', 'role' => 'group', 'aria-labelledby' => 'users-group-label']],
+                ['label' => ['id' => 'users-group-label', 'class' => 'form-label d-block']],
                     'Users',
                 '/label',
                 ['input' => [
@@ -1471,8 +1635,8 @@ class RadioControlTest extends AbstractFormHelperTest
             'nestedInput' => true,
         ]);
         $expected = [
-            ['div' => ['class' => 'form-group radio', 'role' => 'group', 'aria-labelledby' => 'users-group-label']],
-                ['label' => ['id' => 'users-group-label', 'class' => 'd-block']],
+            ['div' => ['class' => 'mb-3 form-group radio', 'role' => 'group', 'aria-labelledby' => 'users-group-label']],
+                ['label' => ['id' => 'users-group-label', 'class' => 'form-label d-block']],
                     'Users',
                 '/label',
                 ['input' => [
