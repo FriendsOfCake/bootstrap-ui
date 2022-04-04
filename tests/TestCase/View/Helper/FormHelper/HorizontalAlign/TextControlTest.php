@@ -63,6 +63,117 @@ class TextControlTest extends AbstractFormHelperTest
                         'type' => 'text',
                         'name' => 'title',
                         'id' => 'title',
+                        'placeholder' => 'Title',
+                        'class' => 'form-control',
+                    ],
+                    'label' => ['class' => 'ps-4', 'for' => 'title'],
+                        'Title',
+                    '/label',
+                '/div',
+            '/div',
+        ];
+        $this->assertHtml($expected, $result);
+    }
+
+    public function testHorizontalAlignTextControlWithFloatingLabelAndCustomLabelText()
+    {
+        unset($this->article['required']['title']);
+        $this->Form->create($this->article, [
+            'align' => [
+                'sm' => [
+                    FormHelper::GRID_COLUMN_ONE => 5,
+                    FormHelper::GRID_COLUMN_TWO => 7,
+                ],
+            ],
+        ]);
+
+        $result = $this->Form->control('title', [
+            'label' => [
+                'floating' => true,
+                'text' => 'Custom Label',
+            ],
+        ]);
+        $expected = [
+            'div' => ['class' => 'mb-3 form-group row text'],
+                ['div' => ['class' => 'offset-sm-5 col-sm-7 form-floating']],
+                    'input' => [
+                        'type' => 'text',
+                        'name' => 'title',
+                        'id' => 'title',
+                        'placeholder' => 'Custom Label',
+                        'class' => 'form-control',
+                    ],
+                    'label' => ['class' => 'ps-4', 'for' => 'title'],
+                        'Custom Label',
+                    '/label',
+                '/div',
+            '/div',
+        ];
+        $this->assertHtml($expected, $result);
+    }
+
+    public function testHorizontalAlignTextControlWithFloatingLabelAndCustomPlaceholder()
+    {
+        unset($this->article['required']['title']);
+        $this->Form->create($this->article, [
+            'align' => [
+                'sm' => [
+                    FormHelper::GRID_COLUMN_ONE => 5,
+                    FormHelper::GRID_COLUMN_TWO => 7,
+                ],
+            ],
+        ]);
+
+        $result = $this->Form->control('title', [
+            'label' => [
+                'floating' => true,
+            ],
+            'placeholder' => 'Custom Placeholder',
+        ]);
+        $expected = [
+            'div' => ['class' => 'mb-3 form-group row text'],
+                ['div' => ['class' => 'offset-sm-5 col-sm-7 form-floating']],
+                    'input' => [
+                        'type' => 'text',
+                        'name' => 'title',
+                        'id' => 'title',
+                        'placeholder' => 'Custom Placeholder',
+                        'class' => 'form-control',
+                    ],
+                    'label' => ['class' => 'ps-4', 'for' => 'title'],
+                        'Title',
+                    '/label',
+                '/div',
+            '/div',
+        ];
+        $this->assertHtml($expected, $result);
+    }
+
+    public function testHorizontalAlignTextControlWithFloatingLabelAndDisabledPlaceholder()
+    {
+        unset($this->article['required']['title']);
+        $this->Form->create($this->article, [
+            'align' => [
+                'sm' => [
+                    FormHelper::GRID_COLUMN_ONE => 5,
+                    FormHelper::GRID_COLUMN_TWO => 7,
+                ],
+            ],
+        ]);
+
+        $result = $this->Form->control('title', [
+            'label' => [
+                'floating' => true,
+            ],
+            'placeholder' => false,
+        ]);
+        $expected = [
+            'div' => ['class' => 'mb-3 form-group row text'],
+                ['div' => ['class' => 'offset-sm-5 col-sm-7 form-floating']],
+                    'input' => [
+                        'type' => 'text',
+                        'name' => 'title',
+                        'id' => 'title',
                         'class' => 'form-control',
                     ],
                     'label' => ['class' => 'ps-4', 'for' => 'title'],

@@ -52,6 +52,102 @@ class TextControlTest extends AbstractFormHelperTest
                         'type' => 'text',
                         'name' => 'title',
                         'id' => 'title',
+                        'placeholder' => 'Title',
+                        'class' => 'form-control',
+                    ],
+                    'label' => ['for' => 'title'],
+                        'Title',
+                    '/label',
+                '/div',
+            '/div',
+        ];
+        $this->assertHtml($expected, $result);
+    }
+
+    public function testInlineAlignTextControlWithFloatingLabelAndCustomLabelText()
+    {
+        unset($this->article['required']['title']);
+        $this->Form->create($this->article, [
+            'align' => 'inline',
+        ]);
+
+        $result = $this->Form->control('title', [
+            'label' => [
+                'floating' => true,
+                'text' => 'Custom Label',
+            ],
+        ]);
+        $expected = [
+            ['div' => ['class' => 'col-auto']],
+                'div' => ['class' => 'form-floating form-group text'],
+                    'input' => [
+                        'type' => 'text',
+                        'name' => 'title',
+                        'id' => 'title',
+                        'placeholder' => 'Custom Label',
+                        'class' => 'form-control',
+                    ],
+                    'label' => ['for' => 'title'],
+                        'Custom Label',
+                    '/label',
+                '/div',
+            '/div',
+        ];
+        $this->assertHtml($expected, $result);
+    }
+
+    public function testInlineAlignTextControlWithFloatingLabelAndCustomPlaceholder()
+    {
+        unset($this->article['required']['title']);
+        $this->Form->create($this->article, [
+            'align' => 'inline',
+        ]);
+
+        $result = $this->Form->control('title', [
+            'label' => [
+                'floating' => true,
+            ],
+            'placeholder' => 'Custom Placeholder',
+        ]);
+        $expected = [
+            ['div' => ['class' => 'col-auto']],
+                'div' => ['class' => 'form-floating form-group text'],
+                    'input' => [
+                        'type' => 'text',
+                        'name' => 'title',
+                        'id' => 'title',
+                        'placeholder' => 'Custom Placeholder',
+                        'class' => 'form-control',
+                    ],
+                    'label' => ['for' => 'title'],
+                        'Title',
+                    '/label',
+                '/div',
+            '/div',
+        ];
+        $this->assertHtml($expected, $result);
+    }
+
+    public function testInlineAlignTextControlWithFloatingLabelAndDisabledPlaceholder()
+    {
+        unset($this->article['required']['title']);
+        $this->Form->create($this->article, [
+            'align' => 'inline',
+        ]);
+
+        $result = $this->Form->control('title', [
+            'label' => [
+                'floating' => true,
+            ],
+            'placeholder' => false,
+        ]);
+        $expected = [
+            ['div' => ['class' => 'col-auto']],
+                'div' => ['class' => 'form-floating form-group text'],
+                    'input' => [
+                        'type' => 'text',
+                        'name' => 'title',
+                        'id' => 'title',
                         'class' => 'form-control',
                     ],
                     'label' => ['for' => 'title'],
