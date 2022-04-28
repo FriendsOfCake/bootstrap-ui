@@ -851,11 +851,11 @@ class FormHelperTest extends AbstractFormHelperTest
     }
 
     /**
-     * Test that "form-control" class is added when using methods for specific input.
+     * Test that "form-*" classes are added when using methods for specific input.
      *
      * @return void
      */
-    public function testFormControlClassInjection()
+    public function testFormClassInjection()
     {
         $result = $this->Form->text('foo');
         $this->assertStringContainsString('class="form-control"', $result);
@@ -864,7 +864,8 @@ class FormHelperTest extends AbstractFormHelperTest
         $this->assertStringContainsString('class="custom form-control"', $result);
 
         $result = $this->Form->select('foo');
-        $this->assertStringContainsString('class="form-control"', $result);
+        $this->assertStringNotContainsString('"form-control"', $result);
+        $this->assertStringContainsString('class="form-select"', $result);
 
         $result = $this->Form->textarea('foo');
         $this->assertStringContainsString('class="form-control"', $result);
@@ -877,9 +878,11 @@ class FormHelperTest extends AbstractFormHelperTest
 
         $result = $this->Form->checkbox('foo');
         $this->assertStringNotContainsString('"form-control"', $result);
+        $this->assertStringContainsString('class="form-check-input"', $result);
 
         $result = $this->Form->radio('foo', ['1' => 'Opt 1', '2' => 'Opt 2']);
         $this->assertStringNotContainsString('"form-control"', $result);
+        $this->assertStringContainsString('class="form-check-input"', $result);
 
         $result = $this->Form->color('foo');
         $this->assertStringContainsString('class="form-control form-control-color"', $result);

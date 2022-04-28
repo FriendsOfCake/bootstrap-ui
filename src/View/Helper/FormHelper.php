@@ -484,6 +484,17 @@ class FormHelper extends Helper
     }
 
     /**
+     * @inheritDoc
+     */
+    public function select(string $fieldName, iterable $options = [], array $attributes = []): string
+    {
+        $attributes['injectFormControl'] = false;
+        $attributes = $this->injectClasses('form-select', $attributes);
+
+        return parent::select($fieldName, $options, $attributes);
+    }
+
+    /**
      * {@inheritDoc}
      *
      * Additionally to the core form helper options, the following BootstrapUI related options are supported:
@@ -704,7 +715,6 @@ class FormHelper extends Helper
         if ($options['label'] !== false) {
             $options['label'] = $this->injectClasses('form-check-label', (array)$options['label']);
         }
-        $options = $this->injectClasses('form-check-input', $options);
 
         if ($this->_align === static::ALIGN_HORIZONTAL) {
             $options['inline'] = false;
@@ -848,11 +858,6 @@ class FormHelper extends Helper
 
         if ($labelClasses) {
             $options['label'] = $this->injectClasses($labelClasses, (array)$options['label']);
-        }
-
-        if ($options['type'] !== 'multicheckbox') {
-            $options['injectFormControl'] = false;
-            $options = $this->injectClasses('form-select', $options);
         }
 
         return $options;
@@ -1164,6 +1169,16 @@ class FormHelper extends Helper
         }
 
         return $html;
+    }
+
+    /**
+     * @inheritDoc
+     */
+    public function checkbox(string $fieldName, array $options = [])
+    {
+        $options = $this->injectClasses('form-check-input', $options);
+
+        return parent::checkbox($fieldName, $options);
     }
 
     /**
