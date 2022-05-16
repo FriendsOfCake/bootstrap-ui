@@ -521,6 +521,90 @@ class FormHelperTest extends AbstractFormHelperTest
         $this->assertHtml($expected, $result);
     }
 
+    public function testAddOnWithBasicInputs()
+    {
+        $this->article['required']['title'] = false;
+
+        $this->Form->create($this->article);
+
+        $result = $this->Form->text('title', ['prepend' => '@']);
+        $expected = [
+            ['div' => ['class' => 'input-group']],
+                'span' => ['class' => 'input-group-text'],
+                    '@',
+                '/span',
+                'input' => [
+                    'type' => 'text',
+                    'name' => 'title',
+                    'class' => 'form-control',
+                ],
+            '/div',
+        ];
+        $this->assertHtml($expected, $result);
+
+        $result = $this->Form->textArea('title', ['prepend' => '@']);
+        $expected = [
+            ['div' => ['class' => 'input-group']],
+                'span' => ['class' => 'input-group-text'],
+                    '@',
+                '/span',
+                'textarea' => [
+                    'name' => 'title',
+                    'class' => 'form-control',
+                    'rows' => 5,
+                ],
+                '/textarea',
+            '/div',
+        ];
+        $this->assertHtml($expected, $result);
+
+        $result = $this->Form->select('title', [], ['prepend' => '@']);
+        $expected = [
+            ['div' => ['class' => 'input-group']],
+                'span' => ['class' => 'input-group-text'],
+                    '@',
+                '/span',
+                ['select' => ['name' => 'title', 'class' => 'form-select']],
+                    ['option' => ['value' => '']],
+                    '/option',
+                '/select',
+            '/div',
+        ];
+        $this->assertHtml($expected, $result);
+
+        $result = $this->Form->file('title', ['prepend' => '@']);
+        $expected = [
+            ['div' => ['class' => 'input-group']],
+                'span' => ['class' => 'input-group-text'],
+                    '@',
+                '/span',
+                'input' => [
+                    'type' => 'file',
+                    'name' => 'title',
+                    'class' => 'form-control',
+                ],
+            '/div',
+        ];
+        $this->assertHtml($expected, $result);
+
+        $result = $this->Form->dateTime('title', ['prepend' => '@']);
+        $expected = [
+            ['div' => ['class' => 'input-group']],
+                'span' => ['class' => 'input-group-text'],
+                    '@',
+                '/span',
+                'input' => [
+                    'type' => 'datetime-local',
+                    'name' => 'title',
+                    'class' => 'form-control',
+                    'step' => 1,
+                    'value' => '',
+                ],
+            '/div',
+        ];
+        $this->assertHtml($expected, $result);
+    }
+
     public function testFormCreate()
     {
         $result = $this->Form->create($this->article);
