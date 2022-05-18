@@ -35,6 +35,7 @@ trait InputGroupTrait
             'injectFormControl' => true,
             'injectErrorClass' => null,
             'input' => null,
+            'templateVars' => null,
         ];
 
         if ($data['injectFormControl'] && $data['type'] !== 'hidden') {
