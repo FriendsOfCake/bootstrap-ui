@@ -29,7 +29,7 @@ jobs:
           POSTGRES_PASSWORD: postgres
 
     steps:
-    - uses: actions/checkout@v2
+    - uses: actions/checkout@v3
 
     - name: Setup PHP
       uses: shivammathur/setup-php@v2
@@ -60,14 +60,14 @@ jobs:
 
     - name: Code Coverage Report
       if: matrix.php-version == '7.4'
-      uses: codecov/codecov-action@v2
+      uses: codecov/codecov-action@v3
 
   cs-stan:
     name: Coding Standard & Static Analysis
     runs-on: ubuntu-18.04
 
     steps:
-    - uses: actions/checkout@v2
+    - uses: actions/checkout@v3
 
     - name: Setup PHP
       uses: shivammathur/setup-php@v2
@@ -75,7 +75,7 @@ jobs:
         php-version: '7.4'
         extensions: mbstring, intl
         coverage: none
-        tools: cs2pr, vimeo/psalm:4.21, phpstan:1.4
+        tools: cs2pr, vimeo/psalm:4.23, phpstan:1.7
 
     - name: Composer Install
       run: composer install
@@ -84,9 +84,9 @@ jobs:
       run: vendor/bin/phpcs --report=checkstyle src/ tests/ | cs2pr
 
     - name: Run psalm
-      if: success() || failure()
+      if: always()
       run: psalm --output-format=github
 
     - name: Run phpstan
-      if: success() || failure()
+      if: always()
       run: phpstan analyse
