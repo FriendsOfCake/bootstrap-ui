@@ -34,6 +34,7 @@ class RadioControlTest extends AbstractFormHelperTest
                 ['div' => ['class' => 'col-sm-7']],
                     ['input' => [
                         'type' => 'hidden',
+                        'id' => 'users',
                         'name' => 'users',
                         'value' => '',
                     ]],
@@ -91,6 +92,7 @@ class RadioControlTest extends AbstractFormHelperTest
                 ['div' => ['class' => 'col-sm-7']],
                     ['input' => [
                         'type' => 'hidden',
+                        'id' => 'users',
                         'name' => 'users',
                         'value' => '',
                     ]],
@@ -151,6 +153,7 @@ class RadioControlTest extends AbstractFormHelperTest
                 ['div' => ['class' => 'col-sm-7']],
                     ['input' => [
                         'type' => 'hidden',
+                        'id' => 'users',
                         'name' => 'users',
                         'value' => '',
                     ]],
@@ -215,6 +218,7 @@ class RadioControlTest extends AbstractFormHelperTest
                 ['div' => ['class' => 'col-sm-7']],
                     ['input' => [
                         'type' => 'hidden',
+                        'id' => 'users',
                         'name' => 'users',
                         'value' => '',
                     ]],
@@ -275,6 +279,7 @@ class RadioControlTest extends AbstractFormHelperTest
                 ['div' => ['class' => 'col-sm-7']],
                     ['input' => [
                         'type' => 'hidden',
+                        'id' => 'users',
                         'name' => 'users',
                         'value' => '',
                     ]],
@@ -345,6 +350,7 @@ class RadioControlTest extends AbstractFormHelperTest
                 ['div' => ['class' => 'col-sm-7']],
                     ['input' => [
                         'type' => 'hidden',
+                        'id' => 'users',
                         'name' => 'users',
                         'value' => '',
                     ]],
@@ -416,6 +422,7 @@ class RadioControlTest extends AbstractFormHelperTest
                 ['div' => ['class' => 'col-sm-7']],
                     ['input' => [
                         'type' => 'hidden',
+                        'id' => 'users',
                         'name' => 'users',
                         'value' => '',
                     ]],
@@ -453,6 +460,7 @@ class RadioControlTest extends AbstractFormHelperTest
                 ['div' => ['class' => 'col-sm-7']],
                     ['input' => [
                         'type' => 'hidden',
+                        'id' => 'users',
                         'name' => 'users',
                         'value' => '',
                     ]],
@@ -496,6 +504,7 @@ class RadioControlTest extends AbstractFormHelperTest
                     ['input' => [
                         'class' => 'is-invalid',
                         'type' => 'hidden',
+                        'id' => 'users',
                         'name' => 'users',
                         'value' => '',
                     ]],
@@ -573,6 +582,7 @@ class RadioControlTest extends AbstractFormHelperTest
                     ['input' => [
                         'class' => 'is-invalid',
                         'type' => 'hidden',
+                        'id' => 'users',
                         'name' => 'users',
                         'value' => '',
                     ]],
@@ -656,6 +666,7 @@ class RadioControlTest extends AbstractFormHelperTest
                     ['input' => [
                         'class' => 'is-invalid',
                         'type' => 'hidden',
+                        'id' => 'users',
                         'name' => 'users',
                         'value' => '',
                     ]],
@@ -738,6 +749,7 @@ class RadioControlTest extends AbstractFormHelperTest
                 ['div' => ['class' => 'col-sm-7']],
                     ['input' => [
                         'type' => 'hidden',
+                        'id' => 'users',
                         'name' => 'users',
                         'value' => '',
                     ]],
@@ -810,6 +822,7 @@ class RadioControlTest extends AbstractFormHelperTest
                     ['input' => [
                         'class' => 'is-invalid',
                         'type' => 'hidden',
+                        'id' => 'users',
                         'name' => 'users',
                         'value' => '',
                     ]],
@@ -879,6 +892,7 @@ class RadioControlTest extends AbstractFormHelperTest
                 ['div' => ['class' => 'col-sm-7']],
                     ['input' => [
                         'type' => 'hidden',
+                        'id' => 'users',
                         'name' => 'users',
                         'value' => '',
                     ]],
@@ -947,6 +961,7 @@ class RadioControlTest extends AbstractFormHelperTest
                     ['input' => [
                         'class' => 'is-invalid',
                         'type' => 'hidden',
+                        'id' => 'users',
                         'name' => 'users',
                         'value' => '',
                     ]],
@@ -1016,6 +1031,7 @@ class RadioControlTest extends AbstractFormHelperTest
                 ['div' => ['class' => 'col-sm-7']],
                     ['input' => [
                         'type' => 'hidden',
+                        'id' => 'users',
                         'name' => 'users',
                         'value' => '',
                     ]],
@@ -1074,6 +1090,7 @@ class RadioControlTest extends AbstractFormHelperTest
                 ['div' => ['class' => 'col-sm-7']],
                     ['input' => [
                         'type' => 'hidden',
+                        'id' => 'users',
                         'name' => 'users',
                         'value' => '',
                     ]],
@@ -1135,6 +1152,7 @@ class RadioControlTest extends AbstractFormHelperTest
                 ['div' => ['class' => 'col-sm-7']],
                     ['input' => [
                         'type' => 'hidden',
+                        'id' => 'users',
                         'name' => 'users',
                         'value' => '',
                     ]],
@@ -1200,6 +1218,7 @@ class RadioControlTest extends AbstractFormHelperTest
                 ['div' => ['class' => 'col-sm-7']],
                     ['input' => [
                         'type' => 'hidden',
+                        'id' => 'users',
                         'name' => 'users',
                         'value' => '',
                     ]],
@@ -1261,6 +1280,7 @@ class RadioControlTest extends AbstractFormHelperTest
                 ['div' => ['class' => 'col-sm-7']],
                     ['input' => [
                         'type' => 'hidden',
+                        'id' => 'users',
                         'name' => 'users',
                         'value' => '',
                     ]],
@@ -1332,6 +1352,7 @@ class RadioControlTest extends AbstractFormHelperTest
                 ['div' => ['class' => 'col-sm-7']],
                     ['input' => [
                         'type' => 'hidden',
+                        'id' => 'users',
                         'name' => 'users',
                         'value' => '',
                     ]],
@@ -1404,6 +1425,7 @@ class RadioControlTest extends AbstractFormHelperTest
                 ['div' => ['class' => 'col-sm-7']],
                     ['input' => [
                         'type' => 'hidden',
+                        'id' => 'users',
                         'name' => 'users',
                         'value' => '',
                     ]],
@@ -1448,6 +1470,7 @@ class RadioControlTest extends AbstractFormHelperTest
                     ['input' => [
                         'class' => 'is-invalid',
                         'type' => 'hidden',
+                        'id' => 'users',
                         'name' => 'users',
                         'value' => '',
                     ]],
@@ -1526,6 +1549,7 @@ class RadioControlTest extends AbstractFormHelperTest
                 ['div' => ['class' => 'col-sm-7']],
                     ['input' => [
                         'type' => 'hidden',
+                        'id' => 'users',
                         'name' => 'users',
                         'value' => '',
                     ]],
@@ -1599,6 +1623,7 @@ class RadioControlTest extends AbstractFormHelperTest
                     ['input' => [
                         'class' => 'is-invalid',
                         'type' => 'hidden',
+                        'id' => 'users',
                         'name' => 'users',
                         'value' => '',
                     ]],
@@ -1669,6 +1694,7 @@ class RadioControlTest extends AbstractFormHelperTest
                 ['div' => ['class' => 'col-sm-7']],
                     ['input' => [
                         'type' => 'hidden',
+                        'id' => 'users',
                         'name' => 'users',
                         'value' => '',
                     ]],
@@ -1738,6 +1764,7 @@ class RadioControlTest extends AbstractFormHelperTest
                     ['input' => [
                         'class' => 'is-invalid',
                         'type' => 'hidden',
+                        'id' => 'users',
                         'name' => 'users',
                         'value' => '',
                     ]],
@@ -1814,6 +1841,7 @@ class RadioControlTest extends AbstractFormHelperTest
                 ['div' => ['class' => 'col-sm-7']],
                     ['input' => [
                         'type' => 'hidden',
+                        'id' => 'users',
                         'name' => 'users',
                         'value' => '',
                     ]],
@@ -1894,6 +1922,7 @@ class RadioControlTest extends AbstractFormHelperTest
                 ['div' => ['class' => 'col-sm-7']],
                     ['input' => [
                         'type' => 'hidden',
+                        'id' => 'users',
                         'name' => 'users',
                         'value' => '',
                     ]],
@@ -1975,6 +2004,7 @@ class RadioControlTest extends AbstractFormHelperTest
                 ['div' => ['class' => 'col-sm-7']],
                     ['input' => [
                         'type' => 'hidden',
+                        'id' => 'users',
                         'name' => 'users',
                         'value' => '',
                     ]],

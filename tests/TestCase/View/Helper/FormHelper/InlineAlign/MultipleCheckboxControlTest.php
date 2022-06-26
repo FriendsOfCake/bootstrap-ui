@@ -34,6 +34,7 @@ class MultipleCheckboxControlTest extends AbstractFormHelperTest
                     '/span',
                     ['input' => [
                         'type' => 'hidden',
+                        'id' => 'users',
                         'name' => 'users',
                         'value' => '',
                     ]],
@@ -92,6 +93,7 @@ class MultipleCheckboxControlTest extends AbstractFormHelperTest
                 ]],
                     ['input' => [
                         'type' => 'hidden',
+                        'id' => 'users',
                         'name' => 'users',
                         'value' => '',
                     ]],
@@ -153,6 +155,7 @@ class MultipleCheckboxControlTest extends AbstractFormHelperTest
                     '/span',
                     ['input' => [
                         'type' => 'hidden',
+                        'id' => 'users',
                         'name' => 'users',
                         'value' => '',
                     ]],
@@ -222,6 +225,7 @@ class MultipleCheckboxControlTest extends AbstractFormHelperTest
                     '/span',
                     ['input' => [
                         'type' => 'hidden',
+                        'id' => 'users',
                         'name' => 'users',
                         'value' => '',
                     ]],
@@ -283,6 +287,7 @@ class MultipleCheckboxControlTest extends AbstractFormHelperTest
                     '/span',
                     ['input' => [
                         'type' => 'hidden',
+                        'id' => 'users',
                         'name' => 'users',
                         'value' => '',
                     ]],
@@ -354,6 +359,7 @@ class MultipleCheckboxControlTest extends AbstractFormHelperTest
                     '/span',
                     ['input' => [
                         'type' => 'hidden',
+                        'id' => 'users',
                         'name' => 'users',
                         'value' => '',
                     ]],
@@ -427,6 +433,7 @@ class MultipleCheckboxControlTest extends AbstractFormHelperTest
                     '/span',
                     ['input' => [
                         'type' => 'hidden',
+                        'id' => 'users',
                         'name' => 'users',
                         'value' => '',
                     ]],
@@ -467,6 +474,7 @@ class MultipleCheckboxControlTest extends AbstractFormHelperTest
                     ['input' => [
                         'class' => 'is-invalid',
                         'type' => 'hidden',
+                        'id' => 'users',
                         'name' => 'users',
                         'value' => '',
                     ]],
@@ -539,6 +547,7 @@ class MultipleCheckboxControlTest extends AbstractFormHelperTest
                     ['input' => [
                         'class' => 'is-invalid',
                         'type' => 'hidden',
+                        'id' => 'users',
                         'name' => 'users',
                         'value' => '',
                     ]],
@@ -619,6 +628,7 @@ class MultipleCheckboxControlTest extends AbstractFormHelperTest
                     ['input' => [
                         'class' => 'is-invalid',
                         'type' => 'hidden',
+                        'id' => 'users',
                         'name' => 'users',
                         'value' => '',
                     ]],
@@ -698,6 +708,7 @@ class MultipleCheckboxControlTest extends AbstractFormHelperTest
                     '/span',
                     ['input' => [
                         'type' => 'hidden',
+                        'id' => 'users',
                         'name' => 'users',
                         'value' => '',
                     ]],
@@ -767,6 +778,7 @@ class MultipleCheckboxControlTest extends AbstractFormHelperTest
                     ['input' => [
                         'class' => 'is-invalid',
                         'type' => 'hidden',
+                        'id' => 'users',
                         'name' => 'users',
                         'value' => '',
                     ]],
@@ -842,6 +854,7 @@ class MultipleCheckboxControlTest extends AbstractFormHelperTest
                     '/span',
                     ['input' => [
                         'type' => 'hidden',
+                        'id' => 'users',
                         'name' => 'users',
                         'value' => '',
                     ]],
@@ -915,6 +928,7 @@ class MultipleCheckboxControlTest extends AbstractFormHelperTest
                     '/span',
                     ['input' => [
                         'type' => 'hidden',
+                        'id' => 'users',
                         'name' => 'users',
                         'value' => '',
                     ]],
@@ -984,6 +998,7 @@ class MultipleCheckboxControlTest extends AbstractFormHelperTest
                     '/span',
                     ['input' => [
                         'type' => 'hidden',
+                        'id' => 'users',
                         'name' => 'users',
                         'value' => '',
                     ]],
@@ -1060,6 +1075,7 @@ class MultipleCheckboxControlTest extends AbstractFormHelperTest
                     '/span',
                     ['input' => [
                         'type' => 'hidden',
+                        'id' => 'users',
                         'name' => 'users',
                         'value' => '',
                     ]],
@@ -1162,6 +1178,7 @@ class MultipleCheckboxControlTest extends AbstractFormHelperTest
                     ['input' => [
                         'class' => 'is-invalid',
                         'type' => 'hidden',
+                        'id' => 'users',
                         'name' => 'users',
                         'value' => '',
                     ]],
@@ -1266,6 +1283,7 @@ class MultipleCheckboxControlTest extends AbstractFormHelperTest
                     '/span',
                     ['input' => [
                         'type' => 'hidden',
+                        'id' => 'users',
                         'name' => 'users',
                         'value' => '',
                     ]],
