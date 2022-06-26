@@ -57,6 +57,7 @@ jobs:
         else
           vendor/bin/phpunit
         fi
+      continue-on-error: ${{ matrix.prefer-lowest == 'prefer-lowest' }}
 
     - name: Code Coverage Report
       if: matrix.php-version == '7.4'
