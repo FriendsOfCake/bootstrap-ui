@@ -4,6 +4,7 @@ declare(strict_types=1);
 namespace BootstrapUI\View\Widget;
 
 use Cake\View\Form\ContextInterface;
+use Cake\View\Widget\TextareaWidget as CoreTextareaWidget;
 
 /**
  * Input widget class for generating a textarea control.
@@ -11,7 +12,7 @@ use Cake\View\Form\ContextInterface;
  * This class is intended as an internal implementation detail
  * of Cake\View\Helper\FormHelper and is not intended for direct use.
  */
-class TextareaWidget extends \Cake\View\Widget\TextareaWidget
+class TextareaWidget extends CoreTextareaWidget
 {
     use InputGroupTrait;
 

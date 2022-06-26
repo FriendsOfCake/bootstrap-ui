@@ -5,12 +5,13 @@ namespace BootstrapUI\View\Widget;
 
 use Cake\View\Form\ContextInterface;
 use Cake\View\StringTemplate;
+use Cake\View\Widget\FileWidget as CoreFileWidget;
 use Cake\View\Widget\LabelWidget;
 
 /**
  * Input widget class for generating a file upload control.
  */
-class FileWidget extends \Cake\View\Widget\FileWidget
+class FileWidget extends CoreFileWidget
 {
     use InputGroupTrait;
 
@@ -19,7 +20,7 @@ class FileWidget extends \Cake\View\Widget\FileWidget
      *
      * @var \Cake\View\Widget\LabelWidget
      */
-    protected $_label;
+    protected LabelWidget $_label;
 
     /**
      * Constructor

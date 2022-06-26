@@ -35,7 +35,7 @@ trait InputGroupTrait
             'injectFormControl' => true,
             'injectErrorClass' => null,
             'input' => null,
-            'templateVars' => null,
+            'templateVars' => [],
         ];
 
         if ($data['injectFormControl'] && $data['type'] !== 'hidden') {
@@ -91,7 +91,7 @@ trait InputGroupTrait
     /**
      * Get addon HTML.
      *
-     * @param string[] $addons Addon content.
+     * @param array<string> $addons Addon content.
      * @param array $data Widget data.
      * @return string
      */
@@ -129,7 +129,7 @@ trait InputGroupTrait
      * @param array|string $attachment prepend or append element. Can be a string or array, if contains options
      * @return array
      */
-    protected function _checkForOptions($attachment): array
+    protected function _checkForOptions(array|string $attachment): array
     {
         $ret = [];
 

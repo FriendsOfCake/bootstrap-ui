@@ -4,8 +4,9 @@ declare(strict_types=1);
 namespace BootstrapUI\View\Widget;
 
 use Cake\View\Form\ContextInterface;
+use Cake\View\Widget\DateTimeWidget as CoreDateTimeWidget;
 
-class DateTimeWidget extends \Cake\View\Widget\DateTimeWidget
+class DateTimeWidget extends CoreDateTimeWidget
 {
     use InputGroupTrait;
 

@@ -4,8 +4,9 @@ declare(strict_types=1);
 namespace BootstrapUI\View\Widget;
 
 use Cake\View\Form\ContextInterface;
+use Cake\View\Widget\BasicWidget as CoreBasicWidget;
 
-class BasicWidget extends \Cake\View\Widget\BasicWidget
+class BasicWidget extends CoreBasicWidget
 {
     use InputGroupTrait;
 

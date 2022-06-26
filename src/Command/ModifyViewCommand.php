@@ -16,7 +16,7 @@ class ModifyViewCommand extends Command
     /**
      * @inheritDoc
      */
-    public function execute(Arguments $args, ConsoleIo $io)
+    public function execute(Arguments $args, ConsoleIo $io): ?int
     {
         $io->info('Modifying view...');
 
@@ -86,9 +86,9 @@ class ModifyViewCommand extends Command
      * Reads a files contents.
      *
      * @param string $filePath The file path.
-     * @return false|string
+     * @return string|false
      */
-    protected function _readFile(string $filePath)
+    protected function _readFile(string $filePath): false|string
     {
         return file_get_contents($filePath);
     }

@@ -1,10 +1,13 @@
 <?php
-// @codingStandardsIgnoreFile
+declare(strict_types=1);
 
+use Bake\BakePlugin;
+use BootstrapUI\BootstrapUIPlugin;
 use Cake\Cache\Cache;
 use Cake\Core\Configure;
 use Cake\Core\Plugin;
 use Cake\Datasource\ConnectionManager;
+use Cake\TestSuite\Fixture\SchemaLoader;
 
 if (is_file('vendor/autoload.php')) {
     require_once 'vendor/autoload.php';
@@ -64,12 +67,7 @@ Configure::write('App', [
     'cssBaseUrl' => 'css/',
     'paths' => [
         'plugins' => [dirname(APP) . DS . 'plugins' . DS],
-        'templates' => [TEST_APP . 'templates' . DS]
-    ]
-]);
-Configure::write('Error', [
-    'ignoredDeprecationPaths' => [
-        'vendor/cakephp/cakephp/src/TestSuite/Fixture/FixtureInjector.php',
+        'templates' => [TEST_APP . 'templates' . DS],
     ],
 ]);
 
@@ -77,13 +75,13 @@ Cache::setConfig([
     '_cake_core_' => [
         'engine' => 'File',
         'prefix' => 'cake_core_',
-        'serialize' => true
+        'serialize' => true,
     ],
     '_cake_model_' => [
         'engine' => 'File',
         'prefix' => 'cake_model_',
-        'serialize' => true
-    ]
+        'serialize' => true,
+    ],
 ]);
 
 if (!getenv('db_dsn')) {
@@ -91,10 +89,11 @@ if (!getenv('db_dsn')) {
 }
 ConnectionManager::setConfig('test', ['url' => getenv('db_dsn')]);
 
-Plugin::getCollection()->add(new \BootstrapUI\Plugin(['path' => ROOT . DS]));
-Plugin::getCollection()->add(new \Bake\Plugin());
+Plugin::getCollection()->add(new BootstrapUIPlugin(['path' => ROOT . DS]));
+Plugin::getCollection()->add(new BakePlugin());
 
-Configure::write(
-    'Error.ignoredDeprecationPaths',
-    ['vendor/cakephp/cakephp/src/TestSuite/Fixture/FixtureInjector.php']
-);
+// Create test database schema
+if (env('FIXTURE_SCHEMA_METADATA')) {
+    $loader = new SchemaLoader();
+    $loader->loadInternalFile(env('FIXTURE_SCHEMA_METADATA'));
+}
