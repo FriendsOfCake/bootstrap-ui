@@ -8,22 +8,15 @@ use Cake\Command\Command;
 use Cake\Console\Arguments;
 use Cake\Console\ConsoleIo;
 use Cake\Console\Exception\StopException;
+use Cake\Console\TestSuite\ConsoleIntegrationTestTrait;
+use Cake\Console\TestSuite\StubConsoleOutput;
 use Cake\Core\Plugin;
-use Cake\Filesystem\Filesystem;
-use Cake\TestSuite\ConsoleIntegrationTestTrait;
-use Cake\TestSuite\Stub\ConsoleOutput;
 use Cake\TestSuite\TestCase;
+use Cake\Utility\Filesystem;
 
 class CopyLayoutsCommandTest extends TestCase
 {
     use ConsoleIntegrationTestTrait;
-
-    public function setUp(): void
-    {
-        parent::setUp();
-
-        $this->useCommandRunner();
-    }
 
     public function tearDown(): void
     {
@@ -53,9 +46,9 @@ class CopyLayoutsCommandTest extends TestCase
             Plugin::path('BootstrapUI') . 'tests' . DS . 'test_app' . DS .
             'templates' . DS . 'layout' . DS . 'TwitterBootstrap' . DS;
 
-        $this->assertFileNotExists($targetPath . 'cover.php');
-        $this->assertFileNotExists($targetPath . 'dashboard.php');
-        $this->assertFileNotExists($targetPath . 'signin.php');
+        $this->assertFileDoesNotExist($targetPath . 'cover.php');
+        $this->assertFileDoesNotExist($targetPath . 'dashboard.php');
+        $this->assertFileDoesNotExist($targetPath . 'signin.php');
 
         $this->exec('bootstrap copy_layouts');
 
@@ -88,9 +81,9 @@ class CopyLayoutsCommandTest extends TestCase
 
         $compatTargetPath = substr($targetPath, 0, -1);
 
-        $this->assertFileNotExists($targetPath . 'cover.php');
-        $this->assertFileNotExists($targetPath . 'dashboard.php');
-        $this->assertFileNotExists($targetPath . 'signin.php');
+        $this->assertFileDoesNotExist($targetPath . 'cover.php');
+        $this->assertFileDoesNotExist($targetPath . 'dashboard.php');
+        $this->assertFileDoesNotExist($targetPath . 'signin.php');
 
         $this->exec('bootstrap copy_layouts ' . escapeshellarg($compatTargetPath));
 
@@ -127,8 +120,8 @@ class CopyLayoutsCommandTest extends TestCase
 
         $args = new Arguments([], [], []);
 
-        $out = new ConsoleOutput();
-        $err = new ConsoleOutput();
+        $out = new StubConsoleOutput();
+        $err = new StubConsoleOutput();
         $io = new ConsoleIo($out, $err);
 
         try {

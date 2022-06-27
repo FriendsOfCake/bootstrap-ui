@@ -8,21 +8,14 @@ use Cake\Command\Command;
 use Cake\Console\Arguments;
 use Cake\Console\ConsoleIo;
 use Cake\Console\Exception\StopException;
+use Cake\Console\TestSuite\ConsoleIntegrationTestTrait;
+use Cake\Console\TestSuite\StubConsoleOutput;
 use Cake\Core\Plugin;
-use Cake\TestSuite\ConsoleIntegrationTestTrait;
-use Cake\TestSuite\Stub\ConsoleOutput;
 use Cake\TestSuite\TestCase;
 
 class ModifyViewCommandTest extends TestCase
 {
     use ConsoleIntegrationTestTrait;
-
-    public function setUp(): void
-    {
-        parent::setUp();
-
-        $this->useCommandRunner();
-    }
 
     public function tearDown(): void
     {
@@ -127,8 +120,8 @@ class ModifyViewCommandTest extends TestCase
 
         $args = new Arguments([], [], []);
 
-        $out = new ConsoleOutput();
-        $err = new ConsoleOutput();
+        $out = new StubConsoleOutput();
+        $err = new StubConsoleOutput();
         $io = new ConsoleIo($out, $err);
 
         try {
@@ -165,8 +158,8 @@ class ModifyViewCommandTest extends TestCase
 
         $args = new Arguments([], [], []);
 
-        $out = new ConsoleOutput();
-        $err = new ConsoleOutput();
+        $out = new StubConsoleOutput();
+        $err = new StubConsoleOutput();
         $io = new ConsoleIo($out, $err);
 
         try {
@@ -203,8 +196,8 @@ class ModifyViewCommandTest extends TestCase
 
         $args = new Arguments([], [], []);
 
-        $out = new ConsoleOutput();
-        $err = new ConsoleOutput();
+        $out = new StubConsoleOutput();
+        $err = new StubConsoleOutput();
         $io = new ConsoleIo($out, $err);
 
         try {

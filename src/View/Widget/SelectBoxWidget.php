@@ -4,8 +4,9 @@ declare(strict_types=1);
 namespace BootstrapUI\View\Widget;
 
 use Cake\View\Form\ContextInterface;
+use Cake\View\Widget\SelectBoxWidget as CoreSelectBoxWidget;
 
-class SelectBoxWidget extends \Cake\View\Widget\SelectBoxWidget
+class SelectBoxWidget extends CoreSelectBoxWidget
 {
     use InputGroupTrait;
 

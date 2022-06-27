@@ -12,7 +12,7 @@ class BreadcrumbsHelper extends CoreBreadcrumbsHelper
     /**
      * @inheritDoc
      */
-    protected $_defaultConfig = [
+    protected array $_defaultConfig = [
         'ariaCurrent' => 'last',
         'templates' => [
             'wrapper' => '<nav aria-label="breadcrumb"><ol{{attrs}}>{{content}}</ol></nav>',
@@ -27,7 +27,7 @@ class BreadcrumbsHelper extends CoreBreadcrumbsHelper
      *
      * @var array
      */
-    protected $_defaultAttributes = [
+    protected array $_defaultAttributes = [
         'class' => [
             'wrapper' => 'breadcrumb',
             'item' => 'breadcrumb-item',

@@ -4,6 +4,7 @@ declare(strict_types=1);
 namespace BootstrapUI\View\Helper;
 
 use Cake\View\Helper;
+use UnexpectedValueException;
 
 /**
  * FlashHelper class to render flash messages.
@@ -20,7 +21,7 @@ class FlashHelper extends Helper
      *
      * @var array<string, mixed>
      */
-    protected $_defaultConfig = [
+    protected array $_defaultConfig = [
         'class' => ['alert', 'alert-dismissible', 'fade', 'show', 'd-flex', 'align-items-center'],
         'attributes' => ['role' => 'alert'],
         'icon' => true,
@@ -55,7 +56,7 @@ class FlashHelper extends Helper
         }
 
         if (!is_array($stack)) {
-            throw new \UnexpectedValueException(sprintf(
+            throw new UnexpectedValueException(sprintf(
                 'Value for flash setting key "%s" must be an array.',
                 $key
             ));

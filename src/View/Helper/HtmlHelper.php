@@ -3,9 +3,10 @@ declare(strict_types=1);
 
 namespace BootstrapUI\View\Helper;
 
+use Cake\View\Helper\HtmlHelper as CoreHtmlHelper;
 use Cake\View\View;
 
-class HtmlHelper extends \Cake\View\Helper\HtmlHelper
+class HtmlHelper extends CoreHtmlHelper
 {
     use OptionsAwareTrait;
 

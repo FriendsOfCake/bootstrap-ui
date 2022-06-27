@@ -10,7 +10,7 @@ use Cake\Console\Arguments;
 use Cake\Console\ConsoleIo;
 use Cake\Console\ConsoleOptionParser;
 use Cake\Core\Plugin;
-use Cake\Filesystem\Filesystem;
+use Cake\Utility\Filesystem;
 
 /**
  * Installs Bootstrap dependencies and links the assets to the application's webroot.
@@ -20,7 +20,7 @@ class InstallCommand extends Command
     /**
      * @inheritDoc
      */
-    public function execute(Arguments $args, ConsoleIo $io)
+    public function execute(Arguments $args, ConsoleIo $io): ?int
     {
         $this->installPackages($args, $io);
         $this->refreshAssetBuffer($io);
@@ -250,7 +250,7 @@ class InstallCommand extends Command
     /**
      * Finds the buffered package assets.
      *
-     * @return \SplFileInfo[]
+     * @return array<\SplFileInfo>
      */
     protected function _findBufferedPackageAssets(): array
     {
@@ -344,7 +344,7 @@ class InstallCommand extends Command
     /**
      * Finds the package assets to buffer.
      *
-     * @return \SplFileInfo[]
+     * @return array<\SplFileInfo>
      */
     protected function _findPackageAssets(): array
     {

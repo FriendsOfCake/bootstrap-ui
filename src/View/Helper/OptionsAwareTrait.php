@@ -57,7 +57,7 @@ trait OptionsAwareTrait
      * @param array $options An array of HTML attributes and options.
      * @return bool True if any one of the class names was found.
      */
-    public function hasAnyClass($classes, array $options): bool
+    public function hasAnyClass(array|string $classes, array $options): bool
     {
         $options += ['class' => []];
 
@@ -82,7 +82,7 @@ trait OptionsAwareTrait
      * @param array $options An array of HTML attributes and options.
      * @return array An array of HTML attributes and options.
      */
-    public function injectClasses($classes, array $options): array
+    public function injectClasses(array|string $classes, array $options): array
     {
         $options += ['class' => [], 'skip' => []];
 
@@ -109,7 +109,7 @@ trait OptionsAwareTrait
      * @param array $options An array of HTML attributes and options.
      * @return array An array of HTML attributes and options.
      */
-    public function removeClasses($classes, array $options): array
+    public function removeClasses(array|string $classes, array $options): array
     {
         $options += ['class' => []];
 
@@ -137,7 +137,7 @@ trait OptionsAwareTrait
      * @param array $options An array of HTML attributes and options.
      * @return bool False if one or more class(es) do not exist.
      */
-    public function checkClasses($classes, array $options): bool
+    public function checkClasses(array|string $classes, array $options): bool
     {
         if (empty($options['class'])) {
             return false;
@@ -161,7 +161,7 @@ trait OptionsAwareTrait
      * @param mixed $mixed One or more classes.
      * @return array Classes as array.
      */
-    protected function _toClassArray($mixed): array
+    protected function _toClassArray(mixed $mixed): array
     {
         if ($mixed === null) {
             return [];
@@ -178,9 +178,9 @@ trait OptionsAwareTrait
      *
      * @param string $element UI element to which the class can be applied (e.g. btn).
      * @param string $class CSS class, which can be applied to the element.
-     * @return bool|string String of generated class, false if element/class not in list.
+     * @return string|bool String of generated class, false if element/class not in list.
      */
-    public function genClassName(string $element, string $class)
+    public function genClassName(string $element, string $class): bool|string
     {
         if (!in_array($element, Element::values())) {
             return false;
