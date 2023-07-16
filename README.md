@@ -15,13 +15,13 @@
 [package]: https://packagist.org/packages/friendsofcake/bootstrap-ui
 [license]: LICENSE.txt
 
-Transparently use [Bootstrap 5][bs] with [CakePHP 4][cakephp].
+Transparently use [Bootstrap 5][bs] with [CakePHP 5][cakephp].
 
 For version info see [version map](https://github.com/FriendsOfCake/bootstrap-ui/wiki#version-map).
 
 ## Requirements
 
-* CakePHP 4.x
+* CakePHP 5.x
 * Bootstrap 5.x
 * npm 6.x
 * Popper.js 2.x
