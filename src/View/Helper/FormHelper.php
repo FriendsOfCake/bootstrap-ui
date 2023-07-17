@@ -9,6 +9,8 @@ use Cake\Utility\Inflector;
 use Cake\View\Helper\FormHelper as CoreFormHelper;
 use Cake\View\View;
 use InvalidArgumentException;
+use function Cake\Core\h;
+use function Cake\I18n\__;
 
 class FormHelper extends CoreFormHelper
 {

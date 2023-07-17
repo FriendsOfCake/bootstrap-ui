@@ -2,6 +2,7 @@ vendor/
 composer.lock
 node_modules
 .phpunit.result.cache
+.phpunit.cache
 
 # Generated test files
 tests/test_app/webroot/bootstrap_u_i
