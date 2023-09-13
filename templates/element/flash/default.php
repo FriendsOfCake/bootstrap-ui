@@ -4,6 +4,7 @@
  * @var array $params
  * @var string $message
  */
+use function Cake\Core\h;
 
 $icon = $params['icon'];
 $class = array_unique((array)$params['class']);

@@ -51,7 +51,7 @@ class FlashHelperTest extends TestCase
         unset($this->View, $this->Flash);
     }
 
-    public function flashTypeDefaultsDataProvider(): array
+    public static function flashTypeDefaultsDataProvider(): array
     {
         return [
             ['default', 'info', 'info-circle-fill'],
@@ -433,7 +433,7 @@ class FlashHelperTest extends TestCase
         $this->assertHtml($expected, $result, true);
     }
 
-    public function flashTypeDataProvider(): array
+    public static function flashTypeDataProvider(): array
     {
         return [
             ['default'],

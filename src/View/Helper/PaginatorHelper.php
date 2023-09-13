@@ -5,6 +5,7 @@ namespace BootstrapUI\View\Helper;
 
 use Cake\View\Helper\PaginatorHelper as CorePaginatorHelper;
 use Cake\View\View;
+use function Cake\Core\h;
 
 class PaginatorHelper extends CorePaginatorHelper
 {
