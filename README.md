@@ -5,7 +5,7 @@
 [![Total Downloads][ico-downloads]][package]
 [![License][ico-license]][license]
 
-[ico-ga]: https://img.shields.io/github/workflow/status/FriendsOfCake/bootstrap-ui/CI/master?style=flat-square
+[ico-ga]: https://img.shields.io/github/actions/workflow/status/friendsofcake/bootstrap-ui/ci.yml?style=flat-square
 [ico-coverage]: https://img.shields.io/codecov/c/github/FriendsOfCake/bootstrap-ui.svg?style=flat-square
 [ico-downloads]: https://img.shields.io/packagist/dt/friendsofcake/bootstrap-ui.svg?style=flat-square
 [ico-license]: https://img.shields.io/badge/license-MIT-blue.svg?style=flat-square
