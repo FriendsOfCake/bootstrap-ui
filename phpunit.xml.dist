@@ -3,6 +3,7 @@
     <testsuites>
         <testsuite name="bootstrap">
             <directory>tests/TestCase/</directory>
+            <exclude>tests/TestCase/View/Helper/FormHelper/AbstractFormHelperTest.php</exclude>
         </testsuite>
     </testsuites>
     <extensions>
