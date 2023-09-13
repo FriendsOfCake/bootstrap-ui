@@ -3,24 +3,12 @@ declare(strict_types=1);
 
 namespace BootstrapUI\Test\TestCase\Command;
 
-use Cake\TestSuite\ConsoleIntegrationTestTrait;
+use Cake\Console\TestSuite\ConsoleIntegrationTestTrait;
 use Cake\TestSuite\TestCase;
 
 class BootstrapCommandTest extends TestCase
 {
     use ConsoleIntegrationTestTrait;
-
-    public function setUp(): void
-    {
-        parent::setUp();
-
-        $this->useCommandRunner();
-    }
-
-    public function tearDown(): void
-    {
-        parent::tearDown();
-    }
 
     public function testEntry()
     {

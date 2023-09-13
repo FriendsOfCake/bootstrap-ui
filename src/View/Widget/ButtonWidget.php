@@ -5,8 +5,9 @@ namespace BootstrapUI\View\Widget;
 
 use BootstrapUI\View\Helper\OptionsAwareTrait;
 use Cake\View\Form\ContextInterface;
+use Cake\View\Widget\ButtonWidget as CoreButtonWidget;
 
-class ButtonWidget extends \Cake\View\Widget\ButtonWidget
+class ButtonWidget extends CoreButtonWidget
 {
     use OptionsAwareTrait;
 

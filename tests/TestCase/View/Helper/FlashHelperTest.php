@@ -8,6 +8,7 @@ use Cake\Http\ServerRequest;
 use Cake\Http\Session;
 use Cake\TestSuite\TestCase;
 use Cake\View\View;
+use UnexpectedValueException;
 
 /**
  * FlashHelperTest class
@@ -50,7 +51,7 @@ class FlashHelperTest extends TestCase
         unset($this->View, $this->Flash);
     }
 
-    public function flashTypeDefaultsDataProvider(): array
+    public static function flashTypeDefaultsDataProvider(): array
     {
         return [
             ['default', 'info', 'info-circle-fill'],
@@ -166,7 +167,7 @@ class FlashHelperTest extends TestCase
 
     public function testRenderInvalidKey()
     {
-        $this->expectException(\UnexpectedValueException::class);
+        $this->expectException(UnexpectedValueException::class);
         $this->expectExceptionMessage('Value for flash setting key "invalidKey" must be an array.');
 
         $this->View->getRequest()->getSession()->write('Flash', [
@@ -432,7 +433,7 @@ class FlashHelperTest extends TestCase
         $this->assertHtml($expected, $result, true);
     }
 
-    public function flashTypeDataProvider(): array
+    public static function flashTypeDataProvider(): array
     {
         return [
             ['default'],

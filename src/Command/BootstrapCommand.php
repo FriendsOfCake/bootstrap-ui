@@ -21,7 +21,7 @@ class BootstrapCommand extends Command implements CommandCollectionAwareInterfac
      *
      * @var \Cake\Console\CommandCollection
      */
-    protected $commands;
+    protected CommandCollection $commands;
 
     /**
      * @inheritDoc
@@ -34,7 +34,7 @@ class BootstrapCommand extends Command implements CommandCollectionAwareInterfac
     /**
      * @inheritDoc
      */
-    public function execute(Arguments $args, ConsoleIo $io)
+    public function execute(Arguments $args, ConsoleIo $io): ?int
     {
         $io->warning('No command provided. Run `bootstrap --help` to get a list of commands.');
 

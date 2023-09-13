@@ -17,12 +17,12 @@
         }
     ],
     "require": {
-        "cakephp/cakephp": "^4.0"
+        "cakephp/cakephp": "^5.0"
     },
     "require-dev": {
-        "phpunit/phpunit": "^8.5 || ^9.3",
-        "cakephp/bake": "^2.1",
-        "cakephp/cakephp-codesniffer": "^4.1"
+        "phpunit/phpunit": "^10.1",
+        "cakephp/bake": "^3.0",
+        "cakephp/cakephp-codesniffer": "^5.0"
     },
     "support": {
         "issues": "http://github.com/friendsofcake/bootstrap-ui/issues",

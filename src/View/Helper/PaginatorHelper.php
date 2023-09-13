@@ -3,23 +3,25 @@ declare(strict_types=1);
 
 namespace BootstrapUI\View\Helper;
 
+use Cake\View\Helper\PaginatorHelper as CorePaginatorHelper;
 use Cake\View\View;
+use function Cake\Core\h;
 
-class PaginatorHelper extends \Cake\View\Helper\PaginatorHelper
+class PaginatorHelper extends CorePaginatorHelper
 {
     /**
      * Allowed sizes.
      *
-     * @var string[]
+     * @var array<string>
      */
-    protected $_allowedSizes = ['sm', 'lg'];
+    protected array $_allowedSizes = ['sm', 'lg'];
 
     /**
      * Label defaults.
      *
      * @var array
      */
-    protected $_labels = [
+    protected array $_labels = [
         'first' => [
             'label' => 'First',
             'text' => '«',
@@ -90,7 +92,7 @@ class PaginatorHelper extends \Cake\View\Helper\PaginatorHelper
      * - `templates` An array of templates, or template file name containing the templates you'd like to use when
      *    generating the link for first page. This method uses the `first` template.
      */
-    public function first($first = '«', array $options = []): string
+    public function first(string|int $first = '«', array $options = []): string
     {
         $options = $this->_templateOptions('first', $options);
 
@@ -115,7 +117,7 @@ class PaginatorHelper extends \Cake\View\Helper\PaginatorHelper
      * - `templates` An array of templates, or template file name containing the templates you'd like to use when
      *    generating the link for last page. This method uses the `last` template.
      */
-    public function last($last = '»', array $options = []): string
+    public function last(string|int $last = '»', array $options = []): string
     {
         $options = $this->_templateOptions('last', $options);
 
@@ -180,7 +182,7 @@ class PaginatorHelper extends \Cake\View\Helper\PaginatorHelper
      * @return string|false Pagination controls markup, or `false` in case of an invalid `size` option.
      * @link http://book.cakephp.org/3.0/en/views/helpers/paginator.html#creating-page-number-links
      */
-    public function links(array $options = [])
+    public function links(array $options = []): string|false
     {
         $class = 'pagination';
 

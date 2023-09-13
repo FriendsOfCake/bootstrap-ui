@@ -4,7 +4,9 @@ declare(strict_types=1);
 namespace BootstrapUI\Test\TestCase\View\Helper;
 
 use BootstrapUI\View\Helper\PaginatorHelper;
+use Cake\Datasource\Paging\PaginatedResultSet;
 use Cake\Http\ServerRequest;
+use Cake\ORM\ResultSet;
 use Cake\Routing\Router;
 use Cake\TestSuite\TestCase;
 use Cake\View\View;
@@ -14,15 +16,11 @@ use Cake\View\View;
  */
 class PaginatorHelperTest extends TestCase
 {
-    /**
-     * @var View
-     */
-    public $View;
+    protected View $View;
 
-    /**
-     * @var PaginatorHelper
-     */
-    public $Paginator;
+    protected PaginatorHelper $Paginator;
+
+    protected PaginatedResultSet $paginatedResult;
 
     /**
      * setUp method
@@ -42,19 +40,10 @@ class PaginatorHelperTest extends TestCase
                 'pass' => [],
             ],
         ]);
-        $request = $request->withAttribute('paging', [
-            'Client' => [
-                'page' => 2,
-                'current' => 1,
-                'count' => 3,
-                'prevPage' => 1,
-                'nextPage' => 3,
-                'pageCount' => 3,
-            ],
-        ]);
 
         $this->View = new View($request);
         $this->Paginator = new PaginatorHelper($this->View);
+        $this->setPaginatedResult([]);
 
         $routeBuilder = Router::createRouteBuilder('/');
         $routeBuilder->connect('/{controller}/{action}/*');
@@ -70,6 +59,25 @@ class PaginatorHelperTest extends TestCase
     {
         parent::tearDown();
         unset($this->View, $this->Paginator);
+    }
+
+    protected function setPaginatedResult(array $params, bool $merge = true): void
+    {
+        if ($merge) {
+            $params += [
+                'alias' => 'Clients',
+                'currentPage' => 2,
+                'count' => 1,
+                'totalCount' => 3,
+                'hasPrevPage' => true,
+                'hasNextPage' => true,
+                'pageCount' => 3,
+            ];
+        }
+
+        $this->paginatedResult = new PaginatedResultSet(new ResultSet([]), $params);
+
+        $this->Paginator->setPaginated($this->paginatedResult);
     }
 
     public function testLinksDefaults(): void
@@ -212,14 +220,10 @@ class PaginatorHelperTest extends TestCase
 
     public function testLinksNoPreviousNext(): void
     {
-        $request = $this->Paginator->getView()->getRequest();
-        $request = $request->withAttribute('paging', [
-            'Client' => [
-                'prevPage' => false,
-                'nextPage' => false,
-            ] + $request->getAttribute('paging')['Client'],
+        $this->setPaginatedResult([
+            'hasPrevPage' => false,
+            'hasNextPage' => false,
         ]);
-        $this->Paginator->getView()->setRequest($request);
 
         $result = $this->Paginator->links(['prev' => true, 'next' => true, 'first' => true, 'last' => true]);
         $expected = [
@@ -562,13 +566,9 @@ class PaginatorHelperTest extends TestCase
 
     public function testPrevDisabledCustomTemplate()
     {
-        $request = $this->Paginator->getView()->getRequest();
-        $request = $request->withAttribute('paging', [
-            'Client' => [
-                'prevPage' => false,
-            ] + $request->getAttribute('paging')['Client'],
+        $this->setPaginatedResult([
+            'hasPrevPage' => false,
         ]);
-        $this->Paginator->getView()->setRequest($request);
 
         $result = $this->Paginator->prev('‹', [
             'templates' => [
@@ -630,13 +630,9 @@ class PaginatorHelperTest extends TestCase
 
     public function testNextDisabledCustomTemplate()
     {
-        $request = $this->Paginator->getView()->getRequest();
-        $request = $request->withAttribute('paging', [
-            'Client' => [
-                'nextPage' => false,
-            ] + $request->getAttribute('paging')['Client'],
+        $this->setPaginatedResult([
+            'hasNextPage' => false,
         ]);
-        $this->Paginator->getView()->setRequest($request);
 
         $result = $this->Paginator->next('›', [
             'templates' => [

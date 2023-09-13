@@ -1,27 +1,20 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<phpunit
-    colors="true"
-    stopOnFailure="false"
-    bootstrap="./tests/bootstrap.php"
-    >
-
+<phpunit xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" colors="true" stopOnFailure="false" bootstrap="./tests/bootstrap.php" xsi:noNamespaceSchemaLocation="https://schema.phpunit.de/10.2/phpunit.xsd" cacheDirectory=".phpunit.cache">
     <testsuites>
         <testsuite name="bootstrap">
             <directory>tests/TestCase/</directory>
+            <exclude>tests/TestCase/View/Helper/FormHelper/AbstractFormHelperTest.php</exclude>
         </testsuite>
     </testsuites>
-
-    <listeners>
-        <listener class="Cake\TestSuite\Fixture\FixtureInjector">
-            <arguments>
-                <object class="\Cake\TestSuite\Fixture\FixtureManager"/>
-            </arguments>
-        </listener>
-    </listeners>
-
-    <filter>
-        <whitelist>
-            <directory suffix=".php">./src/</directory>
-        </whitelist>
-    </filter>
+    <extensions>
+        <bootstrap class="Cake\TestSuite\Fixture\Extension\PHPUnitExtension"/>
+    </extensions>
+    <php>
+        <env name="FIXTURE_SCHEMA_METADATA" value="./tests/schema.php"/>
+    </php>
+    <source>
+        <include>
+            <directory suffix=".php">src/</directory>
+        </include>
+    </source>
 </phpunit>

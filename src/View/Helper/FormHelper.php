@@ -6,11 +6,13 @@ namespace BootstrapUI\View\Helper;
 use Cake\Core\Configure\Engine\PhpConfig;
 use Cake\Utility\Hash;
 use Cake\Utility\Inflector;
-use Cake\View\Helper\FormHelper as Helper;
+use Cake\View\Helper\FormHelper as CoreFormHelper;
 use Cake\View\View;
 use InvalidArgumentException;
+use function Cake\Core\h;
+use function Cake\I18n\__;
 
-class FormHelper extends Helper
+class FormHelper extends CoreFormHelper
 {
     use OptionsAwareTrait;
 
@@ -110,28 +112,28 @@ class FormHelper extends Helper
      *
      * @var string|null
      */
-    protected $_align;
+    protected ?string $_align = null;
 
     /**
      * Set on `Form::create()` to tell grid type.
      *
      * @var array|null
      */
-    protected $_grid;
+    protected ?array $_grid = null;
 
     /**
      * Set on `Form::create()` to tell the spacing type.
      *
      * @var string|false|null
      */
-    protected $_spacing;
+    protected string|false|null $_spacing = null;
 
     /**
      * Default Bootstrap string templates.
      *
      * @var array
      */
-    protected $_templates = [
+    protected array $_templates = [
         'error' =>
             '<div id="{{id}}" class="ms-0 invalid-feedback">{{content}}</div>',
         'errorTooltip' =>
@@ -227,7 +229,7 @@ class FormHelper extends Helper
      *
      * @var array
      */
-    protected $_templateSet = [
+    protected array $_templateSet = [
         'default' => [
         ],
         'inline' => [
@@ -339,7 +341,7 @@ class FormHelper extends Helper
      *
      * @var array
      */
-    protected $_widgets = [
+    protected array $_widgets = [
         'button' => 'BootstrapUI\View\Widget\ButtonWidget',
         'datetime' => 'BootstrapUI\View\Widget\DateTimeWidget',
         'file' => ['BootstrapUI\View\Widget\FileWidget', 'label'],
@@ -353,7 +355,7 @@ class FormHelper extends Helper
      *
      * @var string|null
      */
-    private $_errorFieldName = null;
+    private ?string $_errorFieldName = null;
 
     /**
      * {@inheritDoc}
@@ -400,7 +402,7 @@ class FormHelper extends Helper
      * - `spacing` - The spacing to use for the form. Can be either a string to define a class, or boolean `false` to
      *   disable automatic spacing class usage.
      */
-    public function create($context = null, array $options = []): string
+    public function create(mixed $context = null, array $options = []): string
     {
         $options += [
             'class' => null,
@@ -416,7 +418,7 @@ class FormHelper extends Helper
     /**
      * @inheritDoc
      */
-    public function error(string $field, $text = null, array $options = []): string
+    public function error(string $field, array|string|null $text = null, array $options = []): string
     {
         $this->_errorFieldName = $field;
         $error = parent::error($field, $text, $options);
@@ -1174,7 +1176,7 @@ class FormHelper extends Helper
     /**
      * @inheritDoc
      */
-    public function checkbox(string $fieldName, array $options = [])
+    public function checkbox(string $fieldName, array $options = []): array|string
     {
         $options = $this->injectClasses('form-check-input', $options);
 
@@ -1305,7 +1307,7 @@ class FormHelper extends Helper
     /**
      * @inheritDoc
      */
-    protected function _getInput(string $fieldName, array $options)
+    protected function _getInput(string $fieldName, array $options): array|string
     {
         unset($options['help']);
 
@@ -1527,9 +1529,9 @@ class FormHelper extends Helper
      * May return `false` to indicate that no spacing should be used.
      *
      * @param string $align The alignment type for which to retrieve the spacing class.
-     * @return string|bool
+     * @return string|false
      */
-    protected function _getSpacingForAlignment(string $align)
+    protected function _getSpacingForAlignment(string $align): string|false
     {
         $spacing = $this->getConfig('spacing');
 
@@ -1561,7 +1563,7 @@ class FormHelper extends Helper
      *
      * @return void
      */
-    protected function _clearFormState()
+    protected function _clearFormState(): void
     {
         $this->_align =
         $this->_grid =

@@ -8,75 +8,28 @@ on:
     branches:
       - '*'
 
+permissions:
+  contents: read
+
 jobs:
   testsuite:
-    runs-on: ubuntu-18.04
-    strategy:
-      fail-fast: false
-      matrix:
-        php-version: ['7.4', '8.0', '8.1']
-        prefer-lowest: ['']
-        include:
-          - php-version: '7.2'
-            prefer-lowest: 'prefer-lowest'
-
-    services:
-      postgres:
-        image: postgres
-        ports:
-          - 5432:5432
-        env:
-          POSTGRES_PASSWORD: postgres
-
-    steps:
-    - uses: actions/checkout@v3
-
-    - name: Setup PHP
-      uses: shivammathur/setup-php@v2
-      with:
-        php-version: ${{ matrix.php-version }}
-        extensions: mbstring, intl
-        coverage: pcov
-
-    - name: Composer install
-      run: |
-        if ${{ matrix.prefer-lowest == 'prefer-lowest' }}; then
-          composer update --prefer-lowest --prefer-stable
-        else
-          composer install
-        fi
-
-    - name: Setup problem matchers for PHPUnit
-      if: matrix.php-version == '7.4'
-      run: echo "::add-matcher::${{ runner.tool_cache }}/phpunit.json"
-
-    - name: Run PHPUnit
-      run: |
-        if [[ ${{ matrix.php-version }} == '7.4' ]]; then
-          vendor/bin/phpunit --coverage-clover=coverage.xml
-        else
-          vendor/bin/phpunit
-        fi
-      continue-on-error: ${{ matrix.prefer-lowest == 'prefer-lowest' }}
-
-    - name: Code Coverage Report
-      if: matrix.php-version == '7.4'
-      uses: codecov/codecov-action@v3
+    uses: cakephp/.github/.github/workflows/testsuite-with-db.yml@5.x
+    secrets: inherit
 
   cs-stan:
     name: Coding Standard & Static Analysis
-    runs-on: ubuntu-18.04
+    runs-on: ubuntu-22.04
 
     steps:
-    - uses: actions/checkout@v3
+    - uses: actions/checkout@v4
 
     - name: Setup PHP
       uses: shivammathur/setup-php@v2
       with:
-        php-version: '7.4'
+        php-version: '8.1'
         extensions: mbstring, intl
         coverage: none
-        tools: cs2pr, vimeo/psalm:4.23, phpstan:1.7
+        tools: cs2pr, vimeo/psalm:5, phpstan:1.10
 
     - name: Composer Install
       run: composer install
