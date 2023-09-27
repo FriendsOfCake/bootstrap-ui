@@ -647,7 +647,9 @@ class FormHelper extends CoreFormHelper
             isset($options['type']) &&
             $options['spacing'] !== false
         ) {
-            $options['container'] = $this->injectClasses($options['spacing'] ?? [], (array)($options['container'] ?? []));
+            $classes = $options['spacing'] ?? [];
+            $options = (array)($options['container'] ?? []);
+            $options['container'] = $this->injectClasses($classes, $options);
         }
 
         if (
