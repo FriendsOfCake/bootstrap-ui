@@ -406,7 +406,6 @@ class FormHelper extends CoreFormHelper
     {
         $options += [
             'class' => null,
-            'role' => 'form',
             'align' => null,
             'templates' => [],
             'spacing' => null,

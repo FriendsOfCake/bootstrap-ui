@@ -612,7 +612,6 @@ class FormHelperTest extends AbstractFormHelperTest
             'form' => [
                 'method' => 'post',
                 'accept-charset' => 'utf-8',
-                'role' => 'form',
                 'action' => '/articles/add',
             ],
         ];
@@ -654,7 +653,6 @@ class FormHelperTest extends AbstractFormHelperTest
             'form' => [
                 'method' => 'post',
                 'accept-charset' => 'utf-8',
-                'role' => 'form',
                 'action' => '/articles/add',
                 'class' => 'form-inline row g-3 align-items-center',
             ],
@@ -672,7 +670,6 @@ class FormHelperTest extends AbstractFormHelperTest
             'form' => [
                 'method' => 'post',
                 'accept-charset' => 'utf-8',
-                'role' => 'form',
                 'action' => '/articles/add',
                 'class' => 'form-inline row custom-spacing align-items-center',
             ],
@@ -687,7 +684,6 @@ class FormHelperTest extends AbstractFormHelperTest
             'form' => [
                 'method' => 'post',
                 'accept-charset' => 'utf-8',
-                'role' => 'form',
                 'action' => '/articles/add',
                 'class' => 'form-horizontal',
             ],
@@ -788,7 +784,6 @@ class FormHelperTest extends AbstractFormHelperTest
             'form' => [
                 'method' => 'post',
                 'accept-charset' => 'utf-8',
-                'role' => 'form',
                 'action' => '/articles/add',
                 'class' => 'form-horizontal',
             ],
