@@ -35,3 +35,4 @@ webroot/js/*
 nbproject/*
 # Visual Studio Code
 .vscode
+.DS_Store
