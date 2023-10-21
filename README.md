@@ -321,7 +321,7 @@ echo $this->Form->end();
 will render this HTML:
 
 ```html
-<form method="post" accept-charset="utf-8" role="form" action="/articles/add">
+<form method="post" accept-charset="utf-8" action="/articles/add">
     <!-- ... -->
     <div class="mb-3 form-group text">
         <label class="form-label" for="title">Title</label>
@@ -365,7 +365,7 @@ echo $this->Form->end();
 It will render this HTML:
 
 ```html
-<form method="post" accept-charset="utf-8" class="form-horizontal" role="form" action="/articles/add">
+<form method="post" accept-charset="utf-8" class="form-horizontal" action="/articles/add">
     <!-- ... -->
     <div class="mb-3 form-group row text">
         <label class="col-form-label col-md-4" for="title">Title</label>
@@ -413,7 +413,7 @@ echo $this->Form->end();
 It will render this HTML:
 
 ```html
-<form method="post" accept-charset="utf-8" class="form-horizontal" role="form" action="/articles/add">
+<form method="post" accept-charset="utf-8" class="form-horizontal" action="/articles/add">
     <!-- ... -->
     <div class="mb-3 form-group row text">
         <label class="col-form-label col-sm-6 col-md-4" for="title">Title</label>
@@ -459,7 +459,7 @@ echo $this->Form->end();
 will render this HTML:
 
 ```html
-<form method="post" accept-charset="utf-8" class="form-inline" role="form" action="/articles/add">
+<form method="post" accept-charset="utf-8" class="form-inline" action="/articles/add">
     <!-- ... -->
     <div class="form-group text">
         <label class="form-label visually-hidden" for="title">Title</label>
