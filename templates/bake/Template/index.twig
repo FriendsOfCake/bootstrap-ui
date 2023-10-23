@@ -48,6 +48,8 @@
 {% set columnData = Bake.columnData(field, schema) %}
 {% if columnData.type not in ['integer', 'float', 'decimal', 'biginteger', 'smallinteger', 'tinyinteger'] %}
             <td><?= h(${{ singularVar }}->{{ field }}) ?></td>
+{% elseif columnData.null %}
+            <td><?= ${{ singularVar }}->{{ field }} === null ? '' : $this->Number->format(${{ singularVar }}->{{ field }}) ?></td>
 {% else %}
             <td><?= $this->Number->format(${{ singularVar }}->{{ field }}) ?></td>
 {% endif %}

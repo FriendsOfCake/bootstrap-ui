@@ -22,6 +22,7 @@
             echo $this->Form->control('author_id', ['options' => $authors, 'empty' => true]);
             echo $this->Form->control('title');
             echo $this->Form->control('body');
+            echo $this->Form->control('rating');
         ?>
     </fieldset>
     <?= $this->Form->button(__('Submit')) ?>

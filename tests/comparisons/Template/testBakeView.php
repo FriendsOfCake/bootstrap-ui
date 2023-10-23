@@ -32,6 +32,10 @@
                 <th scope="row"><?= __('Id') ?></th>
                 <td><?= $this->Number->format($article->id) ?></td>
             </tr>
+            <tr>
+                <th scope="row"><?= __('Rating') ?></th>
+                <td><?= $article->rating === null ? '' : $this->Number->format($article->rating) ?></td>
+            </tr>
         </table>
     </div>
     <div class="text">
