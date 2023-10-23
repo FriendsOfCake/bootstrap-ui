@@ -35,7 +35,7 @@
         <table class="table table-striped">
 {% if groupedFields['string'] %}
 {% for field in groupedFields['string'] %}
-{% if associationFields[field] %}
+{% if associationFields[field] is defined %}
 {% set details = associationFields[field] %}
             <tr>
                 <th scope="row"><?= __('{{ details.property|humanize }}') ?></th>

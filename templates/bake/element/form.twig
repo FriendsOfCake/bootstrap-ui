@@ -5,7 +5,7 @@
         <?php
 {% for field in fields %}
 {%- if field not in primaryKey %}
-    {%- if keyFields[field] %}
+    {%- if keyFields[field] is defined %}
         {%- set fieldData = Bake.columnData(field, schema) %}
         {%- if fieldData.null %}
             echo $this->Form->control('{{ field }}', ['options' => ${{ keyFields[field] }}, 'empty' => true]);
@@ -27,7 +27,7 @@
 {%- endif %}
 {%- endfor %}
 
-        {%- if associations.BelongsToMany %}
+        {%- if associations.BelongsToMany is defined %}
             {%- for assocName, assocData in associations.BelongsToMany %}
             echo $this->Form->control('{{ assocData.property }}._ids', ['options' => ${{ assocData.variable }}]);
                 {{- "\n" }}

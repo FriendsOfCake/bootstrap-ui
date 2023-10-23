@@ -36,7 +36,7 @@
         <tr>
 {% for field in fields %}
 {% set isKey = false %}
-{% if associations.BelongsTo %}
+{% if associations.BelongsTo is defined %}
 {% for alias, details in associations.BelongsTo %}
 {% if field == details.foreignKey %}
 {% set isKey = true %}
