@@ -22,7 +22,7 @@
         <table class="table table-striped">
             <tr>
                 <th scope="row"><?= __('Author') ?></th>
-                <td><?= $article->has('author') ? $this->Html->link($article->author->name, ['controller' => 'Authors', 'action' => 'view', $article->author->id]) : '' ?></td>
+                <td><?= $article->hasValue('author') ? $this->Html->link($article->author->name, ['controller' => 'Authors', 'action' => 'view', $article->author->id]) : '' ?></td>
             </tr>
             <tr>
                 <th scope="row"><?= __('Title') ?></th>
