@@ -52,6 +52,9 @@ require_once CORE_PATH . 'config/bootstrap.php';
 date_default_timezone_set('UTC');
 mb_internal_encoding('UTF-8');
 
+// Enable strict_variables Twig configuration
+Configure::write('Bake.twigStrictVariables', true);
+
 Configure::write('debug', true);
 Configure::write('App', [
     'namespace' => 'TestApp',

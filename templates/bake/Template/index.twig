@@ -36,11 +36,11 @@
         <tr>
 {% for field in fields %}
 {% set isKey = false %}
-{% if associations.BelongsTo %}
+{% if associations.BelongsTo is defined %}
 {% for alias, details in associations.BelongsTo %}
 {% if field == details.foreignKey %}
 {% set isKey = true %}
-            <td><?= ${{ singularVar }}->has('{{ details.property }}') ? $this->Html->link(${{ singularVar }}->{{ details.property }}->{{ details.displayField }}, ['controller' => '{{ details.controller }}', 'action' => 'view', ${{ singularVar }}->{{ details.property }}->{{ details.primaryKey[0] }}]) : '' ?></td>
+            <td><?= ${{ singularVar }}->hasValue('{{ details.property }}') ? $this->Html->link(${{ singularVar }}->{{ details.property }}->{{ details.displayField }}, ['controller' => '{{ details.controller }}', 'action' => 'view', ${{ singularVar }}->{{ details.property }}->{{ details.primaryKey[0] }}]) : '' ?></td>
 {% endif %}
 {% endfor %}
 {% endif %}
@@ -48,6 +48,8 @@
 {% set columnData = Bake.columnData(field, schema) %}
 {% if columnData.type not in ['integer', 'float', 'decimal', 'biginteger', 'smallinteger', 'tinyinteger'] %}
             <td><?= h(${{ singularVar }}->{{ field }}) ?></td>
+{% elseif columnData.null %}
+            <td><?= ${{ singularVar }}->{{ field }} === null ? '' : $this->Number->format(${{ singularVar }}->{{ field }}) ?></td>
 {% else %}
             <td><?= $this->Number->format(${{ singularVar }}->{{ field }}) ?></td>
 {% endif %}

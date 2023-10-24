@@ -19,6 +19,7 @@
         <th scope="col"><?= $this->Paginator->sort('id') ?></th>
         <th scope="col"><?= $this->Paginator->sort('author_id') ?></th>
         <th scope="col"><?= $this->Paginator->sort('title') ?></th>
+        <th scope="col"><?= $this->Paginator->sort('rating') ?></th>
         <th scope="col" class="actions"><?= __('Actions') ?></th>
     </tr>
     </thead>
@@ -26,8 +27,9 @@
         <?php foreach ($articles as $article) : ?>
         <tr>
             <td><?= $this->Number->format($article->id) ?></td>
-            <td><?= $article->has('author') ? $this->Html->link($article->author->name, ['controller' => 'Authors', 'action' => 'view', $article->author->id]) : '' ?></td>
+            <td><?= $article->hasValue('author') ? $this->Html->link($article->author->name, ['controller' => 'Authors', 'action' => 'view', $article->author->id]) : '' ?></td>
             <td><?= h($article->title) ?></td>
+            <td><?= $article->rating === null ? '' : $this->Number->format($article->rating) ?></td>
             <td class="actions">
                 <?= $this->Html->link(__('View'), ['action' => 'view', $article->id], ['title' => __('View'), 'class' => 'btn btn-secondary']) ?>
                 <?= $this->Html->link(__('Edit'), ['action' => 'edit', $article->id], ['title' => __('Edit'), 'class' => 'btn btn-secondary']) ?>
