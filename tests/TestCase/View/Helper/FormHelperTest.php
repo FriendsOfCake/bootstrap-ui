@@ -930,6 +930,49 @@ class FormHelperTest extends AbstractFormHelperTest
     }
 
     /**
+     * Tests that the `control()` method can be used outside of an open form.
+     *
+     * This should result in controls being created with the default templates,
+     * and without alignment/grid, and spacing related classes and structures.
+     *
+     * @return void
+     */
+    public function testFormControlWithoutOpenForm()
+    {
+        $Form = new FormHelper($this->View);
+
+        $result = $Form->control('title');
+        $expected = [
+            ['div' => ['class' => 'form-group text']],
+                ['label' => ['class' => 'form-label', 'for' => 'title']],
+                    'Title',
+                '/label',
+                'input' => [
+                    'type' => 'text',
+                    'name' => 'title',
+                    'id' => 'title',
+                    'class' => 'form-control',
+                ],
+            '/div',
+        ];
+        $this->assertHtml($expected, $result);
+
+        $Form->create($this->article, [
+            'align' => [
+                'sm' => [
+                    FormHelper::GRID_COLUMN_ONE => 5,
+                    FormHelper::GRID_COLUMN_TWO => 7,
+                ],
+            ],
+            'spacing' => 'mb-1',
+        ]);
+        $Form->end();
+
+        $result = $Form->control('title');
+        $this->assertHtml($expected, $result);
+    }
+
+    /**
      * Test that "form-*" classes are added when using methods for specific input.
      *
      * @return void
