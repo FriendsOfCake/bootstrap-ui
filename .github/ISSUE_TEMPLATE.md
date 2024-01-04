@@ -1,7 +1,7 @@
 This is a (multiple allowed):
-* [x] bug
-* [ ] enhancement
-* [ ] feature-discussion (RFC)
+- [x] bug
+- [ ] enhancement
+- [ ] feature-discussion (RFC)
 
 * BootstrapUI Version: EXACT RELEASE VERSION (THE VERSION IS IN YOUR COMPOSER.LOCK FILE).
 * Bootstrap Framework Version: FRAMEWORK VERSION
