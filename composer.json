@@ -48,7 +48,7 @@
         "cs-fix": "phpcbf --standard=vendor/cakephp/cakephp-codesniffer/CakePHP --ignore=comparisons src/ tests/",
         "test": "phpunit",
         "stan-setup": "cp composer.json composer.backup && composer require --dev phpstan/phpstan:^1.0.0 && mv composer.backup composer.json",
-        "stan-setup": "phpstan analyze"
+        "stan": "phpstan analyze"
     },
     "config": {
         "allow-plugins": {
