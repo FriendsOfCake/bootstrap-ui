@@ -666,9 +666,6 @@ class FormHelper extends CoreFormHelper
 
         if ($skipFormGroupClass) {
             unset($options['container']['formGroupClass']);
-            if (empty($options['container'])) {
-                unset($options['container']);
-            }
         }
 
         $containerOptions = $options['container'];
