@@ -5,7 +5,6 @@ namespace BootstrapUI\Test\TestCase\Command;
 
 use BootstrapUI\Command\CopyLayoutsCommand;
 use Cake\Command\Command;
-use Cake\Console\Arguments;
 use Cake\Console\ConsoleIo;
 use Cake\Console\Exception\StopException;
 use Cake\Console\TestSuite\ConsoleIntegrationTestTrait;
