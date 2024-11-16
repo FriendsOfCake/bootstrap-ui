@@ -148,27 +148,27 @@ class FormHelper extends CoreFormHelper
             '{{input}}{{label}}',
         'datetimeContainer' =>
             '<div{{containerAttrs}} ' .
-                'class="{{containerClass}}form-group {{type}}{{required}}">{{content}}{{help}}</div>',
+                'class="{{containerClass}}{{type}}{{required}}">{{content}}{{help}}</div>',
         'datetimeContainerError' =>
             '<div{{containerAttrs}} ' .
-                'class="{{containerClass}}form-group {{formGroupPosition}}{{type}}{{required}} is-invalid">' .
+                'class="{{containerClass}}{{formGroupPosition}}{{type}}{{required}} is-invalid">' .
                     '{{content}}{{error}}{{help}}</div>',
         'datetimeLabel' =>
             '<label{{attrs}}>{{text}}{{tooltip}}</label>',
         'inputContainer' =>
             '<div{{containerAttrs}} ' .
-                'class="{{containerClass}}form-group {{type}}{{required}}">{{content}}{{help}}</div>',
+                'class="{{containerClass}}{{type}}{{required}}">{{content}}{{help}}</div>',
         'inputContainerError' =>
             '<div{{containerAttrs}} ' .
-                'class="{{containerClass}}form-group {{formGroupPosition}}{{type}}{{required}} is-invalid">' .
+                'class="{{containerClass}}{{formGroupPosition}}{{type}}{{required}} is-invalid">' .
                     '{{content}}{{error}}{{help}}</div>',
         'checkboxContainer' =>
             '<div{{containerAttrs}} ' .
-                'class="{{containerClass}}form-group form-check{{variant}} ' .
+                'class="{{containerClass}}form-check{{variant}} ' .
                     '{{type}}{{required}}">{{content}}{{help}}</div>',
         'checkboxContainerError' =>
             '<div{{containerAttrs}} ' .
-                'class="{{containerClass}}form-group form-check{{variant}} ' .
+                'class="{{containerClass}}form-check{{variant}} ' .
                     '{{formGroupPosition}}{{type}}{{required}} is-invalid">{{content}}{{error}}{{help}}</div>',
         'checkboxInlineContainer' =>
             '<div{{containerAttrs}} ' .
@@ -185,11 +185,11 @@ class FormHelper extends CoreFormHelper
         'checkboxInlineWrapper' =>
             '<div class="form-check{{variant}} form-check-inline">{{label}}</div>',
         'radioContainer' =>
-            '<div{{containerAttrs}} class="{{containerClass}}form-group {{type}}{{required}}" role="group" ' .
+            '<div{{containerAttrs}} class="{{containerClass}}{{type}}{{required}}" role="group" ' .
                 'aria-labelledby="{{groupId}}">{{content}}{{help}}</div>',
         'radioContainerError' =>
             '<div{{containerAttrs}} ' .
-                'class="{{containerClass}}form-group {{formGroupPosition}}{{type}}{{required}} is-invalid" ' .
+                'class="{{containerClass}}{{formGroupPosition}}{{type}}{{required}} is-invalid" ' .
                     'role="group" aria-labelledby="{{groupId}}">{{content}}{{error}}{{help}}</div>',
         'radioLabel' =>
             '<label{{attrs}}>{{text}}{{tooltip}}</label>',
@@ -204,11 +204,11 @@ class FormHelper extends CoreFormHelper
         'inputGroupText' =>
             '<span class="input-group-text">{{content}}</span>',
         'multicheckboxContainer' =>
-            '<div{{containerAttrs}} class="{{containerClass}}form-group {{type}}{{required}}" role="group" ' .
+            '<div{{containerAttrs}} class="{{containerClass}}{{type}}{{required}}" role="group" ' .
                 'aria-labelledby="{{groupId}}">{{content}}{{help}}</div>',
         'multicheckboxContainerError' =>
             '<div{{containerAttrs}} ' .
-                'class="{{containerClass}}form-group {{formGroupPosition}}{{type}}{{required}} is-invalid" ' .
+                'class="{{containerClass}}{{formGroupPosition}}{{type}}{{required}} is-invalid" ' .
                     'role="group" aria-labelledby="{{groupId}}">{{content}}{{error}}{{help}}</div>',
         'multicheckboxLabel' =>
             '<label{{attrs}}>{{text}}{{tooltip}}</label>',
@@ -244,31 +244,31 @@ class FormHelper extends CoreFormHelper
                         '{{formGroupPosition}}{{type}}{{required}} is-invalid">{{content}}{{error}}{{help}}</div>',
             'datetimeContainer' =>
                 '<div{{containerAttrs}} ' .
-                    'class="{{containerClass}}form-group {{formGroupPosition}}{{type}}{{required}}">' .
+                    'class="{{containerClass}}{{formGroupPosition}}{{type}}{{required}}">' .
                         '{{content}}{{help}}</div>',
             'datetimeContainerError' =>
                 '<div{{containerAttrs}} ' .
-                    'class="{{containerClass}}form-group {{formGroupPosition}}{{type}}{{required}} is-invalid">' .
+                    'class="{{containerClass}}{{formGroupPosition}}{{type}}{{required}} is-invalid">' .
                         '{{content}}{{error}}{{help}}</div>',
             'datetimeLabel' =>
                 '<label{{attrs}}>{{text}}{{tooltip}}</label>',
             'radioContainer' =>
                 '<div{{containerAttrs}} ' .
-                    'class="{{containerClass}}form-group {{formGroupPosition}}{{type}}{{required}}" role="group" ' .
+                    'class="{{containerClass}}{{formGroupPosition}}{{type}}{{required}}" role="group" ' .
                         'aria-labelledby="{{groupId}}">{{content}}{{help}}</div>',
             'radioContainerError' =>
                 '<div{{containerAttrs}} ' .
-                    'class="{{containerClass}}form-group {{formGroupPosition}}{{type}}{{required}} is-invalid" ' .
+                    'class="{{containerClass}}{{formGroupPosition}}{{type}}{{required}} is-invalid" ' .
                         'role="group" aria-labelledby="{{groupId}}">{{content}}{{error}}{{help}}</div>',
             'radioLabel' =>
                 '<span{{attrs}}>{{text}}{{tooltip}}</span>',
             'multicheckboxContainer' =>
                 '<div{{containerAttrs}} ' .
-                    'class="{{containerClass}}form-group d-flex {{formGroupPosition}}{{type}}{{required}}" ' .
+                    'class="{{containerClass}}d-flex {{formGroupPosition}}{{type}}{{required}}" ' .
                         'role="group" aria-labelledby="{{groupId}}">{{content}}{{help}}</div>',
             'multicheckboxContainerError' =>
                 '<div{{containerAttrs}} ' .
-                    'class="{{containerClass}}form-group d-flex ' .
+                    'class="{{containerClass}}d-flex ' .
                         '{{formGroupPosition}}{{type}}{{required}} is-invalid" ' .
                             'role="group" aria-labelledby="{{groupId}}">{{content}}{{error}}{{help}}</div>',
             'multicheckboxLabel' =>
@@ -289,47 +289,47 @@ class FormHelper extends CoreFormHelper
                 '<div class="%s"><div class="form-check{{variant}}">{{input}}{{label}}{{error}}{{help}}</div></div>',
             'datetimeContainer' =>
                 '<div{{containerAttrs}} ' .
-                    'class="{{containerClass}}form-group row {{type}}{{required}}">{{content}}</div>',
+                    'class="{{containerClass}}row {{type}}{{required}}">{{content}}</div>',
             'datetimeContainerError' =>
                 '<div{{containerAttrs}} ' .
-                    'class="{{containerClass}}form-group row {{formGroupPosition}}{{type}}{{required}} is-invalid">' .
+                    'class="{{containerClass}}row {{formGroupPosition}}{{type}}{{required}} is-invalid">' .
                         '{{content}}</div>',
             'datetimeLabel' =>
                 '<label{{attrs}}>{{text}}{{tooltip}}</label>',
             'checkboxInlineFormGroup' =>
                 '<div class="%s"><div class="form-check{{variant}} form-check-inline">{{input}}{{label}}</div></div>',
             'submitContainer' =>
-                '<div{{containerAttrs}} class="{{containerClass}}form-group row">' .
+                '<div{{containerAttrs}} class="{{containerClass}}row">' .
                     '<div class="%s">{{content}}</div></div>',
             'inputContainer' =>
-                '<div{{containerAttrs}} class="{{containerClass}}form-group row {{type}}{{required}}">' .
+                '<div{{containerAttrs}} class="{{containerClass}}row {{type}}{{required}}">' .
                     '{{content}}</div>',
             'inputContainerError' =>
                 '<div{{containerAttrs}} ' .
-                    'class="{{containerClass}}form-group row {{formGroupPosition}}{{type}}{{required}} is-invalid">' .
+                    'class="{{containerClass}}row {{formGroupPosition}}{{type}}{{required}} is-invalid">' .
                         '{{content}}</div>',
             'checkboxContainer' =>
-                '<div{{containerAttrs}} class="{{containerClass}}form-group row {{type}}{{required}}">' .
+                '<div{{containerAttrs}} class="{{containerClass}}row {{type}}{{required}}">' .
                     '{{content}}</div>',
             'checkboxContainerError' =>
                 '<div{{containerAttrs}} ' .
-                    'class="{{containerClass}}form-group row {{formGroupPosition}}{{type}}{{required}} is-invalid">' .
+                    'class="{{containerClass}}row {{formGroupPosition}}{{type}}{{required}} is-invalid">' .
                         '{{content}}</div>',
             'radioContainer' =>
-                '<div{{containerAttrs}} class="{{containerClass}}form-group row {{type}}{{required}}" role="group" ' .
+                '<div{{containerAttrs}} class="{{containerClass}}row {{type}}{{required}}" role="group" ' .
                     'aria-labelledby="{{groupId}}">{{content}}</div>',
             'radioContainerError' =>
                 '<div{{containerAttrs}} ' .
-                    'class="{{containerClass}}form-group row {{formGroupPosition}}{{type}}{{required}} is-invalid" ' .
+                    'class="{{containerClass}}row {{formGroupPosition}}{{type}}{{required}} is-invalid" ' .
                         'role="group" aria-labelledby="{{groupId}}">{{content}}</div>',
             'radioLabel' =>
                 '<label{{attrs}}>{{text}}{{tooltip}}</label>',
             'multicheckboxContainer' =>
-                '<div{{containerAttrs}} class="{{containerClass}}form-group row {{type}}{{required}}" role="group" ' .
+                '<div{{containerAttrs}} class="{{containerClass}}row {{type}}{{required}}" role="group" ' .
                     'aria-labelledby="{{groupId}}">{{content}}</div>',
             'multicheckboxContainerError' =>
                 '<div{{containerAttrs}} ' .
-                    'class="{{containerClass}}form-group row {{formGroupPosition}}{{type}}{{required}} is-invalid" ' .
+                    'class="{{containerClass}}row {{formGroupPosition}}{{type}}{{required}} is-invalid" ' .
                         'role="group" aria-labelledby="{{groupId}}">{{content}}</div>',
             'multicheckboxLabel' =>
                 '<label{{attrs}}>{{text}}{{tooltip}}</label>',
@@ -476,6 +476,11 @@ class FormHelper extends CoreFormHelper
         $options += [
             'class' => 'primary',
         ];
+
+        if ($this->_align !== static::ALIGN_HORIZONTAL && !isset($options['container']['formGroupClass'])) {
+            $options['container']['formGroupClass'] = false;
+        }
+
         $options = $this->applyButtonClasses($options);
         $options = $this->_containerOptions(null, $options);
 
@@ -657,21 +662,34 @@ class FormHelper extends CoreFormHelper
         ) {
             $options['container'] = $this->injectClasses('form-floating', (array)($options['container'] ?? []));
         }
+        $skipFormGroupClass = (isset($options['container']['formGroupClass']) && $options['container']['formGroupClass'] === false);
 
-        if (!isset($options['container'])) {
-            return $options;
+        if ($skipFormGroupClass) {
+            unset($options['container']['formGroupClass']);
+            if (empty($options['container'])) {
+                unset($options['container']);
+            }
         }
 
         $containerOptions = $options['container'];
         unset($options['container']);
-
+        if ($containerOptions['formGroupClass'] === null && !$skipFormGroupClass) {
+            $containerOptions['formGroupClass'] = 'form-group';
+        }
+        $containerClass = '';
         if (isset($containerOptions['class'])) {
-            $options['templateVars']['containerClass'] = $containerOptions['class'] . ' ';
+            $containerClass = $containerOptions['class'] . ' ';
             unset($containerOptions['class']);
         }
+        if ($containerOptions['formGroupClass']) {
+            $containerClass = $containerClass . $containerOptions['formGroupClass'] . ' ';
+        }
+        $options['templateVars']['containerClass'] = $containerClass;
+        unset($containerOptions['formGroupClass']);
         if (!empty($containerOptions)) {
             $options['templateVars']['containerAttrs'] = $this->templater()->formatAttributes($containerOptions);
         }
+        unset($options['container']);
 
         return $options;
     }
@@ -731,6 +749,7 @@ class FormHelper extends CoreFormHelper
 
             $options['templates']['checkboxContainer'] = $checkboxContainer;
             $options['templates']['checkboxContainerError'] = $checkboxContainerError;
+            $options['container']['formGroupClass'] = false;
         }
 
         if ($options['nestedInput']) {
