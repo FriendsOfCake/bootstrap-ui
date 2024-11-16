@@ -5,7 +5,6 @@ namespace BootstrapUI\Test\TestCase\Command;
 
 use BootstrapUI\Command\CopyLayoutsCommand;
 use Cake\Command\Command;
-use Cake\Console\Arguments;
 use Cake\Console\ConsoleIo;
 use Cake\Console\Exception\StopException;
 use Cake\Console\TestSuite\ConsoleIntegrationTestTrait;
@@ -118,14 +117,12 @@ class CopyLayoutsCommandTest extends TestCase
             ->method('_copyLayouts')
             ->willReturn(false);
 
-        $args = new Arguments([], [], []);
-
         $out = new StubConsoleOutput();
         $err = new StubConsoleOutput();
         $io = new ConsoleIo($out, $err);
 
         try {
-            $result = $command->execute($args, $io);
+            $result = $command->run([], $io);
         } catch (StopException $exception) {
             $result = $exception->getCode();
         }

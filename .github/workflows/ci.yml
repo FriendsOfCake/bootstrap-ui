@@ -13,34 +13,10 @@ permissions:
 
 jobs:
   testsuite:
-    uses: cakephp/.github/.github/workflows/testsuite-with-db.yml@5.x
-    secrets: inherit
+    uses: ADmad/.github/.github/workflows/testsuite-without-db.yml@master
+    secrets:
+      CODECOV_TOKEN: ${{ secrets.CODECOV_TOKEN }}
 
   cs-stan:
-    name: Coding Standard & Static Analysis
-    runs-on: ubuntu-22.04
-
-    steps:
-    - uses: actions/checkout@v4
-
-    - name: Setup PHP
-      uses: shivammathur/setup-php@v2
-      with:
-        php-version: '8.1'
-        extensions: mbstring, intl
-        coverage: none
-        tools: cs2pr, vimeo/psalm:5, phpstan:1.10
-
-    - name: Composer Install
-      run: composer install
-
-    - name: Run phpcs
-      run: vendor/bin/phpcs --report=checkstyle src/ tests/ | cs2pr
-
-    - name: Run psalm
-      if: always()
-      run: psalm --output-format=github
-
-    - name: Run phpstan
-      if: always()
-      run: phpstan analyse
+    uses: cakephp/.github/.github/workflows/cs-stan.yml@5.x
+    secrets: inherit

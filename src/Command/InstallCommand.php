@@ -59,7 +59,7 @@ class InstallCommand extends Command
         $output = [];
         $return = 0;
         $this->_runNPMInstall($output, $return, $io, $args->getOption('latest') === true);
-        $io->out($output);
+        $io->out($output); // @phpstan-ignore argument.type
 
         if ($return !== 0) {
             $io->error('Package installation failed.');

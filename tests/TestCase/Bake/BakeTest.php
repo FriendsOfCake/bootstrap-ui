@@ -28,7 +28,6 @@ class BakeTest extends TestCase
         $this->_compareBasePath = Plugin::path('BootstrapUI') . 'tests' . DS . 'comparisons' . DS . 'Template' . DS;
 
         $this->loadPlugins([
-            'Bake',
             'Cake/TwigView' => [
                 'bootstrap' => true,
             ],
