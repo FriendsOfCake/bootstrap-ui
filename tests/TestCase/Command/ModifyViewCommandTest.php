@@ -118,14 +118,12 @@ class ModifyViewCommandTest extends TestCase
             ->method('_isFile')
             ->willReturn(false);
 
-        $args = new Arguments([], [], []);
-
         $out = new StubConsoleOutput();
         $err = new StubConsoleOutput();
         $io = new ConsoleIo($out, $err);
 
         try {
-            $result = $command->execute($args, $io);
+            $result = $command->run([], $io);
         } catch (StopException $exception) {
             $result = $exception->getCode();
         }
@@ -156,14 +154,12 @@ class ModifyViewCommandTest extends TestCase
             ->method('_readFile')
             ->willReturn(false);
 
-        $args = new Arguments([], [], []);
-
         $out = new StubConsoleOutput();
         $err = new StubConsoleOutput();
         $io = new ConsoleIo($out, $err);
 
         try {
-            $result = $command->execute($args, $io);
+            $result = $command->run([], $io);
         } catch (StopException $exception) {
             $result = $exception->getCode();
         }
@@ -194,14 +190,12 @@ class ModifyViewCommandTest extends TestCase
             ->method('_writeFile')
             ->willReturn(false);
 
-        $args = new Arguments([], [], []);
-
         $out = new StubConsoleOutput();
         $err = new StubConsoleOutput();
         $io = new ConsoleIo($out, $err);
 
         try {
-            $result = $command->execute($args, $io);
+            $result = $command->run([], $io);
         } catch (StopException $exception) {
             $result = $exception->getCode();
         }

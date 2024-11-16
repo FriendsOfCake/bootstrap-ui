@@ -118,14 +118,12 @@ class CopyLayoutsCommandTest extends TestCase
             ->method('_copyLayouts')
             ->willReturn(false);
 
-        $args = new Arguments([], [], []);
-
         $out = new StubConsoleOutput();
         $err = new StubConsoleOutput();
         $io = new ConsoleIo($out, $err);
 
         try {
-            $result = $command->execute($args, $io);
+            $result = $command->run([], $io);
         } catch (StopException $exception) {
             $result = $exception->getCode();
         }
