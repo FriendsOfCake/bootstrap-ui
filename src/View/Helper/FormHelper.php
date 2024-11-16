@@ -662,7 +662,7 @@ class FormHelper extends CoreFormHelper
         ) {
             $options['container'] = $this->injectClasses('form-floating', (array)($options['container'] ?? []));
         }
-        $skipFormGroupClass = (isset($options['container']['formGroupClass']) && $options['container']['formGroupClass'] === false);
+        $skipFormGroupClass = ($options['container']['formGroupClass'] ?? null) === false;
 
         if ($skipFormGroupClass) {
             unset($options['container']['formGroupClass']);
