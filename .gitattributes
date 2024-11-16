@@ -9,3 +9,4 @@ tests export-ignore
 .github export-ignore
 phpstan.neon export-ignore
 psalm.xml export-ignore
+.phive export-ignore

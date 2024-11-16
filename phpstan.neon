@@ -1,7 +1,9 @@
 parameters:
 	level: 8
-	checkMissingIterableValueType: false
 	bootstrapFiles:
 		- tests/bootstrap.php
 	paths:
 		- src/
+	ignoreErrors:
+		-
+			identifier: missingType.iterableValue

@@ -119,9 +119,7 @@ trait OptionsAwareTrait
         foreach ($classes as $class) {
             $indices = array_keys($options['class'], $class);
             foreach ($indices as $index) {
-                if ($index !== false) {
-                    unset($options['class'][$index]);
-                }
+                unset($options['class'][$index]);
             }
         }
 
