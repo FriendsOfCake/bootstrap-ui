@@ -323,13 +323,6 @@ class FormHelper extends CoreFormHelper
     ];
 
     /**
-     * The name of the field for which the current error is being generated.
-     *
-     * @var string|null
-     */
-    private ?string $_errorFieldName = null;
-
-    /**
      * {@inheritDoc}
      *
      * Additionally to the core form helper options, the following BootstrapUI related options are supported:
@@ -384,18 +377,6 @@ class FormHelper extends CoreFormHelper
         ];
 
         return parent::create($context, $this->_processFormOptions($options));
-    }
-
-    /**
-     * @inheritDoc
-     */
-    public function error(string $field, array|string|null $text = null, array $options = []): string
-    {
-        $this->_errorFieldName = $field;
-        $error = parent::error($field, $text, $options);
-        $this->_errorFieldName = null;
-
-        return $error;
     }
 
     /**
