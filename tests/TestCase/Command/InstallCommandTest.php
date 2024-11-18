@@ -574,12 +574,12 @@ EOT;
         $command
             ->expects($this->once())
             ->method('_runNPMInstall')
-            ->will($this->returnCallback(function (&$out, &$return) {
+            ->willReturnCallback(function (&$out, &$return) {
                 $out = [
                     'installer output',
                 ];
                 $return = 1234;
-            }));
+            });
 
         $out = new StubConsoleOutput();
         $err = new StubConsoleOutput();

@@ -901,7 +901,6 @@ class FormHelper extends CoreFormHelper
             $options['type'] === 'hidden' ||
             ($options['type'] === 'select' && isset($options['multiple']) && $options['multiple'] === 'checkbox') ||
             (
-                isset($options['aria-required']) &&
                 isset($options['aria-describedby']) &&
                 isset($options['aria-invalid'])
             )
