@@ -26,12 +26,6 @@ class BakeTest extends TestCase
         parent::setUp();
 
         $this->_compareBasePath = Plugin::path('BootstrapUI') . 'tests' . DS . 'comparisons' . DS . 'Template' . DS;
-
-        $this->loadPlugins([
-            'Cake/TwigView' => [
-                'bootstrap' => true,
-            ],
-        ]);
     }
 
     public function tearDown(): void

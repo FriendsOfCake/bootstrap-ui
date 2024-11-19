@@ -8,6 +8,7 @@ use Cake\Http\ServerRequest;
 use Cake\Http\Session;
 use Cake\TestSuite\TestCase;
 use Cake\View\View;
+use PHPUnit\Framework\Attributes\DataProvider;
 use UnexpectedValueException;
 
 /**
@@ -63,11 +64,11 @@ class FlashHelperTest extends TestCase
     }
 
     /**
-     * @dataProvider flashTypeDefaultsDataProvider
      * @param string $type The flash type.
      * @param string $class The alert class.
      * @param string $icon The icon name.
      */
+    #[DataProvider('flashTypeDefaultsDataProvider')]
     public function testRenderDefaults(string $type, string $class, string $icon)
     {
         $this->View->getRequest()->getSession()->write('Flash', [
@@ -445,9 +446,9 @@ class FlashHelperTest extends TestCase
     }
 
     /**
-     * @dataProvider flashTypeDataProvider
      * @param string $type The flash type.
      */
+    #[DataProvider('flashTypeDataProvider')]
     public function testCustomDefaultIcon(string $type)
     {
         $this->Flash->setConfig('icon', 'info');
@@ -466,9 +467,9 @@ class FlashHelperTest extends TestCase
     }
 
     /**
-     * @dataProvider flashTypeDataProvider
      * @param string $type The flash type.
      */
+    #[DataProvider('flashTypeDataProvider')]
     public function testDisableIconsViaConfig(string $type)
     {
         $this->Flash->setConfig('icon', false);
@@ -490,6 +491,7 @@ class FlashHelperTest extends TestCase
      * @dataProvider flashTypeDataProvider
      * @param string $type The flash type.
      */
+    #[DataProvider('flashTypeDataProvider')]
     public function testDisableIconViaParamsOption(string $type)
     {
         $this->View->getRequest()->getSession()->write('Flash', [
@@ -508,9 +510,9 @@ class FlashHelperTest extends TestCase
     }
 
     /**
-     * @dataProvider flashTypeDataProvider
      * @param string $type The flash type.
      */
+    #[DataProvider('flashTypeDataProvider')]
     public function testCustomIconClassMap(string $type)
     {
         $iconClassMap = [
@@ -540,9 +542,9 @@ class FlashHelperTest extends TestCase
     }
 
     /**
-     * @dataProvider flashTypeDataProvider
      * @param string $type The flash type.
      */
+    #[DataProvider('flashTypeDataProvider')]
     public function testCustomIconClassMapOptions(string $type)
     {
         $options = [

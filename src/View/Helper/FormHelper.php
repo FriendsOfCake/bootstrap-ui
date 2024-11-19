@@ -146,15 +146,6 @@ class FormHelper extends CoreFormHelper
             '<span data-bs-toggle="tooltip" title="{{content}}" class="bi bi-info-circle-fill"></span>',
         'formGroupFloatingLabel' =>
             '{{input}}{{label}}',
-        'datetimeContainer' =>
-            '<div{{containerAttrs}} ' .
-                'class="{{containerClass}}{{formGroupClass}} {{type}}{{required}}">{{content}}{{help}}</div>',
-        'datetimeContainerError' =>
-            '<div{{containerAttrs}} ' .
-                'class="{{containerClass}}{{formGroupClass}} {{formGroupPosition}}{{type}}{{required}} is-invalid">' .
-                    '{{content}}{{error}}{{help}}</div>',
-        'datetimeLabel' =>
-            '<label{{attrs}}>{{text}}{{tooltip}}</label>',
         'inputContainer' =>
             '<div{{containerAttrs}} ' .
                 'class="{{containerClass}}{{formGroupClass}} {{type}}{{required}}">{{content}}{{help}}</div>',
@@ -243,17 +234,6 @@ class FormHelper extends CoreFormHelper
                 '<div{{containerAttrs}} ' .
                     'class="{{containerClass}}form-check{{variant}} ' .
                         '{{formGroupPosition}}{{type}}{{required}} is-invalid">{{content}}{{error}}{{help}}</div>',
-            'datetimeContainer' =>
-                '<div{{containerAttrs}} ' .
-                    'class="{{containerClass}}{{formGroupClass}} {{formGroupPosition}}{{type}}{{required}}">' .
-                        '{{content}}{{help}}</div>',
-            'datetimeContainerError' =>
-                '<div{{containerAttrs}} ' .
-                    'class="{{containerClass}}{{formGroupClass}} ' .
-                    '{{formGroupPosition}}{{type}}{{required}} is-invalid">' .
-                    '{{content}}{{error}}{{help}}</div>',
-            'datetimeLabel' =>
-                '<label{{attrs}}>{{text}}{{tooltip}}</label>',
             'radioContainer' =>
                 '<div{{containerAttrs}} ' .
                     'class="{{containerClass}}{{formGroupClass}} ' .
@@ -293,16 +273,6 @@ class FormHelper extends CoreFormHelper
                 '<div class="%s form-floating">{{input}}{{label}}{{error}}{{help}}</div>',
             'checkboxFormGroup' =>
                 '<div class="%s"><div class="form-check{{variant}}">{{input}}{{label}}{{error}}{{help}}</div></div>',
-            'datetimeContainer' =>
-                '<div{{containerAttrs}} ' .
-                    'class="{{containerClass}}{{formGroupClass}} row {{type}}{{required}}">{{content}}</div>',
-            'datetimeContainerError' =>
-                '<div{{containerAttrs}} ' .
-                    'class="{{containerClass}}{{formGroupClass}} row ' .
-                    '{{formGroupPosition}}{{type}}{{required}} is-invalid">' .
-                    '{{content}}</div>',
-            'datetimeLabel' =>
-                '<label{{attrs}}>{{text}}{{tooltip}}</label>',
             'checkboxInlineFormGroup' =>
                 '<div class="%s"><div class="form-check{{variant}} form-check-inline">{{input}}{{label}}</div></div>',
             'submitContainer' =>
@@ -369,13 +339,6 @@ class FormHelper extends CoreFormHelper
     ];
 
     /**
-     * The name of the field for which the current error is being generated.
-     *
-     * @var string|null
-     */
-    private ?string $_errorFieldName = null;
-
-    /**
      * {@inheritDoc}
      *
      * Additionally to the core form helper options, the following BootstrapUI related options are supported:
@@ -430,40 +393,6 @@ class FormHelper extends CoreFormHelper
         ];
 
         return parent::create($context, $this->_processFormOptions($options));
-    }
-
-    /**
-     * @inheritDoc
-     */
-    public function error(string $field, array|string|null $text = null, array $options = []): string
-    {
-        $this->_errorFieldName = $field;
-        $error = parent::error($field, $text, $options);
-        $this->_errorFieldName = null;
-
-        return $error;
-    }
-
-    /**
-     * @inheritDoc
-     */
-    public function formatTemplate(string $name, array $data): string
-    {
-        // Injects the `id` attribute value for the error template.
-        // This is done for backwards compatibility reasons, as the
-        // core form helper only introduced this behavior with
-        // CakePHP 4.3. This can be removed once the required minimum
-        // CakePHP version is bumped accordingly.
-
-        if (
-            $name === 'error' &&
-            !isset($data['id']) &&
-            $this->_errorFieldName !== null
-        ) {
-            $data['id'] = $this->_domId($this->_errorFieldName . '-error');
-        }
-
-        return parent::formatTemplate($name, $data);
     }
 
     /**
@@ -566,13 +495,6 @@ class FormHelper extends CoreFormHelper
         }
 
         switch ($options['type']) {
-            case 'datetime-local':
-            case 'datetime':
-            case 'date':
-            case 'time':
-                $options = $this->_dateTimeOptions($fieldName, $options);
-                break;
-
             case 'checkbox':
             case 'radio':
             case 'select':
@@ -692,35 +614,6 @@ class FormHelper extends CoreFormHelper
         if (!empty($containerOptions)) {
             $options['templateVars']['containerAttrs'] = $this->templater()->formatAttributes($containerOptions);
         }
-
-        return $options;
-    }
-
-    /**
-     * Modify options for date time controls.
-     *
-     * @param string $fieldName Field name.
-     * @param array $options Options. See `$options` argument of `control()` method.
-     * @return array
-     */
-    protected function _dateTimeOptions(string $fieldName, array $options): array
-    {
-        $options = $this->_labelOptions($fieldName, $options);
-
-        // group IDs are no longer required for date/time controls,
-        // this is just kept for backwards compatibility
-
-        $groupId =
-        $options['templateVars']['groupId'] =
-            $this->_domId($fieldName . '-group-label');
-
-        if ($options['label'] !== false) {
-            $options['label']['templateVars']['groupId'] = $groupId;
-        }
-
-        $options['templates']['label'] = $this->templater()->get('datetimeLabel');
-        $options['templates']['inputContainer'] = $this->templater()->get('datetimeContainer');
-        $options['templates']['inputContainerError'] = $this->templater()->get('datetimeContainerError');
 
         return $options;
     }
@@ -1005,8 +898,8 @@ class FormHelper extends CoreFormHelper
     {
         if (
             $options['type'] === 'hidden' ||
+            ($options['type'] === 'select' && isset($options['multiple']) && $options['multiple'] === 'checkbox') ||
             (
-                isset($options['aria-required']) &&
                 isset($options['aria-describedby']) &&
                 isset($options['aria-invalid'])
             )
@@ -1018,24 +911,13 @@ class FormHelper extends CoreFormHelper
             $options['error'] !== false &&
             $this->isFieldError($fieldName);
 
-        // `aria-invalid` and `aria-required` are injected for backwards
-        // compatibility reasons, as support for this has only been
-        // introduced in the core form helper with CakePHP 4.3. This can
-        // be removed once the required minimum CakePHP version is bumped
-        // accordingly.
-
+        // This is required because of a bug in CakePHP 5 due to which
+        // `aria-invalid` is not applied for `select` tags.
         if (
             $isError &&
             !isset($options['aria-invalid'])
         ) {
             $options['aria-invalid'] = 'true';
-        }
-
-        if (
-            $options['required'] &&
-            !isset($options['aria-required'])
-        ) {
-            $options['aria-required'] = 'true';
         }
 
         if (isset($options['aria-describedby'])) {
@@ -1453,10 +1335,6 @@ class FormHelper extends CoreFormHelper
 
         $templates['label'] = sprintf(
             $templates['label'],
-            $this->_gridClass(static::GRID_COLUMN_ONE)
-        );
-        $templates['datetimeLabel'] = sprintf(
-            $templates['datetimeLabel'],
             $this->_gridClass(static::GRID_COLUMN_ONE)
         );
         $templates['radioLabel'] = sprintf(
