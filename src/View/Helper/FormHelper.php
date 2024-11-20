@@ -601,11 +601,8 @@ class FormHelper extends CoreFormHelper
         $containerOptions = $options['container'] ?? [];
         unset($options['container']);
 
-        $options['templateVars']['formGroupClass'] = 'form-group';
-        if (isset($containerOptions['formGroupClass'])) {
-            $options['templateVars']['formGroupClass'] = $containerOptions['formGroupClass'];
-            unset($containerOptions['formGroupClass']);
-        }
+        $options['templateVars']['formGroupClass'] = $containerOptions['formGroupClass'] ?? 'form-group';
+        unset($containerOptions['formGroupClass']);
 
         if (isset($containerOptions['class'])) {
             $options['templateVars']['containerClass'] = $containerOptions['class'] . ' ';
