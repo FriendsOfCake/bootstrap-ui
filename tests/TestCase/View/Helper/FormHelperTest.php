@@ -1804,4 +1804,56 @@ class FormHelperTest extends AbstractFormHelperTest
         ];
         $this->assertHtml($expected, $result);
     }
+
+    public function testFormGroupClassOverride()
+    {
+        $this->article['required']['title'] = false;
+        $this->Form->create($this->article);
+
+        $result = $this->Form->control('title', [
+            'container' => [
+                'formGroupClass' => 'custom-form-group',
+            ],
+        ]);
+        $expected = [
+            ['div' => ['class' => 'mb-3 custom-form-group text']],
+                ['label' => ['class' => 'form-label', 'for' => 'title']],
+                    'Title',
+                '/label',
+                'input' => [
+                    'type' => 'text',
+                    'name' => 'title',
+                    'id' => 'title',
+                    'class' => 'form-control',
+                ],
+            '/div',
+        ];
+        $this->assertHtml($expected, $result);
+    }
+
+    public function testFormGroupClassEmpty()
+    {
+        $this->article['required']['title'] = false;
+        $this->Form->create($this->article);
+
+        $result = $this->Form->control('title', [
+            'container' => [
+                'formGroupClass' => '',
+            ],
+        ]);
+        $expected = [
+            ['div' => ['class' => 'mb-3  text']],
+                ['label' => ['class' => 'form-label', 'for' => 'title']],
+                    'Title',
+                '/label',
+                'input' => [
+                    'type' => 'text',
+                    'name' => 'title',
+                    'id' => 'title',
+                    'class' => 'form-control',
+                ],
+            '/div',
+        ];
+        $this->assertHtml($expected, $result);
+    }
 }
