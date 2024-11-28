@@ -54,7 +54,7 @@ class HtmlHelper extends CoreHtmlHelper
         $tag = $options['tag'];
         unset($options['tag']);
 
-        $allClasses = $this->genAllClassNames('bg');
+        $allClasses = $this->genAllClassNames('text-bg');
 
         if ($this->hasAnyClass($allClasses, $options)) {
             $options = $this->injectClasses('badge', $options);
@@ -62,7 +62,7 @@ class HtmlHelper extends CoreHtmlHelper
             $options = $this->injectClasses(['badge', 'secondary'], $options);
         }
 
-        $classes = $this->renameClasses('bg', $options);
+        $classes = $this->renameClasses('text-bg', $options);
 
         return $this->tag($tag, $text, $classes);
     }
