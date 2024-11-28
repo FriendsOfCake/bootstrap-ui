@@ -93,12 +93,12 @@ $this->prepend(
 
 /**
  * Prepend `script` block with Popper and Bootstrap scripts
- * Change popper.min and bootstrap.min to use the compressed version
+ * Change bootstrap.min to use the compressed version
  */
 if (Configure::read('debug')) {
-    $this->prepend('script', $this->Html->script(['BootstrapUI.popper', 'BootstrapUI.bootstrap']));
+    $this->prepend('script', $this->Html->script(['BootstrapUI.bootstrap.bundle']));
 } else {
-    $this->prepend('script', $this->Html->script(['BootstrapUI.popper.min', 'BootstrapUI.bootstrap.min']));
+    $this->prepend('script', $this->Html->script(['BootstrapUI.bootstrap.bundle.min']));
 }
 
 ?>

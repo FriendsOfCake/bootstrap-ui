@@ -352,7 +352,6 @@ class InstallCommand extends Command
 
         $nodeModulesPath = Plugin::path('BootstrapUI') . 'node_modules' . DS;
         $paths = [
-            $nodeModulesPath . '@popperjs/core/dist/umd',
             $nodeModulesPath . 'bootstrap/dist',
             $nodeModulesPath . 'bootstrap-icons',
         ];
