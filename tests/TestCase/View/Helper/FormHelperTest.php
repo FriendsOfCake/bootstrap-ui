@@ -641,7 +641,7 @@ class FormHelperTest extends AbstractFormHelperTest
                 'method' => 'post',
                 'accept-charset' => 'utf-8',
                 'action' => '/articles/add',
-                'class' => 'form-inline row g-3 align-items-center',
+                'class' => 'row g-3 align-items-center',
             ],
         ];
         $this->assertHtml($expected, $result);
@@ -658,7 +658,7 @@ class FormHelperTest extends AbstractFormHelperTest
                 'method' => 'post',
                 'accept-charset' => 'utf-8',
                 'action' => '/articles/add',
-                'class' => 'form-inline row custom-spacing align-items-center',
+                'class' => 'row custom-spacing align-items-center',
             ],
         ];
         $this->assertHtml($expected, $result);
@@ -672,7 +672,6 @@ class FormHelperTest extends AbstractFormHelperTest
                 'method' => 'post',
                 'accept-charset' => 'utf-8',
                 'action' => '/articles/add',
-                'class' => 'form-horizontal',
             ],
         ];
         $this->assertHtml($expected, $result);
@@ -770,7 +769,6 @@ class FormHelperTest extends AbstractFormHelperTest
                 'method' => 'post',
                 'accept-charset' => 'utf-8',
                 'action' => '/articles/add',
-                'class' => 'form-horizontal',
             ],
         ];
         $this->assertHtml($expected, $result);

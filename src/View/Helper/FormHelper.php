@@ -1284,8 +1284,6 @@ class FormHelper extends CoreFormHelper
             return $options;
         }
 
-        $options = $this->injectClasses('form-' . $this->_align, $options);
-
         if ($this->_align === static::ALIGN_INLINE) {
             $options = $this->injectClasses(
                 [
