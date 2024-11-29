@@ -408,16 +408,6 @@ class FormHelper extends CoreFormHelper
     /**
      * @inheritDoc
      */
-    public function button(string $title, array $options = []): string
-    {
-        $result = parent::button($title, $options);
-
-        return $this->_postProcessElement($result, null, $options);
-    }
-
-    /**
-     * @inheritDoc
-     */
     public function submit(?string $caption = null, array $options = []): string
     {
         $options += [
