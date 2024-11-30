@@ -23,6 +23,7 @@ class ElementTest extends TestCase
             Element::ALERT,
             Element::BADGE,
             Element::BG,
+            Element::TEXT_BG,
             Element::BORDER,
             Element::BTN,
             Element::BTN_OUTLINE,

@@ -37,7 +37,7 @@ class HtmlHelperTest extends TestCase
     {
         $result = $this->Html->badge('foo');
         $expected = [
-            'span' => ['class' => 'badge bg-secondary'],
+            'span' => ['class' => 'badge text-bg-secondary'],
             'foo',
             '/span',
         ];
@@ -45,7 +45,7 @@ class HtmlHelperTest extends TestCase
 
         $result = $this->Html->badge('foo', ['class' => 'primary']);
         $expected = [
-            'span' => ['class' => 'bg-primary badge'],
+            'span' => ['class' => 'text-bg-primary badge'],
             'foo',
             '/span',
         ];
