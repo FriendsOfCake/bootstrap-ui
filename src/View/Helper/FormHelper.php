@@ -70,7 +70,7 @@ class FormHelper extends CoreFormHelper
      *
      * @var array
      */
-    public const ALIGN_TYPES = ['default', 'horizontal', 'inline'];
+    public const ALIGN_TYPES = [self::ALIGN_DEFAULT, self::ALIGN_HORIZONTAL, self::ALIGN_INLINE];
 
     /**
      * Default alignment.
@@ -353,7 +353,7 @@ class FormHelper extends CoreFormHelper
     public function __construct(View $View, array $config = [])
     {
         $this->_defaultConfig = [
-            'align' => 'default',
+            'align' => static::ALIGN_DEFAULT,
             'errorClass' => 'is-invalid',
             'grid' => [
                 static::GRID_COLUMN_ONE => 2,
@@ -1298,7 +1298,7 @@ class FormHelper extends CoreFormHelper
             $options['templates'] = (new PhpConfig())->read($options['templates']);
         }
 
-        if ($this->_align === 'default') {
+        if ($this->_align === static::ALIGN_DEFAULT) {
             $options['templates'] += $templates;
 
             return $options;
@@ -1306,7 +1306,7 @@ class FormHelper extends CoreFormHelper
 
         $options = $this->injectClasses('form-' . $this->_align, $options);
 
-        if ($this->_align === 'inline') {
+        if ($this->_align === static::ALIGN_INLINE) {
             $options = $this->injectClasses(
                 [
                     'row',
