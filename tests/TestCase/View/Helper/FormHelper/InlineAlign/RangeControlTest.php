@@ -176,9 +176,9 @@ class RangeControlTest extends AbstractFormHelperTest
                         'class' => 'form-range',
                         'aria-describedby' => 'height-help',
                     ],
-                    ['small' => ['id' => 'height-help', 'class' => 'visually-hidden form-text']],
+                    ['div' => ['id' => 'height-help', 'class' => 'form-text visually-hidden']],
                         'Help text',
-                    '/small',
+                    '/div',
                 '/div',
             '/div',
         ];
@@ -219,13 +219,13 @@ class RangeControlTest extends AbstractFormHelperTest
                         'class' => 'form-range',
                         'aria-describedby' => 'custom-help',
                     ],
-                    ['small' => [
+                    ['div' => [
                         'id' => 'custom-help',
                         'foo' => 'bar',
-                        'class' => 'help-class visually-hidden form-text',
+                        'class' => 'help-class form-text visually-hidden',
                     ]],
                         'Help text',
-                    '/small',
+                    '/div',
                 '/div',
             '/div',
         ];
@@ -349,9 +349,9 @@ class RangeControlTest extends AbstractFormHelperTest
                     ['div' => ['id' => 'height-error', 'class' => 'invalid-tooltip']],
                         'error message',
                     '/div',
-                    ['small' => ['id' => 'height-help', 'class' => 'visually-hidden form-text']],
+                    ['div' => ['id' => 'height-help', 'class' => 'form-text visually-hidden']],
                         'Help text',
-                    '/small',
+                    '/div',
                 '/div',
             '/div',
         ];
@@ -399,13 +399,13 @@ class RangeControlTest extends AbstractFormHelperTest
                     ['div' => ['id' => 'height-error', 'class' => 'invalid-tooltip']],
                         'error message',
                     '/div',
-                    ['small' => [
+                    ['div' => [
                         'id' => 'custom-help',
                         'foo' => 'bar',
-                        'class' => 'help-class visually-hidden form-text',
+                        'class' => 'help-class form-text visually-hidden',
                     ]],
                         'Help text',
-                    '/small',
+                    '/div',
                 '/div',
             '/div',
         ];

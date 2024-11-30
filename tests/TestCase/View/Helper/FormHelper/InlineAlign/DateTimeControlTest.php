@@ -177,9 +177,9 @@ class DateTimeControlTest extends AbstractFormHelperTest
                         'aria-describedby' => 'created-help',
                         'value' => $now->format('Y-m-d H:i:s'),
                     ],
-                    ['small' => ['id' => 'created-help', 'class' => 'visually-hidden form-text']],
+                    ['div' => ['id' => 'created-help', 'class' => 'form-text visually-hidden']],
                         'Help text',
-                    '/small',
+                    '/div',
                 '/div',
             '/div',
         ];
@@ -220,13 +220,13 @@ class DateTimeControlTest extends AbstractFormHelperTest
                         'aria-describedby' => 'custom-help',
                         'value' => $now->format('Y-m-d H:i:s'),
                     ],
-                    ['small' => [
+                    ['div' => [
                         'id' => 'custom-help',
                         'foo' => 'bar',
-                        'class' => 'help-class visually-hidden form-text',
+                        'class' => 'help-class form-text visually-hidden',
                     ]],
                         'Help text',
-                    '/small',
+                    '/div',
                 '/div',
             '/div',
         ];
@@ -394,9 +394,9 @@ class DateTimeControlTest extends AbstractFormHelperTest
                     ['div' => ['id' => 'created-error', 'class' => 'invalid-tooltip']],
                         'error message',
                     '/div',
-                    ['small' => ['id' => 'created-help', 'class' => 'visually-hidden form-text']],
+                    ['div' => ['id' => 'created-help', 'class' => 'form-text visually-hidden']],
                         'Help text',
-                    '/small',
+                    '/div',
                 '/div',
             '/div',
         ];
@@ -446,13 +446,13 @@ class DateTimeControlTest extends AbstractFormHelperTest
                     ['div' => ['id' => 'created-error', 'class' => 'invalid-tooltip']],
                         'error message',
                     '/div',
-                    ['small' => [
+                    ['div' => [
                         'id' => 'custom-help',
                         'foo' => 'bar',
-                        'class' => 'help-class visually-hidden form-text',
+                        'class' => 'help-class form-text visually-hidden',
                     ]],
                         'Help text',
-                    '/small',
+                    '/div',
                 '/div',
             '/div',
         ];

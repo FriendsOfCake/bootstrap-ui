@@ -202,9 +202,9 @@ class RangeControlTest extends AbstractFormHelperTest
                         'class' => 'form-range',
                         'aria-describedby' => 'height-help',
                     ],
-                    ['small' => ['id' => 'height-help', 'class' => 'd-block form-text text-muted']],
+                    ['div' => ['id' => 'height-help', 'class' => 'form-text']],
                         'Help text',
-                    '/small',
+                    '/div',
                 '/div',
             '/div',
         ];
@@ -250,13 +250,13 @@ class RangeControlTest extends AbstractFormHelperTest
                         'class' => 'form-range',
                         'aria-describedby' => 'custom-help',
                     ],
-                    ['small' => [
+                    ['div' => [
                         'id' => 'custom-help',
                         'foo' => 'bar',
-                        'class' => 'help-class d-block form-text text-muted',
+                        'class' => 'help-class form-text',
                     ]],
                         'Help text',
-                    '/small',
+                    '/div',
                 '/div',
             '/div',
         ];
@@ -434,9 +434,9 @@ class RangeControlTest extends AbstractFormHelperTest
                     ['div' => ['id' => 'height-error', 'class' => 'ms-0 invalid-feedback']],
                         'error message',
                     '/div',
-                    ['small' => ['id' => 'height-help', 'class' => 'd-block form-text text-muted']],
+                    ['div' => ['id' => 'height-help', 'class' => 'form-text']],
                         'Help text',
-                    '/small',
+                    '/div',
                 '/div',
             '/div',
         ];
@@ -489,13 +489,13 @@ class RangeControlTest extends AbstractFormHelperTest
                     ['div' => ['id' => 'height-error', 'class' => 'ms-0 invalid-feedback']],
                         'error message',
                     '/div',
-                    ['small' => [
+                    ['div' => [
                         'id' => 'custom-help',
                         'foo' => 'bar',
-                        'class' => 'help-class d-block form-text text-muted',
+                        'class' => 'help-class form-text',
                     ]],
                         'Help text',
-                    '/small',
+                    '/div',
                 '/div',
             '/div',
         ];

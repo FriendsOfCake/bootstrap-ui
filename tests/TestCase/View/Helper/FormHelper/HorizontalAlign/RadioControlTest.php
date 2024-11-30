@@ -309,9 +309,9 @@ class RadioControlTest extends AbstractFormHelperTest
                             'option 2',
                         '/label',
                     '/div',
-                    ['small' => ['id' => 'users-help', 'class' => 'd-block form-text text-muted']],
+                    ['div' => ['id' => 'users-help', 'class' => 'form-text']],
                         'Help text',
-                    '/small',
+                    '/div',
                 '/div',
             '/div',
         ];
@@ -380,13 +380,13 @@ class RadioControlTest extends AbstractFormHelperTest
                             'option 2',
                         '/label',
                     '/div',
-                    ['small' => [
+                    ['div' => [
                         'id' => 'custom-help',
                         'foo' => 'bar',
-                        'class' => 'help-class d-block form-text text-muted',
+                        'class' => 'help-class form-text',
                     ]],
                         'Help text',
-                    '/small',
+                    '/div',
                 '/div',
             '/div',
         ];
@@ -617,9 +617,9 @@ class RadioControlTest extends AbstractFormHelperTest
                     ['div' => ['id' => 'users-error', 'class' => 'ms-0 invalid-feedback']],
                         'error message',
                     '/div',
-                    ['small' => ['id' => 'users-help', 'class' => 'd-block form-text text-muted']],
+                    ['div' => ['id' => 'users-help', 'class' => 'form-text']],
                         'Help text',
-                    '/small',
+                    '/div',
                 '/div',
             '/div',
         ];
@@ -701,13 +701,13 @@ class RadioControlTest extends AbstractFormHelperTest
                     ['div' => ['id' => 'users-error', 'class' => 'ms-0 invalid-feedback']],
                         'error message',
                     '/div',
-                    ['small' => [
+                    ['div' => [
                         'id' => 'custom-help',
                         'foo' => 'bar',
-                        'class' => 'help-class d-block form-text text-muted',
+                        'class' => 'help-class form-text',
                     ]],
                         'Help text',
-                    '/small',
+                    '/div',
                 '/div',
             '/div',
         ];
@@ -1310,9 +1310,9 @@ class RadioControlTest extends AbstractFormHelperTest
                             'option 2',
                         '/label',
                     '/div',
-                    ['small' => ['id' => 'users-help', 'class' => 'd-block form-text text-muted']],
+                    ['div' => ['id' => 'users-help', 'class' => 'form-text']],
                         'Help text',
-                    '/small',
+                    '/div',
                 '/div',
             '/div',
         ];
@@ -1382,13 +1382,13 @@ class RadioControlTest extends AbstractFormHelperTest
                             'option 2',
                         '/label',
                     '/div',
-                    ['small' => [
+                    ['div' => [
                         'id' => 'custom-help',
                         'foo' => 'bar',
-                        'class' => 'help-class d-block form-text text-muted',
+                        'class' => 'help-class form-text',
                     ]],
                         'Help text',
-                    '/small',
+                    '/div',
                 '/div',
             '/div',
         ];

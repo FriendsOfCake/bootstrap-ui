@@ -141,7 +141,7 @@ class FormHelper extends CoreFormHelper
         'label' =>
             '<label{{attrs}}>{{text}}{{tooltip}}</label>',
         'help' =>
-            '<small{{attrs}}>{{content}}</small>',
+            '<div{{attrs}}>{{content}}</div>',
         'tooltip' =>
             '<span data-bs-toggle="tooltip" title="{{content}}" class="bi bi-info-circle-fill"></span>',
         'formGroupFloatingLabel' =>
@@ -980,36 +980,31 @@ class FormHelper extends CoreFormHelper
      */
     protected function _helpOptions(string $fieldName, array $options): array
     {
-        if ($options['help']) {
-            if (!is_array($options['help'])) {
-                $options['help'] = [
-                    'content' => $options['help'],
-                ];
-            }
-
-            if (!isset($options['help']['id'])) {
-                $options['help']['id'] = $this->_domId($fieldName . '-help');
-            }
-
-            $helpClasses = [];
-            if ($this->_align === static::ALIGN_INLINE) {
-                $helpClasses[] = 'visually-hidden';
-            } else {
-                $helpClasses[] = 'd-block';
-            }
-
-            $helpClasses[] = 'form-text';
-            if ($this->_align !== static::ALIGN_INLINE) {
-                $helpClasses[] = 'text-muted';
-            }
-
-            $options['help'] = $this->injectClasses($helpClasses, $options['help']);
-
-            $options['help'] = $this->templater()->format('help', [
-                'content' => $options['help']['content'],
-                'attrs' => $this->templater()->formatAttributes($options['help'], ['content']),
-            ]);
+        if ($options['help'] === null) {
+            return $options;
         }
+
+        if (!is_array($options['help'])) {
+            $options['help'] = [
+                'content' => $options['help'],
+            ];
+        }
+
+        if (!isset($options['help']['id'])) {
+            $options['help']['id'] = $this->_domId($fieldName . '-help');
+        }
+
+        $helpClasses = ['form-text'];
+        if ($this->_align === static::ALIGN_INLINE) {
+            $helpClasses[] = 'visually-hidden';
+        }
+
+        $options['help'] = $this->injectClasses($helpClasses, $options['help']);
+
+        $options['help'] = $this->templater()->format('help', [
+            'content' => $options['help']['content'],
+            'attrs' => $this->templater()->formatAttributes($options['help'], ['content']),
+        ]);
 
         return $options;
     }
