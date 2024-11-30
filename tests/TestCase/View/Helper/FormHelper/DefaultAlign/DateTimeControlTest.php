@@ -159,9 +159,9 @@ class DateTimeControlTest extends AbstractFormHelperTest
                     'step' => '1',
                     'value' => date('H:i:s', $now),
                 ],
-                ['small' => ['id' => 'created-help', 'class' => 'd-block form-text text-muted']],
+                ['div' => ['id' => 'created-help', 'class' => 'form-text']],
                     'Help text',
-                '/small',
+                '/div',
             '/div',
         ];
         $this->assertHtml($expected, $result);
@@ -197,13 +197,13 @@ class DateTimeControlTest extends AbstractFormHelperTest
                     'step' => '1',
                     'value' => date('H:i:s', $now),
                 ],
-                ['small' => [
+                ['div' => [
                     'id' => 'custom-help',
                     'foo' => 'bar',
-                    'class' => 'help-class d-block form-text text-muted',
+                    'class' => 'help-class form-text',
                 ]],
                     'Help text',
-                '/small',
+                '/div',
             '/div',
         ];
         $this->assertHtml($expected, $result);
@@ -346,9 +346,9 @@ class DateTimeControlTest extends AbstractFormHelperTest
                 ['div' => ['id' => 'created-error', 'class' => 'ms-0 invalid-feedback']],
                     'error message',
                 '/div',
-                ['small' => ['id' => 'created-help', 'class' => 'd-block form-text text-muted']],
+                ['div' => ['id' => 'created-help', 'class' => 'form-text']],
                     'Help text',
-                '/small',
+                '/div',
             '/div',
         ];
         $this->assertHtml($expected, $result);
@@ -393,13 +393,13 @@ class DateTimeControlTest extends AbstractFormHelperTest
                 ['div' => ['id' => 'created-error', 'class' => 'ms-0 invalid-feedback']],
                     'error message',
                 '/div',
-                ['small' => [
+                ['div' => [
                     'id' => 'custom-help',
                     'foo' => 'bar',
-                    'class' => 'help-class d-block form-text text-muted',
+                    'class' => 'help-class form-text',
                 ]],
                     'Help text',
-                '/small',
+                '/div',
             '/div',
         ];
         $this->assertHtml($expected, $result);

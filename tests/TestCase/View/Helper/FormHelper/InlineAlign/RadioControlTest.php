@@ -318,9 +318,9 @@ class RadioControlTest extends AbstractFormHelperTest
                             'option 2',
                         '/label',
                     '/div',
-                    ['small' => ['id' => 'users-help', 'class' => 'visually-hidden form-text']],
+                    ['div' => ['id' => 'users-help', 'class' => 'form-text visually-hidden']],
                         'Help text',
-                    '/small',
+                    '/div',
                 '/div',
             '/div',
         ];
@@ -390,13 +390,13 @@ class RadioControlTest extends AbstractFormHelperTest
                             'option 2',
                         '/label',
                     '/div',
-                    ['small' => [
+                    ['div' => [
                         'id' => 'custom-help',
                         'foo' => 'bar',
-                        'class' => 'help-class visually-hidden form-text',
+                        'class' => 'help-class form-text visually-hidden',
                     ]],
                         'Help text',
-                    '/small',
+                    '/div',
                 '/div',
             '/div',
         ];
@@ -582,9 +582,9 @@ class RadioControlTest extends AbstractFormHelperTest
                     ['div' => ['id' => 'users-error', 'class' => 'invalid-tooltip']],
                         'error message',
                     '/div',
-                    ['small' => ['id' => 'users-help', 'class' => 'visually-hidden form-text']],
+                    ['div' => ['id' => 'users-help', 'class' => 'form-text visually-hidden']],
                         'Help text',
-                    '/small',
+                    '/div',
                 '/div',
             '/div',
         ];
@@ -663,13 +663,13 @@ class RadioControlTest extends AbstractFormHelperTest
                     ['div' => ['id' => 'users-error', 'class' => 'invalid-tooltip']],
                         'error message',
                     '/div',
-                    ['small' => [
+                    ['div' => [
                         'id' => 'custom-help',
                         'foo' => 'bar',
-                        'class' => 'help-class visually-hidden form-text',
+                        'class' => 'help-class form-text visually-hidden',
                     ]],
                         'Help text',
-                    '/small',
+                    '/div',
                 '/div',
             '/div',
         ];

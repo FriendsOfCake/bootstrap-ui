@@ -156,9 +156,9 @@ class ColorControlTest extends AbstractFormHelperTest
                         'aria-describedby' => 'color-help',
                         'value' => '#ffffff',
                     ],
-                    ['small' => ['id' => 'color-help', 'class' => 'visually-hidden form-text']],
+                    ['div' => ['id' => 'color-help', 'class' => 'form-text visually-hidden']],
                         'Help text',
-                    '/small',
+                    '/div',
                 '/div',
             '/div',
         ];
@@ -195,13 +195,13 @@ class ColorControlTest extends AbstractFormHelperTest
                         'aria-describedby' => 'custom-help',
                         'value' => '#ffffff',
                     ],
-                    ['small' => [
+                    ['div' => [
                         'id' => 'custom-help',
                         'foo' => 'bar',
-                        'class' => 'help-class visually-hidden form-text',
+                        'class' => 'help-class form-text visually-hidden',
                     ]],
                         'Help text',
-                    '/small',
+                    '/div',
                 '/div',
             '/div',
         ];
@@ -313,9 +313,9 @@ class ColorControlTest extends AbstractFormHelperTest
                     ['div' => ['id' => 'color-error', 'class' => 'invalid-tooltip']],
                         'error message',
                     '/div',
-                    ['small' => ['id' => 'color-help', 'class' => 'visually-hidden form-text']],
+                    ['div' => ['id' => 'color-help', 'class' => 'form-text visually-hidden']],
                         'Help text',
-                    '/small',
+                    '/div',
                 '/div',
             '/div',
         ];
@@ -359,13 +359,13 @@ class ColorControlTest extends AbstractFormHelperTest
                     ['div' => ['id' => 'color-error', 'class' => 'invalid-tooltip']],
                         'error message',
                     '/div',
-                    ['small' => [
+                    ['div' => [
                         'id' => 'custom-help',
                         'foo' => 'bar',
-                        'class' => 'help-class visually-hidden form-text',
+                        'class' => 'help-class form-text visually-hidden',
                     ]],
                         'Help text',
-                    '/small',
+                    '/div',
                 '/div',
             '/div',
         ];
