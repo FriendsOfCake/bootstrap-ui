@@ -135,7 +135,7 @@ class FormHelper extends CoreFormHelper
      */
     protected array $_templates = [
         'error' =>
-            '<div id="{{id}}" class="ms-0 invalid-feedback">{{content}}</div>',
+            '<div id="{{id}}" class="invalid-feedback">{{content}}</div>',
         'errorTooltip' =>
             '<div id="{{id}}" class="invalid-tooltip">{{content}}</div>',
         'label' =>
