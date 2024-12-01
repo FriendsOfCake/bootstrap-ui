@@ -25,7 +25,7 @@ class RadioControlTest extends AbstractFormHelperTest
         $expected = [
             ['div' => ['class' => 'col-auto']],
                 ['div' => [
-                    'class' => 'form-group position-relative radio',
+                    'class' => 'position-relative radio',
                     'role' => 'group',
                     'aria-labelledby' => 'users-group-label',
                 ]],
@@ -88,7 +88,7 @@ class RadioControlTest extends AbstractFormHelperTest
         $expected = [
             ['div' => ['class' => 'col-auto']],
                 ['div' => [
-                    'class' => 'form-group position-relative radio',
+                    'class' => 'position-relative radio',
                     'role' => 'group',
                     'aria-labelledby' => 'users-group-label',
                 ]],
@@ -147,7 +147,7 @@ class RadioControlTest extends AbstractFormHelperTest
         $expected = [
             ['div' => ['class' => 'col-auto']],
                 ['div' => [
-                    'class' => 'form-group position-relative radio',
+                    'class' => 'position-relative radio',
                     'role' => 'group',
                     'aria-labelledby' => 'users-group-label',
                 ]],
@@ -213,7 +213,7 @@ class RadioControlTest extends AbstractFormHelperTest
         $expected = [
             ['div' => ['class' => 'col-auto']],
                 ['div' => [
-                    'class' => 'form-group position-relative radio',
+                    'class' => 'position-relative radio',
                     'role' => 'group',
                     'aria-labelledby' => 'users-group-label',
                 ]],
@@ -279,7 +279,7 @@ class RadioControlTest extends AbstractFormHelperTest
         $expected = [
             ['div' => ['class' => 'col-auto']],
                 ['div' => [
-                    'class' => 'form-group position-relative radio',
+                    'class' => 'position-relative radio',
                     'role' => 'group',
                     'aria-labelledby' => 'users-group-label',
                 ]],
@@ -351,7 +351,7 @@ class RadioControlTest extends AbstractFormHelperTest
         $expected = [
             ['div' => ['class' => 'col-auto']],
                 ['div' => [
-                    'class' => 'form-group position-relative radio',
+                    'class' => 'position-relative radio',
                     'role' => 'group',
                     'aria-labelledby' => 'users-group-label',
                 ]],
@@ -418,7 +418,7 @@ class RadioControlTest extends AbstractFormHelperTest
         $expected = [
             ['div' => ['class' => 'col-auto']],
                 ['div' => [
-                    'class' => 'form-group position-relative radio',
+                    'class' => 'position-relative radio',
                     'role' => 'group',
                     'aria-labelledby' => 'published-group-label',
                 ]],
@@ -464,7 +464,7 @@ class RadioControlTest extends AbstractFormHelperTest
         $expected = [
             ['div' => ['class' => 'col-auto']],
                 ['div' => [
-                    'class' => 'form-group position-relative radio is-invalid',
+                    'class' => 'position-relative radio is-invalid',
                     'role' => 'group',
                     'aria-labelledby' => 'users-group-label',
                 ]],
@@ -537,7 +537,7 @@ class RadioControlTest extends AbstractFormHelperTest
         $expected = [
             ['div' => ['class' => 'col-auto']],
                 ['div' => [
-                    'class' => 'form-group position-relative radio is-invalid',
+                    'class' => 'position-relative radio is-invalid',
                     'role' => 'group',
                     'aria-labelledby' => 'users-group-label',
                 ]],
@@ -618,7 +618,7 @@ class RadioControlTest extends AbstractFormHelperTest
         $expected = [
             ['div' => ['class' => 'col-auto']],
                 ['div' => [
-                    'class' => 'form-group position-relative radio is-invalid',
+                    'class' => 'position-relative radio is-invalid',
                     'role' => 'group',
                     'aria-labelledby' => 'users-group-label',
                 ]],
@@ -699,7 +699,7 @@ class RadioControlTest extends AbstractFormHelperTest
             ['div' => ['class' => 'col-auto']],
                 ['div' => [
                     'attribute' => 'container-attribute',
-                    'class' => 'container-class form-group position-relative radio',
+                    'class' => 'container-class position-relative radio',
                     'role' => 'group',
                     'aria-labelledby' => 'users-group-label',
                 ]],
@@ -768,7 +768,7 @@ class RadioControlTest extends AbstractFormHelperTest
             ['div' => ['class' => 'col-auto']],
                 ['div' => [
                     'attribute' => 'container-attribute',
-                    'class' => 'container-class form-group position-relative radio is-invalid',
+                    'class' => 'container-class position-relative radio is-invalid',
                     'role' => 'group',
                     'aria-labelledby' => 'users-group-label',
                 ]],
@@ -845,7 +845,7 @@ class RadioControlTest extends AbstractFormHelperTest
         $expected = [
             ['div' => ['class' => 'col-auto']],
                 ['div' => [
-                    'class' => 'form-group position-relative radio',
+                    'class' => 'position-relative radio',
                     'role' => 'group',
                     'aria-labelledby' => 'users-group-label',
                 ]],
@@ -919,7 +919,7 @@ class RadioControlTest extends AbstractFormHelperTest
         $expected = [
             ['div' => ['class' => 'col-auto']],
                 ['div' => [
-                    'class' => 'form-group position-relative radio',
+                    'class' => 'position-relative radio',
                     'role' => 'group',
                     'aria-labelledby' => 'users-group-label',
                 ]],
@@ -989,7 +989,7 @@ class RadioControlTest extends AbstractFormHelperTest
         $expected = [
             ['div' => ['class' => 'col-auto']],
                 ['div' => [
-                    'class' => 'form-group position-relative radio',
+                    'class' => 'position-relative radio',
                     'role' => 'group',
                     'aria-labelledby' => 'users-group-label',
                 ]],
