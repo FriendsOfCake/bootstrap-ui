@@ -27,11 +27,32 @@ class BootstrapUIPlugin extends BasePlugin
     protected bool $bootstrapEnabled = false;
 
     /**
+     * Enable middleware
+     *
+     * @var bool
+     */
+    protected bool $middlewareEnabled = false;
+
+    /**
+     * Register container services
+     *
+     * @var bool
+     */
+    protected bool $servicesEnabled = false;
+
+    /**
      * Load routes or not
      *
      * @var bool
      */
     protected bool $routesEnabled = false;
+
+    /**
+     * Load events or not
+     *
+     * @var bool
+     */
+    protected bool $eventsEnabled = false;
 
     /**
      * @inheritDoc
