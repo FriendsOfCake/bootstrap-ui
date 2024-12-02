@@ -47,8 +47,13 @@
         "cs-check": "phpcs -p --standard=vendor/cakephp/cakephp-codesniffer/CakePHP --ignore=comparisons src/ tests/",
         "cs-fix": "phpcbf --standard=vendor/cakephp/cakephp-codesniffer/CakePHP --ignore=comparisons src/ tests/",
         "test": "phpunit",
-        "stan-setup": "cp composer.json composer.backup && composer require --dev phpstan/phpstan:^1.0.0 && mv composer.backup composer.json",
-        "stan": "phpstan analyze"
+        "phpstan": "tools/phpstan",
+        "psalm": "tools/psalm",
+        "stan": [
+            "@phpstan",
+            "@psalm"
+        ],
+        "stan-setup": "phive install"
     },
     "config": {
         "allow-plugins": {
