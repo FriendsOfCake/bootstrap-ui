@@ -19,7 +19,7 @@ class ColorControlTest extends AbstractFormHelperTest
         ]);
         $expected = [
             ['div' => ['class' => 'col-auto']],
-                'div' => ['class' => 'form-group color'],
+                'div' => ['class' => 'color'],
                     'label' => ['class' => 'form-label visually-hidden', 'for' => 'color'],
                         'Color',
                     '/label',
@@ -49,7 +49,7 @@ class ColorControlTest extends AbstractFormHelperTest
         ]);
         $expected = [
             ['div' => ['class' => 'col-auto']],
-                'div' => ['class' => 'form-group color'],
+                'div' => ['class' => 'color'],
                     'input' => [
                         'type' => 'color',
                         'name' => 'color',
@@ -76,7 +76,7 @@ class ColorControlTest extends AbstractFormHelperTest
         ]);
         $expected = [
             ['div' => ['class' => 'col-auto']],
-                'div' => ['class' => 'form-group color'],
+                'div' => ['class' => 'color'],
                     'label' => ['class' => 'form-label visually-hidden', 'for' => 'color'],
                         'Custom Label',
                     '/label',
@@ -110,7 +110,7 @@ class ColorControlTest extends AbstractFormHelperTest
         ]);
         $expected = [
             ['div' => ['class' => 'col-auto']],
-                'div' => ['class' => 'form-group color'],
+                'div' => ['class' => 'color'],
                     'label' => [
                         'class' => 'custom-label-class form-label visually-hidden',
                         'foo' => 'bar',
@@ -144,7 +144,7 @@ class ColorControlTest extends AbstractFormHelperTest
         ]);
         $expected = [
             ['div' => ['class' => 'col-auto']],
-                'div' => ['class' => 'form-group color'],
+                'div' => ['class' => 'color'],
                     'label' => ['class' => 'form-label visually-hidden', 'for' => 'color'],
                         'Color',
                     '/label',
@@ -183,7 +183,7 @@ class ColorControlTest extends AbstractFormHelperTest
         ]);
         $expected = [
             ['div' => ['class' => 'col-auto']],
-                'div' => ['class' => 'form-group color'],
+                'div' => ['class' => 'color'],
                     'label' => ['class' => 'form-label visually-hidden', 'for' => 'color'],
                         'Color',
                     '/label',
@@ -221,7 +221,7 @@ class ColorControlTest extends AbstractFormHelperTest
         ]);
         $expected = [
             ['div' => ['class' => 'col-auto']],
-                'div' => ['class' => 'form-group color'],
+                'div' => ['class' => 'color'],
                     'label' => ['class' => 'form-label visually-hidden', 'for' => 'color'],
                         'Color',
                         'span' => [
@@ -259,7 +259,7 @@ class ColorControlTest extends AbstractFormHelperTest
         ]);
         $expected = [
             ['div' => ['class' => 'col-auto']],
-                'div' => ['class' => 'form-group position-relative color is-invalid'],
+                'div' => ['class' => 'position-relative color is-invalid'],
                     'label' => ['class' => 'form-label visually-hidden', 'for' => 'color'],
                         'Color',
                     '/label',
@@ -297,7 +297,7 @@ class ColorControlTest extends AbstractFormHelperTest
         ]);
         $expected = [
             ['div' => ['class' => 'col-auto']],
-                'div' => ['class' => 'form-group position-relative color is-invalid'],
+                'div' => ['class' => 'position-relative color is-invalid'],
                     'label' => ['class' => 'form-label visually-hidden', 'for' => 'color'],
                         'Color',
                     '/label',
@@ -343,7 +343,7 @@ class ColorControlTest extends AbstractFormHelperTest
         ]);
         $expected = [
             ['div' => ['class' => 'col-auto']],
-                'div' => ['class' => 'form-group position-relative color is-invalid'],
+                'div' => ['class' => 'position-relative color is-invalid'],
                     'label' => ['class' => 'form-label visually-hidden', 'for' => 'color'],
                         'Color',
                     '/label',
@@ -391,7 +391,7 @@ class ColorControlTest extends AbstractFormHelperTest
             ['div' => ['class' => 'col-auto']],
                 'div' => [
                     'attribute' => 'container-attribute',
-                    'class' => 'container-class form-group color',
+                    'class' => 'container-class color',
                 ],
                     'label' => ['class' => 'form-label visually-hidden', 'for' => 'color'],
                         'Color',
@@ -431,7 +431,7 @@ class ColorControlTest extends AbstractFormHelperTest
             ['div' => ['class' => 'col-auto']],
                 'div' => [
                     'attribute' => 'container-attribute',
-                    'class' => 'container-class form-group position-relative color is-invalid',
+                    'class' => 'container-class position-relative color is-invalid',
                 ],
                     'label' => ['class' => 'form-label visually-hidden', 'for' => 'color'],
                         'Color',

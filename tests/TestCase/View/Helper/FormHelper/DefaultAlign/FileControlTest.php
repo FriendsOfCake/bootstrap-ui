@@ -15,7 +15,7 @@ class FileControlTest extends AbstractFormHelperTest
             'type' => 'file',
         ]);
         $expected = [
-            ['div' => ['class' => 'mb-3 form-group file']],
+            ['div' => ['class' => 'mb-3 file']],
                 ['label' => ['class' => 'form-label', 'for' => 'file']],
                     'File',
                 '/label',
@@ -39,7 +39,7 @@ class FileControlTest extends AbstractFormHelperTest
             'label' => false,
         ]);
         $expected = [
-            ['div' => ['class' => 'mb-3 form-group file']],
+            ['div' => ['class' => 'mb-3 file']],
                 ['input' => [
                     'type' => 'file',
                     'name' => 'file',
@@ -60,7 +60,7 @@ class FileControlTest extends AbstractFormHelperTest
             'label' => 'Custom Label',
         ]);
         $expected = [
-            ['div' => ['class' => 'mb-3 form-group file']],
+            ['div' => ['class' => 'mb-3 file']],
                 ['label' => ['class' => 'form-label', 'for' => 'file']],
                     'Custom Label',
                 '/label',
@@ -88,7 +88,7 @@ class FileControlTest extends AbstractFormHelperTest
             ],
         ]);
         $expected = [
-            ['div' => ['class' => 'mb-3 form-group file']],
+            ['div' => ['class' => 'mb-3 file']],
                 ['label' => [
                     'class' => 'custom-label-class form-label',
                     'foo' => 'bar',
@@ -116,7 +116,7 @@ class FileControlTest extends AbstractFormHelperTest
             'help' => 'Help text',
         ]);
         $expected = [
-            ['div' => ['class' => 'mb-3 form-group file']],
+            ['div' => ['class' => 'mb-3 file']],
                 ['label' => ['class' => 'form-label', 'for' => 'file']],
                     'File',
                 '/label',
@@ -149,7 +149,7 @@ class FileControlTest extends AbstractFormHelperTest
             ],
         ]);
         $expected = [
-            ['div' => ['class' => 'mb-3 form-group file']],
+            ['div' => ['class' => 'mb-3 file']],
                 ['label' => ['class' => 'form-label', 'for' => 'file']],
                     'File',
                 '/label',
@@ -181,7 +181,7 @@ class FileControlTest extends AbstractFormHelperTest
             'tooltip' => 'Tooltip text',
         ]);
         $expected = [
-            ['div' => ['class' => 'mb-3 form-group file']],
+            ['div' => ['class' => 'mb-3 file']],
                 ['label' => ['class' => 'form-label', 'for' => 'file']],
                     'File ',
                     'span' => [
@@ -211,7 +211,7 @@ class FileControlTest extends AbstractFormHelperTest
             'spacing' => 'custom-spacing',
         ]);
         $expected = [
-            ['div' => ['class' => 'custom-spacing form-group file']],
+            ['div' => ['class' => 'custom-spacing file']],
                 ['label' => ['class' => 'form-label', 'for' => 'file']],
                     'File',
                 '/label',
@@ -237,7 +237,7 @@ class FileControlTest extends AbstractFormHelperTest
             'type' => 'file',
         ]);
         $expected = [
-            ['div' => ['class' => 'mb-3 form-group file is-invalid']],
+            ['div' => ['class' => 'mb-3 file is-invalid']],
                 ['label' => ['class' => 'form-label', 'for' => 'file']],
                     'File',
                 '/label',
@@ -269,7 +269,7 @@ class FileControlTest extends AbstractFormHelperTest
             'help' => 'Help text',
         ]);
         $expected = [
-            ['div' => ['class' => 'mb-3 form-group file is-invalid']],
+            ['div' => ['class' => 'mb-3 file is-invalid']],
                 ['label' => ['class' => 'form-label', 'for' => 'file']],
                     'File',
                 '/label',
@@ -309,7 +309,7 @@ class FileControlTest extends AbstractFormHelperTest
             ],
         ]);
         $expected = [
-            ['div' => ['class' => 'mb-3 form-group file is-invalid']],
+            ['div' => ['class' => 'mb-3 file is-invalid']],
                 ['label' => ['class' => 'form-label', 'for' => 'file']],
                     'File',
                 '/label',
@@ -350,7 +350,7 @@ class FileControlTest extends AbstractFormHelperTest
         $expected = [
             ['div' => [
                 'attribute' => 'container-attribute',
-                'class' => 'container-class mb-3 form-group file',
+                'class' => 'container-class mb-3 file',
             ]],
                 ['label' => ['class' => 'form-label', 'for' => 'file']],
                     'File',
@@ -383,7 +383,7 @@ class FileControlTest extends AbstractFormHelperTest
         $expected = [
             ['div' => [
                 'attribute' => 'container-attribute',
-                'class' => 'container-class mb-3 form-group file is-invalid',
+                'class' => 'container-class mb-3 file is-invalid',
             ]],
                 ['label' => ['class' => 'form-label', 'for' => 'file']],
                     'File',
@@ -413,7 +413,7 @@ class FileControlTest extends AbstractFormHelperTest
             'append' => 'append',
         ]);
         $expected = [
-            ['div' => ['class' => 'mb-3 form-group file']],
+            ['div' => ['class' => 'mb-3 file']],
                 ['label' => ['class' => 'form-label', 'for' => 'file']],
                     'File',
                 '/label',
@@ -442,7 +442,7 @@ class FileControlTest extends AbstractFormHelperTest
             'prepend' => 'prepend',
         ]);
         $expected = [
-            ['div' => ['class' => 'mb-3 form-group file']],
+            ['div' => ['class' => 'mb-3 file']],
                 ['label' => ['class' => 'form-label', 'for' => 'file']],
                     'File',
                 '/label',
@@ -474,7 +474,7 @@ class FileControlTest extends AbstractFormHelperTest
             'append' => 'append',
         ]);
         $expected = [
-            ['div' => ['class' => 'mb-3 form-group file is-invalid']],
+            ['div' => ['class' => 'mb-3 file is-invalid']],
                 ['label' => ['class' => 'form-label', 'for' => 'file']],
                     'File',
                 '/label',

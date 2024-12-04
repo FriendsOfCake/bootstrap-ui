@@ -25,7 +25,7 @@ class StaticControlTest extends AbstractFormHelperTest
 
         $result = $this->Form->control('title', ['type' => 'staticControl']);
         $expected = [
-            'div' => ['class' => 'mb-3 form-group row staticControl'],
+            'div' => ['class' => 'mb-3 row staticControl'],
                 'label' => ['class' => 'col-form-label col-sm-5', 'for' => 'title'],
                     'Title',
                 '/label',
@@ -68,7 +68,7 @@ class StaticControlTest extends AbstractFormHelperTest
             'escape' => false,
         ]);
         $expected = [
-            'div' => ['class' => 'mb-3 form-group row staticControl'],
+            'div' => ['class' => 'mb-3 row staticControl'],
                 'label' => ['class' => 'col-form-label col-sm-5', 'for' => 'title'],
                     'Title',
                 '/label',
@@ -103,7 +103,7 @@ class StaticControlTest extends AbstractFormHelperTest
             'label' => false,
         ]);
         $expected = [
-            'div' => ['class' => 'mb-3 form-group row staticControl'],
+            'div' => ['class' => 'mb-3 row staticControl'],
                 ['div' => ['class' => 'col-sm-7']],
                     'p' => ['class' => 'form-control-plaintext'],
                         'title',
@@ -138,7 +138,7 @@ class StaticControlTest extends AbstractFormHelperTest
             'label' => 'Custom Label',
         ]);
         $expected = [
-            'div' => ['class' => 'mb-3 form-group row staticControl'],
+            'div' => ['class' => 'mb-3 row staticControl'],
                 'label' => ['class' => 'col-form-label col-sm-5', 'for' => 'title'],
                     'Custom Label',
                 '/label',
@@ -180,7 +180,7 @@ class StaticControlTest extends AbstractFormHelperTest
             ],
         ]);
         $expected = [
-            'div' => ['class' => 'mb-3 form-group row staticControl'],
+            'div' => ['class' => 'mb-3 row staticControl'],
                 'label' => ['class' => 'custom-label-class col-form-label col-sm-5', 'foo' => 'bar', 'for' => 'title'],
                     'Custom Label',
                 '/label',
@@ -218,7 +218,7 @@ class StaticControlTest extends AbstractFormHelperTest
             'help' => 'Help text',
         ]);
         $expected = [
-            'div' => ['class' => 'mb-3 form-group row staticControl'],
+            'div' => ['class' => 'mb-3 row staticControl'],
                 'label' => ['class' => 'col-form-label col-sm-5', 'for' => 'title'],
                     'Title',
                 '/label',
@@ -265,7 +265,7 @@ class StaticControlTest extends AbstractFormHelperTest
             ],
         ]);
         $expected = [
-            'div' => ['class' => 'mb-3 form-group row staticControl'],
+            'div' => ['class' => 'mb-3 row staticControl'],
                 'label' => ['class' => 'col-form-label col-sm-5', 'for' => 'title'],
                     'Title',
                 '/label',
@@ -311,7 +311,7 @@ class StaticControlTest extends AbstractFormHelperTest
             'tooltip' => 'Tooltip text',
         ]);
         $expected = [
-            'div' => ['class' => 'mb-3 form-group row staticControl'],
+            'div' => ['class' => 'mb-3 row staticControl'],
                 'label' => ['class' => 'col-form-label col-sm-5', 'for' => 'title'],
                     'Title',
                     'span' => [
@@ -355,7 +355,7 @@ class StaticControlTest extends AbstractFormHelperTest
             'spacing' => 'custom-spacing',
         ]);
         $expected = [
-            'div' => ['class' => 'custom-spacing form-group row staticControl'],
+            'div' => ['class' => 'custom-spacing row staticControl'],
                 'label' => ['class' => 'col-form-label col-sm-5', 'for' => 'title'],
                     'Title',
                 '/label',
@@ -395,7 +395,7 @@ class StaticControlTest extends AbstractFormHelperTest
             'type' => 'staticControl',
         ]);
         $expected = [
-            'div' => ['class' => 'mb-3 form-group row staticControl is-invalid'],
+            'div' => ['class' => 'mb-3 row staticControl is-invalid'],
                 'label' => ['class' => 'col-form-label col-sm-5', 'for' => 'title'],
                     'Title',
                 '/label',
@@ -443,7 +443,7 @@ class StaticControlTest extends AbstractFormHelperTest
             'help' => 'Help text',
         ]);
         $expected = [
-            'div' => ['class' => 'mb-3 form-group row staticControl is-invalid'],
+            'div' => ['class' => 'mb-3 row staticControl is-invalid'],
                 'label' => ['class' => 'col-form-label col-sm-5', 'for' => 'title'],
                     'Title',
                 '/label',
@@ -498,7 +498,7 @@ class StaticControlTest extends AbstractFormHelperTest
             ],
         ]);
         $expected = [
-            'div' => ['class' => 'mb-3 form-group row staticControl is-invalid'],
+            'div' => ['class' => 'mb-3 row staticControl is-invalid'],
                 'label' => ['class' => 'col-form-label col-sm-5', 'for' => 'title'],
                     'Title',
                 '/label',
@@ -554,7 +554,7 @@ class StaticControlTest extends AbstractFormHelperTest
         $expected = [
             'div' => [
                 'attribute' => 'container-attribute',
-                'class' => 'container-class mb-3 form-group row staticControl',
+                'class' => 'container-class mb-3 row staticControl',
             ],
                 'label' => ['class' => 'col-form-label col-sm-5', 'for' => 'title'],
                     'Title',
@@ -601,7 +601,7 @@ class StaticControlTest extends AbstractFormHelperTest
         $expected = [
             'div' => [
                 'attribute' => 'container-attribute',
-                'class' => 'container-class mb-3 form-group row staticControl is-invalid',
+                'class' => 'container-class mb-3 row staticControl is-invalid',
             ],
                 'label' => ['class' => 'col-form-label col-sm-5', 'for' => 'title'],
                     'Title',

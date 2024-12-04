@@ -21,7 +21,7 @@ class SubmitControlTest extends AbstractFormHelperTest
 
         $result = $this->Form->submit('Submit');
         $expected = [
-            'div' => ['class' => 'form-group row'],
+            'div' => ['class' => 'row'],
                 ['div' => ['class' => 'offset-sm-5 col-sm-7']],
                     'input' => [
                         'type' => 'submit',
@@ -54,7 +54,7 @@ class SubmitControlTest extends AbstractFormHelperTest
         $expected = [
             'div' => [
                 'attribute' => 'container-attribute',
-                'class' => 'container-class form-group row',
+                'class' => 'container-class row',
             ],
                 ['div' => ['class' => 'offset-sm-5 col-sm-7']],
                     'input' => [
