@@ -23,7 +23,7 @@ class CheckboxControlTest extends AbstractFormHelperTest
             'type' => 'checkbox',
         ]);
         $expected = [
-            ['div' => ['class' => 'mb-3 form-group row checkbox']],
+            ['div' => ['class' => 'mb-3 row checkbox']],
                 ['div' => ['class' => 'offset-sm-5 col-sm-7']],
                     ['div' => ['class' => 'form-check']],
                         ['input' => [
@@ -64,7 +64,7 @@ class CheckboxControlTest extends AbstractFormHelperTest
             'label' => false,
         ]);
         $expected = [
-            ['div' => ['class' => 'mb-3 form-group row checkbox']],
+            ['div' => ['class' => 'mb-3 row checkbox']],
                 ['div' => ['class' => 'offset-sm-5 col-sm-7']],
                     ['div' => ['class' => 'form-check']],
                         ['input' => [
@@ -102,7 +102,7 @@ class CheckboxControlTest extends AbstractFormHelperTest
             'label' => 'Custom Label',
         ]);
         $expected = [
-            ['div' => ['class' => 'mb-3 form-group row checkbox']],
+            ['div' => ['class' => 'mb-3 row checkbox']],
                 ['div' => ['class' => 'offset-sm-5 col-sm-7']],
                     ['div' => ['class' => 'form-check']],
                         ['input' => [
@@ -147,7 +147,7 @@ class CheckboxControlTest extends AbstractFormHelperTest
             ],
         ]);
         $expected = [
-            ['div' => ['class' => 'mb-3 form-group row checkbox']],
+            ['div' => ['class' => 'mb-3 row checkbox']],
                 ['div' => ['class' => 'offset-sm-5 col-sm-7']],
                     ['div' => ['class' => 'form-check']],
                         ['input' => [
@@ -188,7 +188,7 @@ class CheckboxControlTest extends AbstractFormHelperTest
             'help' => 'Help text',
         ]);
         $expected = [
-            ['div' => ['class' => 'mb-3 form-group row checkbox']],
+            ['div' => ['class' => 'mb-3 row checkbox']],
                 ['div' => ['class' => 'offset-sm-5 col-sm-7']],
                     ['div' => ['class' => 'form-check']],
                         ['input' => [
@@ -207,9 +207,9 @@ class CheckboxControlTest extends AbstractFormHelperTest
                         ['label' => ['class' => 'form-check-label', 'for' => 'users']],
                             'Users',
                         '/label',
-                        ['small' => ['id' => 'users-help', 'class' => 'd-block form-text text-muted']],
+                        ['div' => ['id' => 'users-help', 'class' => 'form-text']],
                             'Help text',
-                        '/small',
+                        '/div',
                     '/div',
                 '/div',
             '/div',
@@ -238,7 +238,7 @@ class CheckboxControlTest extends AbstractFormHelperTest
             ],
         ]);
         $expected = [
-            ['div' => ['class' => 'mb-3 form-group row checkbox']],
+            ['div' => ['class' => 'mb-3 row checkbox']],
                 ['div' => ['class' => 'offset-sm-5 col-sm-7']],
                     ['div' => ['class' => 'form-check']],
                         ['input' => [
@@ -257,13 +257,13 @@ class CheckboxControlTest extends AbstractFormHelperTest
                         ['label' => ['class' => 'form-check-label', 'for' => 'users']],
                             'Users',
                         '/label',
-                        ['small' => [
+                        ['div' => [
                             'id' => 'custom-help',
                             'foo' => 'bar',
-                            'class' => 'help-class d-block form-text text-muted',
+                            'class' => 'help-class form-text',
                         ]],
                             'Help text',
-                        '/small',
+                        '/div',
                     '/div',
                 '/div',
             '/div',
@@ -287,7 +287,7 @@ class CheckboxControlTest extends AbstractFormHelperTest
             'tooltip' => 'Tooltip text',
         ]);
         $expected = [
-            ['div' => ['class' => 'mb-3 form-group row checkbox']],
+            ['div' => ['class' => 'mb-3 row checkbox']],
                 ['div' => ['class' => 'offset-sm-5 col-sm-7']],
                     ['div' => ['class' => 'form-check']],
                         ['input' => [
@@ -334,7 +334,7 @@ class CheckboxControlTest extends AbstractFormHelperTest
             'spacing' => 'custom-spacing',
         ]);
         $expected = [
-            ['div' => ['class' => 'custom-spacing form-group row checkbox']],
+            ['div' => ['class' => 'custom-spacing row checkbox']],
                 ['div' => ['class' => 'offset-sm-5 col-sm-7']],
                     ['div' => ['class' => 'form-check']],
                         ['input' => [
@@ -377,7 +377,7 @@ class CheckboxControlTest extends AbstractFormHelperTest
             'type' => 'checkbox',
         ]);
         $expected = [
-            ['div' => ['class' => 'mb-3 form-group row checkbox is-invalid']],
+            ['div' => ['class' => 'mb-3 row checkbox is-invalid']],
                 ['div' => ['class' => 'offset-sm-5 col-sm-7']],
                     ['div' => ['class' => 'form-check']],
                         ['input' => [
@@ -399,7 +399,7 @@ class CheckboxControlTest extends AbstractFormHelperTest
                         ['label' => ['class' => 'form-check-label', 'for' => 'users']],
                             'Users',
                         '/label',
-                        ['div' => ['id' => 'users-error', 'class' => 'ms-0 invalid-feedback']],
+                        ['div' => ['id' => 'users-error', 'class' => 'invalid-feedback']],
                             'error message',
                         '/div',
                     '/div',
@@ -428,7 +428,7 @@ class CheckboxControlTest extends AbstractFormHelperTest
             'help' => 'Help text',
         ]);
         $expected = [
-            ['div' => ['class' => 'mb-3 form-group row checkbox is-invalid']],
+            ['div' => ['class' => 'mb-3 row checkbox is-invalid']],
                 ['div' => ['class' => 'offset-sm-5 col-sm-7']],
                     ['div' => ['class' => 'form-check']],
                         ['input' => [
@@ -449,12 +449,12 @@ class CheckboxControlTest extends AbstractFormHelperTest
                         ['label' => ['class' => 'form-check-label', 'for' => 'users']],
                             'Users',
                         '/label',
-                        ['div' => ['id' => 'users-error', 'class' => 'ms-0 invalid-feedback']],
+                        ['div' => ['id' => 'users-error', 'class' => 'invalid-feedback']],
                             'error message',
                         '/div',
-                        ['small' => ['id' => 'users-help', 'class' => 'd-block form-text text-muted']],
+                        ['div' => ['id' => 'users-help', 'class' => 'form-text']],
                             'Help text',
-                        '/small',
+                        '/div',
                     '/div',
                 '/div',
             '/div',
@@ -486,7 +486,7 @@ class CheckboxControlTest extends AbstractFormHelperTest
             ],
         ]);
         $expected = [
-            ['div' => ['class' => 'mb-3 form-group row checkbox is-invalid']],
+            ['div' => ['class' => 'mb-3 row checkbox is-invalid']],
                 ['div' => ['class' => 'offset-sm-5 col-sm-7']],
                     ['div' => ['class' => 'form-check']],
                         ['input' => [
@@ -507,16 +507,16 @@ class CheckboxControlTest extends AbstractFormHelperTest
                         ['label' => ['class' => 'form-check-label', 'for' => 'users']],
                             'Users',
                         '/label',
-                        ['div' => ['id' => 'users-error', 'class' => 'ms-0 invalid-feedback']],
+                        ['div' => ['id' => 'users-error', 'class' => 'invalid-feedback']],
                             'error message',
                         '/div',
-                        ['small' => [
+                        ['div' => [
                             'id' => 'custom-help',
                             'foo' => 'bar',
-                            'class' => 'help-class d-block form-text text-muted',
+                            'class' => 'help-class form-text',
                         ]],
                             'Help text',
-                        '/small',
+                        '/div',
                     '/div',
                 '/div',
             '/div',
@@ -545,7 +545,7 @@ class CheckboxControlTest extends AbstractFormHelperTest
         $expected = [
             ['div' => [
                 'attribute' => 'container-attribute',
-                'class' => 'container-class mb-3 form-group row checkbox',
+                'class' => 'container-class mb-3 row checkbox',
             ]],
                 ['div' => ['class' => 'offset-sm-5 col-sm-7']],
                     ['div' => ['class' => 'form-check']],
@@ -595,7 +595,7 @@ class CheckboxControlTest extends AbstractFormHelperTest
         $expected = [
             ['div' => [
                 'attribute' => 'container-attribute',
-                'class' => 'container-class mb-3 form-group row checkbox is-invalid',
+                'class' => 'container-class mb-3 row checkbox is-invalid',
             ]],
                 ['div' => ['class' => 'offset-sm-5 col-sm-7']],
                     ['div' => ['class' => 'form-check']],
@@ -618,7 +618,7 @@ class CheckboxControlTest extends AbstractFormHelperTest
                         ['label' => ['class' => 'form-check-label', 'for' => 'users']],
                             'Users',
                         '/label',
-                        ['div' => ['id' => 'users-error', 'class' => 'ms-0 invalid-feedback']],
+                        ['div' => ['id' => 'users-error', 'class' => 'invalid-feedback']],
                             'error message',
                         '/div',
                     '/div',
@@ -644,7 +644,7 @@ class CheckboxControlTest extends AbstractFormHelperTest
             'nestedInput' => true,
         ]);
         $expected = [
-            ['div' => ['class' => 'mb-3 form-group row checkbox']],
+            ['div' => ['class' => 'mb-3 row checkbox']],
                 ['div' => ['class' => 'offset-sm-5 col-sm-7']],
                     ['div' => ['class' => 'form-check']],
                         ['input' => [
@@ -686,7 +686,7 @@ class CheckboxControlTest extends AbstractFormHelperTest
             'tooltip' => 'Tooltip text',
         ]);
         $expected = [
-            ['div' => ['class' => 'mb-3 form-group row checkbox']],
+            ['div' => ['class' => 'mb-3 row checkbox']],
                 ['div' => ['class' => 'offset-sm-5 col-sm-7']],
                     ['div' => ['class' => 'form-check']],
                         ['input' => [
@@ -736,7 +736,7 @@ class CheckboxControlTest extends AbstractFormHelperTest
             'nestedInput' => true,
         ]);
         $expected = [
-            ['div' => ['class' => 'mb-3 form-group row checkbox is-invalid']],
+            ['div' => ['class' => 'mb-3 row checkbox is-invalid']],
                 ['div' => ['class' => 'offset-sm-5 col-sm-7']],
                     ['div' => ['class' => 'form-check']],
                         ['input' => [
@@ -758,7 +758,7 @@ class CheckboxControlTest extends AbstractFormHelperTest
                             ]],
                             'Users',
                         '/label',
-                        ['div' => ['id' => 'users-error', 'class' => 'ms-0 invalid-feedback']],
+                        ['div' => ['id' => 'users-error', 'class' => 'invalid-feedback']],
                             'error message',
                         '/div',
                     '/div',
@@ -784,7 +784,7 @@ class CheckboxControlTest extends AbstractFormHelperTest
             'inline' => true,
         ]);
         $expected = [
-            ['div' => ['class' => 'mb-3 form-group row checkbox']],
+            ['div' => ['class' => 'mb-3 row checkbox']],
                 ['div' => ['class' => 'offset-sm-5 col-sm-7']],
                     ['div' => ['class' => 'form-check']],
                         ['input' => [
@@ -826,7 +826,7 @@ class CheckboxControlTest extends AbstractFormHelperTest
             'label' => false,
         ]);
         $expected = [
-            ['div' => ['class' => 'mb-3 form-group row checkbox']],
+            ['div' => ['class' => 'mb-3 row checkbox']],
                 ['div' => ['class' => 'offset-sm-5 col-sm-7']],
                     ['div' => ['class' => 'form-check']],
                         ['input' => [
@@ -865,7 +865,7 @@ class CheckboxControlTest extends AbstractFormHelperTest
             'label' => 'Custom Label',
         ]);
         $expected = [
-            ['div' => ['class' => 'mb-3 form-group row checkbox']],
+            ['div' => ['class' => 'mb-3 row checkbox']],
                 ['div' => ['class' => 'offset-sm-5 col-sm-7']],
                     ['div' => ['class' => 'form-check']],
                         ['input' => [
@@ -911,7 +911,7 @@ class CheckboxControlTest extends AbstractFormHelperTest
             ],
         ]);
         $expected = [
-            ['div' => ['class' => 'mb-3 form-group row checkbox']],
+            ['div' => ['class' => 'mb-3 row checkbox']],
                 ['div' => ['class' => 'offset-sm-5 col-sm-7']],
                     ['div' => ['class' => 'form-check']],
                         ['input' => [
@@ -953,7 +953,7 @@ class CheckboxControlTest extends AbstractFormHelperTest
             'help' => 'Help text',
         ]);
         $expected = [
-            ['div' => ['class' => 'mb-3 form-group row checkbox']],
+            ['div' => ['class' => 'mb-3 row checkbox']],
                 ['div' => ['class' => 'offset-sm-5 col-sm-7']],
                     ['div' => ['class' => 'form-check']],
                         ['input' => [
@@ -972,9 +972,9 @@ class CheckboxControlTest extends AbstractFormHelperTest
                         ['label' => ['class' => 'form-check-label', 'for' => 'users']],
                             'Users',
                         '/label',
-                        ['small' => ['id' => 'users-help', 'class' => 'd-block form-text text-muted']],
+                        ['div' => ['id' => 'users-help', 'class' => 'form-text']],
                             'Help text',
-                        '/small',
+                        '/div',
                     '/div',
                 '/div',
             '/div',
@@ -1004,7 +1004,7 @@ class CheckboxControlTest extends AbstractFormHelperTest
             ],
         ]);
         $expected = [
-            ['div' => ['class' => 'mb-3 form-group row checkbox']],
+            ['div' => ['class' => 'mb-3 row checkbox']],
                 ['div' => ['class' => 'offset-sm-5 col-sm-7']],
                     ['div' => ['class' => 'form-check']],
                         ['input' => [
@@ -1023,13 +1023,13 @@ class CheckboxControlTest extends AbstractFormHelperTest
                         ['label' => ['class' => 'form-check-label', 'for' => 'users']],
                             'Users',
                         '/label',
-                        ['small' => [
+                        ['div' => [
                             'id' => 'custom-help',
                             'foo' => 'bar',
-                            'class' => 'help-class d-block form-text text-muted',
+                            'class' => 'help-class form-text',
                         ]],
                             'Help text',
-                        '/small',
+                        '/div',
                     '/div',
                 '/div',
             '/div',
@@ -1054,7 +1054,7 @@ class CheckboxControlTest extends AbstractFormHelperTest
             'tooltip' => 'Tooltip text',
         ]);
         $expected = [
-            ['div' => ['class' => 'mb-3 form-group row checkbox']],
+            ['div' => ['class' => 'mb-3 row checkbox']],
                 ['div' => ['class' => 'offset-sm-5 col-sm-7']],
                     ['div' => ['class' => 'form-check']],
                         ['input' => [
@@ -1104,7 +1104,7 @@ class CheckboxControlTest extends AbstractFormHelperTest
             'inline' => true,
         ]);
         $expected = [
-            ['div' => ['class' => 'mb-3 form-group row checkbox is-invalid']],
+            ['div' => ['class' => 'mb-3 row checkbox is-invalid']],
                 ['div' => ['class' => 'offset-sm-5 col-sm-7']],
                     ['div' => ['class' => 'form-check']],
                         ['input' => [
@@ -1126,7 +1126,7 @@ class CheckboxControlTest extends AbstractFormHelperTest
                         ['label' => ['class' => 'form-check-label', 'for' => 'users']],
                             'Users',
                         '/label',
-                        ['div' => ['id' => 'users-error', 'class' => 'ms-0 invalid-feedback']],
+                        ['div' => ['id' => 'users-error', 'class' => 'invalid-feedback']],
                             'error message',
                         '/div',
                     '/div',
@@ -1158,7 +1158,7 @@ class CheckboxControlTest extends AbstractFormHelperTest
         $expected = [
             ['div' => [
                 'attribute' => 'container-attribute',
-                'class' => 'container-class mb-3 form-group row checkbox',
+                'class' => 'container-class mb-3 row checkbox',
             ]],
                 ['div' => ['class' => 'offset-sm-5 col-sm-7']],
                     ['div' => ['class' => 'form-check']],
@@ -1209,7 +1209,7 @@ class CheckboxControlTest extends AbstractFormHelperTest
         $expected = [
             ['div' => [
                 'attribute' => 'container-attribute',
-                'class' => 'container-class mb-3 form-group row checkbox is-invalid',
+                'class' => 'container-class mb-3 row checkbox is-invalid',
             ]],
                 ['div' => ['class' => 'offset-sm-5 col-sm-7']],
                     ['div' => ['class' => 'form-check']],
@@ -1232,7 +1232,7 @@ class CheckboxControlTest extends AbstractFormHelperTest
                         ['label' => ['class' => 'form-check-label', 'for' => 'users']],
                             'Users',
                         '/label',
-                        ['div' => ['id' => 'users-error', 'class' => 'ms-0 invalid-feedback']],
+                        ['div' => ['id' => 'users-error', 'class' => 'invalid-feedback']],
                             'error message',
                         '/div',
                     '/div',
@@ -1259,7 +1259,7 @@ class CheckboxControlTest extends AbstractFormHelperTest
             'nestedInput' => true,
         ]);
         $expected = [
-            ['div' => ['class' => 'mb-3 form-group row checkbox']],
+            ['div' => ['class' => 'mb-3 row checkbox']],
                 ['div' => ['class' => 'offset-sm-5 col-sm-7']],
                     ['div' => ['class' => 'form-check']],
                         ['input' => [
@@ -1302,7 +1302,7 @@ class CheckboxControlTest extends AbstractFormHelperTest
             'tooltip' => 'Tooltip text',
         ]);
         $expected = [
-            ['div' => ['class' => 'mb-3 form-group row checkbox']],
+            ['div' => ['class' => 'mb-3 row checkbox']],
                 ['div' => ['class' => 'offset-sm-5 col-sm-7']],
                     ['div' => ['class' => 'form-check']],
                         ['input' => [
@@ -1349,7 +1349,7 @@ class CheckboxControlTest extends AbstractFormHelperTest
             'switch' => true,
         ]);
         $expected = [
-            ['div' => ['class' => 'mb-3 form-group row checkbox']],
+            ['div' => ['class' => 'mb-3 row checkbox']],
                 ['div' => ['class' => 'offset-sm-5 col-sm-7']],
                     ['div' => ['class' => 'form-check form-switch']],
                         ['input' => [

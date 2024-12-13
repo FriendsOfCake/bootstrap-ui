@@ -20,7 +20,7 @@ class StaticControlTest extends AbstractFormHelperTest
         $result = $this->Form->control('title', ['type' => 'staticControl']);
         $expected = [
             ['div' => ['class' => 'col-auto']],
-                'div' => ['class' => 'form-group staticControl'],
+                'div' => ['class' => 'staticControl'],
                     'label' => ['class' => 'form-label visually-hidden', 'for' => 'title'],
                         'Title',
                     '/label',
@@ -58,7 +58,7 @@ class StaticControlTest extends AbstractFormHelperTest
         ]);
         $expected = [
             ['div' => ['class' => 'col-auto']],
-                'div' => ['class' => 'form-group staticControl'],
+                'div' => ['class' => 'staticControl'],
                     'label' => ['class' => 'form-label visually-hidden', 'for' => 'title'],
                         'Title',
                     '/label',
@@ -88,7 +88,7 @@ class StaticControlTest extends AbstractFormHelperTest
         ]);
         $expected = [
             ['div' => ['class' => 'col-auto']],
-                'div' => ['class' => 'form-group staticControl'],
+                'div' => ['class' => 'staticControl'],
                     'p' => ['class' => 'form-control-plaintext'],
                         'title',
                     '/p',
@@ -118,7 +118,7 @@ class StaticControlTest extends AbstractFormHelperTest
         ]);
         $expected = [
             ['div' => ['class' => 'col-auto']],
-                'div' => ['class' => 'form-group staticControl'],
+                'div' => ['class' => 'staticControl'],
                     'label' => ['class' => 'form-label visually-hidden', 'for' => 'title'],
                         'Custom Label',
                     '/label',
@@ -155,7 +155,7 @@ class StaticControlTest extends AbstractFormHelperTest
         ]);
         $expected = [
             ['div' => ['class' => 'col-auto']],
-                'div' => ['class' => 'form-group staticControl'],
+                'div' => ['class' => 'staticControl'],
                     'label' => [
                         'class' => 'custom-label-class form-label visually-hidden',
                         'foo' => 'bar',
@@ -192,7 +192,7 @@ class StaticControlTest extends AbstractFormHelperTest
         ]);
         $expected = [
             ['div' => ['class' => 'col-auto']],
-                'div' => ['class' => 'form-group staticControl'],
+                'div' => ['class' => 'staticControl'],
                     'label' => ['class' => 'form-label visually-hidden', 'for' => 'title'],
                         'Title',
                     '/label',
@@ -206,9 +206,9 @@ class StaticControlTest extends AbstractFormHelperTest
                         'aria-describedby' => 'title-help',
                         'value' => 'title',
                     ],
-                    ['small' => ['id' => 'title-help', 'class' => 'visually-hidden form-text']],
+                    ['div' => ['id' => 'title-help', 'class' => 'form-text visually-hidden']],
                         'Help text',
-                    '/small',
+                    '/div',
                 '/div',
             '/div',
         ];
@@ -234,7 +234,7 @@ class StaticControlTest extends AbstractFormHelperTest
         ]);
         $expected = [
             ['div' => ['class' => 'col-auto']],
-                'div' => ['class' => 'form-group staticControl'],
+                'div' => ['class' => 'staticControl'],
                     'label' => ['class' => 'form-label visually-hidden', 'for' => 'title'],
                         'Title',
                     '/label',
@@ -248,13 +248,13 @@ class StaticControlTest extends AbstractFormHelperTest
                         'aria-describedby' => 'custom-help',
                         'value' => 'title',
                     ],
-                    ['small' => [
+                    ['div' => [
                         'id' => 'custom-help',
                         'foo' => 'bar',
-                        'class' => 'help-class visually-hidden form-text',
+                        'class' => 'help-class form-text visually-hidden',
                     ]],
                         'Help text',
-                    '/small',
+                    '/div',
                 '/div',
             '/div',
         ];
@@ -275,7 +275,7 @@ class StaticControlTest extends AbstractFormHelperTest
         ]);
         $expected = [
             ['div' => ['class' => 'col-auto']],
-                'div' => ['class' => 'form-group staticControl'],
+                'div' => ['class' => 'staticControl'],
                     'label' => ['class' => 'form-label visually-hidden', 'for' => 'title'],
                         'Title',
                         'span' => [
@@ -316,7 +316,7 @@ class StaticControlTest extends AbstractFormHelperTest
         ]);
         $expected = [
             ['div' => ['class' => 'col-auto']],
-                'div' => ['class' => 'form-group position-relative staticControl is-invalid'],
+                'div' => ['class' => 'position-relative staticControl is-invalid'],
                     'label' => ['class' => 'form-label visually-hidden', 'for' => 'title'],
                         'Title',
                     '/label',
@@ -358,7 +358,7 @@ class StaticControlTest extends AbstractFormHelperTest
         ]);
         $expected = [
             ['div' => ['class' => 'col-auto']],
-                'div' => ['class' => 'form-group position-relative staticControl is-invalid'],
+                'div' => ['class' => 'position-relative staticControl is-invalid'],
                     'label' => ['class' => 'form-label visually-hidden', 'for' => 'title'],
                         'Title',
                     '/label',
@@ -377,9 +377,9 @@ class StaticControlTest extends AbstractFormHelperTest
                     ['div' => ['id' => 'title-error', 'class' => 'invalid-tooltip']],
                         'error message',
                     '/div',
-                    ['small' => ['id' => 'title-help', 'class' => 'visually-hidden form-text']],
+                    ['div' => ['id' => 'title-help', 'class' => 'form-text visually-hidden']],
                         'Help text',
-                    '/small',
+                    '/div',
                 '/div',
             '/div',
         ];
@@ -408,7 +408,7 @@ class StaticControlTest extends AbstractFormHelperTest
         ]);
         $expected = [
             ['div' => ['class' => 'col-auto']],
-                'div' => ['class' => 'form-group position-relative staticControl is-invalid'],
+                'div' => ['class' => 'position-relative staticControl is-invalid'],
                     'label' => ['class' => 'form-label visually-hidden', 'for' => 'title'],
                         'Title',
                     '/label',
@@ -427,13 +427,13 @@ class StaticControlTest extends AbstractFormHelperTest
                     ['div' => ['id' => 'title-error', 'class' => 'invalid-tooltip']],
                         'error message',
                     '/div',
-                    ['small' => [
+                    ['div' => [
                         'id' => 'custom-help',
                         'foo' => 'bar',
-                        'class' => 'help-class visually-hidden form-text',
+                        'class' => 'help-class form-text visually-hidden',
                     ]],
                         'Help text',
-                    '/small',
+                    '/div',
                 '/div',
             '/div',
         ];
@@ -459,7 +459,7 @@ class StaticControlTest extends AbstractFormHelperTest
             ['div' => ['class' => 'col-auto']],
                 'div' => [
                     'attribute' => 'container-attribute',
-                    'class' => 'container-class form-group staticControl',
+                    'class' => 'container-class staticControl',
                 ],
                     'label' => ['class' => 'form-label visually-hidden', 'for' => 'title'],
                         'Title',
@@ -501,7 +501,7 @@ class StaticControlTest extends AbstractFormHelperTest
             ['div' => ['class' => 'col-auto']],
                 'div' => [
                     'attribute' => 'container-attribute',
-                    'class' => 'container-class form-group position-relative staticControl is-invalid',
+                    'class' => 'container-class position-relative staticControl is-invalid',
                 ],
                     'label' => ['class' => 'form-label visually-hidden', 'for' => 'title'],
                         'Title',

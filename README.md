@@ -22,10 +22,9 @@ For version info see [version map](https://github.com/FriendsOfCake/bootstrap-ui
 ## Requirements
 
 * CakePHP 5.x
-* Bootstrap 5.x
+* Bootstrap 5.3.x
 * npm 6.x
-* Popper.js 2.x
-* Bootstrap Icons 1.5.x
+* Bootstrap Icons 1.11.x
 
 ## What's included?
 
@@ -72,7 +71,7 @@ You can either use the Bootstrap commands to make the necessary changes, or do t
 
 ### Using the Bootstrap commands
 
-1. To install the Bootstrap assets (Bootstrap's CSS/JS files, Popper.js) via npm you can use the `install`
+1. To install the Bootstrap assets (Bootstrap's CSS/JS files) via npm you can use the `install`
    command, or [install them manually](#installing-bootstrap-assets-via-npm):
 
    ```
@@ -119,16 +118,14 @@ do manually if you wish to control which assets are being included, and where th
 Assuming you are in your application's root:
 
 ```
-npm install @popperjs/core@2 bootstrap@5 bootstrap-icons@1
+npm install bootstrap@5 bootstrap-icons@1
 mkdir -p webroot/css
 mkdir -p webroot/font/fonts
 mkdir -p webroot/js
-cp node_modules/@popperjs/core/dist/umd/popper.js webroot/js
-cp node_modules/@popperjs/core/dist/umd/popper.min.js webroot/js
 cp node_modules/bootstrap/dist/css/bootstrap.css webroot/css/
 cp node_modules/bootstrap/dist/css/bootstrap.min.css webroot/css/
-cp node_modules/bootstrap/dist/js/bootstrap.js webroot/js/
-cp node_modules/bootstrap/dist/js/bootstrap.min.js webroot/js/
+cp node_modules/bootstrap/dist/js/bootstrap.bundle.js webroot/js/
+cp node_modules/bootstrap/dist/js/bootstrap.bundle.min.js webroot/js/
 cp node_modules/bootstrap-icons/font/bootstrap-icons.css webroot/font/
 cp node_modules/bootstrap-icons/font/fonts/bootstrap-icons.woff webroot/font/fonts/
 cp node_modules/bootstrap-icons/font/fonts/bootstrap-icons.woff2 webroot/font/fonts/
@@ -245,7 +242,7 @@ them using the standard plugin syntax:
 // in the <head>
 echo $this->Html->css('BootstrapUI.bootstrap.min');
 echo $this->Html->css(['BootstrapUI./font/bootstrap-icons', 'BootstrapUI./font/bootstrap-icon-sizes']);
-echo $this->Html->script(['BootstrapUI.popper.min', 'BootstrapUI.bootstrap.min']);
+echo $this->Html->script(['BootstrapUI.bootstrap.bundle.min']);
 ```
 
 If you have installed the assets manually, you'll need to use paths accordingly. With
@@ -254,7 +251,7 @@ If you have installed the assets manually, you'll need to use paths accordingly.
 ```php
 echo $this->Html->css('bootstrap.min');
 echo $this->Html->css(['/font/bootstrap-icons', '/font/bootstrap-icon-sizes']);
-echo $this->Html->script(['popper.min', 'bootstrap.min']);
+echo $this->Html->script(['bootstrap.bundle.min']);
 ```
 
 If you're using paths that don't adhere to the CakePHP conventions, you'll have to explicitly specify them:
@@ -262,7 +259,7 @@ If you're using paths that don't adhere to the CakePHP conventions, you'll have 
 ```php
 echo $this->Html->css('/path/to/bootstrap.css');
 echo $this->Html->css(['/path/to/bootstrap-icons.css', '/path/to/bootstrap-icon-sizes.css']);
-echo $this->Html->script(['/path/to/popper.js', '/path/to/bootstrap.js']);
+echo $this->Html->script(['/path/to/bootstrap.bundle.js']);
 ```
 
 ## Bake templates
@@ -343,7 +340,7 @@ Horizontal forms automatically render labels and controls in separate columns (w
 one, and controls in the second one.
 
 Alignment can be configured via the `align` option, which takes either a list of column sizes for the `md`
-[Bootstrap screen-size/breakpoint](https://getbootstrap.com/docs/5.0/layout/breakpoints/), or a matrix of
+[Bootstrap screen-size/breakpoint](https://getbootstrap.com/docs/5.3/layout/breakpoints/), or a matrix of
 screen-size/breakpoint names and column sizes.
 
 The following will use the default `md` screen-size/breakpoint:
@@ -477,8 +474,8 @@ will render this HTML:
 ### Spacing
 
 Out of the box BootstrapUI applies some default spacing for form controls. For default and horizontal aligned forms,
-the `mb-3` [spacing class](https://getbootstrap.com/docs/5.0/utilities/spacing/) is being applied to all controls,
-while inline forms are using the `g-3` [gutter class](https://getbootstrap.com/docs/5.0/layout/gutters/).
+the `mb-3` [spacing class](https://getbootstrap.com/docs/5.3/utilities/spacing/) is being applied to all controls,
+while inline forms are using the `g-3` [gutter class](https://getbootstrap.com/docs/5.3/layout/gutters/).
 
 This can be changed using the `spacing` option, it applies on a per-helper and per-form basis for all alignments, and
 for default/horizontal alignments it also applies on a per-control basis.
@@ -655,7 +652,7 @@ This would generate the following HTML:
 
 ### Switches
 
-[Switch style checkboxes](https://getbootstrap.com/docs/5.0/forms/checks-radios/#switches) can be created by setting the
+[Switch style checkboxes](https://getbootstrap.com/docs/5.3/forms/checks-radios/#switches) can be created by setting the
 `switch` option to `true`.
 
 ```php
@@ -677,7 +674,7 @@ This would generate the following HTML:
 
 ### Floating labels
 
-[Floating labels](https://getbootstrap.com/docs/5.0/forms/floating-labels) are supported for `text`, `textarea`, and
+[Floating labels](https://getbootstrap.com/docs/5.3/forms/floating-labels) are supported for `text`, `textarea`, and
 (non-`multiple`) `select` controls. They can be enabled via the label's `floating` option:
 
 ```php
@@ -746,7 +743,7 @@ This would generate the following HTML:
 
 ### Tooltips
 
-[Bootstrap tooltips](https://getbootstrap.com/docs/5.0/components/tooltips/) can be added to labels via the `tooltip`
+[Bootstrap tooltips](https://getbootstrap.com/docs/5.3/components/tooltips/) can be added to labels via the `tooltip`
 option. The tooltip toggles are by default being rendered as a [Bootstrap icon](https://icons.getbootstrap.com/), which
 is being included by default when installing the assets via the `install` command.
 
@@ -1001,7 +998,7 @@ echo $this->Html->badge('Text');
 
 #### Background colors
 
-[Background colors](https://getbootstrap.com/docs/5.0/components/badge/#background-colors) can be changed by specifying
+[Background colors](https://getbootstrap.com/docs/5.3/components/badge/#background-colors) can be changed by specifying
 one of the Bootstrap theme color names via the `class` option, the helper will make sure that the correct prefixes
 are being applied:
 
@@ -1155,7 +1152,7 @@ This would generate the following HTML:
 #### Configuring the ARIA labels
 
 When using the standard methods you can use the `label` option to pass a custom string to use for
-[the `aria-label` attribute](https://getbootstrap.com/docs/5.0/components/pagination/#working-with-icons):
+[the `aria-label` attribute](https://getbootstrap.com/docs/5.3/components/pagination/#working-with-icons):
 
 ```php
 echo $this->Paginator->first('«', ['label' => __('Beginning')]);
@@ -1276,7 +1273,7 @@ This would generate the following HTML:
 
 ##### Sizing
 
-[The size](https://getbootstrap.com/docs/5.0/components/pagination/#sizing) can be specified via the `size` option:
+[The size](https://getbootstrap.com/docs/5.3/components/pagination/#sizing) can be specified via the `size` option:
 
 ```php
 echo $this->Paginator->links([

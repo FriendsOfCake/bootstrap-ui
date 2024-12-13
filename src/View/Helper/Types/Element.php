@@ -16,6 +16,8 @@ final class Element extends Type
     public const BADGE = 'badge';
     /** @var string The bg (background) element */
     public const BG = 'bg';
+    /** @var string The text bg (background) element */
+    public const TEXT_BG = 'text-bg';
     /** @var string The border element */
     public const BORDER = 'border';
     /** @var string The button element */

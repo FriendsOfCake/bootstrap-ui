@@ -70,7 +70,7 @@ class FormHelper extends CoreFormHelper
      *
      * @var array
      */
-    public const ALIGN_TYPES = ['default', 'horizontal', 'inline'];
+    public const ALIGN_TYPES = [self::ALIGN_DEFAULT, self::ALIGN_HORIZONTAL, self::ALIGN_INLINE];
 
     /**
      * Default alignment.
@@ -135,41 +135,33 @@ class FormHelper extends CoreFormHelper
      */
     protected array $_templates = [
         'error' =>
-            '<div id="{{id}}" class="ms-0 invalid-feedback">{{content}}</div>',
+            '<div id="{{id}}" class="invalid-feedback">{{content}}</div>',
         'errorTooltip' =>
             '<div id="{{id}}" class="invalid-tooltip">{{content}}</div>',
         'label' =>
             '<label{{attrs}}>{{text}}{{tooltip}}</label>',
         'help' =>
-            '<small{{attrs}}>{{content}}</small>',
+            '<div{{attrs}}>{{content}}</div>',
         'tooltip' =>
             '<span data-bs-toggle="tooltip" title="{{content}}" class="bi bi-info-circle-fill"></span>',
         'formGroupFloatingLabel' =>
             '{{input}}{{label}}',
-        'datetimeContainer' =>
-            '<div{{containerAttrs}} ' .
-                'class="{{containerClass}}form-group {{type}}{{required}}">{{content}}{{help}}</div>',
-        'datetimeContainerError' =>
-            '<div{{containerAttrs}} ' .
-                'class="{{containerClass}}form-group {{formGroupPosition}}{{type}}{{required}} is-invalid">' .
-                    '{{content}}{{error}}{{help}}</div>',
-        'datetimeLabel' =>
-            '<label{{attrs}}>{{text}}{{tooltip}}</label>',
         'inputContainer' =>
             '<div{{containerAttrs}} ' .
-                'class="{{containerClass}}form-group {{type}}{{required}}">{{content}}{{help}}</div>',
+                'class="{{containerClass}}{{type}}{{required}}">{{content}}{{help}}</div>',
         'inputContainerError' =>
             '<div{{containerAttrs}} ' .
-                'class="{{containerClass}}form-group {{formGroupPosition}}{{type}}{{required}} is-invalid">' .
+                'class="{{containerClass}}{{formGroupPosition}}{{type}}{{required}} is-invalid">' .
                     '{{content}}{{error}}{{help}}</div>',
         'checkboxContainer' =>
             '<div{{containerAttrs}} ' .
-                'class="{{containerClass}}form-group form-check{{variant}} ' .
-                    '{{type}}{{required}}">{{content}}{{help}}</div>',
+                'class="{{containerClass}}form-check{{variant}} ' .
+                '{{type}}{{required}}">{{content}}{{help}}</div>',
         'checkboxContainerError' =>
             '<div{{containerAttrs}} ' .
-                'class="{{containerClass}}form-group form-check{{variant}} ' .
-                    '{{formGroupPosition}}{{type}}{{required}} is-invalid">{{content}}{{error}}{{help}}</div>',
+                'class="{{containerClass}}form-check{{variant}} ' .
+                '{{formGroupPosition}}{{type}}{{required}} is-invalid">' .
+                '{{content}}{{error}}{{help}}</div>',
         'checkboxInlineContainer' =>
             '<div{{containerAttrs}} ' .
                 'class="{{containerClass}}form-check{{variant}} form-check-inline align-top {{type}}{{required}}">' .
@@ -185,11 +177,11 @@ class FormHelper extends CoreFormHelper
         'checkboxInlineWrapper' =>
             '<div class="form-check{{variant}} form-check-inline">{{label}}</div>',
         'radioContainer' =>
-            '<div{{containerAttrs}} class="{{containerClass}}form-group {{type}}{{required}}" role="group" ' .
+            '<div{{containerAttrs}} class="{{containerClass}}{{type}}{{required}}" role="group" ' .
                 'aria-labelledby="{{groupId}}">{{content}}{{help}}</div>',
         'radioContainerError' =>
             '<div{{containerAttrs}} ' .
-                'class="{{containerClass}}form-group {{formGroupPosition}}{{type}}{{required}} is-invalid" ' .
+                'class="{{containerClass}}{{formGroupPosition}}{{type}}{{required}} is-invalid" ' .
                     'role="group" aria-labelledby="{{groupId}}">{{content}}{{error}}{{help}}</div>',
         'radioLabel' =>
             '<label{{attrs}}>{{text}}{{tooltip}}</label>',
@@ -204,16 +196,16 @@ class FormHelper extends CoreFormHelper
         'inputGroupText' =>
             '<span class="input-group-text">{{content}}</span>',
         'multicheckboxContainer' =>
-            '<div{{containerAttrs}} class="{{containerClass}}form-group {{type}}{{required}}" role="group" ' .
+            '<div{{containerAttrs}} class="{{containerClass}}{{type}}{{required}}" role="group" ' .
                 'aria-labelledby="{{groupId}}">{{content}}{{help}}</div>',
         'multicheckboxContainerError' =>
             '<div{{containerAttrs}} ' .
-                'class="{{containerClass}}form-group {{formGroupPosition}}{{type}}{{required}} is-invalid" ' .
+                'class="{{containerClass}}{{formGroupPosition}}{{type}}{{required}} is-invalid" ' .
                     'role="group" aria-labelledby="{{groupId}}">{{content}}{{error}}{{help}}</div>',
         'multicheckboxLabel' =>
             '<label{{attrs}}>{{text}}{{tooltip}}</label>',
         'multicheckboxWrapper' =>
-            '<fieldset class="%s form-group">{{content}}</fieldset>',
+            '<fieldset class="%s">{{content}}</fieldset>',
         'multicheckboxTitle' =>
             '<legend class="col-form-label pt-0">{{text}}</legend>',
         'nestingLabel' =>
@@ -242,39 +234,30 @@ class FormHelper extends CoreFormHelper
                 '<div{{containerAttrs}} ' .
                     'class="{{containerClass}}form-check{{variant}} ' .
                         '{{formGroupPosition}}{{type}}{{required}} is-invalid">{{content}}{{error}}{{help}}</div>',
-            'datetimeContainer' =>
-                '<div{{containerAttrs}} ' .
-                    'class="{{containerClass}}form-group {{formGroupPosition}}{{type}}{{required}}">' .
-                        '{{content}}{{help}}</div>',
-            'datetimeContainerError' =>
-                '<div{{containerAttrs}} ' .
-                    'class="{{containerClass}}form-group {{formGroupPosition}}{{type}}{{required}} is-invalid">' .
-                        '{{content}}{{error}}{{help}}</div>',
-            'datetimeLabel' =>
-                '<label{{attrs}}>{{text}}{{tooltip}}</label>',
             'radioContainer' =>
                 '<div{{containerAttrs}} ' .
-                    'class="{{containerClass}}form-group {{formGroupPosition}}{{type}}{{required}}" role="group" ' .
-                        'aria-labelledby="{{groupId}}">{{content}}{{help}}</div>',
+                    'class="{{containerClass}}{{formGroupPosition}}{{type}}{{required}}" ' .
+                    'role="group" aria-labelledby="{{groupId}}">' .
+                    '{{content}}{{help}}</div>',
             'radioContainerError' =>
                 '<div{{containerAttrs}} ' .
-                    'class="{{containerClass}}form-group {{formGroupPosition}}{{type}}{{required}} is-invalid" ' .
-                        'role="group" aria-labelledby="{{groupId}}">{{content}}{{error}}{{help}}</div>',
+                    'class="{{containerClass}}{{formGroupPosition}}{{type}}{{required}} is-invalid" ' .
+                    'role="group" aria-labelledby="{{groupId}}">' .
+                    '{{content}}{{error}}{{help}}</div>',
             'radioLabel' =>
                 '<span{{attrs}}>{{text}}{{tooltip}}</span>',
             'multicheckboxContainer' =>
                 '<div{{containerAttrs}} ' .
-                    'class="{{containerClass}}form-group d-flex {{formGroupPosition}}{{type}}{{required}}" ' .
+                    'class="{{containerClass}}d-flex {{formGroupPosition}}{{type}}{{required}}" ' .
                         'role="group" aria-labelledby="{{groupId}}">{{content}}{{help}}</div>',
             'multicheckboxContainerError' =>
                 '<div{{containerAttrs}} ' .
-                    'class="{{containerClass}}form-group d-flex ' .
-                        '{{formGroupPosition}}{{type}}{{required}} is-invalid" ' .
+                    'class="{{containerClass}}d-flex {{formGroupPosition}}{{type}}{{required}} is-invalid" ' .
                             'role="group" aria-labelledby="{{groupId}}">{{content}}{{error}}{{help}}</div>',
             'multicheckboxLabel' =>
                 '<span{{attrs}}>{{text}}{{tooltip}}</span>',
             'multicheckboxWrapper' =>
-                '<fieldset class="form-group">{{content}}</fieldset>',
+                '<fieldset>{{content}}</fieldset>',
             'multicheckboxTitle' =>
                 '<legend class="col-form-label float-none pt-0">{{text}}</legend>',
         ],
@@ -287,50 +270,43 @@ class FormHelper extends CoreFormHelper
                 '<div class="%s form-floating">{{input}}{{label}}{{error}}{{help}}</div>',
             'checkboxFormGroup' =>
                 '<div class="%s"><div class="form-check{{variant}}">{{input}}{{label}}{{error}}{{help}}</div></div>',
-            'datetimeContainer' =>
-                '<div{{containerAttrs}} ' .
-                    'class="{{containerClass}}form-group row {{type}}{{required}}">{{content}}</div>',
-            'datetimeContainerError' =>
-                '<div{{containerAttrs}} ' .
-                    'class="{{containerClass}}form-group row {{formGroupPosition}}{{type}}{{required}} is-invalid">' .
-                        '{{content}}</div>',
-            'datetimeLabel' =>
-                '<label{{attrs}}>{{text}}{{tooltip}}</label>',
             'checkboxInlineFormGroup' =>
                 '<div class="%s"><div class="form-check{{variant}} form-check-inline">{{input}}{{label}}</div></div>',
             'submitContainer' =>
-                '<div{{containerAttrs}} class="{{containerClass}}form-group row">' .
-                    '<div class="%s">{{content}}</div></div>',
+                '<div{{containerAttrs}} class="{{containerClass}}row"><div class="%s">{{content}}</div></div>',
             'inputContainer' =>
-                '<div{{containerAttrs}} class="{{containerClass}}form-group row {{type}}{{required}}">' .
+                '<div{{containerAttrs}} class="{{containerClass}}row {{type}}{{required}}">' .
                     '{{content}}</div>',
             'inputContainerError' =>
                 '<div{{containerAttrs}} ' .
-                    'class="{{containerClass}}form-group row {{formGroupPosition}}{{type}}{{required}} is-invalid">' .
-                        '{{content}}</div>',
-            'checkboxContainer' =>
-                '<div{{containerAttrs}} class="{{containerClass}}form-group row {{type}}{{required}}">' .
+                    'class="{{containerClass}}row {{formGroupPosition}}{{type}}{{required}} is-invalid">' .
                     '{{content}}</div>',
+            'checkboxContainer' =>
+                '<div{{containerAttrs}} class="{{containerClass}}row {{type}}{{required}}">{{content}}</div>',
             'checkboxContainerError' =>
-                '<div{{containerAttrs}} ' .
-                    'class="{{containerClass}}form-group row {{formGroupPosition}}{{type}}{{required}} is-invalid">' .
-                        '{{content}}</div>',
+                '<div{{containerAttrs}} class="{{containerClass}}row ' .
+                    '{{formGroupPosition}}{{type}}{{required}} is-invalid">' .
+                    '{{content}}</div>',
             'radioContainer' =>
-                '<div{{containerAttrs}} class="{{containerClass}}form-group row {{type}}{{required}}" role="group" ' .
-                    'aria-labelledby="{{groupId}}">{{content}}</div>',
+                '<div{{containerAttrs}} class="{{containerClass}}row {{type}}{{required}}" ' .
+                    'role="group" aria-labelledby="{{groupId}}">' .
+                    '{{content}}</div>',
             'radioContainerError' =>
-                '<div{{containerAttrs}} ' .
-                    'class="{{containerClass}}form-group row {{formGroupPosition}}{{type}}{{required}} is-invalid" ' .
-                        'role="group" aria-labelledby="{{groupId}}">{{content}}</div>',
+                '<div{{containerAttrs}} class="{{containerClass}}row ' .
+                    '{{formGroupPosition}}{{type}}{{required}} is-invalid" ' .
+                    'role="group" aria-labelledby="{{groupId}}">' .
+                    '{{content}}</div>',
             'radioLabel' =>
                 '<label{{attrs}}>{{text}}{{tooltip}}</label>',
             'multicheckboxContainer' =>
-                '<div{{containerAttrs}} class="{{containerClass}}form-group row {{type}}{{required}}" role="group" ' .
-                    'aria-labelledby="{{groupId}}">{{content}}</div>',
+                '<div{{containerAttrs}} class="{{containerClass}}row {{type}}{{required}}" ' .
+                    'role="group" aria-labelledby="{{groupId}}">' .
+                    '{{content}}</div>',
             'multicheckboxContainerError' =>
-                '<div{{containerAttrs}} ' .
-                    'class="{{containerClass}}form-group row {{formGroupPosition}}{{type}}{{required}} is-invalid" ' .
-                        'role="group" aria-labelledby="{{groupId}}">{{content}}</div>',
+                '<div{{containerAttrs}} class="{{containerClass}}row ' .
+                    '{{formGroupPosition}}{{type}}{{required}} is-invalid" ' .
+                    'role="group" aria-labelledby="{{groupId}}">' .
+                    '{{content}}</div>',
             'multicheckboxLabel' =>
                 '<label{{attrs}}>{{text}}{{tooltip}}</label>',
         ],
@@ -351,13 +327,6 @@ class FormHelper extends CoreFormHelper
     ];
 
     /**
-     * The name of the field for which the current error is being generated.
-     *
-     * @var string|null
-     */
-    private ?string $_errorFieldName = null;
-
-    /**
      * {@inheritDoc}
      *
      * Additionally to the core form helper options, the following BootstrapUI related options are supported:
@@ -372,7 +341,7 @@ class FormHelper extends CoreFormHelper
     public function __construct(View $View, array $config = [])
     {
         $this->_defaultConfig = [
-            'align' => 'default',
+            'align' => static::ALIGN_DEFAULT,
             'errorClass' => 'is-invalid',
             'grid' => [
                 static::GRID_COLUMN_ONE => 2,
@@ -417,55 +386,11 @@ class FormHelper extends CoreFormHelper
     /**
      * @inheritDoc
      */
-    public function error(string $field, array|string|null $text = null, array $options = []): string
-    {
-        $this->_errorFieldName = $field;
-        $error = parent::error($field, $text, $options);
-        $this->_errorFieldName = null;
-
-        return $error;
-    }
-
-    /**
-     * @inheritDoc
-     */
-    public function formatTemplate(string $name, array $data): string
-    {
-        // Injects the `id` attribute value for the error template.
-        // This is done for backwards compatibility reasons, as the
-        // core form helper only introduced this behavior with
-        // CakePHP 4.3. This can be removed once the required minimum
-        // CakePHP version is bumped accordingly.
-
-        if (
-            $name === 'error' &&
-            !isset($data['id']) &&
-            $this->_errorFieldName !== null
-        ) {
-            $data['id'] = $this->_domId($this->_errorFieldName . '-error');
-        }
-
-        return parent::formatTemplate($name, $data);
-    }
-
-    /**
-     * @inheritDoc
-     */
     public function label(string $fieldName, ?string $text = null, array $options = []): string
     {
         unset($options['floating']);
 
         return parent::label($fieldName, $text, $options);
-    }
-
-    /**
-     * @inheritDoc
-     */
-    public function button(string $title, array $options = []): string
-    {
-        $result = parent::button($title, $options);
-
-        return $this->_postProcessElement($result, null, $options);
     }
 
     /**
@@ -548,13 +473,6 @@ class FormHelper extends CoreFormHelper
         }
 
         switch ($options['type']) {
-            case 'datetime-local':
-            case 'datetime':
-            case 'date':
-            case 'time':
-                $options = $this->_dateTimeOptions($fieldName, $options);
-                break;
-
             case 'checkbox':
             case 'radio':
             case 'select':
@@ -658,11 +576,7 @@ class FormHelper extends CoreFormHelper
             $options['container'] = $this->injectClasses('form-floating', (array)($options['container'] ?? []));
         }
 
-        if (!isset($options['container'])) {
-            return $options;
-        }
-
-        $containerOptions = $options['container'];
+        $containerOptions = $options['container'] ?? [];
         unset($options['container']);
 
         if (isset($containerOptions['class'])) {
@@ -672,35 +586,6 @@ class FormHelper extends CoreFormHelper
         if (!empty($containerOptions)) {
             $options['templateVars']['containerAttrs'] = $this->templater()->formatAttributes($containerOptions);
         }
-
-        return $options;
-    }
-
-    /**
-     * Modify options for date time controls.
-     *
-     * @param string $fieldName Field name.
-     * @param array $options Options. See `$options` argument of `control()` method.
-     * @return array
-     */
-    protected function _dateTimeOptions(string $fieldName, array $options): array
-    {
-        $options = $this->_labelOptions($fieldName, $options);
-
-        // group IDs are no longer required for date/time controls,
-        // this is just kept for backwards compatibility
-
-        $groupId =
-        $options['templateVars']['groupId'] =
-            $this->_domId($fieldName . '-group-label');
-
-        if ($options['label'] !== false) {
-            $options['label']['templateVars']['groupId'] = $groupId;
-        }
-
-        $options['templates']['label'] = $this->templater()->get('datetimeLabel');
-        $options['templates']['inputContainer'] = $this->templater()->get('datetimeContainer');
-        $options['templates']['inputContainerError'] = $this->templater()->get('datetimeContainerError');
 
         return $options;
     }
@@ -985,8 +870,8 @@ class FormHelper extends CoreFormHelper
     {
         if (
             $options['type'] === 'hidden' ||
+            ($options['type'] === 'select' && isset($options['multiple']) && $options['multiple'] === 'checkbox') ||
             (
-                isset($options['aria-required']) &&
                 isset($options['aria-describedby']) &&
                 isset($options['aria-invalid'])
             )
@@ -997,30 +882,6 @@ class FormHelper extends CoreFormHelper
         $isError =
             $options['error'] !== false &&
             $this->isFieldError($fieldName);
-
-        // `aria-invalid` and `aria-required` are injected for backwards
-        // compatibility reasons, as support for this has only been
-        // introduced in the core form helper with CakePHP 4.3. This can
-        // be removed once the required minimum CakePHP version is bumped
-        // accordingly.
-
-        if (
-            $isError &&
-            !isset($options['aria-invalid'])
-        ) {
-            $options['aria-invalid'] = 'true';
-        }
-
-        if (
-            $options['required'] &&
-            !isset($options['aria-required'])
-        ) {
-            $options['aria-required'] = 'true';
-        }
-
-        if (isset($options['aria-describedby'])) {
-            return $options;
-        }
 
         $describedByIds = [];
 
@@ -1091,36 +952,31 @@ class FormHelper extends CoreFormHelper
      */
     protected function _helpOptions(string $fieldName, array $options): array
     {
-        if ($options['help']) {
-            if (!is_array($options['help'])) {
-                $options['help'] = [
-                    'content' => $options['help'],
-                ];
-            }
-
-            if (!isset($options['help']['id'])) {
-                $options['help']['id'] = $this->_domId($fieldName . '-help');
-            }
-
-            $helpClasses = [];
-            if ($this->_align === static::ALIGN_INLINE) {
-                $helpClasses[] = 'visually-hidden';
-            } else {
-                $helpClasses[] = 'd-block';
-            }
-
-            $helpClasses[] = 'form-text';
-            if ($this->_align !== static::ALIGN_INLINE) {
-                $helpClasses[] = 'text-muted';
-            }
-
-            $options['help'] = $this->injectClasses($helpClasses, $options['help']);
-
-            $options['help'] = $this->templater()->format('help', [
-                'content' => $options['help']['content'],
-                'attrs' => $this->templater()->formatAttributes($options['help'], ['content']),
-            ]);
+        if ($options['help'] === null) {
+            return $options;
         }
+
+        if (!is_array($options['help'])) {
+            $options['help'] = [
+                'content' => $options['help'],
+            ];
+        }
+
+        if (!isset($options['help']['id'])) {
+            $options['help']['id'] = $this->_domId($fieldName . '-help');
+        }
+
+        $helpClasses = ['form-text'];
+        if ($this->_align === static::ALIGN_INLINE) {
+            $helpClasses[] = 'visually-hidden';
+        }
+
+        $options['help'] = $this->injectClasses($helpClasses, $options['help']);
+
+        $options['help'] = $this->templater()->format('help', [
+            'content' => $options['help']['content'],
+            'attrs' => $this->templater()->formatAttributes($options['help'], ['content']),
+        ]);
 
         return $options;
     }
@@ -1409,15 +1265,13 @@ class FormHelper extends CoreFormHelper
             $options['templates'] = (new PhpConfig())->read($options['templates']);
         }
 
-        if ($this->_align === 'default') {
+        if ($this->_align === static::ALIGN_DEFAULT) {
             $options['templates'] += $templates;
 
             return $options;
         }
 
-        $options = $this->injectClasses('form-' . $this->_align, $options);
-
-        if ($this->_align === 'inline') {
+        if ($this->_align === static::ALIGN_INLINE) {
             $options = $this->injectClasses(
                 [
                     'row',
@@ -1433,10 +1287,6 @@ class FormHelper extends CoreFormHelper
 
         $templates['label'] = sprintf(
             $templates['label'],
-            $this->_gridClass(static::GRID_COLUMN_ONE)
-        );
-        $templates['datetimeLabel'] = sprintf(
-            $templates['datetimeLabel'],
             $this->_gridClass(static::GRID_COLUMN_ONE)
         );
         $templates['radioLabel'] = sprintf(

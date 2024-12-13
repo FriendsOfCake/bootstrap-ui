@@ -20,7 +20,7 @@ class DateTimeControlTest extends AbstractFormHelperTest
         ]);
 
         $expected = [
-            ['div' => ['class' => 'mb-3 form-group datetime-local']],
+            ['div' => ['class' => 'mb-3 datetime-local']],
                 ['label' => ['class' => 'form-label', 'for' => 'created']],
                     'Created',
                 '/label',
@@ -50,7 +50,7 @@ class DateTimeControlTest extends AbstractFormHelperTest
 
         $expected = [
             ['div' => [
-                'class' => 'mb-3 form-group datetime-local',
+                'class' => 'mb-3 datetime-local',
             ]],
                 'input' => [
                     'type' => 'datetime-local',
@@ -78,7 +78,7 @@ class DateTimeControlTest extends AbstractFormHelperTest
 
         $expected = [
             ['div' => [
-                'class' => 'mb-3 form-group datetime-local',
+                'class' => 'mb-3 datetime-local',
             ]],
                 ['label' => ['class' => 'form-label', 'for' => 'created']],
                     'Custom Label',
@@ -113,7 +113,7 @@ class DateTimeControlTest extends AbstractFormHelperTest
 
         $expected = [
             ['div' => [
-                'class' => 'mb-3 form-group datetime-local',
+                'class' => 'mb-3 datetime-local',
             ]],
                 ['label' => [
                     'class' => 'custom-label-class form-label',
@@ -146,7 +146,7 @@ class DateTimeControlTest extends AbstractFormHelperTest
             'help' => 'Help text',
         ]);
         $expected = [
-            ['div' => ['class' => 'mb-3 form-group time']],
+            ['div' => ['class' => 'mb-3 time']],
                 ['label' => ['class' => 'form-label', 'for' => 'created']],
                     'Created',
                 '/label',
@@ -159,9 +159,9 @@ class DateTimeControlTest extends AbstractFormHelperTest
                     'step' => '1',
                     'value' => date('H:i:s', $now),
                 ],
-                ['small' => ['id' => 'created-help', 'class' => 'd-block form-text text-muted']],
+                ['div' => ['id' => 'created-help', 'class' => 'form-text']],
                     'Help text',
-                '/small',
+                '/div',
             '/div',
         ];
         $this->assertHtml($expected, $result);
@@ -184,7 +184,7 @@ class DateTimeControlTest extends AbstractFormHelperTest
             ],
         ]);
         $expected = [
-            ['div' => ['class' => 'mb-3 form-group time']],
+            ['div' => ['class' => 'mb-3 time']],
                 ['label' => ['class' => 'form-label', 'for' => 'created']],
                     'Created',
                 '/label',
@@ -197,13 +197,13 @@ class DateTimeControlTest extends AbstractFormHelperTest
                     'step' => '1',
                     'value' => date('H:i:s', $now),
                 ],
-                ['small' => [
+                ['div' => [
                     'id' => 'custom-help',
                     'foo' => 'bar',
-                    'class' => 'help-class d-block form-text text-muted',
+                    'class' => 'help-class form-text',
                 ]],
                     'Help text',
-                '/small',
+                '/div',
             '/div',
         ];
         $this->assertHtml($expected, $result);
@@ -221,7 +221,7 @@ class DateTimeControlTest extends AbstractFormHelperTest
             'tooltip' => 'Tooltip text',
         ]);
         $expected = [
-            ['div' => ['class' => 'mb-3 form-group time']],
+            ['div' => ['class' => 'mb-3 time']],
                 ['label' => ['class' => 'form-label', 'for' => 'created']],
                     'Created ',
                     'span' => [
@@ -257,7 +257,7 @@ class DateTimeControlTest extends AbstractFormHelperTest
         ]);
 
         $expected = [
-            ['div' => ['class' => 'custom-spacing form-group datetime-local']],
+            ['div' => ['class' => 'custom-spacing datetime-local']],
             ['label' => ['class' => 'form-label', 'for' => 'created']],
             'Created',
             '/label',
@@ -289,7 +289,7 @@ class DateTimeControlTest extends AbstractFormHelperTest
 
         $expected = [
             ['div' => [
-                'class' => 'mb-3 form-group datetime-local is-invalid',
+                'class' => 'mb-3 datetime-local is-invalid',
             ]],
                 ['label' => ['class' => 'form-label', 'for' => 'created']],
                     'Created',
@@ -304,7 +304,7 @@ class DateTimeControlTest extends AbstractFormHelperTest
                     'aria-describedby' => 'created-error',
                     'value' => $now->format('Y-m-d H:i:s'),
                 ],
-                ['div' => ['id' => 'created-error', 'class' => 'ms-0 invalid-feedback']],
+                ['div' => ['id' => 'created-error', 'class' => 'invalid-feedback']],
                     'error message',
                 '/div',
             '/div',
@@ -329,7 +329,7 @@ class DateTimeControlTest extends AbstractFormHelperTest
 
         $expected = [
             ['div' => [
-                'class' => 'mb-3 form-group datetime-local is-invalid',
+                'class' => 'mb-3 datetime-local is-invalid',
             ]],
                 ['label' => ['class' => 'form-label', 'for' => 'created']],
                     'Created',
@@ -343,12 +343,12 @@ class DateTimeControlTest extends AbstractFormHelperTest
                     'aria-describedby' => 'created-error created-help',
                     'value' => $now->format('Y-m-d H:i:s'),
                 ],
-                ['div' => ['id' => 'created-error', 'class' => 'ms-0 invalid-feedback']],
+                ['div' => ['id' => 'created-error', 'class' => 'invalid-feedback']],
                     'error message',
                 '/div',
-                ['small' => ['id' => 'created-help', 'class' => 'd-block form-text text-muted']],
+                ['div' => ['id' => 'created-help', 'class' => 'form-text']],
                     'Help text',
-                '/small',
+                '/div',
             '/div',
         ];
         $this->assertHtml($expected, $result);
@@ -376,7 +376,7 @@ class DateTimeControlTest extends AbstractFormHelperTest
 
         $expected = [
             ['div' => [
-                'class' => 'mb-3 form-group datetime-local is-invalid',
+                'class' => 'mb-3 datetime-local is-invalid',
             ]],
                 ['label' => ['class' => 'form-label', 'for' => 'created']],
                     'Created',
@@ -390,16 +390,16 @@ class DateTimeControlTest extends AbstractFormHelperTest
                     'aria-describedby' => 'created-error custom-help',
                     'value' => $now->format('Y-m-d H:i:s'),
                 ],
-                ['div' => ['id' => 'created-error', 'class' => 'ms-0 invalid-feedback']],
+                ['div' => ['id' => 'created-error', 'class' => 'invalid-feedback']],
                     'error message',
                 '/div',
-                ['small' => [
+                ['div' => [
                     'id' => 'custom-help',
                     'foo' => 'bar',
-                    'class' => 'help-class d-block form-text text-muted',
+                    'class' => 'help-class form-text',
                 ]],
                     'Help text',
-                '/small',
+                '/div',
             '/div',
         ];
         $this->assertHtml($expected, $result);
@@ -423,7 +423,7 @@ class DateTimeControlTest extends AbstractFormHelperTest
         $expected = [
             ['div' => [
                 'attribute' => 'container-attribute',
-                'class' => 'container-class mb-3 form-group datetime-local',
+                'class' => 'container-class mb-3 datetime-local',
             ]],
                 ['label' => ['class' => 'form-label', 'for' => 'created']],
                     'Created',
@@ -461,7 +461,7 @@ class DateTimeControlTest extends AbstractFormHelperTest
         $expected = [
             ['div' => [
                 'attribute' => 'container-attribute',
-                'class' => 'container-class mb-3 form-group datetime-local is-invalid',
+                'class' => 'container-class mb-3 datetime-local is-invalid',
             ]],
                 ['label' => ['class' => 'form-label', 'for' => 'created']],
                     'Created',
@@ -476,7 +476,7 @@ class DateTimeControlTest extends AbstractFormHelperTest
                     'aria-describedby' => 'created-error',
                     'value' => $now->format('Y-m-d H:i:s'),
                 ],
-                ['div' => ['id' => 'created-error', 'class' => 'ms-0 invalid-feedback']],
+                ['div' => ['id' => 'created-error', 'class' => 'invalid-feedback']],
                     'error message',
                 '/div',
             '/div',
@@ -495,7 +495,7 @@ class DateTimeControlTest extends AbstractFormHelperTest
             'value' => $now,
         ]);
         $expected = [
-            ['div' => ['class' => 'mb-3 form-group date']],
+            ['div' => ['class' => 'mb-3 date']],
                 ['label' => ['class' => 'form-label', 'for' => 'created']],
                     'Created',
                 '/label',
@@ -522,7 +522,7 @@ class DateTimeControlTest extends AbstractFormHelperTest
             'value' => $now,
         ]);
         $expected = [
-            ['div' => ['class' => 'mb-3 form-group time']],
+            ['div' => ['class' => 'mb-3 time']],
                 ['label' => ['class' => 'form-label', 'for' => 'created']],
                     'Created',
                 '/label',
@@ -546,37 +546,37 @@ class DateTimeControlTest extends AbstractFormHelperTest
         $result = $this->Form->control('created', [
             'type' => 'datetime',
         ]);
-        $this->assertStringContainsString('<div class="mb-3 form-group datetime">', $result);
+        $this->assertStringContainsString('<div class="mb-3 datetime">', $result);
 
         $result = $this->Form->control('created', [
             'type' => 'date',
         ]);
-        $this->assertStringContainsString('<div class="mb-3 form-group date">', $result);
+        $this->assertStringContainsString('<div class="mb-3 date">', $result);
 
         $result = $this->Form->control('created', [
             'type' => 'time',
         ]);
-        $this->assertStringContainsString('<div class="mb-3 form-group time">', $result);
+        $this->assertStringContainsString('<div class="mb-3 time">', $result);
 
         $this->Form->setTemplates([
-            'datetimeContainer' => '<div class="custom datetimeContainer {{type}}{{required}}" role="group" aria-labelledby="{{groupId}}">{{content}}</div>',
-            'dateContainer' => '<div class="custom dateContainer {{type}}{{required}}" role="group" aria-labelledby="{{groupId}}">{{content}}</div>',
-            'timeContainer' => '<div class="custom timeContainer {{type}}{{required}}" role="group" aria-labelledby="{{groupId}}">{{content}}</div>',
+            'datetimeContainer' => '<div class="custom datetimeContainer {{type}}{{required}}">{{content}}</div>',
+            'dateContainer' => '<div class="custom dateContainer {{type}}{{required}}">{{content}}</div>',
+            'timeContainer' => '<div class="custom timeContainer {{type}}{{required}}">{{content}}</div>',
         ]);
         $result = $this->Form->control('created', [
             'type' => 'datetime',
         ]);
-        $this->assertStringContainsString('<div class="custom datetimeContainer datetime" role="group" aria-labelledby="created-group-label">', $result);
+        $this->assertStringContainsString('<div class="custom datetimeContainer datetime">', $result);
 
         $result = $this->Form->control('created', [
             'type' => 'date',
         ]);
-        $this->assertStringContainsString('<div class="custom dateContainer date" role="group" aria-labelledby="created-group-label">', $result);
+        $this->assertStringContainsString('<div class="custom dateContainer date">', $result);
 
         $result = $this->Form->control('created', [
             'type' => 'time',
         ]);
-        $this->assertStringContainsString('<div class="custom timeContainer time" role="group" aria-labelledby="created-group-label">', $result);
+        $this->assertStringContainsString('<div class="custom timeContainer time">', $result);
     }
 
     public function testDefaultAlignDateTimeControlCustomContainerErrorTemplateViaOptions()
@@ -591,40 +591,40 @@ class DateTimeControlTest extends AbstractFormHelperTest
         $result = $this->Form->control('created', [
             'type' => 'datetime',
         ]);
-        $this->assertStringContainsString('<div class="mb-3 form-group datetime is-invalid">', $result);
+        $this->assertStringContainsString('<div class="mb-3 datetime is-invalid">', $result);
 
         $result = $this->Form->control('created', [
             'type' => 'date',
         ]);
-        $this->assertStringContainsString('<div class="mb-3 form-group date is-invalid">', $result);
+        $this->assertStringContainsString('<div class="mb-3 date is-invalid">', $result);
 
         $result = $this->Form->control('created', [
             'type' => 'time',
         ]);
-        $this->assertStringContainsString('<div class="mb-3 form-group time is-invalid">', $result);
+        $this->assertStringContainsString('<div class="mb-3 time is-invalid">', $result);
 
         $result = $this->Form->control('created', [
             'type' => 'datetime',
             'templates' => [
-                'datetimeContainerError' => '<div class="custom datetimeContainerError {{type}}{{required}}" role="group" aria-labelledby="{{groupId}}">{{content}}</div>',
+                'datetimeContainerError' => '<div class="custom datetimeContainerError {{type}}{{required}}">{{content}}</div>',
             ],
         ]);
-        $this->assertStringContainsString('<div class="custom datetimeContainerError datetime" role="group" aria-labelledby="created-group-label">', $result);
+        $this->assertStringContainsString('<div class="custom datetimeContainerError datetime">', $result);
 
         $result = $this->Form->control('created', [
             'type' => 'date',
             'templates' => [
-                'dateContainerError' => '<div class="custom dateContainerError {{type}}{{required}}" role="group" aria-labelledby="{{groupId}}">{{content}}</div>',
+                'dateContainerError' => '<div class="custom dateContainerError {{type}}{{required}}">{{content}}</div>',
             ],
         ]);
-        $this->assertStringContainsString('<div class="custom dateContainerError date" role="group" aria-labelledby="created-group-label">', $result);
+        $this->assertStringContainsString('<div class="custom dateContainerError date">', $result);
 
         $result = $this->Form->control('created', [
             'type' => 'time',
             'templates' => [
-                'timeContainerError' => '<div class="custom timeContainerError {{type}}{{required}}" role="group" aria-labelledby="{{groupId}}">{{content}}</div>',
+                'timeContainerError' => '<div class="custom timeContainerError {{type}}{{required}}">{{content}}</div>',
             ],
         ]);
-        $this->assertStringContainsString('<div class="custom timeContainerError time" role="group" aria-labelledby="created-group-label">', $result);
+        $this->assertStringContainsString('<div class="custom timeContainerError time">', $result);
     }
 }

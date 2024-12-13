@@ -24,7 +24,7 @@ class ColorControlTest extends AbstractFormHelperTest
             'value' => '#ffffff',
         ]);
         $expected = [
-            'div' => ['class' => 'mb-3 form-group row color'],
+            'div' => ['class' => 'mb-3 row color'],
                 'label' => ['class' => 'col-form-label col-sm-5', 'for' => 'color'],
                     'Color',
                 '/label',
@@ -59,7 +59,7 @@ class ColorControlTest extends AbstractFormHelperTest
             'label' => false,
         ]);
         $expected = [
-            'div' => ['class' => 'mb-3 form-group row color'],
+            'div' => ['class' => 'mb-3 row color'],
                 ['div' => ['class' => 'col-sm-7']],
                     'input' => [
                         'type' => 'color',
@@ -92,7 +92,7 @@ class ColorControlTest extends AbstractFormHelperTest
             'label' => 'Custom Label',
         ]);
         $expected = [
-            'div' => ['class' => 'mb-3 form-group row color'],
+            'div' => ['class' => 'mb-3 row color'],
                 'label' => ['class' => 'col-form-label col-sm-5', 'for' => 'color'],
                     'Custom Label',
                 '/label',
@@ -132,7 +132,7 @@ class ColorControlTest extends AbstractFormHelperTest
             ],
         ]);
         $expected = [
-            'div' => ['class' => 'mb-3 form-group row color'],
+            'div' => ['class' => 'mb-3 row color'],
                 'label' => [
                     'for' => 'color',
                     'class' => 'custom-label-class col-form-label col-sm-5',
@@ -172,7 +172,7 @@ class ColorControlTest extends AbstractFormHelperTest
             'help' => 'Help text',
         ]);
         $expected = [
-            'div' => ['class' => 'mb-3 form-group row color'],
+            'div' => ['class' => 'mb-3 row color'],
                 'label' => ['class' => 'col-form-label col-sm-5', 'for' => 'color'],
                     'Color',
                 '/label',
@@ -185,9 +185,9 @@ class ColorControlTest extends AbstractFormHelperTest
                         'aria-describedby' => 'color-help',
                         'value' => '#ffffff',
                     ],
-                    ['small' => ['id' => 'color-help', 'class' => 'd-block form-text text-muted']],
+                    ['div' => ['id' => 'color-help', 'class' => 'form-text']],
                         'Help text',
-                    '/small',
+                    '/div',
                 '/div',
             '/div',
         ];
@@ -217,7 +217,7 @@ class ColorControlTest extends AbstractFormHelperTest
             ],
         ]);
         $expected = [
-            'div' => ['class' => 'mb-3 form-group row color'],
+            'div' => ['class' => 'mb-3 row color'],
                 'label' => ['class' => 'col-form-label col-sm-5', 'for' => 'color'],
                     'Color',
                 '/label',
@@ -230,13 +230,13 @@ class ColorControlTest extends AbstractFormHelperTest
                         'aria-describedby' => 'custom-help',
                         'value' => '#ffffff',
                     ],
-                    ['small' => [
+                    ['div' => [
                         'id' => 'custom-help',
                         'foo' => 'bar',
-                        'class' => 'help-class d-block form-text text-muted',
+                        'class' => 'help-class form-text',
                     ]],
                         'Help text',
-                    '/small',
+                    '/div',
                 '/div',
             '/div',
         ];
@@ -261,7 +261,7 @@ class ColorControlTest extends AbstractFormHelperTest
             'tooltip' => 'Tooltip text',
         ]);
         $expected = [
-            'div' => ['class' => 'mb-3 form-group row color'],
+            'div' => ['class' => 'mb-3 row color'],
                 'label' => ['class' => 'col-form-label col-sm-5', 'for' => 'color'],
                     'Color',
                     'span' => [
@@ -302,7 +302,7 @@ class ColorControlTest extends AbstractFormHelperTest
             'spacing' => 'custom-spacing',
         ]);
         $expected = [
-            'div' => ['class' => 'custom-spacing form-group row color'],
+            'div' => ['class' => 'custom-spacing row color'],
                 'label' => ['class' => 'col-form-label col-sm-5', 'for' => 'color'],
                     'Color',
                 '/label',
@@ -340,7 +340,7 @@ class ColorControlTest extends AbstractFormHelperTest
             'value' => '#ffffff',
         ]);
         $expected = [
-            'div' => ['class' => 'mb-3 form-group row color is-invalid'],
+            'div' => ['class' => 'mb-3 row color is-invalid'],
                 'label' => ['class' => 'col-form-label col-sm-5', 'for' => 'color'],
                     'Color',
                 '/label',
@@ -354,7 +354,7 @@ class ColorControlTest extends AbstractFormHelperTest
                         'aria-describedby' => 'color-error',
                         'value' => '#ffffff',
                     ],
-                    ['div' => ['id' => 'color-error', 'class' => 'ms-0 invalid-feedback']],
+                    ['div' => ['id' => 'color-error', 'class' => 'invalid-feedback']],
                         'error message',
                     '/div',
                 '/div',
@@ -384,7 +384,7 @@ class ColorControlTest extends AbstractFormHelperTest
             'help' => 'Help text',
         ]);
         $expected = [
-            'div' => ['class' => 'mb-3 form-group row color is-invalid'],
+            'div' => ['class' => 'mb-3 row color is-invalid'],
                 'label' => ['class' => 'col-form-label col-sm-5', 'for' => 'color'],
                     'Color',
                 '/label',
@@ -398,12 +398,12 @@ class ColorControlTest extends AbstractFormHelperTest
                         'aria-describedby' => 'color-error color-help',
                         'value' => '#ffffff',
                     ],
-                    ['div' => ['id' => 'color-error', 'class' => 'ms-0 invalid-feedback']],
+                    ['div' => ['id' => 'color-error', 'class' => 'invalid-feedback']],
                         'error message',
                     '/div',
-                    ['small' => ['id' => 'color-help', 'class' => 'd-block form-text text-muted']],
+                    ['div' => ['id' => 'color-help', 'class' => 'form-text']],
                         'Help text',
-                    '/small',
+                    '/div',
                 '/div',
             '/div',
         ];
@@ -436,7 +436,7 @@ class ColorControlTest extends AbstractFormHelperTest
             ],
         ]);
         $expected = [
-            'div' => ['class' => 'mb-3 form-group row color is-invalid'],
+            'div' => ['class' => 'mb-3 row color is-invalid'],
                 'label' => ['class' => 'col-form-label col-sm-5', 'for' => 'color'],
                     'Color',
                 '/label',
@@ -450,16 +450,16 @@ class ColorControlTest extends AbstractFormHelperTest
                         'aria-describedby' => 'color-error custom-help',
                         'value' => '#ffffff',
                     ],
-                    ['div' => ['id' => 'color-error', 'class' => 'ms-0 invalid-feedback']],
+                    ['div' => ['id' => 'color-error', 'class' => 'invalid-feedback']],
                         'error message',
                     '/div',
-                    ['small' => [
+                    ['div' => [
                         'id' => 'custom-help',
                         'foo' => 'bar',
-                        'class' => 'help-class d-block form-text text-muted',
+                        'class' => 'help-class form-text',
                     ]],
                         'Help text',
-                    '/small',
+                    '/div',
                 '/div',
             '/div',
         ];
@@ -490,7 +490,7 @@ class ColorControlTest extends AbstractFormHelperTest
         $expected = [
             'div' => [
                 'attribute' => 'container-attribute',
-                'class' => 'container-class mb-3 form-group row color',
+                'class' => 'container-class mb-3 row color',
             ],
                 'label' => ['class' => 'col-form-label col-sm-5', 'for' => 'color',],
                     'Color',
@@ -535,7 +535,7 @@ class ColorControlTest extends AbstractFormHelperTest
         $expected = [
             'div' => [
                 'attribute' => 'container-attribute',
-                'class' => 'container-class mb-3 form-group row color is-invalid',
+                'class' => 'container-class mb-3 row color is-invalid',
             ],
                 'label' => ['class' => 'col-form-label col-sm-5', 'for' => 'color',],
                     'Color',
@@ -550,7 +550,7 @@ class ColorControlTest extends AbstractFormHelperTest
                         'aria-describedby' => 'color-error',
                         'value' => '#ffffff',
                     ],
-                    ['div' => ['id' => 'color-error', 'class' => 'ms-0 invalid-feedback']],
+                    ['div' => ['id' => 'color-error', 'class' => 'invalid-feedback']],
                         'error message',
                     '/div',
                 '/div',

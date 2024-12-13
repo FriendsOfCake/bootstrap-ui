@@ -22,7 +22,7 @@ class SelectControlTest extends AbstractFormHelperTest
         ]);
         $expected = [
             ['div' => ['class' => 'col-auto']],
-                'div' => ['class' => 'form-group select'],
+                'div' => ['class' => 'select'],
                     ['label' => ['class' => 'form-label visually-hidden', 'for' => 'users']],
                         'Users',
                     '/label',
@@ -58,7 +58,7 @@ class SelectControlTest extends AbstractFormHelperTest
         ]);
         $expected = [
             ['div' => ['class' => 'col-auto']],
-                'div' => ['class' => 'form-floating form-group select'],
+                'div' => ['class' => 'form-floating select'],
                     ['select' => ['name' => 'users', 'id' => 'users', 'class' => 'form-select']],
                         ['option' => ['value' => '1']],
                             'option 1',
@@ -92,7 +92,7 @@ class SelectControlTest extends AbstractFormHelperTest
         ]);
         $expected = [
             ['div' => ['class' => 'col-auto']],
-                'div' => ['class' => 'form-group select'],
+                'div' => ['class' => 'select'],
                     ['select' => ['name' => 'users', 'id' => 'users', 'class' => 'form-select']],
                         ['option' => ['value' => '1']],
                             'option 1',
@@ -123,7 +123,7 @@ class SelectControlTest extends AbstractFormHelperTest
         ]);
         $expected = [
             ['div' => ['class' => 'col-auto']],
-                'div' => ['class' => 'form-group select'],
+                'div' => ['class' => 'select'],
                     ['label' => ['class' => 'form-label visually-hidden', 'for' => 'users']],
                         'Custom Label',
                     '/label',
@@ -161,7 +161,7 @@ class SelectControlTest extends AbstractFormHelperTest
         ]);
         $expected = [
             ['div' => ['class' => 'col-auto']],
-                'div' => ['class' => 'form-group select'],
+                'div' => ['class' => 'select'],
                     'label' => [
                         'for' => 'users',
                         'class' => 'custom-label-class form-label visually-hidden',
@@ -199,7 +199,7 @@ class SelectControlTest extends AbstractFormHelperTest
         ]);
         $expected = [
             ['div' => ['class' => 'col-auto']],
-                'div' => ['class' => 'form-group select'],
+                'div' => ['class' => 'select'],
                     ['label' => ['class' => 'form-label visually-hidden', 'for' => 'users']],
                         'Users',
                     '/label',
@@ -216,9 +216,9 @@ class SelectControlTest extends AbstractFormHelperTest
                             'option 2',
                         '/option',
                     '/select',
-                    ['small' => ['id' => 'users-help', 'class' => 'visually-hidden form-text']],
+                    ['div' => ['id' => 'users-help', 'class' => 'form-text visually-hidden']],
                         'Help text',
-                    '/small',
+                    '/div',
                 '/div',
             '/div',
         ];
@@ -246,7 +246,7 @@ class SelectControlTest extends AbstractFormHelperTest
         ]);
         $expected = [
             ['div' => ['class' => 'col-auto']],
-                'div' => ['class' => 'form-group select'],
+                'div' => ['class' => 'select'],
                     ['label' => ['class' => 'form-label visually-hidden', 'for' => 'users']],
                         'Users',
                     '/label',
@@ -263,13 +263,13 @@ class SelectControlTest extends AbstractFormHelperTest
                             'option 2',
                         '/option',
                     '/select',
-                    ['small' => [
+                    ['div' => [
                         'id' => 'custom-help',
                         'foo' => 'bar',
-                        'class' => 'help-class visually-hidden form-text',
+                        'class' => 'help-class form-text visually-hidden',
                     ]],
                         'Help text',
-                    '/small',
+                    '/div',
                 '/div',
             '/div',
         ];
@@ -292,7 +292,7 @@ class SelectControlTest extends AbstractFormHelperTest
         ]);
         $expected = [
             ['div' => ['class' => 'col-auto']],
-                'div' => ['class' => 'form-group select'],
+                'div' => ['class' => 'select'],
                     ['label' => ['class' => 'form-label visually-hidden', 'for' => 'users']],
                         'Users',
                         'span' => [
@@ -334,7 +334,7 @@ class SelectControlTest extends AbstractFormHelperTest
         ]);
         $expected = [
             ['div' => ['class' => 'col-auto']],
-                'div' => ['class' => 'form-group position-relative select is-invalid'],
+                'div' => ['class' => 'position-relative select is-invalid'],
                     ['label' => ['class' => 'form-label visually-hidden', 'for' => 'users']],
                         'Users',
                     '/label',
@@ -380,7 +380,7 @@ class SelectControlTest extends AbstractFormHelperTest
         ]);
         $expected = [
             ['div' => ['class' => 'col-auto']],
-                'div' => ['class' => 'form-group position-relative select is-invalid'],
+                'div' => ['class' => 'position-relative select is-invalid'],
                     ['label' => ['class' => 'form-label visually-hidden', 'for' => 'users']],
                         'Users',
                     '/label',
@@ -401,9 +401,9 @@ class SelectControlTest extends AbstractFormHelperTest
                     ['div' => ['id' => 'users-error', 'class' => 'invalid-tooltip']],
                         'error message',
                     '/div',
-                    ['small' => ['id' => 'users-help', 'class' => 'visually-hidden form-text']],
+                    ['div' => ['id' => 'users-help', 'class' => 'form-text visually-hidden']],
                         'Help text',
-                    '/small',
+                    '/div',
                 '/div',
             '/div',
         ];
@@ -434,7 +434,7 @@ class SelectControlTest extends AbstractFormHelperTest
         ]);
         $expected = [
             ['div' => ['class' => 'col-auto']],
-                'div' => ['class' => 'form-group position-relative select is-invalid'],
+                'div' => ['class' => 'position-relative select is-invalid'],
                     ['label' => ['class' => 'form-label visually-hidden', 'for' => 'users']],
                         'Users',
                     '/label',
@@ -455,13 +455,13 @@ class SelectControlTest extends AbstractFormHelperTest
                     ['div' => ['id' => 'users-error', 'class' => 'invalid-tooltip']],
                         'error message',
                     '/div',
-                    ['small' => [
+                    ['div' => [
                         'id' => 'custom-help',
                         'foo' => 'bar',
-                        'class' => 'help-class visually-hidden form-text',
+                        'class' => 'help-class form-text visually-hidden',
                     ]],
                         'Help text',
-                    '/small',
+                    '/div',
                 '/div',
             '/div',
         ];
@@ -489,7 +489,7 @@ class SelectControlTest extends AbstractFormHelperTest
             ['div' => ['class' => 'col-auto']],
                 'div' => [
                     'attribute' => 'container-attribute',
-                    'class' => 'container-class form-group select',
+                    'class' => 'container-class select',
                 ],
                     ['label' => ['class' => 'form-label visually-hidden', 'for' => 'users']],
                         'Users',
@@ -532,7 +532,7 @@ class SelectControlTest extends AbstractFormHelperTest
             ['div' => ['class' => 'col-auto']],
                 'div' => [
                     'attribute' => 'container-attribute',
-                    'class' => 'container-class form-group position-relative select is-invalid',
+                    'class' => 'container-class position-relative select is-invalid',
                 ],
                     ['label' => ['class' => 'form-label visually-hidden', 'for' => 'users']],
                         'Users',
@@ -576,7 +576,7 @@ class SelectControlTest extends AbstractFormHelperTest
         ]);
         $expected = [
             ['div' => ['class' => 'col-auto']],
-                ['div' => ['class' => 'form-group select']],
+                ['div' => ['class' => 'select']],
                     ['label' => ['class' => 'form-label visually-hidden', 'for' => 'users']],
                         'Users',
                     '/label',
@@ -615,7 +615,7 @@ class SelectControlTest extends AbstractFormHelperTest
         ]);
         $expected = [
             ['div' => ['class' => 'col-auto']],
-                ['div' => ['class' => 'form-group select']],
+                ['div' => ['class' => 'select']],
                     ['label' => ['class' => 'form-label visually-hidden', 'for' => 'users']],
                         'Users',
                     '/label',

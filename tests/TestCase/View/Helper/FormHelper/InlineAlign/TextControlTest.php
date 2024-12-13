@@ -17,7 +17,7 @@ class TextControlTest extends AbstractFormHelperTest
         $result = $this->Form->control('title');
         $expected = [
             ['div' => ['class' => 'col-auto']],
-                'div' => ['class' => 'form-group text'],
+                'div' => ['class' => 'text'],
                     'label' => ['class' => 'form-label visually-hidden', 'for' => 'title'],
                         'Title',
                     '/label',
@@ -47,7 +47,7 @@ class TextControlTest extends AbstractFormHelperTest
         ]);
         $expected = [
             ['div' => ['class' => 'col-auto']],
-                'div' => ['class' => 'form-floating form-group text'],
+                'div' => ['class' => 'form-floating text'],
                     'input' => [
                         'type' => 'text',
                         'name' => 'title',
@@ -79,7 +79,7 @@ class TextControlTest extends AbstractFormHelperTest
         ]);
         $expected = [
             ['div' => ['class' => 'col-auto']],
-                'div' => ['class' => 'form-floating form-group text'],
+                'div' => ['class' => 'form-floating text'],
                     'input' => [
                         'type' => 'text',
                         'name' => 'title',
@@ -111,7 +111,7 @@ class TextControlTest extends AbstractFormHelperTest
         ]);
         $expected = [
             ['div' => ['class' => 'col-auto']],
-                'div' => ['class' => 'form-floating form-group text'],
+                'div' => ['class' => 'form-floating text'],
                     'input' => [
                         'type' => 'text',
                         'name' => 'title',
@@ -143,7 +143,7 @@ class TextControlTest extends AbstractFormHelperTest
         ]);
         $expected = [
             ['div' => ['class' => 'col-auto']],
-                'div' => ['class' => 'form-floating form-group text'],
+                'div' => ['class' => 'form-floating text'],
                     'input' => [
                         'type' => 'text',
                         'name' => 'title',
@@ -169,7 +169,7 @@ class TextControlTest extends AbstractFormHelperTest
         $result = $this->Form->control('title', ['label' => false]);
         $expected = [
             ['div' => ['class' => 'col-auto']],
-                'div' => ['class' => 'form-group text'],
+                'div' => ['class' => 'text'],
                     'input' => [
                         'type' => 'text',
                         'name' => 'title',
@@ -192,7 +192,7 @@ class TextControlTest extends AbstractFormHelperTest
         $result = $this->Form->control('title', ['label' => 'Custom Label']);
         $expected = [
             ['div' => ['class' => 'col-auto']],
-                'div' => ['class' => 'form-group text'],
+                'div' => ['class' => 'text'],
                     'label' => ['class' => 'form-label visually-hidden', 'for' => 'title'],
                         'Custom Label',
                     '/label',
@@ -224,7 +224,7 @@ class TextControlTest extends AbstractFormHelperTest
         ]);
         $expected = [
             ['div' => ['class' => 'col-auto']],
-                'div' => ['class' => 'form-group text'],
+                'div' => ['class' => 'text'],
                     'label' => [
                         'class' => 'custom-label-class form-label visually-hidden',
                         'foo' => 'bar',
@@ -256,7 +256,7 @@ class TextControlTest extends AbstractFormHelperTest
         ]);
         $expected = [
             ['div' => ['class' => 'col-auto']],
-                'div' => ['class' => 'form-group text'],
+                'div' => ['class' => 'text'],
                     'label' => ['class' => 'form-label visually-hidden', 'for' => 'title'],
                         'Title',
                     '/label',
@@ -267,9 +267,9 @@ class TextControlTest extends AbstractFormHelperTest
                         'class' => 'form-control',
                         'aria-describedby' => 'title-help',
                     ],
-                    ['small' => ['id' => 'title-help', 'class' => 'visually-hidden form-text']],
+                    ['div' => ['id' => 'title-help', 'class' => 'form-text visually-hidden']],
                         'Help text',
-                    '/small',
+                    '/div',
                 '/div',
             '/div',
         ];
@@ -293,7 +293,7 @@ class TextControlTest extends AbstractFormHelperTest
         ]);
         $expected = [
             ['div' => ['class' => 'col-auto']],
-                'div' => ['class' => 'form-group text'],
+                'div' => ['class' => 'text'],
                     'label' => ['class' => 'form-label visually-hidden', 'for' => 'title'],
                         'Title',
                     '/label',
@@ -304,13 +304,13 @@ class TextControlTest extends AbstractFormHelperTest
                         'class' => 'form-control',
                         'aria-describedby' => 'custom-help',
                     ],
-                    ['small' => [
+                    ['div' => [
                         'id' => 'custom-help',
                         'foo' => 'bar',
-                        'class' => 'help-class visually-hidden form-text',
+                        'class' => 'help-class form-text visually-hidden',
                     ]],
                         'Help text',
-                    '/small',
+                    '/div',
                 '/div',
             '/div',
         ];
@@ -329,7 +329,7 @@ class TextControlTest extends AbstractFormHelperTest
         ]);
         $expected = [
             ['div' => ['class' => 'col-auto']],
-                'div' => ['class' => 'form-group text'],
+                'div' => ['class' => 'text'],
                     'label' => ['class' => 'form-label visually-hidden', 'for' => 'title'],
                         'Title',
                         'span' => [
@@ -364,7 +364,7 @@ class TextControlTest extends AbstractFormHelperTest
         $result = $this->Form->control('title');
         $expected = [
             ['div' => ['class' => 'col-auto']],
-                'div' => ['class' => 'form-group position-relative text is-invalid'],
+                'div' => ['class' => 'position-relative text is-invalid'],
                     'label' => ['class' => 'form-label visually-hidden', 'for' => 'title'],
                         'Title',
                     '/label',
@@ -400,7 +400,7 @@ class TextControlTest extends AbstractFormHelperTest
         ]);
         $expected = [
             ['div' => ['class' => 'col-auto']],
-                'div' => ['class' => 'form-group position-relative text is-invalid'],
+                'div' => ['class' => 'position-relative text is-invalid'],
                     'label' => ['class' => 'form-label visually-hidden', 'for' => 'title'],
                         'Title',
                     '/label',
@@ -415,9 +415,9 @@ class TextControlTest extends AbstractFormHelperTest
                     ['div' => ['id' => 'title-error', 'class' => 'invalid-tooltip']],
                         'error message',
                     '/div',
-                    ['small' => ['id' => 'title-help', 'class' => 'visually-hidden form-text']],
+                    ['div' => ['id' => 'title-help', 'class' => 'form-text visually-hidden']],
                         'Help text',
-                    '/small',
+                    '/div',
                 '/div',
             '/div',
         ];
@@ -444,7 +444,7 @@ class TextControlTest extends AbstractFormHelperTest
         ]);
         $expected = [
             ['div' => ['class' => 'col-auto']],
-                'div' => ['class' => 'form-group position-relative text is-invalid'],
+                'div' => ['class' => 'position-relative text is-invalid'],
                     'label' => ['class' => 'form-label visually-hidden', 'for' => 'title'],
                         'Title',
                     '/label',
@@ -459,13 +459,13 @@ class TextControlTest extends AbstractFormHelperTest
                     ['div' => ['id' => 'title-error', 'class' => 'invalid-tooltip']],
                         'error message',
                     '/div',
-                    ['small' => [
+                    ['div' => [
                         'id' => 'custom-help',
                         'foo' => 'bar',
-                        'class' => 'help-class visually-hidden form-text',
+                        'class' => 'help-class form-text visually-hidden',
                     ]],
                         'Help text',
-                    '/small',
+                    '/div',
                 '/div',
             '/div',
         ];
@@ -490,7 +490,7 @@ class TextControlTest extends AbstractFormHelperTest
             ['div' => ['class' => 'col-auto']],
                 'div' => [
                     'attribute' => 'container-attribute',
-                    'class' => 'container-class form-group text',
+                    'class' => 'container-class text',
                 ],
                     'label' => ['class' => 'form-label visually-hidden', 'for' => 'title'],
                         'Title',
@@ -528,7 +528,7 @@ class TextControlTest extends AbstractFormHelperTest
             ['div' => ['class' => 'col-auto']],
                 'div' => [
                     'attribute' => 'container-attribute',
-                    'class' => 'container-class form-group position-relative text is-invalid',
+                    'class' => 'container-class position-relative text is-invalid',
                 ],
                     'label' => ['class' => 'form-label visually-hidden', 'for' => 'title'],
                         'Title',

@@ -53,14 +53,10 @@ class InstallCommandTest extends TestCase
             'fonts' . DS . 'bootstrap-icons.woff2',
         ];
         $jsAssets = [
-            'bootstrap.js',
-            'bootstrap.js.map',
-            'bootstrap.min.js',
-            'bootstrap.min.js.map',
-            'popper.js',
-            'popper.js.map',
-            'popper.min.js',
-            'popper.min.js.map',
+            'bootstrap.bundle.js',
+            'bootstrap.bundle.js.map',
+            'bootstrap.bundle.min.js',
+            'bootstrap.bundle.min.js.map',
         ];
 
         foreach ($cssAssets as $asset) {
@@ -89,10 +85,10 @@ class InstallCommandTest extends TestCase
             '<success>`bootstrap.css.map` successfully deleted.</success>',
             '<success>`bootstrap.min.css` successfully deleted.</success>',
             '<success>`bootstrap.min.css.map` successfully deleted.</success>',
-            '<success>`bootstrap.js` successfully deleted.</success>',
-            '<success>`bootstrap.js.map` successfully deleted.</success>',
-            '<success>`bootstrap.min.js` successfully deleted.</success>',
-            '<success>`bootstrap.min.js.map` successfully deleted.</success>',
+            '<success>`bootstrap.bundle.js` successfully deleted.</success>',
+            '<success>`bootstrap.bundle.js.map` successfully deleted.</success>',
+            '<success>`bootstrap.bundle.min.js` successfully deleted.</success>',
+            '<success>`bootstrap.bundle.min.js.map` successfully deleted.</success>',
             '<success>`popper.js` successfully deleted.</success>',
             '<success>`popper.js.map` successfully deleted.</success>',
             '<success>`popper.min.js` successfully deleted.</success>',
@@ -106,10 +102,10 @@ class InstallCommandTest extends TestCase
             '<success>`bootstrap.css.map` successfully copied.</success>',
             '<success>`bootstrap.min.css` successfully copied.</success>',
             '<success>`bootstrap.min.css.map` successfully copied.</success>',
-            '<success>`bootstrap.js` successfully copied.</success>',
-            '<success>`bootstrap.js.map` successfully copied.</success>',
-            '<success>`bootstrap.min.js` successfully copied.</success>',
-            '<success>`bootstrap.min.js.map` successfully copied.</success>',
+            '<success>`bootstrap.bundle.js` successfully copied.</success>',
+            '<success>`bootstrap.bundle.js.map` successfully copied.</success>',
+            '<success>`bootstrap.bundle.min.js` successfully copied.</success>',
+            '<success>`bootstrap.bundle.min.js.map` successfully copied.</success>',
             '<success>`popper.js` successfully copied.</success>',
             '<success>`popper.js.map` successfully copied.</success>',
             '<success>`popper.min.js` successfully copied.</success>',
@@ -131,10 +127,10 @@ class InstallCommandTest extends TestCase
             '<success>`bootstrap.css.map` successfully deleted.</success>',
             '<success>`bootstrap.min.css` successfully deleted.</success>',
             '<success>`bootstrap.min.css.map` successfully deleted.</success>',
-            '<success>`bootstrap.js` successfully deleted.</success>',
-            '<success>`bootstrap.js.map` successfully deleted.</success>',
-            '<success>`bootstrap.min.js` successfully deleted.</success>',
-            '<success>`bootstrap.min.js.map` successfully deleted.</success>',
+            '<success>`bootstrap.bundle.js` successfully deleted.</success>',
+            '<success>`bootstrap.bundle.js.map` successfully deleted.</success>',
+            '<success>`bootstrap.bundle.min.js` successfully deleted.</success>',
+            '<success>`bootstrap.bundle.min.js.map` successfully deleted.</success>',
             '<success>`popper.js` successfully deleted.</success>',
             '<success>`popper.js.map` successfully deleted.</success>',
             '<success>`popper.min.js` successfully deleted.</success>',
@@ -146,10 +142,10 @@ class InstallCommandTest extends TestCase
             '<success>`bootstrap.css.map` successfully copied.</success>',
             '<success>`bootstrap.min.css` successfully copied.</success>',
             '<success>`bootstrap.min.css.map` successfully copied.</success>',
-            '<success>`bootstrap.js` successfully copied.</success>',
-            '<success>`bootstrap.js.map` successfully copied.</success>',
-            '<success>`bootstrap.min.js` successfully copied.</success>',
-            '<success>`bootstrap.min.js.map` successfully copied.</success>',
+            '<success>`bootstrap.bundle.js` successfully copied.</success>',
+            '<success>`bootstrap.bundle.js.map` successfully copied.</success>',
+            '<success>`bootstrap.bundle.min.js` successfully copied.</success>',
+            '<success>`bootstrap.bundle.min.js.map` successfully copied.</success>',
             '<success>`popper.js` successfully copied.</success>',
             '<success>`popper.js.map` successfully copied.</success>',
             '<success>`popper.min.js` successfully copied.</success>',
@@ -188,14 +184,10 @@ class InstallCommandTest extends TestCase
             'fonts' . DS . 'bootstrap-icons.woff2',
         ];
         $jsAssets = [
-            'bootstrap.js',
-            'bootstrap.js.map',
-            'bootstrap.min.js',
-            'bootstrap.min.js.map',
-            'popper.js',
-            'popper.js.map',
-            'popper.min.js',
-            'popper.min.js.map',
+            'bootstrap.bundle.js',
+            'bootstrap.bundle.js.map',
+            'bootstrap.bundle.min.js',
+            'bootstrap.bundle.min.js.map',
         ];
 
         foreach ($cssAssets as $asset) {
@@ -261,14 +253,10 @@ class InstallCommandTest extends TestCase
             '<success>`bootstrap.css.map` successfully deleted.</success>',
             '<success>`bootstrap.min.css` successfully deleted.</success>',
             '<success>`bootstrap.min.css.map` successfully deleted.</success>',
-            '<success>`bootstrap.js` successfully deleted.</success>',
-            '<success>`bootstrap.js.map` successfully deleted.</success>',
-            '<success>`bootstrap.min.js` successfully deleted.</success>',
-            '<success>`bootstrap.min.js.map` successfully deleted.</success>',
-            '<success>`popper.js` successfully deleted.</success>',
-            '<success>`popper.js.map` successfully deleted.</success>',
-            '<success>`popper.min.js` successfully deleted.</success>',
-            '<success>`popper.min.js.map` successfully deleted.</success>',
+            '<success>`bootstrap.bundle.js` successfully deleted.</success>',
+            '<success>`bootstrap.bundle.js.map` successfully deleted.</success>',
+            '<success>`bootstrap.bundle.min.js` successfully deleted.</success>',
+            '<success>`bootstrap.bundle.min.js.map` successfully deleted.</success>',
             '<success>`bootstrap-icons.css` successfully deleted.</success>',
             '<success>`bootstrap-icons.woff` successfully deleted.</success>',
             '<success>`bootstrap-icons.woff2` successfully deleted.</success>',
@@ -278,14 +266,10 @@ class InstallCommandTest extends TestCase
             '<success>`bootstrap.css.map` successfully copied.</success>',
             '<success>`bootstrap.min.css` successfully copied.</success>',
             '<success>`bootstrap.min.css.map` successfully copied.</success>',
-            '<success>`bootstrap.js` successfully copied.</success>',
-            '<success>`bootstrap.js.map` successfully copied.</success>',
-            '<success>`bootstrap.min.js` successfully copied.</success>',
-            '<success>`bootstrap.min.js.map` successfully copied.</success>',
-            '<success>`popper.js` successfully copied.</success>',
-            '<success>`popper.js.map` successfully copied.</success>',
-            '<success>`popper.min.js` successfully copied.</success>',
-            '<success>`popper.min.js.map` successfully copied.</success>',
+            '<success>`bootstrap.bundle.js` successfully copied.</success>',
+            '<success>`bootstrap.bundle.js.map` successfully copied.</success>',
+            '<success>`bootstrap.bundle.min.js` successfully copied.</success>',
+            '<success>`bootstrap.bundle.min.js.map` successfully copied.</success>',
             '<success>`bootstrap-icons.css` successfully copied.</success>',
             '<success>`bootstrap-icons.woff` successfully copied.</success>',
             '<success>`bootstrap-icons.woff2` successfully copied.</success>',
@@ -310,9 +294,8 @@ class InstallCommandTest extends TestCase
         $testPackageFileContents = <<<EOT
 {
     "dependencies": {
-        "@popperjs/core": "^2.9.2",
-        "bootstrap": "^5.0.1",
-        "bootstrap-icons": "^1.5.0"
+        "bootstrap": "^5.3.3",
+        "bootstrap-icons": "^1.11.3"
     }
 }
 
@@ -326,57 +309,71 @@ EOT;
     "packages": {
         "": {
             "dependencies": {
-                "@popperjs/core": "^2.9.2",
-                "bootstrap": "^5.0.1",
-                "bootstrap-icons": "^1.5.0"
+                "bootstrap": "^5.3.3",
+                "bootstrap-icons": "^1.11.3"
             }
         },
         "node_modules/@popperjs/core": {
-            "version": "2.9.2",
-            "resolved": "https://registry.npmjs.org/@popperjs/core/-/core-2.9.2.tgz",
-            "integrity": "sha512-VZMYa7+fXHdwIq1TDhSXoVmSPEGM/aa+6Aiq3nVVJ9bXr24zScr+NlKFKC3iPljA7ho/GAZr+d2jOf5GIRC30Q==",
+            "version": "2.11.8",
+            "resolved": "https://registry.npmjs.org/@popperjs/core/-/core-2.11.8.tgz",
+            "integrity": "sha512-P1st0aksCrn9sGZhp8GMYwBnQsbvAWsZAX44oXNNvLHGqAOcoVxmjZiohstwQ7SqKnbR47akdNi+uleWD8+g6A==",
+            "peer": true,
             "funding": {
                 "type": "opencollective",
                 "url": "https://opencollective.com/popperjs"
             }
         },
         "node_modules/bootstrap": {
-            "version": "5.0.1",
-            "resolved": "https://registry.npmjs.org/bootstrap/-/bootstrap-5.0.1.tgz",
-            "integrity": "sha512-Fl79+wsLOZKoiU345KeEaWD0ik8WKRI5zm0YSPj2oF1Qr+BO7z0fco6GbUtqjoG1h4VI89PeKJnMsMMVQdKKTw==",
-            "funding": {
-                "type": "opencollective",
-                "url": "https://opencollective.com/bootstrap"
-            },
+            "version": "5.3.3",
+            "resolved": "https://registry.npmjs.org/bootstrap/-/bootstrap-5.3.3.tgz",
+            "integrity": "sha512-8HLCdWgyoMguSO9o+aH+iuZ+aht+mzW0u3HIMzVu7Srrpv7EBBxTnrFlSCskwdY1+EOFQSm7uMJhNQHkdPcmjg==",
+            "funding": [
+                {
+                    "type": "github",
+                    "url": "https://github.com/sponsors/twbs"
+                },
+                {
+                    "type": "opencollective",
+                    "url": "https://opencollective.com/bootstrap"
+                }
+            ],
             "peerDependencies": {
-                "@popperjs/core": "^2.9.2"
+                "@popperjs/core": "^2.11.8"
             }
         },
         "node_modules/bootstrap-icons": {
-            "version": "1.5.0",
-            "resolved": "https://registry.npmjs.org/bootstrap-icons/-/bootstrap-icons-1.5.0.tgz",
-            "integrity": "sha512-44feMc7DE1Ccpsas/1wioN8ewFJNquvi5FewA06wLnqct7CwMdGDVy41ieHaacogzDqLfG8nADIvMNp9e4bfbA==",
-            "engines": {
-                "node": ">=10"
-            }
+            "version": "1.11.3",
+            "resolved": "https://registry.npmjs.org/bootstrap-icons/-/bootstrap-icons-1.11.3.tgz",
+            "integrity": "sha512-+3lpHrCw/it2/7lBL15VR0HEumaBss0+f/Lb6ZvHISn1mlK83jjFpooTLsMWbIjJMDjDjOExMsTxnXSIT4k4ww==",
+            "funding": [
+                {
+                    "type": "github",
+                    "url": "https://github.com/sponsors/twbs"
+                },
+                {
+                    "type": "opencollective",
+                    "url": "https://opencollective.com/bootstrap"
+                }
+            ]
         }
     },
     "dependencies": {
         "@popperjs/core": {
-            "version": "2.9.2",
-            "resolved": "https://registry.npmjs.org/@popperjs/core/-/core-2.9.2.tgz",
-            "integrity": "sha512-VZMYa7+fXHdwIq1TDhSXoVmSPEGM/aa+6Aiq3nVVJ9bXr24zScr+NlKFKC3iPljA7ho/GAZr+d2jOf5GIRC30Q=="
+            "version": "2.11.8",
+            "resolved": "https://registry.npmjs.org/@popperjs/core/-/core-2.11.8.tgz",
+            "integrity": "sha512-P1st0aksCrn9sGZhp8GMYwBnQsbvAWsZAX44oXNNvLHGqAOcoVxmjZiohstwQ7SqKnbR47akdNi+uleWD8+g6A==",
+            "peer": true
         },
         "bootstrap": {
-            "version": "5.0.1",
-            "resolved": "https://registry.npmjs.org/bootstrap/-/bootstrap-5.0.1.tgz",
-            "integrity": "sha512-Fl79+wsLOZKoiU345KeEaWD0ik8WKRI5zm0YSPj2oF1Qr+BO7z0fco6GbUtqjoG1h4VI89PeKJnMsMMVQdKKTw==",
+            "version": "5.3.3",
+            "resolved": "https://registry.npmjs.org/bootstrap/-/bootstrap-5.3.3.tgz",
+            "integrity": "sha512-8HLCdWgyoMguSO9o+aH+iuZ+aht+mzW0u3HIMzVu7Srrpv7EBBxTnrFlSCskwdY1+EOFQSm7uMJhNQHkdPcmjg==",
             "requires": {}
         },
         "bootstrap-icons": {
-            "version": "1.5.0",
-            "resolved": "https://registry.npmjs.org/bootstrap-icons/-/bootstrap-icons-1.5.0.tgz",
-            "integrity": "sha512-44feMc7DE1Ccpsas/1wioN8ewFJNquvi5FewA06wLnqct7CwMdGDVy41ieHaacogzDqLfG8nADIvMNp9e4bfbA=="
+            "version": "1.11.3",
+            "resolved": "https://registry.npmjs.org/bootstrap-icons/-/bootstrap-icons-1.11.3.tgz",
+            "integrity": "sha512-+3lpHrCw/it2/7lBL15VR0HEumaBss0+f/Lb6ZvHISn1mlK83jjFpooTLsMWbIjJMDjDjOExMsTxnXSIT4k4ww=="
         }
     }
 }
@@ -397,22 +394,16 @@ EOT;
         $this->assertStringEqualsFile($pluginPath . 'package-lock.json', $testLockFileContents);
 
         $package = json_decode(
-            file_get_contents($pluginPath . 'node_modules' . DS . '@popperjs' . DS . 'core' . DS . 'package.json'),
-            true
-        );
-        $this->assertSame('2.9.2', $package['version']);
-
-        $package = json_decode(
             file_get_contents($pluginPath . 'node_modules' . DS . 'bootstrap' . DS . 'package.json'),
             true
         );
-        $this->assertSame('5.0.1', $package['version']);
+        $this->assertSame('5.3.3', $package['version']);
 
         $package = json_decode(
             file_get_contents($pluginPath . 'node_modules' . DS . 'bootstrap-icons' . DS . 'package.json'),
             true
         );
-        $this->assertSame('1.5.0', $package['version']);
+        $this->assertSame('1.11.3', $package['version']);
 
         $this->exec('bootstrap install --latest');
 
@@ -420,24 +411,17 @@ EOT;
         $this->assertStringEqualsFile($pluginPath . 'package-lock.json', $testLockFileContents);
 
         $package = json_decode(
-            file_get_contents($pluginPath . 'node_modules' . DS . '@popperjs' . DS . 'core' . DS . 'package.json'),
-            true
-        );
-        $this->assertTrue(version_compare($package['version'], '2.9.2', '>'));
-        $this->assertTrue(version_compare($package['version'], '3.0.0', '<'));
-
-        $package = json_decode(
             file_get_contents($pluginPath . 'node_modules' . DS . 'bootstrap' . DS . 'package.json'),
             true
         );
-        $this->assertTrue(version_compare($package['version'], '5.0.1', '>'));
+        $this->assertTrue(version_compare($package['version'], '5.3.3', '>='));
         $this->assertTrue(version_compare($package['version'], '6.0.0', '<'));
 
         $package = json_decode(
             file_get_contents($pluginPath . 'node_modules' . DS . 'bootstrap-icons' . DS . 'package.json'),
             true
         );
-        $this->assertTrue(version_compare($package['version'], '1.5.0', '>'));
+        $this->assertTrue(version_compare($package['version'], '1.11.3', '>='));
         $this->assertTrue(version_compare($package['version'], '2.0.0', '<'));
 
         $this->assertTrue(rename($pluginPath . 'package.json.bak', $pluginPath . 'package.json'));
@@ -574,12 +558,12 @@ EOT;
         $command
             ->expects($this->once())
             ->method('_runNPMInstall')
-            ->will($this->returnCallback(function (&$out, &$return) {
+            ->willReturnCallback(function (&$out, &$return) {
                 $out = [
                     'installer output',
                 ];
                 $return = 1234;
-            }));
+            });
 
         $out = new StubConsoleOutput();
         $err = new StubConsoleOutput();

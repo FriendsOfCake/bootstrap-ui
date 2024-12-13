@@ -91,7 +91,10 @@ trait OptionsAwareTrait
         $classes = $this->_toClassArray($classes);
 
         foreach ($classes as $class) {
-            if (!in_array($class, $options['class']) && !in_array($class, $options['skip'])) {
+            if (
+                !in_array($class, $options['class']) &&
+                !in_array($class, $options['skip'])
+            ) {
                 array_push($options['class'], $class);
             }
         }

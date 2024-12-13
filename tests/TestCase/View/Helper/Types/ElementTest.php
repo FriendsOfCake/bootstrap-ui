@@ -15,7 +15,6 @@ class ElementTest extends TestCase
      * Test get elements
      *
      * @return void
-     * @covers \BootstrapUI\View\Helper\Types\Element::values
      */
     public function testGetElements()
     {
@@ -24,6 +23,7 @@ class ElementTest extends TestCase
             Element::ALERT,
             Element::BADGE,
             Element::BG,
+            Element::TEXT_BG,
             Element::BORDER,
             Element::BTN,
             Element::BTN_OUTLINE,

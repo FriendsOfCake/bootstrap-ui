@@ -22,7 +22,7 @@ class TextControlTest extends AbstractFormHelperTest
 
         $result = $this->Form->control('title');
         $expected = [
-            'div' => ['class' => 'mb-3 form-group row text'],
+            'div' => ['class' => 'mb-3 row text'],
                 'label' => ['class' => 'col-form-label col-sm-5', 'for' => 'title'],
                     'Title',
                 '/label',
@@ -57,7 +57,7 @@ class TextControlTest extends AbstractFormHelperTest
             ],
         ]);
         $expected = [
-            'div' => ['class' => 'mb-3 form-group row text'],
+            'div' => ['class' => 'mb-3 row text'],
                 ['div' => ['class' => 'offset-sm-5 col-sm-7 form-floating']],
                     'input' => [
                         'type' => 'text',
@@ -94,7 +94,7 @@ class TextControlTest extends AbstractFormHelperTest
             ],
         ]);
         $expected = [
-            'div' => ['class' => 'mb-3 form-group row text'],
+            'div' => ['class' => 'mb-3 row text'],
                 ['div' => ['class' => 'offset-sm-5 col-sm-7 form-floating']],
                     'input' => [
                         'type' => 'text',
@@ -131,7 +131,7 @@ class TextControlTest extends AbstractFormHelperTest
             'placeholder' => 'Custom Placeholder',
         ]);
         $expected = [
-            'div' => ['class' => 'mb-3 form-group row text'],
+            'div' => ['class' => 'mb-3 row text'],
                 ['div' => ['class' => 'offset-sm-5 col-sm-7 form-floating']],
                     'input' => [
                         'type' => 'text',
@@ -168,7 +168,7 @@ class TextControlTest extends AbstractFormHelperTest
             'placeholder' => false,
         ]);
         $expected = [
-            'div' => ['class' => 'mb-3 form-group row text'],
+            'div' => ['class' => 'mb-3 row text'],
                 ['div' => ['class' => 'offset-sm-5 col-sm-7 form-floating']],
                     'input' => [
                         'type' => 'text',
@@ -199,7 +199,7 @@ class TextControlTest extends AbstractFormHelperTest
 
         $result = $this->Form->control('title', ['label' => false]);
         $expected = [
-            'div' => ['class' => 'mb-3 form-group row text'],
+            'div' => ['class' => 'mb-3 row text'],
                 ['div' => ['class' => 'col-sm-7']],
                     'input' => [
                         'type' => 'text',
@@ -227,7 +227,7 @@ class TextControlTest extends AbstractFormHelperTest
 
         $result = $this->Form->control('title', ['label' => 'Custom Label']);
         $expected = [
-            'div' => ['class' => 'mb-3 form-group row text'],
+            'div' => ['class' => 'mb-3 row text'],
                 'label' => ['class' => 'col-form-label col-sm-5', 'for' => 'title'],
                     'Custom Label',
                 '/label',
@@ -264,7 +264,7 @@ class TextControlTest extends AbstractFormHelperTest
             ],
         ]);
         $expected = [
-            'div' => ['class' => 'mb-3 form-group row text'],
+            'div' => ['class' => 'mb-3 row text'],
                 'label' => [
                     'for' => 'title',
                     'class' => 'custom-label-class col-form-label col-sm-5',
@@ -301,7 +301,7 @@ class TextControlTest extends AbstractFormHelperTest
             'help' => 'Help text',
         ]);
         $expected = [
-            'div' => ['class' => 'mb-3 form-group row text'],
+            'div' => ['class' => 'mb-3 row text'],
                 'label' => ['class' => 'col-form-label col-sm-5', 'for' => 'title'],
                     'Title',
                 '/label',
@@ -313,9 +313,9 @@ class TextControlTest extends AbstractFormHelperTest
                         'class' => 'form-control',
                         'aria-describedby' => 'title-help',
                     ],
-                    ['small' => ['id' => 'title-help', 'class' => 'd-block form-text text-muted']],
+                    ['div' => ['id' => 'title-help', 'class' => 'form-text']],
                         'Help text',
-                    '/small',
+                    '/div',
                 '/div',
             '/div',
         ];
@@ -343,7 +343,7 @@ class TextControlTest extends AbstractFormHelperTest
             ],
         ]);
         $expected = [
-            'div' => ['class' => 'mb-3 form-group row text'],
+            'div' => ['class' => 'mb-3 row text'],
                 'label' => ['class' => 'col-form-label col-sm-5', 'for' => 'title'],
                     'Title',
                 '/label',
@@ -355,13 +355,13 @@ class TextControlTest extends AbstractFormHelperTest
                         'class' => 'form-control',
                         'aria-describedby' => 'custom-help',
                     ],
-                    ['small' => [
+                    ['div' => [
                         'id' => 'custom-help',
                         'foo' => 'bar',
-                        'class' => 'help-class d-block form-text text-muted',
+                        'class' => 'help-class form-text',
                     ]],
                         'Help text',
-                    '/small',
+                    '/div',
                 '/div',
             '/div',
         ];
@@ -384,7 +384,7 @@ class TextControlTest extends AbstractFormHelperTest
             'tooltip' => 'Tooltip text',
         ]);
         $expected = [
-            'div' => ['class' => 'mb-3 form-group row text'],
+            'div' => ['class' => 'mb-3 row text'],
                 'label' => ['class' => 'col-form-label col-sm-5', 'for' => 'title'],
                     'Title',
                     'span' => [
@@ -424,7 +424,7 @@ class TextControlTest extends AbstractFormHelperTest
 
         $result = $this->Form->control('title');
         $expected = [
-            'div' => ['class' => 'mb-3 form-group row text is-invalid'],
+            'div' => ['class' => 'mb-3 row text is-invalid'],
                 'label' => ['class' => 'col-form-label col-sm-5', 'for' => 'title'],
                     'Title',
                 '/label',
@@ -438,7 +438,7 @@ class TextControlTest extends AbstractFormHelperTest
                         'aria-invalid' => 'true',
                         'aria-describedby' => 'title-error',
                     ],
-                    ['div' => ['id' => 'title-error', 'class' => 'ms-0 invalid-feedback']],
+                    ['div' => ['id' => 'title-error', 'class' => 'invalid-feedback']],
                         'error message',
                     '/div',
                 '/div',
@@ -466,7 +466,7 @@ class TextControlTest extends AbstractFormHelperTest
             'help' => 'Help text',
         ]);
         $expected = [
-            'div' => ['class' => 'mb-3 form-group row text is-invalid'],
+            'div' => ['class' => 'mb-3 row text is-invalid'],
                 'label' => ['class' => 'col-form-label col-sm-5', 'for' => 'title'],
                     'Title',
                 '/label',
@@ -479,12 +479,12 @@ class TextControlTest extends AbstractFormHelperTest
                         'aria-invalid' => 'true',
                         'aria-describedby' => 'title-error title-help',
                     ],
-                    ['div' => ['id' => 'title-error', 'class' => 'ms-0 invalid-feedback']],
+                    ['div' => ['id' => 'title-error', 'class' => 'invalid-feedback']],
                         'error message',
                     '/div',
-                    ['small' => ['id' => 'title-help', 'class' => 'd-block form-text text-muted']],
+                    ['div' => ['id' => 'title-help', 'class' => 'form-text']],
                         'Help text',
-                    '/small',
+                    '/div',
                 '/div',
             '/div',
         ];
@@ -515,7 +515,7 @@ class TextControlTest extends AbstractFormHelperTest
             ],
         ]);
         $expected = [
-            'div' => ['class' => 'mb-3 form-group row text is-invalid'],
+            'div' => ['class' => 'mb-3 row text is-invalid'],
                 'label' => ['class' => 'col-form-label col-sm-5', 'for' => 'title'],
                     'Title',
                 '/label',
@@ -528,16 +528,16 @@ class TextControlTest extends AbstractFormHelperTest
                         'aria-invalid' => 'true',
                         'aria-describedby' => 'title-error custom-help',
                     ],
-                    ['div' => ['id' => 'title-error', 'class' => 'ms-0 invalid-feedback']],
+                    ['div' => ['id' => 'title-error', 'class' => 'invalid-feedback']],
                         'error message',
                     '/div',
-                    ['small' => [
+                    ['div' => [
                         'id' => 'custom-help',
                         'foo' => 'bar',
-                        'class' => 'help-class d-block form-text text-muted',
+                        'class' => 'help-class form-text',
                     ]],
                         'Help text',
-                    '/small',
+                    '/div',
                 '/div',
             '/div',
         ];
@@ -566,7 +566,7 @@ class TextControlTest extends AbstractFormHelperTest
         $expected = [
             'div' => [
                 'attribute' => 'container-attribute',
-                'class' => 'container-class mb-3 form-group row text',
+                'class' => 'container-class mb-3 row text',
             ],
                 'label' => ['class' => 'col-form-label col-sm-5', 'for' => 'title',],
                     'Title',
@@ -609,7 +609,7 @@ class TextControlTest extends AbstractFormHelperTest
         $expected = [
             'div' => [
                 'attribute' => 'container-attribute',
-                'class' => 'container-class mb-3 form-group row text is-invalid',
+                'class' => 'container-class mb-3 row text is-invalid',
             ],
                 'label' => ['class' => 'col-form-label col-sm-5', 'for' => 'title',],
                     'Title',
@@ -624,7 +624,7 @@ class TextControlTest extends AbstractFormHelperTest
                         'aria-invalid' => 'true',
                         'aria-describedby' => 'title-error',
                     ],
-                    ['div' => ['id' => 'title-error', 'class' => 'ms-0 invalid-feedback']],
+                    ['div' => ['id' => 'title-error', 'class' => 'invalid-feedback']],
                         'error message',
                     '/div',
                 '/div',

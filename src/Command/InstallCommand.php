@@ -59,7 +59,7 @@ class InstallCommand extends Command
         $output = [];
         $return = 0;
         $this->_runNPMInstall($output, $return, $io, $args->getOption('latest') === true);
-        $io->out($output); // @phpstan-ignore argument.type
+        $io->out($output);
 
         if ($return !== 0) {
             $io->error('Package installation failed.');
@@ -352,7 +352,6 @@ class InstallCommand extends Command
 
         $nodeModulesPath = Plugin::path('BootstrapUI') . 'node_modules' . DS;
         $paths = [
-            $nodeModulesPath . '@popperjs/core/dist/umd',
             $nodeModulesPath . 'bootstrap/dist',
             $nodeModulesPath . 'bootstrap-icons',
         ];

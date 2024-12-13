@@ -14,7 +14,7 @@ class TextControlTest extends AbstractFormHelperTest
 
         $result = $this->Form->control('title');
         $expected = [
-            'div' => ['class' => 'mb-3 form-group text'],
+            'div' => ['class' => 'mb-3 text'],
                 ['label' => ['class' => 'form-label', 'for' => 'title']],
                     'Title',
                 '/label',
@@ -40,7 +40,7 @@ class TextControlTest extends AbstractFormHelperTest
             ],
         ]);
         $expected = [
-            'div' => ['class' => 'mb-3 form-floating form-group text'],
+            'div' => ['class' => 'mb-3 form-floating text'],
                 'input' => [
                     'type' => 'text',
                     'name' => 'title',
@@ -68,7 +68,7 @@ class TextControlTest extends AbstractFormHelperTest
             ],
         ]);
         $expected = [
-            'div' => ['class' => 'mb-3 form-floating form-group text'],
+            'div' => ['class' => 'mb-3 form-floating text'],
                 'input' => [
                     'type' => 'text',
                     'name' => 'title',
@@ -96,7 +96,7 @@ class TextControlTest extends AbstractFormHelperTest
             'placeholder' => 'Custom Placeholder',
         ]);
         $expected = [
-            'div' => ['class' => 'mb-3 form-floating form-group text'],
+            'div' => ['class' => 'mb-3 form-floating text'],
                 'input' => [
                     'type' => 'text',
                     'name' => 'title',
@@ -124,7 +124,7 @@ class TextControlTest extends AbstractFormHelperTest
             'placeholder' => false,
         ]);
         $expected = [
-            'div' => ['class' => 'mb-3 form-floating form-group text'],
+            'div' => ['class' => 'mb-3 form-floating text'],
                 'input' => [
                     'type' => 'text',
                     'name' => 'title',
@@ -146,7 +146,7 @@ class TextControlTest extends AbstractFormHelperTest
 
         $result = $this->Form->control('title', ['label' => false]);
         $expected = [
-            'div' => ['class' => 'mb-3 form-group text'],
+            'div' => ['class' => 'mb-3 text'],
                 'input' => [
                     'type' => 'text',
                     'name' => 'title',
@@ -165,7 +165,7 @@ class TextControlTest extends AbstractFormHelperTest
 
         $result = $this->Form->control('title', ['label' => 'Custom Label']);
         $expected = [
-            'div' => ['class' => 'mb-3 form-group text'],
+            'div' => ['class' => 'mb-3 text'],
                 ['label' => ['class' => 'form-label', 'for' => 'title']],
                     'Custom Label',
                 '/label',
@@ -193,7 +193,7 @@ class TextControlTest extends AbstractFormHelperTest
             ],
         ]);
         $expected = [
-            'div' => ['class' => 'mb-3 form-group text'],
+            'div' => ['class' => 'mb-3 text'],
                 'label' => ['for' => 'title', 'class' => 'custom-label-class form-label', 'foo' => 'bar'],
                     'Custom Label',
                 '/label',
@@ -217,7 +217,7 @@ class TextControlTest extends AbstractFormHelperTest
             'help' => 'Help text',
         ]);
         $expected = [
-            'div' => ['class' => 'mb-3 form-group text'],
+            'div' => ['class' => 'mb-3 text'],
                 ['label' => ['class' => 'form-label', 'for' => 'title']],
                     'Title',
                 '/label',
@@ -228,9 +228,9 @@ class TextControlTest extends AbstractFormHelperTest
                     'class' => 'form-control',
                     'aria-describedby' => 'title-help',
                 ],
-                ['small' => ['id' => 'title-help', 'class' => 'd-block form-text text-muted']],
+                ['div' => ['id' => 'title-help', 'class' => 'form-text']],
                     'Help text',
-                '/small',
+                '/div',
             '/div',
         ];
         $this->assertHtml($expected, $result);
@@ -250,7 +250,7 @@ class TextControlTest extends AbstractFormHelperTest
             ],
         ]);
         $expected = [
-            'div' => ['class' => 'mb-3 form-group text'],
+            'div' => ['class' => 'mb-3 text'],
                 ['label' => ['class' => 'form-label', 'for' => 'title']],
                     'Title',
                 '/label',
@@ -261,13 +261,13 @@ class TextControlTest extends AbstractFormHelperTest
                     'class' => 'form-control',
                     'aria-describedby' => 'custom-help',
                 ],
-                ['small' => [
+                ['div' => [
                     'id' => 'custom-help',
                     'foo' => 'bar',
-                    'class' => 'help-class d-block form-text text-muted',
+                    'class' => 'help-class form-text',
                 ]],
                     'Help text',
-                '/small',
+                '/div',
             '/div',
         ];
         $this->assertHtml($expected, $result);
@@ -282,7 +282,7 @@ class TextControlTest extends AbstractFormHelperTest
             'tooltip' => 'Tooltip text',
         ]);
         $expected = [
-            'div' => ['class' => 'mb-3 form-group text'],
+            'div' => ['class' => 'mb-3 text'],
                 ['label' => ['class' => 'form-label', 'for' => 'title']],
                     'Title',
                     'span' => [
@@ -313,7 +313,7 @@ class TextControlTest extends AbstractFormHelperTest
 
         $result = $this->Form->control('title');
         $expected = [
-            'div' => ['class' => 'mb-3 form-group text is-invalid'],
+            'div' => ['class' => 'mb-3 text is-invalid'],
                 ['label' => ['class' => 'form-label', 'for' => 'title']],
                     'Title',
                 '/label',
@@ -326,7 +326,7 @@ class TextControlTest extends AbstractFormHelperTest
                     'aria-invalid' => 'true',
                     'aria-describedby' => 'title-error',
                 ],
-                ['div' => ['id' => 'title-error', 'class' => 'ms-0 invalid-feedback']],
+                ['div' => ['id' => 'title-error', 'class' => 'invalid-feedback']],
                     'error message',
                 '/div',
             '/div',
@@ -346,7 +346,7 @@ class TextControlTest extends AbstractFormHelperTest
             'help' => 'Help text',
         ]);
         $expected = [
-            'div' => ['class' => 'mb-3 form-group text is-invalid'],
+            'div' => ['class' => 'mb-3 text is-invalid'],
                 ['label' => ['class' => 'form-label', 'for' => 'title']],
                     'Title',
                 '/label',
@@ -358,12 +358,12 @@ class TextControlTest extends AbstractFormHelperTest
                     'aria-invalid' => 'true',
                     'aria-describedby' => 'title-error title-help',
                 ],
-                ['div' => ['id' => 'title-error', 'class' => 'ms-0 invalid-feedback']],
+                ['div' => ['id' => 'title-error', 'class' => 'invalid-feedback']],
                     'error message',
                 '/div',
-                ['small' => ['id' => 'title-help', 'class' => 'd-block form-text text-muted']],
+                ['div' => ['id' => 'title-help', 'class' => 'form-text']],
                     'Help text',
-                '/small',
+                '/div',
             '/div',
         ];
         $this->assertHtml($expected, $result);
@@ -386,7 +386,7 @@ class TextControlTest extends AbstractFormHelperTest
             ],
         ]);
         $expected = [
-            'div' => ['class' => 'mb-3 form-group text is-invalid'],
+            'div' => ['class' => 'mb-3 text is-invalid'],
                 ['label' => ['class' => 'form-label', 'for' => 'title']],
                     'Title',
                 '/label',
@@ -398,16 +398,16 @@ class TextControlTest extends AbstractFormHelperTest
                     'aria-invalid' => 'true',
                     'aria-describedby' => 'title-error custom-help',
                 ],
-                ['div' => ['id' => 'title-error', 'class' => 'ms-0 invalid-feedback']],
+                ['div' => ['id' => 'title-error', 'class' => 'invalid-feedback']],
                     'error message',
                 '/div',
-                ['small' => [
+                ['div' => [
                     'id' => 'custom-help',
                     'foo' => 'bar',
-                    'class' => 'help-class d-block form-text text-muted',
+                    'class' => 'help-class form-text',
                 ]],
                     'Help text',
-                '/small',
+                '/div',
             '/div',
         ];
         $this->assertHtml($expected, $result);
@@ -428,7 +428,7 @@ class TextControlTest extends AbstractFormHelperTest
         $expected = [
             'div' => [
                 'attribute' => 'container-attribute',
-                'class' => 'container-class mb-3 form-group text',
+                'class' => 'container-class mb-3 text',
             ],
                 ['label' => ['class' => 'form-label', 'for' => 'title']],
                     'Title',
@@ -462,7 +462,7 @@ class TextControlTest extends AbstractFormHelperTest
         $expected = [
             'div' => [
                 'attribute' => 'container-attribute',
-                'class' => 'container-class mb-3 form-group text is-invalid',
+                'class' => 'container-class mb-3 text is-invalid',
             ],
                 ['label' => ['class' => 'form-label', 'for' => 'title']],
                     'Title',
@@ -476,7 +476,7 @@ class TextControlTest extends AbstractFormHelperTest
                     'aria-invalid' => 'true',
                     'aria-describedby' => 'title-error',
                 ],
-                ['div' => ['id' => 'title-error', 'class' => 'ms-0 invalid-feedback']],
+                ['div' => ['id' => 'title-error', 'class' => 'invalid-feedback']],
                     'error message',
                 '/div',
             '/div',
