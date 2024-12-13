@@ -16,7 +16,7 @@ class ColorControlTest extends AbstractFormHelperTest
             'value' => '#ffffff',
         ]);
         $expected = [
-            'div' => ['class' => 'mb-3 form-group color'],
+            'div' => ['class' => 'mb-3 color'],
                 ['label' => ['class' => 'form-label', 'for' => 'color']],
                     'Color',
                 '/label',
@@ -42,7 +42,7 @@ class ColorControlTest extends AbstractFormHelperTest
             'label' => false,
         ]);
         $expected = [
-            'div' => ['class' => 'mb-3 form-group color'],
+            'div' => ['class' => 'mb-3 color'],
                 'input' => [
                     'type' => 'color',
                     'name' => 'color',
@@ -65,7 +65,7 @@ class ColorControlTest extends AbstractFormHelperTest
             'label' => 'Custom Label',
         ]);
         $expected = [
-            'div' => ['class' => 'mb-3 form-group color'],
+            'div' => ['class' => 'mb-3 color'],
                 ['label' => ['class' => 'form-label', 'for' => 'color']],
                     'Custom Label',
                 '/label',
@@ -95,7 +95,7 @@ class ColorControlTest extends AbstractFormHelperTest
             ],
         ]);
         $expected = [
-            'div' => ['class' => 'mb-3 form-group color'],
+            'div' => ['class' => 'mb-3 color'],
                 'label' => ['for' => 'color', 'class' => 'custom-label-class form-label', 'foo' => 'bar'],
                     'Custom Label',
                 '/label',
@@ -121,7 +121,7 @@ class ColorControlTest extends AbstractFormHelperTest
             'help' => 'Help text',
         ]);
         $expected = [
-            'div' => ['class' => 'mb-3 form-group color'],
+            'div' => ['class' => 'mb-3 color'],
                 ['label' => ['class' => 'form-label', 'for' => 'color']],
                     'Color',
                 '/label',
@@ -156,7 +156,7 @@ class ColorControlTest extends AbstractFormHelperTest
             ],
         ]);
         $expected = [
-            'div' => ['class' => 'mb-3 form-group color'],
+            'div' => ['class' => 'mb-3 color'],
                 ['label' => ['class' => 'form-label', 'for' => 'color']],
                     'Color',
                 '/label',
@@ -190,7 +190,7 @@ class ColorControlTest extends AbstractFormHelperTest
             'tooltip' => 'Tooltip text',
         ]);
         $expected = [
-            'div' => ['class' => 'mb-3 form-group color'],
+            'div' => ['class' => 'mb-3 color'],
                 ['label' => ['class' => 'form-label', 'for' => 'color']],
                     'Color',
                     'span' => [
@@ -222,7 +222,7 @@ class ColorControlTest extends AbstractFormHelperTest
             'spacing' => 'custom-spacing',
         ]);
         $expected = [
-            'div' => ['class' => 'custom-spacing form-group color'],
+            'div' => ['class' => 'custom-spacing color'],
                 ['label' => ['class' => 'form-label', 'for' => 'color']],
                     'Color',
                 '/label',
@@ -250,7 +250,7 @@ class ColorControlTest extends AbstractFormHelperTest
             'value' => '#ffffff',
         ]);
         $expected = [
-            'div' => ['class' => 'mb-3 form-group color is-invalid'],
+            'div' => ['class' => 'mb-3 color is-invalid'],
                 ['label' => ['class' => 'form-label', 'for' => 'color']],
                     'Color',
                 '/label',
@@ -284,7 +284,7 @@ class ColorControlTest extends AbstractFormHelperTest
             'help' => 'Help text',
         ]);
         $expected = [
-            'div' => ['class' => 'mb-3 form-group color is-invalid'],
+            'div' => ['class' => 'mb-3 color is-invalid'],
                 ['label' => ['class' => 'form-label', 'for' => 'color']],
                     'Color',
                 '/label',
@@ -326,7 +326,7 @@ class ColorControlTest extends AbstractFormHelperTest
             ],
         ]);
         $expected = [
-            'div' => ['class' => 'mb-3 form-group color is-invalid'],
+            'div' => ['class' => 'mb-3 color is-invalid'],
                 ['label' => ['class' => 'form-label', 'for' => 'color']],
                     'Color',
                 '/label',
@@ -370,7 +370,7 @@ class ColorControlTest extends AbstractFormHelperTest
         $expected = [
             'div' => [
                 'attribute' => 'container-attribute',
-                'class' => 'container-class mb-3 form-group color',
+                'class' => 'container-class mb-3 color',
             ],
                 ['label' => ['class' => 'form-label', 'for' => 'color']],
                     'Color',
@@ -406,7 +406,7 @@ class ColorControlTest extends AbstractFormHelperTest
         $expected = [
             'div' => [
                 'attribute' => 'container-attribute',
-                'class' => 'container-class mb-3 form-group color is-invalid',
+                'class' => 'container-class mb-3 color is-invalid',
             ],
                 ['label' => ['class' => 'form-label', 'for' => 'color']],
                     'Color',
