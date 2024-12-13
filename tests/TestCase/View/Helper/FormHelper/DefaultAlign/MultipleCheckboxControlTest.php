@@ -639,6 +639,7 @@ class MultipleCheckboxControlTest extends AbstractFormHelperTest
                 2 => 'option 2',
             ],
             'help' => 'Help text',
+            'aria-invalid' => 'true',
             'aria-describedby' => 'custom',
         ]);
         $expected = [
