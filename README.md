@@ -320,11 +320,11 @@ will render this HTML:
 ```html
 <form method="post" accept-charset="utf-8" action="/articles/add">
     <!-- ... -->
-    <div class="mb-3 form-group text">
+    <div class="mb-3 text">
         <label class="form-label" for="title">Title</label>
         <input type="text" name="title" id="title" class="form-control">
     </div>
-    <div class="mb-3 form-group form-check checkbox">
+    <div class="mb-3 form-check checkbox">
         <input type="hidden" name="published" value="0">
         <input type="checkbox" class="form-check-input" name="published" value="1" id="published">
         <label class="form-check-label" for="published">Published</label>
@@ -356,6 +356,7 @@ echo $this->Form->create($article, [
 ]);
 echo $this->Form->control('title');
 echo $this->Form->control('published', ['type' => 'checkbox']);
+echo $this->Form->submit();
 echo $this->Form->end();
 ```
 
@@ -364,13 +365,13 @@ It will render this HTML:
 ```html
 <form method="post" accept-charset="utf-8" class="form-horizontal" action="/articles/add">
     <!-- ... -->
-    <div class="mb-3 form-group row text">
+    <div class="mb-3 row text">
         <label class="col-form-label col-md-4" for="title">Title</label>
         <div class="col-md-8">
             <input type="text" name="title" id="title" class="form-control">
         </div>
     </div>
-    <div class="mb-3 form-group row checkbox">
+    <div class="mb-3 row checkbox">
         <div class="offset-md-4 col-md-8">
             <div class="form-check">
                 <input type="hidden" name="published" value="0"/>
@@ -380,6 +381,7 @@ It will render this HTML:
         </div>
     </div>
     <!-- ... -->
+    <button type="submit" class="btn btn-secondary">Submit</button>
 </form>
 ```
 
@@ -404,21 +406,22 @@ echo $this->Form->create($article, [
 ]);
 echo $this->Form->control('title');
 echo $this->Form->control('published', ['type' => 'checkbox']);
+echo $this->Form->button('Submit');
 echo $this->Form->end();
 ```
 
 It will render this HTML:
 
 ```html
-<form method="post" accept-charset="utf-8" class="form-horizontal" action="/articles/add">
+<form method="post" accept-charset="utf-8" action="/articles/add">
     <!-- ... -->
-    <div class="mb-3 form-group row text">
+    <div class="mb-3 row text">
         <label class="col-form-label col-sm-6 col-md-4" for="title">Title</label>
         <div class="col-sm-6 col-md-8">
             <input type="text" name="title" id="title" class="form-control">
         </div>
     </div>
-    <div class="mb-3 form-group row checkbox">
+    <div class="mb-3 row checkbox">
         <div class="offset-sm-6 offset-md-4 col-sm-6 col-md-8">
             <div class="form-check">
                 <input type="hidden" name="published" value="0"/>
@@ -428,6 +431,7 @@ It will render this HTML:
         </div>
     </div>
     <!-- ... -->
+    <button type="submit" class="btn btn-secondary">Submit</button>
 </form>
 ```
 
@@ -450,24 +454,32 @@ echo $this->Form->create($article, [
 ]);
 echo $this->Form->control('title', ['placeholder' => 'Title']);
 echo $this->Form->control('published', ['type' => 'checkbox']);
+echo $this->Html->div('col-auto', $this->Form->button('Submit'));
 echo $this->Form->end();
 ```
 
 will render this HTML:
 
 ```html
-<form method="post" accept-charset="utf-8" class="form-inline" action="/articles/add">
+<form method="post" accept-charset="utf-8" action="/articles/add">
     <!-- ... -->
-    <div class="form-group text">
-        <label class="form-label visually-hidden" for="title">Title</label>
-        <input type="text" name="title" placeholder="Title" id="title" class="form-control"/>
+    <div class="col-auto">
+        <div class="text">
+            <label class="form-label visually-hidden" for="title">Title</label>
+            <input type="text" name="title" placeholder="Title" id="title" class="form-control"/>
+        </div>
     </div>
-    <div class="form-check form-check-inline checkbox">
-        <input type="hidden" name="published" value="0"/>
-        <input type="checkbox" name="published" value="1" id="published" class="form-check-input">
-        <label class="form-check-label" for="published">Published</label>
+    <div class="col-auto">
+        <div class="form-check checkbox">
+            <input type="hidden" name="published" value="0"/>
+            <input type="checkbox" name="published" value="1" id="published" class="form-check-input">
+            <label class="form-check-label" for="published">Published</label>
+        </div>
     </div>
     <!-- ... -->
+    <div class="col-auto">
+        <button type="submit" class="btn btn-secondary">Submit</button>
+    </div>
 </form>
 ```
 
@@ -530,7 +542,7 @@ echo $this->Form->control('title', [
 This would generate the following HTML:
 
 ```html
-<div data-meta="meta information" class="my-title-control mb-3 form-group text">
+<div data-meta="meta information" class="my-title-control mb-3 text">
     <label class="form-label" for="title">Title</label>
     <input type="text" name="title" id="title" class="form-control">
 </div>
@@ -549,7 +561,7 @@ echo $this->Form->control('email', [
 This would generate the following HTML:
 
 ```html
-<div class="mb-3 form-group email">
+<div class="mb-3 email">
     <label class="form-label" for="email">Email</label>
     <div class="input-group">
         <span class="input-group-text">@</span>
@@ -571,7 +583,7 @@ echo $this->Form->control('amount', [
 This would generate the following HTML:
 
 ```html
-<div class="mb-3 form-group text">
+<div class="mb-3 text">
     <label class="form-label" for="amount">Amount</label>
     <div class="input-group">
         <span class="input-group-text">$</span>
@@ -606,7 +618,7 @@ echo $this->Form->control('amount', [
 This would generate the following HTML:
 
 ```html
-<div class="mb-3 form-group text">
+<div class="mb-3 text">
     <label class="form-label" for="amount">Amount</label>
     <div class="input-group input-group-lg custom" custom="attribute">
         <span class="input-group-text">$</span>
@@ -618,7 +630,7 @@ This would generate the following HTML:
 
 ### Inline checkboxes and radio buttons
 
-[Inline checkboxes/switches and radio buttons](https://getbootstrap.com/docs/4.5/components/forms/#inline) (not to be
+[Inline checkboxes/switches and radio buttons](https://getbootstrap.com/docs/5.3/components/forms/#inline) (not to be
 confused with inline aligned forms), can be created by setting the `inline` option to `true`.
 
 Inlined checkboxes/switches and radio buttons will be rendered on the same horizontal row. When using horizontal form
@@ -665,7 +677,7 @@ echo $this->Form->control('option', [
 This would generate the following HTML:
 
 ```html
-<div class="mb-3 form-group form-check form-switch checkbox">
+<div class="mb-3 form-check form-switch checkbox">
     <input type="hidden" name="option" value="0"/>
     <input type="checkbox" name="option" value="1" id="option" class="form-check-input">
     <label class="form-check-label" for="option">Option</label>
@@ -688,7 +700,7 @@ echo $this->Form->control('title', [
 This would generate the following HTML:
 
 ```html
-<div class="mb-3 form-floating form-group text">
+<div class="mb-3 form-floating text">
     <input type="text" name="title" id="title" class="form-control"/>
     <label for="title">Title</label>
 </div>
@@ -696,7 +708,7 @@ This would generate the following HTML:
 
 ### Help text
 
-Bootstrap's [form help text](https://getbootstrap.com/docs/4.5/components/forms/#help-text) is supported via the
+Bootstrap's [form help text](https://getbootstrap.com/docs/5.3/components/forms/#help-text) is supported via the
 `help` option.
 
 The help text is by default being rendered in between of the control and the validation feedback.
@@ -710,7 +722,7 @@ echo $this->Form->control('title', [
 This would generate the following HTML:
 
 ```html
-<div class="mb-3 form-group text">
+<div class="mb-3 text">
     <label class="form-label" for="title">Title</label>
     <input type="text" name="title" id="title" class="form-control" aria-describedby="title-help"/>
     <small id="title-help" class="d-block form-text text-muted">Help text</small>
@@ -734,7 +746,7 @@ echo $this->Form->control('title', [
 This would generate the following HTML:
 
 ```html
-<div class="mb-3 form-group text">
+<div class="mb-3 text">
     <label class="form-label" for="title">Title</label>
     <input type="text" name="title" id="title" class="form-control" aria-describedby="custom-help"/>
     <small id="custom-help" class="custom d-block form-text text-muted" data-custom="attribute">Help text</small>
@@ -756,7 +768,7 @@ echo $this->Form->control('title', [
 This would generate the following HTML:
 
 ```html
-<div class="mb-3 form-group text">
+<div class="mb-3 text">
     <label class="form-label" for="title">
         Title <span data-bs-toggle="tooltip" title="Tooltip text" class="bi bi-info-circle-fill"></span>
     </label>
@@ -766,7 +778,7 @@ This would generate the following HTML:
 
 If you want to use a different toggle, being it a different Boostrap icon, or maybe a completely different icon
 font/library, then you can do this by
-[overriding the `tooltip` template](https://book.cakephp.org/4/en/views/helpers/form.html#customizing-the-templates-formhelper-uses)
+[overriding the `tooltip` template](https://book.cakephp.org/5/en/views/helpers/form.html#customizing-the-templates-formhelper-uses)
 accordingly, being it globally, per form, or per control:
 
 ```php
@@ -781,8 +793,8 @@ echo $this->Form->control('title', [
 ### Error feedback style
 
 BootstrapUI supports two styles of error feedback, the
-[regular Bootstrap text feedback](https://getbootstrap.com/docs/4.5/components/forms/#validation), and
-[Bootstrap tooltip feedback](https://getbootstrap.com/docs/4.5/components/forms/#tooltips) (not to be confused with
+[regular Bootstrap text feedback](https://getbootstrap.com/docs/5.3/components/forms/#validation), and
+[Bootstrap tooltip feedback](https://getbootstrap.com/docs/5.3/components/forms/#tooltips) (not to be confused with
 label tooltips that are configured via the `tooltip` option!).
 
 The style can be configured via the `feedbackStyle` option, either globally, per form, or per control. The supported
@@ -794,7 +806,7 @@ styles are:
  (inline forms are using this style by default).
 
 Note that using the tooltip error style requires the form group elements to be non-static positioned! The form helper
-will automatically add Bootstraps [position utility class](https://getbootstrap.com/docs/4.5/utilities/position/)
+will automatically add Bootstraps [position utility class](https://getbootstrap.com/docs/5.3/utilities/position/)
 `position-relative` to the form group elements when the tooltip error style is enabled.
 
 If you need different positioning, use either CSS to override the `position` rule on the `.form-group` elements, or use
@@ -821,7 +833,7 @@ echo $this->Form->control('title');
 With an error on the `title` field, this would generate the following HTML:
 
 ```html
-<div class="mb-3 form-group position-absolute text is-invalid">
+<div class="mb-3 position-absolute text is-invalid">
     <label class="form-label" for="title">Title</label>
     <input type="text" name="title" id="title" class="is-invalid form-control"/>
     <div class="invalid-tooltip">Error message</div>
