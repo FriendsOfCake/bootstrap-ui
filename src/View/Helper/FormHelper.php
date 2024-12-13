@@ -898,19 +898,6 @@ class FormHelper extends CoreFormHelper
             $options['error'] !== false &&
             $this->isFieldError($fieldName);
 
-        // This is required because of a bug in CakePHP 5 due to which
-        // `aria-invalid` is not applied for `select` tags.
-        if (
-            $isError &&
-            !isset($options['aria-invalid'])
-        ) {
-            $options['aria-invalid'] = 'true';
-        }
-
-        if (isset($options['aria-describedby'])) {
-            return $options;
-        }
-
         $describedByIds = [];
 
         if ($isError) {
