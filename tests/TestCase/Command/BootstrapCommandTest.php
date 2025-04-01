@@ -17,7 +17,7 @@ class BootstrapCommandTest extends TestCase
         $this->assertOutputEmpty();
         $this->assertEquals(
             ['<warning>No command provided. Run `bootstrap --help` to get a list of commands.</warning>'],
-            $this->_err->messages()
+            $this->_err->messages(),
         );
     }
 
@@ -40,7 +40,7 @@ and samples, and for modifying your application to use BootstrapUI.',
                 'To get help on a specific command, type <info>`bootstrap command_name --help`</info>',
                 '',
             ],
-            $this->_out->messages()
+            $this->_out->messages(),
         );
         $this->assertErrorEmpty();
     }

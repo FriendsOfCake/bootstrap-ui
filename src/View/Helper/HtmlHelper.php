@@ -101,7 +101,7 @@ class HtmlHelper extends CoreHtmlHelper
             'tag' => $options['tag'],
             'attrs' => $this->templater()->formatAttributes(
                 $options,
-                ['tag', 'namespace', 'prefix', 'size']
+                ['tag', 'namespace', 'prefix', 'size'],
             ),
         ]);
     }

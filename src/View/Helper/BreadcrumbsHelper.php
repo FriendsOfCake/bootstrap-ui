@@ -142,7 +142,7 @@ class BreadcrumbsHelper extends CoreBreadcrumbsHelper
 
             unset(
                 $this->crumbs[$key]['options']['innerAttrs']['aria-current'],
-                $this->crumbs[$key]['options']['aria-current']
+                $this->crumbs[$key]['options']['aria-current'],
             );
         }
     }

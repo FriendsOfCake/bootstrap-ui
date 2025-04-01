@@ -69,12 +69,12 @@ class CopyLayoutsCommand extends Command
     {
         return $parser
             ->setDescription(
-                'Copies the sample layouts into the application\'s layout templates folder.'
+                'Copies the sample layouts into the application\'s layout templates folder.',
             )
             ->addArgument('target', [
                 'help' => sprintf(
                     'The target path into which to copy the layout files. Defaults to `%s`.',
-                    $this->_getDefaultTargetPath()
+                    $this->_getDefaultTargetPath(),
                 ),
                 'required' => false,
             ]);

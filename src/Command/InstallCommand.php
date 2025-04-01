@@ -303,7 +303,7 @@ class InstallCommand extends Command
                 preg_match(
                     "/{$DS}font{$DS}(?P<subdirs>.+{$DS})?.+\\.(css|woff|woff2)$/",
                     $file->getPathname(),
-                    $matches
+                    $matches,
                 )
             ) {
                 $assetPath = $fontPath;
@@ -376,7 +376,7 @@ class InstallCommand extends Command
     {
         return $parser
             ->setDescription(
-                'Installs Bootstrap dependencies and links the assets to the application\'s webroot.'
+                'Installs Bootstrap dependencies and links the assets to the application\'s webroot.',
             )
             ->addOption('latest', [
                 'help' => 'To install the latest minor versions of required assets.',

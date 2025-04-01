@@ -3,6 +3,7 @@ declare(strict_types=1);
 
 namespace BootstrapUI\View\Helper;
 
+use Cake\Core\Configure;
 use Cake\Core\Configure\Engine\PhpConfig;
 use Cake\Utility\Hash;
 use Cake\Utility\Inflector;
@@ -214,6 +215,7 @@ class FormHelper extends CoreFormHelper
             '{{hidden}}<label{{attrs}}>{{input}}{{text}}{{tooltip}}</label>',
         'submitContainer' =>
             '<div{{containerAttrs}} class="{{containerClass}}submit">{{content}}</div>',
+        'errorClass' => 'is-invalid',
     ];
 
     /**
@@ -342,7 +344,7 @@ class FormHelper extends CoreFormHelper
     {
         $this->_defaultConfig = [
             'align' => static::ALIGN_DEFAULT,
-            'errorClass' => 'is-invalid',
+            'errorClass' => version_compare(Configure::version(), '5.2.0', '<') ? 'is-invalid' : null,
             'grid' => [
                 static::GRID_COLUMN_ONE => 2,
                 static::GRID_COLUMN_TWO => 10,
@@ -379,6 +381,11 @@ class FormHelper extends CoreFormHelper
             'templates' => [],
             'spacing' => null,
         ];
+
+        // This is only for backwards compatibility with CakePHP < 5.2
+        if ($this->getConfig('errorClass')) {
+            $this->setConfig('templates.errorClass', $this->getConfig('errorClass'));
+        }
 
         return parent::create($context, $this->_processFormOptions($options));
     }
@@ -498,7 +505,7 @@ class FormHelper extends CoreFormHelper
             isset($options['append']) ||
             isset($options['prepend'])
         ) {
-            $options['injectErrorClass'] = $this->_config['errorClass'];
+            $options['injectErrorClass'] = $this->getConfig('templates.errorClass');
         }
 
         unset(
@@ -507,7 +514,7 @@ class FormHelper extends CoreFormHelper
             $options['spacing'],
             $options['inline'],
             $options['nestedInput'],
-            $options['switch']
+            $options['switch'],
         );
 
         $result = parent::control($fieldName, $options);
@@ -542,7 +549,7 @@ class FormHelper extends CoreFormHelper
             $options['templates'] += [
                 'multicheckboxWrapper' => sprintf(
                     $this->templater()->getConfig('multicheckboxWrapper'),
-                    $options['spacing']
+                    $options['spacing'],
                 ),
             ];
         }
@@ -997,7 +1004,7 @@ class FormHelper extends CoreFormHelper
         ) {
             $tooltip = $this->templater()->format(
                 'tooltip',
-                ['content' => $options['tooltip']]
+                ['content' => $options['tooltip']],
             );
             $options['label']['templateVars']['tooltip'] = ' ' . $tooltip;
         }
@@ -1134,7 +1141,7 @@ class FormHelper extends CoreFormHelper
 
         $options = $this->_initInputField(
             $fieldName,
-            ['secure' => static::SECURE_SKIP] + $options
+            ['secure' => static::SECURE_SKIP] + $options,
         );
 
         $content = $options['escape'] ? h($options['val']) : $options['val'];
@@ -1151,7 +1158,7 @@ class FormHelper extends CoreFormHelper
             $this->formProtector->addField(
                 $options['name'],
                 true,
-                (string)$options['val']
+                (string)$options['val'],
             );
         }
 
@@ -1246,7 +1253,7 @@ class FormHelper extends CoreFormHelper
 
         if (!in_array($options['align'], static::ALIGN_TYPES)) {
             throw new InvalidArgumentException(
-                'Invalid valid for `align` option. Valid values are: ' . implode(', ', static::ALIGN_TYPES)
+                'Invalid valid for `align` option. Valid values are: ' . implode(', ', static::ALIGN_TYPES),
             );
         }
 
@@ -1278,7 +1285,7 @@ class FormHelper extends CoreFormHelper
                     $this->_spacing,
                     'align-items-center',
                 ],
-                $options
+                $options,
             );
             $options['templates'] += $templates;
 
@@ -1287,19 +1294,19 @@ class FormHelper extends CoreFormHelper
 
         $templates['label'] = sprintf(
             $templates['label'],
-            $this->_gridClass(static::GRID_COLUMN_ONE)
+            $this->_gridClass(static::GRID_COLUMN_ONE),
         );
         $templates['radioLabel'] = sprintf(
             $templates['radioLabel'],
-            $this->_gridClass(static::GRID_COLUMN_ONE)
+            $this->_gridClass(static::GRID_COLUMN_ONE),
         );
         $templates['multicheckboxLabel'] = sprintf(
             $templates['multicheckboxLabel'],
-            $this->_gridClass(static::GRID_COLUMN_ONE)
+            $this->_gridClass(static::GRID_COLUMN_ONE),
         );
         $templates['formGroup'] = sprintf(
             $templates['formGroup'],
-            $this->_gridClass(static::GRID_COLUMN_TWO)
+            $this->_gridClass(static::GRID_COLUMN_TWO),
         );
 
         $offsetGridClass = implode(' ', [

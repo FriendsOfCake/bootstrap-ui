@@ -395,13 +395,13 @@ EOT;
 
         $package = json_decode(
             file_get_contents($pluginPath . 'node_modules' . DS . 'bootstrap' . DS . 'package.json'),
-            true
+            true,
         );
         $this->assertSame('5.3.3', $package['version']);
 
         $package = json_decode(
             file_get_contents($pluginPath . 'node_modules' . DS . 'bootstrap-icons' . DS . 'package.json'),
-            true
+            true,
         );
         $this->assertSame('1.11.3', $package['version']);
 
@@ -412,14 +412,14 @@ EOT;
 
         $package = json_decode(
             file_get_contents($pluginPath . 'node_modules' . DS . 'bootstrap' . DS . 'package.json'),
-            true
+            true,
         );
         $this->assertTrue(version_compare($package['version'], '5.3.3', '>='));
         $this->assertTrue(version_compare($package['version'], '6.0.0', '<'));
 
         $package = json_decode(
             file_get_contents($pluginPath . 'node_modules' . DS . 'bootstrap-icons' . DS . 'package.json'),
-            true
+            true,
         );
         $this->assertTrue(version_compare($package['version'], '1.11.3', '>='));
         $this->assertTrue(version_compare($package['version'], '2.0.0', '<'));
@@ -459,7 +459,7 @@ EOT;
         $this->assertEmpty($out->messages());
         $this->assertEquals(
             ['<error>NPM (https://www.npmjs.com/) is required, but not installed. Aborting.</error>'],
-            $err->messages()
+            $err->messages(),
         );
     }
 
@@ -490,11 +490,11 @@ EOT;
         $this->assertEquals(Command::CODE_ERROR, $result);
         $this->assertEquals(
             ['<info>Clearing `node_modules` folder (this can take a while)...</info>'],
-            $out->messages()
+            $out->messages(),
         );
         $this->assertEquals(
             ['<error>Could not clear `node_modules` folder.</error>'],
-            $err->messages()
+            $err->messages(),
         );
     }
 
@@ -535,11 +535,11 @@ EOT;
                 '<success>Cleared `node_modules` folder.</success>',
                 '<info>Installing packages...</info>',
             ],
-            $out->messages()
+            $out->messages(),
         );
         $this->assertEquals(
             ["<error>Could not change into plugin directory `$pluginPath`.</error>"],
-            $err->messages()
+            $err->messages(),
         );
     }
 
@@ -584,11 +584,11 @@ EOT;
                 '<info>Installing packages...</info>',
                 'installer output',
             ],
-            $out->messages()
+            $out->messages(),
         );
         $this->assertEquals(
             ['<error>Package installation failed.</error>'],
-            $err->messages()
+            $err->messages(),
         );
     }
 
@@ -627,14 +627,14 @@ EOT;
             [
                 '<info>Refreshing package asset buffer...</info>',
             ],
-            $out->messages()
+            $out->messages(),
         );
         $this->assertEquals(
             [
                 '<warning>`non-existent.file` could not be deleted.</warning>',
                 '<error>Could not clear all buffered files.</error>',
             ],
-            $err->messages()
+            $err->messages(),
         );
     }
 
@@ -684,7 +684,7 @@ EOT;
                 '<success>`script.js` successfully copied.</success>',
                 '<success>All files buffered.</success>',
             ],
-            $out->messages()
+            $out->messages(),
         );
     }
 
@@ -724,14 +724,14 @@ EOT;
                 '<info>Refreshing package asset buffer...</info>',
                 '<success>All buffered files cleared.</success>',
             ],
-            $out->messages()
+            $out->messages(),
         );
         $this->assertEquals(
             [
                 '<warning>`non-existent.css` could not be copied.</warning>',
                 '<error>Could not buffer all files.</error>',
             ],
-            $err->messages()
+            $err->messages(),
         );
     }
 
@@ -761,11 +761,11 @@ EOT;
         $this->assertEquals(1234, $result);
         $this->assertEquals(
             ['<info>Removing possibly existing plugin assets...</info>'],
-            $out->messages()
+            $out->messages(),
         );
         $this->assertEquals(
             ['<error>Removing plugin assets failed.</error>'],
-            $err->messages()
+            $err->messages(),
         );
     }
 
@@ -795,11 +795,11 @@ EOT;
         $this->assertEquals(1234, $result);
         $this->assertEquals(
             ['<info>Linking plugin assets...</info>'],
-            $out->messages()
+            $out->messages(),
         );
         $this->assertEquals(
             ['<error>Linking plugin assets failed.</error>'],
-            $err->messages()
+            $err->messages(),
         );
     }
 
@@ -821,7 +821,7 @@ cake bootstrap install [-h] [-l] [-q] [-v]
 --quiet, -q    Enable quiet output.
 --verbose, -v  Enable verbose output.
 "],
-            $this->_out->messages()
+            $this->_out->messages(),
         );
         $this->assertErrorEmpty();
     }

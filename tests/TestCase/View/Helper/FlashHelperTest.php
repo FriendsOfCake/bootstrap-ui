@@ -137,12 +137,12 @@ class FlashHelperTest extends TestCase
 
         $this->assertStringContainsString(
             '<div role="alert" class="alert alert-dismissible fade show d-flex align-items-center alert-info">',
-            $result
+            $result,
         );
         $this->assertStringContainsString('This is a calling', $result);
         $this->assertStringContainsString(
             '<button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>',
-            $result
+            $result,
         );
 
         $this->assertStringContainsString('<div role="alert" class="extra alert-info">', $result);
@@ -151,12 +151,12 @@ class FlashHelperTest extends TestCase
         $result = $this->Flash->render('error');
         $this->assertStringContainsString(
             '<div role="alert" class="alert alert-dismissible fade show d-flex align-items-center alert-danger">',
-            $result
+            $result,
         );
         $this->assertStringContainsString('This is error', $result);
         $this->assertStringContainsString(
             '<button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>',
-            $result
+            $result,
         );
     }
 
@@ -238,7 +238,7 @@ class FlashHelperTest extends TestCase
         $result = $this->Flash->render();
         $this->assertStringContainsString(
             '<div role="alert" class="alert alert-dismissible fade show d-flex align-items-center alert-primary">',
-            $result
+            $result,
         );
         $this->assertStringContainsString('data-bs-dismiss="alert"', $result);
     }
@@ -537,7 +537,7 @@ class FlashHelperTest extends TestCase
 
         $this->assertStringContainsString(
             sprintf('<i class="me-2 bi bi-%s bi-xl"></i>', $iconClassMap[$type]),
-            $result
+            $result,
         );
     }
 
@@ -586,7 +586,7 @@ class FlashHelperTest extends TestCase
 
         $this->assertStringContainsString(
             sprintf('<i class="foo bar bi bi-%s bi-2xl"></i>', $iconClassMap[$type]['name']),
-            $result
+            $result,
         );
     }
 }

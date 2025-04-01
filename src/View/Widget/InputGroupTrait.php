@@ -174,7 +174,7 @@ trait InputGroupTrait
 
         unset(
             $attachment['options']['size'],
-            $attachment['options']['class']
+            $attachment['options']['class'],
         );
 
         $attrs += $attachment['options'];
