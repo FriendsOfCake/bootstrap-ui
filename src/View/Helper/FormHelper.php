@@ -3,6 +3,7 @@ declare(strict_types=1);
 
 namespace BootstrapUI\View\Helper;
 
+use Cake\Core\Configure;
 use Cake\Core\Configure\Engine\PhpConfig;
 use Cake\Utility\Hash;
 use Cake\Utility\Inflector;
@@ -214,6 +215,7 @@ class FormHelper extends CoreFormHelper
             '{{hidden}}<label{{attrs}}>{{input}}{{text}}{{tooltip}}</label>',
         'submitContainer' =>
             '<div{{containerAttrs}} class="{{containerClass}}submit">{{content}}</div>',
+        'errorClass' => 'is-invalid',
     ];
 
     /**
@@ -342,7 +344,7 @@ class FormHelper extends CoreFormHelper
     {
         $this->_defaultConfig = [
             'align' => static::ALIGN_DEFAULT,
-            'errorClass' => 'is-invalid',
+            'errorClass' => version_compare(Configure::version(), '5.2.0', '<') ? 'is-invalid' : null,
             'grid' => [
                 static::GRID_COLUMN_ONE => 2,
                 static::GRID_COLUMN_TWO => 10,
@@ -379,6 +381,11 @@ class FormHelper extends CoreFormHelper
             'templates' => [],
             'spacing' => null,
         ];
+
+        // This is only for backwards compatibility with CakePHP < 5.2
+        if ($this->getConfig('errorClass')) {
+            $this->setConfig('templates.errorClass', $this->getConfig('errorClass'));
+        }
 
         return parent::create($context, $this->_processFormOptions($options));
     }
@@ -498,7 +505,7 @@ class FormHelper extends CoreFormHelper
             isset($options['append']) ||
             isset($options['prepend'])
         ) {
-            $options['injectErrorClass'] = $this->_config['errorClass'];
+            $options['injectErrorClass'] = $this->getConfig('templates.errorClass');
         }
 
         unset(
