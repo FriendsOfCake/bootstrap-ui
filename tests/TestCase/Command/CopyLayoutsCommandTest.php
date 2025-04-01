@@ -64,7 +64,7 @@ class CopyLayoutsCommandTest extends TestCase
                 '<info>Copying sample layouts...</info>',
                 "<success>Sample layouts copied successfully to `$targetPath`.</success>",
             ],
-            $this->_out->messages()
+            $this->_out->messages(),
         );
         $this->assertErrorEmpty();
     }
@@ -99,7 +99,7 @@ class CopyLayoutsCommandTest extends TestCase
                 '<info>Copying sample layouts...</info>',
                 "<success>Sample layouts copied successfully to `$compatTargetPath`.</success>",
             ],
-            $this->_out->messages()
+            $this->_out->messages(),
         );
         $this->assertErrorEmpty();
     }
@@ -132,11 +132,11 @@ class CopyLayoutsCommandTest extends TestCase
         $this->assertEquals(Command::CODE_ERROR, $result);
         $this->assertEquals(
             ['<info>Copying sample layouts...</info>'],
-            $out->messages()
+            $out->messages(),
         );
         $this->assertEquals(
             ["<error>Sample layouts could not be copied to `$targetPath`.</error>"],
-            $err->messages()
+            $err->messages(),
         );
     }
 
@@ -165,7 +165,7 @@ target  The target path into which to copy the layout files. Defaults to
         `$targetPath`.
         <comment>(optional)</comment>
 "],
-            $this->_out->messages()
+            $this->_out->messages(),
         );
         $this->assertErrorEmpty();
     }

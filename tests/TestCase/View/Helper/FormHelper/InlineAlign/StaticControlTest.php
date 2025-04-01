@@ -39,7 +39,7 @@ class StaticControlTest extends AbstractFormHelperTest
         $this->assertHtml($expected, $result);
         $this->assertSame(
             ['title' => 'foo <u>bar</u>'],
-            $this->Form->getFormProtector()->__debugInfo()['fields']
+            $this->Form->getFormProtector()->__debugInfo()['fields'],
         );
     }
 

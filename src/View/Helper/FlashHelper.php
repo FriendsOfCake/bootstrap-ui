@@ -58,7 +58,7 @@ class FlashHelper extends Helper
         if (!is_array($stack)) {
             throw new UnexpectedValueException(sprintf(
                 'Value for flash setting key "%s" must be an array.',
-                $key
+                $key,
             ));
         }
 

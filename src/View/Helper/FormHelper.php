@@ -507,7 +507,7 @@ class FormHelper extends CoreFormHelper
             $options['spacing'],
             $options['inline'],
             $options['nestedInput'],
-            $options['switch']
+            $options['switch'],
         );
 
         $result = parent::control($fieldName, $options);
@@ -542,7 +542,7 @@ class FormHelper extends CoreFormHelper
             $options['templates'] += [
                 'multicheckboxWrapper' => sprintf(
                     $this->templater()->getConfig('multicheckboxWrapper'),
-                    $options['spacing']
+                    $options['spacing'],
                 ),
             ];
         }
@@ -997,7 +997,7 @@ class FormHelper extends CoreFormHelper
         ) {
             $tooltip = $this->templater()->format(
                 'tooltip',
-                ['content' => $options['tooltip']]
+                ['content' => $options['tooltip']],
             );
             $options['label']['templateVars']['tooltip'] = ' ' . $tooltip;
         }
@@ -1134,7 +1134,7 @@ class FormHelper extends CoreFormHelper
 
         $options = $this->_initInputField(
             $fieldName,
-            ['secure' => static::SECURE_SKIP] + $options
+            ['secure' => static::SECURE_SKIP] + $options,
         );
 
         $content = $options['escape'] ? h($options['val']) : $options['val'];
@@ -1151,7 +1151,7 @@ class FormHelper extends CoreFormHelper
             $this->formProtector->addField(
                 $options['name'],
                 true,
-                (string)$options['val']
+                (string)$options['val'],
             );
         }
 
@@ -1246,7 +1246,7 @@ class FormHelper extends CoreFormHelper
 
         if (!in_array($options['align'], static::ALIGN_TYPES)) {
             throw new InvalidArgumentException(
-                'Invalid valid for `align` option. Valid values are: ' . implode(', ', static::ALIGN_TYPES)
+                'Invalid valid for `align` option. Valid values are: ' . implode(', ', static::ALIGN_TYPES),
             );
         }
 
@@ -1278,7 +1278,7 @@ class FormHelper extends CoreFormHelper
                     $this->_spacing,
                     'align-items-center',
                 ],
-                $options
+                $options,
             );
             $options['templates'] += $templates;
 
@@ -1287,19 +1287,19 @@ class FormHelper extends CoreFormHelper
 
         $templates['label'] = sprintf(
             $templates['label'],
-            $this->_gridClass(static::GRID_COLUMN_ONE)
+            $this->_gridClass(static::GRID_COLUMN_ONE),
         );
         $templates['radioLabel'] = sprintf(
             $templates['radioLabel'],
-            $this->_gridClass(static::GRID_COLUMN_ONE)
+            $this->_gridClass(static::GRID_COLUMN_ONE),
         );
         $templates['multicheckboxLabel'] = sprintf(
             $templates['multicheckboxLabel'],
-            $this->_gridClass(static::GRID_COLUMN_ONE)
+            $this->_gridClass(static::GRID_COLUMN_ONE),
         );
         $templates['formGroup'] = sprintf(
             $templates['formGroup'],
-            $this->_gridClass(static::GRID_COLUMN_TWO)
+            $this->_gridClass(static::GRID_COLUMN_TWO),
         );
 
         $offsetGridClass = implode(' ', [

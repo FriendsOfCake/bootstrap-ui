@@ -23,7 +23,7 @@ class ModifyViewCommandTest extends TestCase
         if (file_exists(APP . 'View' . DS . 'AppView.php.backup')) {
             rename(
                 APP . 'View' . DS . 'AppView.php.backup',
-                APP . 'View' . DS . 'AppView.php'
+                APP . 'View' . DS . 'AppView.php',
             );
         }
 
@@ -41,16 +41,16 @@ class ModifyViewCommandTest extends TestCase
 
         copy(
             $filePath,
-            APP . 'View' . DS . 'AppView.php.backup'
+            APP . 'View' . DS . 'AppView.php.backup',
         );
         copy(
             $comparisonsPath . 'AppView.skeleton.php',
-            $filePath
+            $filePath,
         );
 
         $this->assertFileNotEquals(
             $comparisonsPath . 'AppView.bootstrap.php',
-            $filePath
+            $filePath,
         );
 
         $this->exec('bootstrap modify_view');
@@ -60,13 +60,13 @@ class ModifyViewCommandTest extends TestCase
                 '<info>Modifying view...</info>',
                 "<success>Modified `$filePath`.</success>",
             ],
-            $this->_out->messages()
+            $this->_out->messages(),
         );
         $this->assertErrorEmpty();
 
         $this->assertFileEquals(
             $comparisonsPath . 'AppView.bootstrap.php',
-            $filePath
+            $filePath,
         );
     }
 
@@ -79,12 +79,12 @@ class ModifyViewCommandTest extends TestCase
 
         copy(
             $comparisonsPath . 'AppView.skeleton.php',
-            $filePath
+            $filePath,
         );
 
         $this->assertFileNotEquals(
             $comparisonsPath . 'AppView.bootstrap.php',
-            $filePath
+            $filePath,
         );
 
         $this->exec('bootstrap modify_view ' . escapeshellarg($filePath));
@@ -94,13 +94,13 @@ class ModifyViewCommandTest extends TestCase
                 '<info>Modifying view...</info>',
                 "<success>Modified `$filePath`.</success>",
             ],
-            $this->_out->messages()
+            $this->_out->messages(),
         );
         $this->assertErrorEmpty();
 
         $this->assertFileEquals(
             $comparisonsPath . 'AppView.bootstrap.php',
-            $filePath
+            $filePath,
         );
     }
 
@@ -132,11 +132,11 @@ class ModifyViewCommandTest extends TestCase
         $this->assertEquals(Command::CODE_ERROR, $result);
         $this->assertEquals(
             ['<info>Modifying view...</info>'],
-            $out->messages()
+            $out->messages(),
         );
         $this->assertEquals(
             ["<error>Could not modify `$filePath`.</error>"],
-            $err->messages()
+            $err->messages(),
         );
     }
 
@@ -168,11 +168,11 @@ class ModifyViewCommandTest extends TestCase
         $this->assertEquals(Command::CODE_ERROR, $result);
         $this->assertEquals(
             ['<info>Modifying view...</info>'],
-            $out->messages()
+            $out->messages(),
         );
         $this->assertEquals(
             ["<error>Could not modify `$filePath`.</error>"],
-            $err->messages()
+            $err->messages(),
         );
     }
 
@@ -204,11 +204,11 @@ class ModifyViewCommandTest extends TestCase
         $this->assertEquals(Command::CODE_ERROR, $result);
         $this->assertEquals(
             ['<info>Modifying view...</info>'],
-            $out->messages()
+            $out->messages(),
         );
         $this->assertEquals(
             ["<error>Could not modify `$filePath`.</error>"],
-            $err->messages()
+            $err->messages(),
         );
     }
 
@@ -239,7 +239,7 @@ file  The path of the `AppView.php` file. Defaults to
 <warning>Don't run this command if you have a already modified the
 `AppView` class!</warning>
 "],
-            $this->_out->messages()
+            $this->_out->messages(),
         );
         $this->assertErrorEmpty();
     }

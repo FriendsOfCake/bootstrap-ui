@@ -68,7 +68,7 @@ class BootstrapCommand extends Command implements CommandCollectionAwareInterfac
         return $parser
             ->setDescription(
                 'The BootstrapUI console provides commands for installing dependencies ' .
-                'and samples, and for modifying your application to use BootstrapUI.'
+                'and samples, and for modifying your application to use BootstrapUI.',
             );
     }
 }

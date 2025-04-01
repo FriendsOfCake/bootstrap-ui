@@ -55,17 +55,17 @@ class ModifyViewCommand extends Command
         $content = str_replace(
             'use Cake\\View\\View',
             'use BootstrapUI\\View\\UIView',
-            $content
+            $content,
         );
         $content = str_replace(
             'class AppView extends View',
             'class AppView extends UIView',
-            $content
+            $content,
         );
         $content = str_replace(
             "    public function initialize(): void\n    {\n",
             "    public function initialize(): void\n    {\n        parent::initialize();\n",
-            $content
+            $content,
         );
 
         return $this->_writeFile($filePath, $content);
@@ -122,17 +122,17 @@ class ModifyViewCommand extends Command
     {
         return $parser
             ->setDescription(
-                'Modifies `AppView.php` to extend this plugin\'s `UIView` class.'
+                'Modifies `AppView.php` to extend this plugin\'s `UIView` class.',
             )
             ->addArgument('file', [
                 'help' => sprintf(
                     'The path of the `AppView.php` file. Defaults to `%s`.',
-                    $this->_getDefaultFilePath()
+                    $this->_getDefaultFilePath(),
                 ),
                 'required' => false,
             ])
             ->setEpilog(
-                '<warning>Don\'t run this command if you have a already modified the `AppView` class!</warning>'
+                '<warning>Don\'t run this command if you have a already modified the `AppView` class!</warning>',
             );
     }
 }
