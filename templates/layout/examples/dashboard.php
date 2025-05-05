@@ -16,7 +16,7 @@ $this->start('tb_body_start');
 <body <?= $this->fetch('tb_body_attrs') ?>>
     <header class="navbar navbar-dark sticky-top bg-dark flex-md-nowrap p-0 shadow">
         <?= $this->Html->link(
-            Configure::read('App.title', ''),
+            Configure::read('App.title', 'Bootstrap UI'),
             '/',
             ['class' => 'navbar-brand col-md-3 col-lg-2 me-0 px-3']
         ) ?>
