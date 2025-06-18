@@ -73,6 +73,7 @@ trait InputGroupTrait
                 $errorClass &&
                 $context->hasError($data['fieldName'])
             ) {
+                $attrs['class'] = (array)$attrs['class'];
                 $attrs['class'][] = $errorClass;
             }
 
