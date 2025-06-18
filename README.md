@@ -189,6 +189,11 @@ class AppView extends View
 }
 ```
 
+Note that if you already have the CakePHP helpers that `BootstrapUI` comes with added in your controllers, they should be removed.
+For example, `$this->viewBuilder()->addHelpers(['Html', 'Form', ...]);` should be removed so that the `BootstrapUI` helpers are called 
+via the Trait.
+
+
 #### Copying example layouts
 
 In order to be able to use the BootstrapUI example layouts (directly taken from the Bootstrap examples), they need to be
