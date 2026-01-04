@@ -16,6 +16,14 @@ use Cake\Utility\Filesystem;
 class CopyLayoutsCommand extends Command
 {
     /**
+     * @return string
+     */
+    public static function getDescription(): string
+    {
+        return 'Copy sample layouts to app templates.';
+    }
+
+    /**
      * @inheritDoc
      */
     public function execute(Arguments $args, ConsoleIo $io): ?int

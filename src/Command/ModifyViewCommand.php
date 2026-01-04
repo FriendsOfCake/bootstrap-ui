@@ -14,6 +14,14 @@ use Cake\Console\ConsoleOptionParser;
 class ModifyViewCommand extends Command
 {
     /**
+     * @return string
+     */
+    public static function getDescription(): string
+    {
+        return 'Modify AppView to extend UIView.';
+    }
+
+    /**
      * @inheritDoc
      */
     public function execute(Arguments $args, ConsoleIo $io): ?int
