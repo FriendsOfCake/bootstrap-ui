@@ -145,7 +145,7 @@ class InstallCommand extends Command
             $command = 'which npm';
         }
 
-        return !!`$command`;
+        return !!shell_exec($command);
     }
 
     /**
