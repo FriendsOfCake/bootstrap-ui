@@ -17,6 +17,14 @@ use Cake\Utility\Text;
 class BootstrapCommand extends Command implements CommandCollectionAwareInterface
 {
     /**
+     * @return string
+     */
+    public static function getDescription(): string
+    {
+        return 'BootstrapUI commands entry point.';
+    }
+
+    /**
      * The command collection to get help on.
      *
      * @var \Cake\Console\CommandCollection

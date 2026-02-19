@@ -18,6 +18,14 @@ use Cake\Utility\Filesystem;
 class InstallCommand extends Command
 {
     /**
+     * @return string
+     */
+    public static function getDescription(): string
+    {
+        return 'Install Bootstrap dependencies and link assets.';
+    }
+
+    /**
      * @inheritDoc
      */
     public function execute(Arguments $args, ConsoleIo $io): ?int
