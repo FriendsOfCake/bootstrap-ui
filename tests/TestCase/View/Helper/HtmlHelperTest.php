@@ -75,4 +75,66 @@ class HtmlHelperTest extends TestCase
         ];
         $this->assertHtml($expected, $result);
     }
+
+    public function testIconWithoutNamespace(): void
+    {
+        // Remixicon style: ri-home-line (no namespace, just prefix)
+        $result = $this->Html->icon('home-line', ['namespace' => null, 'prefix' => 'ri']);
+        $expected = [
+            'i' => ['class' => 'ri-home-line'],
+            '/i',
+        ];
+        $this->assertHtml($expected, $result);
+
+        // With empty string namespace
+        $result = $this->Html->icon('home-line', ['namespace' => '', 'prefix' => 'ri']);
+        $expected = [
+            'i' => ['class' => 'ri-home-line'],
+            '/i',
+        ];
+        $this->assertHtml($expected, $result);
+
+        // With size
+        $result = $this->Html->icon('home-line', ['namespace' => null, 'prefix' => 'ri', 'size' => 'lg']);
+        $expected = [
+            'i' => ['class' => 'ri-home-line ri-lg'],
+            '/i',
+        ];
+        $this->assertHtml($expected, $result);
+    }
+
+    public function testIconWithoutPrefix(): void
+    {
+        // Icon set with namespace but no prefix
+        $result = $this->Html->icon('home', ['namespace' => 'icons', 'prefix' => null]);
+        $expected = [
+            'i' => ['class' => 'icons home'],
+            '/i',
+        ];
+        $this->assertHtml($expected, $result);
+    }
+
+    public function testIconWithoutNamespaceAndPrefix(): void
+    {
+        // Hypothetical icon set using custom tag and just the icon name
+        $result = $this->Html->icon('home', ['tag' => 'icon', 'namespace' => null, 'prefix' => null]);
+        $expected = [
+            'icon' => ['class' => 'home'],
+            '/icon',
+        ];
+        $this->assertHtml($expected, $result);
+
+        // With additional class
+        $result = $this->Html->icon('home', [
+            'tag' => 'icon',
+            'namespace' => null,
+            'prefix' => null,
+            'class' => 'fs-5',
+        ]);
+        $expected = [
+            'icon' => ['class' => 'fs-5 home'],
+            '/icon',
+        ];
+        $this->assertHtml($expected, $result);
+    }
 }
