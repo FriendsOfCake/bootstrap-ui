@@ -63,6 +63,7 @@ class BreadcrumbsHelper extends CoreBreadcrumbsHelper
                 $crumbs[] = $crumb + ['title' => '', 'url' => null, 'options' => []];
             }
 
+            /** @phpstan-ignore function.alreadyNarrowedType */
             if (method_exists(parent::class, 'addMany')) {
                 return parent::addMany($crumbs);
             }
