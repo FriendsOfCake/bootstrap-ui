@@ -91,10 +91,20 @@ class HtmlHelper extends CoreHtmlHelper
             'class' => null,
         ];
 
-        $classes = [$options['namespace'], $options['prefix'] . '-' . $name];
-        if (!empty($options['size'])) {
-            $classes[] = $options['prefix'] . '-' . $options['size'];
+        $classes = [];
+        if ($options['namespace']) {
+            $classes[] = $options['namespace'];
         }
+
+        if ($options['prefix']) {
+            $classes[] = $options['prefix'] . '-' . $name;
+            if (!empty($options['size'])) {
+                $classes[] = $options['prefix'] . '-' . $options['size'];
+            }
+        } else {
+            $classes[] = $name;
+        }
+
         $options = $this->injectClasses($classes, $options);
 
         return $this->formatTemplate('tag', [
