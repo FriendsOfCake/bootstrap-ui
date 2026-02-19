@@ -122,12 +122,6 @@ class InstallCommand extends Command
     {
         $io->info('Linking plugin assets...');
 
-        // Ensure the webroot directory exists before symlinking
-        if (!is_dir(WWW_ROOT)) {
-            $filesystem = new Filesystem();
-            $filesystem->mkdir(WWW_ROOT);
-        }
-
         $result = $this->executeCommand(PluginAssetsSymlinkCommand::class, ['name' => 'BootstrapUI'], $io);
         if (
             $result !== static::CODE_SUCCESS &&

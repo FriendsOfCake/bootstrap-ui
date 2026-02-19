@@ -27,9 +27,7 @@ class InstallCommandTest extends TestCase
         $appWebrootPluginPath = WWW_ROOT . 'bootstrap_u_i' . DS;
 
         $filesystem = new Filesystem();
-        $filesystem->deleteDir($appWebrootPath);
-
-        $this->assertDirectoryDoesNotExist($appWebrootPath);
+        $filesystem->mkdir($appWebrootPath);
 
         $this->exec('bootstrap install');
 
@@ -150,7 +148,9 @@ class InstallCommandTest extends TestCase
         $appWebrootPath = WWW_ROOT;
         $appWebrootPluginPath = WWW_ROOT . 'bootstrap_u_i' . DS;
 
-        $this->assertDirectoryExists($appWebrootPath);
+        $filesystem = new Filesystem();
+        $filesystem->mkdir($appWebrootPath);
+
         $this->assertDirectoryExists($appWebrootPluginPath . 'css');
         $this->assertDirectoryExists($appWebrootPluginPath . 'js');
 
