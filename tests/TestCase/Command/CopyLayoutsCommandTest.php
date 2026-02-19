@@ -156,7 +156,7 @@ cake bootstrap copy_layouts [-h] [-q] [-v] [<target>]
 <info>Options:</info>
 
 --help, -h     Display this help.
---quiet, -q    Enable quiet output.
+--quiet, -q    Enable quiet output and non-interactive mode.
 --verbose, -v  Enable verbose output.
 
 <info>Arguments:</info>

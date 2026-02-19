@@ -227,7 +227,7 @@ cake bootstrap modify_view [-h] [-q] [-v] [<file>]
 <info>Options:</info>
 
 --help, -h     Display this help.
---quiet, -q    Enable quiet output.
+--quiet, -q    Enable quiet output and non-interactive mode.
 --verbose, -v  Enable verbose output.
 
 <info>Arguments:</info>
