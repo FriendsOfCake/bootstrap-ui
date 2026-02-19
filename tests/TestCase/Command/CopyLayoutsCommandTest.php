@@ -9,6 +9,7 @@ use Cake\Console\ConsoleIo;
 use Cake\Console\Exception\StopException;
 use Cake\Console\TestSuite\ConsoleIntegrationTestTrait;
 use Cake\Console\TestSuite\StubConsoleOutput;
+use Cake\Core\Configure;
 use Cake\Core\Plugin;
 use Cake\TestSuite\TestCase;
 use Cake\Utility\Filesystem;
@@ -146,6 +147,11 @@ class CopyLayoutsCommandTest extends TestCase
 
         $this->exec('bootstrap copy_layouts --help');
 
+        $quiet = 'Enable quiet output';
+        if (version_compare(Configure::version(), '5.3.0', '>=')) {
+            $quiet .= ' and non-interactive mode';
+        }
+
         $this->assertEquals(
             ["Copies the sample layouts into the application's layout templates
 folder.
@@ -156,7 +162,7 @@ cake bootstrap copy_layouts [-h] [-q] [-v] [<target>]
 <info>Options:</info>
 
 --help, -h     Display this help.
---quiet, -q    Enable quiet output and non-interactive mode.
+--quiet, -q    {$quiet}.
 --verbose, -v  Enable verbose output.
 
 <info>Arguments:</info>

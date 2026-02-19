@@ -9,6 +9,7 @@ use Cake\Console\ConsoleIo;
 use Cake\Console\Exception\StopException;
 use Cake\Console\TestSuite\ConsoleIntegrationTestTrait;
 use Cake\Console\TestSuite\StubConsoleOutput;
+use Cake\Core\Configure;
 use Cake\Core\Plugin;
 use Cake\TestSuite\TestCase;
 
@@ -216,6 +217,11 @@ class ModifyViewCommandTest extends TestCase
     {
         $filePath = APP . 'View' . DS . 'AppView.php';
 
+        $quiet = 'Enable quiet output';
+        if (version_compare(Configure::version(), '5.3.0', '>=')) {
+            $quiet .= ' and non-interactive mode';
+        }
+
         $this->exec('bootstrap modify_view --help');
 
         $this->assertEquals(
@@ -227,7 +233,7 @@ cake bootstrap modify_view [-h] [-q] [-v] [<file>]
 <info>Options:</info>
 
 --help, -h     Display this help.
---quiet, -q    Enable quiet output and non-interactive mode.
+--quiet, -q    {$quiet}.
 --verbose, -v  Enable verbose output.
 
 <info>Arguments:</info>

@@ -10,6 +10,7 @@ use Cake\Console\ConsoleIo;
 use Cake\Console\Exception\StopException;
 use Cake\Console\TestSuite\ConsoleIntegrationTestTrait;
 use Cake\Console\TestSuite\StubConsoleOutput;
+use Cake\Core\Configure;
 use Cake\Core\Plugin;
 use Cake\TestSuite\TestCase;
 use Cake\Utility\Filesystem;
@@ -763,6 +764,11 @@ EOT;
     {
         $this->exec('bootstrap install --help');
 
+        $quiet = 'Enable quiet output';
+        if (version_compare(Configure::version(), '5.3.0', '>=')) {
+            $quiet .= ' and non-interactive mode';
+        }
+
         $this->assertEquals(
             ["Installs Bootstrap dependencies and links the assets to the
 application's webroot.
@@ -774,7 +780,7 @@ cake bootstrap install [-h] [-l] [-q] [-v]
 
 --help, -h     Display this help.
 --latest, -l   To install the latest minor versions of required assets.
---quiet, -q    Enable quiet output and non-interactive mode.
+--quiet, -q    {$quiet}.
 --verbose, -v  Enable verbose output.
 "],
             $this->_out->messages(),
