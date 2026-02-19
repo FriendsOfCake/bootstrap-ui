@@ -63,6 +63,10 @@ class BreadcrumbsHelper extends CoreBreadcrumbsHelper
                 $crumbs[] = $crumb + ['title' => '', 'url' => null, 'options' => []];
             }
 
+            if (method_exists(parent::class, 'addMany')) {
+                return parent::addMany($crumbs);
+            }
+
             return parent::add($crumbs);
         }
 
