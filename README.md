@@ -1005,7 +1005,7 @@ echo $this->Html->badge('Text');
 ```
 
 ```html
-<span class="badge bg-secondary">Text</span>
+<span class="badge text-bg-secondary">Text</span>
 ```
 
 #### Background colors
@@ -1021,7 +1021,24 @@ echo $this->Html->badge('Text', [
 ```
 
 ```html
-<span class="badge bg-danger">Text</span>
+<span class="badge text-bg-danger">Text</span>
+```
+
+#### Using non-theme background colors
+
+The helper only recognizes Bootstrap's semantic theme color names (`primary`, `secondary`, `success`, etc.).
+If you need to use a non-theme utility class like `bg-white`, use the `skip` option to prevent the default
+`secondary` color from being injected:
+
+```php
+echo $this->Html->badge('Text', [
+    'class' => 'bg-white text-dark',
+    'skip' => 'secondary',
+]);
+```
+
+```html
+<span class="bg-white text-dark badge">Text</span>
 ```
 
 #### Using a different HTML tag
@@ -1035,7 +1052,7 @@ echo $this->Html->badge('Text', [
 ```
 
 ```html
-<div class="badge bg-secondary">Text</div>
+<div class="badge text-bg-secondary">Text</div>
 ```
 
 ### Icons
