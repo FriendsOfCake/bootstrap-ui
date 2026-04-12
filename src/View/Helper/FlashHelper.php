@@ -8,6 +8,8 @@ use UnexpectedValueException;
 
 /**
  * FlashHelper class to render flash messages.
+ *
+ * @extends \Cake\View\Helper<\Cake\View\View>
  */
 class FlashHelper extends Helper
 {
