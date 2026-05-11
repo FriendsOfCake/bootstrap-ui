@@ -33,6 +33,7 @@ For version info see [version map](https://github.com/FriendsOfCake/bootstrap-ui
 - BreadcrumbsHelper
 - HtmlHelper (components: `badge`, `icon`)
 - PaginatorHelper
+- ColorModeHelper (Bootstrap 5.3 `data-bs-theme` light/dark/auto support)
 - Widgets (`basic`, `button`, `datetime`, `file`, `select`, `textarea`)
 - Example layouts (`cover`, `signin`, `dashboard`)
 - Bake templates
@@ -1317,6 +1318,55 @@ This would generate the following HTML:
     <!-- ... -->
 </ul>
 ```
+
+### Color modes (light/dark/auto)
+
+Bootstrap 5.3 introduced built-in [color modes](https://getbootstrap.com/docs/5.3/customize/color-modes/)
+driven by the `data-bs-theme` attribute. BootstrapUI ships a `ColorMode` helper
+that adds the two missing pieces: an inline script that applies the user's
+stored preference on page load (preventing a flash of unstyled theme) and a
+ready-made toggle UI.
+
+```php
+// In your layout's <head>, as early as possible:
+<?= $this->ColorMode->script() ?>
+
+// In your navbar (or wherever you want the switcher):
+<?= $this->ColorMode->toggle() ?>
+```
+
+`script()` sets `data-bs-theme="light|dark"` on the `<html>` element based on
+either the value stored under the `bs-theme` key in `localStorage` or, if
+there isn't one, the user's OS preference (the default mode is `auto`). It
+also exposes a small public API for app code to read or change the current
+mode:
+
+```js
+BootstrapUIColorMode.get();        // 'light' | 'dark' | 'auto'
+BootstrapUIColorMode.set('dark');  // persists and applies
+document.addEventListener('bs-theme-changed', (e) => {
+    console.log(e.detail.mode, e.detail.resolved);
+});
+```
+
+`toggle()` renders a Bootstrap button group with one button per mode. Clicking
+a button calls `BootstrapUIColorMode.set()`, updates the active state, and
+fires the `bs-theme-changed` event.
+
+The helper accepts overrides either at construction (via `loadHelper()`) or
+per call:
+
+```php
+echo $this->ColorMode->toggle([
+    'modes' => ['light', 'dark'],          // hide 'auto'
+    'labels' => ['light' => __('Tag'), 'dark' => __('Nacht')],
+    'wrapperClass' => 'btn-group',         // default is `btn-group btn-group-sm`
+    'ariaLabel' => __('Farbschema'),
+]);
+```
+
+Supported config keys: `storageKey`, `default`, `target`, `modes`, `labels`,
+`ariaLabel`, `wrapperClass`, `buttonClass`, `activeClass`.
 
 ### Helper configuration
 

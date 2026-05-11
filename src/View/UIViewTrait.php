@@ -36,6 +36,7 @@ trait UIViewTrait
             'Flash' => ['className' => 'BootstrapUI.Flash'],
             'Paginator' => ['className' => 'BootstrapUI.Paginator'],
             'Breadcrumbs' => ['className' => 'BootstrapUI.Breadcrumbs'],
+            'ColorMode' => ['className' => 'BootstrapUI.ColorMode'],
         ];
 
         $this->helpers = array_merge($helpers, $this->helpers);
