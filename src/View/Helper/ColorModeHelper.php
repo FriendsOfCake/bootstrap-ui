@@ -4,7 +4,6 @@ declare(strict_types=1);
 namespace BootstrapUI\View\Helper;
 
 use Cake\View\Helper;
-
 use function Cake\Core\h;
 
 /**
