@@ -3,6 +3,7 @@ declare(strict_types=1);
 
 namespace BootstrapUI\Test\TestCase\View\Helper;
 
+use BootstrapUI\View\Helper\ColorMode;
 use BootstrapUI\View\Helper\ColorModeHelper;
 use Cake\TestSuite\TestCase;
 use Cake\View\View;
@@ -120,5 +121,35 @@ class ColorModeHelperTest extends TestCase
 
         $this->assertStringNotContainsString('<script>alert(1)</script>', $html);
         $this->assertStringContainsString('&lt;script&gt;alert(1)&lt;/script&gt;', $html);
+    }
+
+    /**
+     * Modes accept ColorMode enum cases interchangeably with their string
+     * values. The rendered markup uses the string value either way.
+     */
+    public function testModesAcceptEnumCases(): void
+    {
+        $html = $this->ColorMode->toggle([
+            'modes' => [ColorMode::Dark, ColorMode::Light],
+            'default' => ColorMode::Dark,
+        ]);
+
+        $this->assertStringContainsString('data-bs-theme-value="dark"', $html);
+        $this->assertStringContainsString('data-bs-theme-value="light"', $html);
+        // No `auto` because the config omits it.
+        $this->assertStringNotContainsString('data-bs-theme-value="auto"', $html);
+    }
+
+    /**
+     * The `script()` output is unchanged when the default mode is passed as
+     * an enum case vs the equivalent string.
+     */
+    public function testScriptDefaultAcceptsEnumCase(): void
+    {
+        $fromEnum = $this->ColorMode->script(['default' => ColorMode::Dark]);
+        $fromString = $this->ColorMode->script(['default' => 'dark']);
+
+        $this->assertSame($fromEnum, $fromString);
+        $this->assertStringContainsString('"dark"', $fromEnum);
     }
 }

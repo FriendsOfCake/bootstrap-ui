@@ -1357,13 +1357,19 @@ The helper accepts overrides either at construction (via `loadHelper()`) or
 per call:
 
 ```php
+use BootstrapUI\View\Helper\ColorMode;
+
 echo $this->ColorMode->toggle([
-    'modes' => ['light', 'dark'],          // hide 'auto'
+    'modes' => [ColorMode::Light, ColorMode::Dark], // hide 'auto'
     'labels' => ['light' => __('Tag'), 'dark' => __('Nacht')],
     'wrapperClass' => 'btn-group',         // default is `btn-group btn-group-sm`
     'ariaLabel' => __('Farbschema'),
 ]);
 ```
+
+`modes` and `default` accept either `ColorMode` enum cases (`ColorMode::Light`,
+`ColorMode::Dark`, `ColorMode::Auto`) or the equivalent strings (`'light'`,
+`'dark'`, `'auto'`). The rendered markup uses the string value either way.
 
 Supported config keys: `storageKey`, `default`, `target`, `modes`, `labels`,
 `ariaLabel`, `wrapperClass`, `buttonClass`, `activeClass`.

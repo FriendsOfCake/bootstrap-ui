@@ -19,28 +19,27 @@ use function Cake\Core\h;
  */
 class ColorModeHelper extends Helper
 {
-    public const MODE_LIGHT = 'light';
-    public const MODE_DARK = 'dark';
-    public const MODE_AUTO = 'auto';
-
     /**
      * @var array<string, mixed>
      */
     protected array $_defaultConfig = [
         // localStorage key under which the user's choice is persisted.
         'storageKey' => 'bs-theme',
-        // Mode used when nothing is stored yet.
-        'default' => self::MODE_AUTO,
+        // Mode used when nothing is stored yet. Accepts either a ColorMode
+        // case or its string value ("light", "dark", "auto").
+        'default' => ColorMode::Auto,
         // CSS selector for the element that carries `data-bs-theme`.
         // Default `html` matches the BS5.3 documentation pattern.
         'target' => 'html',
-        // Modes (and their order) shown in the toggle.
-        'modes' => [self::MODE_LIGHT, self::MODE_DARK, self::MODE_AUTO],
-        // Labels shown on the toggle buttons. Override for i18n.
+        // Modes (and their order) shown in the toggle. Each entry may be a
+        // ColorMode case or a string.
+        'modes' => [ColorMode::Light, ColorMode::Dark, ColorMode::Auto],
+        // Labels shown on the toggle buttons. Keyed by the mode's string
+        // value. Override for i18n.
         'labels' => [
-            self::MODE_LIGHT => 'Light',
-            self::MODE_DARK => 'Dark',
-            self::MODE_AUTO => 'Auto',
+            'light' => 'Light',
+            'dark' => 'Dark',
+            'auto' => 'Auto',
         ],
         // ARIA label for the toggle group.
         'ariaLabel' => 'Color mode',
@@ -72,7 +71,7 @@ class ColorModeHelper extends Helper
         $config = $options + $this->getConfig();
 
         $storageKey = json_encode($config['storageKey']);
-        $default = json_encode($config['default']);
+        $default = json_encode($this->_modeValue($config['default']));
         $target = json_encode($config['target']);
 
         // Inline IIFE; ASCII-only so it survives any reasonable CSP/serializer.
@@ -118,15 +117,16 @@ class ColorModeHelper extends Helper
 
         $buttons = '';
         foreach ($modes as $mode) {
-            $label = $labels[$mode] ?? ucfirst((string)$mode);
-            $buttons .= $this->_button((string)$mode, (string)$label, (string)$config['buttonClass']);
+            $value = $this->_modeValue($mode);
+            $label = $labels[$value] ?? ucfirst($value);
+            $buttons .= $this->_button($value, (string)$label, (string)$config['buttonClass']);
         }
 
         $initJs = '(function(){'
             . 'var w=document.currentScript&&document.currentScript.previousElementSibling;'
             . 'if(!w||!w.matches("[data-bs-theme-toggle]")){return;}'
             . 'var active=(window.BootstrapUIColorMode&&BootstrapUIColorMode.get())||'
-            . json_encode($config['default'])
+            . json_encode($this->_modeValue($config['default']))
             . ';'
             . 'var ac=' . json_encode($config['activeClass']) . ';'
             . 'w.querySelectorAll("[data-bs-theme-value]").forEach(function(b){'
@@ -175,5 +175,18 @@ class ColorModeHelper extends Helper
             . ' aria-pressed="false">'
             . h($label)
             . '</button>';
+    }
+
+    /**
+     * Coerce a mode value to its string form. Accepts a ColorMode case or a
+     * raw string ("light", "dark", "auto", or a custom string for apps that
+     * register additional themes via the `modes` config).
+     *
+     * @param \BootstrapUI\View\Helper\ColorMode|string $mode Mode value.
+     * @return string Lower-case string identifier (e.g. `'light'`).
+     */
+    protected function _modeValue(ColorMode|string $mode): string
+    {
+        return $mode instanceof ColorMode ? $mode->value : $mode;
     }
 }
