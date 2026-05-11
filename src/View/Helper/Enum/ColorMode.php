@@ -1,7 +1,7 @@
 <?php
 declare(strict_types=1);
 
-namespace BootstrapUI\View\Helper;
+namespace BootstrapUI\View\Helper\Enum;
 
 /**
  * Bootstrap 5.3 color mode values.

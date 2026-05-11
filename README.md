@@ -1357,7 +1357,7 @@ The helper accepts overrides either at construction (via `loadHelper()`) or
 per call:
 
 ```php
-use BootstrapUI\View\Helper\ColorMode;
+use BootstrapUI\View\Helper\Enum\ColorMode;
 
 echo $this->ColorMode->toggle([
     'modes' => [ColorMode::Light, ColorMode::Dark], // hide 'auto'

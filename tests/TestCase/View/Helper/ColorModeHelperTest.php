@@ -3,8 +3,8 @@ declare(strict_types=1);
 
 namespace BootstrapUI\Test\TestCase\View\Helper;
 
-use BootstrapUI\View\Helper\ColorMode;
 use BootstrapUI\View\Helper\ColorModeHelper;
+use BootstrapUI\View\Helper\Enum\ColorMode;
 use Cake\TestSuite\TestCase;
 use Cake\View\View;
 

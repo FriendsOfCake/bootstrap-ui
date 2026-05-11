@@ -3,6 +3,7 @@ declare(strict_types=1);
 
 namespace BootstrapUI\View\Helper;
 
+use BootstrapUI\View\Helper\Enum\ColorMode;
 use Cake\View\Helper;
 use function Cake\Core\h;
 
@@ -182,7 +183,7 @@ class ColorModeHelper extends Helper
      * raw string ("light", "dark", "auto", or a custom string for apps that
      * register additional themes via the `modes` config).
      *
-     * @param \BootstrapUI\View\Helper\ColorMode|string $mode Mode value.
+     * @param \BootstrapUI\View\Helper\Enum\ColorMode|string $mode Mode value.
      * @return string Lower-case string identifier (e.g. `'light'`).
      */
     protected function _modeValue(ColorMode|string $mode): string
