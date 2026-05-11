@@ -290,6 +290,12 @@ class PaginatorHelper extends CorePaginatorHelper
         $label = $options['label'];
         unset($options['label']);
 
+        // When `templates` is a file name (string), pass it through to the
+        // caller untouched so it can load the file via the templater.
+        if (is_string($options['templates'])) {
+            return $options;
+        }
+
         $options['templates'] += [
             "{$name}" => $this->getConfig("templates.{$name}", ''),
             "{$name}Active" => $this->getConfig("templates.{$name}Active", ''),

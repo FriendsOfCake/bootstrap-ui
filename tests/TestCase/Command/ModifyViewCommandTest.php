@@ -141,6 +141,39 @@ class ModifyViewCommandTest extends TestCase
         );
     }
 
+    public function testAlreadyModifiedReportsError()
+    {
+        // Running the command on a file that has already been modified
+        // must be a no-op (no duplicate `parent::initialize();`) and report
+        // an error instead of silently succeeding.
+        /** @var \BootstrapUI\Command\ModifyViewCommand|\PHPUnit\Framework\MockObject\MockObject $command */
+        $command = $this
+            ->getMockBuilder(ModifyViewCommand::class)
+            ->onlyMethods(['_writeFile'])
+            ->getMock();
+
+        $command
+            ->expects($this->never())
+            ->method('_writeFile');
+
+        $out = new StubConsoleOutput();
+        $err = new StubConsoleOutput();
+        $io = new ConsoleIo($out, $err);
+
+        try {
+            $result = $command->run([], $io);
+        } catch (StopException $exception) {
+            $result = $exception->getCode();
+        }
+
+        $filePath = APP . 'View' . DS . 'AppView.php';
+        $this->assertEquals(Command::CODE_ERROR, $result);
+        $this->assertEquals(
+            ["<error>Could not modify `$filePath`.</error>"],
+            $err->messages(),
+        );
+    }
+
     public function testFileCannotBeRead()
     {
         /** @var \BootstrapUI\Command\ModifyViewCommand|\PHPUnit\Framework\MockObject\MockObject $command */
@@ -179,6 +212,22 @@ class ModifyViewCommandTest extends TestCase
 
     public function testFileCannotBeWritten()
     {
+        // _modifyView only calls _writeFile when the file content actually
+        // needs changes, so swap in an unmodified skeleton for this test.
+        $comparisonsPath =
+            Plugin::path('BootstrapUI') . 'tests' . DS . 'comparisons' . DS . 'Command' . DS . 'ModifyView' . DS;
+
+        $filePath = APP . 'View' . DS . 'AppView.php';
+
+        copy(
+            $filePath,
+            APP . 'View' . DS . 'AppView.php.backup',
+        );
+        copy(
+            $comparisonsPath . 'AppView.skeleton.php',
+            $filePath,
+        );
+
         /** @var \BootstrapUI\Command\ModifyViewCommand|\PHPUnit\Framework\MockObject\MockObject $command */
         $command = $this
             ->getMockBuilder(ModifyViewCommand::class)
@@ -199,8 +248,6 @@ class ModifyViewCommandTest extends TestCase
         } catch (StopException $exception) {
             $result = $exception->getCode();
         }
-
-        $filePath = APP . 'View' . DS . 'AppView.php';
 
         $this->assertEquals(Command::CODE_ERROR, $result);
         $this->assertEquals(

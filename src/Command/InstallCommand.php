@@ -190,33 +190,40 @@ class InstallCommand extends Command
     protected function _runNPMInstall(array &$output, int &$return, ConsoleIo $io, bool $useLatest = false): void
     {
         $pluginPath = Plugin::path('BootstrapUI');
+        $previousCwd = getcwd();
         if (!$this->_changeWorkingDirectory($pluginPath)) {
             $io->error("Could not change into plugin directory `$pluginPath`.");
             $this->abort();
         }
 
-        $args = [];
-        if ($useLatest) {
-            $args[] = '--package-lock false';
+        try {
+            $args = [];
+            if ($useLatest) {
+                $args[] = '--package-lock false';
+            }
+            switch ($io->level()) {
+                case ConsoleIo::QUIET:
+                    if ($this->_isWindows()) {
+                        $null = 'NUL';
+                    } else {
+                        $null = '/dev/null';
+                    }
+
+                    $args[] = "--silent > $null";
+                    break;
+
+                case ConsoleIo::VERBOSE:
+                    $args[] = '--verbose';
+                    break;
+            }
+            $args = implode(' ', $args);
+
+            exec("npm install $args", $output, $return);
+        } finally {
+            if ($previousCwd !== false) {
+                $this->_changeWorkingDirectory($previousCwd);
+            }
         }
-        switch ($io->level()) {
-            case ConsoleIo::QUIET:
-                if ($this->_isWindows()) {
-                    $null = 'NUL';
-                } else {
-                    $null = '/dev/null';
-                }
-
-                $args[] = "--silent > $null";
-                break;
-
-            case ConsoleIo::VERBOSE:
-                $args[] = '--verbose';
-                break;
-        }
-        $args = implode(' ', $args);
-
-        exec("npm install $args", $output, $return);
     }
 
     /**

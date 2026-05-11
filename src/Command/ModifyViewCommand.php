@@ -60,21 +60,33 @@ class ModifyViewCommand extends Command
             return false;
         }
 
-        $content = str_replace(
-            'use Cake\\View\\View',
-            'use BootstrapUI\\View\\UIView',
-            $content,
-        );
-        $content = str_replace(
-            'class AppView extends View',
-            'class AppView extends UIView',
-            $content,
-        );
-        $content = str_replace(
-            "    public function initialize(): void\n    {\n",
-            "    public function initialize(): void\n    {\n        parent::initialize();\n",
-            $content,
-        );
+        $original = $content;
+
+        if (!str_contains($content, 'use BootstrapUI\\View\\UIView')) {
+            $content = str_replace(
+                'use Cake\\View\\View',
+                'use BootstrapUI\\View\\UIView',
+                $content,
+            );
+        }
+        if (!str_contains($content, 'class AppView extends UIView')) {
+            $content = str_replace(
+                'class AppView extends View',
+                'class AppView extends UIView',
+                $content,
+            );
+        }
+        if (!str_contains($content, 'parent::initialize();')) {
+            $content = str_replace(
+                "    public function initialize(): void\n    {\n",
+                "    public function initialize(): void\n    {\n        parent::initialize();\n",
+                $content,
+            );
+        }
+
+        if ($content === $original) {
+            return false;
+        }
 
         return $this->_writeFile($filePath, $content);
     }
