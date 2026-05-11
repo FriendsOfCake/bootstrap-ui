@@ -95,32 +95,47 @@ class ColorModeHelperTest extends TestCase
         $this->assertStringContainsString('BootstrapUIColorMode.set', $html);
     }
 
-    public function testToggleCustomModesAndLabels(): void
+    public function testToggleCustomModesAndAria(): void
     {
         $html = $this->ColorMode->toggle([
             'modes' => ['dark', 'light'],
-            'labels' => ['dark' => 'Nacht', 'light' => 'Tag'],
             'wrapperClass' => 'btn-group',
             'ariaLabel' => 'Farbschema',
         ]);
 
         $this->assertStringContainsString('aria-label="Farbschema"', $html);
         $this->assertStringContainsString('class="btn-group"', $html);
-        $this->assertStringContainsString('>Nacht<', $html);
-        $this->assertStringContainsString('>Tag<', $html);
-        // `auto` is intentionally omitted by config.
+        // Default mode order is overridden; `auto` is intentionally omitted.
+        $this->assertMatchesRegularExpression(
+            '/data-bs-theme-value="dark".*data-bs-theme-value="light"/s',
+            $html,
+        );
         $this->assertStringNotContainsString('data-bs-theme-value="auto"', $html);
     }
 
-    public function testToggleEscapesUserSuppliedLabel(): void
+    /**
+     * Custom theme strings (non-enum modes) are escaped both in the attribute
+     * value and the rendered label (which falls back to `ucfirst($mode)`).
+     */
+    public function testToggleEscapesCustomModeString(): void
     {
         $html = $this->ColorMode->toggle([
-            'modes' => ['light'],
-            'labels' => ['light' => 'Light<script>alert(1)</script>'],
+            'modes' => ['light<script>alert(1)</script>'],
         ]);
 
         $this->assertStringNotContainsString('<script>alert(1)</script>', $html);
         $this->assertStringContainsString('&lt;script&gt;alert(1)&lt;/script&gt;', $html);
+    }
+
+    /**
+     * The enum exposes labels via `EnumLabelInterface`, so the helper picks
+     * them up automatically — no `labels` config involved.
+     */
+    public function testEnumProvidesLabels(): void
+    {
+        $this->assertSame('Light', ColorMode::Light->label());
+        $this->assertSame('Dark', ColorMode::Dark->label());
+        $this->assertSame('Auto', ColorMode::Auto->label());
     }
 
     /**

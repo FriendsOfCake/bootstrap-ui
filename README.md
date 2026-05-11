@@ -1361,7 +1361,6 @@ use BootstrapUI\View\Helper\Enum\ColorMode;
 
 echo $this->ColorMode->toggle([
     'modes' => [ColorMode::Light, ColorMode::Dark], // hide 'auto'
-    'labels' => ['light' => __('Tag'), 'dark' => __('Nacht')],
     'wrapperClass' => 'btn-group',         // default is `btn-group btn-group-sm`
     'ariaLabel' => __('Farbschema'),
 ]);
@@ -1371,7 +1370,14 @@ echo $this->ColorMode->toggle([
 `ColorMode::Dark`, `ColorMode::Auto`) or the equivalent strings (`'light'`,
 `'dark'`, `'auto'`). The rendered markup uses the string value either way.
 
-Supported config keys: `storageKey`, `default`, `target`, `modes`, `labels`,
+Button labels come from the enum: `ColorMode` implements CakePHP's
+`EnumLabelInterface`, so `Light`/`Dark`/`Auto` are translated through the
+standard `__()` catalog (same mechanism `FormHelper` uses for enum-backed
+selects). To localize them, translate the strings `Light`, `Dark`, and `Auto`
+in your app's translation files. Custom theme modes passed as strings render
+their label via `ucfirst()` as a default.
+
+Supported config keys: `storageKey`, `default`, `target`, `modes`,
 `ariaLabel`, `wrapperClass`, `buttonClass`, `activeClass`.
 
 ### Helper configuration

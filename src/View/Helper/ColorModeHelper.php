@@ -33,15 +33,10 @@ class ColorModeHelper extends Helper
         // Default `html` matches the BS5.3 documentation pattern.
         'target' => 'html',
         // Modes (and their order) shown in the toggle. Each entry may be a
-        // ColorMode case or a string.
+        // ColorMode case or a string. ColorMode cases provide their label
+        // via `EnumLabelInterface`; raw strings fall back to `ucfirst($value)`.
+        // Override labels via the standard i18n catalog.
         'modes' => [ColorMode::Light, ColorMode::Dark, ColorMode::Auto],
-        // Labels shown on the toggle buttons. Keyed by the mode's string
-        // value. Override for i18n.
-        'labels' => [
-            'light' => 'Light',
-            'dark' => 'Dark',
-            'auto' => 'Auto',
-        ],
         // ARIA label for the toggle group.
         'ariaLabel' => 'Color mode',
         // Default CSS classes for the toggle wrapper (BS5 btn-group).
@@ -107,7 +102,6 @@ class ColorModeHelper extends Helper
     {
         $config = $options + $this->getConfig();
         $modes = (array)$config['modes'];
-        $labels = (array)$config['labels'];
 
         $wrapperAttrs = [
             'class' => $config['wrapperClass'],
@@ -119,8 +113,8 @@ class ColorModeHelper extends Helper
         $buttons = '';
         foreach ($modes as $mode) {
             $value = $this->_modeValue($mode);
-            $label = $labels[$value] ?? ucfirst($value);
-            $buttons .= $this->_button($value, (string)$label, (string)$config['buttonClass']);
+            $label = $this->_modeLabel($mode);
+            $buttons .= $this->_button($value, $label, (string)$config['buttonClass']);
         }
 
         $initJs = '(function(){'
@@ -189,5 +183,23 @@ class ColorModeHelper extends Helper
     protected function _modeValue(ColorMode|string $mode): string
     {
         return $mode instanceof ColorMode ? $mode->value : $mode;
+    }
+
+    /**
+     * Resolve the visible label for a mode. ColorMode cases delegate to their
+     * `label()` (translated via the i18n catalog); raw strings fall back to
+     * `ucfirst($value)` so apps registering custom themes still get a sensible
+     * default.
+     *
+     * @param \BootstrapUI\View\Helper\Enum\ColorMode|string $mode Mode value.
+     * @return string
+     */
+    protected function _modeLabel(ColorMode|string $mode): string
+    {
+        if ($mode instanceof ColorMode) {
+            return $mode->label();
+        }
+
+        return ucfirst($mode);
     }
 }
