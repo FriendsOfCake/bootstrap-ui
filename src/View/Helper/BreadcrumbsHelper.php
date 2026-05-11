@@ -112,8 +112,9 @@ class BreadcrumbsHelper extends CoreBreadcrumbsHelper
 
         $key = null;
         if ($this->getConfig('ariaCurrent') === 'lastWithLink') {
-            foreach (array_reverse($this->crumbs, true) as $key => $crumb) {
+            foreach (array_reverse($this->crumbs, true) as $i => $crumb) {
                 if (isset($crumb['url'])) {
+                    $key = $i;
                     break;
                 }
             }
@@ -121,7 +122,7 @@ class BreadcrumbsHelper extends CoreBreadcrumbsHelper
             $key = count($this->crumbs) - 1;
         }
 
-        if (!$key) {
+        if ($key === null) {
             return;
         }
 

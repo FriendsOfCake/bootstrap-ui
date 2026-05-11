@@ -275,4 +275,24 @@ class BreadcrumbsHelperTest extends TestCase
         $result = $this->Breadcrumbs->render();
         $this->assertEmpty($result);
     }
+
+    public function testSingleCrumbIsMarkedActive()
+    {
+        $result = $this->Breadcrumbs
+            ->add('only')
+            ->render();
+
+        $expected = [
+            'nav' => ['aria-label' => 'breadcrumb'],
+                'ol' => ['class' => 'breadcrumb'],
+                    ['li' => ['class' => 'breadcrumb-item active', 'aria-current' => 'page']],
+                        ['span' => true],
+                        'only',
+                        '/span',
+                    '/li',
+                '/ol',
+            '/nav',
+        ];
+        $this->assertHtml($expected, $result);
+    }
 }

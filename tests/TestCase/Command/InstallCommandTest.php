@@ -14,6 +14,7 @@ use Cake\Core\Configure;
 use Cake\Core\Plugin;
 use Cake\TestSuite\TestCase;
 use Cake\Utility\Filesystem;
+use ReflectionMethod;
 use SplFileInfo;
 
 class InstallCommandTest extends TestCase
@@ -758,6 +759,27 @@ EOT;
             ['<error>Linking plugin assets failed.</error>'],
             $err->messages(),
         );
+    }
+
+    /**
+     * `_runNPMInstall()` previously left the process cwd inside the plugin
+     * directory because it called `chdir()` without restoring it. Any later
+     * relative-path work in the same process would then resolve incorrectly.
+     */
+    public function testRunNPMInstallRestoresCwd()
+    {
+        $cwdBefore = getcwd();
+        $this->assertNotFalse($cwdBefore);
+
+        $command = new InstallCommand();
+        $io = new ConsoleIo(new StubConsoleOutput(), new StubConsoleOutput());
+        $output = [];
+        $return = 0;
+
+        $method = new ReflectionMethod(InstallCommand::class, '_runNPMInstall');
+        $method->invokeArgs($command, [&$output, &$return, $io, false]);
+
+        $this->assertSame($cwdBefore, getcwd(), 'Working directory was not restored after _runNPMInstall.');
     }
 
     public function testHelp()

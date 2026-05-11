@@ -479,50 +479,52 @@ class FormHelper extends CoreFormHelper
             $options['templates'] = [];
         }
 
-        switch ($options['type']) {
-            case 'checkbox':
-            case 'radio':
-            case 'select':
-            case 'range':
-                $function = '_' . $options['type'] . 'Options';
-                $options = $this->{$function}($fieldName, $options);
-                break;
+        try {
+            switch ($options['type']) {
+                case 'checkbox':
+                case 'radio':
+                case 'select':
+                case 'range':
+                    $function = '_' . $options['type'] . 'Options';
+                    $options = $this->{$function}($fieldName, $options);
+                    break;
 
-            default:
-                $options = $this->_labelOptions($fieldName, $options);
-                break;
-        }
+                default:
+                    $options = $this->_labelOptions($fieldName, $options);
+                    break;
+            }
 
-        $options = $this->_spacingOptions($fieldName, $options);
-        $options = $this->_containerOptions($fieldName, $options);
-        $options = $this->_feedbackStyleOptions($fieldName, $options);
-        $options = $this->_ariaOptions($fieldName, $options);
-        $options = $this->_placeholderOptions($fieldName, $options);
-        $options = $this->_helpOptions($fieldName, $options);
-        $options = $this->_tooltipOptions($fieldName, $options);
+            $options = $this->_spacingOptions($fieldName, $options);
+            $options = $this->_containerOptions($fieldName, $options);
+            $options = $this->_feedbackStyleOptions($fieldName, $options);
+            $options = $this->_ariaOptions($fieldName, $options);
+            $options = $this->_placeholderOptions($fieldName, $options);
+            $options = $this->_helpOptions($fieldName, $options);
+            $options = $this->_tooltipOptions($fieldName, $options);
 
-        if (
-            isset($options['append']) ||
-            isset($options['prepend'])
-        ) {
-            $options['injectErrorClass'] = $this->getConfig('templates.errorClass');
-        }
+            if (
+                isset($options['append']) ||
+                isset($options['prepend'])
+            ) {
+                $options['injectErrorClass'] = $this->getConfig('templates.errorClass');
+            }
 
-        unset(
-            $options['formGroupPosition'],
-            $options['feedbackStyle'],
-            $options['spacing'],
-            $options['inline'],
-            $options['nestedInput'],
-            $options['switch'],
-        );
+            unset(
+                $options['formGroupPosition'],
+                $options['feedbackStyle'],
+                $options['spacing'],
+                $options['inline'],
+                $options['nestedInput'],
+                $options['switch'],
+            );
 
-        $result = parent::control($fieldName, $options);
+            $result = parent::control($fieldName, $options);
 
-        $result = $this->_postProcessElement($result, $fieldName, $options);
-
-        if ($newTemplates) {
-            $this->templater()->pop();
+            $result = $this->_postProcessElement($result, $fieldName, $options);
+        } finally {
+            if ($newTemplates) {
+                $this->templater()->pop();
+            }
         }
 
         return $result;

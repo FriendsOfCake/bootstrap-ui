@@ -474,6 +474,24 @@ class PaginatorHelperTest extends TestCase
         $this->assertHtml($expected, $result);
     }
 
+    /**
+     * The `templates` option is documented as accepting a file name in addition
+     * to an array. Passing a string previously crashed in `_templateOptions`
+     * which tried to array-merge it.
+     */
+    public function testFirstCustomTemplateFile()
+    {
+        $result = $this->Paginator->first('«', [
+            'templates' => 'paginator_templates',
+        ]);
+        $expected = [
+            ['a' => ['data-from-file' => '1', 'href' => '/Clients/index']],
+                '«',
+            '/a',
+        ];
+        $this->assertHtml($expected, $result);
+    }
+
     public function testLast()
     {
         $result = $this->Paginator->last();
