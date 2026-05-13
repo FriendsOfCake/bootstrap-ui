@@ -32,11 +32,13 @@ class ColorModeHelper extends Helper
         // CSS selector for the element that carries `data-bs-theme`.
         // Default `html` matches the BS5.3 documentation pattern.
         'target' => 'html',
-        // Modes (and their order) shown in the toggle. Each entry may be a
-        // ColorMode case or a string. ColorMode cases provide their label
-        // via `EnumLabelInterface`; raw strings fall back to `ucfirst($value)`.
-        // Override labels via the standard i18n catalog.
-        'modes' => [ColorMode::Light, ColorMode::Dark, ColorMode::Auto],
+        // Modes (and their order) shown in the toggle. `null` (the default)
+        // renders all `ColorMode` cases in declaration order. Pass an array to
+        // reorder or subset, e.g. `[ColorMode::Dark, ColorMode::Light]` to drop
+        // `auto`. Each entry may be a ColorMode case or a string; cases provide
+        // their label via `EnumLabelInterface`, raw strings fall back to
+        // `ucfirst($value)`. Override labels via the standard i18n catalog.
+        'modes' => null,
         // ARIA label for the toggle group.
         'ariaLabel' => 'Color mode',
         // Default CSS classes for the toggle wrapper (BS5 btn-group).
@@ -101,7 +103,7 @@ class ColorModeHelper extends Helper
     public function toggle(array $options = []): string
     {
         $config = $options + $this->getConfig();
-        $modes = (array)$config['modes'];
+        $modes = $config['modes'] ?? ColorMode::cases();
 
         $wrapperAttrs = [
             'class' => $config['wrapperClass'],
