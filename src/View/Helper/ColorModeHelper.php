@@ -68,23 +68,26 @@ class ColorModeHelper extends Helper
     {
         $config = $options + $this->getConfig();
 
-        $storageKey = json_encode($config['storageKey']);
-        $default = json_encode($this->_modeValue($config['default']));
-        $target = json_encode($config['target']);
+        $storageKey = $this->_jsonValue($config['storageKey']);
+        $default = $this->_jsonValue($this->_modeValue($config['default']));
+        $target = $this->_jsonValue($config['target']);
 
         // Inline IIFE; ASCII-only so it survives any reasonable CSP/serializer.
+        // localStorage access is wrapped in try/catch — when storage is blocked
+        // (private mode, security policy) the script must still apply the
+        // default theme rather than throw and leave a flash of unstyled theme.
         $js = '(function(){'
             . 'var k=' . $storageKey . ',d=' . $default . ',t=' . $target . ';'
             . 'var el=document.querySelector(t)||document.documentElement;'
             . 'var media=window.matchMedia("(prefers-color-scheme: dark)");'
-            . 'function stored(){return localStorage.getItem(k);}'
+            . 'function stored(){try{return localStorage.getItem(k);}catch(e){return null;}}'
             . 'function resolve(m){return m==="auto"?(media.matches?"dark":"light"):m;}'
             . 'function apply(m){var r=resolve(m);el.setAttribute("data-bs-theme",r);'
             . 'document.dispatchEvent(new CustomEvent("bs-theme-changed",{detail:{mode:m,resolved:r}}));}'
             . 'apply(stored()||d);'
             . 'media.addEventListener("change",function(){if((stored()||d)==="auto"){apply("auto");}});'
             . 'window.BootstrapUIColorMode={get:function(){return stored()||d;},'
-            . 'set:function(m){localStorage.setItem(k,m);apply(m);}};'
+            . 'set:function(m){try{localStorage.setItem(k,m);}catch(e){}apply(m);}};'
             . '})();';
 
         return '<script>' . $js . '</script>';
@@ -123,17 +126,16 @@ class ColorModeHelper extends Helper
             . 'var w=document.currentScript&&document.currentScript.previousElementSibling;'
             . 'if(!w||!w.matches("[data-bs-theme-toggle]")){return;}'
             . 'var active=(window.BootstrapUIColorMode&&BootstrapUIColorMode.get())||'
-            . json_encode($this->_modeValue($config['default']))
+            . $this->_jsonValue($this->_modeValue($config['default']))
             . ';'
-            . 'var ac=' . json_encode($config['activeClass']) . ';'
+            . 'var ac=' . $this->_jsonValue($config['activeClass']) . ';'
+            . 'function sync(active){w.querySelectorAll("[data-bs-theme-value]").forEach(function(x){'
+            . 'var on=x.getAttribute("data-bs-theme-value")===active;'
+            . 'x.classList.toggle(ac,on);x.setAttribute("aria-pressed",on?"true":"false");});}'
             . 'w.querySelectorAll("[data-bs-theme-value]").forEach(function(b){'
-            . 'b.addEventListener("click",function(){if(window.BootstrapUIColorMode){'
-            . 'BootstrapUIColorMode.set(b.getAttribute("data-bs-theme-value"));}'
-            . 'w.querySelectorAll("[data-bs-theme-value]").forEach(function(x){x.classList.toggle(ac,x===b);});});'
-            . 'if(b.getAttribute("data-bs-theme-value")===active){'
-            . 'b.classList.add(ac);b.setAttribute("aria-pressed","true");}'
-            . 'else{b.setAttribute("aria-pressed","false");}'
-            . '});'
+            . 'b.addEventListener("click",function(){var v=b.getAttribute("data-bs-theme-value");'
+            . 'if(window.BootstrapUIColorMode){BootstrapUIColorMode.set(v);}sync(v);});});'
+            . 'sync(active);'
             . '})();';
 
         return $this->_wrap($wrapperAttrs, $buttons) . '<script>' . $initJs . '</script>';
@@ -180,11 +182,29 @@ class ColorModeHelper extends Helper
      * register additional themes via the `modes` config).
      *
      * @param \BootstrapUI\View\Helper\Enum\ColorMode|string $mode Mode value.
-     * @return string Lower-case string identifier (e.g. `'light'`).
+     * @return string String identifier (e.g. `'light'`). Raw strings are
+     *  returned as-is so apps registering custom themes keep their casing.
      */
     protected function _modeValue(ColorMode|string $mode): string
     {
         return $mode instanceof ColorMode ? $mode->value : $mode;
+    }
+
+    /**
+     * Encode a scalar config value for safe inlining inside a `<script>` tag.
+     * `JSON_HEX_TAG`/`AMP`/`APOS`/`QUOT` guarantee the output cannot terminate
+     * the surrounding script element even if a config value contains
+     * `</script>` (accidentally or otherwise).
+     *
+     * @param scalar $value Value to encode.
+     * @return string
+     */
+    protected function _jsonValue(mixed $value): string
+    {
+        return (string)json_encode(
+            $value,
+            JSON_HEX_TAG | JSON_HEX_AMP | JSON_HEX_APOS | JSON_HEX_QUOT | JSON_THROW_ON_ERROR,
+        );
     }
 
     /**

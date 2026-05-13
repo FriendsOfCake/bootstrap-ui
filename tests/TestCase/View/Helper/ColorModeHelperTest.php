@@ -167,4 +167,72 @@ class ColorModeHelperTest extends TestCase
         $this->assertSame($fromEnum, $fromString);
         $this->assertStringContainsString('"dark"', $fromEnum);
     }
+
+    /**
+     * Config values inlined into `<script>` must be encoded with `JSON_HEX_TAG`
+     * so a stray `</script>` in (e.g.) a custom `storageKey` cannot terminate
+     * the surrounding script element.
+     */
+    public function testScriptEscapesScriptTagInConfigValues(): void
+    {
+        $html = $this->ColorMode->script([
+            'storageKey' => 'a</script>b',
+        ]);
+
+        // Raw `</script>` from config must not appear unescaped anywhere.
+        $this->assertStringNotContainsString('a</script>b', $html);
+        // The hex-encoded form is what actually lands in the JS string.
+        $expected = json_encode(
+            'a</script>b',
+            JSON_HEX_TAG | JSON_HEX_AMP | JSON_HEX_APOS | JSON_HEX_QUOT,
+        );
+        $this->assertIsString($expected);
+        $this->assertStringContainsString(trim($expected, '"'), $html);
+        // Output still terminates with the legitimate closing tag.
+        $this->assertStringEndsWith('</script>', $html);
+    }
+
+    /**
+     * The page-load script must not throw if `localStorage` access is blocked
+     * (private mode, security policy) — otherwise the FOUC prevention itself
+     * becomes the cause of the FOUC.
+     */
+    public function testScriptGuardsLocalStorageAccess(): void
+    {
+        $html = $this->ColorMode->script();
+
+        $this->assertMatchesRegularExpression('/try\{return localStorage\.getItem/', $html);
+        $this->assertMatchesRegularExpression('/try\{localStorage\.setItem/', $html);
+    }
+
+    /**
+     * The toggle's click handler must keep `aria-pressed` in sync with the
+     * active class so assistive tech sees the same state as visual users.
+     */
+    public function testToggleSyncsAriaPressedOnClick(): void
+    {
+        $html = $this->ColorMode->toggle();
+
+        // Both class and aria-pressed are set together via the sync helper.
+        $this->assertStringContainsString('setAttribute("aria-pressed"', $html);
+        $this->assertMatchesRegularExpression('/classList\.toggle\(ac,on\)/', $html);
+    }
+
+    /**
+     * Toggle's inlined config values are also `</script>`-safe.
+     */
+    public function testToggleEscapesScriptTagInActiveClass(): void
+    {
+        $html = $this->ColorMode->toggle([
+            'activeClass' => 'a</script>b',
+        ]);
+
+        $this->assertStringNotContainsString('a</script>b', $html);
+        $expected = json_encode(
+            'a</script>b',
+            JSON_HEX_TAG | JSON_HEX_AMP | JSON_HEX_APOS | JSON_HEX_QUOT,
+        );
+        $this->assertIsString($expected);
+        $this->assertStringContainsString(trim($expected, '"'), $html);
+    }
 }
