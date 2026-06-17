@@ -1,0 +1,227 @@
+<?php
+declare(strict_types=1);
+
+namespace BootstrapUI\View\Helper;
+
+use BootstrapUI\View\Helper\Enum\ColorMode;
+use Cake\View\Helper;
+use function Cake\Core\h;
+
+/**
+ * ColorModeHelper renders Bootstrap 5.3 color mode (`data-bs-theme`)
+ * support: an inline script that applies the user's stored preference on
+ * page load (preventing FOUC), and a switcher widget the user can interact
+ * with.
+ *
+ * Drop `$this->ColorMode->script()` near the top of `<head>` and
+ * `$this->ColorMode->toggle()` wherever you want the switcher (e.g. navbar).
+ *
+ * @extends \Cake\View\Helper<\Cake\View\View>
+ */
+class ColorModeHelper extends Helper
+{
+    /**
+     * @var array<string, mixed>
+     */
+    protected array $_defaultConfig = [
+        // localStorage key under which the user's choice is persisted.
+        'storageKey' => 'bs-theme',
+        // Mode used when nothing is stored yet. Accepts either a ColorMode
+        // case or its string value ("light", "dark", "auto").
+        'default' => ColorMode::Auto,
+        // CSS selector for the element that carries `data-bs-theme`.
+        // Default `html` matches the BS5.3 documentation pattern.
+        'target' => 'html',
+        // Modes (and their order) shown in the toggle. `null` (the default)
+        // renders all `ColorMode` cases in declaration order. Pass an array to
+        // reorder or subset, e.g. `[ColorMode::Dark, ColorMode::Light]` to drop
+        // `auto`. Each entry may be a ColorMode case or a string; cases provide
+        // their label via `EnumLabelInterface`, raw strings fall back to
+        // `ucfirst($value)`. Override labels via the standard i18n catalog.
+        'modes' => null,
+        // ARIA label for the toggle group.
+        'ariaLabel' => 'Color mode',
+        // Default CSS classes for the toggle wrapper (BS5 btn-group).
+        'wrapperClass' => 'btn-group btn-group-sm',
+        // Default CSS classes applied to each toggle button (without active state).
+        'buttonClass' => 'btn btn-outline-secondary',
+        // Class added to the currently-selected button. Bootstrap's `.active`
+        // pairs naturally with `btn-outline-*`.
+        'activeClass' => 'active',
+    ];
+
+    /**
+     * Emit an inline `<script>` that:
+     *
+     * - reads the stored theme from `localStorage` (key: `storageKey` config),
+     * - resolves `auto` against the user's OS preference,
+     * - sets `data-bs-theme` on the target element (default `<html>`),
+     * - re-resolves on `prefers-color-scheme` changes while in auto mode,
+     * - exposes a tiny global API: `window.BootstrapUIColorMode.{get,set}(mode)`.
+     *
+     * Place this near the top of `<head>` to avoid a flash of unstyled theme.
+     *
+     * @param array<string, mixed> $options Per-call overrides for the helper config.
+     * @return string
+     */
+    public function script(array $options = []): string
+    {
+        $config = $options + $this->getConfig();
+
+        $storageKey = $this->_jsonValue($config['storageKey']);
+        $default = $this->_jsonValue($this->_modeValue($config['default']));
+        $target = $this->_jsonValue($config['target']);
+
+        // Inline IIFE; ASCII-only so it survives any reasonable CSP/serializer.
+        // localStorage access is wrapped in try/catch — when storage is blocked
+        // (private mode, security policy) the script must still apply the
+        // default theme rather than throw and leave a flash of unstyled theme.
+        $js = '(function(){'
+            . 'var k=' . $storageKey . ',d=' . $default . ',t=' . $target . ';'
+            . 'var el=document.querySelector(t)||document.documentElement;'
+            . 'var media=window.matchMedia("(prefers-color-scheme: dark)");'
+            . 'function stored(){try{return localStorage.getItem(k);}catch(e){return null;}}'
+            . 'function resolve(m){return m==="auto"?(media.matches?"dark":"light"):m;}'
+            . 'function apply(m){var r=resolve(m);el.setAttribute("data-bs-theme",r);'
+            . 'document.dispatchEvent(new CustomEvent("bs-theme-changed",{detail:{mode:m,resolved:r}}));}'
+            . 'apply(stored()||d);'
+            . 'media.addEventListener("change",function(){if((stored()||d)==="auto"){apply("auto");}});'
+            . 'window.BootstrapUIColorMode={get:function(){return stored()||d;},'
+            . 'set:function(m){try{localStorage.setItem(k,m);}catch(e){}apply(m);}};'
+            . '})();';
+
+        return '<script>' . $js . '</script>';
+    }
+
+    /**
+     * Render a Bootstrap button-group color-mode toggle. Clicking a button
+     * calls `BootstrapUIColorMode.set('light'|'dark'|'auto')`, which both
+     * persists the choice and applies it. The selected button is rendered with
+     * the configured active class so screen readers and visual users agree on
+     * the current state.
+     *
+     * @param array<string, mixed> $options Per-call overrides for the helper config.
+     * @return string
+     */
+    public function toggle(array $options = []): string
+    {
+        $config = $options + $this->getConfig();
+        $modes = $config['modes'] ?? ColorMode::cases();
+
+        $wrapperAttrs = [
+            'class' => $config['wrapperClass'],
+            'role' => 'group',
+            'aria-label' => $config['ariaLabel'],
+            'data-bs-theme-toggle' => '1',
+        ];
+
+        $buttons = '';
+        foreach ($modes as $mode) {
+            $value = $this->_modeValue($mode);
+            $label = $this->_modeLabel($mode);
+            $buttons .= $this->_button($value, $label, (string)$config['buttonClass']);
+        }
+
+        $initJs = '(function(){'
+            . 'var w=document.currentScript&&document.currentScript.previousElementSibling;'
+            . 'if(!w||!w.matches("[data-bs-theme-toggle]")){return;}'
+            . 'var active=(window.BootstrapUIColorMode&&BootstrapUIColorMode.get())||'
+            . $this->_jsonValue($this->_modeValue($config['default']))
+            . ';'
+            . 'var ac=' . $this->_jsonValue($config['activeClass']) . ';'
+            . 'function sync(active){w.querySelectorAll("[data-bs-theme-value]").forEach(function(x){'
+            . 'var on=x.getAttribute("data-bs-theme-value")===active;'
+            . 'x.classList.toggle(ac,on);x.setAttribute("aria-pressed",on?"true":"false");});}'
+            . 'w.querySelectorAll("[data-bs-theme-value]").forEach(function(b){'
+            . 'b.addEventListener("click",function(){var v=b.getAttribute("data-bs-theme-value");'
+            . 'if(window.BootstrapUIColorMode){BootstrapUIColorMode.set(v);}sync(v);});});'
+            . 'sync(active);'
+            . '})();';
+
+        return $this->_wrap($wrapperAttrs, $buttons) . '<script>' . $initJs . '</script>';
+    }
+
+    /**
+     * Render the wrapper element for the toggle.
+     *
+     * @param array<string, string> $attrs Wrapper attributes.
+     * @param string $content Inner HTML.
+     * @return string
+     */
+    protected function _wrap(array $attrs, string $content): string
+    {
+        $rendered = '';
+        foreach ($attrs as $name => $value) {
+            $rendered .= ' ' . $name . '="' . h($value) . '"';
+        }
+
+        return '<div' . $rendered . '>' . $content . '</div>';
+    }
+
+    /**
+     * Render a single toggle button.
+     *
+     * @param string $value The data-bs-theme-value (also the storage value).
+     * @param string $label Visible label.
+     * @param string $buttonClass Button CSS classes (without active state).
+     * @return string
+     */
+    protected function _button(string $value, string $label, string $buttonClass): string
+    {
+        return '<button type="button"'
+            . ' class="' . h($buttonClass) . '"'
+            . ' data-bs-theme-value="' . h($value) . '"'
+            . ' aria-pressed="false">'
+            . h($label)
+            . '</button>';
+    }
+
+    /**
+     * Coerce a mode value to its string form. Accepts a ColorMode case or a
+     * raw string ("light", "dark", "auto", or a custom string for apps that
+     * register additional themes via the `modes` config).
+     *
+     * @param \BootstrapUI\View\Helper\Enum\ColorMode|string $mode Mode value.
+     * @return string String identifier (e.g. `'light'`). Raw strings are
+     *  returned as-is so apps registering custom themes keep their casing.
+     */
+    protected function _modeValue(ColorMode|string $mode): string
+    {
+        return $mode instanceof ColorMode ? $mode->value : $mode;
+    }
+
+    /**
+     * Encode a scalar config value for safe inlining inside a `<script>` tag.
+     * `JSON_HEX_TAG`/`AMP`/`APOS`/`QUOT` guarantee the output cannot terminate
+     * the surrounding script element even if a config value contains
+     * `</script>` (accidentally or otherwise).
+     *
+     * @param scalar $value Value to encode.
+     * @return string
+     */
+    protected function _jsonValue(mixed $value): string
+    {
+        return (string)json_encode(
+            $value,
+            JSON_HEX_TAG | JSON_HEX_AMP | JSON_HEX_APOS | JSON_HEX_QUOT | JSON_THROW_ON_ERROR,
+        );
+    }
+
+    /**
+     * Resolve the visible label for a mode. ColorMode cases delegate to their
+     * `label()` (translated via the i18n catalog); raw strings fall back to
+     * `ucfirst($value)` so apps registering custom themes still get a sensible
+     * default.
+     *
+     * @param \BootstrapUI\View\Helper\Enum\ColorMode|string $mode Mode value.
+     * @return string
+     */
+    protected function _modeLabel(ColorMode|string $mode): string
+    {
+        if ($mode instanceof ColorMode) {
+            return $mode->label();
+        }
+
+        return ucfirst($mode);
+    }
+}

@@ -16,6 +16,7 @@ use Cake\View\View;
  * @property \BootstrapUI\View\Helper\HtmlHelper $Html
  * @property \BootstrapUI\View\Helper\PaginatorHelper $Paginator
  * @property \BootstrapUI\View\Helper\BreadcrumbsHelper $Breadcrumbs
+ * @property \BootstrapUI\View\Helper\ColorModeHelper $ColorMode
  */
 class UIView extends View
 {

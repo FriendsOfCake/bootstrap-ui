@@ -3,6 +3,7 @@ declare(strict_types=1);
 
 namespace BootstrapUI\View;
 
+use BootstrapUI\View\Helper\ColorModeHelper;
 use Cake\TestSuite\TestCase;
 
 class UIViewTest extends TestCase
@@ -64,5 +65,19 @@ class UIViewTest extends TestCase
         ]);
 
         $this->assertEquals('bar', $View->Form->getConfig('foo'));
+    }
+
+    /**
+     * The new ColorMode helper must be auto-loaded by UIViewTrait so that
+     * `$this->ColorMode->script()` and `->toggle()` are available without
+     * extra app wiring.
+     */
+    public function testColorModeHelperIsAutoLoaded()
+    {
+        $this->View->initialize();
+        $this->assertInstanceOf(
+            ColorModeHelper::class,
+            $this->View->ColorMode,
+        );
     }
 }
