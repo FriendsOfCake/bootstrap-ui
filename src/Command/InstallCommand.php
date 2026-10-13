@@ -7,7 +7,7 @@ use Cake\Command\Command;
 use Cake\Command\PluginAssetsRemoveCommand;
 use Cake\Command\PluginAssetsSymlinkCommand;
 use Cake\Console\Arguments;
-use Cake\Console\ConsoleIo;
+use Cake\Console\ConsoleIoInterface;
 use Cake\Console\ConsoleOptionParser;
 use Cake\Core\Plugin;
 use Cake\Utility\Filesystem;
@@ -28,94 +28,83 @@ class InstallCommand extends Command
     /**
      * @inheritDoc
      */
-    public function execute(Arguments $args, ConsoleIo $io): ?int
+    public function execute(): ?int
     {
-        $this->installPackages($args, $io);
-        $this->refreshAssetBuffer($io);
-        $this->removePluginAssets($io);
-        $this->linkPluginAssets($io);
-
-        $io->out();
-        $io->success('Installation completed.');
+        $this->installPackages();
+        $this->refreshAssetBuffer();
+        $this->removePluginAssets();
+        $this->linkPluginAssets();
+        $this->io->out();
+        $this->io->success('Installation completed.');
 
         return static::CODE_SUCCESS;
     }
 
     /**
      * Installs Bootstrap dependencies using NPM.
-     *
-     * @param \Cake\Console\Arguments $args The command arguments.
-     * @param \Cake\Console\ConsoleIo $io The console io.
+
      * @return void
      */
-    public function installPackages(Arguments $args, ConsoleIo $io): void
+    public function installPackages(): void
     {
-        if (!$this->_isNPMAvailable()) {
-            $io->error('NPM (https://www.npmjs.com/) is required, but not installed. Aborting.');
+        if (!$this->isNPMAvailable()) {
+            $this->io->error('NPM (https://www.npmjs.com/) is required, but not installed. Aborting.');
             $this->abort();
         }
-
-        $io->info('Clearing `node_modules` folder (this can take a while)...');
-        if (!$this->_deleteNodeModules()) {
-            $io->error('Could not clear `node_modules` folder.');
+        $this->io->info('Clearing `node_modules` folder (this can take a while)...');
+        if (!$this->deleteNodeModules()) {
+            $this->io->error('Could not clear `node_modules` folder.');
             $this->abort();
         }
-        $io->success('Cleared `node_modules` folder.');
-
-        $io->info('Installing packages...');
-
+        $this->io->success('Cleared `node_modules` folder.');
+        $this->io->info('Installing packages...');
         $output = [];
         $return = 0;
-        $this->_runNPMInstall($output, $return, $io, $args->getOption('latest') === true);
-        $io->out($output);
-
+        $this->runNPMInstall($output, $return, $this->args->getOption('latest') === true);
+        $this->io->out($output);
         if ($return !== 0) {
-            $io->error('Package installation failed.');
+            $this->io->error('Package installation failed.');
             $this->abort($return);
         }
-        $io->success('Packages installed successfully.');
+        $this->io->success('Packages installed successfully.');
     }
 
     /**
      * Extracts assets from node packages into the plugin's webroot.
      *
-     * @param \Cake\Console\ConsoleIo $io The console io.
      * @return void
      */
-    public function refreshAssetBuffer(ConsoleIo $io): void
+    public function refreshAssetBuffer(): void
     {
-        $io->info('Refreshing package asset buffer...');
-        if (!$this->_deleteBufferedPackageAssets($io)) {
-            $io->error('Could not clear all buffered files.');
+        $this->io->info('Refreshing package asset buffer...');
+        if (!$this->deleteBufferedPackageAssets()) {
+            $this->io->error('Could not clear all buffered files.');
             $this->abort();
         } else {
-            $io->success('All buffered files cleared.');
+            $this->io->success('All buffered files cleared.');
         }
-
-        if (!$this->_bufferPackageAssets($io)) {
-            $io->error('Could not buffer all files.');
+        if (!$this->bufferPackageAssets()) {
+            $this->io->error('Could not buffer all files.');
             $this->abort();
         } else {
-            $io->success('All files buffered.');
+            $this->io->success('All files buffered.');
         }
     }
 
     /**
      * Removes possibly already linked plugin assets from the application's webroot.
      *
-     * @param \Cake\Console\ConsoleIo $io The console io.
      * @return void
      */
-    public function removePluginAssets(ConsoleIo $io): void
+    public function removePluginAssets(): void
     {
-        $io->info('Removing possibly existing plugin assets...');
-
-        $result = $this->executeCommand(PluginAssetsRemoveCommand::class, ['name' => 'BootstrapUI'], $io);
+        $this->io->info('Removing possibly existing plugin assets...');
+        $result = $this->executeCommand(PluginAssetsRemoveCommand::class, ['name' => 'BootstrapUI']);
         if (
             $result !== static::CODE_SUCCESS &&
             $result !== null
         ) {
-            $io->error('Removing plugin assets failed.');
+            $this->io->error('Removing plugin assets failed.');
             $this->abort($result);
         }
     }
@@ -123,19 +112,17 @@ class InstallCommand extends Command
     /**
      * Links the plugin assets into the application's webroot.
      *
-     * @param \Cake\Console\ConsoleIo $io The console io.
      * @return void
      */
-    public function linkPluginAssets(ConsoleIo $io): void
+    public function linkPluginAssets(): void
     {
-        $io->info('Linking plugin assets...');
-
-        $result = $this->executeCommand(PluginAssetsSymlinkCommand::class, ['name' => 'BootstrapUI'], $io);
+        $this->io->info('Linking plugin assets...');
+        $result = $this->executeCommand(PluginAssetsSymlinkCommand::class, ['name' => 'BootstrapUI']);
         if (
             $result !== static::CODE_SUCCESS &&
             $result !== null
         ) {
-            $io->error('Linking plugin assets failed.');
+            $this->io->error('Linking plugin assets failed.');
             $this->abort($result);
         }
     }
@@ -145,9 +132,9 @@ class InstallCommand extends Command
      *
      * @return bool
      */
-    protected function _isNPMAvailable(): bool
+    protected function isNPMAvailable(): bool
     {
-        if ($this->_isWindows()) {
+        if ($this->isWindows()) {
             $command = 'where npm';
         } else {
             $command = 'which npm';
@@ -161,7 +148,7 @@ class InstallCommand extends Command
      *
      * @return bool
      */
-    protected function _isWindows(): bool
+    protected function isWindows(): bool
     {
         return strtoupper(substr(PHP_OS, 0, 3)) === 'WIN';
     }
@@ -171,7 +158,7 @@ class InstallCommand extends Command
      *
      * @return bool
      */
-    protected function _deleteNodeModules(): bool
+    protected function deleteNodeModules(): bool
     {
         $filesystem = new Filesystem();
 
@@ -183,16 +170,15 @@ class InstallCommand extends Command
      *
      * @param array $output The variable to write the output to.
      * @param int $return The variable to write the return status code to.
-     * @param \Cake\Console\ConsoleIo $io The console io.
      * @param bool $useLatest Whether to install the latest minor versions.
      * @return void
      */
-    protected function _runNPMInstall(array &$output, int &$return, ConsoleIo $io, bool $useLatest = false): void
+    protected function runNPMInstall(array &$output, int &$return, bool $useLatest = false): void
     {
         $pluginPath = Plugin::path('BootstrapUI');
         $previousCwd = getcwd();
-        if (!$this->_changeWorkingDirectory($pluginPath)) {
-            $io->error("Could not change into plugin directory `$pluginPath`.");
+        if (!$this->changeWorkingDirectory($pluginPath)) {
+            $this->io->error("Could not change into plugin directory `$pluginPath`.");
             $this->abort();
         }
 
@@ -201,9 +187,9 @@ class InstallCommand extends Command
             if ($useLatest) {
                 $args[] = '--package-lock false';
             }
-            switch ($io->level()) {
-                case ConsoleIo::QUIET:
-                    if ($this->_isWindows()) {
+            switch ($this->io->level()) {
+                case ConsoleIoInterface::QUIET:
+                    if ($this->isWindows()) {
                         $null = 'NUL';
                     } else {
                         $null = '/dev/null';
@@ -212,7 +198,7 @@ class InstallCommand extends Command
                     $args[] = "--silent > $null";
                     break;
 
-                case ConsoleIo::VERBOSE:
+                case ConsoleIoInterface::VERBOSE:
                     $args[] = '--verbose';
                     break;
             }
@@ -221,7 +207,7 @@ class InstallCommand extends Command
             exec("npm install $args", $output, $return);
         } finally {
             if ($previousCwd !== false) {
-                $this->_changeWorkingDirectory($previousCwd);
+                $this->changeWorkingDirectory($previousCwd);
             }
         }
     }
@@ -232,7 +218,7 @@ class InstallCommand extends Command
      * @param string $path The path to change to.
      * @return bool
      */
-    protected function _changeWorkingDirectory(string $path): bool
+    protected function changeWorkingDirectory(string $path): bool
     {
         return chdir($path);
     }
@@ -240,21 +226,19 @@ class InstallCommand extends Command
     /**
      * Deletes the buffered package assets.
      *
-     * @param \Cake\Console\ConsoleIo $io The console io.
      * @return bool
      */
-    protected function _deleteBufferedPackageAssets(ConsoleIo $io): bool
+    protected function deleteBufferedPackageAssets(): bool
     {
         $result = true;
-
-        foreach ($this->_findBufferedPackageAssets() as $file) {
+        foreach ($this->findBufferedPackageAssets() as $file) {
             if (
                 is_file($file->getPathname()) &&
                 unlink($file->getPathname())
             ) {
-                $io->success("`{$file->getFilename()}` successfully deleted.", 1, ConsoleIo::VERBOSE);
+                $this->io->success("`{$file->getFilename()}` successfully deleted.", 1, ConsoleIoInterface::VERBOSE);
             } else {
-                $io->warning("`{$file->getFilename()}` could not be deleted.");
+                $this->io->warning("`{$file->getFilename()}` could not be deleted.");
                 $result = false;
             }
         }
@@ -267,7 +251,7 @@ class InstallCommand extends Command
      *
      * @return array<\SplFileInfo>
      */
-    protected function _findBufferedPackageAssets(): array
+    protected function findBufferedPackageAssets(): array
     {
         $filesystem = new Filesystem();
 
@@ -296,20 +280,17 @@ class InstallCommand extends Command
     /**
      * Buffers the MPN package assets in the respective folders in the plugin's webroot.
      *
-     * @param \Cake\Console\ConsoleIo $io The console io.
      * @return bool
      */
-    protected function _bufferPackageAssets(ConsoleIo $io): bool
+    protected function bufferPackageAssets(): bool
     {
         $filesystem = new Filesystem();
-
         $webrootPath = Plugin::path('BootstrapUI') . 'webroot' . DS;
         $cssPath = $webrootPath . 'css' . DS;
         $fontPath = $webrootPath . 'font' . DS;
         $jsPath = $webrootPath . 'js' . DS;
-
         $result = true;
-        foreach ($this->_findPackageAssets() as $file) {
+        foreach ($this->findPackageAssets() as $file) {
             $assetPath = null;
 
             $matches = [];
@@ -329,7 +310,7 @@ class InstallCommand extends Command
             }
 
             if ($assetPath === null) {
-                $io->info("Skipped `{$file->getFilename()}`.", 1, ConsoleIo::VERBOSE);
+                $this->io->info("Skipped `{$file->getFilename()}`.", 1, ConsoleIoInterface::VERBOSE);
                 continue;
             }
 
@@ -346,9 +327,9 @@ class InstallCommand extends Command
                 is_file($file->getPathname()) &&
                 copy($file->getPathname(), $assetPath . $file->getFilename())
             ) {
-                $io->success("`{$file->getFilename()}` successfully copied.", 1, ConsoleIo::VERBOSE);
+                $this->io->success("`{$file->getFilename()}` successfully copied.", 1, ConsoleIoInterface::VERBOSE);
             } else {
-                $io->warning("`{$file->getFilename()}` could not be copied.");
+                $this->io->warning("`{$file->getFilename()}` could not be copied.");
                 $result = false;
             }
         }
@@ -361,7 +342,7 @@ class InstallCommand extends Command
      *
      * @return array<\SplFileInfo>
      */
-    protected function _findPackageAssets(): array
+    protected function findPackageAssets(): array
     {
         $filesystem = new Filesystem();
 
@@ -399,5 +380,16 @@ class InstallCommand extends Command
                 'boolean' => true,
                 'short' => 'l',
             ]);
+    }
+
+    /**
+     * Sets the command line arguments.
+     *
+     * @param \Cake\Console\Arguments $args The command line arguments.
+     * @return void
+     */
+    public function setArgs(Arguments $args): void
+    {
+        $this->args = $args;
     }
 }

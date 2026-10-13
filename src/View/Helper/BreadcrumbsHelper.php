@@ -12,12 +12,12 @@ class BreadcrumbsHelper extends CoreBreadcrumbsHelper
     /**
      * @inheritDoc
      */
-    protected array $_defaultConfig = [
+    protected array $defaultConfig = [
         'ariaCurrent' => 'last',
         'templates' => [
             'wrapper' => '<nav aria-label="breadcrumb"><ol{{attrs}}>{{content}}</ol></nav>',
-            'item' => '<li{{attrs}}><a href="{{url}}"{{innerAttrs}}>{{title}}</a></li>',
-            'itemWithoutLink' => '<li{{attrs}}><span{{innerAttrs}}>{{title}}</span></li>',
+            'item' => '<li{{attrs}}><a href="{{url}}"{{innerAttrs}}>{{content}}</a></li>',
+            'itemWithoutLink' => '<li{{attrs}}><span{{innerAttrs}}>{{content}}</span></li>',
             'separator' => '',
         ],
     ];
@@ -27,7 +27,7 @@ class BreadcrumbsHelper extends CoreBreadcrumbsHelper
      *
      * @var array
      */
-    protected array $_defaultAttributes = [
+    protected array $defaultAttributes = [
         'class' => [
             'wrapper' => 'breadcrumb',
             'item' => 'breadcrumb-item',
@@ -39,9 +39,9 @@ class BreadcrumbsHelper extends CoreBreadcrumbsHelper
      */
     public function render(array $attributes = [], array $separator = []): string
     {
-        $attributes = $this->injectClasses($this->_defaultAttributes['class']['wrapper'], $attributes);
+        $attributes = $this->injectClasses($this->defaultAttributes['class']['wrapper'], $attributes);
 
-        $this->_markActiveCrumb();
+        $this->markActiveCrumb();
 
         return parent::render($attributes, $separator);
     }
@@ -49,51 +49,57 @@ class BreadcrumbsHelper extends CoreBreadcrumbsHelper
     /**
      * @inheritDoc
      */
-    public function add(array|string $title, array|string|null $url = null, array $options = [])
+    public function add(string $content, array|string|null $url = null, array $options = []): static
     {
-        if (is_array($title)) {
-            $crumbs = [];
-            foreach ($title as $crumb) {
-                $options = [];
-                if (isset($crumb['options'])) {
-                    $options = $crumb['options'];
-                }
+        $options = $this->injectClasses($this->defaultAttributes['class']['item'], $options);
 
-                $crumb['options'] = $this->injectClasses($this->_defaultAttributes['class']['item'], $options);
-                $crumbs[] = $crumb + ['title' => '', 'url' => null, 'options' => []];
-            }
+        parent::add($content, $url, $options);
 
-            /** @phpstan-ignore function.alreadyNarrowedType */
-            if (method_exists(parent::class, 'addMany')) {
-                return parent::addMany($crumbs);
-            }
+        return $this;
+    }
 
-            return parent::add($crumbs);
+    /**
+     * @inheritDoc
+     */
+    public function addMany(array $crumbs, array $options = []): static
+    {
+        $crumbsToAdd = [];
+        foreach ($crumbs as $crumb) {
+            $crumbOptions = ($crumb['options'] ?? []) + $options;
+            $crumb['options'] = $this->injectClasses(
+                $this->defaultAttributes['class']['item'],
+                $crumbOptions,
+            );
+            $crumbsToAdd[] = $crumb + ['content' => '', 'url' => null, 'options' => []];
         }
 
-        $options = $this->injectClasses($this->_defaultAttributes['class']['item'], $options);
+        parent::addMany($crumbsToAdd);
 
-        return parent::add($title, $url, $options);
+        return $this;
     }
 
     /**
      * @inheritDoc
      */
-    public function prepend(array|string $title, array|string|null $url = null, array $options = [])
+    public function prepend(string $content, array|string|null $url = null, array $options = []): static
     {
-        $options = $this->injectClasses($this->_defaultAttributes['class']['item'], $options);
+        $options = $this->injectClasses($this->defaultAttributes['class']['item'], $options);
 
-        return parent::prepend($title, $url, $options);
+        parent::prepend($content, $url, $options);
+
+        return $this;
     }
 
     /**
      * @inheritDoc
      */
-    public function insertAt(int $index, string $title, array|string|null $url = null, array $options = [])
+    public function insertAt(int $index, string $content, array|string|null $url = null, array $options = []): static
     {
-        $options = $this->injectClasses($this->_defaultAttributes['class']['item'], $options);
+        $options = $this->injectClasses($this->defaultAttributes['class']['item'], $options);
 
-        return parent::insertAt($index, $title, $url, $options);
+        parent::insertAt($index, $content, $url, $options);
+
+        return $this;
     }
 
     /**
@@ -102,13 +108,13 @@ class BreadcrumbsHelper extends CoreBreadcrumbsHelper
      *
      * @return void
      */
-    protected function _markActiveCrumb(): void
+    protected function markActiveCrumb(): void
     {
         if (!$this->crumbs) {
             return;
         }
 
-        $this->_clearActiveCrumb();
+        $this->clearActiveCrumb();
 
         $key = null;
         if ($this->getConfig('ariaCurrent') === 'lastWithLink') {
@@ -141,7 +147,7 @@ class BreadcrumbsHelper extends CoreBreadcrumbsHelper
      *
      * @return void
      */
-    protected function _clearActiveCrumb(): void
+    protected function clearActiveCrumb(): void
     {
         foreach ($this->crumbs as $key => $crumb) {
             $this->crumbs[$key]['options'] = $this->removeClasses('active', $this->crumbs[$key]['options']);

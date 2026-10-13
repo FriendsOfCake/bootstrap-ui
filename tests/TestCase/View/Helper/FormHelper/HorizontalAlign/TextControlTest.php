@@ -8,7 +8,7 @@ use BootstrapUI\View\Helper\FormHelper;
 
 class TextControlTest extends AbstractFormHelperTest
 {
-    public function testHorizontalAlignTextControl()
+    public function testHorizontalAlignTextControl(): void
     {
         unset($this->article['required']['title']);
         $this->Form->create($this->article, [
@@ -39,7 +39,7 @@ class TextControlTest extends AbstractFormHelperTest
         $this->assertHtml($expected, $result);
     }
 
-    public function testHorizontalAlignTextControlWithFloatingLabel()
+    public function testHorizontalAlignTextControlWithFloatingLabel(): void
     {
         unset($this->article['required']['title']);
         $this->Form->create($this->article, [
@@ -75,7 +75,7 @@ class TextControlTest extends AbstractFormHelperTest
         $this->assertHtml($expected, $result);
     }
 
-    public function testHorizontalAlignTextControlWithFloatingLabelAndCustomLabelText()
+    public function testHorizontalAlignTextControlWithFloatingLabelAndCustomLabelText(): void
     {
         unset($this->article['required']['title']);
         $this->Form->create($this->article, [
@@ -112,7 +112,7 @@ class TextControlTest extends AbstractFormHelperTest
         $this->assertHtml($expected, $result);
     }
 
-    public function testHorizontalAlignTextControlWithFloatingLabelAndCustomPlaceholder()
+    public function testHorizontalAlignTextControlWithFloatingLabelAndCustomPlaceholder(): void
     {
         unset($this->article['required']['title']);
         $this->Form->create($this->article, [
@@ -149,7 +149,7 @@ class TextControlTest extends AbstractFormHelperTest
         $this->assertHtml($expected, $result);
     }
 
-    public function testHorizontalAlignTextControlWithFloatingLabelAndDisabledPlaceholder()
+    public function testHorizontalAlignTextControlWithFloatingLabelAndDisabledPlaceholder(): void
     {
         unset($this->article['required']['title']);
         $this->Form->create($this->article, [
@@ -185,7 +185,7 @@ class TextControlTest extends AbstractFormHelperTest
         $this->assertHtml($expected, $result);
     }
 
-    public function testHorizontalAlignTextControlWithDisabledLabel()
+    public function testHorizontalAlignTextControlWithDisabledLabel(): void
     {
         unset($this->article['required']['title']);
         $this->Form->create($this->article, [
@@ -213,7 +213,7 @@ class TextControlTest extends AbstractFormHelperTest
         $this->assertHtml($expected, $result);
     }
 
-    public function testHorizontalAlignTextControlWithCustomLabel()
+    public function testHorizontalAlignTextControlWithCustomLabel(): void
     {
         unset($this->article['required']['title']);
         $this->Form->create($this->article, [
@@ -244,7 +244,7 @@ class TextControlTest extends AbstractFormHelperTest
         $this->assertHtml($expected, $result);
     }
 
-    public function testHorizontalAlignTextControlWithCustomLabelOptions()
+    public function testHorizontalAlignTextControlWithCustomLabelOptions(): void
     {
         unset($this->article['required']['title']);
         $this->Form->create($this->article, [
@@ -285,7 +285,7 @@ class TextControlTest extends AbstractFormHelperTest
         $this->assertHtml($expected, $result);
     }
 
-    public function testHorizontalAlignTextControlWithHelp()
+    public function testHorizontalAlignTextControlWithHelp(): void
     {
         unset($this->article['required']['title']);
         $this->Form->create($this->article, [
@@ -322,7 +322,7 @@ class TextControlTest extends AbstractFormHelperTest
         $this->assertHtml($expected, $result);
     }
 
-    public function testHorizontalAlignTextControlWithHelpOptions()
+    public function testHorizontalAlignTextControlWithHelpOptions(): void
     {
         unset($this->article['required']['title']);
         $this->Form->create($this->article, [
@@ -368,7 +368,7 @@ class TextControlTest extends AbstractFormHelperTest
         $this->assertHtml($expected, $result);
     }
 
-    public function testHorizontalAlignTextControlWithTooltip()
+    public function testHorizontalAlignTextControlWithTooltip(): void
     {
         unset($this->article['required']['title']);
         $this->Form->create($this->article, [
@@ -407,7 +407,7 @@ class TextControlTest extends AbstractFormHelperTest
         $this->assertHtml($expected, $result);
     }
 
-    public function testHorizontalAlignTextControlWithError()
+    public function testHorizontalAlignTextControlWithError(): void
     {
         $this->article['errors'] = [
             'title' => ['error message'],
@@ -447,7 +447,7 @@ class TextControlTest extends AbstractFormHelperTest
         $this->assertHtml($expected, $result);
     }
 
-    public function testHorizontalAlignTextControlWithErrorAndHelp()
+    public function testHorizontalAlignTextControlWithErrorAndHelp(): void
     {
         $this->article['errors'] = [
             'title' => ['error message'],
@@ -491,7 +491,7 @@ class TextControlTest extends AbstractFormHelperTest
         $this->assertHtml($expected, $result);
     }
 
-    public function testHorizontalAlignTextControlWithErrorAndHelpOptions()
+    public function testHorizontalAlignTextControlWithErrorAndHelpOptions(): void
     {
         $this->article['errors'] = [
             'title' => ['error message'],
@@ -544,7 +544,7 @@ class TextControlTest extends AbstractFormHelperTest
         $this->assertHtml($expected, $result);
     }
 
-    public function testHorizontalAlignTextControlContainerOptions()
+    public function testHorizontalAlignTextControlContainerOptions(): void
     {
         unset($this->article['required']['title']);
         $this->Form->create($this->article, [
@@ -584,7 +584,7 @@ class TextControlTest extends AbstractFormHelperTest
         $this->assertHtml($expected, $result);
     }
 
-    public function testHorizontalAlignTextControlContainerOptionsWithError()
+    public function testHorizontalAlignTextControlContainerOptionsWithError(): void
     {
         unset($this->article['required']['title']);
         $this->article['errors'] = [

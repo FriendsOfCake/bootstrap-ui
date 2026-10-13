@@ -27,7 +27,7 @@ class HtmlHelper extends CoreHtmlHelper
      */
     public function __construct(View $View, array $config = [])
     {
-        $this->_defaultConfig['iconDefaults'] = [
+        $this->defaultConfig['iconDefaults'] = [
             'tag' => 'i',
             'namespace' => 'bi',
             'prefix' => 'bi',

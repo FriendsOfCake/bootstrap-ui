@@ -113,28 +113,28 @@ class FormHelper extends CoreFormHelper
      *
      * @var string|null
      */
-    protected ?string $_align = null;
+    protected ?string $align = null;
 
     /**
      * Set on `Form::create()` to tell grid type.
      *
      * @var array|null
      */
-    protected ?array $_grid = null;
+    protected ?array $grid = null;
 
     /**
      * Set on `Form::create()` to tell the spacing type.
      *
      * @var string|false|null
      */
-    protected string|false|null $_spacing = null;
+    protected string|false|null $spacing = null;
 
     /**
      * Default Bootstrap string templates.
      *
      * @var array
      */
-    protected array $_templates = [
+    protected array $templates = [
         'error' =>
             '<div id="{{id}}" class="invalid-feedback">{{content}}</div>',
         'errorTooltip' =>
@@ -203,11 +203,11 @@ class FormHelper extends CoreFormHelper
             '<div{{containerAttrs}} ' .
                 'class="{{containerClass}}{{formGroupPosition}}{{type}}{{required}} is-invalid" ' .
                     'role="group" aria-labelledby="{{groupId}}">{{content}}{{error}}{{help}}</div>',
-        'multicheckboxLabel' =>
+        'multicheckboxControlLabel' =>
             '<label{{attrs}}>{{text}}{{tooltip}}</label>',
         'multicheckboxWrapper' =>
             '<fieldset class="%s">{{content}}</fieldset>',
-        'multicheckboxTitle' =>
+        'multicheckboxLabel' =>
             '<legend class="col-form-label pt-0">{{text}}</legend>',
         'nestingLabel' =>
             '{{hidden}}{{input}}<label{{attrs}}>{{text}}{{tooltip}}</label>',
@@ -223,7 +223,7 @@ class FormHelper extends CoreFormHelper
      *
      * @var array
      */
-    protected array $_templateSet = [
+    protected array $templateSet = [
         'default' => [
         ],
         'inline' => [
@@ -256,11 +256,11 @@ class FormHelper extends CoreFormHelper
                 '<div{{containerAttrs}} ' .
                     'class="{{containerClass}}d-flex {{formGroupPosition}}{{type}}{{required}} is-invalid" ' .
                             'role="group" aria-labelledby="{{groupId}}">{{content}}{{error}}{{help}}</div>',
-            'multicheckboxLabel' =>
+            'multicheckboxControlLabel' =>
                 '<span{{attrs}}>{{text}}{{tooltip}}</span>',
             'multicheckboxWrapper' =>
                 '<fieldset>{{content}}</fieldset>',
-            'multicheckboxTitle' =>
+            'multicheckboxLabel' =>
                 '<legend class="col-form-label float-none pt-0">{{text}}</legend>',
         ],
         'horizontal' => [
@@ -309,7 +309,7 @@ class FormHelper extends CoreFormHelper
                     '{{formGroupPosition}}{{type}}{{required}} is-invalid" ' .
                     'role="group" aria-labelledby="{{groupId}}">' .
                     '{{content}}</div>',
-            'multicheckboxLabel' =>
+            'multicheckboxControlLabel' =>
                 '<label{{attrs}}>{{text}}{{tooltip}}</label>',
         ],
     ];
@@ -319,10 +319,9 @@ class FormHelper extends CoreFormHelper
      *
      * @var array
      */
-    protected array $_widgets = [
+    protected array $widgets = [
         'button' => 'BootstrapUI\View\Widget\ButtonWidget',
         'datetime' => 'BootstrapUI\View\Widget\DateTimeWidget',
-        'file' => ['BootstrapUI\View\Widget\FileWidget', 'label'],
         'select' => 'BootstrapUI\View\Widget\SelectBoxWidget',
         'textarea' => 'BootstrapUI\View\Widget\TextareaWidget',
         '_default' => 'BootstrapUI\View\Widget\BasicWidget',
@@ -342,7 +341,7 @@ class FormHelper extends CoreFormHelper
      */
     public function __construct(View $View, array $config = [])
     {
-        $this->_defaultConfig = [
+        $this->defaultConfig = [
             'align' => static::ALIGN_DEFAULT,
             'errorClass' => version_compare(Configure::version(), '5.2.0', '<') ? 'is-invalid' : null,
             'grid' => [
@@ -350,17 +349,17 @@ class FormHelper extends CoreFormHelper
                 static::GRID_COLUMN_TWO => 10,
             ],
             'spacing' => null,
-            'templates' => $this->_templates + $this->_defaultConfig['templates'],
-        ] + $this->_defaultConfig;
+            'templates' => $this->templates + $this->defaultConfig['templates'],
+        ] + $this->defaultConfig;
 
-        if (isset($this->_defaultConfig['templateSet'])) {
-            $templateSet = Hash::merge($this->_templateSet, $this->_defaultConfig['templateSet']);
+        if (isset($this->defaultConfig['templateSet'])) {
+            $templateSet = Hash::merge($this->templateSet, $this->defaultConfig['templateSet']);
         } else {
-            $templateSet = $this->_templateSet;
+            $templateSet = $this->templateSet;
         }
-        $this->_defaultConfig['templateSet'] = $templateSet;
+        $this->defaultConfig['templateSet'] = $templateSet;
 
-        $this->_defaultWidgets = $this->_widgets + $this->_defaultWidgets;
+        $this->defaultWidgets = $this->widgets + $this->defaultWidgets;
 
         parent::__construct($View, $config);
     }
@@ -387,7 +386,7 @@ class FormHelper extends CoreFormHelper
             $this->setConfig('templates.errorClass', $this->getConfig('errorClass'));
         }
 
-        return parent::create($context, $this->_processFormOptions($options));
+        return parent::create($context, $this->processFormOptions($options));
     }
 
     /**
@@ -409,11 +408,11 @@ class FormHelper extends CoreFormHelper
             'class' => 'primary',
         ];
         $options = $this->applyButtonClasses($options);
-        $options = $this->_containerOptions(null, $options);
+        $options = $this->containerOptions(null, $options);
 
         $result = parent::submit($caption, $options);
 
-        return $this->_postProcessElement($result, null, $options);
+        return $this->postProcessElement($result, null, $options);
     }
 
     /**
@@ -469,7 +468,7 @@ class FormHelper extends CoreFormHelper
             'container' => null,
             'spacing' => null,
         ];
-        $options = $this->_parseOptions($fieldName, $options);
+        $options = $this->parseOptions($fieldName, $options);
 
         $newTemplates = $options['templates'];
         if ($newTemplates) {
@@ -485,22 +484,22 @@ class FormHelper extends CoreFormHelper
                 case 'radio':
                 case 'select':
                 case 'range':
-                    $function = '_' . $options['type'] . 'Options';
+                    $function = $options['type'] . 'Options';
                     $options = $this->{$function}($fieldName, $options);
                     break;
 
                 default:
-                    $options = $this->_labelOptions($fieldName, $options);
+                    $options = $this->labelOptions($fieldName, $options);
                     break;
             }
 
-            $options = $this->_spacingOptions($fieldName, $options);
-            $options = $this->_containerOptions($fieldName, $options);
-            $options = $this->_feedbackStyleOptions($fieldName, $options);
-            $options = $this->_ariaOptions($fieldName, $options);
-            $options = $this->_placeholderOptions($fieldName, $options);
-            $options = $this->_helpOptions($fieldName, $options);
-            $options = $this->_tooltipOptions($fieldName, $options);
+            $options = $this->spacingOptions($fieldName, $options);
+            $options = $this->containerOptions($fieldName, $options);
+            $options = $this->feedbackStyleOptions($fieldName, $options);
+            $options = $this->ariaOptions($fieldName, $options);
+            $options = $this->placeholderOptions($fieldName, $options);
+            $options = $this->helpOptions($fieldName, $options);
+            $options = $this->tooltipOptions($fieldName, $options);
 
             if (
                 isset($options['append']) ||
@@ -520,7 +519,7 @@ class FormHelper extends CoreFormHelper
 
             $result = parent::control($fieldName, $options);
 
-            $result = $this->_postProcessElement($result, $fieldName, $options);
+            $result = $this->postProcessElement($result, $fieldName, $options);
         } finally {
             if ($newTemplates) {
                 $this->templater()->pop();
@@ -537,17 +536,17 @@ class FormHelper extends CoreFormHelper
      * @param array $options Options. See `$options` argument of `control()` method.
      * @return array
      */
-    protected function _spacingOptions(string $fieldName, array $options): array
+    protected function spacingOptions(string $fieldName, array $options): array
     {
         if (!isset($options['spacing'])) {
-            $options['spacing'] = $this->_spacing;
+            $options['spacing'] = $this->spacing;
         }
 
         if ($options['spacing'] === false) {
             return $options;
         }
 
-        if ($this->_align !== static::ALIGN_INLINE) {
+        if ($this->align !== static::ALIGN_INLINE) {
             $options['templates'] += [
                 'multicheckboxWrapper' => sprintf(
                     $this->templater()->getConfig('multicheckboxWrapper'),
@@ -566,10 +565,10 @@ class FormHelper extends CoreFormHelper
      * @param array $options Options. See `$options` argument of `control()` method.
      * @return array
      */
-    protected function _containerOptions(?string $fieldName, array $options): array
+    protected function containerOptions(?string $fieldName, array $options): array
     {
         if (
-            $this->_align !== static::ALIGN_INLINE &&
+            $this->align !== static::ALIGN_INLINE &&
             isset($options['type']) &&
             isset($options['spacing']) &&
             $options['spacing'] !== false
@@ -578,7 +577,7 @@ class FormHelper extends CoreFormHelper
         }
 
         if (
-            $this->_align !== static::ALIGN_HORIZONTAL &&
+            $this->align !== static::ALIGN_HORIZONTAL &&
             isset($options['label']['floating']) &&
             $options['label']['floating']
         ) {
@@ -606,19 +605,19 @@ class FormHelper extends CoreFormHelper
      * @param array $options Options. See `$options` argument of `control()` method.
      * @return array
      */
-    protected function _checkboxOptions(string $fieldName, array $options): array
+    protected function checkboxOptions(string $fieldName, array $options): array
     {
         if ($options['label'] !== false) {
             $options['label'] = $this->injectClasses('form-check-label', (array)$options['label']);
         }
 
-        if ($this->_align === static::ALIGN_HORIZONTAL) {
+        if ($this->align === static::ALIGN_HORIZONTAL) {
             $options['inline'] = false;
         }
 
         if (
             $options['inline'] ||
-            $this->_align === static::ALIGN_INLINE
+            $this->align === static::ALIGN_INLINE
         ) {
             $checkboxContainer = $this->templater()->get('checkboxInlineContainer');
             $checkboxContainerError = $this->templater()->get('checkboxInlineContainerError');
@@ -645,15 +644,15 @@ class FormHelper extends CoreFormHelper
      * @param array $options Options. See `$options` argument of `control()` method.
      * @return array
      */
-    protected function _radioOptions(string $fieldName, array $options): array
+    protected function radioOptions(string $fieldName, array $options): array
     {
-        $options = $this->_labelOptions($fieldName, $options);
+        $options = $this->labelOptions($fieldName, $options);
 
         $options = $this->injectClasses('form-check-input', $options);
 
         $groupId =
         $options['templateVars']['groupId'] =
-            $this->_domId($fieldName . '-group-label');
+            $this->domId($fieldName . '-group-label');
 
         if ($options['label'] !== false) {
             $options['label']['templateVars']['groupId'] = $groupId;
@@ -662,10 +661,10 @@ class FormHelper extends CoreFormHelper
 
         if ($options['label'] !== false) {
             $labelClasses = [];
-            if ($this->_align !== static::ALIGN_INLINE) {
+            if ($this->align !== static::ALIGN_INLINE) {
                 $labelClasses[] = 'd-block';
             }
-            if ($this->_align === static::ALIGN_HORIZONTAL) {
+            if ($this->align === static::ALIGN_HORIZONTAL) {
                 $labelClasses[] = 'pt-0';
             }
             if ($labelClasses) {
@@ -677,7 +676,7 @@ class FormHelper extends CoreFormHelper
 
         if (
             $options['inline'] ||
-            $this->_align === static::ALIGN_INLINE
+            $this->align === static::ALIGN_INLINE
         ) {
             $options['templates']['radioWrapper'] = $this->templater()->get('radioInlineWrapper');
         }
@@ -696,9 +695,9 @@ class FormHelper extends CoreFormHelper
      * @param array $options Options. See `$options` argument of `control()` method.
      * @return array
      */
-    protected function _selectOptions(string $fieldName, array $options): array
+    protected function selectOptions(string $fieldName, array $options): array
     {
-        $options = $this->_labelOptions($fieldName, $options);
+        $options = $this->labelOptions($fieldName, $options);
 
         $labelClasses = [];
 
@@ -707,7 +706,7 @@ class FormHelper extends CoreFormHelper
 
             $groupId =
             $options['templateVars']['groupId'] =
-                $this->_domId($fieldName . '-group-label');
+                $this->domId($fieldName . '-group-label');
 
             if ($options['label'] !== false) {
                 $options['label']['templateVars']['groupId'] = $groupId;
@@ -715,21 +714,21 @@ class FormHelper extends CoreFormHelper
             }
 
             if ($options['label'] !== false) {
-                if ($this->_align !== static::ALIGN_INLINE) {
+                if ($this->align !== static::ALIGN_INLINE) {
                     $labelClasses[] = 'd-block';
                 }
-                if ($this->_align === static::ALIGN_HORIZONTAL) {
+                if ($this->align === static::ALIGN_HORIZONTAL) {
                     $labelClasses[] = 'pt-0';
                 }
             }
 
-            $options['templates']['label'] = $this->templater()->get('multicheckboxLabel');
+            $options['templates']['label'] = $this->templater()->get('multicheckboxControlLabel');
 
             $options = $this->injectClasses('form-check-input', $options);
 
             if (
                 $options['inline'] ||
-                $this->_align === static::ALIGN_INLINE
+                $this->align === static::ALIGN_INLINE
             ) {
                 $wrapper = $this->templater()->get('checkboxInlineWrapper');
                 $options['templates']['checkboxWrapper'] = $wrapper;
@@ -745,7 +744,7 @@ class FormHelper extends CoreFormHelper
         }
 
         if (
-            $this->_align === static::ALIGN_INLINE &&
+            $this->align === static::ALIGN_INLINE &&
             $options['label'] !== false &&
             !$options['label']['floating']
         ) {
@@ -766,14 +765,14 @@ class FormHelper extends CoreFormHelper
      * @param array $options Options. See `$options` argument of `control()` method.
      * @return array
      */
-    protected function _rangeOptions(string $fieldName, array $options): array
+    protected function rangeOptions(string $fieldName, array $options): array
     {
-        $options = $this->_labelOptions($fieldName, $options);
+        $options = $this->labelOptions($fieldName, $options);
         $options['injectFormControl'] = false;
 
         if (
             $options['label'] !== false &&
-            $this->_align === static::ALIGN_HORIZONTAL
+            $this->align === static::ALIGN_HORIZONTAL
         ) {
             $options['label'] = $this->injectClasses('pt-0', (array)$options['label']);
         }
@@ -788,7 +787,7 @@ class FormHelper extends CoreFormHelper
      * @param array $options Options. See `$options` argument of `control()` method.
      * @return array
      */
-    protected function _labelOptions(?string $fieldName, array $options): array
+    protected function labelOptions(?string $fieldName, array $options): array
     {
         if ($options['label'] !== false) {
             $options['label'] = (array)$options['label'] + [
@@ -801,15 +800,15 @@ class FormHelper extends CoreFormHelper
             }
 
             if (
-                $this->_align !== static::ALIGN_HORIZONTAL &&
+                $this->align !== static::ALIGN_HORIZONTAL &&
                 !$options['label']['floating']
             ) {
                 $labelClasses[] = 'form-label';
             }
 
-            if ($this->_align === static::ALIGN_HORIZONTAL) {
+            if ($this->align === static::ALIGN_HORIZONTAL) {
                 if (!$options['label']['floating']) {
-                    $size = $this->_gridClass(static::GRID_COLUMN_ONE);
+                    $size = $this->gridClass(static::GRID_COLUMN_ONE);
                     $labelClasses[] = "col-form-label $size";
                 } else {
                     $labelClasses[] = 'ps-4';
@@ -817,7 +816,7 @@ class FormHelper extends CoreFormHelper
             }
 
             if (
-                $this->_align === static::ALIGN_INLINE &&
+                $this->align === static::ALIGN_INLINE &&
                 !$options['label']['floating']
             ) {
                 $labelClasses[] = 'visually-hidden';
@@ -838,13 +837,13 @@ class FormHelper extends CoreFormHelper
      * @param array $options Options. See `$options` argument of `control()` method.
      * @return array
      */
-    protected function _feedbackStyleOptions(string $fieldName, array $options): array
+    protected function feedbackStyleOptions(string $fieldName, array $options): array
     {
         $formGroupPosition = $options['formGroupPosition'] ?: $this->getConfig('formGroupPosition');
         $feedbackStyle = $options['feedbackStyle'] ?: $this->getConfig('feedbackStyle');
 
         if (
-            $this->_align === static::ALIGN_INLINE &&
+            $this->align === static::ALIGN_INLINE &&
             $feedbackStyle === null
         ) {
             $feedbackStyle = static::FEEDBACK_STYLE_TOOLTIP;
@@ -875,7 +874,7 @@ class FormHelper extends CoreFormHelper
      * @param array $options Options. See `$options` argument of `control()` method.
      * @return array
      */
-    protected function _ariaOptions(string $fieldName, array $options): array
+    protected function ariaOptions(string $fieldName, array $options): array
     {
         if (
             $options['type'] === 'hidden' ||
@@ -895,7 +894,7 @@ class FormHelper extends CoreFormHelper
         $describedByIds = [];
 
         if ($isError) {
-            $describedByIds[] = $this->_domId($fieldName . '-error');
+            $describedByIds[] = $this->domId($fieldName . '-error');
         }
 
         if ($options['help']) {
@@ -905,7 +904,7 @@ class FormHelper extends CoreFormHelper
             ) {
                 $descriptorId = $options['help']['id'];
             } else {
-                $descriptorId = $this->_domId($fieldName . '-help');
+                $descriptorId = $this->domId($fieldName . '-help');
             }
 
             $describedByIds[] = $descriptorId;
@@ -925,7 +924,7 @@ class FormHelper extends CoreFormHelper
      * @param array $options Options. See `$options` argument of `control()` method.
      * @return array
      */
-    protected function _placeholderOptions(string $fieldName, array $options): array
+    protected function placeholderOptions(string $fieldName, array $options): array
     {
         if (
             !isset($options['placeholder']) &&
@@ -959,7 +958,7 @@ class FormHelper extends CoreFormHelper
      * @param array $options Options. See `$options` argument of `control()` method.
      * @return array
      */
-    protected function _helpOptions(string $fieldName, array $options): array
+    protected function helpOptions(string $fieldName, array $options): array
     {
         if ($options['help'] === null) {
             return $options;
@@ -972,11 +971,11 @@ class FormHelper extends CoreFormHelper
         }
 
         if (!isset($options['help']['id'])) {
-            $options['help']['id'] = $this->_domId($fieldName . '-help');
+            $options['help']['id'] = $this->domId($fieldName . '-help');
         }
 
         $helpClasses = ['form-text'];
-        if ($this->_align === static::ALIGN_INLINE) {
+        if ($this->align === static::ALIGN_INLINE) {
             $helpClasses[] = 'visually-hidden';
         }
 
@@ -997,7 +996,7 @@ class FormHelper extends CoreFormHelper
      * @param array $options Options. See `$options` argument of `control()` method.
      * @return array
      */
-    protected function _tooltipOptions(string $fieldName, array $options): array
+    protected function tooltipOptions(string $fieldName, array $options): array
     {
         if (
             $options['tooltip'] &&
@@ -1027,9 +1026,9 @@ class FormHelper extends CoreFormHelper
      * @see submit()
      * @see control()
      */
-    protected function _postProcessElement(string $html, ?string $fieldName, array $options): string
+    protected function postProcessElement(string $html, ?string $fieldName, array $options): string
     {
-        if ($this->_align === static::ALIGN_INLINE) {
+        if ($this->align === static::ALIGN_INLINE) {
             $html = $this->templater()->format('elementWrapper', [
                 'content' => $html,
             ]);
@@ -1111,7 +1110,7 @@ class FormHelper extends CoreFormHelper
      */
     public function end(array $secureAttributes = []): string
     {
-        $this->_clearFormState();
+        $this->clearFormState();
 
         return parent::end($secureAttributes);
     }
@@ -1141,7 +1140,7 @@ class FormHelper extends CoreFormHelper
         $hiddenField = $options['hiddenField'];
         unset($options['secure'], $options['hiddenField']);
 
-        $options = $this->_initInputField(
+        $options = $this->initInputField(
             $fieldName,
             ['secure' => static::SECURE_SKIP] + $options,
         );
@@ -1172,17 +1171,17 @@ class FormHelper extends CoreFormHelper
     /**
      * @inheritDoc
      */
-    protected function _getInput(string $fieldName, array $options): array|string
+    protected function getInput(string $fieldName, array $options): array|string
     {
         unset($options['help']);
 
-        return parent::_getInput($fieldName, $options);
+        return parent::getInput($fieldName, $options);
     }
 
     /**
      * @inheritDoc
      */
-    protected function _groupTemplate(array $options): string
+    protected function groupTemplate(array $options): string
     {
         $groupTemplate = $options['options']['type'] . 'FormGroup';
         if (!$this->templater()->get($groupTemplate)) {
@@ -1201,7 +1200,7 @@ class FormHelper extends CoreFormHelper
     /**
      * @inheritDoc
      */
-    protected function _inputContainerTemplate(array $options): string
+    protected function inputContainerTemplate(array $options): string
     {
         $inputContainerTemplate = $options['options']['type'] . 'Container' . $options['errorSuffix'];
         if (!$this->templater()->get($inputContainerTemplate)) {
@@ -1221,10 +1220,10 @@ class FormHelper extends CoreFormHelper
     /**
      * @inheritDoc
      */
-    protected function _parseOptions(string $fieldName, array $options): array
+    protected function parseOptions(string $fieldName, array $options): array
     {
-        $options = parent::_parseOptions($fieldName, $options);
-        $options += ['id' => $this->_domId($fieldName)];
+        $options = parent::parseOptions($fieldName, $options);
+        $options += ['id' => $this->domId($fieldName)];
         if (is_string($options['label'])) {
             $options['label'] = ['text' => $options['label']];
         }
@@ -1240,17 +1239,17 @@ class FormHelper extends CoreFormHelper
      * @param array $options Options.
      * @return array Modified options.
      */
-    protected function _processFormOptions(array $options): array
+    protected function processFormOptions(array $options): array
     {
         if (!$options['align']) {
-            $options['align'] = $this->_detectFormAlignment($options);
+            $options['align'] = $this->detectFormAlignment($options);
         }
 
         if (is_array($options['align'])) {
-            $this->_grid = $options['align'];
+            $this->grid = $options['align'];
             $options['align'] = static::ALIGN_HORIZONTAL;
         } elseif ($options['align'] === static::ALIGN_HORIZONTAL) {
-            $this->_grid = $this->getConfig('grid');
+            $this->grid = $this->getConfig('grid');
         }
 
         if (!in_array($options['align'], static::ALIGN_TYPES)) {
@@ -1259,32 +1258,32 @@ class FormHelper extends CoreFormHelper
             );
         }
 
-        $this->_align = $options['align'];
+        $this->align = $options['align'];
 
         unset($options['align']);
 
         if (!isset($options['spacing'])) {
-            $options['spacing'] = $this->_getSpacingForAlignment($this->_align);
+            $options['spacing'] = $this->getSpacingForAlignment($this->align);
         }
-        $this->_spacing = $options['spacing'];
+        $this->spacing = $options['spacing'];
         unset($options['spacing']);
 
-        $templates = $this->_config['templateSet'][$this->_align];
+        $templates = $this->config['templateSet'][$this->align];
         if (is_string($options['templates'])) {
             $options['templates'] = (new PhpConfig())->read($options['templates']);
         }
 
-        if ($this->_align === static::ALIGN_DEFAULT) {
+        if ($this->align === static::ALIGN_DEFAULT) {
             $options['templates'] += $templates;
 
             return $options;
         }
 
-        if ($this->_align === static::ALIGN_INLINE) {
+        if ($this->align === static::ALIGN_INLINE) {
             $options = $this->injectClasses(
                 [
                     'row',
-                    $this->_spacing,
+                    $this->spacing,
                     'align-items-center',
                 ],
                 $options,
@@ -1296,24 +1295,24 @@ class FormHelper extends CoreFormHelper
 
         $templates['label'] = sprintf(
             $templates['label'],
-            $this->_gridClass(static::GRID_COLUMN_ONE),
+            $this->gridClass(static::GRID_COLUMN_ONE),
         );
         $templates['radioLabel'] = sprintf(
             $templates['radioLabel'],
-            $this->_gridClass(static::GRID_COLUMN_ONE),
+            $this->gridClass(static::GRID_COLUMN_ONE),
         );
-        $templates['multicheckboxLabel'] = sprintf(
-            $templates['multicheckboxLabel'],
-            $this->_gridClass(static::GRID_COLUMN_ONE),
+        $templates['multicheckboxControlLabel'] = sprintf(
+            $templates['multicheckboxControlLabel'],
+            $this->gridClass(static::GRID_COLUMN_ONE),
         );
         $templates['formGroup'] = sprintf(
             $templates['formGroup'],
-            $this->_gridClass(static::GRID_COLUMN_TWO),
+            $this->gridClass(static::GRID_COLUMN_TWO),
         );
 
         $offsetGridClass = implode(' ', [
-            $this->_gridClass(static::GRID_COLUMN_ONE, true),
-            $this->_gridClass(static::GRID_COLUMN_TWO),
+            $this->gridClass(static::GRID_COLUMN_ONE, true),
+            $this->gridClass(static::GRID_COLUMN_TWO),
         ]);
         $containers = [
             'checkboxFormGroup',
@@ -1337,9 +1336,9 @@ class FormHelper extends CoreFormHelper
      * @param bool $offset If true, will append `offset-` to the class.
      * @return string Classes.
      */
-    protected function _gridClass(int $columnIndex, bool $offset = false): string
+    protected function gridClass(int $columnIndex, bool $offset = false): string
     {
-        if ($this->_grid === null) {
+        if ($this->grid === null) {
             return '';
         }
 
@@ -1348,12 +1347,12 @@ class FormHelper extends CoreFormHelper
             $class = 'offset-%s-';
         }
 
-        if (isset($this->_grid[$columnIndex])) {
-            return sprintf($class, 'md') . $this->_grid[$columnIndex];
+        if (isset($this->grid[$columnIndex])) {
+            return sprintf($class, 'md') . $this->grid[$columnIndex];
         }
 
         $classes = [];
-        foreach ($this->_grid as $screen => $positions) {
+        foreach ($this->grid as $screen => $positions) {
             if (isset($positions[$columnIndex])) {
                 array_push($classes, sprintf($class, $screen) . $positions[$columnIndex]);
             }
@@ -1368,7 +1367,7 @@ class FormHelper extends CoreFormHelper
      * @param array $options Options.
      * @return string Form alignment type. One of `default`, `horizontal` or `inline`.
      */
-    protected function _detectFormAlignment(array $options): string
+    protected function detectFormAlignment(array $options): string
     {
         foreach ([static::ALIGN_HORIZONTAL, static::ALIGN_INLINE] as $align) {
             if ($this->checkClasses('form-' . $align, (array)$options['class'])) {
@@ -1390,7 +1389,7 @@ class FormHelper extends CoreFormHelper
      * @param string $align The alignment type for which to retrieve the spacing class.
      * @return string|false
      */
-    protected function _getSpacingForAlignment(string $align): string|false
+    protected function getSpacingForAlignment(string $align): string|false
     {
         $spacing = $this->getConfig('spacing');
 
@@ -1422,11 +1421,10 @@ class FormHelper extends CoreFormHelper
      *
      * @return void
      */
-    protected function _clearFormState(): void
+    protected function clearFormState(): void
     {
-        $this->_align =
-        $this->_grid =
-        $this->_spacing =
-            null;
+        $this->align = null;
+        $this->grid = null;
+        $this->spacing = null;
     }
 }

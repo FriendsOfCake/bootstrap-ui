@@ -35,6 +35,6 @@ class TextareaWidget extends CoreTextareaWidget
      */
     public function render(array $data, ContextInterface $context): string
     {
-        return $this->_withInputGroup($data, $context);
+        return $this->withInputGroup($data, $context);
     }
 }

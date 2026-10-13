@@ -42,7 +42,7 @@ class UIViewTest extends TestCase
      *
      * @return void
      */
-    public function testInitialize()
+    public function testInitialize(): void
     {
         $this->View->initialize();
         $this->assertEquals('BootstrapUI.default', $this->View->getLayout());
@@ -53,7 +53,7 @@ class UIViewTest extends TestCase
      *
      * @return void
      */
-    public function testHelperConfig()
+    public function testHelperConfig(): void
     {
         $View = new UIView(null, null, null, [
             'helpers' => [
@@ -72,7 +72,7 @@ class UIViewTest extends TestCase
      * `$this->ColorMode->script()` and `->toggle()` are available without
      * extra app wiring.
      */
-    public function testColorModeHelperIsAutoLoaded()
+    public function testColorModeHelperIsAutoLoaded(): void
     {
         $this->View->initialize();
         $this->assertInstanceOf(

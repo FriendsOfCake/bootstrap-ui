@@ -21,7 +21,7 @@ class InstallCommandTest extends TestCase
 {
     use ConsoleIntegrationTestTrait;
 
-    public function testInstall()
+    public function testInstall(): void
     {
         $pluginWebrootPath = Plugin::path('BootstrapUI') . 'webroot' . DS;
         $appWebrootPath = WWW_ROOT;
@@ -139,11 +139,11 @@ class InstallCommandTest extends TestCase
             '<success>`bootstrap-icons.woff2` successfully copied.</success>',
             "Copied assets to directory $appWebrootPluginPath",
         ];
-        $this->assertEquals($notPresentInNonVerboseMode, array_values(array_diff($expected, $this->_out->messages())));
+        $this->assertEquals($notPresentInNonVerboseMode, array_values(array_diff($expected, $this->out->messages())));
         $this->assertExitCode(Command::CODE_SUCCESS);
     }
 
-    public function testReInstall()
+    public function testReInstall(): void
     {
         $pluginWebrootPath = Plugin::path('BootstrapUI') . 'webroot' . DS;
         $appWebrootPath = WWW_ROOT;
@@ -215,7 +215,7 @@ class InstallCommandTest extends TestCase
         $filesystem->deleteDir(WWW_ROOT);
     }
 
-    public function testInstallQuiet()
+    public function testInstallQuiet(): void
     {
         $this->exec('bootstrap install -q');
 
@@ -227,12 +227,12 @@ class InstallCommandTest extends TestCase
         $filesystem->deleteDir(WWW_ROOT);
     }
 
-    public function testInstallVerbose()
+    public function testInstallVerbose(): void
     {
         $this->exec('bootstrap install -v');
 
         // Verify key messages are present (exact file list varies by bootstrap version)
-        $messages = $this->_out->messages();
+        $messages = $this->out->messages();
         $this->assertContains('<info>Clearing `node_modules` folder (this can take a while)...</info>', $messages);
         $this->assertContains('<success>Cleared `node_modules` folder.</success>', $messages);
         $this->assertContains('<info>Installing packages...</info>', $messages);
@@ -247,7 +247,7 @@ class InstallCommandTest extends TestCase
         $filesystem->deleteDir(WWW_ROOT);
     }
 
-    public function testInstallLatest()
+    public function testInstallLatest(): void
     {
         $testPackageFileContents = <<<EOT
 {
@@ -389,26 +389,25 @@ EOT;
         $filesystem->deleteDir(WWW_ROOT);
     }
 
-    public function testNPMNotAvailable()
+    public function testNPMNotAvailable(): void
     {
         /** @var \BootstrapUI\Command\InstallCommand|\PHPUnit\Framework\MockObject\MockObject $command */
         $command = $this
             ->getMockBuilder(InstallCommand::class)
-            ->onlyMethods(['_isNPMAvailable'])
+            ->onlyMethods(['isNPMAvailable'])
             ->getMock();
 
         $command
             ->expects($this->once())
-            ->method('_isNPMAvailable')
+            ->method('isNPMAvailable')
             ->willReturn(false);
 
         $out = new StubConsoleOutput();
         $err = new StubConsoleOutput();
-        $args = new Arguments([], [], []);
-        $io = new ConsoleIo($out, $err);
+        $command->setIo(new ConsoleIo($out, $err));
 
         try {
-            $result = $command->installPackages($args, $io);
+            $result = $command->installPackages();
         } catch (StopException $exception) {
             $result = $exception->getCode();
         }
@@ -421,26 +420,25 @@ EOT;
         );
     }
 
-    public function testDeleteNodeModulesFailure()
+    public function testDeleteNodeModulesFailure(): void
     {
         /** @var \BootstrapUI\Command\InstallCommand|\PHPUnit\Framework\MockObject\MockObject $command */
         $command = $this
             ->getMockBuilder(InstallCommand::class)
-            ->onlyMethods(['_deleteNodeModules'])
+            ->onlyMethods(['deleteNodeModules'])
             ->getMock();
 
         $command
             ->expects($this->once())
-            ->method('_deleteNodeModules')
+            ->method('deleteNodeModules')
             ->willReturn(false);
 
         $out = new StubConsoleOutput();
         $err = new StubConsoleOutput();
-        $args = new Arguments([], [], []);
-        $io = new ConsoleIo($out, $err);
+        $command->setIo(new ConsoleIo($out, $err));
 
         try {
-            $result = $command->installPackages($args, $io);
+            $result = $command->installPackages();
         } catch (StopException $exception) {
             $result = $exception->getCode();
         }
@@ -456,30 +454,30 @@ EOT;
         );
     }
 
-    public function testChangeWorkingDirectoryFailure()
+    public function testChangeWorkingDirectoryFailure(): void
     {
         /** @var \BootstrapUI\Command\InstallCommand|\PHPUnit\Framework\MockObject\MockObject $command */
         $command = $this
             ->getMockBuilder(InstallCommand::class)
-            ->onlyMethods(['_deleteNodeModules', '_changeWorkingDirectory'])
+            ->onlyMethods(['deleteNodeModules', 'changeWorkingDirectory'])
             ->getMock();
 
         $command
             ->expects($this->once())
-            ->method('_deleteNodeModules')
+            ->method('deleteNodeModules')
             ->willReturn(true);
         $command
             ->expects($this->once())
-            ->method('_changeWorkingDirectory')
+            ->method('changeWorkingDirectory')
             ->willReturn(false);
 
         $out = new StubConsoleOutput();
         $err = new StubConsoleOutput();
-        $args = new Arguments([], [], []);
-        $io = new ConsoleIo($out, $err);
+        $command->setIo(new ConsoleIo($out, $err));
+        $command->setArgs(new Arguments([], [], []));
 
         try {
-            $result = $command->installPackages($args, $io);
+            $result = $command->installPackages();
         } catch (StopException $exception) {
             $result = $exception->getCode();
         }
@@ -501,21 +499,21 @@ EOT;
         );
     }
 
-    public function testNPMInstallFailure()
+    public function testNPMInstallFailure(): void
     {
         /** @var \BootstrapUI\Command\InstallCommand|\PHPUnit\Framework\MockObject\MockObject $command */
         $command = $this
             ->getMockBuilder(InstallCommand::class)
-            ->onlyMethods(['_deleteNodeModules', '_runNPMInstall'])
+            ->onlyMethods(['deleteNodeModules', 'runNPMInstall'])
             ->getMock();
 
         $command
             ->expects($this->once())
-            ->method('_deleteNodeModules')
+            ->method('deleteNodeModules')
             ->willReturn(true);
         $command
             ->expects($this->once())
-            ->method('_runNPMInstall')
+            ->method('runNPMInstall')
             ->willReturnCallback(function (&$out, &$return) {
                 $out = [
                     'installer output',
@@ -525,11 +523,11 @@ EOT;
 
         $out = new StubConsoleOutput();
         $err = new StubConsoleOutput();
-        $args = new Arguments([], [], []);
-        $io = new ConsoleIo($out, $err);
+        $command->setIo(new ConsoleIo($out, $err));
+        $command->setArgs(new Arguments([], [], []));
 
         try {
-            $result = $command->installPackages($args, $io);
+            $result = $command->installPackages();
         } catch (StopException $exception) {
             $result = $exception->getCode();
         }
@@ -550,12 +548,12 @@ EOT;
         );
     }
 
-    public function testDeleteBufferedPackageAssetsFailure()
+    public function testDeleteBufferedPackageAssetsFailure(): void
     {
         /** @var \BootstrapUI\Command\InstallCommand|\PHPUnit\Framework\MockObject\MockObject $command */
         $command = $this
             ->getMockBuilder(InstallCommand::class)
-            ->onlyMethods(['_findBufferedPackageAssets'])
+            ->onlyMethods(['findBufferedPackageAssets'])
             ->getMock();
 
         file_put_contents(TMP . 'style.css', '');
@@ -563,7 +561,7 @@ EOT;
 
         $command
             ->expects($this->once())
-            ->method('_findBufferedPackageAssets')
+            ->method('findBufferedPackageAssets')
             ->willReturn([
                 new SplFileInfo(TMP . 'style.css'),
                 new SplFileInfo(TMP . 'non-existent.file'),
@@ -572,10 +570,10 @@ EOT;
 
         $out = new StubConsoleOutput();
         $err = new StubConsoleOutput();
-        $io = new ConsoleIo($out, $err);
+        $command->setIo(new ConsoleIo($out, $err));
 
         try {
-            $result = $command->refreshAssetBuffer($io);
+            $result = $command->refreshAssetBuffer();
         } catch (StopException $exception) {
             $result = $exception->getCode();
         }
@@ -596,17 +594,17 @@ EOT;
         );
     }
 
-    public function testBufferPackageAssetsSkipUnsupportedFileTypes()
+    public function testBufferPackageAssetsSkipUnsupportedFileTypes(): void
     {
         /** @var \BootstrapUI\Command\InstallCommand|\PHPUnit\Framework\MockObject\MockObject $command */
         $command = $this
             ->getMockBuilder(InstallCommand::class)
-            ->onlyMethods(['_deleteBufferedPackageAssets', '_findPackageAssets'])
+            ->onlyMethods(['deleteBufferedPackageAssets', 'findPackageAssets'])
             ->getMock();
 
         $command
             ->expects($this->once())
-            ->method('_deleteBufferedPackageAssets')
+            ->method('deleteBufferedPackageAssets')
             ->willReturn(true);
 
         file_put_contents(TMP . 'style.css', '');
@@ -614,7 +612,7 @@ EOT;
 
         $command
             ->expects($this->once())
-            ->method('_findPackageAssets')
+            ->method('findPackageAssets')
             ->willReturn([
                 new SplFileInfo(TMP . 'style.css'),
                 new SplFileInfo(TMP . 'unsupported.file'),
@@ -625,9 +623,10 @@ EOT;
         $err = new StubConsoleOutput();
         $io = new ConsoleIo($out, $err);
         $io->level(ConsoleIo::VERBOSE);
+        $command->setIo($io);
 
         try {
-            $result = $command->refreshAssetBuffer($io);
+            $result = $command->refreshAssetBuffer();
         } catch (StopException $exception) {
             $result = $exception->getCode();
         }
@@ -646,32 +645,32 @@ EOT;
         );
     }
 
-    public function testBufferPackageAssetsFailure()
+    public function testBufferPackageAssetsFailure(): void
     {
         /** @var \BootstrapUI\Command\InstallCommand|\PHPUnit\Framework\MockObject\MockObject $command */
         $command = $this
             ->getMockBuilder(InstallCommand::class)
-            ->onlyMethods(['_deleteBufferedPackageAssets', '_findPackageAssets'])
+            ->onlyMethods(['deleteBufferedPackageAssets', 'findPackageAssets'])
             ->getMock();
 
         $command
             ->expects($this->once())
-            ->method('_deleteBufferedPackageAssets')
+            ->method('deleteBufferedPackageAssets')
             ->willReturn(true);
 
         $command
             ->expects($this->once())
-            ->method('_findPackageAssets')
+            ->method('findPackageAssets')
             ->willReturn([
                 new SplFileInfo(TMP . 'non-existent.css'),
             ]);
 
         $out = new StubConsoleOutput();
         $err = new StubConsoleOutput();
-        $io = new ConsoleIo($out, $err);
+        $command->setIo(new ConsoleIo($out, $err));
 
         try {
-            $result = $command->refreshAssetBuffer($io);
+            $result = $command->refreshAssetBuffer();
         } catch (StopException $exception) {
             $result = $exception->getCode();
         }
@@ -693,7 +692,7 @@ EOT;
         );
     }
 
-    public function testRemovePluginAssetsFailure()
+    public function testRemovePluginAssetsFailure(): void
     {
         /** @var \BootstrapUI\Command\InstallCommand|\PHPUnit\Framework\MockObject\MockObject $command */
         $command = $this
@@ -708,10 +707,10 @@ EOT;
 
         $out = new StubConsoleOutput();
         $err = new StubConsoleOutput();
-        $io = new ConsoleIo($out, $err);
+        $command->setIo(new ConsoleIo($out, $err));
 
         try {
-            $result = $command->removePluginAssets($io);
+            $result = $command->removePluginAssets();
         } catch (StopException $exception) {
             $result = $exception->getCode();
         }
@@ -727,7 +726,7 @@ EOT;
         );
     }
 
-    public function testLinkPluginAssetsFailure()
+    public function testLinkPluginAssetsFailure(): void
     {
         /** @var \BootstrapUI\Command\InstallCommand|\PHPUnit\Framework\MockObject\MockObject $command */
         $command = $this
@@ -742,10 +741,10 @@ EOT;
 
         $out = new StubConsoleOutput();
         $err = new StubConsoleOutput();
-        $io = new ConsoleIo($out, $err);
+        $command->setIo(new ConsoleIo($out, $err));
 
         try {
-            $result = $command->linkPluginAssets($io);
+            $result = $command->linkPluginAssets();
         } catch (StopException $exception) {
             $result = $exception->getCode();
         }
@@ -766,23 +765,24 @@ EOT;
      * directory because it called `chdir()` without restoring it. Any later
      * relative-path work in the same process would then resolve incorrectly.
      */
-    public function testRunNPMInstallRestoresCwd()
+    public function testRunNPMInstallRestoresCwd(): void
     {
         $cwdBefore = getcwd();
         $this->assertNotFalse($cwdBefore);
 
         $command = new InstallCommand();
         $io = new ConsoleIo(new StubConsoleOutput(), new StubConsoleOutput());
+        $command->setIo($io);
         $output = [];
         $return = 0;
 
-        $method = new ReflectionMethod(InstallCommand::class, '_runNPMInstall');
-        $method->invokeArgs($command, [&$output, &$return, $io, false]);
+        $method = new ReflectionMethod(InstallCommand::class, 'runNPMInstall');
+        $method->invokeArgs($command, [&$output, &$return, false]);
 
-        $this->assertSame($cwdBefore, getcwd(), 'Working directory was not restored after _runNPMInstall.');
+        $this->assertSame($cwdBefore, getcwd(), 'Working directory was not restored after runNPMInstall.');
     }
 
-    public function testHelp()
+    public function testHelp(): void
     {
         $this->exec('bootstrap install --help');
 
@@ -805,7 +805,7 @@ cake bootstrap install [-h] [-l] [-q] [-v]
 --quiet, -q    {$quiet}.
 --verbose, -v  Enable verbose output.
 "],
-            $this->_out->messages(),
+            $this->out->messages(),
         );
         $this->assertErrorEmpty();
     }

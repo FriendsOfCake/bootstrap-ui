@@ -27,7 +27,7 @@ class OptionsAwareTraitTest extends TestCase
         $this->object = new TestOptionsAware();
     }
 
-    public function testApplyButtonStyles()
+    public function testApplyButtonStyles(): void
     {
         $this->assertEquals(['class' => 'btn btn-secondary'], $this->object->applyButtonClasses([]));
         foreach (['primary', 'secondary', 'success', 'danger', 'warning', 'info', 'light', 'dark'] as $style) {
@@ -36,13 +36,13 @@ class OptionsAwareTraitTest extends TestCase
         }
     }
 
-    public function testRenameClasses()
+    public function testRenameClasses(): void
     {
         $this->assertEquals(['class' => 'btn-primary'], $this->object->renameClasses('btn', ['class' => 'primary']));
         $this->assertEquals(['class' => 'alert-success'], $this->object->renameClasses('alert', ['class' => 'success']));
     }
 
-    public function testHasAnyClass()
+    public function testHasAnyClass(): void
     {
         $this->assertFalse($this->object->hasAnyClass('a', []));
         $this->assertFalse($this->object->hasAnyClass('a', ['class' => 'x y z']));
@@ -51,7 +51,7 @@ class OptionsAwareTraitTest extends TestCase
         $this->assertTrue($this->object->hasAnyClass('a w', ['class' => 'x y z a b c']));
     }
 
-    public function testInjectClasses()
+    public function testInjectClasses(): void
     {
         $this->assertEquals(['class' => 'a'], $this->object->injectClasses('a', []));
         $this->assertEquals(['class' => 'a b c'], $this->object->injectClasses('a b c', []));
@@ -60,20 +60,20 @@ class OptionsAwareTraitTest extends TestCase
         $this->assertEquals(['class' => 'x y z a b c'], $this->object->injectClasses('a b c', ['class' => 'x y z']));
     }
 
-    public function testOverlappingInjectClasses()
+    public function testOverlappingInjectClasses(): void
     {
         $this->assertEquals(['class' => 'a b c x y z'], $this->object->injectClasses('a b c', ['class' => 'a b c x y z']));
         $this->assertEquals(['class' => 'a b c x y z'], $this->object->injectClasses('a', ['class' => 'a b c x y z']));
         $this->assertEquals(['class' => 'a c x y z b'], $this->object->injectClasses('a b c', ['class' => 'a c x y z']));
     }
 
-    public function testSkippingInjectClasses()
+    public function testSkippingInjectClasses(): void
     {
         $this->assertEquals(['class' => 'x y z a c'], $this->object->injectClasses('a b c', ['class' => 'x y z', 'skip' => 'b']));
         $this->assertEquals(['class' => 'x y z a b c'], $this->object->injectClasses('a b c', ['class' => 'x y z', 'skip' => 'm']));
     }
 
-    public function testRemoveClasses()
+    public function testRemoveClasses(): void
     {
         $this->assertEquals(['class' => ''], $this->object->removeClasses('a', []));
         $this->assertEquals(['class' => ''], $this->object->removeClasses('a', ['class' => 'a']));
@@ -85,7 +85,7 @@ class OptionsAwareTraitTest extends TestCase
         $this->assertEquals(['class' => 'b'], $this->object->removeClasses(['a', 'c'], ['class' => ['a', 'b', 'c']]));
     }
 
-    public function testCheckClasses()
+    public function testCheckClasses(): void
     {
         foreach (['a', 'a b c', ['a'], ['a', 'b', 'c']] as $class) {
             $this->assertFalse($this->object->checkClasses($class, []));
@@ -98,7 +98,7 @@ class OptionsAwareTraitTest extends TestCase
         $this->assertTrue($this->object->checkClasses('a b c', ['class' => ['c', 'b', 'a']]));
     }
 
-    public function testGenClassName()
+    public function testGenClassName(): void
     {
         $this->assertEquals('btn-success', $this->object->genClassName('btn', 'success'));
         $this->assertEquals('btn-outline-primary', $this->object->genClassName('btn-outline', 'primary'));
@@ -107,7 +107,7 @@ class OptionsAwareTraitTest extends TestCase
         $this->assertFalse($this->object->genClassName('btn', 'unknown'));
     }
 
-    public function testGenAllClassNames()
+    public function testGenAllClassNames(): void
     {
         $res = [
             'primary',

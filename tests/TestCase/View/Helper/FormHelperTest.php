@@ -9,7 +9,7 @@ use InvalidArgumentException;
 
 class FormHelperTest extends AbstractFormHelperTest
 {
-    public function testBasicPasswordControl()
+    public function testBasicPasswordControl(): void
     {
         $this->article['schema']['password'] = ['type' => 'string'];
         $this->Form->create($this->article);
@@ -36,7 +36,7 @@ class FormHelperTest extends AbstractFormHelperTest
      *
      * @return void
      */
-    public function testRequiredTextControl()
+    public function testRequiredTextControl(): void
     {
         $this->Form->create($this->article);
 
@@ -61,7 +61,7 @@ class FormHelperTest extends AbstractFormHelperTest
         $this->assertHtml($expected, $result);
     }
 
-    public function testAddOnPrependedText()
+    public function testAddOnPrependedText(): void
     {
         $this->Form->create($this->article);
 
@@ -91,7 +91,7 @@ class FormHelperTest extends AbstractFormHelperTest
         $this->assertHtml($expected, $result);
     }
 
-    public function testAddOnPrependedTextMultiple()
+    public function testAddOnPrependedTextMultiple(): void
     {
         $this->Form->create($this->article);
 
@@ -124,7 +124,7 @@ class FormHelperTest extends AbstractFormHelperTest
         $this->assertHtml($expected, $result);
     }
 
-    public function testAddOnAppendedText()
+    public function testAddOnAppendedText(): void
     {
         $this->Form->create($this->article);
 
@@ -154,7 +154,7 @@ class FormHelperTest extends AbstractFormHelperTest
         $this->assertHtml($expected, $result);
     }
 
-    public function testAddOnAppendedTextMultiple()
+    public function testAddOnAppendedTextMultiple(): void
     {
         $this->Form->create($this->article);
 
@@ -187,7 +187,7 @@ class FormHelperTest extends AbstractFormHelperTest
         $this->assertHtml($expected, $result);
     }
 
-    public function testAddOnPrependedButton()
+    public function testAddOnPrependedButton(): void
     {
         $this->Form->create($this->article);
 
@@ -217,7 +217,7 @@ class FormHelperTest extends AbstractFormHelperTest
         $this->assertHtml($expected, $result);
     }
 
-    public function testAddOnPrependedButtonMultiple()
+    public function testAddOnPrependedButtonMultiple(): void
     {
         $this->Form->create($this->article);
 
@@ -255,7 +255,7 @@ class FormHelperTest extends AbstractFormHelperTest
         $this->assertHtml($expected, $result);
     }
 
-    public function testAddOnAppendedButton()
+    public function testAddOnAppendedButton(): void
     {
         $this->Form->create($this->article);
 
@@ -285,7 +285,7 @@ class FormHelperTest extends AbstractFormHelperTest
         $this->assertHtml($expected, $result);
     }
 
-    public function testAddOnAppendedButtonMultiple()
+    public function testAddOnAppendedButtonMultiple(): void
     {
         $this->Form->create($this->article);
 
@@ -323,7 +323,7 @@ class FormHelperTest extends AbstractFormHelperTest
         $this->assertHtml($expected, $result);
     }
 
-    public function testAddOnOptions()
+    public function testAddOnOptions(): void
     {
         $this->Form->create($this->article);
 
@@ -378,7 +378,7 @@ class FormHelperTest extends AbstractFormHelperTest
         $this->assertHtml($expected, $result);
     }
 
-    public function testAddOnOptionsMultiple()
+    public function testAddOnOptionsMultiple(): void
     {
         $this->Form->create($this->article);
 
@@ -447,7 +447,7 @@ class FormHelperTest extends AbstractFormHelperTest
         $this->assertHtml($expected, $result);
     }
 
-    public function testAddOnWithError()
+    public function testAddOnWithError(): void
     {
         $this->article['errors'] = [
             'title' => ['error message'],
@@ -508,7 +508,7 @@ class FormHelperTest extends AbstractFormHelperTest
         $this->assertHtml($expected, $result);
     }
 
-    public function testAddOnWithBasicInputs()
+    public function testAddOnWithBasicInputs(): void
     {
         $this->article['required']['title'] = false;
 
@@ -592,7 +592,7 @@ class FormHelperTest extends AbstractFormHelperTest
         $this->assertHtml($expected, $result);
     }
 
-    public function testFormCreate()
+    public function testFormCreate(): void
     {
         $result = $this->Form->create($this->article);
         $expected = [
@@ -605,13 +605,13 @@ class FormHelperTest extends AbstractFormHelperTest
         $this->assertHtml($expected, $result);
     }
 
-    public function testFormEnd()
+    public function testFormEnd(): void
     {
         $this->Form->create($this->article);
         $this->assertHtml(['/form'], $this->Form->end());
     }
 
-    public function testFormCreateWithTemplatesFile()
+    public function testFormCreateWithTemplatesFile(): void
     {
         unset($this->article['required']['title']);
         $this->Form->create($this->article, ['templates' => 'custom_templates']);
@@ -633,7 +633,7 @@ class FormHelperTest extends AbstractFormHelperTest
         $this->assertHtml($expected, $result);
     }
 
-    public function testInlineFormCreate()
+    public function testInlineFormCreate(): void
     {
         $result = $this->Form->create($this->article, ['align' => 'inline']);
         $expected = [
@@ -647,7 +647,7 @@ class FormHelperTest extends AbstractFormHelperTest
         $this->assertHtml($expected, $result);
     }
 
-    public function testInlineFormCreateWithCustomSpacing()
+    public function testInlineFormCreateWithCustomSpacing(): void
     {
         $result = $this->Form->create($this->article, [
             'align' => 'inline',
@@ -664,7 +664,7 @@ class FormHelperTest extends AbstractFormHelperTest
         $this->assertHtml($expected, $result);
     }
 
-    public function testHorizontalFormCreate()
+    public function testHorizontalFormCreate(): void
     {
         $result = $this->Form->create($this->article, ['align' => 'horizontal']);
         $expected = [
@@ -677,13 +677,13 @@ class FormHelperTest extends AbstractFormHelperTest
         $this->assertHtml($expected, $result);
     }
 
-    public function testInvalidAlignmentFormCreate()
+    public function testInvalidAlignmentFormCreate(): void
     {
         $this->expectException(InvalidArgumentException::class);
         $this->Form->create($this->article, ['align' => 'foo']);
     }
 
-    public function testCustomGridWithConstantsConfig()
+    public function testCustomGridWithConstantsConfig(): void
     {
         $this->Form->create($this->article, [
             'align' => [
@@ -718,7 +718,7 @@ class FormHelperTest extends AbstractFormHelperTest
         $this->assertHtml($expected, $result);
     }
 
-    public function testCustomGridWithBasicArrayConfig()
+    public function testCustomGridWithBasicArrayConfig(): void
     {
         $this->Form->create($this->article, [
             'align' => [
@@ -753,7 +753,7 @@ class FormHelperTest extends AbstractFormHelperTest
         $this->assertHtml($expected, $result);
     }
 
-    public function testHorizontalFormCreateFromConfig()
+    public function testHorizontalFormCreateFromConfig(): void
     {
         $this->Form->setConfig([
             'align' => 'horizontal',
@@ -825,7 +825,7 @@ class FormHelperTest extends AbstractFormHelperTest
         $this->assertHtml($expected, $result);
     }
 
-    public function testBasicButton()
+    public function testBasicButton(): void
     {
         $result = $this->Form->button('Submit');
         $expected = [
@@ -836,7 +836,7 @@ class FormHelperTest extends AbstractFormHelperTest
         $this->assertHtml($expected, $result);
     }
 
-    public function testStyledButton()
+    public function testStyledButton(): void
     {
         $result = $this->Form->button('Submit', ['class' => 'success']);
         $expected = [
@@ -847,7 +847,7 @@ class FormHelperTest extends AbstractFormHelperTest
         $this->assertHtml($expected, $result);
     }
 
-    public function testPrimaryStyledButton()
+    public function testPrimaryStyledButton(): void
     {
         $result = $this->Form->button('Submit', ['class' => 'primary']);
         $expected = [
@@ -858,7 +858,7 @@ class FormHelperTest extends AbstractFormHelperTest
         $this->assertHtml($expected, $result);
     }
 
-    public function testStyledFormSubmit()
+    public function testStyledFormSubmit(): void
     {
         $result = $this->Form->submit('Submit', ['class' => 'btn btn-block']);
         $expected = [
@@ -885,7 +885,7 @@ class FormHelperTest extends AbstractFormHelperTest
         $this->assertHtml($expected, $result);
     }
 
-    public function testTooltipWithDisabledLabel()
+    public function testTooltipWithDisabledLabel(): void
     {
         $this->Form->create($this->article);
 
@@ -918,7 +918,7 @@ class FormHelperTest extends AbstractFormHelperTest
      *
      * @return void
      */
-    public function testFormControlWithoutOpenForm()
+    public function testFormControlWithoutOpenForm(): void
     {
         $Form = new FormHelper($this->View);
 
@@ -958,7 +958,7 @@ class FormHelperTest extends AbstractFormHelperTest
      *
      * @return void
      */
-    public function testFormClassInjection()
+    public function testFormClassInjection(): void
     {
         $result = $this->Form->text('foo');
         $this->assertStringContainsString('class="form-control"', $result);
@@ -991,7 +991,7 @@ class FormHelperTest extends AbstractFormHelperTest
         $this->assertStringContainsString('class="form-control form-control-color"', $result);
     }
 
-    public function testFeedbackStyleFromHelperConfig()
+    public function testFeedbackStyleFromHelperConfig(): void
     {
         $this->article['errors'] = [
             'title' => ['error message'],
@@ -1024,7 +1024,7 @@ class FormHelperTest extends AbstractFormHelperTest
         $this->assertHtml($expected, $result);
     }
 
-    public function testOverrideFeedbackStyleFromHelperConfigViaControlConfig()
+    public function testOverrideFeedbackStyleFromHelperConfigViaControlConfig(): void
     {
         $this->article['errors'] = [
             'title' => ['error message'],
@@ -1059,7 +1059,7 @@ class FormHelperTest extends AbstractFormHelperTest
         $this->assertHtml($expected, $result);
     }
 
-    public function testFormGroupPositionFromHelperConfig()
+    public function testFormGroupPositionFromHelperConfig(): void
     {
         $this->article['errors'] = [
             'title' => ['error message'],
@@ -1095,7 +1095,7 @@ class FormHelperTest extends AbstractFormHelperTest
         $this->assertHtml($expected, $result);
     }
 
-    public function testOverrideFormGroupPositionFromHelperConfigViaControlConfig()
+    public function testOverrideFormGroupPositionFromHelperConfigViaControlConfig(): void
     {
         $this->article['errors'] = [
             'title' => ['error message'],
@@ -1133,7 +1133,7 @@ class FormHelperTest extends AbstractFormHelperTest
         $this->assertHtml($expected, $result);
     }
 
-    public function testDefaultAlignControlWithTooltipFeedbackStyle()
+    public function testDefaultAlignControlWithTooltipFeedbackStyle(): void
     {
         $this->article['errors'] = [
             'title' => ['error message'],
@@ -1167,7 +1167,7 @@ class FormHelperTest extends AbstractFormHelperTest
         $this->assertHtml($expected, $result);
     }
 
-    public function testInlineAlignControlWithDefaultFeedbackStyle()
+    public function testInlineAlignControlWithDefaultFeedbackStyle(): void
     {
         $this->article['errors'] = [
             'title' => ['error message'],
@@ -1205,7 +1205,7 @@ class FormHelperTest extends AbstractFormHelperTest
         $this->assertHtml($expected, $result);
     }
 
-    public function testHorizontalAlignControlWithTooltipFeedbackStyle()
+    public function testHorizontalAlignControlWithTooltipFeedbackStyle(): void
     {
         $this->article['errors'] = [
             'title' => ['error message'],
@@ -1248,7 +1248,7 @@ class FormHelperTest extends AbstractFormHelperTest
         $this->assertHtml($expected, $result);
     }
 
-    public function testHiddenFieldsDoNotGenerateAriaAttributes()
+    public function testHiddenFieldsDoNotGenerateAriaAttributes(): void
     {
         $this->article['errors'] = [
             'title' => ['error message'],
@@ -1271,7 +1271,7 @@ class FormHelperTest extends AbstractFormHelperTest
         $this->assertHtml($expected, $result);
     }
 
-    public function testOverrideAriaAttributes()
+    public function testOverrideAriaAttributes(): void
     {
         $this->article['errors'] = [
             'title' => ['error message'],
@@ -1308,7 +1308,7 @@ class FormHelperTest extends AbstractFormHelperTest
         $this->assertHtml($expected, $result);
     }
 
-    public function testPartiallyOverrideAriaAttributes()
+    public function testPartiallyOverrideAriaAttributes(): void
     {
         $this->article['errors'] = [
             'title' => ['error message'],
@@ -1344,7 +1344,7 @@ class FormHelperTest extends AbstractFormHelperTest
         $this->assertHtml($expected, $result);
     }
 
-    public function testSpacingViaCreateConfigIsBeingResetOnFormClose()
+    public function testSpacingViaCreateConfigIsBeingResetOnFormClose(): void
     {
         $this->article['required']['title'] = false;
 
@@ -1389,7 +1389,7 @@ class FormHelperTest extends AbstractFormHelperTest
         $this->assertHtml($expected, $result);
     }
 
-    public function testOverrideSpacingFromHelperConfigViaCreateConfig()
+    public function testOverrideSpacingFromHelperConfigViaCreateConfig(): void
     {
         $this->article['required']['title'] = false;
 
@@ -1438,7 +1438,7 @@ class FormHelperTest extends AbstractFormHelperTest
         $this->assertHtml($expected, $result);
     }
 
-    public function testOverrideSpacingFromHelperConfigViaControlConfig()
+    public function testOverrideSpacingFromHelperConfigViaControlConfig(): void
     {
         $this->article['required']['title'] = false;
 
@@ -1487,7 +1487,7 @@ class FormHelperTest extends AbstractFormHelperTest
         $this->assertHtml($expected, $result, true);
     }
 
-    public function testOverrideSpacingFromCreateConfigViaControlConfig()
+    public function testOverrideSpacingFromCreateConfigViaControlConfig(): void
     {
         $this->article['required']['title'] = false;
 
@@ -1532,7 +1532,7 @@ class FormHelperTest extends AbstractFormHelperTest
         $this->Form->end();
     }
 
-    public function testDisableSpacingViaHelperConfig()
+    public function testDisableSpacingViaHelperConfig(): void
     {
         $this->article['required']['title'] = false;
 
@@ -1579,7 +1579,7 @@ class FormHelperTest extends AbstractFormHelperTest
         $this->assertHtml($expected, $result);
     }
 
-    public function testDisableSpacingFromHelperConfigViaCreateConfig()
+    public function testDisableSpacingFromHelperConfigViaCreateConfig(): void
     {
         $this->article['required']['title'] = false;
 
@@ -1628,7 +1628,7 @@ class FormHelperTest extends AbstractFormHelperTest
         $this->assertHtml($expected, $result);
     }
 
-    public function testDisableSpacingFromHelperConfigViaControlConfig()
+    public function testDisableSpacingFromHelperConfigViaControlConfig(): void
     {
         $this->article['required']['title'] = false;
 
@@ -1677,7 +1677,7 @@ class FormHelperTest extends AbstractFormHelperTest
         $this->assertHtml($expected, $result, true);
     }
 
-    public function testDisableSpacingFromCreateConfigViaControlConfig()
+    public function testDisableSpacingFromCreateConfigViaControlConfig(): void
     {
         $this->article['required']['title'] = false;
 
@@ -1722,7 +1722,7 @@ class FormHelperTest extends AbstractFormHelperTest
         $this->Form->end();
     }
 
-    public function testFloatingLabelPlaceholderGeneration()
+    public function testFloatingLabelPlaceholderGeneration(): void
     {
         $this->article['required']['title'] = false;
         $this->Form->create($this->article);
@@ -1749,7 +1749,7 @@ class FormHelperTest extends AbstractFormHelperTest
         $this->assertHtml($expected, $result);
     }
 
-    public function testFloatingLabelPlaceholderGenerationForNestedField()
+    public function testFloatingLabelPlaceholderGenerationForNestedField(): void
     {
         $this->Form->create($this->article);
 
@@ -1775,7 +1775,7 @@ class FormHelperTest extends AbstractFormHelperTest
         $this->assertHtml($expected, $result);
     }
 
-    public function testFloatingLabelPlaceholderGenerationForIdField()
+    public function testFloatingLabelPlaceholderGenerationForIdField(): void
     {
         unset($this->article['required']['author_id']);
         $this->Form->create($this->article);

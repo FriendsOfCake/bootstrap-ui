@@ -8,7 +8,7 @@ use BootstrapUI\View\Helper\FormHelper;
 
 class SubmitControlTest extends AbstractFormHelperTest
 {
-    public function testHorizontalAlignSubmit()
+    public function testHorizontalAlignSubmit(): void
     {
         $this->Form->create($this->article, [
             'align' => [
@@ -34,7 +34,7 @@ class SubmitControlTest extends AbstractFormHelperTest
         $this->assertHtml($expected, $result);
     }
 
-    public function testHorizontalAlignSubmitContainerOptions()
+    public function testHorizontalAlignSubmitContainerOptions(): void
     {
         $this->Form->create($this->article, [
             'align' => [

@@ -69,7 +69,7 @@ class FlashHelperTest extends TestCase
      * @param string $icon The icon name.
      */
     #[DataProvider('flashTypeDefaultsDataProvider')]
-    public function testRenderDefaults(string $type, string $class, string $icon)
+    public function testRenderDefaults(string $type, string $class, string $icon): void
     {
         $this->View->getRequest()->getSession()->write('Flash', [
             'flash' => [
@@ -104,7 +104,7 @@ class FlashHelperTest extends TestCase
         $this->assertHtml($expected, $result, true);
     }
 
-    public function testRenderMultipleMessages()
+    public function testRenderMultipleMessages(): void
     {
         $this->View->getRequest()->getSession()->write([
             'Flash' => [
@@ -160,13 +160,13 @@ class FlashHelperTest extends TestCase
         );
     }
 
-    public function testRenderNonExistentKey()
+    public function testRenderNonExistentKey(): void
     {
         $result = $this->Flash->render('nonExistentKey');
         $this->assertNull($result);
     }
 
-    public function testRenderInvalidKey()
+    public function testRenderInvalidKey(): void
     {
         $this->expectException(UnexpectedValueException::class);
         $this->expectExceptionMessage('Value for flash setting key "invalidKey" must be an array.');
@@ -178,7 +178,7 @@ class FlashHelperTest extends TestCase
         $this->Flash->render('invalidKey');
     }
 
-    public function testRenderCustomKey()
+    public function testRenderCustomKey(): void
     {
         $this->View->getRequest()->getSession()->write('Flash', [
             'custom' => [
@@ -193,7 +193,7 @@ class FlashHelperTest extends TestCase
         $this->assertStringContainsString('Flash message for custom key', $result);
     }
 
-    public function testRenderOptions()
+    public function testRenderOptions(): void
     {
         $this->View->getRequest()->getSession()->write('Flash', [
             'flash' => [
@@ -208,7 +208,7 @@ class FlashHelperTest extends TestCase
         $this->assertStringContainsString('<div role="alert" class="foo bar alert-info">', $result);
     }
 
-    public function testRenderCustomClass()
+    public function testRenderCustomClass(): void
     {
         $this->View->getRequest()->getSession()->write('Flash', [
             'flash' => [
@@ -224,7 +224,7 @@ class FlashHelperTest extends TestCase
         $this->assertStringNotContainsString('data-bs-dismiss="alert"', $result);
     }
 
-    public function testRenderCustomAlertClass()
+    public function testRenderCustomAlertClass(): void
     {
         $this->View->getRequest()->getSession()->write('Flash', [
             'flash' => [
@@ -243,7 +243,7 @@ class FlashHelperTest extends TestCase
         $this->assertStringContainsString('data-bs-dismiss="alert"', $result);
     }
 
-    public function testRenderUnescapedMessage()
+    public function testRenderUnescapedMessage(): void
     {
         $this->View->getRequest()->getSession()->write('Flash', [
             'flash' => [
@@ -258,7 +258,7 @@ class FlashHelperTest extends TestCase
         $this->assertStringContainsString('This is a <a href="#">message containing HTML</a>', $result);
     }
 
-    public function testRenderCustomElement()
+    public function testRenderCustomElement(): void
     {
         $this->View->getRequest()->getSession()->write('Flash', [
             'flash' => [
@@ -296,7 +296,7 @@ class FlashHelperTest extends TestCase
         $this->assertSame(json_encode($expected), $result);
     }
 
-    public function testIconOptionsOnlyViaConfig()
+    public function testIconOptionsOnlyViaConfig(): void
     {
         $this->Flash->setConfig('icon', [
             'size' => '2xl',
@@ -316,7 +316,7 @@ class FlashHelperTest extends TestCase
         $this->assertStringContainsString('<i class="foo bar bi bi-info-circle-fill bi-2xl"></i>', $result);
     }
 
-    public function testIconOptionsOnlyViaParamsOption()
+    public function testIconOptionsOnlyViaParamsOption(): void
     {
         $this->View->getRequest()->getSession()->write('Flash', [
             'flash' => [
@@ -336,7 +336,7 @@ class FlashHelperTest extends TestCase
         $this->assertStringContainsString('<i class="foo bar bi bi-info-circle-fill bi-2xl"></i>', $result);
     }
 
-    public function testCustomIcon()
+    public function testCustomIcon(): void
     {
         $this->View->getRequest()->getSession()->write('Flash', [
             'flash' => [
@@ -353,7 +353,7 @@ class FlashHelperTest extends TestCase
         $this->assertStringContainsString('<i class="me-2 bi bi-mic-mute-fill bi-xl"></i>', $result);
     }
 
-    public function testCustomIconOptions()
+    public function testCustomIconOptions(): void
     {
         $this->View->getRequest()->getSession()->write('Flash', [
             'flash' => [
@@ -374,7 +374,7 @@ class FlashHelperTest extends TestCase
         $this->assertStringContainsString('<i class="foo bar bi bi-mic-mute-fill bi-2xl"></i>', $result);
     }
 
-    public function testCustomIconSet()
+    public function testCustomIconSet(): void
     {
         $this->View->getRequest()->getSession()->write('Flash', [
             'flash' => [
@@ -396,7 +396,7 @@ class FlashHelperTest extends TestCase
         $this->assertStringContainsString('<i class="me-2 fas fa-microphone-slash fa-2xl"></i>', $result);
     }
 
-    public function testCustomHtmlIcon()
+    public function testCustomHtmlIcon(): void
     {
         $this->View->getRequest()->getSession()->write('Flash', [
             'flash' => [
@@ -449,7 +449,7 @@ class FlashHelperTest extends TestCase
      * @param string $type The flash type.
      */
     #[DataProvider('flashTypeDataProvider')]
-    public function testCustomDefaultIcon(string $type)
+    public function testCustomDefaultIcon(string $type): void
     {
         $this->Flash->setConfig('icon', 'info');
 
@@ -470,7 +470,7 @@ class FlashHelperTest extends TestCase
      * @param string $type The flash type.
      */
     #[DataProvider('flashTypeDataProvider')]
-    public function testDisableIconsViaConfig(string $type)
+    public function testDisableIconsViaConfig(string $type): void
     {
         $this->Flash->setConfig('icon', false);
 
@@ -492,7 +492,7 @@ class FlashHelperTest extends TestCase
      * @param string $type The flash type.
      */
     #[DataProvider('flashTypeDataProvider')]
-    public function testDisableIconViaParamsOption(string $type)
+    public function testDisableIconViaParamsOption(string $type): void
     {
         $this->View->getRequest()->getSession()->write('Flash', [
             'flash' => [
@@ -513,7 +513,7 @@ class FlashHelperTest extends TestCase
      * @param string $type The flash type.
      */
     #[DataProvider('flashTypeDataProvider')]
-    public function testCustomIconClassMap(string $type)
+    public function testCustomIconClassMap(string $type): void
     {
         $iconClassMap = [
             'default' => 'info-circle',
@@ -545,7 +545,7 @@ class FlashHelperTest extends TestCase
      * @param string $type The flash type.
      */
     #[DataProvider('flashTypeDataProvider')]
-    public function testCustomIconClassMapOptions(string $type)
+    public function testCustomIconClassMapOptions(string $type): void
     {
         $options = [
             'size' => '2xl',

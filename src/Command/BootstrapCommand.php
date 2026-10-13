@@ -4,10 +4,8 @@ declare(strict_types=1);
 namespace BootstrapUI\Command;
 
 use Cake\Command\Command;
-use Cake\Console\Arguments;
 use Cake\Console\CommandCollection;
 use Cake\Console\CommandCollectionAwareInterface;
-use Cake\Console\ConsoleIo;
 use Cake\Console\ConsoleOptionParser;
 use Cake\Utility\Text;
 
@@ -42,9 +40,9 @@ class BootstrapCommand extends Command implements CommandCollectionAwareInterfac
     /**
      * @inheritDoc
      */
-    public function execute(Arguments $args, ConsoleIo $io): ?int
+    public function execute(): ?int
     {
-        $io->warning('No command provided. Run `bootstrap --help` to get a list of commands.');
+        $this->io->warning('No command provided. Run `bootstrap --help` to get a list of commands.');
 
         return static::CODE_ERROR;
     }
@@ -52,20 +50,20 @@ class BootstrapCommand extends Command implements CommandCollectionAwareInterfac
     /**
      * @inheritDoc
      */
-    protected function displayHelp(ConsoleOptionParser $parser, Arguments $args, ConsoleIo $io): void
+    protected function displayHelp(ConsoleOptionParser $parser): void
     {
-        $io->out(Text::wrap($parser->getDescription(), 72), 2);
-        $io->info('Available Commands:', 2);
+        $this->io->out(Text::wrap($parser->getDescription(), 72), 2);
+        $this->io->info('Available Commands:', 2);
 
         foreach ($this->commands as $command => $class) {
             if (substr($command, 0, 10) === 'bootstrap ') {
-                $io->out("- $command");
+                $this->io->out("- $command");
             }
         }
 
-        $io->out();
-        $io->out('To run a command, type <info>`bootstrap command_name [args|options]`</info>');
-        $io->out('To get help on a specific command, type <info>`bootstrap command_name --help`</info>', 2);
+        $this->io->out();
+        $this->io->out('To run a command, type <info>`bootstrap command_name [args|options]`</info>');
+        $this->io->out('To get help on a specific command, type <info>`bootstrap command_name --help`</info>', 2);
     }
 
     /**

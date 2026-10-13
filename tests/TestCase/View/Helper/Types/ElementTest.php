@@ -16,7 +16,7 @@ class ElementTest extends TestCase
      *
      * @return void
      */
-    public function testGetElements()
+    public function testGetElements(): void
     {
         $elements = Element::values();
         $expected = [

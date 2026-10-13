@@ -23,7 +23,7 @@ class ColorModeHelper extends Helper
     /**
      * @var array<string, mixed>
      */
-    protected array $_defaultConfig = [
+    protected array $defaultConfig = [
         // localStorage key under which the user's choice is persisted.
         'storageKey' => 'bs-theme',
         // Mode used when nothing is stored yet. Accepts either a ColorMode
@@ -68,9 +68,9 @@ class ColorModeHelper extends Helper
     {
         $config = $options + $this->getConfig();
 
-        $storageKey = $this->_jsonValue($config['storageKey']);
-        $default = $this->_jsonValue($this->_modeValue($config['default']));
-        $target = $this->_jsonValue($config['target']);
+        $storageKey = $this->jsonValue($config['storageKey']);
+        $default = $this->jsonValue($this->modeValue($config['default']));
+        $target = $this->jsonValue($config['target']);
 
         // Inline IIFE; ASCII-only so it survives any reasonable CSP/serializer.
         // localStorage access is wrapped in try/catch — when storage is blocked
@@ -117,18 +117,18 @@ class ColorModeHelper extends Helper
 
         $buttons = '';
         foreach ($modes as $mode) {
-            $value = $this->_modeValue($mode);
-            $label = $this->_modeLabel($mode);
-            $buttons .= $this->_button($value, $label, (string)$config['buttonClass']);
+            $value = $this->modeValue($mode);
+            $label = $this->modeLabel($mode);
+            $buttons .= $this->button($value, $label, (string)$config['buttonClass']);
         }
 
         $initJs = '(function(){'
             . 'var w=document.currentScript&&document.currentScript.previousElementSibling;'
             . 'if(!w||!w.matches("[data-bs-theme-toggle]")){return;}'
             . 'var active=(window.BootstrapUIColorMode&&BootstrapUIColorMode.get())||'
-            . $this->_jsonValue($this->_modeValue($config['default']))
+            . $this->jsonValue($this->modeValue($config['default']))
             . ';'
-            . 'var ac=' . $this->_jsonValue($config['activeClass']) . ';'
+            . 'var ac=' . $this->jsonValue($config['activeClass']) . ';'
             . 'function sync(active){w.querySelectorAll("[data-bs-theme-value]").forEach(function(x){'
             . 'var on=x.getAttribute("data-bs-theme-value")===active;'
             . 'x.classList.toggle(ac,on);x.setAttribute("aria-pressed",on?"true":"false");});}'
@@ -138,7 +138,7 @@ class ColorModeHelper extends Helper
             . 'sync(active);'
             . '})();';
 
-        return $this->_wrap($wrapperAttrs, $buttons) . '<script>' . $initJs . '</script>';
+        return $this->wrap($wrapperAttrs, $buttons) . '<script>' . $initJs . '</script>';
     }
 
     /**
@@ -148,7 +148,7 @@ class ColorModeHelper extends Helper
      * @param string $content Inner HTML.
      * @return string
      */
-    protected function _wrap(array $attrs, string $content): string
+    protected function wrap(array $attrs, string $content): string
     {
         $rendered = '';
         foreach ($attrs as $name => $value) {
@@ -166,7 +166,7 @@ class ColorModeHelper extends Helper
      * @param string $buttonClass Button CSS classes (without active state).
      * @return string
      */
-    protected function _button(string $value, string $label, string $buttonClass): string
+    protected function button(string $value, string $label, string $buttonClass): string
     {
         return '<button type="button"'
             . ' class="' . h($buttonClass) . '"'
@@ -185,7 +185,7 @@ class ColorModeHelper extends Helper
      * @return string String identifier (e.g. `'light'`). Raw strings are
      *  returned as-is so apps registering custom themes keep their casing.
      */
-    protected function _modeValue(ColorMode|string $mode): string
+    protected function modeValue(ColorMode|string $mode): string
     {
         return $mode instanceof ColorMode ? $mode->value : $mode;
     }
@@ -199,7 +199,7 @@ class ColorModeHelper extends Helper
      * @param scalar $value Value to encode.
      * @return string
      */
-    protected function _jsonValue(mixed $value): string
+    protected function jsonValue(mixed $value): string
     {
         return (string)json_encode(
             $value,
@@ -216,7 +216,7 @@ class ColorModeHelper extends Helper
      * @param \BootstrapUI\View\Helper\Enum\ColorMode|string $mode Mode value.
      * @return string
      */
-    protected function _modeLabel(ColorMode|string $mode): string
+    protected function modeLabel(ColorMode|string $mode): string
     {
         if ($mode instanceof ColorMode) {
             return $mode->label();

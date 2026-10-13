@@ -14,14 +14,14 @@ class PaginatorHelper extends CorePaginatorHelper
      *
      * @var array<string>
      */
-    protected array $_allowedSizes = ['sm', 'lg'];
+    protected array $allowedSizes = ['sm', 'lg'];
 
     /**
      * Label defaults.
      *
      * @var array
      */
-    protected array $_labels = [
+    protected array $labels = [
         'first' => [
             'label' => 'First',
             'text' => '«',
@@ -48,7 +48,7 @@ class PaginatorHelper extends CorePaginatorHelper
      */
     public function __construct(View $View, array $config = [])
     {
-        $this->_defaultConfig['templates'] = [
+        $this->defaultConfig['templates'] = [
             'nextActive' =>
                 '<li class="page-item">' .
                     '<a class="page-link" rel="next" aria-label="{{label}}" href="{{url}}">' .
@@ -76,10 +76,10 @@ class PaginatorHelper extends CorePaginatorHelper
                     '<span aria-hidden="true">{{text}}</span></a></li>',
             'number' =>
                 '<li class="page-item"><a class="page-link" href="{{url}}">{{text}}</a></li>',
-        ] + $this->_defaultConfig['templates'];
+        ] + $this->defaultConfig['templates'];
 
         parent::__construct($View, $config + [
-            'labels' => $this->_labels,
+            'labels' => $this->labels,
         ]);
     }
 
@@ -94,7 +94,7 @@ class PaginatorHelper extends CorePaginatorHelper
      */
     public function first(string|int $first = '«', array $options = []): string
     {
-        $options = $this->_templateOptions('first', $options);
+        $options = $this->templateOptions('first', $options);
 
         $templater = $this->templater();
         $templater->push();
@@ -119,7 +119,7 @@ class PaginatorHelper extends CorePaginatorHelper
      */
     public function last(string|int $last = '»', array $options = []): string
     {
-        $options = $this->_templateOptions('last', $options);
+        $options = $this->templateOptions('last', $options);
 
         $templater = $this->templater();
         $templater->push();
@@ -140,11 +140,11 @@ class PaginatorHelper extends CorePaginatorHelper
      *
      * - `label` The text to use for the ARIA label property.
      */
-    public function prev(string $title = '‹', array $options = []): string
+    public function prev(string $content = '‹', array $options = []): string
     {
-        $options = $this->_templateOptions('prev', $options);
+        $options = $this->templateOptions('prev', $options);
 
-        return parent::prev($title, $options);
+        return parent::prev($content, $options);
     }
 
     /**
@@ -154,11 +154,11 @@ class PaginatorHelper extends CorePaginatorHelper
      *
      * - `label` The text to use for the ARIA label property.
      */
-    public function next(string $title = '›', array $options = []): string
+    public function next(string $content = '›', array $options = []): string
     {
-        $options = $this->_templateOptions('next', $options);
+        $options = $this->templateOptions('next', $options);
 
-        return parent::next($title, $options);
+        return parent::next($content, $options);
     }
 
     /**
@@ -199,7 +199,7 @@ class PaginatorHelper extends CorePaginatorHelper
         $options['class'] = implode(' ', (array)$options['class']);
 
         if (!empty($options['size'])) {
-            if (!in_array($options['size'], $this->_allowedSizes)) {
+            if (!in_array($options['size'], $this->allowedSizes)) {
                 return false;
             }
             $options['class'] .= " {$class}-{$options['size']}";
@@ -212,7 +212,7 @@ class PaginatorHelper extends CorePaginatorHelper
         unset($options['class'], $options['size']);
 
         if (isset($options['first'])) {
-            $options = $this->_labelOptions('first', $options);
+            $options = $this->labelOptions('first', $options);
             $options['before'] .= $this->first($options['first']['text'], [
                 'label' => $options['first']['label'],
                 'escape' => $escape,
@@ -221,7 +221,7 @@ class PaginatorHelper extends CorePaginatorHelper
         }
 
         if (isset($options['prev'])) {
-            $options = $this->_labelOptions('prev', $options);
+            $options = $this->labelOptions('prev', $options);
             $options['before'] .= $this->prev($options['prev']['text'], [
                 'label' => $options['prev']['label'],
                 'escape' => $escape,
@@ -230,7 +230,7 @@ class PaginatorHelper extends CorePaginatorHelper
         }
 
         if (isset($options['next'])) {
-            $options = $this->_labelOptions('next', $options);
+            $options = $this->labelOptions('next', $options);
             $options['after'] = $this->next($options['next']['text'], [
                 'label' => $options['next']['label'],
                 'escape' => $escape,
@@ -239,7 +239,7 @@ class PaginatorHelper extends CorePaginatorHelper
         }
 
         if (isset($options['last'])) {
-            $options = $this->_labelOptions('last', $options);
+            $options = $this->labelOptions('last', $options);
             $options['after'] .= $this->last($options['last']['text'], [
                 'label' => $options['last']['label'],
                 'escape' => $escape,
@@ -259,7 +259,7 @@ class PaginatorHelper extends CorePaginatorHelper
      * @param array $options The array containing the label option.
      * @return array
      */
-    protected function _labelOptions(string $name, array $options): array
+    protected function labelOptions(string $name, array $options): array
     {
         if ($options[$name] === true) {
             $options[$name] = $this->getConfig("labels.$name");
@@ -269,7 +269,7 @@ class PaginatorHelper extends CorePaginatorHelper
                 'text' => $options[$name],
             ];
         }
-        $options[$name] += $this->_labels[$name];
+        $options[$name] += $this->labels[$name];
 
         return $options;
     }
@@ -281,7 +281,7 @@ class PaginatorHelper extends CorePaginatorHelper
      * @param array $options The array containing the template option.
      * @return array
      */
-    protected function _templateOptions(string $name, array $options): array
+    protected function templateOptions(string $name, array $options): array
     {
         $options += [
             'label' => $this->getConfig("labels.{$name}.label"),

@@ -38,7 +38,7 @@ trait OptionsAwareTrait
     {
         $options += ['class' => []];
 
-        $options['class'] = $this->_toClassArray($options['class']);
+        $options['class'] = $this->toClassArray($options['class']);
         $classes = [];
         foreach ($options['class'] as $name) {
             $classes[] = in_array($name, Classes::values())
@@ -61,8 +61,8 @@ trait OptionsAwareTrait
     {
         $options += ['class' => []];
 
-        $options['class'] = $this->_toClassArray($options['class']);
-        $classes = $this->_toClassArray($classes);
+        $options['class'] = $this->toClassArray($options['class']);
+        $classes = $this->toClassArray($classes);
 
         foreach ($classes as $class) {
             if (in_array($class, $options['class'])) {
@@ -86,9 +86,9 @@ trait OptionsAwareTrait
     {
         $options += ['class' => [], 'skip' => []];
 
-        $options['class'] = $this->_toClassArray($options['class']);
-        $options['skip'] = $this->_toClassArray($options['skip']);
-        $classes = $this->_toClassArray($classes);
+        $options['class'] = $this->toClassArray($options['class']);
+        $options['skip'] = $this->toClassArray($options['skip']);
+        $classes = $this->toClassArray($classes);
 
         foreach ($classes as $class) {
             if (
@@ -116,8 +116,8 @@ trait OptionsAwareTrait
     {
         $options += ['class' => []];
 
-        $options['class'] = $this->_toClassArray($options['class']);
-        $classes = $this->_toClassArray($classes);
+        $options['class'] = $this->toClassArray($options['class']);
+        $classes = $this->toClassArray($classes);
 
         foreach ($classes as $class) {
             $indices = array_keys($options['class'], $class);
@@ -144,8 +144,8 @@ trait OptionsAwareTrait
             return false;
         }
 
-        $options['class'] = $this->_toClassArray($options['class']);
-        $classes = $this->_toClassArray($classes);
+        $options['class'] = $this->toClassArray($options['class']);
+        $classes = $this->toClassArray($classes);
 
         foreach ($classes as $class) {
             if (!in_array($class, $options['class'])) {
@@ -162,7 +162,7 @@ trait OptionsAwareTrait
      * @param mixed $mixed One or more classes.
      * @return array Classes as array.
      */
-    protected function _toClassArray(mixed $mixed): array
+    protected function toClassArray(mixed $mixed): array
     {
         if ($mixed === null) {
             return [];

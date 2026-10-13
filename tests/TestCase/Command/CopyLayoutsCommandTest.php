@@ -37,7 +37,7 @@ class CopyLayoutsCommandTest extends TestCase
         $filesystem->deleteDir($customTargetPath);
     }
 
-    public function testCopyLayouts()
+    public function testCopyLayouts(): void
     {
         $sourcePath =
             Plugin::path('BootstrapUI') . 'templates' . DS . 'layout' . DS . 'examples' . DS;
@@ -65,12 +65,12 @@ class CopyLayoutsCommandTest extends TestCase
                 '<info>Copying sample layouts...</info>',
                 "<success>Sample layouts copied successfully to `$targetPath`.</success>",
             ],
-            $this->_out->messages(),
+            $this->out->messages(),
         );
         $this->assertErrorEmpty();
     }
 
-    public function testCustomTargetPath()
+    public function testCustomTargetPath(): void
     {
         $sourcePath =
             Plugin::path('BootstrapUI') . 'templates' . DS . 'layout' . DS . 'examples' . DS;
@@ -100,22 +100,22 @@ class CopyLayoutsCommandTest extends TestCase
                 '<info>Copying sample layouts...</info>',
                 "<success>Sample layouts copied successfully to `$compatTargetPath`.</success>",
             ],
-            $this->_out->messages(),
+            $this->out->messages(),
         );
         $this->assertErrorEmpty();
     }
 
-    public function testFilesCannotBeCopied()
+    public function testFilesCannotBeCopied(): void
     {
         /** @var \BootstrapUI\Command\CopyLayoutsCommand|\PHPUnit\Framework\MockObject\MockObject $command */
         $command = $this
             ->getMockBuilder(CopyLayoutsCommand::class)
-            ->onlyMethods(['_copyLayouts'])
+            ->onlyMethods(['copyLayouts'])
             ->getMock();
 
         $command
             ->expects($this->once())
-            ->method('_copyLayouts')
+            ->method('copyLayouts')
             ->willReturn(false);
 
         $out = new StubConsoleOutput();
@@ -141,7 +141,7 @@ class CopyLayoutsCommandTest extends TestCase
         );
     }
 
-    public function testHelp()
+    public function testHelp(): void
     {
         $targetPath = dirname(APP) . DS . 'templates' . DS . 'layout' . DS . 'TwitterBootstrap' . DS;
 
@@ -171,7 +171,7 @@ target  The target path into which to copy the layout files. Defaults to
         `$targetPath`.
         <comment>(optional)</comment>
 "],
-            $this->_out->messages(),
+            $this->out->messages(),
         );
         $this->assertErrorEmpty();
     }

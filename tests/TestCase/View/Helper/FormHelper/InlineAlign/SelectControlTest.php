@@ -7,7 +7,7 @@ use BootstrapUI\Test\TestCase\View\Helper\FormHelper\AbstractFormHelperTest;
 
 class SelectControlTest extends AbstractFormHelperTest
 {
-    public function testInlineAlignSelectControl()
+    public function testInlineAlignSelectControl(): void
     {
         $this->Form->create($this->article, [
             'align' => 'inline',
@@ -40,7 +40,7 @@ class SelectControlTest extends AbstractFormHelperTest
         $this->assertHtml($expected, $result);
     }
 
-    public function testInlineAlignSelectControlWithFloatingLabel()
+    public function testInlineAlignSelectControlWithFloatingLabel(): void
     {
         $this->Form->create($this->article, [
             'align' => 'inline',
@@ -76,7 +76,7 @@ class SelectControlTest extends AbstractFormHelperTest
         $this->assertHtml($expected, $result);
     }
 
-    public function testInlineAlignSelectControlWithDisabledLabel()
+    public function testInlineAlignSelectControlWithDisabledLabel(): void
     {
         $this->Form->create($this->article, [
             'align' => 'inline',
@@ -107,7 +107,7 @@ class SelectControlTest extends AbstractFormHelperTest
         $this->assertHtml($expected, $result);
     }
 
-    public function testInlineAlignSelectControlWithCustomLabel()
+    public function testInlineAlignSelectControlWithCustomLabel(): void
     {
         $this->Form->create($this->article, [
             'align' => 'inline',
@@ -141,7 +141,7 @@ class SelectControlTest extends AbstractFormHelperTest
         $this->assertHtml($expected, $result);
     }
 
-    public function testInlineAlignSelectControlWithCustomLabelOptions()
+    public function testInlineAlignSelectControlWithCustomLabelOptions(): void
     {
         $this->Form->create($this->article, [
             'align' => 'inline',
@@ -183,7 +183,7 @@ class SelectControlTest extends AbstractFormHelperTest
         $this->assertHtml($expected, $result);
     }
 
-    public function testInlineAlignSelectControlWithHelp()
+    public function testInlineAlignSelectControlWithHelp(): void
     {
         $this->Form->create($this->article, [
             'align' => 'inline',
@@ -225,7 +225,7 @@ class SelectControlTest extends AbstractFormHelperTest
         $this->assertHtml($expected, $result);
     }
 
-    public function testInlineAlignSelectControlWithHelpOptions()
+    public function testInlineAlignSelectControlWithHelpOptions(): void
     {
         $this->Form->create($this->article, [
             'align' => 'inline',
@@ -276,7 +276,7 @@ class SelectControlTest extends AbstractFormHelperTest
         $this->assertHtml($expected, $result);
     }
 
-    public function testInlineAlignSelectControlWithTooltip()
+    public function testInlineAlignSelectControlWithTooltip(): void
     {
         $this->Form->create($this->article, [
             'align' => 'inline',
@@ -316,7 +316,7 @@ class SelectControlTest extends AbstractFormHelperTest
         $this->assertHtml($expected, $result);
     }
 
-    public function testInlineAlignSelectControlWithError()
+    public function testInlineAlignSelectControlWithError(): void
     {
         $this->article['errors'] = [
             'users' => ['error message'],
@@ -361,7 +361,7 @@ class SelectControlTest extends AbstractFormHelperTest
         $this->assertHtml($expected, $result);
     }
 
-    public function testInlineAlignSelectControlWithErrorAndHelp()
+    public function testInlineAlignSelectControlWithErrorAndHelp(): void
     {
         $this->article['errors'] = [
             'users' => ['error message'],
@@ -410,7 +410,7 @@ class SelectControlTest extends AbstractFormHelperTest
         $this->assertHtml($expected, $result);
     }
 
-    public function testInlineAlignSelectControlWithErrorAndHelpOptions()
+    public function testInlineAlignSelectControlWithErrorAndHelpOptions(): void
     {
         $this->article['errors'] = [
             'users' => ['error message'],
@@ -468,7 +468,7 @@ class SelectControlTest extends AbstractFormHelperTest
         $this->assertHtml($expected, $result);
     }
 
-    public function testInlineAlignSelectControlContainerOptions()
+    public function testInlineAlignSelectControlContainerOptions(): void
     {
         $this->Form->create($this->article, [
             'align' => 'inline',
@@ -508,7 +508,7 @@ class SelectControlTest extends AbstractFormHelperTest
         $this->assertHtml($expected, $result);
     }
 
-    public function testInlineAlignSelectControlContainerOptionsWithError()
+    public function testInlineAlignSelectControlContainerOptionsWithError(): void
     {
         $this->article['errors'] = [
             'users' => ['error message'],
@@ -560,7 +560,7 @@ class SelectControlTest extends AbstractFormHelperTest
         $this->assertHtml($expected, $result);
     }
 
-    public function testInlineAlignSelectControlInputGroupAppend()
+    public function testInlineAlignSelectControlInputGroupAppend(): void
     {
         $this->Form->create($this->article, [
             'align' => 'inline',
@@ -599,7 +599,7 @@ class SelectControlTest extends AbstractFormHelperTest
         $this->assertHtml($expected, $result);
     }
 
-    public function testInlineAlignSelectControlInputGroupPrepend()
+    public function testInlineAlignSelectControlInputGroupPrepend(): void
     {
         $this->Form->create($this->article, [
             'align' => 'inline',

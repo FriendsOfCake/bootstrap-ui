@@ -9,7 +9,7 @@ use DateTime;
 
 class DateTimeControlTest extends AbstractFormHelperTest
 {
-    public function testHorizontalAlignDateTimeControl()
+    public function testHorizontalAlignDateTimeControl(): void
     {
         $this->Form->create($this->article, [
             'align' => [
@@ -45,7 +45,7 @@ class DateTimeControlTest extends AbstractFormHelperTest
         $this->assertHtml($expected, $result);
     }
 
-    public function testHorizontalAlignDateTimeControlWithDisabledLabel()
+    public function testHorizontalAlignDateTimeControlWithDisabledLabel(): void
     {
         $this->Form->create($this->article, [
             'align' => [
@@ -79,7 +79,7 @@ class DateTimeControlTest extends AbstractFormHelperTest
         $this->assertHtml($expected, $result);
     }
 
-    public function testHorizontalAlignDateTimeControlWithCustomLabel()
+    public function testHorizontalAlignDateTimeControlWithCustomLabel(): void
     {
         $this->Form->create($this->article, [
             'align' => [
@@ -116,7 +116,7 @@ class DateTimeControlTest extends AbstractFormHelperTest
         $this->assertHtml($expected, $result);
     }
 
-    public function testHorizontalAlignDateTimeControlWithCustomLabelOptions()
+    public function testHorizontalAlignDateTimeControlWithCustomLabelOptions(): void
     {
         $this->Form->create($this->article, [
             'align' => [
@@ -157,7 +157,7 @@ class DateTimeControlTest extends AbstractFormHelperTest
         $this->assertHtml($expected, $result);
     }
 
-    public function testHorizontalAlignDateTimeControlWithHelp()
+    public function testHorizontalAlignDateTimeControlWithHelp(): void
     {
         $this->Form->create($this->article, [
             'align' => [
@@ -199,7 +199,7 @@ class DateTimeControlTest extends AbstractFormHelperTest
         $this->assertHtml($expected, $result);
     }
 
-    public function testHorizontalAlignDateTimeControlWithHelpOptions()
+    public function testHorizontalAlignDateTimeControlWithHelpOptions(): void
     {
         $this->Form->create($this->article, [
             'align' => [
@@ -250,7 +250,7 @@ class DateTimeControlTest extends AbstractFormHelperTest
         $this->assertHtml($expected, $result);
     }
 
-    public function testHorizontalAlignDateTimeControlWithTooltip()
+    public function testHorizontalAlignDateTimeControlWithTooltip(): void
     {
         $this->Form->create($this->article, [
             'align' => [
@@ -294,7 +294,7 @@ class DateTimeControlTest extends AbstractFormHelperTest
         $this->assertHtml($expected, $result);
     }
 
-    public function testHorizontalAlignDateTimeControlWithCustomSpacing()
+    public function testHorizontalAlignDateTimeControlWithCustomSpacing(): void
     {
         $this->Form->create($this->article, [
             'align' => [
@@ -331,7 +331,7 @@ class DateTimeControlTest extends AbstractFormHelperTest
         $this->assertHtml($expected, $result);
     }
 
-    public function testHorizontalAlignDateTimeControlWithError()
+    public function testHorizontalAlignDateTimeControlWithError(): void
     {
         $this->article['errors'] = [
             'created' => ['error message'],
@@ -378,7 +378,7 @@ class DateTimeControlTest extends AbstractFormHelperTest
         $this->assertHtml($expected, $result);
     }
 
-    public function testHorizontalAlignDateTimeControlWithErrorAndHelp()
+    public function testHorizontalAlignDateTimeControlWithErrorAndHelp(): void
     {
         $this->article['errors'] = [
             'created' => ['error message'],
@@ -428,7 +428,7 @@ class DateTimeControlTest extends AbstractFormHelperTest
         $this->assertHtml($expected, $result);
     }
 
-    public function testHorizontalAlignDateTimeControlWithErrorAndHelpOptions()
+    public function testHorizontalAlignDateTimeControlWithErrorAndHelpOptions(): void
     {
         $this->article['errors'] = [
             'created' => ['error message'],
@@ -487,7 +487,7 @@ class DateTimeControlTest extends AbstractFormHelperTest
         $this->assertHtml($expected, $result);
     }
 
-    public function testHorizontalAlignDateTimeControlContainerOptions()
+    public function testHorizontalAlignDateTimeControlContainerOptions(): void
     {
         $this->Form->create($this->article, [
             'align' => [
@@ -530,7 +530,7 @@ class DateTimeControlTest extends AbstractFormHelperTest
         $this->assertHtml($expected, $result);
     }
 
-    public function testHorizontalAlignDateTimeControlContainerOptionsWithError()
+    public function testHorizontalAlignDateTimeControlContainerOptionsWithError(): void
     {
         $this->article['errors'] = [
             'created' => ['error message'],
@@ -582,7 +582,7 @@ class DateTimeControlTest extends AbstractFormHelperTest
         $this->assertHtml($expected, $result);
     }
 
-    public function testHorizontalAlignDateTimeControlDate()
+    public function testHorizontalAlignDateTimeControlDate(): void
     {
         $this->Form->create($this->article, [
             'align' => [
@@ -618,7 +618,7 @@ class DateTimeControlTest extends AbstractFormHelperTest
         $this->assertHtml($expected, $result);
     }
 
-    public function testHorizontalAlignDateTimeControlTime()
+    public function testHorizontalAlignDateTimeControlTime(): void
     {
         $this->Form->create($this->article, [
             'align' => [
@@ -655,7 +655,7 @@ class DateTimeControlTest extends AbstractFormHelperTest
         $this->assertHtml($expected, $result);
     }
 
-    public function testHorizontalAlignDateTimeControlCustomContainerTemplateViaTemplater()
+    public function testHorizontalAlignDateTimeControlCustomContainerTemplateViaTemplater(): void
     {
         $this->Form->create($this->article, [
             'align' => [
@@ -702,7 +702,7 @@ class DateTimeControlTest extends AbstractFormHelperTest
         $this->assertStringContainsString('<div class="custom timeContainer time">', $result);
     }
 
-    public function testHorizontalAlignDateTimeControlCustomContainerErrorTemplateViaOptions()
+    public function testHorizontalAlignDateTimeControlCustomContainerErrorTemplateViaOptions(): void
     {
         $this->article['errors'] = [
             'created' => [

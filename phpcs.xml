@@ -1,6 +1,6 @@
 <?xml version="1.0"?>
 <ruleset name="BUI">
-    <arg value="s"/>
+    <arg value="ps"/>
 
     <file>src/</file>
     <file>tests/</file>

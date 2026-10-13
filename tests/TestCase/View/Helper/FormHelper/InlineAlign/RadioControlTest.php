@@ -7,7 +7,7 @@ use BootstrapUI\Test\TestCase\View\Helper\FormHelper\AbstractFormHelperTest;
 
 class RadioControlTest extends AbstractFormHelperTest
 {
-    public function testInlineAlignRadioControl()
+    public function testInlineAlignRadioControl(): void
     {
         $this->withErrorReporting(0, function () {
             $this->Form->create($this->article, [
@@ -69,7 +69,7 @@ class RadioControlTest extends AbstractFormHelperTest
         $this->assertHtml($expected, $result);
     }
 
-    public function testInlineAlignRadioControlWithDisabledLabel()
+    public function testInlineAlignRadioControlWithDisabledLabel(): void
     {
         $this->withErrorReporting(0, function () {
             $this->Form->create($this->article, [
@@ -128,7 +128,7 @@ class RadioControlTest extends AbstractFormHelperTest
         $this->assertHtml($expected, $result);
     }
 
-    public function testInlineAlignRadioControlWithCustomLabel()
+    public function testInlineAlignRadioControlWithCustomLabel(): void
     {
         $this->withErrorReporting(0, function () {
             $this->Form->create($this->article, [
@@ -190,7 +190,7 @@ class RadioControlTest extends AbstractFormHelperTest
         $this->assertHtml($expected, $result);
     }
 
-    public function testInlineAlignRadioControlWithCustomLabelOptions()
+    public function testInlineAlignRadioControlWithCustomLabelOptions(): void
     {
         $this->withErrorReporting(0, function () {
             $this->Form->create($this->article, [
@@ -260,7 +260,7 @@ class RadioControlTest extends AbstractFormHelperTest
         $this->assertHtml($expected, $result);
     }
 
-    public function testInlineAlignRadioControlWithHelp()
+    public function testInlineAlignRadioControlWithHelp(): void
     {
         $this->withErrorReporting(0, function () {
             $this->Form->create($this->article, [
@@ -327,7 +327,7 @@ class RadioControlTest extends AbstractFormHelperTest
         $this->assertHtml($expected, $result);
     }
 
-    public function testInlineAlignRadioControlWithHelpOptions()
+    public function testInlineAlignRadioControlWithHelpOptions(): void
     {
         $this->withErrorReporting(0, function () {
             $this->Form->create($this->article, [
@@ -403,7 +403,7 @@ class RadioControlTest extends AbstractFormHelperTest
         $this->assertHtml($expected, $result);
     }
 
-    public function testInlineAlignRadioControlWithTooltip()
+    public function testInlineAlignRadioControlWithTooltip(): void
     {
         $this->withErrorReporting(0, function () {
             $this->Form->create($this->article, [
@@ -443,7 +443,7 @@ class RadioControlTest extends AbstractFormHelperTest
         $this->assertHtml($expected, $result);
     }
 
-    public function testInlineAlignRadioControlWithError()
+    public function testInlineAlignRadioControlWithError(): void
     {
         $this->withErrorReporting(0, function () {
             $this->article['errors'] = [
@@ -515,7 +515,7 @@ class RadioControlTest extends AbstractFormHelperTest
         $this->assertHtml($expected, $result);
     }
 
-    public function testInlineAlignRadioControlWithErrorAndHelp()
+    public function testInlineAlignRadioControlWithErrorAndHelp(): void
     {
         $this->withErrorReporting(0, function () {
             $this->article['errors'] = [
@@ -591,7 +591,7 @@ class RadioControlTest extends AbstractFormHelperTest
         $this->assertHtml($expected, $result);
     }
 
-    public function testInlineAlignRadioControlWithErrorAndHelpOptions()
+    public function testInlineAlignRadioControlWithErrorAndHelpOptions(): void
     {
         $this->withErrorReporting(0, function () {
             $this->article['errors'] = [
@@ -676,7 +676,7 @@ class RadioControlTest extends AbstractFormHelperTest
         $this->assertHtml($expected, $result);
     }
 
-    public function testInlineAlignRadioControlContainerOptions()
+    public function testInlineAlignRadioControlContainerOptions(): void
     {
         $this->withErrorReporting(0, function () {
             $this->Form->create($this->article, [
@@ -742,7 +742,7 @@ class RadioControlTest extends AbstractFormHelperTest
         $this->assertHtml($expected, $result);
     }
 
-    public function testInlineAlignRadioControlContainerOptionsWithError()
+    public function testInlineAlignRadioControlContainerOptionsWithError(): void
     {
         $this->withErrorReporting(0, function () {
             $this->article['errors'] = [
@@ -819,7 +819,7 @@ class RadioControlTest extends AbstractFormHelperTest
         $this->assertHtml($expected, $result);
     }
 
-    public function testInlineAlignRadioControlWithPerOptionConfiguration()
+    public function testInlineAlignRadioControlWithPerOptionConfiguration(): void
     {
         $this->withErrorReporting(0, function () {
             $this->Form->create($this->article, [
@@ -900,7 +900,7 @@ class RadioControlTest extends AbstractFormHelperTest
         $this->assertHtml($expected, $result);
     }
 
-    public function testInlineAlignRadioControlNestedInput()
+    public function testInlineAlignRadioControlNestedInput(): void
     {
         $this->withErrorReporting(0, function () {
             $this->Form->create($this->article, [
@@ -962,7 +962,7 @@ class RadioControlTest extends AbstractFormHelperTest
         $this->assertHtml($expected, $result);
     }
 
-    public function testInlineAlignRadioControlWithPerOptionConfigurationNestedInput()
+    public function testInlineAlignRadioControlWithPerOptionConfigurationNestedInput(): void
     {
         $this->withErrorReporting(0, function () {
             $this->Form->create($this->article, [

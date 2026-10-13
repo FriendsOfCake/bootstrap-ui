@@ -7,7 +7,7 @@ use BootstrapUI\Test\TestCase\View\Helper\FormHelper\AbstractFormHelperTest;
 
 class ColorControlTest extends AbstractFormHelperTest
 {
-    public function testDefaultAlignColorControl()
+    public function testDefaultAlignColorControl(): void
     {
         $this->Form->create($this->article);
 
@@ -32,7 +32,7 @@ class ColorControlTest extends AbstractFormHelperTest
         $this->assertHtml($expected, $result);
     }
 
-    public function testDefaultAlignColorControlWithDisabledLabel()
+    public function testDefaultAlignColorControlWithDisabledLabel(): void
     {
         $this->Form->create($this->article);
 
@@ -55,7 +55,7 @@ class ColorControlTest extends AbstractFormHelperTest
         $this->assertHtml($expected, $result);
     }
 
-    public function testDefaultAlignColorControlWithCustomLabel()
+    public function testDefaultAlignColorControlWithCustomLabel(): void
     {
         $this->Form->create($this->article);
 
@@ -81,7 +81,7 @@ class ColorControlTest extends AbstractFormHelperTest
         $this->assertHtml($expected, $result);
     }
 
-    public function testDefaultAlignColorControlWithCustomLabelOptions()
+    public function testDefaultAlignColorControlWithCustomLabelOptions(): void
     {
         $this->Form->create($this->article);
 
@@ -111,7 +111,7 @@ class ColorControlTest extends AbstractFormHelperTest
         $this->assertHtml($expected, $result);
     }
 
-    public function testDefaultAlignColorControlWithHelp()
+    public function testDefaultAlignColorControlWithHelp(): void
     {
         $this->Form->create($this->article);
 
@@ -141,7 +141,7 @@ class ColorControlTest extends AbstractFormHelperTest
         $this->assertHtml($expected, $result);
     }
 
-    public function testDefaultAlignColorControlWithHelpOptions()
+    public function testDefaultAlignColorControlWithHelpOptions(): void
     {
         $this->Form->create($this->article);
 
@@ -180,7 +180,7 @@ class ColorControlTest extends AbstractFormHelperTest
         $this->assertHtml($expected, $result);
     }
 
-    public function testDefaultAlignColorControlWithTooltip()
+    public function testDefaultAlignColorControlWithTooltip(): void
     {
         $this->Form->create($this->article);
 
@@ -212,7 +212,7 @@ class ColorControlTest extends AbstractFormHelperTest
         $this->assertHtml($expected, $result);
     }
 
-    public function testDefaultAlignColorControlWithCustomSpacing()
+    public function testDefaultAlignColorControlWithCustomSpacing(): void
     {
         $this->Form->create($this->article);
 
@@ -238,7 +238,7 @@ class ColorControlTest extends AbstractFormHelperTest
         $this->assertHtml($expected, $result);
     }
 
-    public function testDefaultAlignColorControlWithError()
+    public function testDefaultAlignColorControlWithError(): void
     {
         $this->article['errors'] = [
             'color' => ['error message'],
@@ -271,7 +271,7 @@ class ColorControlTest extends AbstractFormHelperTest
         $this->assertHtml($expected, $result);
     }
 
-    public function testDefaultAlignColorControlWithErrorAndHelp()
+    public function testDefaultAlignColorControlWithErrorAndHelp(): void
     {
         $this->article['errors'] = [
             'color' => ['error message'],
@@ -308,7 +308,7 @@ class ColorControlTest extends AbstractFormHelperTest
         $this->assertHtml($expected, $result);
     }
 
-    public function testDefaultAlignColorControlWithErrorAndHelpOptions()
+    public function testDefaultAlignColorControlWithErrorAndHelpOptions(): void
     {
         $this->article['errors'] = [
             'color' => ['error message'],
@@ -354,7 +354,7 @@ class ColorControlTest extends AbstractFormHelperTest
         $this->assertHtml($expected, $result);
     }
 
-    public function testDefaultAlignColorControlContainerOptions()
+    public function testDefaultAlignColorControlContainerOptions(): void
     {
         $this->Form->create($this->article);
 
@@ -387,7 +387,7 @@ class ColorControlTest extends AbstractFormHelperTest
         $this->assertHtml($expected, $result);
     }
 
-    public function testDefaultAlignColorControlContainerOptionsWithError()
+    public function testDefaultAlignColorControlContainerOptionsWithError(): void
     {
         $this->article['errors'] = [
             'color' => ['error message'],

@@ -6,6 +6,9 @@ namespace BootstrapUI\View\Widget;
 use BootstrapUI\View\Helper\OptionsAwareTrait;
 use Cake\View\Form\ContextInterface;
 
+/**
+ * @require-extends \Cake\View\Widget\BasicWidget
+ */
 trait InputGroupTrait
 {
     use OptionsAwareTrait;
@@ -26,7 +29,7 @@ trait InputGroupTrait
      * @param \Cake\View\Form\ContextInterface $context The current form context.
      * @return string
      */
-    protected function _withInputGroup(array $data, ContextInterface $context): string
+    protected function withInputGroup(array $data, ContextInterface $context): string
     {
         $data += [
             'type' => null,
@@ -57,15 +60,15 @@ trait InputGroupTrait
         $attrs = [];
 
         if ($prepend) {
-            $prepend = $this->_checkForOptions($prepend);
-            $attrs = $this->_processOptions($prepend, $attrs);
-            $prepend = $this->_addon($prepend['content'], $data);
+            $prepend = $this->checkForOptions($prepend);
+            $attrs = $this->processOptions($prepend, $attrs);
+            $prepend = $this->addon($prepend['content'], $data);
         }
 
         if ($append) {
-            $append = $this->_checkForOptions($append);
-            $attrs = $this->_processOptions($append, $attrs);
-            $append = $this->_addon($append['content'], $data);
+            $append = $this->checkForOptions($append);
+            $attrs = $this->processOptions($append, $attrs);
+            $append = $this->addon($append['content'], $data);
         }
 
         if ($prepend || $append) {
@@ -77,8 +80,8 @@ trait InputGroupTrait
                 $attrs['class'][] = $errorClass;
             }
 
-            $input = $this->_templates->format('inputGroupContainer', [
-                'attrs' => $this->_templates->formatAttributes($attrs),
+            $input = $this->templates->format('inputGroupContainer', [
+                'attrs' => $this->templates->formatAttributes($attrs),
                 'append' => $append,
                 'prepend' => $prepend,
                 'content' => $input,
@@ -96,15 +99,15 @@ trait InputGroupTrait
      * @param array $data Widget data.
      * @return string
      */
-    protected function _addon(array $addons, array $data): string
+    protected function addon(array $addons, array $data): string
     {
         $content = [];
 
         foreach ($addons as $addon) {
-            if ($this->_isButton($addon)) {
+            if ($this->isButton($addon)) {
                 $content[] = $addon;
             } else {
-                $content[] = $this->_templates->format('inputGroupText', [
+                $content[] = $this->templates->format('inputGroupText', [
                     'content' => $addon,
                 ]);
             }
@@ -119,7 +122,7 @@ trait InputGroupTrait
      * @param string $html Markup to check.
      * @return bool TRUE if it's a button.
      */
-    protected function _isButton(string $html): bool
+    protected function isButton(string $html): bool
     {
         return strpos($html, '<button') !== false || strpos($html, 'type="submit"') !== false;
     }
@@ -130,7 +133,7 @@ trait InputGroupTrait
      * @param array|string $attachment prepend or append element. Can be a string or array, if contains options
      * @return array
      */
-    protected function _checkForOptions(array|string $attachment): array
+    protected function checkForOptions(array|string $attachment): array
     {
         $ret = [];
 
@@ -161,12 +164,12 @@ trait InputGroupTrait
      * @param array $attrs of wrapping container
      * @return array attrs with classes
      */
-    protected function _processOptions(array $attachment, array $attrs): array
+    protected function processOptions(array $attachment, array $attrs): array
     {
         $attrs['class'][] = 'input-group';
         if (isset($attachment['options']['size']) && $attachment['options']['size'] != null) {
             $attrs['class'][] = $this->genClassName('input-group', $attachment['options']['size']);
-            $attrs['class'] = $this->_toClassArray($attrs['class']);
+            $attrs['class'] = $this->toClassArray($attrs['class']);
         }
 
         if (isset($attachment['options']['class'])) {

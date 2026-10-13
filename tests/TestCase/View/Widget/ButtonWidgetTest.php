@@ -5,6 +5,7 @@ namespace BootstrapUI\Test\TestCase\View\Widget;
 
 use BootstrapUI\View\Widget\ButtonWidget;
 use Cake\TestSuite\TestCase;
+use Cake\View\Form\ContextInterface;
 use Cake\View\StringTemplate;
 
 /**
@@ -34,7 +35,7 @@ class ButtonWidgetTest extends TestCase
             'button' => '<button{{attrs}}>{{text}}</button>',
         ];
         $this->templates = new StringTemplate($templates);
-        $this->context = $this->getMockBuilder('Cake\View\Form\ContextInterface')->getMock();
+        $this->context = $this->createStub(ContextInterface::class);
     }
 
     /**
@@ -42,7 +43,7 @@ class ButtonWidgetTest extends TestCase
      *
      * @return void
      */
-    public function testRenderSimple()
+    public function testRenderSimple(): void
     {
         $button = new ButtonWidget($this->templates);
         $result = $button->render(['name' => 'my_input'], $this->context);
@@ -58,7 +59,7 @@ class ButtonWidgetTest extends TestCase
      *
      * @return void
      */
-    public function testRenderDifferentStyles()
+    public function testRenderDifferentStyles(): void
     {
         $styles = [
             'primary',
@@ -93,7 +94,7 @@ class ButtonWidgetTest extends TestCase
      *
      * @return void
      */
-    public function testRenderType()
+    public function testRenderType(): void
     {
         $button = new ButtonWidget($this->templates);
         $data = [
@@ -115,12 +116,12 @@ class ButtonWidgetTest extends TestCase
      *
      * @return void
      */
-    public function testRenderWithText()
+    public function testRenderWithText(): void
     {
         $button = new ButtonWidget($this->templates);
         $data = [
             'text' => 'Some <value>',
-            'escapeTitle' => false,
+            'escape' => false,
         ];
         $result = $button->render($data, $this->context);
         $expected = [
@@ -130,7 +131,7 @@ class ButtonWidgetTest extends TestCase
         ];
         $this->assertHtml($expected, $result);
 
-        $data['escapeTitle'] = true;
+        $data['escape'] = true;
         $result = $button->render($data, $this->context);
         $expected = [
             'button' => ['type' => 'submit', 'class' => 'btn btn-secondary'],
@@ -145,7 +146,7 @@ class ButtonWidgetTest extends TestCase
      *
      * @return void
      */
-    public function testRenderAttributes()
+    public function testRenderAttributes(): void
     {
         $button = new ButtonWidget($this->templates);
         $data = [
@@ -173,7 +174,7 @@ class ButtonWidgetTest extends TestCase
      *
      * @return void
      */
-    public function testRenderTemplateVars()
+    public function testRenderTemplateVars(): void
     {
         $this->templates->add([
             'button' => '<button {{attrs}} custom="{{custom}}">{{text}}</button>',

@@ -8,7 +8,7 @@ use DateTime;
 
 class DateTimeControlTest extends AbstractFormHelperTest
 {
-    public function testInlineAlignDateTimeControl()
+    public function testInlineAlignDateTimeControl(): void
     {
         $this->withErrorReporting(0, function () {
             $this->Form->create($this->article, [
@@ -41,7 +41,7 @@ class DateTimeControlTest extends AbstractFormHelperTest
         $this->assertHtml($expected, $result);
     }
 
-    public function testInlineAlignDateTimeControlWithDisabledLabel()
+    public function testInlineAlignDateTimeControlWithDisabledLabel(): void
     {
         $this->withErrorReporting(0, function () {
             $this->Form->create($this->article, [
@@ -72,7 +72,7 @@ class DateTimeControlTest extends AbstractFormHelperTest
         $this->assertHtml($expected, $result);
     }
 
-    public function testInlineAlignDateTimeControlWithCustomLabel()
+    public function testInlineAlignDateTimeControlWithCustomLabel(): void
     {
         $this->withErrorReporting(0, function () {
             $this->Form->create($this->article, [
@@ -106,7 +106,7 @@ class DateTimeControlTest extends AbstractFormHelperTest
         $this->assertHtml($expected, $result);
     }
 
-    public function testInlineAlignDateTimeControlWithCustomLabelOptions()
+    public function testInlineAlignDateTimeControlWithCustomLabelOptions(): void
     {
         $this->withErrorReporting(0, function () {
             $this->Form->create($this->article, [
@@ -148,7 +148,7 @@ class DateTimeControlTest extends AbstractFormHelperTest
         $this->assertHtml($expected, $result);
     }
 
-    public function testInlineAlignDateTimeControlWithHelp()
+    public function testInlineAlignDateTimeControlWithHelp(): void
     {
         $this->withErrorReporting(0, function () {
             $this->Form->create($this->article, [
@@ -186,7 +186,7 @@ class DateTimeControlTest extends AbstractFormHelperTest
         $this->assertHtml($expected, $result);
     }
 
-    public function testInlineAlignDateTimeControlWithHelpOptions()
+    public function testInlineAlignDateTimeControlWithHelpOptions(): void
     {
         $this->withErrorReporting(0, function () {
             $this->Form->create($this->article, [
@@ -233,7 +233,7 @@ class DateTimeControlTest extends AbstractFormHelperTest
         $this->assertHtml($expected, $result);
     }
 
-    public function testInlineAlignDateTimeControlWithTooltip()
+    public function testInlineAlignDateTimeControlWithTooltip(): void
     {
         $this->withErrorReporting(0, function () {
             $this->Form->create($this->article, [
@@ -273,7 +273,7 @@ class DateTimeControlTest extends AbstractFormHelperTest
         $this->assertHtml($expected, $result);
     }
 
-    public function testInlineAlignDateTimeControlWithError()
+    public function testInlineAlignDateTimeControlWithError(): void
     {
         $this->withErrorReporting(0, function () {
             $this->article['errors'] = [
@@ -316,7 +316,7 @@ class DateTimeControlTest extends AbstractFormHelperTest
         $this->assertHtml($expected, $result);
     }
 
-    public function testInlineAlignDateTimeControlContainerOptions()
+    public function testInlineAlignDateTimeControlContainerOptions(): void
     {
         $this->withErrorReporting(0, function () {
             $this->Form->create($this->article, [
@@ -356,7 +356,7 @@ class DateTimeControlTest extends AbstractFormHelperTest
         $this->assertHtml($expected, $result);
     }
 
-    public function testInlineAlignDateTimeControlWithErrorAndHelp()
+    public function testInlineAlignDateTimeControlWithErrorAndHelp(): void
     {
         $this->withErrorReporting(0, function () {
             $this->article['errors'] = [
@@ -403,7 +403,7 @@ class DateTimeControlTest extends AbstractFormHelperTest
         $this->assertHtml($expected, $result);
     }
 
-    public function testInlineAlignDateTimeControlWithErrorAndHelpOptions()
+    public function testInlineAlignDateTimeControlWithErrorAndHelpOptions(): void
     {
         $this->withErrorReporting(0, function () {
             $this->article['errors'] = [
@@ -462,7 +462,7 @@ class DateTimeControlTest extends AbstractFormHelperTest
     /**
      * Inline datetime controls currently do not render error messages.
      */
-    public function testInlineAlignDateTimeControlContainerOptionsWithError()
+    public function testInlineAlignDateTimeControlContainerOptionsWithError(): void
     {
         $this->withErrorReporting(0, function () {
             $this->article['errors'] = [
@@ -510,7 +510,7 @@ class DateTimeControlTest extends AbstractFormHelperTest
         $this->assertHtml($expected, $result);
     }
 
-    public function testInlineAlignDateTimeControlDate()
+    public function testInlineAlignDateTimeControlDate(): void
     {
         $this->withErrorReporting(0, function () {
             $this->Form->create($this->article, [
@@ -543,7 +543,7 @@ class DateTimeControlTest extends AbstractFormHelperTest
         $this->assertHtml($expected, $result);
     }
 
-    public function testInlineAlignDateTimeControlTime()
+    public function testInlineAlignDateTimeControlTime(): void
     {
         $this->withErrorReporting(0, function () {
             $this->Form->create($this->article, [
@@ -577,7 +577,7 @@ class DateTimeControlTest extends AbstractFormHelperTest
         $this->assertHtml($expected, $result);
     }
 
-    public function testInlineAlignDateTimeControlCustomContainerTemplateViaTemplater()
+    public function testInlineAlignDateTimeControlCustomContainerTemplateViaTemplater(): void
     {
         $this->withErrorReporting(0, function () {
             $this->Form->create($this->article, [
@@ -621,7 +621,7 @@ class DateTimeControlTest extends AbstractFormHelperTest
         $this->assertStringContainsString('<div class="custom timeContainer time">', $result);
     }
 
-    public function testInlineAlignDateTimeControlCustomContainerErrorTemplateViaOptions()
+    public function testInlineAlignDateTimeControlCustomContainerErrorTemplateViaOptions(): void
     {
         $this->article['errors'] = [
             'created' => [

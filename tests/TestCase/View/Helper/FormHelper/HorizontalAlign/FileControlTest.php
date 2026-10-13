@@ -8,7 +8,7 @@ use BootstrapUI\View\Helper\FormHelper;
 
 class FileControlTest extends AbstractFormHelperTest
 {
-    public function testHorizontalAlignFileControl()
+    public function testHorizontalAlignFileControl(): void
     {
         $this->Form->create($this->article, [
             'align' => [
@@ -40,7 +40,7 @@ class FileControlTest extends AbstractFormHelperTest
         $this->assertHtml($expected, $result);
     }
 
-    public function testHorizontalAlignFileControlWithDisabledLabel()
+    public function testHorizontalAlignFileControlWithDisabledLabel(): void
     {
         $this->Form->create($this->article, [
             'align' => [
@@ -70,7 +70,7 @@ class FileControlTest extends AbstractFormHelperTest
         $this->assertHtml($expected, $result);
     }
 
-    public function testHorizontalAlignFileControlWithCustomLabel()
+    public function testHorizontalAlignFileControlWithCustomLabel(): void
     {
         $this->Form->create($this->article, [
             'align' => [
@@ -103,7 +103,7 @@ class FileControlTest extends AbstractFormHelperTest
         $this->assertHtml($expected, $result);
     }
 
-    public function testHorizontalAlignFileControlWithCustomLabelOptions()
+    public function testHorizontalAlignFileControlWithCustomLabelOptions(): void
     {
         $this->Form->create($this->article, [
             'align' => [
@@ -144,7 +144,7 @@ class FileControlTest extends AbstractFormHelperTest
         $this->assertHtml($expected, $result);
     }
 
-    public function testHorizontalAlignFileControlWithHelp()
+    public function testHorizontalAlignFileControlWithHelp(): void
     {
         $this->Form->create($this->article, [
             'align' => [
@@ -181,7 +181,7 @@ class FileControlTest extends AbstractFormHelperTest
         $this->assertHtml($expected, $result);
     }
 
-    public function testHorizontalAlignFileControlWithHelpOptions()
+    public function testHorizontalAlignFileControlWithHelpOptions(): void
     {
         $this->Form->create($this->article, [
             'align' => [
@@ -227,7 +227,7 @@ class FileControlTest extends AbstractFormHelperTest
         $this->assertHtml($expected, $result);
     }
 
-    public function testHorizontalAlignFileControlWithTooltip()
+    public function testHorizontalAlignFileControlWithTooltip(): void
     {
         $this->Form->create($this->article, [
             'align' => [
@@ -266,7 +266,7 @@ class FileControlTest extends AbstractFormHelperTest
         $this->assertHtml($expected, $result);
     }
 
-    public function testHorizontalAlignFileControlWithCustomSpacing()
+    public function testHorizontalAlignFileControlWithCustomSpacing(): void
     {
         $this->Form->create($this->article, [
             'align' => [
@@ -299,7 +299,7 @@ class FileControlTest extends AbstractFormHelperTest
         $this->assertHtml($expected, $result);
     }
 
-    public function testHorizontalAlignFileControlWithError()
+    public function testHorizontalAlignFileControlWithError(): void
     {
         $this->article['errors'] = [
             'file' => ['error message'],
@@ -339,7 +339,7 @@ class FileControlTest extends AbstractFormHelperTest
         $this->assertHtml($expected, $result);
     }
 
-    public function testHorizontalAlignFileControlWithErrorAndHelp()
+    public function testHorizontalAlignFileControlWithErrorAndHelp(): void
     {
         $this->article['errors'] = [
             'file' => ['error message'],
@@ -383,7 +383,7 @@ class FileControlTest extends AbstractFormHelperTest
         $this->assertHtml($expected, $result);
     }
 
-    public function testHorizontalAlignFileControlWithErrorAndHelpOptions()
+    public function testHorizontalAlignFileControlWithErrorAndHelpOptions(): void
     {
         $this->article['errors'] = [
             'file' => ['error message'],
@@ -436,7 +436,7 @@ class FileControlTest extends AbstractFormHelperTest
         $this->assertHtml($expected, $result);
     }
 
-    public function testHorizontalAlignFileControlContainerOptions()
+    public function testHorizontalAlignFileControlContainerOptions(): void
     {
         $this->Form->create($this->article, [
             'align' => [
@@ -475,7 +475,7 @@ class FileControlTest extends AbstractFormHelperTest
         $this->assertHtml($expected, $result);
     }
 
-    public function testHorizontalAlignFileControlContainerOptionsWithError()
+    public function testHorizontalAlignFileControlContainerOptionsWithError(): void
     {
         $this->article['errors'] = [
             'file' => ['error message'],
@@ -522,7 +522,7 @@ class FileControlTest extends AbstractFormHelperTest
         $this->assertHtml($expected, $result);
     }
 
-    public function testHorizontalAlignFileControlInputGroupAppend()
+    public function testHorizontalAlignFileControlInputGroupAppend(): void
     {
         $this->Form->create($this->article, [
             'align' => [
@@ -560,7 +560,7 @@ class FileControlTest extends AbstractFormHelperTest
         $this->assertHtml($expected, $result);
     }
 
-    public function testHorizontalAlignFileControlInputGroupPrepend()
+    public function testHorizontalAlignFileControlInputGroupPrepend(): void
     {
         $this->Form->create($this->article, [
             'align' => [
@@ -598,7 +598,7 @@ class FileControlTest extends AbstractFormHelperTest
         $this->assertHtml($expected, $result);
     }
 
-    public function testHorizontalAlignFileControlInputGroupWithError()
+    public function testHorizontalAlignFileControlInputGroupWithError(): void
     {
         $this->article['errors'] = [
             'file' => ['error message'],
