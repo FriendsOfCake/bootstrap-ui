@@ -19,7 +19,7 @@ class PaginatorHelper extends CorePaginatorHelper
     /**
      * Label defaults.
      *
-     * @var array
+     * @var array<string, array<string, string>>
      */
     protected array $labels = [
         'first' => [
@@ -44,7 +44,7 @@ class PaginatorHelper extends CorePaginatorHelper
      * Constructor. Overridden to merge passed args with URL options.
      *
      * @param \Cake\View\View $View The View this helper is being attached to.
-     * @param array $config Configuration settings for the helper.
+     * @param array<string, mixed> $config Configuration settings for the helper.
      */
     public function __construct(View $View, array $config = [])
     {
@@ -178,7 +178,7 @@ class PaginatorHelper extends CorePaginatorHelper
      *   using `'size' => 'lg'` would add class `pagination-lg` to UL tag.
      * - `escape` Whether to escape the link text. Defaults to `true`.
      *
-     * @param array $options Options for the numbers.
+     * @param array<string, mixed> $options Options for the numbers.
      * @return string|false Pagination controls markup, or `false` in case of an invalid `size` option.
      * @link http://book.cakephp.org/3.0/en/views/helpers/paginator.html#creating-page-number-links
      */
@@ -256,8 +256,8 @@ class PaginatorHelper extends CorePaginatorHelper
      * Prepares label options.
      *
      * @param string $name The name of the control for which to prepare the label options.
-     * @param array $options The array containing the label option.
-     * @return array
+     * @param array<string, mixed> $options The array containing the label option.
+     * @return array<string, mixed>
      */
     protected function labelOptions(string $name, array $options): array
     {
@@ -278,8 +278,8 @@ class PaginatorHelper extends CorePaginatorHelper
      * Prepares template options.
      *
      * @param string $name The name of the control for which to prepare the template options.
-     * @param array $options The array containing the template option.
-     * @return array
+     * @param array<string, mixed> $options The array containing the template option.
+     * @return array<string, mixed>
      */
     protected function templateOptions(string $name, array $options): array
     {

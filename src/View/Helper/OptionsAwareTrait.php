@@ -11,8 +11,8 @@ trait OptionsAwareTrait
     /**
      * Contains the logic for applying style classes for buttons.
      *
-     * @param array $data An array of HTML attributes and options.
-     * @return array An array of HTML attributes and options.
+     * @param array<array-key, mixed> $data An array of HTML attributes and options.
+     * @return array<array-key, mixed> An array of HTML attributes and options.
      */
     public function applyButtonClasses(array $data): array
     {
@@ -31,8 +31,8 @@ trait OptionsAwareTrait
      * Renames any CSS classes found in the options.
      *
      * @param string $element UI element to which the classname is applied.
-     * @param array $options An array of HTML attributes and options.
-     * @return array An array of HTML attributes and options.
+     * @param array<array-key, mixed> $options An array of HTML attributes and options.
+     * @return array<string, mixed> An array of HTML attributes and options.
      */
     public function renameClasses(string $element, array $options): array
     {
@@ -53,8 +53,8 @@ trait OptionsAwareTrait
     /**
      * Checks if `$options['class']` contains any one of the class names.
      *
-     * @param array|string $classes Name of class(es) to check.
-     * @param array $options An array of HTML attributes and options.
+     * @param array<array-key, mixed>|string $classes Name of class(es) to check.
+     * @param array<string, mixed> $options An array of HTML attributes and options.
      * @return bool True if any one of the class names was found.
      */
     public function hasAnyClass(array|string $classes, array $options): bool
@@ -78,9 +78,9 @@ trait OptionsAwareTrait
      * in `$options['skip']` then it will not be injected. This method removes `$options['skip']` before
      * returning.
      *
-     * @param array|string $classes Name of class(es) to inject.
-     * @param array $options An array of HTML attributes and options.
-     * @return array An array of HTML attributes and options.
+     * @param array<array-key, mixed>|string $classes Name of class(es) to inject.
+     * @param array<string, mixed> $options An array of HTML attributes and options.
+     * @return array<string, mixed> An array of HTML attributes and options.
      */
     public function injectClasses(array|string $classes, array $options): array
     {
@@ -108,9 +108,9 @@ trait OptionsAwareTrait
     /**
      * Removes classes from `$options['class']`.
      *
-     * @param array|string $classes Name of class(es) to remove.
-     * @param array $options An array of HTML attributes and options.
-     * @return array An array of HTML attributes and options.
+     * @param array<array-key, mixed>|string $classes Name of class(es) to remove.
+     * @param array<string, mixed> $options An array of HTML attributes and options.
+     * @return array<string, mixed> An array of HTML attributes and options.
      */
     public function removeClasses(array|string $classes, array $options): array
     {
@@ -134,8 +134,8 @@ trait OptionsAwareTrait
     /**
      * Checks if `$classes` are part of the `$options['class']`.
      *
-     * @param array|string $classes Name of class(es) to check.
-     * @param array $options An array of HTML attributes and options.
+     * @param array<array-key, mixed>|string $classes Name of class(es) to check.
+     * @param array<string, mixed> $options An array of HTML attributes and options.
      * @return bool False if one or more class(es) do not exist.
      */
     public function checkClasses(array|string $classes, array $options): bool
@@ -160,7 +160,7 @@ trait OptionsAwareTrait
      * Normalizes class strings/arrays.
      *
      * @param mixed $mixed One or more classes.
-     * @return array Classes as array.
+     * @return array<array-key, mixed> Classes as array.
      */
     protected function toClassArray(mixed $mixed): array
     {
@@ -198,7 +198,7 @@ trait OptionsAwareTrait
      * Generates a list of all classnames of a element
      *
      * @param string $element UI element
-     * @return array Array of all generated and raw styles
+     * @return array<int, string|bool> Array of all generated and raw styles
      */
     public function genAllClassNames(string $element): array
     {

@@ -44,7 +44,7 @@ class FlashHelper extends Helper
      * "BootstrapUI." is prepended to the name so that the element is used from this plugin.
      *
      * @param string $key The [Flash.]key you are rendering in the view.
-     * @param array $options Additional options to use for the creation of this flash message.
+     * @param array<string, mixed> $options Additional options to use for the creation of this flash message.
      *    Supports the 'params', and 'element' keys that are used in the helper.
      * @return string|null Rendered flash message or null if flash key does not exist
      *   in session.

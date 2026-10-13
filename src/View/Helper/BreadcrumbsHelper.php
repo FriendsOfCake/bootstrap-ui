@@ -25,7 +25,7 @@ class BreadcrumbsHelper extends CoreBreadcrumbsHelper
     /**
      * Default attributes for the templates
      *
-     * @var array
+     * @var array<string, array<string, string>>
      */
     protected array $defaultAttributes = [
         'class' => [
@@ -47,7 +47,10 @@ class BreadcrumbsHelper extends CoreBreadcrumbsHelper
     }
 
     /**
-     * @inheritDoc
+     * {@inheritDoc}
+     *
+     * @param array<string, mixed>|string|null $url URL of the crumb.
+     * @param array<string, mixed> $options Array of options. These options will be used as HTML attributes of the crumb.
      */
     public function add(string $content, array|string|null $url = null, array $options = []): static
     {
@@ -59,7 +62,10 @@ class BreadcrumbsHelper extends CoreBreadcrumbsHelper
     }
 
     /**
-     * @inheritDoc
+     * {@inheritDoc}
+     *
+     * @param array<array{content?: string, url?: array<string, mixed>|string|null, options?: array<string, mixed>}> $crumbs Array of crumbs to add.
+     * @param array<string, mixed> $options Shared options for all crumbs.
      */
     public function addMany(array $crumbs, array $options = []): static
     {
@@ -79,7 +85,10 @@ class BreadcrumbsHelper extends CoreBreadcrumbsHelper
     }
 
     /**
-     * @inheritDoc
+     * {@inheritDoc}
+     *
+     * @param array<string, mixed>|string|null $url URL of the crumb.
+     * @param array<string, mixed> $options Array of options. These options will be used as HTML attributes of the crumb.
      */
     public function prepend(string $content, array|string|null $url = null, array $options = []): static
     {
@@ -91,7 +100,10 @@ class BreadcrumbsHelper extends CoreBreadcrumbsHelper
     }
 
     /**
-     * @inheritDoc
+     * {@inheritDoc}
+     *
+     * @param array<string, mixed>|string|null $url URL of the crumb.
+     * @param array<string, mixed> $options Array of options. These options will be used as HTML attributes of the crumb.
      */
     public function insertAt(int $index, string $content, array|string|null $url = null, array $options = []): static
     {

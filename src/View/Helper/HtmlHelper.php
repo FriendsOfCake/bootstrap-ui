@@ -23,7 +23,7 @@ class HtmlHelper extends CoreHtmlHelper
      *        size `lg` class '<prefix>-lg` will be added. Default null.
      *
      * @param \Cake\View\View $View The View this helper is being attached to.
-     * @param array $config Configuration settings for the helper.
+     * @param array<string, mixed> $config Configuration settings for the helper.
      */
     public function __construct(View $View, array $config = [])
     {
@@ -45,7 +45,7 @@ class HtmlHelper extends CoreHtmlHelper
      * - `tag`: The HTML tag to use for the badge. Default `span`.
      *
      * @param string $text Text to show in badge.
-     * @param array $options Additional options and HTML attributes.
+     * @param array<string, mixed> $options Additional options and HTML attributes.
      * @return string HTML badge markup.
      */
     public function badge(string $text, array $options = []): string
@@ -82,7 +82,7 @@ class HtmlHelper extends CoreHtmlHelper
      * for above options.
      *
      * @param string $name Name of icon (i.e. `search`, `exclamation`, etc.).
-     * @param array $options Additional options and HTML attributes.
+     * @param array<string, mixed> $options Additional options and HTML attributes.
      * @return string HTML icon markup.
      */
     public function icon(string $name, array $options = []): string

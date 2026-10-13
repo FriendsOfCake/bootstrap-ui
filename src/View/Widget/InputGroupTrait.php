@@ -25,7 +25,7 @@ trait InputGroupTrait
      * - `input` If set it will be used as input tag between append and prepend addons.
      *   By default parent::render() will be called to get input tag.
      *
-     * @param array $data The data to build an input with.
+     * @param array<string, mixed> $data The data to build an input with.
      * @param \Cake\View\Form\ContextInterface $context The current form context.
      * @return string
      */
@@ -95,8 +95,8 @@ trait InputGroupTrait
     /**
      * Get addon HTML.
      *
-     * @param array<string> $addons Addon content.
-     * @param array $data Widget data.
+     * @param array<array-key, mixed> $addons Addon content.
+     * @param array<string, mixed> $data Widget data.
      * @return string
      */
     protected function addon(array $addons, array $data): string
@@ -130,8 +130,9 @@ trait InputGroupTrait
     /**
      * Checks, if prepend/append has options and formats them
      *
-     * @param array|string $attachment prepend or append element. Can be a string or array, if contains options
-     * @return array
+     * @param array<string, mixed>|string $attachment prepend or append element. Can be a string or array, if contains
+     *   options
+     * @return array{content: array<array-key, mixed>, options: array<string, mixed>}
      */
     protected function checkForOptions(array|string $attachment): array
     {
@@ -160,9 +161,9 @@ trait InputGroupTrait
     /**
      * Processes options given by prepend/append and adds them to wrapping container
      *
-     * @param array $attachment prepend/append content and options
-     * @param array $attrs of wrapping container
-     * @return array attrs with classes
+     * @param array<string, mixed> $attachment prepend/append content and options
+     * @param array<string, mixed> $attrs of wrapping container
+     * @return array<string, mixed> attrs with classes
      */
     protected function processOptions(array $attachment, array $attrs): array
     {

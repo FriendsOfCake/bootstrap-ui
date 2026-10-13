@@ -14,7 +14,7 @@ class ButtonWidget extends CoreButtonWidget
     /**
      * Renders a button.
      *
-     * @param array $data The data to build a button with.
+     * @param array<string, mixed> $data The data to build a button with.
      * @param \Cake\View\Form\ContextInterface $context The current form context.
      * @return string
      */

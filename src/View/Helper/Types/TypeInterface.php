@@ -16,7 +16,7 @@ interface TypeInterface
      *
      * [0 => "value1", 1 => "value2"]
      *
-     * @return array An array of all constants
+     * @return list<string> An array of all constants
      */
     public static function values(): array;
 }
