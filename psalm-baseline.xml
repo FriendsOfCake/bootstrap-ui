@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<files psalm-version="7.0.0-rc2@20339e3fe5b8d03bcd8061030eb2a83ad50e5783">
+  <file src="src/Command/CopyLayoutsCommand.php">
+    <InternalClass>
+      <code><![CDATA[new Filesystem()]]></code>
+    </InternalClass>
+    <InternalMethod>
+      <code><![CDATA[copyDir]]></code>
+    </InternalMethod>
+  </file>
+  <file src="src/Command/InstallCommand.php">
+    <ForbiddenCode>
+      <code><![CDATA[shell_exec($command)]]></code>
+    </ForbiddenCode>
+    <InternalClass>
+      <code><![CDATA[new Filesystem()]]></code>
+      <code><![CDATA[new Filesystem()]]></code>
+      <code><![CDATA[new Filesystem()]]></code>
+      <code><![CDATA[new Filesystem()]]></code>
+    </InternalClass>
+    <InternalMethod>
+      <code><![CDATA[deleteDir]]></code>
+      <code><![CDATA[findRecursive]]></code>
+      <code><![CDATA[findRecursive]]></code>
+      <code><![CDATA[mkdir]]></code>
+    </InternalMethod>
+  </file>
+  <file src="src/View/Helper/BreadcrumbsHelper.php">
+    <MoreSpecificImplementedParamType>
+      <code><![CDATA[$crumbs]]></code>
+      <code><![CDATA[$url]]></code>
+      <code><![CDATA[$url]]></code>
+      <code><![CDATA[$url]]></code>
+    </MoreSpecificImplementedParamType>
+  </file>
+</files>

@@ -80,7 +80,7 @@ class SelectBoxWidget extends CoreSelectBoxWidget
      * You are free to mix each of the forms in the same option set, and
      * nest complex types as required.
      *
-     * @param array $data Data to render with.
+     * @param array<string, mixed> $data Data to render with.
      * @param \Cake\View\Form\ContextInterface $context The current form context.
      * @return string A generated select box.
      * @throws \RuntimeException when the name attribute is empty.

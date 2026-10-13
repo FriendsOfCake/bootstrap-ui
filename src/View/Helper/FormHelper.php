@@ -69,7 +69,7 @@ class FormHelper extends CoreFormHelper
     /**
      * Form alignment types.
      *
-     * @var array
+     * @var array<int, string>
      */
     public const ALIGN_TYPES = [self::ALIGN_DEFAULT, self::ALIGN_HORIZONTAL, self::ALIGN_INLINE];
 
@@ -118,7 +118,7 @@ class FormHelper extends CoreFormHelper
     /**
      * Set on `Form::create()` to tell grid type.
      *
-     * @var array|null
+     * @var array<array-key, mixed>|null
      */
     protected ?array $grid = null;
 
@@ -132,7 +132,7 @@ class FormHelper extends CoreFormHelper
     /**
      * Default Bootstrap string templates.
      *
-     * @var array
+     * @var array<string, string>
      */
     protected array $templates = [
         'error' =>
@@ -221,7 +221,7 @@ class FormHelper extends CoreFormHelper
     /**
      * Templates set per alignment type
      *
-     * @var array
+     * @var array<string, array<string, string>>
      */
     protected array $templateSet = [
         'default' => [
@@ -317,7 +317,7 @@ class FormHelper extends CoreFormHelper
     /**
      * Default Bootstrap widgets.
      *
-     * @var array
+     * @var array<string, mixed>
      */
     protected array $widgets = [
         'button' => 'BootstrapUI\View\Widget\ButtonWidget',
@@ -533,8 +533,8 @@ class FormHelper extends CoreFormHelper
      * Modify options and templates based on spacing.
      *
      * @param string $fieldName Field name.
-     * @param array $options Options. See `$options` argument of `control()` method.
-     * @return array
+     * @param array<string, mixed> $options Options. See `$options` argument of `control()` method.
+     * @return array<string, mixed>
      */
     protected function spacingOptions(string $fieldName, array $options): array
     {
@@ -562,8 +562,8 @@ class FormHelper extends CoreFormHelper
      * Modify the options for container templates.
      *
      * @param string|null $fieldName Field name.
-     * @param array $options Options. See `$options` argument of `control()` method.
-     * @return array
+     * @param array<string, mixed> $options Options. See `$options` argument of `control()` method.
+     * @return array<string, mixed>
      */
     protected function containerOptions(?string $fieldName, array $options): array
     {
@@ -602,8 +602,8 @@ class FormHelper extends CoreFormHelper
      * Modify options for checkbox controls.
      *
      * @param string $fieldName Field name.
-     * @param array $options Options. See `$options` argument of `control()` method.
-     * @return array
+     * @param array<string, mixed> $options Options. See `$options` argument of `control()` method.
+     * @return array<string, mixed>
      */
     protected function checkboxOptions(string $fieldName, array $options): array
     {
@@ -641,8 +641,8 @@ class FormHelper extends CoreFormHelper
      * Modify options for radio controls.
      *
      * @param string $fieldName Field name.
-     * @param array $options Options. See `$options` argument of `control()` method.
-     * @return array
+     * @param array<string, mixed> $options Options. See `$options` argument of `control()` method.
+     * @return array<string, mixed>
      */
     protected function radioOptions(string $fieldName, array $options): array
     {
@@ -692,8 +692,8 @@ class FormHelper extends CoreFormHelper
      * Modify options for select controls.
      *
      * @param string $fieldName Field name.
-     * @param array $options Options. See `$options` argument of `control()` method.
-     * @return array
+     * @param array<string, mixed> $options Options. See `$options` argument of `control()` method.
+     * @return array<string, mixed>
      */
     protected function selectOptions(string $fieldName, array $options): array
     {
@@ -762,8 +762,8 @@ class FormHelper extends CoreFormHelper
      * Modify options for range controls.
      *
      * @param string $fieldName Field name.
-     * @param array $options Options. See `$options` argument of `control()` method.
-     * @return array
+     * @param array<string, mixed> $options Options. See `$options` argument of `control()` method.
+     * @return array<string, mixed>
      */
     protected function rangeOptions(string $fieldName, array $options): array
     {
@@ -784,8 +784,8 @@ class FormHelper extends CoreFormHelper
      * Modify the options for labels.
      *
      * @param string|null $fieldName Field name.
-     * @param array $options Options. See `$options` argument of `control()` method.
-     * @return array
+     * @param array<string, mixed> $options Options. See `$options` argument of `control()` method.
+     * @return array<string, mixed>
      */
     protected function labelOptions(?string $fieldName, array $options): array
     {
@@ -823,7 +823,7 @@ class FormHelper extends CoreFormHelper
             }
 
             if ($labelClasses) {
-                $options['label'] = $this->injectClasses($labelClasses, (array)$options['label']);
+                $options['label'] = $this->injectClasses($labelClasses, $options['label']);
             }
         }
 
@@ -834,8 +834,8 @@ class FormHelper extends CoreFormHelper
      * Modify templates based on error style.
      *
      * @param string $fieldName Field name.
-     * @param array $options Options. See `$options` argument of `control()` method.
-     * @return array
+     * @param array<string, mixed> $options Options. See `$options` argument of `control()` method.
+     * @return array<string, mixed>
      */
     protected function feedbackStyleOptions(string $fieldName, array $options): array
     {
@@ -871,8 +871,8 @@ class FormHelper extends CoreFormHelper
      * Modify options for aria attributes.
      *
      * @param string $fieldName Field name.
-     * @param array $options Options. See `$options` argument of `control()` method.
-     * @return array
+     * @param array<string, mixed> $options Options. See `$options` argument of `control()` method.
+     * @return array<string, mixed>
      */
     protected function ariaOptions(string $fieldName, array $options): array
     {
@@ -921,8 +921,8 @@ class FormHelper extends CoreFormHelper
      * Modify options for placeholders.
      *
      * @param string $fieldName Field name.
-     * @param array $options Options. See `$options` argument of `control()` method.
-     * @return array
+     * @param array<string, mixed> $options Options. See `$options` argument of `control()` method.
+     * @return array<string, mixed>
      */
     protected function placeholderOptions(string $fieldName, array $options): array
     {
@@ -955,8 +955,8 @@ class FormHelper extends CoreFormHelper
      * Modify options for control's help.
      *
      * @param string $fieldName Field name.
-     * @param array $options Options. See `$options` argument of `control()` method.
-     * @return array
+     * @param array<string, mixed> $options Options. See `$options` argument of `control()` method.
+     * @return array<string, mixed>
      */
     protected function helpOptions(string $fieldName, array $options): array
     {
@@ -993,8 +993,8 @@ class FormHelper extends CoreFormHelper
      * Modify options for control's tooltip.
      *
      * @param string $fieldName Field name.
-     * @param array $options Options. See `$options` argument of `control()` method.
-     * @return array
+     * @param array<string, mixed> $options Options. See `$options` argument of `control()` method.
+     * @return array<string, mixed>
      */
     protected function tooltipOptions(string $fieldName, array $options): array
     {
@@ -1019,8 +1019,8 @@ class FormHelper extends CoreFormHelper
      *
      * @param string $html The form element HTML.
      * @param string|null $fieldName The field name.
-     * @param array $options The element generation options (see `$options` argument for `button()`, `submit()`, and
-     *  `control()`).
+     * @param array<string, mixed> $options The element generation options (see `$options` argument for `button()`,
+     *  `submit()`, and `control()`).
      * @return string
      * @see button()
      * @see submit()
@@ -1070,8 +1070,8 @@ class FormHelper extends CoreFormHelper
     /**
      * Set options for radio and multi checkbox inputs.
      *
-     * @param array $attributes Attributes
-     * @return array
+     * @param array<string, mixed> $attributes Attributes
+     * @return array<string, mixed>
      */
     protected function multiInputAttributes(array $attributes): array
     {
@@ -1094,7 +1094,7 @@ class FormHelper extends CoreFormHelper
      * Creates a color input.
      *
      * @param string $fieldName The field name.
-     * @param array $options Array of options or HTML attributes.
+     * @param array<string, mixed> $options Array of options or HTML attributes.
      * @return string
      */
     public function color(string $fieldName, array $options = []): string
@@ -1124,7 +1124,7 @@ class FormHelper extends CoreFormHelper
      *    in a hidden input. Defaults to true.
      *
      * @param string $fieldName Name of a field, like this "modelname.fieldname"
-     * @param array $options Array of HTML attributes.
+     * @param array<string, mixed> $options Array of HTML attributes.
      * @return string An HTML text input element.
      */
     public function staticControl(string $fieldName, array $options = []): string
@@ -1169,7 +1169,11 @@ class FormHelper extends CoreFormHelper
     }
 
     /**
-     * @inheritDoc
+     * {@inheritDoc}
+     *
+     * @param array<string, mixed> $options The options for the input element.
+     * @return array<string, mixed>|string The generated input element, or an array of input markup if `checkbox()`
+     *   is called with the `hiddenField` option set to `_split`.
      */
     protected function getInput(string $fieldName, array $options): array|string
     {
@@ -1236,8 +1240,8 @@ class FormHelper extends CoreFormHelper
      *
      * Handles per-form scoped tasks like form alignment detection/switching.
      *
-     * @param array $options Options.
-     * @return array Modified options.
+     * @param array<string, mixed> $options Options.
+     * @return array<string, mixed> Modified options.
      */
     protected function processFormOptions(array $options): array
     {
@@ -1364,7 +1368,7 @@ class FormHelper extends CoreFormHelper
     /**
      * Detects the form alignment when possible.
      *
-     * @param array $options Options.
+     * @param array<string, mixed> $options Options.
      * @return string Form alignment type. One of `default`, `horizontal` or `inline`.
      */
     protected function detectFormAlignment(array $options): string

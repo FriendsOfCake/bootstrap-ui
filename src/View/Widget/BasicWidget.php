@@ -23,7 +23,7 @@ class BasicWidget extends CoreBasicWidget
      *
      * Any other keys provided in $data will be converted into HTML attributes.
      *
-     * @param array $data The data to build an input with.
+     * @param array<string, mixed> $data The data to build an input with.
      * @param \Cake\View\Form\ContextInterface $context The current form context.
      * @return string
      */

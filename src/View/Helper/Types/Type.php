@@ -13,7 +13,7 @@ abstract class Type implements TypeInterface
     /**
      * Get all constant values of a class
      *
-     * @return array
+     * @return list<string>
      * @throws \ReflectionException
      */
     public static function values(): array

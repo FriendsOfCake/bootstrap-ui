@@ -168,7 +168,7 @@ class InstallCommand extends Command
     /**
      * Runs the NPM install command.
      *
-     * @param array $output The variable to write the output to.
+     * @param array<int, string> $output The variable to write the output to.
      * @param int $return The variable to write the return status code to.
      * @param bool $useLatest Whether to install the latest minor versions.
      * @return void
