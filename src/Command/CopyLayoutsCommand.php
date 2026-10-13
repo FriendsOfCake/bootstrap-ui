@@ -4,8 +4,6 @@ declare(strict_types=1);
 namespace BootstrapUI\Command;
 
 use Cake\Command\Command;
-use Cake\Console\Arguments;
-use Cake\Console\ConsoleIo;
 use Cake\Console\ConsoleOptionParser;
 use Cake\Core\Plugin;
 use Cake\Utility\Filesystem;
@@ -26,21 +24,18 @@ class CopyLayoutsCommand extends Command
     /**
      * @inheritDoc
      */
-    public function execute(Arguments $args, ConsoleIo $io): ?int
+    public function execute(): ?int
     {
-        $io->info('Copying sample layouts...');
-
-        $target = $args->getArgument('target');
+        $this->io->info('Copying sample layouts...');
+        $target = $this->args->getArgument('target');
         if ($target === null) {
             $target = $this->_getDefaultTargetPath();
         }
-
-        if (!$this->_copyLayouts($target)) {
-            $io->error("Sample layouts could not be copied to `$target`.");
+        if (!$this->copyLayouts($target)) {
+            $this->io->error("Sample layouts could not be copied to `$target`.");
             $this->abort();
         }
-
-        $io->success("Sample layouts copied successfully to `$target`.");
+        $this->io->success("Sample layouts copied successfully to `$target`.");
 
         return static::CODE_SUCCESS;
     }
@@ -51,7 +46,7 @@ class CopyLayoutsCommand extends Command
      * @param string $targetPath The path where to copy the files to.
      * @return bool
      */
-    protected function _copyLayouts(string $targetPath): bool
+    protected function copyLayouts(string $targetPath): bool
     {
         $source = Plugin::path('BootstrapUI') . 'templates' . DS . 'layout' . DS . 'examples';
 

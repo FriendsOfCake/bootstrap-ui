@@ -33,7 +33,7 @@ class HtmlHelperTest extends TestCase
         unset($this->Html, $this->View);
     }
 
-    public function testBadge()
+    public function testBadge(): void
     {
         $result = $this->Html->badge('foo');
         $expected = [
@@ -52,7 +52,7 @@ class HtmlHelperTest extends TestCase
         $this->assertHtml($expected, $result);
     }
 
-    public function testIcon()
+    public function testIcon(): void
     {
         $result = $this->Html->icon('foo');
         $expected = [

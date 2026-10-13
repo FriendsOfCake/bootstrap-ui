@@ -10,18 +10,18 @@ class BootstrapCommandTest extends TestCase
 {
     use ConsoleIntegrationTestTrait;
 
-    public function testEntry()
+    public function testEntry(): void
     {
         $this->exec('bootstrap');
 
         $this->assertOutputEmpty();
         $this->assertEquals(
             ['<warning>No command provided. Run `bootstrap --help` to get a list of commands.</warning>'],
-            $this->_err->messages(),
+            $this->err->messages(),
         );
     }
 
-    public function testHelp()
+    public function testHelp(): void
     {
         $this->exec('bootstrap --help');
 
@@ -40,7 +40,7 @@ and samples, and for modifying your application to use BootstrapUI.',
                 'To get help on a specific command, type <info>`bootstrap command_name --help`</info>',
                 '',
             ],
-            $this->_out->messages(),
+            $this->out->messages(),
         );
         $this->assertErrorEmpty();
     }

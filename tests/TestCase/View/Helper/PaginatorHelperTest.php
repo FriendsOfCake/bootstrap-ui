@@ -429,7 +429,7 @@ class PaginatorHelperTest extends TestCase
         $this->assertHtml($expected, $result);
     }
 
-    public function testFirst()
+    public function testFirst(): void
     {
         $result = $this->Paginator->first();
         $expected = [
@@ -444,7 +444,7 @@ class PaginatorHelperTest extends TestCase
         $this->assertHtml($expected, $result);
     }
 
-    public function testFirstCustomLabel()
+    public function testFirstCustomLabel(): void
     {
         $result = $this->Paginator->first('«', ['label' => 'Beginning']);
         $expected = [
@@ -459,7 +459,7 @@ class PaginatorHelperTest extends TestCase
         $this->assertHtml($expected, $result);
     }
 
-    public function testFirstCustomTemplate()
+    public function testFirstCustomTemplate(): void
     {
         $result = $this->Paginator->first('«', [
             'templates' => [
@@ -479,7 +479,7 @@ class PaginatorHelperTest extends TestCase
      * to an array. Passing a string previously crashed in `_templateOptions`
      * which tried to array-merge it.
      */
-    public function testFirstCustomTemplateFile()
+    public function testFirstCustomTemplateFile(): void
     {
         $result = $this->Paginator->first('«', [
             'templates' => 'paginator_templates',
@@ -492,7 +492,7 @@ class PaginatorHelperTest extends TestCase
         $this->assertHtml($expected, $result);
     }
 
-    public function testLast()
+    public function testLast(): void
     {
         $result = $this->Paginator->last();
         $expected = [
@@ -507,7 +507,7 @@ class PaginatorHelperTest extends TestCase
         $this->assertHtml($expected, $result);
     }
 
-    public function testLastCustomLabel()
+    public function testLastCustomLabel(): void
     {
         $result = $this->Paginator->last('»', ['label' => 'End']);
         $expected = [
@@ -522,7 +522,7 @@ class PaginatorHelperTest extends TestCase
         $this->assertHtml($expected, $result);
     }
 
-    public function testLastCustomTemplate()
+    public function testLastCustomTemplate(): void
     {
         $result = $this->Paginator->last('»', [
             'templates' => [
@@ -537,7 +537,7 @@ class PaginatorHelperTest extends TestCase
         $this->assertHtml($expected, $result);
     }
 
-    public function testPrev()
+    public function testPrev(): void
     {
         $result = $this->Paginator->prev();
         $expected = [
@@ -552,7 +552,7 @@ class PaginatorHelperTest extends TestCase
         $this->assertHtml($expected, $result);
     }
 
-    public function testPrevCustomLabel()
+    public function testPrevCustomLabel(): void
     {
         $result = $this->Paginator->prev('‹', ['label' => 'Back']);
         $expected = [
@@ -567,7 +567,7 @@ class PaginatorHelperTest extends TestCase
         $this->assertHtml($expected, $result);
     }
 
-    public function testPrevCustomTemplate()
+    public function testPrevCustomTemplate(): void
     {
         $result = $this->Paginator->prev('‹', [
             'templates' => [
@@ -582,7 +582,7 @@ class PaginatorHelperTest extends TestCase
         $this->assertHtml($expected, $result);
     }
 
-    public function testPrevDisabledCustomTemplate()
+    public function testPrevDisabledCustomTemplate(): void
     {
         $this->setPaginatedResult([
             'hasPrevPage' => false,
@@ -601,7 +601,7 @@ class PaginatorHelperTest extends TestCase
         $this->assertHtml($expected, $result);
     }
 
-    public function testNext()
+    public function testNext(): void
     {
         $result = $this->Paginator->next();
         $expected = [
@@ -616,7 +616,7 @@ class PaginatorHelperTest extends TestCase
         $this->assertHtml($expected, $result);
     }
 
-    public function testNextCustomLabel()
+    public function testNextCustomLabel(): void
     {
         $result = $this->Paginator->next('›', ['label' => 'Forward']);
         $expected = [
@@ -631,7 +631,7 @@ class PaginatorHelperTest extends TestCase
         $this->assertHtml($expected, $result);
     }
 
-    public function testNextCustomTemplate()
+    public function testNextCustomTemplate(): void
     {
         $result = $this->Paginator->next('›', [
             'templates' => [
@@ -646,7 +646,7 @@ class PaginatorHelperTest extends TestCase
         $this->assertHtml($expected, $result);
     }
 
-    public function testNextDisabledCustomTemplate()
+    public function testNextDisabledCustomTemplate(): void
     {
         $this->setPaginatedResult([
             'hasNextPage' => false,

@@ -8,7 +8,7 @@ use BootstrapUI\View\Helper\FormHelper;
 
 class StaticControlTest extends AbstractFormHelperTest
 {
-    public function testHorizontalAlignStaticControl()
+    public function testHorizontalAlignStaticControl(): void
     {
         $this->View->setRequest($this->View->getRequest()->withAttribute('formTokenData', []));
 
@@ -49,7 +49,7 @@ class StaticControlTest extends AbstractFormHelperTest
         );
     }
 
-    public function testHorizontalAlignStaticControlWithoutHiddenField()
+    public function testHorizontalAlignStaticControlWithoutHiddenField(): void
     {
         unset($this->article['required']['title']);
         $this->article['defaults']['title'] = 'foo <u>bar</u>';
@@ -85,7 +85,7 @@ class StaticControlTest extends AbstractFormHelperTest
         $this->assertHtml($expected, $result);
     }
 
-    public function testHorizontalAlignStaticControlWithDisabledLabel()
+    public function testHorizontalAlignStaticControlWithDisabledLabel(): void
     {
         unset($this->article['required']['title']);
         $this->article['defaults']['title'] = 'title';
@@ -120,7 +120,7 @@ class StaticControlTest extends AbstractFormHelperTest
         $this->assertHtml($expected, $result);
     }
 
-    public function testHorizontalAlignStaticControlWithCustomLabel()
+    public function testHorizontalAlignStaticControlWithCustomLabel(): void
     {
         unset($this->article['required']['title']);
         $this->article['defaults']['title'] = 'title';
@@ -158,7 +158,7 @@ class StaticControlTest extends AbstractFormHelperTest
         $this->assertHtml($expected, $result);
     }
 
-    public function testHorizontalAlignStaticControlWithCustomLabelOptions()
+    public function testHorizontalAlignStaticControlWithCustomLabelOptions(): void
     {
         unset($this->article['required']['title']);
         $this->article['defaults']['title'] = 'title';
@@ -200,7 +200,7 @@ class StaticControlTest extends AbstractFormHelperTest
         $this->assertHtml($expected, $result);
     }
 
-    public function testHorizontalAlignStaticControlWithHelp()
+    public function testHorizontalAlignStaticControlWithHelp(): void
     {
         unset($this->article['required']['title']);
         $this->article['defaults']['title'] = 'title';
@@ -242,7 +242,7 @@ class StaticControlTest extends AbstractFormHelperTest
         $this->assertHtml($expected, $result);
     }
 
-    public function testHorizontalAlignStaticControlWithHelpOptions()
+    public function testHorizontalAlignStaticControlWithHelpOptions(): void
     {
         unset($this->article['required']['title']);
         $this->article['defaults']['title'] = 'title';
@@ -293,7 +293,7 @@ class StaticControlTest extends AbstractFormHelperTest
         $this->assertHtml($expected, $result);
     }
 
-    public function testHorizontalAlignStaticControlWithTooltip()
+    public function testHorizontalAlignStaticControlWithTooltip(): void
     {
         unset($this->article['required']['title']);
         $this->article['defaults']['title'] = 'title';
@@ -337,7 +337,7 @@ class StaticControlTest extends AbstractFormHelperTest
         $this->assertHtml($expected, $result);
     }
 
-    public function testHorizontalAlignStaticControlWithCustomSpacing()
+    public function testHorizontalAlignStaticControlWithCustomSpacing(): void
     {
         unset($this->article['required']['title']);
         $this->article['defaults']['title'] = 'foo <u>bar</u>';
@@ -375,7 +375,7 @@ class StaticControlTest extends AbstractFormHelperTest
         $this->assertHtml($expected, $result);
     }
 
-    public function testHorizontalAlignStaticControlWithError()
+    public function testHorizontalAlignStaticControlWithError(): void
     {
         $this->article['errors'] = [
             'title' => ['error message'],
@@ -422,7 +422,7 @@ class StaticControlTest extends AbstractFormHelperTest
         $this->assertHtml($expected, $result);
     }
 
-    public function testHorizontalAlignStaticControlWithErrorAndHelp()
+    public function testHorizontalAlignStaticControlWithErrorAndHelp(): void
     {
         $this->article['errors'] = [
             'title' => ['error message'],
@@ -472,7 +472,7 @@ class StaticControlTest extends AbstractFormHelperTest
         $this->assertHtml($expected, $result);
     }
 
-    public function testHorizontalAlignStaticControlWithErrorAndHelpOptions()
+    public function testHorizontalAlignStaticControlWithErrorAndHelpOptions(): void
     {
         $this->article['errors'] = [
             'title' => ['error message'],
@@ -531,7 +531,7 @@ class StaticControlTest extends AbstractFormHelperTest
         $this->assertHtml($expected, $result);
     }
 
-    public function testHorizontalAlignStaticControlContainerOptions()
+    public function testHorizontalAlignStaticControlContainerOptions(): void
     {
         unset($this->article['required']['title']);
         $this->article['defaults']['title'] = 'title';
@@ -575,7 +575,7 @@ class StaticControlTest extends AbstractFormHelperTest
         $this->assertHtml($expected, $result);
     }
 
-    public function testHorizontalAlignStaticControlContainerOptionsWithError()
+    public function testHorizontalAlignStaticControlContainerOptionsWithError(): void
     {
         unset($this->article['required']['title']);
         $this->article['defaults']['title'] = 'title';

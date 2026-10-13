@@ -13,10 +13,10 @@ permissions:
 
 jobs:
   testsuite:
-    uses: ADmad/.github/.github/workflows/testsuite-without-db.yml@master
+    uses: ADmad/.github/.github/workflows/testsuite-without-db.yml@cake6
     secrets:
       CODECOV_TOKEN: ${{ secrets.CODECOV_TOKEN }}
 
   cs-stan:
-    uses: cakephp/.github/.github/workflows/cs-stan.yml@5.x
+    uses: cakephp/.github/.github/workflows/cs-stan.yml@6.x
     secrets: inherit

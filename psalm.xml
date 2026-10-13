@@ -15,4 +15,10 @@
             <directory name="vendor" />
         </ignoreFiles>
     </projectFiles>
+    <issueHandlers>
+        <MissingOverrideAttribute errorLevel="suppress"/>
+        <MissingPureAnnotation errorLevel="suppress"/>
+        <MissingAbstractPureAnnotation errorLevel="suppress"/>
+        <MissingInterfaceImmutableAnnotation errorLevel="suppress"/>
+    </issueHandlers>
 </psalm>

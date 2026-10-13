@@ -45,7 +45,7 @@ class UIViewTraitTest extends TestCase
      *
      * @return void
      */
-    public function testInitializeUI()
+    public function testInitializeUI(): void
     {
         $this->View->initializeUI();
         $this->assertEquals('BootstrapUI.default', $this->View->getLayout());
@@ -72,7 +72,7 @@ class UIViewTraitTest extends TestCase
         $this->assertSame('', $this->View->getLayout());
     }
 
-    public function testCellRendering()
+    public function testCellRendering(): void
     {
         $cell = $this->View->cell('Articles');
 

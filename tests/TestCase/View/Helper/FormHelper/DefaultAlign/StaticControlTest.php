@@ -7,7 +7,7 @@ use BootstrapUI\Test\TestCase\View\Helper\FormHelper\AbstractFormHelperTest;
 
 class StaticControlTest extends AbstractFormHelperTest
 {
-    public function testDefaultAlignStaticControl()
+    public function testDefaultAlignStaticControl(): void
     {
         $this->View->setRequest($this->View->getRequest()->withAttribute('formTokenData', []));
 
@@ -39,7 +39,7 @@ class StaticControlTest extends AbstractFormHelperTest
         );
     }
 
-    public function testDefaultAlignStaticControlWithoutHiddenField()
+    public function testDefaultAlignStaticControlWithoutHiddenField(): void
     {
         unset($this->article['required']['title']);
         $this->article['defaults']['title'] = 'foo <u>bar</u>';
@@ -66,7 +66,7 @@ class StaticControlTest extends AbstractFormHelperTest
         $this->assertHtml($expected, $result);
     }
 
-    public function testDefaultAlignStaticControlWithDisabledLabel()
+    public function testDefaultAlignStaticControlWithDisabledLabel(): void
     {
         unset($this->article['required']['title']);
         $this->article['defaults']['title'] = 'title';
@@ -92,7 +92,7 @@ class StaticControlTest extends AbstractFormHelperTest
         $this->assertHtml($expected, $result);
     }
 
-    public function testDefaultAlignStaticControlWithCustomLabel()
+    public function testDefaultAlignStaticControlWithCustomLabel(): void
     {
         unset($this->article['required']['title']);
         $this->article['defaults']['title'] = 'title';
@@ -121,7 +121,7 @@ class StaticControlTest extends AbstractFormHelperTest
         $this->assertHtml($expected, $result);
     }
 
-    public function testDefaultAlignStaticControlWithCustomLabelOptions()
+    public function testDefaultAlignStaticControlWithCustomLabelOptions(): void
     {
         unset($this->article['required']['title']);
         $this->article['defaults']['title'] = 'title';
@@ -154,7 +154,7 @@ class StaticControlTest extends AbstractFormHelperTest
         $this->assertHtml($expected, $result);
     }
 
-    public function testDefaultAlignStaticControlWithHelp()
+    public function testDefaultAlignStaticControlWithHelp(): void
     {
         unset($this->article['required']['title']);
         $this->article['defaults']['title'] = 'title';
@@ -187,7 +187,7 @@ class StaticControlTest extends AbstractFormHelperTest
         $this->assertHtml($expected, $result);
     }
 
-    public function testDefaultAlignStaticControlWithHelpOptions()
+    public function testDefaultAlignStaticControlWithHelpOptions(): void
     {
         unset($this->article['required']['title']);
         $this->article['defaults']['title'] = 'title';
@@ -229,7 +229,7 @@ class StaticControlTest extends AbstractFormHelperTest
         $this->assertHtml($expected, $result);
     }
 
-    public function testDefaultAlignStaticControlWithTooltip()
+    public function testDefaultAlignStaticControlWithTooltip(): void
     {
         unset($this->article['required']['title']);
         $this->article['defaults']['title'] = 'title';
@@ -264,7 +264,7 @@ class StaticControlTest extends AbstractFormHelperTest
         $this->assertHtml($expected, $result);
     }
 
-    public function testDefaultAlignStaticControlWithCustomSpacing()
+    public function testDefaultAlignStaticControlWithCustomSpacing(): void
     {
         unset($this->article['required']['title']);
         $this->article['defaults']['title'] = 'foo <u>bar</u>';
@@ -293,7 +293,7 @@ class StaticControlTest extends AbstractFormHelperTest
         $this->assertHtml($expected, $result);
     }
 
-    public function testDefaultAlignStaticControlWithError()
+    public function testDefaultAlignStaticControlWithError(): void
     {
         $this->article['errors'] = [
             'title' => ['error message'],
@@ -331,7 +331,7 @@ class StaticControlTest extends AbstractFormHelperTest
         $this->assertHtml($expected, $result);
     }
 
-    public function testDefaultAlignStaticControlWithErrorAndHelp()
+    public function testDefaultAlignStaticControlWithErrorAndHelp(): void
     {
         $this->article['errors'] = [
             'title' => ['error message'],
@@ -372,7 +372,7 @@ class StaticControlTest extends AbstractFormHelperTest
         $this->assertHtml($expected, $result);
     }
 
-    public function testDefaultAlignStaticControlWithErrorAndHelpOptions()
+    public function testDefaultAlignStaticControlWithErrorAndHelpOptions(): void
     {
         $this->article['errors'] = [
             'title' => ['error message'],
@@ -422,7 +422,7 @@ class StaticControlTest extends AbstractFormHelperTest
         $this->assertHtml($expected, $result);
     }
 
-    public function testDefaultAlignStaticControlContainerOptions()
+    public function testDefaultAlignStaticControlContainerOptions(): void
     {
         unset($this->article['required']['title']);
         $this->article['defaults']['title'] = 'title';
@@ -457,7 +457,7 @@ class StaticControlTest extends AbstractFormHelperTest
         $this->assertHtml($expected, $result);
     }
 
-    public function testDefaultAlignStaticControlContainerOptionsWithError()
+    public function testDefaultAlignStaticControlContainerOptionsWithError(): void
     {
         unset($this->article['required']['title']);
         $this->article['defaults']['title'] = 'title';

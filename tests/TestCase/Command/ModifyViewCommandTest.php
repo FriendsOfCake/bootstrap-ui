@@ -33,7 +33,7 @@ class ModifyViewCommandTest extends TestCase
         }
     }
 
-    public function testModifyView()
+    public function testModifyView(): void
     {
         $comparisonsPath =
             Plugin::path('BootstrapUI') . 'tests' . DS . 'comparisons' . DS . 'Command' . DS . 'ModifyView' . DS;
@@ -61,7 +61,7 @@ class ModifyViewCommandTest extends TestCase
                 '<info>Modifying view...</info>',
                 "<success>Modified `$filePath`.</success>",
             ],
-            $this->_out->messages(),
+            $this->out->messages(),
         );
         $this->assertErrorEmpty();
 
@@ -71,7 +71,7 @@ class ModifyViewCommandTest extends TestCase
         );
     }
 
-    public function testCustomFilePath()
+    public function testCustomFilePath(): void
     {
         $comparisonsPath =
             Plugin::path('BootstrapUI') . 'tests' . DS . 'comparisons' . DS . 'Command' . DS . 'ModifyView' . DS;
@@ -95,7 +95,7 @@ class ModifyViewCommandTest extends TestCase
                 '<info>Modifying view...</info>',
                 "<success>Modified `$filePath`.</success>",
             ],
-            $this->_out->messages(),
+            $this->out->messages(),
         );
         $this->assertErrorEmpty();
 
@@ -105,17 +105,17 @@ class ModifyViewCommandTest extends TestCase
         );
     }
 
-    public function testPathIsNotAFile()
+    public function testPathIsNotAFile(): void
     {
         /** @var \BootstrapUI\Command\ModifyViewCommand|\PHPUnit\Framework\MockObject\MockObject $command */
         $command = $this
             ->getMockBuilder(ModifyViewCommand::class)
-            ->onlyMethods(['_isFile'])
+            ->onlyMethods(['isFile'])
             ->getMock();
 
         $command
             ->expects($this->once())
-            ->method('_isFile')
+            ->method('isFile')
             ->willReturn(false);
 
         $out = new StubConsoleOutput();
@@ -141,7 +141,7 @@ class ModifyViewCommandTest extends TestCase
         );
     }
 
-    public function testAlreadyModifiedReportsError()
+    public function testAlreadyModifiedReportsError(): void
     {
         // Running the command on a file that has already been modified
         // must be a no-op (no duplicate `parent::initialize();`) and report
@@ -149,12 +149,12 @@ class ModifyViewCommandTest extends TestCase
         /** @var \BootstrapUI\Command\ModifyViewCommand|\PHPUnit\Framework\MockObject\MockObject $command */
         $command = $this
             ->getMockBuilder(ModifyViewCommand::class)
-            ->onlyMethods(['_writeFile'])
+            ->onlyMethods(['writeFile'])
             ->getMock();
 
         $command
             ->expects($this->never())
-            ->method('_writeFile');
+            ->method('writeFile');
 
         $out = new StubConsoleOutput();
         $err = new StubConsoleOutput();
@@ -174,17 +174,17 @@ class ModifyViewCommandTest extends TestCase
         );
     }
 
-    public function testFileCannotBeRead()
+    public function testFileCannotBeRead(): void
     {
         /** @var \BootstrapUI\Command\ModifyViewCommand|\PHPUnit\Framework\MockObject\MockObject $command */
         $command = $this
             ->getMockBuilder(ModifyViewCommand::class)
-            ->onlyMethods(['_readFile'])
+            ->onlyMethods(['readFile'])
             ->getMock();
 
         $command
             ->expects($this->once())
-            ->method('_readFile')
+            ->method('readFile')
             ->willReturn(false);
 
         $out = new StubConsoleOutput();
@@ -210,7 +210,7 @@ class ModifyViewCommandTest extends TestCase
         );
     }
 
-    public function testFileCannotBeWritten()
+    public function testFileCannotBeWritten(): void
     {
         // _modifyView only calls _writeFile when the file content actually
         // needs changes, so swap in an unmodified skeleton for this test.
@@ -231,12 +231,12 @@ class ModifyViewCommandTest extends TestCase
         /** @var \BootstrapUI\Command\ModifyViewCommand|\PHPUnit\Framework\MockObject\MockObject $command */
         $command = $this
             ->getMockBuilder(ModifyViewCommand::class)
-            ->onlyMethods(['_writeFile'])
+            ->onlyMethods(['writeFile'])
             ->getMock();
 
         $command
             ->expects($this->once())
-            ->method('_writeFile')
+            ->method('writeFile')
             ->willReturn(false);
 
         $out = new StubConsoleOutput();
@@ -260,7 +260,7 @@ class ModifyViewCommandTest extends TestCase
         );
     }
 
-    public function testHelp()
+    public function testHelp(): void
     {
         $filePath = APP . 'View' . DS . 'AppView.php';
 
@@ -292,7 +292,7 @@ file  The path of the `AppView.php` file. Defaults to
 <warning>Don't run this command if you have a already modified the
 `AppView` class!</warning>
 "],
-            $this->_out->messages(),
+            $this->out->messages(),
         );
         $this->assertErrorEmpty();
     }

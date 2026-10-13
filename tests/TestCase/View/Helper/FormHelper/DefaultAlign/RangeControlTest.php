@@ -7,7 +7,7 @@ use BootstrapUI\Test\TestCase\View\Helper\FormHelper\AbstractFormHelperTest;
 
 class RangeControlTest extends AbstractFormHelperTest
 {
-    public function testDefaultAlignRangeControl()
+    public function testDefaultAlignRangeControl(): void
     {
         $this->Form->create($this->article);
 
@@ -36,7 +36,7 @@ class RangeControlTest extends AbstractFormHelperTest
         $this->assertHtml($expected, $result);
     }
 
-    public function testDefaultAlignRangeControlWithDisabledLabel()
+    public function testDefaultAlignRangeControlWithDisabledLabel(): void
     {
         $this->Form->create($this->article);
 
@@ -63,7 +63,7 @@ class RangeControlTest extends AbstractFormHelperTest
         $this->assertHtml($expected, $result);
     }
 
-    public function testDefaultAlignRangeControlWithCustomLabel()
+    public function testDefaultAlignRangeControlWithCustomLabel(): void
     {
         $this->Form->create($this->article);
 
@@ -93,7 +93,7 @@ class RangeControlTest extends AbstractFormHelperTest
         $this->assertHtml($expected, $result);
     }
 
-    public function testDefaultAlignRangeControlWithCustomLabelOptions()
+    public function testDefaultAlignRangeControlWithCustomLabelOptions(): void
     {
         $this->Form->create($this->article);
 
@@ -127,7 +127,7 @@ class RangeControlTest extends AbstractFormHelperTest
         $this->assertHtml($expected, $result);
     }
 
-    public function testDefaultAlignRangeControlWithHelp()
+    public function testDefaultAlignRangeControlWithHelp(): void
     {
         $this->Form->create($this->article);
 
@@ -161,7 +161,7 @@ class RangeControlTest extends AbstractFormHelperTest
         $this->assertHtml($expected, $result);
     }
 
-    public function testDefaultAlignRangeControlWithHelpOptions()
+    public function testDefaultAlignRangeControlWithHelpOptions(): void
     {
         $this->Form->create($this->article);
 
@@ -204,7 +204,7 @@ class RangeControlTest extends AbstractFormHelperTest
         $this->assertHtml($expected, $result);
     }
 
-    public function testDefaultAlignRangeControlWithTooltip()
+    public function testDefaultAlignRangeControlWithTooltip(): void
     {
         $this->Form->create($this->article);
 
@@ -240,7 +240,7 @@ class RangeControlTest extends AbstractFormHelperTest
         $this->assertHtml($expected, $result);
     }
 
-    public function testDefaultAlignRangeControlWithCustomSpacing()
+    public function testDefaultAlignRangeControlWithCustomSpacing(): void
     {
         $this->Form->create($this->article);
 
@@ -270,7 +270,7 @@ class RangeControlTest extends AbstractFormHelperTest
         $this->assertHtml($expected, $result);
     }
 
-    public function testDefaultAlignRangeControlWithError()
+    public function testDefaultAlignRangeControlWithError(): void
     {
         $this->article['errors'] = [
             'height' => ['error message'],
@@ -307,7 +307,7 @@ class RangeControlTest extends AbstractFormHelperTest
         $this->assertHtml($expected, $result);
     }
 
-    public function testDefaultAlignRangeControlWithErrorAndHelp()
+    public function testDefaultAlignRangeControlWithErrorAndHelp(): void
     {
         $this->article['errors'] = [
             'height' => ['error message'],
@@ -348,7 +348,7 @@ class RangeControlTest extends AbstractFormHelperTest
         $this->assertHtml($expected, $result);
     }
 
-    public function testDefaultAlignRangeControlWithErrorAndHelpOptions()
+    public function testDefaultAlignRangeControlWithErrorAndHelpOptions(): void
     {
         $this->article['errors'] = [
             'height' => ['error message'],
@@ -398,7 +398,7 @@ class RangeControlTest extends AbstractFormHelperTest
         $this->assertHtml($expected, $result);
     }
 
-    public function testDefaultAlignRangeControlContainerOptions()
+    public function testDefaultAlignRangeControlContainerOptions(): void
     {
         $this->Form->create($this->article);
 
@@ -434,7 +434,7 @@ class RangeControlTest extends AbstractFormHelperTest
         $this->assertHtml($expected, $result);
     }
 
-    public function testDefaultAlignRangeControlContainerOptionsWithError()
+    public function testDefaultAlignRangeControlContainerOptionsWithError(): void
     {
         $this->article['errors'] = [
             'height' => ['error message'],

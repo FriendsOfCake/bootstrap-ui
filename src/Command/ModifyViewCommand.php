@@ -4,8 +4,6 @@ declare(strict_types=1);
 namespace BootstrapUI\Command;
 
 use Cake\Command\Command;
-use Cake\Console\Arguments;
-use Cake\Console\ConsoleIo;
 use Cake\Console\ConsoleOptionParser;
 
 /**
@@ -24,21 +22,18 @@ class ModifyViewCommand extends Command
     /**
      * @inheritDoc
      */
-    public function execute(Arguments $args, ConsoleIo $io): ?int
+    public function execute(): ?int
     {
-        $io->info('Modifying view...');
-
-        $file = $args->getArgument('file');
+        $this->io->info('Modifying view...');
+        $file = $this->args->getArgument('file');
         if ($file === null) {
-            $file = $this->_getDefaultFilePath();
+            $file = $this->getDefaultFilePath();
         }
-
-        if (!$this->_modifyView($file)) {
-            $io->error("Could not modify `$file`.");
+        if (!$this->modifyView($file)) {
+            $this->io->error("Could not modify `$file`.");
             $this->abort();
         }
-
-        $io->success("Modified `$file`.");
+        $this->io->success("Modified `$file`.");
 
         return static::CODE_SUCCESS;
     }
@@ -49,13 +44,13 @@ class ModifyViewCommand extends Command
      * @param string $filePath The path of the file to modify.
      * @return bool
      */
-    protected function _modifyView(string $filePath): bool
+    protected function modifyView(string $filePath): bool
     {
-        if (!$this->_isFile($filePath)) {
+        if (!$this->isFile($filePath)) {
             return false;
         }
 
-        $content = $this->_readFile($filePath);
+        $content = $this->readFile($filePath);
         if ($content === false) {
             return false;
         }
@@ -88,7 +83,7 @@ class ModifyViewCommand extends Command
             return false;
         }
 
-        return $this->_writeFile($filePath, $content);
+        return $this->writeFile($filePath, $content);
     }
 
     /**
@@ -97,7 +92,7 @@ class ModifyViewCommand extends Command
      * @param string $filePath The file path.
      * @return bool
      */
-    protected function _isFile(string $filePath): bool
+    protected function isFile(string $filePath): bool
     {
         return is_file($filePath);
     }
@@ -108,7 +103,7 @@ class ModifyViewCommand extends Command
      * @param string $filePath The file path.
      * @return string|false
      */
-    protected function _readFile(string $filePath): false|string
+    protected function readFile(string $filePath): false|string
     {
         return file_get_contents($filePath);
     }
@@ -120,7 +115,7 @@ class ModifyViewCommand extends Command
      * @param string $content The content to write.
      * @return bool
      */
-    protected function _writeFile(string $filePath, string $content): bool
+    protected function writeFile(string $filePath, string $content): bool
     {
         return file_put_contents($filePath, $content) !== false;
     }
@@ -130,7 +125,7 @@ class ModifyViewCommand extends Command
      *
      * @return string
      */
-    protected function _getDefaultFilePath(): string
+    protected function getDefaultFilePath(): string
     {
         return APP . 'View' . DS . 'AppView.php';
     }
@@ -147,7 +142,7 @@ class ModifyViewCommand extends Command
             ->addArgument('file', [
                 'help' => sprintf(
                     'The path of the `AppView.php` file. Defaults to `%s`.',
-                    $this->_getDefaultFilePath(),
+                    $this->getDefaultFilePath(),
                 ),
                 'required' => false,
             ])

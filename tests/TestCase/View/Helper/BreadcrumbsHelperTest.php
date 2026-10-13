@@ -33,7 +33,7 @@ class BreadcrumbsHelperTest extends TestCase
         unset($this->Breadcrumbs, $this->View);
     }
 
-    public function testCrumbList()
+    public function testCrumbList(): void
     {
         $result = $this->Breadcrumbs
             ->add('jadb')
@@ -89,12 +89,12 @@ class BreadcrumbsHelperTest extends TestCase
         $this->assertHtml($expected, $result);
     }
 
-    public function testCrumbListAddMultiple()
+    public function testCrumbListAddMultiple(): void
     {
-        $result = $this->Breadcrumbs->add([
-            ['title' => 'Home', 'url' => '/', 'options' => ['class' => 'xyz']],
-            ['title' => 'page'],
-            ['title' => 'subpage', 'url' => null],
+        $result = $this->Breadcrumbs->addMany([
+            ['content' => 'Home', 'url' => '/', 'options' => ['class' => 'xyz']],
+            ['content' => 'page'],
+            ['content' => 'subpage', 'url' => null],
         ])->render();
 
         $expected = [
@@ -122,7 +122,7 @@ class BreadcrumbsHelperTest extends TestCase
         $this->assertHtml($expected, $result);
     }
 
-    public function testAttributes()
+    public function testAttributes(): void
     {
         $attributes = [
             'wrapper' => ['class' => 'wrapper-class'],
@@ -155,7 +155,7 @@ class BreadcrumbsHelperTest extends TestCase
         $this->assertHtml($expected, $result);
     }
 
-    public function testAriaCurrentLastWithLink()
+    public function testAriaCurrentLastWithLink(): void
     {
         $this->Breadcrumbs->setConfig('ariaCurrent', 'lastWithLink');
 
@@ -189,7 +189,7 @@ class BreadcrumbsHelperTest extends TestCase
         $this->assertHtml($expected, $result);
     }
 
-    public function testAriaCurrentLastWithLinkNoCrumbWithLink()
+    public function testAriaCurrentLastWithLinkNoCrumbWithLink(): void
     {
         $this->Breadcrumbs->setConfig('ariaCurrent', 'lastWithLink');
 
@@ -217,7 +217,7 @@ class BreadcrumbsHelperTest extends TestCase
         $this->assertHtml($expected, $result);
     }
 
-    public function testAriaCurrentRemoveAndInject()
+    public function testAriaCurrentRemoveAndInject(): void
     {
         $result = $this->Breadcrumbs
             ->add('first')
@@ -270,13 +270,13 @@ class BreadcrumbsHelperTest extends TestCase
         $this->assertHtml($expected, $result);
     }
 
-    public function testNoCrumbs()
+    public function testNoCrumbs(): void
     {
         $result = $this->Breadcrumbs->render();
         $this->assertEmpty($result);
     }
 
-    public function testSingleCrumbIsMarkedActive()
+    public function testSingleCrumbIsMarkedActive(): void
     {
         $result = $this->Breadcrumbs
             ->add('only')

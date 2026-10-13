@@ -25,7 +25,7 @@ class BakeTest extends TestCase
     {
         parent::setUp();
 
-        $this->_compareBasePath = Plugin::path('BootstrapUI') . 'tests' . DS . 'comparisons' . DS . 'Template' . DS;
+        $this->compareBasePath = Plugin::path('BootstrapUI') . 'tests' . DS . 'comparisons' . DS . 'Template' . DS;
     }
 
     public function tearDown(): void
@@ -38,7 +38,7 @@ class BakeTest extends TestCase
         }
     }
 
-    public function testBakeAdd()
+    public function testBakeAdd(): void
     {
         $this->generatedFile = TEST_APP . 'templates/Articles/add.php';
 
@@ -51,7 +51,7 @@ class BakeTest extends TestCase
         $this->assertSameAsFile(__FUNCTION__ . '.php', $result);
     }
 
-    public function testBakeEdit()
+    public function testBakeEdit(): void
     {
         $this->generatedFile = TEST_APP . 'templates/Articles/edit.php';
 
@@ -64,7 +64,7 @@ class BakeTest extends TestCase
         $this->assertSameAsFile(__FUNCTION__ . '.php', $result);
     }
 
-    public function testBakeIndex()
+    public function testBakeIndex(): void
     {
         $this->generatedFile = TEST_APP . 'templates/Articles/index.php';
 
@@ -77,7 +77,7 @@ class BakeTest extends TestCase
         $this->assertSameAsFile(__FUNCTION__ . '.php', $result);
     }
 
-    public function testBakeLogin()
+    public function testBakeLogin(): void
     {
         $this->generatedFile = TEST_APP . 'templates/Articles/login.php';
 
@@ -90,7 +90,7 @@ class BakeTest extends TestCase
         $this->assertSameAsFile(__FUNCTION__ . '.php', $result);
     }
 
-    public function testBakeView()
+    public function testBakeView(): void
     {
         $this->generatedFile = TEST_APP . 'templates/Articles/view.php';
 

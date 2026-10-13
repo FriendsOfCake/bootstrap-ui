@@ -7,7 +7,7 @@ use BootstrapUI\Test\TestCase\View\Helper\FormHelper\AbstractFormHelperTest;
 
 class ColorControlTest extends AbstractFormHelperTest
 {
-    public function testInlineAlignColorControl()
+    public function testInlineAlignColorControl(): void
     {
         $this->Form->create($this->article, [
             'align' => 'inline',
@@ -36,7 +36,7 @@ class ColorControlTest extends AbstractFormHelperTest
         $this->assertHtml($expected, $result);
     }
 
-    public function testInlineAlignColorControlWithDisabledLabel()
+    public function testInlineAlignColorControlWithDisabledLabel(): void
     {
         $this->Form->create($this->article, [
             'align' => 'inline',
@@ -63,7 +63,7 @@ class ColorControlTest extends AbstractFormHelperTest
         $this->assertHtml($expected, $result);
     }
 
-    public function testInlineAlignColorControlWithCustomLabel()
+    public function testInlineAlignColorControlWithCustomLabel(): void
     {
         $this->Form->create($this->article, [
             'align' => 'inline',
@@ -93,7 +93,7 @@ class ColorControlTest extends AbstractFormHelperTest
         $this->assertHtml($expected, $result);
     }
 
-    public function testInlineAlignColorControlWithCustomLabelOptions()
+    public function testInlineAlignColorControlWithCustomLabelOptions(): void
     {
         $this->Form->create($this->article, [
             'align' => 'inline',
@@ -131,7 +131,7 @@ class ColorControlTest extends AbstractFormHelperTest
         $this->assertHtml($expected, $result);
     }
 
-    public function testInlineAlignColorControlWithHelp()
+    public function testInlineAlignColorControlWithHelp(): void
     {
         $this->Form->create($this->article, [
             'align' => 'inline',
@@ -165,7 +165,7 @@ class ColorControlTest extends AbstractFormHelperTest
         $this->assertHtml($expected, $result);
     }
 
-    public function testInlineAlignColorControlWithHelpOptions()
+    public function testInlineAlignColorControlWithHelpOptions(): void
     {
         $this->Form->create($this->article, [
             'align' => 'inline',
@@ -208,7 +208,7 @@ class ColorControlTest extends AbstractFormHelperTest
         $this->assertHtml($expected, $result);
     }
 
-    public function testInlineAlignColorControlWithTooltip()
+    public function testInlineAlignColorControlWithTooltip(): void
     {
         $this->Form->create($this->article, [
             'align' => 'inline',
@@ -244,7 +244,7 @@ class ColorControlTest extends AbstractFormHelperTest
         $this->assertHtml($expected, $result);
     }
 
-    public function testInlineAlignColorControlWithError()
+    public function testInlineAlignColorControlWithError(): void
     {
         $this->article['errors'] = [
             'color' => ['error message'],
@@ -281,7 +281,7 @@ class ColorControlTest extends AbstractFormHelperTest
         $this->assertHtml($expected, $result);
     }
 
-    public function testInlineAlignColorControlWithErrorAndHelp()
+    public function testInlineAlignColorControlWithErrorAndHelp(): void
     {
         $this->article['errors'] = [
             'color' => ['error message'],
@@ -322,7 +322,7 @@ class ColorControlTest extends AbstractFormHelperTest
         $this->assertHtml($expected, $result);
     }
 
-    public function testInlineAlignColorControlWithErrorAndHelpOptions()
+    public function testInlineAlignColorControlWithErrorAndHelpOptions(): void
     {
         $this->article['errors'] = [
             'color' => ['error message'],
@@ -372,7 +372,7 @@ class ColorControlTest extends AbstractFormHelperTest
         $this->assertHtml($expected, $result);
     }
 
-    public function testInlineAlignColorControlContainerOptions()
+    public function testInlineAlignColorControlContainerOptions(): void
     {
         $this->Form->create($this->article, [
             'align' => 'inline',
@@ -409,7 +409,7 @@ class ColorControlTest extends AbstractFormHelperTest
         $this->assertHtml($expected, $result);
     }
 
-    public function testInlineAlignColorControlContainerOptionsWithError()
+    public function testInlineAlignColorControlContainerOptionsWithError(): void
     {
         $this->article['errors'] = [
             'color' => ['error message'],

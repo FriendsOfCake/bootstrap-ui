@@ -23,7 +23,7 @@ class FlashHelper extends Helper
      *
      * @var array<string, mixed>
      */
-    protected array $_defaultConfig = [
+    protected array $defaultConfig = [
         'class' => ['alert', 'alert-dismissible', 'fade', 'show', 'd-flex', 'align-items-center'],
         'attributes' => ['role' => 'alert'],
         'icon' => true,
@@ -72,7 +72,7 @@ class FlashHelper extends Helper
         foreach ($stack as $message) {
             /** @var array<string, mixed> $message */
             $message = $options + $message;
-            $message['params'] += $this->_config;
+            $message['params'] += $this->config;
             $this->getView()->getRequest()->getSession()->delete("Flash.$key");
 
             $element = $message['element'];
@@ -120,14 +120,14 @@ class FlashHelper extends Helper
                     is_string($message['params']['class']) &&
                     preg_match('#primary|secondary|light|dark#', $message['params']['class'], $matches)
                 ) {
-                    $message['params']['class'] = $this->_config['class'];
+                    $message['params']['class'] = $this->config['class'];
                     $message['params']['class'][] = 'alert-' . $matches[0];
                 }
 
-                $element = $this->_config['element'];
+                $element = $this->config['element'];
             }
 
-            $out .= $this->_View->element($element, $message);
+            $out .= $this->View->element($element, $message);
         }
 
         return $out;

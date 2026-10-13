@@ -8,7 +8,7 @@ use BootstrapUI\View\Helper\FormHelper;
 
 class ColorControlTest extends AbstractFormHelperTest
 {
-    public function testHorizontalAlignColorControl()
+    public function testHorizontalAlignColorControl(): void
     {
         $this->Form->create($this->article, [
             'align' => [
@@ -42,7 +42,7 @@ class ColorControlTest extends AbstractFormHelperTest
         $this->assertHtml($expected, $result);
     }
 
-    public function testHorizontalAlignColorControlWithDisabledLabel()
+    public function testHorizontalAlignColorControlWithDisabledLabel(): void
     {
         $this->Form->create($this->article, [
             'align' => [
@@ -74,7 +74,7 @@ class ColorControlTest extends AbstractFormHelperTest
         $this->assertHtml($expected, $result);
     }
 
-    public function testHorizontalAlignColorControlWithCustomLabel()
+    public function testHorizontalAlignColorControlWithCustomLabel(): void
     {
         unset($this->article['required']['color']);
         $this->Form->create($this->article, [
@@ -110,7 +110,7 @@ class ColorControlTest extends AbstractFormHelperTest
         $this->assertHtml($expected, $result);
     }
 
-    public function testHorizontalAlignColorControlWithCustomLabelOptions()
+    public function testHorizontalAlignColorControlWithCustomLabelOptions(): void
     {
         unset($this->article['required']['color']);
         $this->Form->create($this->article, [
@@ -154,7 +154,7 @@ class ColorControlTest extends AbstractFormHelperTest
         $this->assertHtml($expected, $result);
     }
 
-    public function testHorizontalAlignColorControlWithHelp()
+    public function testHorizontalAlignColorControlWithHelp(): void
     {
         unset($this->article['required']['color']);
         $this->Form->create($this->article, [
@@ -194,7 +194,7 @@ class ColorControlTest extends AbstractFormHelperTest
         $this->assertHtml($expected, $result);
     }
 
-    public function testHorizontalAlignColorControlWithHelpOptions()
+    public function testHorizontalAlignColorControlWithHelpOptions(): void
     {
         unset($this->article['required']['color']);
         $this->Form->create($this->article, [
@@ -243,7 +243,7 @@ class ColorControlTest extends AbstractFormHelperTest
         $this->assertHtml($expected, $result);
     }
 
-    public function testHorizontalAlignColorControlWithTooltip()
+    public function testHorizontalAlignColorControlWithTooltip(): void
     {
         unset($this->article['required']['color']);
         $this->Form->create($this->article, [
@@ -285,7 +285,7 @@ class ColorControlTest extends AbstractFormHelperTest
         $this->assertHtml($expected, $result);
     }
 
-    public function testHorizontalAlignColorControlWithCustomSpacing()
+    public function testHorizontalAlignColorControlWithCustomSpacing(): void
     {
         $this->Form->create($this->article, [
             'align' => [
@@ -320,7 +320,7 @@ class ColorControlTest extends AbstractFormHelperTest
         $this->assertHtml($expected, $result);
     }
 
-    public function testHorizontalAlignColorControlWithError()
+    public function testHorizontalAlignColorControlWithError(): void
     {
         $this->article['errors'] = [
             'color' => ['error message'],
@@ -363,7 +363,7 @@ class ColorControlTest extends AbstractFormHelperTest
         $this->assertHtml($expected, $result);
     }
 
-    public function testHorizontalAlignColorControlWithErrorAndHelp()
+    public function testHorizontalAlignColorControlWithErrorAndHelp(): void
     {
         $this->article['errors'] = [
             'color' => ['error message'],
@@ -410,7 +410,7 @@ class ColorControlTest extends AbstractFormHelperTest
         $this->assertHtml($expected, $result);
     }
 
-    public function testHorizontalAlignColorControlWithErrorAndHelpOptions()
+    public function testHorizontalAlignColorControlWithErrorAndHelpOptions(): void
     {
         $this->article['errors'] = [
             'color' => ['error message'],
@@ -466,7 +466,7 @@ class ColorControlTest extends AbstractFormHelperTest
         $this->assertHtml($expected, $result);
     }
 
-    public function testHorizontalAlignColorControlContainerOptions()
+    public function testHorizontalAlignColorControlContainerOptions(): void
     {
         unset($this->article['required']['color']);
         $this->Form->create($this->article, [
@@ -509,7 +509,7 @@ class ColorControlTest extends AbstractFormHelperTest
         $this->assertHtml($expected, $result);
     }
 
-    public function testHorizontalAlignColorControlContainerOptionsWithError()
+    public function testHorizontalAlignColorControlContainerOptionsWithError(): void
     {
         $this->article['errors'] = [
             'color' => ['error message'],

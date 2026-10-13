@@ -7,7 +7,7 @@ use BootstrapUI\Test\TestCase\View\Helper\FormHelper\AbstractFormHelperTest;
 
 class RangeControlTest extends AbstractFormHelperTest
 {
-    public function testInlineAlignRangeControl()
+    public function testInlineAlignRangeControl(): void
     {
         $this->Form->create($this->article, [
             'align' => 'inline',
@@ -40,7 +40,7 @@ class RangeControlTest extends AbstractFormHelperTest
         $this->assertHtml($expected, $result);
     }
 
-    public function testInlineAlignRangeControlWithDisabledLabel()
+    public function testInlineAlignRangeControlWithDisabledLabel(): void
     {
         $this->Form->create($this->article, [
             'align' => 'inline',
@@ -71,7 +71,7 @@ class RangeControlTest extends AbstractFormHelperTest
         $this->assertHtml($expected, $result);
     }
 
-    public function testInlineAlignRangeControlWithCustomLabel()
+    public function testInlineAlignRangeControlWithCustomLabel(): void
     {
         $this->Form->create($this->article, [
             'align' => 'inline',
@@ -105,7 +105,7 @@ class RangeControlTest extends AbstractFormHelperTest
         $this->assertHtml($expected, $result);
     }
 
-    public function testInlineAlignRangeControlWithCustomLabelOptions()
+    public function testInlineAlignRangeControlWithCustomLabelOptions(): void
     {
         $this->Form->create($this->article, [
             'align' => 'inline',
@@ -147,7 +147,7 @@ class RangeControlTest extends AbstractFormHelperTest
         $this->assertHtml($expected, $result);
     }
 
-    public function testInlineAlignRangeControlWithHelp()
+    public function testInlineAlignRangeControlWithHelp(): void
     {
         $this->Form->create($this->article, [
             'align' => 'inline',
@@ -185,7 +185,7 @@ class RangeControlTest extends AbstractFormHelperTest
         $this->assertHtml($expected, $result);
     }
 
-    public function testInlineAlignRangeControlWithHelpOptions()
+    public function testInlineAlignRangeControlWithHelpOptions(): void
     {
         $this->Form->create($this->article, [
             'align' => 'inline',
@@ -232,7 +232,7 @@ class RangeControlTest extends AbstractFormHelperTest
         $this->assertHtml($expected, $result);
     }
 
-    public function testInlineAlignRangeControlWithTooltip()
+    public function testInlineAlignRangeControlWithTooltip(): void
     {
         $this->Form->create($this->article, [
             'align' => 'inline',
@@ -272,7 +272,7 @@ class RangeControlTest extends AbstractFormHelperTest
         $this->assertHtml($expected, $result);
     }
 
-    public function testInlineAlignRangeControlWithError()
+    public function testInlineAlignRangeControlWithError(): void
     {
         $this->article['errors'] = [
             'height' => ['error message'],
@@ -313,7 +313,7 @@ class RangeControlTest extends AbstractFormHelperTest
         $this->assertHtml($expected, $result);
     }
 
-    public function testInlineAlignRangeControlWithErrorAndHelp()
+    public function testInlineAlignRangeControlWithErrorAndHelp(): void
     {
         $this->article['errors'] = [
             'height' => ['error message'],
@@ -358,7 +358,7 @@ class RangeControlTest extends AbstractFormHelperTest
         $this->assertHtml($expected, $result);
     }
 
-    public function testInlineAlignRangeControlWithErrorAndHelpOptions()
+    public function testInlineAlignRangeControlWithErrorAndHelpOptions(): void
     {
         $this->article['errors'] = [
             'height' => ['error message'],
@@ -412,7 +412,7 @@ class RangeControlTest extends AbstractFormHelperTest
         $this->assertHtml($expected, $result);
     }
 
-    public function testInlineAlignRangeControlContainerOptions()
+    public function testInlineAlignRangeControlContainerOptions(): void
     {
         $this->Form->create($this->article, [
             'align' => 'inline',
@@ -452,7 +452,7 @@ class RangeControlTest extends AbstractFormHelperTest
         $this->assertHtml($expected, $result);
     }
 
-    public function testInlineAlignRangeControlContainerOptionsWithError()
+    public function testInlineAlignRangeControlContainerOptionsWithError(): void
     {
         $this->article['errors'] = [
             'height' => ['error message'],

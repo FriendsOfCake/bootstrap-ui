@@ -8,7 +8,7 @@ use DateTime;
 
 class DateTimeControlTest extends AbstractFormHelperTest
 {
-    public function testDefaultAlignDateTimeControl()
+    public function testDefaultAlignDateTimeControl(): void
     {
         $this->Form->create($this->article);
 
@@ -36,7 +36,7 @@ class DateTimeControlTest extends AbstractFormHelperTest
         $this->assertHtml($expected, $result);
     }
 
-    public function testDefaultAlignDateTimeControlWithDisabledLabel()
+    public function testDefaultAlignDateTimeControlWithDisabledLabel(): void
     {
         $this->Form->create($this->article);
 
@@ -64,7 +64,7 @@ class DateTimeControlTest extends AbstractFormHelperTest
         $this->assertHtml($expected, $result);
     }
 
-    public function testDefaultAlignDateTimeControlWithCustomLabel()
+    public function testDefaultAlignDateTimeControlWithCustomLabel(): void
     {
         $this->Form->create($this->article);
 
@@ -95,7 +95,7 @@ class DateTimeControlTest extends AbstractFormHelperTest
         $this->assertHtml($expected, $result);
     }
 
-    public function testDefaultAlignDateTimeControlWithCustomLabelOptions()
+    public function testDefaultAlignDateTimeControlWithCustomLabelOptions(): void
     {
         $this->Form->create($this->article);
 
@@ -134,7 +134,7 @@ class DateTimeControlTest extends AbstractFormHelperTest
         $this->assertHtml($expected, $result);
     }
 
-    public function testDefaultAlignDateTimeControlWithHelp()
+    public function testDefaultAlignDateTimeControlWithHelp(): void
     {
         $this->Form->create($this->article);
 
@@ -167,7 +167,7 @@ class DateTimeControlTest extends AbstractFormHelperTest
         $this->assertHtml($expected, $result);
     }
 
-    public function testDefaultAlignDateTimeControlWithHelpOptions()
+    public function testDefaultAlignDateTimeControlWithHelpOptions(): void
     {
         $this->Form->create($this->article);
 
@@ -209,7 +209,7 @@ class DateTimeControlTest extends AbstractFormHelperTest
         $this->assertHtml($expected, $result);
     }
 
-    public function testDefaultAlignDateTimeControlWithTooltip()
+    public function testDefaultAlignDateTimeControlWithTooltip(): void
     {
         $this->Form->create($this->article);
 
@@ -244,7 +244,7 @@ class DateTimeControlTest extends AbstractFormHelperTest
         $this->assertHtml($expected, $result);
     }
 
-    public function testDefaultAlignDateTimeControlWithCustomSpacing()
+    public function testDefaultAlignDateTimeControlWithCustomSpacing(): void
     {
         $this->Form->create($this->article);
 
@@ -273,7 +273,7 @@ class DateTimeControlTest extends AbstractFormHelperTest
         $this->assertHtml($expected, $result);
     }
 
-    public function testDefaultAlignDateTimeControlWithError()
+    public function testDefaultAlignDateTimeControlWithError(): void
     {
         $this->article['errors'] = [
             'created' => ['error message'],
@@ -312,7 +312,7 @@ class DateTimeControlTest extends AbstractFormHelperTest
         $this->assertHtml($expected, $result);
     }
 
-    public function testDefaultAlignDateTimeControlWithErrorAndHelp()
+    public function testDefaultAlignDateTimeControlWithErrorAndHelp(): void
     {
         $this->article['errors'] = [
             'created' => ['error message'],
@@ -354,7 +354,7 @@ class DateTimeControlTest extends AbstractFormHelperTest
         $this->assertHtml($expected, $result);
     }
 
-    public function testDefaultAlignDateTimeControlWithErrorAndHelpOptions()
+    public function testDefaultAlignDateTimeControlWithErrorAndHelpOptions(): void
     {
         $this->article['errors'] = [
             'created' => ['error message'],
@@ -405,7 +405,7 @@ class DateTimeControlTest extends AbstractFormHelperTest
         $this->assertHtml($expected, $result);
     }
 
-    public function testDefaultAlignDateTimeControlContainerOptions()
+    public function testDefaultAlignDateTimeControlContainerOptions(): void
     {
         $this->Form->create($this->article);
 
@@ -440,7 +440,7 @@ class DateTimeControlTest extends AbstractFormHelperTest
         $this->assertHtml($expected, $result);
     }
 
-    public function testDefaultAlignDateTimeControlContainerOptionsWithError()
+    public function testDefaultAlignDateTimeControlContainerOptionsWithError(): void
     {
         $this->article['errors'] = [
             'created' => ['error message'],
@@ -484,7 +484,7 @@ class DateTimeControlTest extends AbstractFormHelperTest
         $this->assertHtml($expected, $result);
     }
 
-    public function testDefaultAlignDateTimeControlDate()
+    public function testDefaultAlignDateTimeControlDate(): void
     {
         $this->Form->create($this->article);
 
@@ -511,7 +511,7 @@ class DateTimeControlTest extends AbstractFormHelperTest
         $this->assertHtml($expected, $result);
     }
 
-    public function testDefaultAlignDateTimeControlTime()
+    public function testDefaultAlignDateTimeControlTime(): void
     {
         $this->Form->create($this->article);
 
@@ -539,7 +539,7 @@ class DateTimeControlTest extends AbstractFormHelperTest
         $this->assertHtml($expected, $result);
     }
 
-    public function testDefaultAlignDateTimeControlCustomContainerTemplateViaTemplater()
+    public function testDefaultAlignDateTimeControlCustomContainerTemplateViaTemplater(): void
     {
         $this->Form->create($this->article);
 
@@ -579,7 +579,7 @@ class DateTimeControlTest extends AbstractFormHelperTest
         $this->assertStringContainsString('<div class="custom timeContainer time">', $result);
     }
 
-    public function testDefaultAlignDateTimeControlCustomContainerErrorTemplateViaOptions()
+    public function testDefaultAlignDateTimeControlCustomContainerErrorTemplateViaOptions(): void
     {
         $this->article['errors'] = [
             'created' => [

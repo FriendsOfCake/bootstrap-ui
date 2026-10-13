@@ -7,7 +7,7 @@ use BootstrapUI\Test\TestCase\View\Helper\FormHelper\AbstractFormHelperTest;
 
 class SubmitControlTest extends AbstractFormHelperTest
 {
-    public function testDefaultAlignSubmit()
+    public function testDefaultAlignSubmit(): void
     {
         $this->Form->create($this->article);
 
@@ -24,7 +24,7 @@ class SubmitControlTest extends AbstractFormHelperTest
         $this->assertHtml($expected, $result);
     }
 
-    public function testDefaultAlignSubmitContainerOptions()
+    public function testDefaultAlignSubmitContainerOptions(): void
     {
         $this->Form->create($this->article);
 

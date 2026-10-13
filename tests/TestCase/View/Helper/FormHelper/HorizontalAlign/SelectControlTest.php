@@ -8,7 +8,7 @@ use BootstrapUI\View\Helper\FormHelper;
 
 class SelectControlTest extends AbstractFormHelperTest
 {
-    public function testHorizontalAlignSelectControl()
+    public function testHorizontalAlignSelectControl(): void
     {
         $this->Form->create($this->article, [
             'align' => [
@@ -46,7 +46,7 @@ class SelectControlTest extends AbstractFormHelperTest
         $this->assertHtml($expected, $result);
     }
 
-    public function testHorizontalAlignSelectControlWithFloatingLabel()
+    public function testHorizontalAlignSelectControlWithFloatingLabel(): void
     {
         $this->Form->create($this->article, [
             'align' => [
@@ -87,7 +87,7 @@ class SelectControlTest extends AbstractFormHelperTest
         $this->assertHtml($expected, $result);
     }
 
-    public function testHorizontalAlignSelectControlWithDisabledLabel()
+    public function testHorizontalAlignSelectControlWithDisabledLabel(): void
     {
         $this->Form->create($this->article, [
             'align' => [
@@ -123,7 +123,7 @@ class SelectControlTest extends AbstractFormHelperTest
         $this->assertHtml($expected, $result);
     }
 
-    public function testHorizontalAlignSelectControlWithCustomLabel()
+    public function testHorizontalAlignSelectControlWithCustomLabel(): void
     {
         $this->Form->create($this->article, [
             'align' => [
@@ -162,7 +162,7 @@ class SelectControlTest extends AbstractFormHelperTest
         $this->assertHtml($expected, $result);
     }
 
-    public function testHorizontalAlignSelectControlWithCustomLabelOptions()
+    public function testHorizontalAlignSelectControlWithCustomLabelOptions(): void
     {
         $this->Form->create($this->article, [
             'align' => [
@@ -209,7 +209,7 @@ class SelectControlTest extends AbstractFormHelperTest
         $this->assertHtml($expected, $result);
     }
 
-    public function testHorizontalAlignSelectControlWithHelp()
+    public function testHorizontalAlignSelectControlWithHelp(): void
     {
         $this->Form->create($this->article, [
             'align' => [
@@ -256,7 +256,7 @@ class SelectControlTest extends AbstractFormHelperTest
         $this->assertHtml($expected, $result);
     }
 
-    public function testHorizontalAlignSelectControlWithHelpOptions()
+    public function testHorizontalAlignSelectControlWithHelpOptions(): void
     {
         $this->Form->create($this->article, [
             'align' => [
@@ -312,7 +312,7 @@ class SelectControlTest extends AbstractFormHelperTest
         $this->assertHtml($expected, $result);
     }
 
-    public function testHorizontalAlignSelectControlWithTooltip()
+    public function testHorizontalAlignSelectControlWithTooltip(): void
     {
         $this->Form->create($this->article, [
             'align' => [
@@ -357,7 +357,7 @@ class SelectControlTest extends AbstractFormHelperTest
         $this->assertHtml($expected, $result);
     }
 
-    public function testHorizontalAlignSelectControlWithCustomSpacing()
+    public function testHorizontalAlignSelectControlWithCustomSpacing(): void
     {
         $this->Form->create($this->article, [
             'align' => [
@@ -396,7 +396,7 @@ class SelectControlTest extends AbstractFormHelperTest
         $this->assertHtml($expected, $result);
     }
 
-    public function testHorizontalAlignSelectControlWithError()
+    public function testHorizontalAlignSelectControlWithError(): void
     {
         $this->article['errors'] = [
             'users' => ['error message'],
@@ -446,7 +446,7 @@ class SelectControlTest extends AbstractFormHelperTest
         $this->assertHtml($expected, $result);
     }
 
-    public function testHorizontalAlignSelectControlWithErrorAndHelp()
+    public function testHorizontalAlignSelectControlWithErrorAndHelp(): void
     {
         $this->article['errors'] = [
             'users' => ['error message'],
@@ -500,7 +500,7 @@ class SelectControlTest extends AbstractFormHelperTest
         $this->assertHtml($expected, $result);
     }
 
-    public function testHorizontalAlignSelectControlWithErrorAndHelpOptions()
+    public function testHorizontalAlignSelectControlWithErrorAndHelpOptions(): void
     {
         $this->article['errors'] = [
             'users' => ['error message'],
@@ -563,7 +563,7 @@ class SelectControlTest extends AbstractFormHelperTest
         $this->assertHtml($expected, $result);
     }
 
-    public function testHorizontalAlignSelectControlContainerOptions()
+    public function testHorizontalAlignSelectControlContainerOptions(): void
     {
         $this->Form->create($this->article, [
             'align' => [
@@ -608,7 +608,7 @@ class SelectControlTest extends AbstractFormHelperTest
         $this->assertHtml($expected, $result);
     }
 
-    public function testHorizontalAlignSelectControlContainerOptionsWithError()
+    public function testHorizontalAlignSelectControlContainerOptionsWithError(): void
     {
         $this->article['errors'] = [
             'users' => ['error message'],
@@ -665,7 +665,7 @@ class SelectControlTest extends AbstractFormHelperTest
         $this->assertHtml($expected, $result);
     }
 
-    public function testHorizontalAlignSelectControlInputGroupAppend()
+    public function testHorizontalAlignSelectControlInputGroupAppend(): void
     {
         $this->Form->create($this->article, [
             'align' => [
@@ -709,7 +709,7 @@ class SelectControlTest extends AbstractFormHelperTest
         $this->assertHtml($expected, $result);
     }
 
-    public function testHorizontalAlignSelectControlInputGroupPrepend()
+    public function testHorizontalAlignSelectControlInputGroupPrepend(): void
     {
         $this->Form->create($this->article, [
             'align' => [

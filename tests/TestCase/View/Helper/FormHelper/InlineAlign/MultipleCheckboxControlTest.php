@@ -7,7 +7,7 @@ use BootstrapUI\Test\TestCase\View\Helper\FormHelper\AbstractFormHelperTest;
 
 class MultipleCheckboxControlTest extends AbstractFormHelperTest
 {
-    public function testInlineAlignMultipleCheckboxControl()
+    public function testInlineAlignMultipleCheckboxControl(): void
     {
         $this->withErrorReporting(0, function () {
             $this->Form->create($this->article, [
@@ -68,7 +68,7 @@ class MultipleCheckboxControlTest extends AbstractFormHelperTest
         $this->assertHtml($expected, $result);
     }
 
-    public function testInlineAlignMultipleCheckboxControlWithDisabledLabel()
+    public function testInlineAlignMultipleCheckboxControlWithDisabledLabel(): void
     {
         $this->withErrorReporting(0, function () {
             $this->Form->create($this->article, [
@@ -127,7 +127,7 @@ class MultipleCheckboxControlTest extends AbstractFormHelperTest
         $this->assertHtml($expected, $result);
     }
 
-    public function testInlineAlignMultipleCheckboxControlWithCustomLabel()
+    public function testInlineAlignMultipleCheckboxControlWithCustomLabel(): void
     {
         $this->withErrorReporting(0, function () {
             $this->Form->create($this->article, [
@@ -189,7 +189,7 @@ class MultipleCheckboxControlTest extends AbstractFormHelperTest
         $this->assertHtml($expected, $result);
     }
 
-    public function testInlineAlignMultipleCheckboxControlWithCustomLabelOptions()
+    public function testInlineAlignMultipleCheckboxControlWithCustomLabelOptions(): void
     {
         $this->withErrorReporting(0, function () {
             $this->Form->create($this->article, [
@@ -259,7 +259,7 @@ class MultipleCheckboxControlTest extends AbstractFormHelperTest
         $this->assertHtml($expected, $result);
     }
 
-    public function testInlineAlignMultipleCheckboxControlWithHelp()
+    public function testInlineAlignMultipleCheckboxControlWithHelp(): void
     {
         $this->withErrorReporting(0, function () {
             $this->Form->create($this->article, [
@@ -326,7 +326,7 @@ class MultipleCheckboxControlTest extends AbstractFormHelperTest
         $this->assertHtml($expected, $result);
     }
 
-    public function testInlineAlignMultipleCheckboxControlWithHelpOptions()
+    public function testInlineAlignMultipleCheckboxControlWithHelpOptions(): void
     {
         $this->withErrorReporting(0, function () {
             $this->Form->create($this->article, [
@@ -402,7 +402,7 @@ class MultipleCheckboxControlTest extends AbstractFormHelperTest
         $this->assertHtml($expected, $result);
     }
 
-    public function testInlineAlignMultipleCheckboxControlWithTooltip()
+    public function testInlineAlignMultipleCheckboxControlWithTooltip(): void
     {
         $this->withErrorReporting(0, function () {
             $this->Form->create($this->article, [
@@ -443,7 +443,7 @@ class MultipleCheckboxControlTest extends AbstractFormHelperTest
         $this->assertHtml($expected, $result);
     }
 
-    public function testInlineAlignMultipleCheckboxControlWithError()
+    public function testInlineAlignMultipleCheckboxControlWithError(): void
     {
         $this->withErrorReporting(0, function () {
             $this->article['errors'] = [
@@ -515,7 +515,7 @@ class MultipleCheckboxControlTest extends AbstractFormHelperTest
         $this->assertHtml($expected, $result);
     }
 
-    public function testInlineAlignMultipleCheckboxControlWithErrorAndHelp()
+    public function testInlineAlignMultipleCheckboxControlWithErrorAndHelp(): void
     {
         $this->withErrorReporting(0, function () {
             $this->article['errors'] = [
@@ -591,7 +591,7 @@ class MultipleCheckboxControlTest extends AbstractFormHelperTest
         $this->assertHtml($expected, $result);
     }
 
-    public function testInlineAlignMultipleCheckboxControlWithErrorAndHelpOptions()
+    public function testInlineAlignMultipleCheckboxControlWithErrorAndHelpOptions(): void
     {
         $this->withErrorReporting(0, function () {
             $this->article['errors'] = [
@@ -676,7 +676,7 @@ class MultipleCheckboxControlTest extends AbstractFormHelperTest
         $this->assertHtml($expected, $result);
     }
 
-    public function testInlineAlignMultipleCheckboxControlContainerOptions()
+    public function testInlineAlignMultipleCheckboxControlContainerOptions(): void
     {
         $this->withErrorReporting(0, function () {
             $this->Form->create($this->article, [
@@ -742,7 +742,7 @@ class MultipleCheckboxControlTest extends AbstractFormHelperTest
         $this->assertHtml($expected, $result);
     }
 
-    public function testInlineAlignMultipleCheckboxControlContainerOptionsWithError()
+    public function testInlineAlignMultipleCheckboxControlContainerOptionsWithError(): void
     {
         $this->withErrorReporting(0, function () {
             $this->article['errors'] = [
@@ -819,7 +819,7 @@ class MultipleCheckboxControlTest extends AbstractFormHelperTest
         $this->assertHtml($expected, $result);
     }
 
-    public function testInlineAlignMultipleCheckboxControlWithPerOptionConfiguration()
+    public function testInlineAlignMultipleCheckboxControlWithPerOptionConfiguration(): void
     {
         $this->withErrorReporting(0, function () {
             $this->Form->create($this->article, [
@@ -900,7 +900,7 @@ class MultipleCheckboxControlTest extends AbstractFormHelperTest
         $this->assertHtml($expected, $result);
     }
 
-    public function testInlineAlignMultipleCheckboxControlNestedInput()
+    public function testInlineAlignMultipleCheckboxControlNestedInput(): void
     {
         $this->withErrorReporting(0, function () {
             $this->Form->create($this->article, [
@@ -962,7 +962,7 @@ class MultipleCheckboxControlTest extends AbstractFormHelperTest
         $this->assertHtml($expected, $result);
     }
 
-    public function testInlineAlignMultipleCheckboxControlWithPerOptionConfigurationNestedInput()
+    public function testInlineAlignMultipleCheckboxControlWithPerOptionConfigurationNestedInput(): void
     {
         $this->withErrorReporting(0, function () {
             $this->Form->create($this->article, [
@@ -1044,7 +1044,7 @@ class MultipleCheckboxControlTest extends AbstractFormHelperTest
         $this->assertHtml($expected, $result);
     }
 
-    public function testInlineAlignMultipleCheckboxControlOptionGroups()
+    public function testInlineAlignMultipleCheckboxControlOptionGroups(): void
     {
         $this->Form->create($this->article, [
             'align' => 'inline',
@@ -1143,7 +1143,7 @@ class MultipleCheckboxControlTest extends AbstractFormHelperTest
         $this->assertHtml($expected, $result);
     }
 
-    public function testInlineAlignMultipleCheckboxControlOptionGroupsWithError()
+    public function testInlineAlignMultipleCheckboxControlOptionGroupsWithError(): void
     {
         $this->article['errors'] = [
             'users' => ['error message'],
@@ -1257,7 +1257,7 @@ class MultipleCheckboxControlTest extends AbstractFormHelperTest
         $this->assertHtml($expected, $result);
     }
 
-    public function testInlineAlignMultipleCheckboxControlSwitch()
+    public function testInlineAlignMultipleCheckboxControlSwitch(): void
     {
         $this->Form->create($this->article, [
             'align' => 'inline',
