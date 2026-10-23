@@ -174,9 +174,9 @@ class FormHelper extends CoreFormHelper
         'checkboxFormGroup' =>
             '{{input}}{{label}}',
         'checkboxWrapper' =>
-            '<div class="form-check{{variant}}">{{label}}</div>',
+            '<div class="form-check{{variant}}">{{input}}{{label}}</div>',
         'checkboxInlineWrapper' =>
-            '<div class="form-check{{variant}} form-check-inline">{{label}}</div>',
+            '<div class="form-check{{variant}} form-check-inline">{{input}}{{label}}</div>',
         'radioContainer' =>
             '<div{{containerAttrs}} class="{{containerClass}}{{type}}{{required}}" role="group" ' .
                 'aria-labelledby="{{groupId}}">{{content}}{{help}}</div>',
@@ -187,9 +187,9 @@ class FormHelper extends CoreFormHelper
         'radioLabel' =>
             '<label{{attrs}}>{{text}}{{tooltip}}</label>',
         'radioWrapper' =>
-            '<div class="form-check">{{hidden}}{{label}}</div>',
+            '<div class="form-check">{{hidden}}{{input}}{{label}}</div>',
         'radioInlineWrapper' =>
-            '<div class="form-check form-check-inline">{{label}}</div>',
+            '<div class="form-check form-check-inline">{{input}}{{label}}</div>',
         'staticControl' =>
             '<p class="form-control-plaintext">{{content}}</p>',
         'inputGroupContainer' =>
@@ -453,7 +453,6 @@ class FormHelper extends CoreFormHelper
             'prepend' => null,
             'append' => null,
             'inline' => null,
-            'nestedInput' => false,
             'switch' => null,
             'type' => null,
             'label' => null,
@@ -469,6 +468,7 @@ class FormHelper extends CoreFormHelper
             'spacing' => null,
         ];
         $options = $this->parseOptions($fieldName, $options);
+        $options['nestedInput'] ??= $this->getConfig('nestedCheckboxAndRadio');
 
         $newTemplates = $options['templates'];
         if ($newTemplates) {
@@ -508,6 +508,7 @@ class FormHelper extends CoreFormHelper
                 $options['injectErrorClass'] = $this->getConfig('templates.errorClass');
             }
 
+            $nestedInput = $options['nestedInput'];
             unset(
                 $options['formGroupPosition'],
                 $options['feedbackStyle'],
@@ -517,7 +518,16 @@ class FormHelper extends CoreFormHelper
                 $options['switch'],
             );
 
-            $result = parent::control($fieldName, $options);
+            // Core `control()` only honors the `nestedInput` option for checkboxes.
+            // Radio and multi-checkbox inputs read it from the `nestedCheckboxAndRadio`
+            // config, so set it for the duration of the call.
+            $nestedCheckboxAndRadio = $this->getConfig('nestedCheckboxAndRadio');
+            $this->setConfig('nestedCheckboxAndRadio', $nestedInput);
+            try {
+                $result = parent::control($fieldName, $options);
+            } finally {
+                $this->setConfig('nestedCheckboxAndRadio', $nestedCheckboxAndRadio);
+            }
 
             $result = $this->postProcessElement($result, $fieldName, $options);
         } finally {
