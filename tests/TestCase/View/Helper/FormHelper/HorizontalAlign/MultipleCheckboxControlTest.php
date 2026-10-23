@@ -2517,9 +2517,8 @@ class MultipleCheckboxControlTest extends AbstractFormHelperTest
                         'class' => 'custominputclass',
                     ],
                     30 => [
-                        'text' => 'option 5 without label',
+                        'text' => 'option 5',
                         'value' => 30,
-                        'label' => false,
                     ],
                     40 => [
                         'text' => 'option 6',
@@ -2615,6 +2614,9 @@ class MultipleCheckboxControlTest extends AbstractFormHelperTest
                                 'id' => 'users-30',
                                 'value' => 30,
                             ]],
+                            ['label' => ['class' => 'form-check-label', 'for' => 'users-30']],
+                                'option 5',
+                            '/label',
                         '/div',
                         ['div' => ['class' => 'form-check']],
                             ['input' => [
@@ -2761,9 +2763,8 @@ class MultipleCheckboxControlTest extends AbstractFormHelperTest
                         'class' => 'custominputclass',
                     ],
                     30 => [
-                        'text' => 'option 5 without label',
+                        'text' => 'option 5',
                         'value' => 30,
-                        'label' => false,
                     ],
                     40 => [
                         'text' => 'option 6',
@@ -2853,13 +2854,16 @@ class MultipleCheckboxControlTest extends AbstractFormHelperTest
                             '/label',
                         '/div',
                         ['div' => ['class' => 'form-check']],
-                            ['input' => [
-                                'class' => 'form-check-input',
-                                'type' => 'checkbox',
-                                'name' => 'users[]',
-                                'id' => 'users-30',
-                                'value' => 30,
-                            ]],
+                            ['label' => ['class' => 'form-check-label', 'for' => 'users-30']],
+                                ['input' => [
+                                    'class' => 'form-check-input',
+                                    'type' => 'checkbox',
+                                    'name' => 'users[]',
+                                    'id' => 'users-30',
+                                    'value' => 30,
+                                ]],
+                                'option 5',
+                            '/label',
                         '/div',
                         ['div' => ['class' => 'form-check']],
                             ['label' => ['class' => 'customlabelclass', 'for' => 'users-40']],
