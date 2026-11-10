@@ -8,6 +8,7 @@ use Cake\Core\Configure\Engine\PhpConfig;
 use Cake\Utility\Hash;
 use Cake\Utility\Inflector;
 use Cake\View\Helper\FormHelper as CoreFormHelper;
+use Cake\View\HtmlStringable;
 use Cake\View\View;
 use InvalidArgumentException;
 use function Cake\Core\h;
@@ -392,7 +393,7 @@ class FormHelper extends CoreFormHelper
     /**
      * @inheritDoc
      */
-    public function label(string $fieldName, ?string $text = null, array $options = []): string
+    public function label(string $fieldName, HtmlStringable|string|null $text = null, array $options = []): string
     {
         unset($options['floating']);
 
